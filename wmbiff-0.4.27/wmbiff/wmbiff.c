@@ -845,10 +845,10 @@ static int periodic_mail_check(void)
 
 				XUndefineCursor(display, iconwin);
 
-				if ((mailstat == 2) && (mbox[i].notify[0] == '\0')) {
-					/* for global notify */
+				/* Global notify */
+				if (mailstat == 2)
 					NewMail = 1;
-				}
+
 				displayMsgCounters(i, mailstat, &Blink_Mode);
 				/* update our idea of current time, as it
 				   may have changed as we check. */
