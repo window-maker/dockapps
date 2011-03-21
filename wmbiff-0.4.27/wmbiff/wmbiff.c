@@ -759,11 +759,6 @@ displayMsgCounters(unsigned int i, int mail_stat, int *Blink_Mode)
 		*Blink_Mode |= (1 << i);	/* Global blink flag set for this mailbox */
 		blitMsgCounters(i);
 		execnotify(mbox[i].notify);
-
-		/* Autofetch on new mail arrival? */
-		if (mbox[i].fetchinterval == -1 && mbox[i].fetchcmd[0] != '\0') {
-			(void) execCommand(mbox[i].fetchcmd);	/* yes */
-		}
 		break;
 	case 1:					/* mailbox has been rescanned/changed */
 		blitMsgCounters(i);
