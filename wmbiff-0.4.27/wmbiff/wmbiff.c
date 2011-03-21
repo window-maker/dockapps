@@ -77,9 +77,9 @@ static const char *font = NULL;
 int debug_default = DEBUG_ERROR;
 
 /* color from wmbiff's xpm, down to 24 bits. */
-const char *foreground = "#21B3AF";	/* foreground cyan */
-const char *background = "#202020";	/* background gray */
-static const char *highlight = "yellow";
+const char *foreground = "white";	/* foreground white */
+const char *background = "#505075";	/* background blue */
+static const char *highlight = "red";
 int SkipCertificateCheck = 0;
 int Relax = 0;					/* be not paranoid */
 static int notWithdrawn = 0;
@@ -882,7 +882,7 @@ static char **CreateBackingXPM(int width, int height,
 	ret[0] = malloc_ordie(30);
 	sprintf(ret[0], "%d %d %d %d", width, height, colors, 1);
 	ret[1] = (char *) " \tc #0000FF";	/* no color */
-	ret[2] = (char *) ".\tc #202020";	/* background gray */
+	ret[2] = (char *) ".\tc #505075";	/* background gray */
 	ret[2] = malloc_ordie(30);
 	sprintf(ret[2], ".\tc %s", background);
 	ret[3] = (char *) "+\tc #000000";	/* shadowed */

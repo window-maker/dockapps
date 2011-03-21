@@ -2,7 +2,7 @@
 static const char * wmbiff_master_xpm[] = {
 "160 109 15 1",
 " 	c #00000000FFFF",
-".	c #208120812081",
+".	c #505075000000",
 "X	c #FFFFFFFF0000",
 "o	c #492441030000",
 "O	c #79E779E70820",
