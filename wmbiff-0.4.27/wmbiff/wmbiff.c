@@ -476,7 +476,6 @@ static void init_biff(char *config_file)
 				if (j < 5) {
 					memset(mbox[i].label + j, ' ', 5 - j);
 				}
-				mbox[i].label[5] = ':';
 			}
 			/* but always end after 5 characters */
 			mbox[i].label[6] = '\0';
