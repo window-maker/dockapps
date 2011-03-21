@@ -727,7 +727,7 @@ static void blitMsgCounters(unsigned int i)
 			BlitString(mbox[i].TextStatus, 39, y_row, newmail);
 		} else {
 			int mailcount =
-				(newmail) ? mbox[i].UnreadMsgs : mbox[i].TotalMsgs;
+				(newmail) ? mbox[i].UnreadMsgs : 0;
 			BlitNum(mailcount, 45, y_row, newmail);
 		}
 	}
