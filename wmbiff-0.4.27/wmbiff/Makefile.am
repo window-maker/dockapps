@@ -1,7 +1,7 @@
 TESTS = test_wmbiff test_tlscomm
 noinst_PROGRAMS = test_wmbiff test_tlscomm
 bin_PROGRAMS = wmbiff
-wmbiff_SOURCES = wmbiff.c socket.c Pop3Client.c LicqClient.c mboxClient.c \
+wmbiff_SOURCES = wmbiff.c socket.c Pop3Client.c mboxClient.c \
 	maildirClient.c Imap4Client.c tlsComm.c tlsComm.h ShellClient.c  \
 	passwordMgr.c passwordMgr.h charutil.c charutil.h Client.h  \
 	regulo.c regulo.h  MessageList.c MessageList.h

@@ -91,12 +91,6 @@ action.1=rxvt -name mutt -e mutt -f /home/gb/mail/10_ksi-linux-list
 # notify.1=my_play /home/gb/sounds/new_mail_has_arrived.wav
 # action.1=rxvt -name mutt -e mutt -f /home/gb/Maildir
 
-label.2=LICQ
-# LICQ format: licq:fullpathname
-path.2=licq:/home/person/.licq/history/1111111.history
-notify.2=beep
-action.2=licq&
-
 #or if you use gnomeicu:
 #label.2=ICQ
 #path.2=gicu:USER_UIN

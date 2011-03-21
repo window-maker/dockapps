@@ -3,7 +3,7 @@
    Modified : Yong-iL Joh ( tolkien@mizi.com )
    Modified : Jorge García ( Jorge.Garcia@uv.es )
  *
- * Email Checker Pop3/Imap4/Licq/Gicu/mbox/maildir/finger
+ * Email Checker Pop3/Imap4/Gicu/mbox/maildir/finger
  *
  * Last Updated : $Date: 2005/05/08 21:31:22 $
  *
@@ -109,7 +109,6 @@ typedef struct _mbox_t {
 /* creation calls must have this prototype */
 int pop3Create( /*@notnull@ */ Pop3 pc, const char *str);
 int imap4Create( /*@notnull@ */ Pop3 pc, const char *str);
-int licqCreate( /*@notnull@ */ Pop3 pc, const char *str);
 int shellCreate( /*@notnull@ */ Pop3 pc, const char *str);
 int mboxCreate( /*@notnull@ */ Pop3 pc, const char *str);
 int maildirCreate( /*@notnull@ */ Pop3 pc, const char *str);

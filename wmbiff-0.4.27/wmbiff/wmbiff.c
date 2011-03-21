@@ -111,30 +111,6 @@ static int mbox_y(unsigned int mboxnum)
 	return ((11 * mboxnum) + y_origin);
 }
 
-/* special shortcuts for longer shell client commands */
-static int gicuCreate( /*@notnull@ */ Pop3 pc, const char *path)
-{
-	char buf[255];
-	if (isdigit(path[5])) {
-		sprintf(buf,
-				"shell:::echo `gnomeicu-client -u%s msgcount` new",
-				path + 5);
-	} else {
-		sprintf(buf, "shell:::echo `gnomeicu-client msgcount` new");
-	}
-	return (shellCreate(pc, buf));
-}
-
-static int fingerCreate( /*@notnull@ */ Pop3 pc, const char *path)
-{
-	char buf[255];
-	sprintf(buf, "shell:::finger -lm %s | "
-			"perl -ne '(/^new mail/i && print \"new\");' "
-			"-e '(/^mail last read/i && print \"old\");' "
-			"-e '(/^no( unread)? mail/i && print \"no\");'", path + 7);
-	return (shellCreate(pc, buf));
-}
-
 /* 	Read a line from a file to obtain a pair setting=value
 	skips # and leading spaces
 	NOTE: if setting finish with 0, 1, 2, 3 or 4 last char are deleted and
@@ -212,9 +188,6 @@ static struct path_demultiplexer paths[] = {
 	{"pop3:", pop3Create},
 	{"pop3s:", pop3Create},
 	{"shell:", shellCreate},
-	{"gicu:", gicuCreate},
-	{"licq:", licqCreate},
-	{"finger:", fingerCreate},
 	{"imap:", imap4Create},
 	{"imaps:", imap4Create},
 	{"sslimap:", imap4Create},

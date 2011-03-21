@@ -1,5 +1,5 @@
 SUBDIRS = wmgeneral wmbiff autoconf scripts
-EXTRA_DIST = ChangeLog FAQ README.licq TODO
+EXTRA_DIST = ChangeLog FAQ TODO
 
 ACLOCAL_FLAGS = -I autoconf
 ## dummies.
