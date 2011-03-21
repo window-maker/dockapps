@@ -739,10 +739,7 @@ static void blitMsgCounters(unsigned int i)
 static void execnotify( /*@null@ */ const char *notifycmd)
 {
 	if (notifycmd != NULL) {	/* need to call notify() ? */
-		if (!strcasecmp(notifycmd, "beep")) {	/* Internal keyword ? */
-			/* Yes, bell */
-			XBell(display, 100);
-		} else if (!strcasecmp(notifycmd, "true")) {
+		if (!strcasecmp(notifycmd, "true")) {
 			/* Yes, nothing */
 		} else {
 			/* Else call external notifyer, ignoring the pid */
