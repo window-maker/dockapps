@@ -59,8 +59,8 @@ static mbox_t mbox[MAX_NUM_MAILBOXES];
 /* this is the normal pixmap. */
 static const char *skin_filename = "wmbiff-master-led.xpm";
 /* global notify action taken (if globalnotify option is set) */
-/*@null@*/
 static const char *globalnotify = NULL;
+
 /* path to search for pixmaps */
 /* /usr/share/wmbiff should have the default pixmap. */
 /* /usr/local/share/wmbiff if compiled locally. */
@@ -68,12 +68,10 @@ static const char *globalnotify = NULL;
 /* . is there for development. */
 static const char *skin_search_path = DEFAULT_SKIN_PATH;
 /* for gnutls */
-/*@null@*/
 const char *certificate_filename = NULL;
 
 /* it could be argued that a better default exists. */
 #define DEFAULT_FONT  "-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*"
-/*@null@*/
 static const char *font = NULL;
 
 int debug_default = DEBUG_ERROR;
@@ -452,17 +450,6 @@ static void init_biff(char *config_file)
 	if (gcry_check_version("1.1.42") == NULL) {
 		DMA(DEBUG_ERROR, "Error: incompatible gcrypt version.\n");
 	}
-
-	/* 
-	   if ((rc = gcry_control(GCRYCTL_INIT_SECMEM, 16384, 0)) != 0) {
-	   DMA(DEBUG_ERROR,
-	   "Error: gcry_control() to initialize secure memory returned non-zero: %d\n"
-	   " Message: %s\n"
-	   " libgcrypt version: %s\n"
-	   " recovering: will fail later if using CRAM-MD5 or APOP authentication.\n",
-	   rc, gcry_strerror(rc), gcry_check_version(NULL));
-	   };
-	 */
 #endif
 
 	DMA(DEBUG_INFO, "config_file = %s.\n", config_file);
@@ -564,8 +551,7 @@ int exists(const char *filename)
 
 /* acts like execvp, with code inspired by it */
 /* mustfree */
-static char *search_path(const char *path,	/*@notnull@ */
-						 const char *find_me)
+static char *search_path(const char *path, const char *find_me)
 {
 	char *buf;
 	const char *p;
@@ -879,9 +865,8 @@ static int periodic_mail_check(void)
 	}
 
 	/* exec globalnotify if there was any new mail */
-	if (NewMail == 1) {
+	if (NewMail == 1)
 		execnotify(globalnotify);
-	}
 
 	if (Blink_Mode == 0) {
 		for (i = 0; i < num_mailboxes; i++) {
@@ -1170,9 +1155,7 @@ static void do_biff(int argc, const char **argv)
 		skin_xpm = wmbiff_master_xpm;
 	}
 
-	bkg_xpm = (const char **) CreateBackingXPM(wmbiff_mask_width,
-											   wmbiff_mask_height,
-											   skin_xpm);
+	bkg_xpm = (const char **) CreateBackingXPM(wmbiff_mask_width, wmbiff_mask_height, skin_xpm);
 
 	createXBMfromXPM(wmbiff_mask_bits, bkg_xpm,
 					 wmbiff_mask_width, wmbiff_mask_height);
@@ -1190,11 +1173,6 @@ static void do_biff(int argc, const char **argv)
 			DMA(DEBUG_ERROR, "unable to load font. exiting.\n");
 			exit(EXIT_FAILURE);
 		}
-		/* make the whole background black */
-		// removed; seems unnecessary with CreateBackingXPM 
-		//      eraseRect(x_origin, y_origin,
-		//    wmbiff_mask_width - 6, wmbiff_mask_height - 6, 
-		//          background);
 	}
 
 	/* First time setup of button regions and labels */
@@ -1209,12 +1187,9 @@ static void do_biff(int argc, const char **argv)
 	}
 
 	do {
-		/* waitpid(0, NULL, WNOHANG); */
 
 		Sleep_Interval = periodic_mail_check();
-
 		ProcessPendingEvents();
-
 		XSleep(Sleep_Interval);
 	}
 	while (forever);			/* forever is usually true,
@@ -1272,8 +1247,7 @@ static void printversion(void)
 }
 
 
-static void parse_cmd(int argc, const char **argv,	/*@out@ */
-					  char *config_file)
+static void parse_cmd(int argc, const char **argv, char *config_file)
 {
 	int i;
 
@@ -1449,12 +1423,3 @@ int main(int argc, const char *argv[])
 	do_biff(argc, argv);
 	return 0;
 }
-
-/* vim:set ts=4: */
-/*
- * Local Variables:
- * tab-width: 4
- * c-indent-level: 4
- * c-basic-offset: 4
- * End:
- */
