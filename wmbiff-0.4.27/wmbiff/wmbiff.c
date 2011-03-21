@@ -49,7 +49,7 @@ static const int wmbiff_mask_width = 64;
 #define CHAR_HEIGHT 7
 
 #define BLINK_TIMES 8
-#define DEFAULT_SLEEP_INTERVAL 5000
+#define DEFAULT_SLEEP_INTERVAL 20000
 #define BLINK_SLEEP_INTERVAL    200
 #define DEFAULT_LOOP 5
 
