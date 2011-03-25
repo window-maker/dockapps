@@ -1,0 +1,43 @@
+wmckgmail 1.1 : A dockapp to monitor the number of unread mails in a gmail inbox
+written by    : Sylvain Tremblay <stremblay@gmail.com>
+release date  : September 09, 2006
+
+*******************
+*** COMPILATION ***
+*******************
+
+To compile, simply invoke the "make" command.
+
+********************
+*** INSTALLATION ***
+********************
+
+To install the program (in /usr/local/bin), run : "make install"
+To install the man pages (in /usr/local/man/man1), run : "make install-man"
+
+*********************
+*** CONFIGURATION ***
+*********************
+
+The wmckgmail program is independent for each user. To be able to use it, you 
+need to create a folder in the user home directory ($HOME/.wmckgmail).
+
+In this folder, you need to create the configuration file ($HOME/.wmckgmail/config).
+
+This configuration file works in "<key> <value>" pairs. There is two mandatory 
+entries that needs to be defined :
+
+  uname <gmail username>
+  pass <gmail user password>
+
+There is also an optional parameter used to define the interval (in seconds) 
+between each new emails verification. If you don't define this value, a default 
+of 300 seconds (5 minutes) will be used.
+
+  pollinterval <number of seconds between each verification>
+
+--- WARNING ---
+
+It is strongly recommended to set the permissions on the configuration file to 
+something like "600" or "400" as your gmail account password is clearly written 
+into it.

@@ -1,0 +1,20 @@
+Installation instructions for wmCalendar
+
+Requirements
+--------------------------------------------------------------
+wmCalendar requires the Xpm and libical library 
+
+Installation
+--------------------------------------------------------------
+1) gunzip wmcalendar-x.x.x.tar.gz
+1) tar -xvf wmwmcalendar-x.x.x.tar
+2) cd wmcalendar-x.x.x/Src/
+3) make 
+4) make install (must be root) 
+5) wmCalendar & (or 'wmCalendar -h' for help, or 'man wmCalendar' for the man page)
+
+Notes:
+
+you need libical to install.
+you can get it from http://sourceforge.net/projects/freeassociation/ 
+the debian package 0.23 has some bugs concerning the reoccurence of events

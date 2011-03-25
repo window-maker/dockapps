@@ -1,0 +1,16 @@
+0.2.0 -> 0.2.1
+added -d <dev> option to select the device that should observe, e.g. hda or sda 
+	(thanks to Carles Garrigues and krakov)
+added small point befor IOR and IOW only if the change of IOR or IOW was to small
+	to display with the scale. Result:  .IOR or .IOW
+
+0.1.1 -> 0.2.0
+added support for kernel 2.6.x
+fixed small bugs
+
+0.1.1 -> 0.1.2
+fixed division by zero bug, if no swapfile available (thanks João Paulo F Farias)
+
+0.1.0 -> 0.1.1
+added mem correction option (-m) // used=total-free-cached-buffers
+patched width calc at r_io and w_io 

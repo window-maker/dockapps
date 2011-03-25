@@ -1,0 +1,185 @@
+=========================================================
+				WMTV - WindowMaker TV
+			<wliang@tartarus.uwa.edu.au>
+=========================================================
+
+Version			: 0.6.5
+Release Date	: 25th April 1999
+
+
+Description	
+===========
+WMTV is a WindowMaker dock.app that controls TV Cards which are supported under the Linux Kernel 2.2.x series (mainly for cards based on BrookTree BT848/848a/849a/878/879 chipsets: There are lots of cards out there which uses these chipsets such as the Hauppauge WinTV, Aimslab VideoExtreme, miroVIDEO PCTV, AverMedia TVPhone, Spirit TV, MagicXPress TView, Teppro TEV,  etc). 
+
+
+Installation
+============
+root/setuid root required to run this program.
+
+2) su
+2) make install
+3) copy wmtvrc.sample to ~/.wmtvrc
+4) configure wmtv by editing ~/.wmtvrc or /etc/wmtvrc ( the former takes precedence)
+
+Note: Dock the application before switching the TV On.
+
+
+Features
+========
+WMTV is "Just another gadget(tm)". A miniature sized television screen which sits on your WindowMaker dock. However, it'll become a full featured television application in future major releases.  
+
+Currently supported:
+	- Channel Presets
+	- TV Modes - PAL/Secam/NTSC
+	- FineTuning (Television source) - writes to config file now 
+	- Scanning of TV Stations (Television source)
+	- External TV application support
+	- All video sources (Television/S-Video/CompositeX) depending on your card
+	- 8/16/24/32 bit displays
+	- Modification of config file after WMTV is executed 
+	  (Turn Off and Turn On again to reinitialise config file)
+	- Full Screen display!
+	- Icon should be of size 64x64
+
+Button map:	
+
+		[ < ] [ > ] [ 0 ]
+		   
+	     <1>   <2>   <3>
+	
+Tips:
+There are 3 modes of operation on this applications.
+You can cycle through the 3 modes by clicking on the right most button <3> repeatedly.
+The 3 modes are described below:
+
+	On mode
+	---------
+	Clicking on the rightmost button <3> for the first time (after the start of 	WMTV) would turn TV on. During this mode, the left <1> and right <2> buttons 	are used to change preset channels which has been defined in your config 		file. Left button to move down 1 channel and Right button to move up one 
+	channel.
+
+	Tune mode
+	---------
+	Clicking again on button <3> after On mode would bring WMTV into tune mode. 	During this mode, the left <1> and right <2> buttons have two purposes 
+	individually. Left clicking on the left <1> or right <2> buttons would 
+	perform scans of channels. Scanning will stop when there is a strong signal 	strength. Right clicking on the left <1> or right <2> button would fine 
+	tune the current frequency. After tuning, clicking on button <3> would 	set the fine tuned offset into your config file and bring you back into "On mode".
+
+	Off mode
+	--------
+	Holding down button <3> for about 3 seconds from any of the two modes 
+	described above, would turn the TV off. 
+
+Right clicking once on the TV Screen would mute/unmute the audio.
+
+Double clicking LEFT mouse button on the TV Screen would launch your favorite TV application when specified with --exe <filename> option in the command line.
+If the external application is not set, It'll automatically switch to the build in full screen mode. 
+Double clicking the MIDDLE mouse button on the TV Screen would bring you into the built in full screen mode. 
+
+To launch an external application:
+
+foo@bar > wmtv --exe /usr/X11R6/bin/xawtv		# example.
+or
+foo@bar > wmtv -e /usr/X11R6/bin/xawtv			
+
+If you do not specify any program to be launched during startup of WMTV, 
+double clicking on the TV Screen would launch the inbuilt full screen feature.
+Make sure you have a 640x480 Modeline defined in your XF86Config file. 
+		
+Full Screen Mode:
+	Single click on any mouse button will return to initial screen.
+
+	Keyboard functions
+	------------------
+		Up		-  Switch preset channels up.
+		Down 	-  Switch preset channels down.
+		Right	-  Volume up.
+		Left 	-  Volume down.
+		Escape	-  Return to initial screen.
+		m		-  mute/unmute audio.
+		
+Configuration file
+==================
+This section describes on how to configure WMTV's configuration file.
+Your configuration file is located in your home directory as ".wmtvrc". 
+
+Excerpt from a sample config file:
+/*-----------------------
+  
+source = Television
+freqnorm = pal-australia
+maxpreset = 7
+mode = pal
+fullscreen = 640x480
+
+[channel]
+2
+7
+9
+10
+32 (50)
+SE11
+S21
+
+-------------------------*/
+
+Settings
+--------
+source = {Television|CompositeX|S-Video} (X is an integer)
+
+freqnorm = {ntsc-bcast|ntsc-cable|ntsc-cable-hrc|ntsc-bcast-jp|ntsc-cable-jp|pal-europe|pal-europe-east|pal-italy|pal-newzealand|pal-australia|pal-ireland}
+
+maxpreset = integer (maximum channel presets)
+
+mode = {pal|ntsc|secam}
+
+fullscreen = {widthxheight}
+
+[channel]
+choose a total of <maxpreset> from the below channels.
+separate it with a new line as in the sample config file above.
+{ 
+ E2|E3|E4|
+ S01|S02|S03|
+ R1|R2|R3|R4|R5|
+ SE1|SE2|SE3|SE4|SE5|SE6|SE7|SE8|SE9|SE10|
+ E5|E6|E7|E8|E9|E10|E11|E12|
+ R6|R7|R8|R9|R10|R11|R12|
+ SE11|SE12|SE13|SE14|SE15|SE16|SE17|SE18|SE19|SE20|
+ S21|S22|S23|S24|S25|S26|S27|S28|S29|S30|S31|S32|S33|S34|S35|S36|S37|S38|S39|S40|S41
+ T7|T8|T9|T10|T11|T12|T13|T14|
+ 1 - 125
+}
+finetune parameters could be added spaced after the channel name above in a bracket.
+for example:
+	32 (50) 		# channel 32 plus 50
+
+	or
+
+	SE11 (-10)		# channel SE11 minus 10
+
+	
+TODO
+====
+
+- Image Capture
+- On Screen Display (OSD)
+- Other controls  
+- Advance image clippings 
+- Video Capture
+- Other misc features
+
+
+BUGS
+====
+Ask flik. Bug me if you've found any. 
+
+
+NOTE
+====
+Please refer to COPYING for licensing info.
+This program might not work on your system and there is no way I will be held
+responsible for anything.
+This does to your system including loss of data, loss of uptime, loss of hair and etc.
+
+Please report any bugs/comments/feedbacks to <wliang@tartarus.uwa.edu.au>
+Please visit http://www.student.uwa.edu.au/~wliang for updates on WMTV.

@@ -1,0 +1,91 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WMCKGMAIL 1 "September 09, 2006"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wmckgmail 1.1 \- A dockapp to monitor the number of unread mails in a gmail inbox.
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmckgmail
+command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+\fBwmckgmail\fP is a very simple program used to monitor the number of unread mails 
+in a gmail inbox. It uses the 
+.B wget
+command to get the gmail
+.B atom
+feed and reads the number of new mails from this feed. It is a dockapp 
+that is supported by X window managers such as Window Maker, AfterStep, BlackBox, Fluxbox and
+Enlightenment.
+
+.TP
+This dockapp is quite simple. It contains the gmail \fBM\fP icon and a small counter. When the program is unable to access gmail, the counter shows the "\fBERR\fP" string and the \fBM\fP icon is greyed. When gmail is accessible and your configuration file contain a valid username/password combo, the counter indicate the number of new mails in the gmail inbox. If there is no unread mails in the gmail inbox, the \fBM\fP icon stays greyed. If there is unread mails in the gmail inbox, the \fBM\fP icon then takes its real colors and the counter indicates the number of unread mails.
+
+.SH OPTIONS
+This program has no command line options.
+
+.SH CONFIGURATION
+This program needs a configuration file to work. This file must be found as:
+
+.TP
+.B
+$HOME/.wmckgmail/config
+
+.TP
+This configuration file contains "<key> <value>" parameters. There is some mandatory parameters that requires to be defined in this file in order to make the program work:
+
+.TP
+.B uname <gmail username>
+Set the username of the gmail mailbox to monitor
+.TP
+.B pass <gmail password>
+Set the password of the gmail mailbox to monitor
+
+.TP
+There is also optional parameters:
+
+.TP
+.B pollinterval <seconds between each new mail verification>
+Used to define the interval between each verification of new incoming mails. If you do not define this parameter, it will be set to a defauolt value of 300 seconds (5 minutes).
+.TP
+.B browsercmd1 <command to launch when clicking on the 'big M'>
+Used to define the command to launch when clicking on the 'big M'. Example configuration line:
+
+browsercmd1 mozilla -remote "openURL(http://www.gmail.com)"
+
+.TP
+.B browsercmd2 <command to launch when clicking on the 'big M' if 'browsercmd1' failed>
+Used to define the command to launch when clicking on the 'big M' if the execution of 'browsercmd1' failed (return value != 0). Example configuration line :
+
+browsercmd2 mozilla http://www.gmail.com &
+
+.TP
+.B -- WARNINGS --
+- It is very recommended to set the configuration file permissions to "600" or "400" as your mailbox password is clearly written in this file.
+
+- When defining 'browsercmd1' or 'browsercmd2', verify if the command you launch returns immediately to the shell or not. If the command does NOT returns to the shell, you have to put an ampersand (&) to launch the command in background like in the 'browsercmd2' example configuration line.
+
+.SH THANKS
+Thanks to the author of the
+.B wmgeneral
+code, it has been a really good starting base to develop this little application.
+
+.SH AUTHOR
+.B wmckgmail 
+has been written by Sylvain Tremblay <stremblay@gmail.com>

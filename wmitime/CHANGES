@@ -1,0 +1,17 @@
+Version		Description
+--------------------------------------------------------------
+0.3		* fixed inet time calculation error (oops :) )
+ 		  (thanks to Martijn van de Streek <tweakr@tap.xs4all.nl>
+		* Added french support
+                  (thanks to Pierre-Marie Allemand <Pierre-Marie.Allemand@capway.com> )
+
+
+0.2		* Fixed AM/PM mode bug... noon or midnight would
+		  show up as '0:00'.. doh.
+		* Made the day abbrev 2 letters and the month 3
+                  due to popular request :)
+		* Fixed potentially fatal (but rare) /0 bug...
+                  wheee :)
+
+0.1	  
+		* First initial public release.

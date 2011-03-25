@@ -1,0 +1,1970 @@
+2005-10-08 Saturday 18:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: year stale 0.4.26 news
+
+2005-10-07 Friday 03:07 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: fix debian #332540: prevent -c 'directory' from
+	  making wmbiff run away
+
+2005-05-08 Sunday 21:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, MessageList.c, test_tlscomm.c, test_wmbiff.c,
+	  tlsComm.c, tlsComm.h, wmbiff.c: changes for gnutls 1.2 and
+	  attempt to make wmbiff more responsive to X events while
+	  communicating over the network
+
+2004-12-12 Sunday 00:06 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* check-includes.rb: update the portability checker
+
+2004-12-12 Sunday 00:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: allow KeyPress events through
+
+2004-12-12 Sunday 00:03 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: nicer debug message
+
+2004-12-12 Sunday 00:02 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: gnutls-common.c, test_wmbiff.c: compiler appeasement
+
+2004-12-12 Sunday 00:01 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Pop3Client.c, wmbiff.c, wmbiffrc.5.in: tls and password
+	  asking support for pop3, keyboard event handling for the main
+	  window
+
+2004-10-31 Sunday 22:09 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: indent and make tls_check_certificate void
+
+2004-10-01 Friday 21:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: comment the SHUT_WR
+
+2004-10-01 Friday 21:06 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: indent, and return if no certificate came back
+	  from the far side
+
+2004-10-01 Friday 21:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/socket.c: thwack duplicate error messages about connecting
+	  to a remote server
+
+2004-10-01 Friday 21:02 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: indent
+
+2004-08-23 Monday 00:37 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: disable the secure memory warning (and its use)
+
+2004-07-03 Saturday 23:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FAQ: some faqs
+
+2004-07-03 Saturday 23:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: handle the timeout error explicitly,
+	  better for disconnected operation
+
+2004-07-03 Saturday 23:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/socket.c: strerror preferred to perror
+
+2004-06-28 Monday 18:20 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: fix debian #256505: a small problem
+	  with the .wmbiff-sdr directory not being created
+
+2004-06-23 Wednesday 21:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: 0.4.25
+
+2004-06-23 Wednesday 21:46 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/tlsComm.c: probably fix the s390 debian
+	  build problems
+
+2004-06-20 Sunday 01:03 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: oops, should pay attention to the retval of
+	  tls_compare_certificates
+
+2004-06-19 Saturday 21:38 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/gnutls-common.c: warning cleanup
+
+2004-06-19 Saturday 20:53 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/Client.h, wmbiff/Imap4Client.c,
+	  wmbiff/Pop3Client.c, wmbiff/gnutls-common.c,
+	  wmbiff/gnutls-common.h, wmbiff/tlsComm.c, wmbiff/wmbiff.c,
+	  wmgeneral/wmgeneral.c: 0.4.24, supporting newer gnutls, I think
+
+2004-06-18 Friday 21:29 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: paranoid test to see if /var/mail/nspring is
+	  constructed wrong.
+
+2004-04-28 Wednesday 00:19 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, charutil.c, socket.c, test_wmbiff.c, wmbiff.c:
+	  indent run
+
+2004-04-28 Wednesday 00:18 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: socket.c, test_wmbiff.c: handle ip addresses instead of
+	  hostnames in sock_connect
+
+2004-04-27 Tuesday 23:35 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: 0.4.23
+
+2004-04-27 Tuesday 23:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test_wmbiff.c: ensure that sock_connect works with IP
+	  addresses
+
+2004-04-21 Wednesday 21:53 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: oops, broke the cacheHeaders flag
+
+2004-04-20 Tuesday 04:55 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: charutil.c, charutil.h, test_wmbiff.c, wmbiff.c: factor
+	  out comment stripping for testing, which seems to have passed
+
+2004-04-06 Tuesday 20:58 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, Pop3Client.c, test_wmbiff.c: fix debian
+	  #242458 -- allow IP addresses as server names for IMAP mailboxes,
+	  and also for POP3 mailboxes
+
+2004-03-28 Sunday 00:36 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: 0.4.22
+
+2004-03-28 Sunday 00:28 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, Pop3Client.c, ShellClient.c,
+	  charutil.c, maildirClient.c, mboxClient.c, passwordMgr.c,
+	  regulo.c, test_tlscomm.c, tlsComm.c, tlsComm.h, wmbiff.c: lots of
+	  indent changes and a change to let msglst enable header caching
+	  for imap
+
+2004-03-12 Friday 21:35 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5.in: mention courier imapd's means of specifying
+	  subfolders
+
+2004-02-14 Saturday 18:10 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: bugfix for cyrus imap servers, thanks to
+	  Jon Ramsey
+
+2004-01-01 Thursday 23:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: really call it 0.4.20
+
+2004-01-01 Thursday 07:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* AUTHORS, wmbiff/Client.h, wmbiff/Imap4Client.c,
+	  wmbiff/ShellClient.c, wmbiff/maildirClient.c,
+	  wmbiff/mboxClient.c, wmbiff/passwordMgr.c, wmbiff/wmbiff.c: Sam
+	  Izzo's patch
+
+2003-12-30 Tuesday 19:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am, configure.ac: add --disable-crypto
+
+2003-12-22 Monday 00:08 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: print failure message if imap login fails
+
+2003-11-09 Sunday 07:01 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/sample.wmbiffrc: mac os 10.3 mail responds to a different
+	  way of identifying the inbox
+
+2003-11-09 Sunday 03:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: 0.4.19
+
+2003-11-09 Sunday 03:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test_tlscomm.c: fix bug #219787
+
+2003-11-08 Saturday 23:46 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: helper rule for sourceforge upload (I know, I know,
+	  maintenance cruft making it into the release, whatever)
+
+2003-11-08 Saturday 23:46 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: philosophical definition of truth
+
+2003-11-08 Saturday 23:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: because having both from and subject
+	  headers is no longer a way to tell when the end has happened,
+	  must clean up the completed command tag explicitly
+
+2003-11-08 Saturday 23:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: avoid compiler warning from inconsistent
+	  def of size_t as passed into printf
+
+2003-11-08 Saturday 22:58 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: ShellClient.c, charutil.c: strcpy is not defined to
+	  handle overlapping regions.  valgrind complains, rightly, so
+	  reimplement lefttrim to avoid such behavior
+
+2003-11-08 Saturday 22:17 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: bump up default_sleep_interval to clean up
+	  strace output while bored.
+
+2003-11-08 Saturday 22:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: handle messages without subject lines in
+	  msglst
+
+2003-11-07 Friday 09:11 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: panther (mac 10.3) does not appear to
+	  null-terminate passwords in the keychain for us
+
+2003-10-29 Wednesday 18:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, Pop3Client.c: handle capitalized FROM and
+	  SUBJECT headers common typical of spam spam spam
+
+2003-10-28 Tuesday 23:39 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test_tlscomm.c: indent and add another check
+
+2003-10-28 Tuesday 23:38 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Makefile.am, test_wmbiff.c: indent
+
+2003-10-28 Tuesday 07:09 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Makefile.am, test_tlscomm.c: fix bug reported by
+	  Jingshao Chen <jingshaochen@sbcglobal.net> with buffering
+	  trouble, and incorporate a regression test to keep it from
+	  accidentally popping up again
+
+2003-10-28 Tuesday 06:56 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: test_tlscomm.c, tlsComm.c: test for proper handling of
+	  buffering small bits of expected data
+
+2003-10-26 Sunday 08:33 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, passwordMgr.c: sigh, I dislike running
+	  make indent
+
+2003-10-26 Sunday 08:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* AUTHORS, wmbiff/Pop3Client.c, wmbiff/wmbiffrc.5.in: Paolo
+	  Gianrossi's patch to provide msglst support for pop3 mailboxes
+
+2003-10-26 Sunday 07:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* check-includes.rb, wmbiff/maildirClient.c, wmbiff/socket.c:
+	  include file reordering, based on wisdom from porting some other
+	  networky code
+
+2003-10-26 Sunday 07:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: fix some ruby1.8 warnings, minor
+	  cleanup
+
+2003-10-10 Friday 18:00 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: 0.4.18
+
+2003-10-10 Friday 15:59 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: fix ruby1.8's complaint.
+
+2003-08-31 Sunday 18:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: 0.4.17
+
+2003-08-31 Sunday 06:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: oops, looks like I resolved a conflict poorly
+
+2003-08-31 Sunday 04:39 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: build the test cases well
+
+2003-08-31 Sunday 03:33 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: test_wmbiff.c, tlsComm.h: check the newline bugfix
+
+2003-08-31 Sunday 03:32 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: bugfix to avoid handing odd newlines badly
+
+2003-07-31 Thursday 23:37 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: fix some potential bugs - an access of
+	  freed memory and an uninitialized reference counter
+
+2003-07-20 Sunday 00:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: passwordMgr.c, test_wmbiff.c: fix a five-minute old
+	  regression test failure where null was returned instead of an
+	  empty string for an empty password.  not sure it matters, but
+	  maybe.
+
+2003-07-20 Sunday 00:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: oops, I left a use-after-free bug in the
+	  askpass code
+
+2003-07-19 Saturday 23:56 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/passwordMgr.c: use the apple keychain to
+	  grab passwords! I can very nearly forget about typing them in
+	  anymore
+
+2003-07-10 Thursday 17:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: ensure that the current directory is not setgid when
+	  making a distribution; this borks some untars
+
+2003-07-07 Monday 09:00 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: warnings cleanup
+
+2003-07-07 Monday 08:57 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/Client.h, wmgeneral/wmgeneral.c: call it
+	  0.4.16
+
+2003-07-07 Monday 08:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, passwordMgr.c, test_wmbiff.c:
+	  fix memfrob * bug (memfrob makes *'s zero, so password length
+	  must be tracked separately
+
+2003-07-04 Friday 21:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: handle comments the way I meant to...
+
+2003-07-03 Thursday 11:10 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: switch the new header cache to use
+	  reference counting (better, but possibly buggy) instead of
+	  locking (dumb, and certainly buggy)
+
+2003-07-03 Thursday 05:39 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: try to avoid repetitive complaints of
+	  failed connections
+
+2003-07-03 Thursday 05:34 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/socket.c: avoid repetitive error messages when hostname
+	  lookup fails (such as when disconnected)
+
+2003-07-03 Thursday 05:33 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: last fix to geometry handling had a
+	  compiler warning
+
+2003-07-03 Thursday 05:12 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: try doing geometry the way X intends it to
+	  be done, at least as far as I can tell.
+
+2003-07-03 Thursday 01:03 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: make #'s comments only if preceded by whitespace
+	  or at the beginning of the line
+
+2003-07-03 Thursday 00:53 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: looks like I'd broken the button click events
+	  recently
+
+2003-07-03 Thursday 00:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/sample.wmbiffrc: osascript samples for driving mac mail
+	  using applescript
+
+2003-06-30 Monday 23:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, tlsComm.c: warning message beautification
+
+2003-06-08 Sunday 07:01 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, MessageList.c, MessageList.h,
+	  ShellClient.c: general rewrite of the msglst headers, so that the
+	  list is pre-cached for responsiveness.
+
+2003-06-08 Sunday 06:59 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5.in: document msglst and buttontwo
+
+2003-06-08 Sunday 06:59 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: show a watch pointer while working behind the
+	  scenes
+
+2003-06-03 Tuesday 04:57 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autogen.sh: enable dependency tracking
+
+2003-04-17 Thursday 05:04 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: trap socket errors
+
+2003-04-17 Thursday 01:56 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: print the detailed version
+
+2003-04-17 Thursday 01:56 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, ShellClient.c, passwordMgr.c: space for detail
+	  in grab command output, use the detail to populate a message list
+	  in a getheaders function (eg. can see the list of thought to be
+	  updated packages if using hte security.debian script
+
+2003-04-17 Thursday 01:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test-wmbiffrc.shell: test usingthe debian script, allows
+	  trying shell get headers
+
+2003-04-17 Thursday 01:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: try to print a helpful hint message to use
+	  gnutls-cli-debug
+
+2003-04-16 Wednesday 23:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: downgrade configure.ac use of AM_INIT_AUTOMAKE to
+	  support automake-1.5
+
+2003-04-16 Wednesday 08:21 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: export GetColor
+
+2003-04-16 Wednesday 08:18 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, MessageList.c, MessageList.h,
+	  tlsComm.c, wmbiff.c: indent run
+
+2003-04-16 Wednesday 08:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: get headers / message list support
+
+2003-04-16 Wednesday 08:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: messagelist
+
+2003-04-16 Wednesday 08:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: rename state to tls_state for clarity, small
+	  cleanup, fixes for buffering several lines in an expectation
+
+2003-04-16 Wednesday 08:14 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: wmbiff.c, Client.h: message list, button 2 support
+
+2003-04-16 Wednesday 08:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: MessageList.c, MessageList.h: list new messages,
+	  currently only with an imap driver
+
+2003-04-09 Wednesday 04:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autogen.sh: fall back to automake-1.5 if necessary
+
+2003-04-07 Monday 10:10 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: invalid is returned when it doesn't match?
+
+2003-04-07 Monday 09:41 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: fix some info messages - drop complaints about
+	  version 0.2.3 of gnutls, mention certfile.
+
+2003-04-07 Monday 09:33 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5.in: doc certfile
+
+2003-04-07 Monday 09:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: handle certfile errors properly; positive
+	  return values from gnutls_certificate_set_x509_trust_file appear
+	  okay.
+
+2003-03-30 Sunday 11:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: passwordMgr.c, test_wmbiff.c: oh, now I get why that
+	  foolish null-termination was present.  it's better now
+
+2003-03-30 Sunday 11:23 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: 0.4.15
+
+2003-03-30 Sunday 11:22 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5.in: note the hash caveat
+
+2003-03-30 Sunday 11:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: remove (unreleased) foolhardy
+	  null-termination
+
+2003-03-30 Sunday 10:57 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test_wmbiff.c: just so as not to confuse anyone that
+	  wmbiff allows #'s in passwords
+
+2003-03-30 Sunday 10:38 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* README, wmbiff/wmbiff.c, wmgeneral/wmgeneral.c,
+	  wmgeneral/wmgeneral.h: support setting the background color using
+	  -bg
+
+2003-03-28 Friday 08:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test_wmbiff.c: check that passwords with # can be parsed
+
+2003-03-28 Friday 08:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5.in: doc password parsing damage
+
+2003-03-11 Tuesday 08:07 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* README: gnupg reorganized their website
+
+2003-03-11 Tuesday 08:03 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: provide a helpful message as to where gnutls and
+	  libgcrypt can be found in configure.ac
+
+2003-03-06 Thursday 21:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: fix debian bug #183529
+
+2003-03-03 Monday 19:06 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: make returned password length consistent
+	  with stored password length
+
+2003-03-02 Sunday 02:37 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/Imap4Client.c, wmbiff/passwordMgr.c,
+	  wmbiff/passwordMgr.h: in-memory frobnication of imap passwords
+
+2003-03-02 Sunday 02:17 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, Makefile.am, Pop3Client.c, regulo.c,
+	  regulo.h, socket.c, test_wmbiff.c, wmbiff.c: hostname paranoia
+	  patch -- use -relax to skip hostname validation check, parse
+	  ambiguous config lines
+
+2003-03-02 Sunday 01:04 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c, wmgeneral/wmgeneral.c: indent run
+
+2003-02-13 Thursday 21:07 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am, configure.ac: 0.4.14
+
+2003-02-08 Saturday 21:04 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: wmbiff.1, wmbiffrc.5.in: document restart schemes
+
+2003-02-08 Saturday 07:06 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: restart wmbiff also on ctrl-shift-left click
+
+2003-02-08 Saturday 03:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: restart on sig usr1 using exec()
+
+2003-02-08 Saturday 03:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autogen.sh: I think symlink is okay for autoreconf
+
+2003-02-08 Saturday 03:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/: wmgeneral.c, wmgeneral.h: much prefer if wmgeneral
+	  proclaimed that it would not modify argv; I think it's even true
+
+2003-01-28 Tuesday 11:14 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: remove check for gnuregex
+
+2003-01-28 Tuesday 11:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: bugfix to avoid problems with the new regex
+	  scheme and the default mailbox (aliasing sucks.)
+
+2003-01-28 Tuesday 11:12 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/charutil.h: remove gnuregex.h incl
+
+2003-01-28 Tuesday 11:12 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: newline after error message
+
+2003-01-25 Saturday 04:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autogen.sh: remove dangling symlinks config.guess, config.sub
+
+2003-01-25 Saturday 04:33 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/list.c: compiler warning appeasement (shadowing index)
+
+2003-01-25 Saturday 04:32 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: use the non gnu-make form of the
+	  indent-a-c-file rule
+
+2003-01-22 Wednesday 01:56 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autogen.sh: make sure ChangeLog exists locally.
+
+2003-01-21 Tuesday 08:56 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: fix some minor damage when select is
+	  interrupted (EINTR)
+
+2003-01-21 Tuesday 05:55 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autogen.sh: warn if autoconf/libgnutls.m4 does not exist
+
+2003-01-20 Monday 19:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: add libgcrypt libraries if used to
+	  test_wmbiff
+
+2003-01-20 Monday 19:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: remove possibly unneeded check for gdbm
+
+2003-01-19 Sunday 13:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, Makefile.am, Pop3Client.c,
+	  ShellClient.c, charutil.c, charutil.h, passwordMgr.c,
+	  test_wmbiff.c, tlsComm.c, wmbiff.c: general portability fixes,
+	  including HAVE___ATTRIBUTE__
+
+2003-01-19 Sunday 13:12 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: regulo.c, regulo.h: posix based regular expression
+	  handling with a not so lame interface
+
+2003-01-19 Sunday 13:11 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: portability fixes: HAVE___ATTRIBUTE__ (maybe),
+	  libnsl (solaris), -no-cpp-precomp (os x)
+
+2003-01-04 Saturday 03:39 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/wmbiff.c: 0.4.12, release to fix bad
+	  -geometry handling
+
+2003-01-03 Friday 20:37 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: fix geometry argument handling bug (Debian
+	  #175220)
+
+2002-12-29 Sunday 07:46 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: I meant to say 6 hours
+
+2002-12-29 Sunday 05:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/sample.wmbiffrc: shell recipe for security.debian.rb
+
+2002-12-29 Sunday 05:28 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/security.debian.rb: didn't mean to commit with a 6 minute
+	  refresh interval
+
+2002-12-29 Sunday 04:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am, check-includes.rb, configure.ac: add scripts
+	  subdirectory to build system
+
+2002-12-29 Sunday 04:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* scripts/: Makefile.am, security.debian.rb: new scripts directory
+	  to hold debian security checker and install it.
+
+2002-12-29 Sunday 03:25 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: general cleanup - use strdup_ordie,
+	  malloc_ordie.  reduce using ints and chars interchangeably.
+	  static annotations on module-local variables
+
+2002-12-29 Sunday 03:22 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: bad_certificate called as if void, so change
+	  the signature
+
+2002-12-29 Sunday 03:22 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: autodetect whether to use poll()
+
+2002-12-29 Sunday 02:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/: Makefile.am, wmgeneral.c, wmgeneral.h: make
+	  AddMouseRegion take an unsigned int for the region index (which
+	  is an _index_ which means negative values need not apply)
+
+2002-12-29 Sunday 02:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: charutil.c, charutil.h: change signature of *Trim to
+	  reflect that they can't fail (void instead of int); the return
+	  values are ignored in wmbiff
+
+2002-12-29 Sunday 01:36 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: reorder functions to avoid pre-declaration.
+	  should simplify reading the (now very long) code
+
+2002-12-29 Sunday 01:11 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/: misc.c, misc.h: exec command can take a const char *
+
+2002-12-29 Sunday 01:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/sample.wmbiffrc: another askpass recipe
+
+2002-12-29 Sunday 00:57 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: cleanup unused variables
+
+2002-12-29 Sunday 00:57 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: surgical indent rule
+
+2002-12-29 Sunday 00:37 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/wmbiff.c: use automake/autoconf defined
+	  PACKAGE_VERSION and PACKAGE_BUGREPORT
+
+2002-12-29 Sunday 00:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: support arbitrarily long password query
+	  commands
+
+2002-12-29 Sunday 00:14 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: configuration file parsing cleanup, support
+	  longer configuration options, remove some ad-hockery in favor of
+	  sscanf
+
+2002-12-13 Friday 05:38 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac, wmbiff/tlsComm.c, wmbiff/wmbiff.1, wmbiff/wmbiff.c:
+	  0.4.10, -skip-certificate-check option
+
+2002-12-09 Monday 21:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* AUTHORS, wmbiff/sample.wmbiffrc, wmbiff/wmbiff.c,
+	  wmbiff/wmbiffrc.5.in: Peter McAlpine's globalnotify patch
+
+2002-12-09 Monday 21:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: minor change to timeout behavior, just
+	  delay a while before next check
+
+2002-12-02 Monday 07:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.ac: require gnutls 0.5.9, release 0.4.9
+
+2002-11-30 Saturday 07:58 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: more robust ETIMEDOUT handling -- just
+	  chill out for a few minues rather than blacklist as a compromise
+	  between the responsiveness of not retrying unresponsive servers
+	  and the robustness of prodding on.  the right thing is probably a
+	  non-blocking connect, but that's  messy
+
+2002-11-15 Friday 08:06 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: should really be able to catch these problems
+	  earler - without gnutls, the build would fail
+
+2002-11-15 Friday 08:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autogen.sh: red hat hackery
+
+2002-11-13 Wednesday 06:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.1, wmbiff/wmbiff.c, wmgeneral/wmgeneral.c,
+	  wmgeneral/wmgeneral.h: a method for not using the withdrawn state
+
+2002-11-12 Tuesday 08:27 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am, configure.ac, wmbiff/wmbiff.c, wmbiff/wmbiffrc.5.in,
+	  wmgeneral/wmgeneral.c, wmgeneral/wmgeneral.h: Allow automatic
+	  sizing of the wmbiff window, effective for other window managers.
+
+2002-10-26 Saturday 23:17 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* FromCVS.sh, autogen.sh: Rename FromCVS.sh to autogen.sh, which is
+	  the "common" name for such script.
+
+2002-10-26 Saturday 23:15 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, Makefile.am, maint/changelog-header,
+	  maint/prerelease.sh: Stop doing the ChangeLog header hack.
+	  Instead, remove ChangeLog entirely from CVS and get it generated
+	  correctly on dist. Remove unneeded maint scripts.
+
+2002-10-26 Saturday 23:12 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* FromCVS.sh: Add automake-1.7 support.
+
+2002-10-20 Sunday 21:58 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/: wmbiff.1, wmbiffrc.5.in: do not specify Debian
+	  GNU/Linux... I'm actually more interested in the Hurd right now
+	  :)
+
+2002-10-14 Monday 05:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/maildirClient.c: use mkstemp instead of mktemp to appease
+	  the compiler
+
+2002-10-14 Monday 01:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5.in: add the 'this file automatically generated'
+	  tag
+
+2002-10-13 Sunday 21:28 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, tlsComm.c, tlsComm.h: Check certificate
+	  hostname, using gnutls's new function
+
+2002-10-13 Sunday 21:27 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: a formatting glitch
+
+2002-10-13 Sunday 21:27 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FromCVS.sh, Makefile.am: use autoreconf instead of the ad-hockery
+
+2002-09-25 Wednesday 06:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FAQ: why doesn't wmbiff update my mailbox count when I read a
+	  message
+
+2002-09-20 Friday 19:50 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FromCVS.sh: support redhat autoconf sadness
+
+2002-09-19 Thursday 07:00 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test_wmbiff.c: allow test to run when nnot linked with
+	  gnutls
+
+2002-09-18 Wednesday 23:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/maildirClient.c: compiler warning fixes
+
+2002-09-18 Wednesday 23:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.ac, wmbiff/Client.h, wmbiff/Imap4Client.c,
+	  wmbiff/Makefile.am, wmbiff/maildirClient.c, wmbiff/test_wmbiff.c,
+	  wmbiff/wmbiffrc.5.in: bugfix to allow imap mailbox filenames to
+	  contain spaces, test that it works; also, prepare 0.4.8
+
+2002-09-14 Saturday 18:51 UTC -- Dwayne C. Litzenberger <dlitz@dlitz.net>
+
+	* wmbiff/: Client.h, maildirClient.c, wmbiffrc.5.in: *
+	  maildirClient: Added support for quick checking of writable
+	  network-mounted   maildirs where directory caching normally
+	  causes unwanted delays.
+
+2002-08-16 Friday 07:55 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.ac, autoconf/libgnutls.m4,
+	  wmbiff/Imap4Client.c, wmbiff/gnutls-common.c,
+	  wmbiff/gnutls-common.h, wmbiff/tlsComm.c: handle new
+	  gnutls/gnutls.h convention, release 0.4.7
+
+2002-08-06 Tuesday 08:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FromCVS.sh: seek out and use athe underrated automake 1.6.
+
+2002-07-27 Saturday 17:50 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, tlsComm.c: trivial formatting fixes
+
+2002-07-19 Friday 18:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.ac: release version 0.4.6
+
+2002-07-18 Thursday 02:55 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: ignore sigpipe, possible bugfix for abnormal
+	  termination during suspend for imap/gnutls
+
+2002-07-04 Thursday 08:00 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.ac: last minute changes for 0.4.5
+
+2002-07-04 Thursday 01:07 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, Makefile.am, Pop3Client.c, charutil.c,
+	  tlsComm.c, wmbiff.c: valgrind debugging, and support for -exit.
+	  some bugs were probably fixed, but since nobody has noticed yet,
+	  I don't know if they mattered
+
+2002-07-04 Thursday 00:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: reminder in where valgrind complains
+
+2002-07-04 Thursday 00:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: add a top-level 'indent' rule
+
+2002-07-03 Wednesday 02:28 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: doubled the timeout to 40 seconds.
+
+2002-06-26 Wednesday 19:04 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, Makefile.am, autoconf/Makefile.am: die configure.in!
+	  die acconfig.h!
+
+2002-06-26 Wednesday 18:56 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, FromCVS.sh, Makefile.am, configure.ac, configure.in,
+	  autoconf/acconfig.h: migrate to newer autoconf (2.5) to try to
+	  debug making-from-scratch problem and get rid of acconfig.h cruft
+
+2002-06-25 Tuesday 23:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: tiny automake 1.6 fix (doesn't appear to use
+	  stamp-h.  who knew.)
+
+2002-06-25 Tuesday 23:33 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* autoconf/libgnutls.m4: trivial upstream bugfix
+
+2002-06-25 Tuesday 23:29 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: never underestimate the complexity of
+	  solutions involving automake
+
+2002-06-25 Tuesday 23:24 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in, wmbiff/Makefile.am: corrections to conditional
+	  compilation of gnutls-common for automake 1.5 (and thereby the
+	  true automake way)
+
+2002-06-25 Tuesday 23:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in, wmbiff/Makefile.am: only compile gnutls-common.[ch]
+	  if gnutls is configured in (duh), and only check for gcrypt.h if
+	  libgcrypt is installed and current
+
+2002-06-24 Monday 07:18 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, FromCVS.sh: roughly finished 0.4.4
+
+2002-06-24 Monday 07:16 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: restore certificate checking
+
+2002-06-24 Monday 07:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: gnutls-common.c, gnutls-common.h: indent run
+
+2002-06-24 Monday 01:23 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am, configure.in: basic gnutls 0.4.3 support
+	  (that is, it compiles.)
+
+2002-06-24 Monday 01:18 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: gnutls-common.c, gnutls-common.h, tlsComm.c: basic
+	  gnutls 0.4.3 support (that is, it compiles.)
+
+2002-06-23 Sunday 01:26 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: cleanup to periodic mail checking, removal of
+	  the first mail check - now all cases are the same
+
+2002-06-21 Friday 04:34 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: y_ and x_origin, and num_mailboxes constants,
+	  highlight color for fn, restructured mailbox creation routines
+
+2002-06-21 Friday 04:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Pop3Client.c: splint
+
+2002-06-21 Friday 04:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: LicqClient.c, ShellClient.c, charutil.c,
+	  maildirClient.c, mboxClient.c, passwordMgr.c, test_wmbiff.c:
+	  config.h
+
+2002-06-21 Friday 04:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: clarity and splint
+
+2002-06-21 Friday 04:29 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: splint support
+
+2002-06-21 Friday 04:29 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.1: highlight color
+
+2002-06-21 Friday 04:28 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: verify that config.h is included in each .c
+	  file
+
+2002-06-15 Saturday 09:05 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in: likely bugfix for newer autoconf?
+
+2002-06-15 Saturday 09:04 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: keep automake1.6 happy
+
+2002-06-08 Saturday 22:22 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.in: release 0.4.3 final updates
+
+2002-06-08 Saturday 22:20 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: make the background black when using fonts
+
+2002-06-08 Saturday 22:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/: wmgeneral.c, wmgeneral.h: font support, ability to
+	  erase rectangles
+
+2002-06-08 Saturday 22:14 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: slightly changed debug messages; exists() is
+	  more a test -f than a test -e
+
+2002-06-08 Saturday 22:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.1: documentation of -fg and -font options
+
+2002-06-08 Saturday 22:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, ShellClient.c: cleanup for splint
+	  annotations
+
+2002-06-08 Saturday 22:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: basic font support, color selection, cleanup to
+	  default configuration code, bugifx and cleanup to mouse region
+	  code
+
+2002-06-08 Saturday 21:40 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/socket.c: need config.h to get IPv6 support
+
+2002-06-01 Saturday 18:10 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog: 0.4.2
+
+2002-06-01 Saturday 17:58 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in, wmbiff/wmbiff.c: oops, didn't really want to
+	  release with the crazy font stuff quite yet
+
+2002-06-01 Saturday 07:03 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.in, wmbiff/test-wmbiffrc.shell: release
+	  0.4.1
+
+2002-06-01 Saturday 07:01 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* AUTHORS: release preparation
+
+2002-06-01 Saturday 06:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.h: prototypes for basic font support
+
+2002-06-01 Saturday 06:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: indent run
+
+2002-06-01 Saturday 06:02 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, ShellClient.c, charutil.c, mboxClient.c:
+	  indent run
+
+2002-06-01 Saturday 06:01 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: font support, disabled by default
+
+2002-06-01 Saturday 06:00 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: a start at certificate checking (a daunting
+	  task at the moment)
+
+2002-06-01 Saturday 05:59 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: declare exists()
+
+2002-06-01 Saturday 05:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: some basic font support, renaming some
+	  variables for clarity
+
+2002-06-01 Saturday 05:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/socket.c: correct date
+
+2002-06-01 Saturday 05:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in, wmbiff/socket.c: IPv6 support using getaddrinfo
+	  from Jun-ichiro itojun Hagino <itojun@iijlab.net>
+
+2002-05-03 Friday 05:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.in: Release 0.4.0
+
+2002-05-03 Friday 05:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: don't list TODO changes in ChangeLog, to avoid
+	  confusion
+
+2002-05-03 Friday 05:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/mboxClient.c: type casting hackery to help architectures I
+	  don't have
+
+2002-05-03 Friday 05:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: sample.wmbiffrc, wmbiffrc.5.in: lpq example creep
+
+2002-05-03 Friday 05:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: bugfix when alternates between numeric and
+	  text
+
+2002-04-29 Monday 02:01 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, ShellClient.c, charutil.c, charutil.h: lclint
+	  cleanups - strdup_ordie, some null annotations
+
+2002-04-27 Saturday 08:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, ShellClient.c, passwordMgr.c: cleanup to use
+	  grabCommandOutput in passwordMgr instead of duplicating the
+	  popen/fgets/pclose code
+
+2002-04-27 Saturday 08:29 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Makefile.am, charutil.c, passwordMgr.c,
+	  passwordMgr.h, test_wmbiff.c: move passwordMgr testing to
+	  test_wmbiff.c; catch a small bug in handling empty passwords
+
+2002-04-27 Saturday 08:29 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FromCVS.sh: apparently aclocal barfs when macros are defined both
+	  in the system directory and in a local copy.	semper fragile.
+
+2002-04-25 Thursday 20:28 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* README: add a note about gnutls version 0.3.5
+
+2002-04-25 Thursday 18:33 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in: hack attempt at supporting gnutls built locally
+
+2002-04-25 Thursday 17:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, FromCVS.sh, autoconf/libgcrypt.m4,
+	  autoconf/libgnutls.m4: add m4 macros for libgcrypt and libgnutls
+	  to the repository, so that FromCVS can be run to regenerate
+	  configure.in, even on systems without gnutls.
+
+2002-04-20 Saturday 09:55 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: correct a problem uncovered by sourceforge's
+	  compile farm
+
+2002-04-20 Saturday 09:27 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: BSD fix (no strndup, no sighandler_t)
+
+2002-04-20 Saturday 09:12 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: LicqClient.c, mboxClient.c: move msgs=-1 assignment on
+	  failure to the common openMailbox()
+
+2002-04-20 Saturday 08:53 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.in, wmbiff/Client.h: update meta-information
+	  for prerelease 5
+
+2002-04-20 Saturday 08:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: correct syntax for making a test program
+
+2002-04-20 Saturday 08:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/sample.wmbiffrc: finish deprecating
+
+2002-04-20 Saturday 08:12 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: sample.wmbiffrc, wmbiffrc.5.in: document back-tick
+	  expansion, deprecate mbox style without mbox: prefix
+
+2002-04-20 Saturday 07:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, LicqClient.c, ShellClient.c, mboxClient.c:
+	  oops (indent)
+
+2002-04-20 Saturday 07:53 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: LicqClient.c, mboxClient.c: refactor mailbox stat()'ting
+	  to reduce duplicated code and supprort backticks.
+
+2002-04-20 Saturday 07:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: refactor command execution code to support
+	  backtick foo expansion
+
+2002-04-20 Saturday 07:50 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Makefile.am, test_wmbiff.c: add tests for bbacktick
+	  expansion
+
+2002-04-20 Saturday 07:49 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: ctime has become useless; new prototypes to
+	  handle backtick
+
+2002-04-16 Tuesday 07:37 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, wmbiff/Client.h, wmbiff/Imap4Client.c,
+	  wmbiff/LicqClient.c, wmbiff/Pop3Client.c, wmbiff/mboxClient.c,
+	  wmbiff/passwordMgr.c, wmbiff/wmbiff.c: remove vestigial
+	  pc->open()
+
+2002-04-16 Tuesday 07:08 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test-make.sh: unnecessary now that autoconf is involved
+
+2002-04-15 Monday 22:58 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: dist the FAQ
+
+2002-04-15 Monday 21:19 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/: Makefile.am, list.c, list.h, misc.c, misc.h,
+	  wmgeneral.c, wmgeneral.h: run make indent; also tolerate standard
+	  geometry string (dumping the dimensions provided)
+
+2002-04-15 Monday 21:06 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: bugfix to sigchld_handler (argh)
+
+2002-04-15 Monday 08:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, Makefile.am, configure.in, wmbiff/Makefile.am,
+	  autoconf/Makefile.am: try to make the distcheck target work
+	  correctly.  voodoo.
+
+2002-04-15 Monday 08:14 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FAQ: a little documentation
+
+2002-04-15 Monday 02:21 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: treat  all gicu messages as new (they're unread)
+
+2002-04-15 Monday 02:10 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in: chmod 0444 wmbiffrc.5 to remind me not to try to
+	  edit it.
+
+2002-04-15 Monday 02:09 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5.in: document finger, changes to shell
+
+2002-04-15 Monday 01:58 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: ShellClient.c, wmbiff.c: waitpid until done
+
+2002-04-15 Monday 01:48 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in: slightly nicer message
+
+2002-04-15 Monday 01:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.in, wmbiff/wmbiff-master-contrast.xpm:
+	  0.4.0pre4 - finger support, text from shell support, minor code
+	  reorganization
+
+2002-04-15 Monday 01:38 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* AUTHORS, README: add Andelko Horvat to the list of contributors,
+	  remove author list from README
+
+2002-04-15 Monday 01:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/test-wmbiffrc.shell: test finger as well
+
+2002-04-15 Monday 01:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: TextStatus to hold a three-character status
+	  message
+
+2002-04-15 Monday 01:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: support TextString as status; factor
+	  blitMsgCounters as displayMsgCounters was starting to get ugly,
+	  add finger recipe to use ShellClient instead of a separate module
+
+2002-04-15 Monday 01:26 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: use chomp to remove the newline from
+	  ssh-askpass output
+
+2002-04-15 Monday 01:26 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: charutil.c, charutil.h: duplicate perl's chomp()
+
+2002-04-15 Monday 01:26 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: return sigchld to default hander before
+	  using popen; handle text input. Much complexity, I hope it's
+	  worth it.
+
+2002-04-15 Monday 01:25 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff-master-led.xpm: support yellow text
+
+2002-04-15 Monday 01:24 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: derive wmbiff-master-contrast.xpm from
+	  wmbiff-master-led.xpm
+
+2002-04-12 Friday 05:54 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/socket.c: extra debugging messages, to be in-line with our
+	  -debug to stdout philosophy
+
+2002-04-11 Thursday 21:39 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* autoconf/: install-sh, missing, mkinstalldirs: Shouldn't be in
+	  CVS...
+
+2002-04-11 Thursday 18:24 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in: attempt to fix Jordi's configure bug
+
+2002-04-11 Thursday 07:24 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Pop3Client.c: APOP bugfix (unreleased bug)
+
+2002-04-09 Tuesday 07:52 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* ChangeLog, configure.in: bump version to 0.4.0pre3 - permissions
+	  checking for .wmbiffrc added.
+
+2002-04-09 Tuesday 07:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* Makefile.am: try to tell the difference between running make dist
+	  with cvs and missing cvs2cl (an error), and running make dist
+	  without cvs (which should be ok).
+
+2002-04-09 Tuesday 07:45 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: LicqClient.c, maildirClient.c, mboxClient.c: some
+	  explicit casts to make compiling on non-linux a bit more
+	  warning-free
+
+2002-04-09 Tuesday 07:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: permissions checking for .wmbiffrc (if it
+	  exists), some minor cleanup associated with this.
+
+2002-04-09 Tuesday 07:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile.am: _DATA files don't get distributed, add the
+	  skins into extra_dist. automake can be confusing
+
+2002-04-08 Monday 09:35 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in, wmbiff/wmbiffrc.5, wmbiff/wmbiffrc.5.in:
+	  automatically generate wmbiffrc.5 based on the results of
+	  configure, so that the configure-time chosen defaults are
+	  accurately shown
+
+2002-04-07 Sunday 19:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* configure.in: don't try to configure gnutls if libz or libgdbm
+	  aren't installed
+
+2002-04-07 Sunday 19:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* FromCVS.sh: allow for automake 1.5's need for depcomp
+
+2002-04-07 Sunday 05:08 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* COPYING, ChangeLog, FromCVS.sh, INSTALL, Makefile.am,
+	  configure.in, autoconf/acconfig.h, autoconf/install-sh,
+	  autoconf/missing, autoconf/mkinstalldirs, maint/changelog-header,
+	  wmbiff/Client.h, wmbiff/Imap4Client.c, wmbiff/LicqClient.c,
+	  wmbiff/Makefile, wmbiff/Makefile.am, wmbiff/Pop3Client.c,
+	  wmbiff/charutil.h, wmbiff/maildirClient.c, wmbiff/mboxClient.c,
+	  wmbiff/tlsComm.c, wmbiff/wmbiff.c, wmgeneral/Makefile.am,
+	  wmgeneral/wmgeneral.c: use automake / autoconf; after checkout
+	  run ./FromCVS.sh
+
+2002-04-07 Sunday 03:23 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* AUTHORS: automake required file, duplicated from README
+
+2002-04-05 Friday 19:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff-master-contrast.xpm: a first cut higher-contrast
+	  skin
+
+2002-04-05 Friday 19:43 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Makefile, sample.wmbiffrc, test-make.sh, wmbiff.c:
+	  askpass - invoke ssh-askpass to fill in passwords for IMAP
+	  servers; skin - dynamically load an .xpm background
+
+2002-04-05 Friday 19:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5: documentation of askpass and skin
+
+2002-04-05 Friday 19:08 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: explicit handling of timeouts
+
+2002-04-05 Friday 19:02 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/passwordMgr.c: askpass having a space in it is an INFO,
+	  not an ERR.
+
+2002-04-04 Thursday 08:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, Makefile, Pop3Client.c,
+	  passwordMgr.c, passwordMgr.h, sample.wmbiffrc, test-make.sh:
+	  interactive password prompting support for imap - leave password
+	  in the : format blank to use
+
+2002-03-26 Tuesday 16:30 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, wmbiff/Makefile: Released WMBiff 0.3.8.
+
+2002-03-18 Monday 09:47 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.h: un-shadow index
+
+2002-03-18 Monday 09:46 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/wmgeneral.c: un-shadow a global variable
+
+2002-03-14 Thursday 08:51 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* README: correct and expand upon crypto instructions
+
+2002-03-12 Tuesday 23:53 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, Pop3Client.c, ShellClient.c,
+	  tlsComm.c: fixed misunderstanding of the use of ## in macros with
+	  strings - the compiler does the concatenation, not the
+	  preprocessor
+
+2002-03-11 Monday 00:11 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: slightly better message on expect failure
+
+2002-03-09 Saturday 08:50 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: debug messages cleanup; start handling
+	  pclose errors; remove open() function pointer assignment;
+	  #include fix
+
+2002-03-09 Saturday 08:03 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/: list.h, wmgeneral.c: minor warning cleanups
+
+2002-03-08 Friday 19:26 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* README: credit Ben
+
+2002-03-07 Thursday 22:20 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: fix error return status (ben's 'lil' patch)
+
+2002-03-07 Thursday 07:04 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: appropriate credits
+
+2002-03-06 Wednesday 18:01 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: fix my sloppy mistake in shell path parsing
+
+2002-03-06 Wednesday 07:59 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: misplaced string.h
+
+2002-03-06 Wednesday 07:59 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: rename in Read_Config_File for more 'index'
+	  purging
+
+2002-03-06 Wednesday 07:44 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/ShellClient.c: fix a potential file descriptor leak
+
+2002-03-06 Wednesday 07:15 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Makefile, ShellClient.c, mboxClient.c,
+	  sample.wmbiffrc, test-wmbiffrc.shell, wmbiff.1, wmbiff.c,
+	  wmbiffrc.5: Draft shell command and gnomeicu support from Benoît
+	  Rouits with minor modifications 1) implement gicu using the shell
+	  module rather than as a separate module, 2) edit Ben's shell
+	  format to have extra colons for extensibility, 3) add some extra
+	  error checking in the shell method.  I also added a test wmbiffrc
+	  that can be used to verify that the gicu and shell methods
+	  "work".
+
+2002-03-05 Tuesday 05:02 UTC -- Dwayne C. Litzenberger <dlitz@dlitz.net>
+
+	* wmbiff/maildirClient.c: cosmetic changes
+
+2002-03-04 Monday 06:57 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/mboxClient.c: convert a lingering fprintf to DM
+
+2002-03-02 Saturday 23:25 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, Makefile, wmbiff.c: a little -Wshadow and
+	  -Wcast-qual cleanup (or, eliminate the use of 'index' as a
+	  variable name)
+
+2002-03-02 Saturday 22:38 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: add preprocessor define to handle portability of
+	  __attribute__ tag to non-gcc compilers (untested)
+
+2002-03-02 Saturday 06:42 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: indent run (oops)
+
+2002-03-02 Saturday 06:41 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Pop3Client.c, Imap4Client.c: minor reorganization of
+	  gcrypt-needing authentication schemes
+
+2002-03-02 Saturday 06:39 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: attribute tags for warning cleanup w/o gnutls
+
+2002-03-02 Saturday 06:36 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: gcc attribute tags, minor debug message cleanup
+
+2002-03-02 Saturday 06:31 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile: rearrange which compiler warnings are implied by
+	  DEBUG
+
+2002-03-02 Saturday 05:58 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Client.h: use off_t instead of size_t in Licq and Maildir
+	  for file sizes from stat()
+
+2002-03-02 Saturday 05:50 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: bugfix to support compilation without crypto
+
+2002-03-01 Friday 11:58 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/wmbiff.c: Added -debug to help text.  Removed Gennady's
+	  mail address and added our devel list.
+
+2002-03-01 Friday 11:28 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Fixed install rule in Makefile.
+
+2002-03-01 Friday 08:41 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, LicqClient.c, Makefile,
+	  Pop3Client.c, maildirClient.c, mboxClient.c, tlsComm.c,
+	  tlsComm.h, wmbiff.1, wmbiff.c, wmbiffrc.5: Replaced DEBUG_x
+	  preprocessor defines with a -debug option and debug configuration
+	  keyword.  Replaced most debugging messages with a DM (debug
+	  message) macro.  Removed gnutls version 0.2.x support.  Added
+	  troubleshooting section to man page.
+
+2002-02-03 Sunday 22:48 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog: Released WMBiff 0.3.7.
+
+2002-02-03 Sunday 22:43 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Bumped WMBIFF_VERSION to 0.3.7.
+
+2002-02-02 Saturday 18:04 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/: Client.h, Imap4Client.c, Makefile, Pop3Client.c,
+	  charutil.h: Makefile fixes from Simon L. Nielsen, which help
+	  building wmbiff in FreeBSD.  Fixed the previous IMAP regex patch.
+
+2002-01-27 Sunday 20:20 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, maint/changelog.sed, maint/prerelease.sh: Some fixes
+	  for the maint scripts.
+
+2002-01-27 Sunday 19:59 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog: Released WMBiff 0.3.6.
+
+2002-01-27 Sunday 19:56 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Imap4Client.c: Indent fixes.
+
+2002-01-27 Sunday 19:52 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Bump WMBIFF_VERSION to 0.3.6.
+
+2002-01-27 Sunday 12:46 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* README, wmbiff/Imap4Client.c, wmbiff/Makefile, wmbiff/wmbiffrc.5:
+	  Alternate regex for imap/imaps which allows "@" in passwords.
+	  Fix to correctly handle the auth list in imap.  Patch from David
+	  Smith <davidsmith@acm.org>.
+
+2002-01-14 Monday 01:51 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog: Released WMBiff 0.3.5.
+
+2002-01-14 Monday 01:50 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Bump WMBIFF_VERSION to 0.3.5.
+
+2002-01-12 Saturday 19:18 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: quote patch from Nick Mitchell, ref debian
+	  #128863
+
+2002-01-12 Saturday 06:17 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: debugging for gnutls3
+
+2002-01-12 Saturday 05:50 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Makefile: clarify what to do with gnutls version define
+
+2002-01-12 Saturday 05:30 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Makefile, charutil.c, tlsComm.c: update for the
+	  interface change in gnutls 0.3.0
+
+2001-11-23 Friday 15:57 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog: Released WMBiff 0.3.4.
+
+2001-11-23 Friday 15:55 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Bumped version to 0.3.4, and release.
+
+2001-11-23 Friday 15:53 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, wmbiff/sample.wmbiffrc: Doc updates for 0.3.4.
+
+2001-11-16 Friday 07:11 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, Pop3Client.c, charutil.c: regexes limit
+	  password and username to 32 characters
+
+2001-11-16 Friday 06:08 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmgeneral/: wmgeneral.c, wmgeneral.h: -Wwrite-strings cleanliness
+
+2001-11-16 Friday 01:13 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Client.h, Imap4Client.c, Makefile, Pop3Client.c,
+	  charutil.c: rewrite of authentication code to a) allow users to
+	  specify authentication type, b) fall back to other authentication
+	  methods when hash-based authentication fails (because not
+	  everybody uses the cleartext password file) c) fix debug messages
+
+2001-11-16 Friday 00:40 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/charutil.h: regex helpers common to pop3 and imap4 clients
+	  extracted and moved here
+
+2001-11-16 Friday 00:40 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: tlsComm.c, tlsComm.h: blacklist and debugging updates
+	  for gnutls 0.2.10 and DM macro
+
+2001-11-16 Friday 00:39 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiffrc.5: authentication method list, reduced
+	  indentation to fit screen better
+
+2001-11-16 Friday 00:38 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff-master-led.xpm: made pixmap const char
+
+2001-11-16 Friday 00:37 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: -Wwrite-strings cleanliness
+
+2001-11-02 Friday 08:53 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/: Imap4Client.c, wmbiff.c, wmbiffrc.5: Prefer "imaps"
+	  instead of "sslimap" (sslimap is still supported, but imaps is
+	  documented, and a better name).
+
+2001-11-02 Friday 08:48 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/tlsComm.c: Small debugging message to help if a connection
+	  ends unexpectedly.
+
+2001-10-29 Monday 13:57 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog: Released WMBiff 0.3.3.
+
+2001-10-29 Monday 13:54 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/: Imap4Client.c, wmbiff.c: Indent run.
+
+2001-10-28 Sunday 23:32 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, README, wmbiff/Makefile, wmbiff/sample.wmbiffrc:
+	  Preparation for 0.3.3.  Documentation updates.
+
+2001-10-28 Sunday 22:22 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/wmbiff.c: Bugfix: initialize libgcrypt properly before
+	  cram-md5 (or probably apop) authentication.
+
+2001-10-24 Wednesday 15:35 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* maint/changelog.sed: Added Neil to the sed script.
+
+2001-10-23 Tuesday 21:14 UTC -- Neil Spring <nspring@cs.washington.edu>
+
+	* wmbiff/Imap4Client.c: error check just in case sighup patch is
+	  applied
+
+2001-10-23 Tuesday 18:35 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog: Released WMBiff 0.3.2.
+
+2001-10-23 Tuesday 18:33 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Bump WMBIFF_VERSION to 0.3.2.
+
+2001-10-05 Friday 16:10 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Changed order of additions to LIBS and
+	  EXTRAFLAGS, removed extra WMBIFF_VERSION definition.
+
+2001-10-04 Thursday 09:50 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* README, wmbiff/Client.h, wmbiff/Imap4Client.c,
+	  wmbiff/LicqClient.c, wmbiff/Makefile, wmbiff/Pop3Client.c,
+	  wmbiff/charutil.c, wmbiff/charutil.h, wmbiff/maildirClient.c,
+	  wmbiff/mboxClient.c, wmbiff/socket.c, wmbiff/tlsComm.c,
+	  wmbiff/tlsComm.h, wmbiff/wmbiff.1, wmbiff/wmbiff.c,
+	  wmbiff/wmbiffrc.5: * Big patch from Neil Spring which adds lots
+	  of crypto support to WMBiff.	* WMBiff can now speak IMAP over
+	  TLS and CRAM-MD5, and APOP using libgcrypt.  * Known problems:
+	  - gnutls is being developed still, so it may have security
+	  related bugs.    - A bug in gnutls (a too-small buffer) may cause
+	  problems	in the parsing of openssl certificates. This should
+	  be fixed by gnutls	  soon, hopefully. Added error messages if
+	  this bug is tickled. If you've      got problems with IMAP SSL,
+	  please try upgrading gnutls. If the problem	   persists, let us
+	  know.    - IMAP has totally been rewritten, so bugs may crop up.
+	  - Pop3 hasn't been rewritten to use the TLS primitives, though
+	  it probably	   could be if someone wanted to.  * There's a new
+	  interface for reading and writing to the socket in
+	  tlsComm.[ch].  This makes the IMAP code somewhat independent of
+	  whether   ssl is used, and provides nicer primitives to help skip
+	  'informational'   messages.  * WITH_TLS and WITH_GCRYPT are
+	  on-by-default in the Makefile.  TLS	applies to encryption,
+	  GCRYPT to cram-md5 and apop authentication.	 Since gnutls
+	  depends on libgcrypt anyway, these probably don't need to be
+	  independent.	Some compile warnings may be generated when these
+	  are	 disabled.  * Added code to optionally include dmalloc.h
+	  and link -ldmalloc. This   doesn't do anything at the moment, but
+	  shouldn't hurt. It's off-by-default.	* IMAP connections are now
+	  persistent.  persistent.  This is to cut down on   the need to
+	  re-negotiate an SSL connection every time you want to check
+	  mail. It tries to use just one connection per
+	  (server/username/password/port   number), which means multiple
+	  mailboxes need only one connection.  * There are a handful of
+	  lclint (http://lclint.cs.virginia.edu) annotations   in
+	  tlsComm.[ch]. These should also not hurt anyone, and are meant to
+	  keep	 the signal to noise ratio of lclint high.  * The rewritten
+	  IMAP code uses the GNU regex library to handle the
+	  configuration line.  I think its clearer than the cascading
+	  strtok()   solution, but the regex might not be perfect.  *
+	  Removed an unnecessary "inline" keyword from charutil.h.  * Added
+	  a TODO document with the bits that are missing from the picture.
+	  * Please bow in awe at NAKAYAMA Takao, Jay T. Francis and
+	  specially   Neil Spring for all of this.
+
+2001-10-04 Thursday 09:21 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/ApopClient.c: Removed unneeded Apop support code, now
+	  integrated in Neil and Jay's patch.
+
+2001-10-04 Thursday 09:00 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* maint/changelog.sed: Added my other SF account, which I intend to
+	  use now.
+
+2001-10-04 Thursday 08:54 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, README, wmbiff/Client.h, wmbiff/Makefile,
+	  wmbiff/sample.wmbiffrc, wmbiff/wmbiff.1, wmbiff/wmbiff.c,
+	  wmbiff/wmbiffrc.5: Backed out hoehoe's patch, preparing to apply
+	  Neil's.
+
+2001-09-24 Monday 11:58 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, README, wmbiff/ApopClient.c, wmbiff/Client.h,
+	  wmbiff/Makefile, wmbiff/sample.wmbiffrc, wmbiff/wmbiff.1,
+	  wmbiff/wmbiff.c, wmbiff/wmbiffrc.5: Added APOP support, patch
+	  from NAKAYAMA Takao <hoehoe@wakaba.jp>.  Fixed some bits of the
+	  manpage (Jordi) Bumped version to 0.3.2.
+
+2001-09-24 Monday 11:56 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* maint/prerelease.sh: Removed -t to cvs2cl invocation, to make
+	  cleaner ChangeLogs.
+
+2001-06-24 Sunday 18:17 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog: Released wmbiff 0.3.1.
+
+2001-06-24 Sunday 18:08 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, README: Removed duplicate entry for Vladimir Popov in
+	  README.
+
+2001-06-23 Saturday 00:09 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Imap4Client.c: Imap fix from Rob Funk
+
+2001-06-23 Saturday 00:07 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, maint/changelog.sed, maint/prerelease.sh: Renamed
+	  CHANGES to ChangeLog and RELEASE-NOTES to NEWS, modified release
+	  scripts accordingly. Added Mark to the sed file.
+
+2001-06-22 Friday 23:55 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* CHANGES, RELEASE-NOTES: Renamed to NEWS and ChangeLog
+
+2001-06-19 Tuesday 03:52 UTC -- Dwayne C. Litzenberger <dlitz@dlitz.net>
+
+	* CHANGES, maint/prerelease.sh: * Whoops!  Messed up CVS expansion
+	  in maint/prerelease.sh.  Fixed it.  * Also changed
+	  maint/prerelease.sh a bit.
+
+2001-06-19 Tuesday 03:38 UTC -- Dwayne C. Litzenberger <dlitz@dlitz.net>
+
+	* CHANGES, ChangeLog, README, RELEASE-NOTES, maint/changelog.sed,
+	  maint/prerelease.sh, wmbiff/Client.h, wmbiff/Imap4Client.c,
+	  wmbiff/LicqClient.c, wmbiff/Makefile, wmbiff/Pop3Client.c,
+	  wmbiff/charutil.c, wmbiff/charutil.h, wmbiff/maildirClient.c,
+	  wmbiff/mboxClient.c, wmbiff/sample.wmbiffrc, wmbiff/socket.c,
+	  wmbiff/wmbiff.1, wmbiff/wmbiff.c, wmbiff/wmbiffrc.5: * Another
+	  big patch that mucks with everything.  I probably deserve to be
+	  flamed for this practice.  Feel free... :-) * Added
+	  maint/prerelease.sh script.  Run it before making any releases.
+	  * Added maint/changelog.sed.	Add your SourceForge userid here.
+	  * Moved ChangeLog to RELEASE-NOTES (see below).  * Added a new
+	  file, CHANGES (created by maint/prerelease.sh) that tabulates
+	  all the CVS changes.	* Added "distclean" to wmbiff/Makefile.  *
+	  Added CVS Id$ to all the files in wmbiff/ .  * I reformatted ths
+	  changelog, again.  I hope this is the last time I need   to do
+	  this.  The CVS logs should be used for all changes, and this file
+	  should by updated for user-visible changes only, from now on.
+	  (Dwayne C. Litzenberger)  * Updated the README to reflect that
+	  Gennady Belyakov died right after releasing	wmBiff 0.2.  May
+	  your soul rest in peace, Gennady.  (Dwayne C. Litzenberger)
+
+2001-06-16 Saturday 01:02 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, wmbiff/Makefile, wmbiff/sample.wmbiffrc,
+	  wmbiff/wmbiff.c: An FHS fix for wmbiff.c and use $(CC) in the
+	  Makefile
+
+2001-05-17 Thursday 04:22 UTC -- Dwayne C. Litzenberger <dlitz@dlitz.net>
+
+	* ChangeLog, wmbiff/Makefile, wmbiff/charutil.c: Committing Mark
+	  Hurley's patch
+
+2001-05-16 Wednesday 10:48 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, README: Updated some obsolete info in README
+
+2001-05-11 Friday 15:04 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, wmbiff/Imap4Client.c, wmbiff/Makefile,
+	  wmbiff/charutil.c, wmbiff/charutil.h, wmbiff/wmbiff.c: Mark's
+	  wmbiffrc parsing fix, small Makefile changes and bump version to
+	  0.3.0.
+
+2001-05-11 Friday 14:49 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* wmbiff/Makefile: Uncommitted stuff to deal with the removal of
+	  the xmp link
+
+2001-05-04 Friday 11:01 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* ChangeLog, wmbiff/Makefile: Updated Changelog and Makefile for
+	  0.2r.
+
+2001-05-01 Tuesday 16:11 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* README.licq, ChangeLog, README, wmgeneral/list.c,
+	  wmgeneral/list.h, wmgeneral/misc.c, wmgeneral/misc.h,
+	  wmgeneral/wmgeneral.h, wmbiff/socket.c, wmgeneral/wmgeneral.c,
+	  wmbiff/Imap4Client.c, wmbiff/Makefile, wmbiff/mboxClient.c,
+	  wmbiff/sample.wmbiffrc, wmbiff/wmbiff.1, wmbiff/wmbiff.c,
+	  wmbiff/wmbiff-master-led.xpm, wmbiff/Client.h,
+	  wmbiff/LicqClient.c, wmbiff/Pop3Client.c, wmbiff/maildirClient.c,
+	  wmbiff/wmbiffrc.5: Initial import to SourceForge, version
+	  0.2q1+Debian
+
+2001-05-01 Tuesday 16:11 UTC -- Jordi Mallach <jordi@sindominio.net>
+
+	* README.licq, ChangeLog, README, wmgeneral/list.c,
+	  wmgeneral/list.h, wmgeneral/misc.c, wmgeneral/misc.h,
+	  wmgeneral/wmgeneral.h, wmbiff/socket.c, wmgeneral/wmgeneral.c,
+	  wmbiff/Imap4Client.c, wmbiff/Makefile, wmbiff/mboxClient.c,
+	  wmbiff/sample.wmbiffrc, wmbiff/wmbiff.1, wmbiff/wmbiff.c,
+	  wmbiff/wmbiff-master-led.xpm, wmbiff/Client.h,
+	  wmbiff/LicqClient.c, wmbiff/Pop3Client.c, wmbiff/maildirClient.c,
+	  wmbiff/wmbiffrc.5: Initial revision
+

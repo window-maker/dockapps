@@ -1,0 +1,95 @@
+
+INFO
+
+  name        : wmifinfo
+  author      : Ico Doornekamp
+  email       : wmifinfo@zevv.nl
+
+
+DESCRIPTION
+
+  wmifinfo is a simple applet showing basic network info for all available
+  interfaces. It shows IP address, netmask, gateway and MAC address. A bit
+  like ifconfig. 
+
+  Runs on Linux and OpenBSD (for now)
+
+  Left-button click moves to the next interface, right-button click calls
+  ifup/ifdown scripts. These can be set with the -u and -d options. The 
+  '%s' variable is replaced with the interface name.
+
+  example : 
+
+  $ wmifinfo -i ppp0 -u "/sbin/ifup %s" -d "/sbin/ifdown %s"
+
+  (ifup/ifdown or the wmifinfo binaries should be suid root for this
+  to work)
+
+  Led color    Meaning
+  -------------------------------------------------------------------
+  red          interface is down
+  yellow       ifup/ifdown script is busy
+  dark green   interface is up, no traffic
+  light green  interface is up, and sending or receiving
+
+
+
+
+
+INSTALLING
+
+  - If you have a NoWiresNeeded 1148 or Swallo NIC, set ENABLE_NWN_SUPPORT
+    to 'y' in the makefile to enable wlan signal indication for this type of
+    network adapter.
+
+  - make
+
+  - make install
+
+
+
+USAGE
+
+  usage: wmifinfo [-lh] [-i interface]
+    -d <cmd>         Command to exec for iface-down
+    -i <interface>   Start with given interface, if available
+    -l               LCD display mode
+    -h               Print this help
+    -u <cmd>         Command to exec for iface-up
+    -v               Show version info and exit
+
+
+KNOWN BUGS
+
+  - The link quality readout of the poldhu/swallow cards is slow and may be
+    unreliable, due to the way this is implemented in the firmware and
+    driver.  (Bas?)
+
+
+THANKS
+
+  - Peter Stromberg for adding OpenBSD support
+  - Ben Stern for endian-correctness and old-libc support patches
+  - Michael G. Henderson's wmWeather for some example dockapp code.
+
+
+
+COPYRIGHT
+
+  Copyright (c) 2002 Ico Doornekamp <ico@pruts.nl>
+
+  This program is free software; you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by the
+  Free Software Foundation; either version 2 of the License, or (at your
+  option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+
+    

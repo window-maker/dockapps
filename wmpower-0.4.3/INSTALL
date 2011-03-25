@@ -1,0 +1,8 @@
+Installation:
+
+./configure
+make
+su root (if you are not root already)
+make install
+
+Yes, that's all ;-)

@@ -1,0 +1,13 @@
+source = Television
+freqnorm = pal-australia
+maxpreset = 7
+mode = pal
+
+[channel]
+2
+7
+9
+10
+32
+S21
+SE11

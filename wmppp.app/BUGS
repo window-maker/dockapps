@@ -1,0 +1,75 @@
+Known 'features and easter eggs' in WMPPP,
+(or in non M$ talk, BUGS).
+
+WMPPP 1.3.0
+--------------------------------------------------------------
+	* Brand new release, WMPPP almost is completely rewritten
+	  since the last release, no 'known' bugs yet;
+	
+
+WMPPP/WMiFS 1.2p1
+--------------------------------------------------------------
+
+	* WMPPP: The -t parameter dumps core on some systems,
+		 we're looking into this.
+	* WMPPP: SEGV when running it as user (reported once)
+		 we can't reproduce it here, but we're looking
+		 into this.
+	* WMPPP: "ifdown:" gets executed when pressing V button,
+		 (reported once), we also can't reproduce this
+		 one, but we're looking into this.
+	* WMPPP: ppp0 is still hardcoded (sigh), will be fixed.
+	* WMiFS: SEGV with the dummy interface, we're looking
+		 into this (needs to be ignored like lo). 
+	* WMiFS: Manages to get X CPU usage way to high on
+		 some systems somehow (reported myself) :)
+
+	* Special thanks to Marcelo <mmagallo@efis.ucr.ac.cr>
+	  for providing some real usefull patches for WMPPP,
+	  they will be in the next update for sure!  
+
+ 
+WMPPP/WMiFS 1.2
+--------------------------------------------------------------
+	
+	* The pixmap 'shift' in AfterStep's Wharf seems
+	  not to be our fault, but a bug in Wharf!
+ 	
+	  Please notify the authors of AfterStep about
+	  this if you like to see this fixed, Wharf can't
+	  handle pixmaps that are larger than 60x60 pixels
+	  very well :(
+	
+	* Most code is yet again quite rewritten, but we
+	  think all previous annoyances are gone now ;-)
+
+Note: The configuration GUI is no longer supported,
+everything is done with user definable .rc files
+now, so we've scrapped it from the BUG list
+
+
+WMPPP/WMiFS 1.1
+--------------------------------------------------------------
+
+	* most of the below bugs are dealth with
+	  and/or made obsolete with 1.1.
+	* None 'known' bugs for 1.1 so far ;-)
+
+WMPPP 1.0
+--------------------------------------------------------------
+
+        * wmppp-start has to be in /etc/ppp
+        * wmppp-stop has to be in /etc/ppp
+        * only ppp0 will be read
+        * the leds won't be reliable with
+          more than 1 ppp connection
+        * there is an iconwin, and win variable.
+          I have no clue why only win shouldn't
+          be enough. Will check it out later.
+        * The afterstep wharf seems to shift the
+          pixmap a bit. Don't know how and why.
+          It works perfectly with WindowManager :)
+        * the configuration GUI doesn't return
+          configured values from /etc/ppp/options
+          yet, when you start the configuration
+          GUI it presents the default parameters.

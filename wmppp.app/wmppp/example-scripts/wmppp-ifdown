@@ -1,0 +1,5 @@
+#!/bin/sh
+# Try to restart pppd in case the modem has dropped.
+#
+/bin/sleep 60
+pppd

@@ -1,0 +1,64 @@
+                                  WMPOWER
+
+wmpower è un'applicazione per il dock di Window Maker che permette
+all'utente di vedere (e impostare) la gestione dell'energia di
+un computer portatile
+
+----------------------------------------------------------------------
+
+Punti di forza:
+- Funziona;
+- Visualizzazione dello stato della batteria
+  (voi scegliete quale);
+- Sono supportati sia kernel APM che APCI;
+- Sui kernel ACPI visualizza anche lo stato della ventola
+  e la temperatura della zona processore;
+- Accesso diretto all'hardware Toshiba: potete vedere e
+  settare stato della ventola e luminosità del display
+  anche senza un kernel ACPI;
+- Quanto il sistema è alimentato a batterie, wmpower può
+  spegnere la vostra ventola, disco fisso per consentire
+  una maggiore autonomia; se avete un portatile
+  Toshiba, può anche regolare la luminosità del display;
+- Modalità carica rapida della batteria: potete mantenere le
+  impostazioni del punto precedente finché la batteria non 
+  sarà nuovamente al 100%: questo la farà ricaricare molto
+  più velocemente (e senza bisogno di spegnere il computer);
+- Optione no-meddling: con questa impostazione, il programma
+  si limiterà a monitorare lo stato del portatile, senza
+  intraprendere alcuna azione.
+- Sui portatili Toshiba potete regolare la luminosità del
+  display usando la rotellina del mouse.
+- Supporto per portatili Dell per tempepratura e stato delle ventole
+- Regolazione automatica della frequenza del processore
+
+----------------------------------------------------------------------
+
+Utilizzo:
+Semplicemente lanciate 'wmpower' in una shell...
+Digitate 'wmpower -h' per vedere tutti i parametri disponibili.
+Ovviamente necessita di un server X-Windows attivo per funzionare.
+
+----------------------------------------------------------------------
+  
+Problemi conosciuti:
+Nessuno... questo non significa che non ce ne siano; se incontrate
+un problema, o se vorreste qualche nuuova funzionalità, mandatemi
+una mail e cercherò di aiutarvi.
+
+----------------------------------------------------------------------
+
+Da fare:
+- Dividere il programma in due parti: un demone per gestire il
+  risparmio energetico e l'interfaccia per mostrare informazioni.
+- Aggiungere il supporto per file di configurazione... non vogliamo
+  mica digitare tutte quelle opzioni ogni volta, no?  
+
+----------------------------------------------------------------------
+
+Ringraziamenti:
+- Filippo Panessa per il suo 'wmab'... è da qui che ho cominciato.
+- Costantino Pistagna per il suo 'wmacpimon'... da qui ho preso
+  inizialmente il supporto ACPI.
+- Jonathan A. Buzzard pre le sue Toshiba(tm) Linux Utilities... 
+  indovinate un po' che cosa ne ho ricavato ;-)

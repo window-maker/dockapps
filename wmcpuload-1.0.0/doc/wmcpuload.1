@@ -1,0 +1,91 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WMCPULOAD 1 "June 30, 2001"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wmcpuload \- A dockapp to display CPU usage
+.SH SYNOPSIS
+.B wmcpuload [options]
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmcpuload
+command.
+This manual page was written for the Debian GNU/Linux distribution.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+\fBWMCPULoad\fP is a dockapp that is supported by X window managers such as
+Window Maker, AfterStep, BlackBox, and Enlightenment. It displays the current
+CPU usage, expressed as a percentile and a chart, and has an LCD look-alike
+user interface. The back-light may be turned on/off by clicking the mouse
+button over the application. If the CPU usage hits a certain threshold, an
+alarm-mode will alert you by turning on back-light.
+
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long options
+starting with two dashes (`\-'). A summary of options is included below.
+.TP
+.B \-d,  \-\-display <string>
+Attempt to open a window on the named X display. In the absence of  this option,
+the  display  specified  by the
+.B DISPLAY
+environment variable is used.
+.TP
+.B \-t,  \-\-title <string>
+specify title name
+.TP
+.B \-bl, \-\-backlight
+turn on back-light.
+.TP
+.B \-lc, \-\-light-color <color>
+back-light color (rgb:6E/C6/3B is default)
+.TP
+.B \-i,  \-\-interval <number>
+number of secs between updates (1 is default)
+.TP
+.B \-c,  \-\-cpu <number>
+CPU number to monitor (Counting starts with 0).
+.TP
+.B \-n,  \-\-ignore\-nice (GNU/Linux / FreeBSD / OpenBSD / NetBSD)
+ignore a nice value
+.TP
+.B \-h,  \-\-help
+show help text and exit
+.TP
+.B \-v,  \-\-version
+show program version and exit
+.TP
+.B \-w,  \-\-windowed
+run the application in windowed mode
+.TP
+.B \-wp, \-\-windowed-withpanel
+run the application in windowed mode with background panel
+.TP
+.B \-bw, \-\-broken\-wm
+activate broken window manager fix
+.TP
+.B \-a,  \-\-alarm <percentage>
+activate alarm mode. <percentage> is threshold of percentage from 0 to 100.(90 is default)
+.TP
+.B \-p,  \-\-ignore\-proc <name><...>
+ignore all processes specified by command name
+
+.SH AUTHOR
+WMCPULoad was written by Seiichi SATO <ssato@sh.rim.or.jp>.
+
+This manual page was written by Gordon Fraser <gordon@freakzone.net>,
+for the Debian GNU/Linux system (but may be used by others).

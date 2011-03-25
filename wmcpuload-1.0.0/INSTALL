@@ -1,0 +1,59 @@
+
+Supported Platforms:
+====================
+(ie: I've heard someone has compiled it on...)
+
+- GNU/Linux Redhat 7.0, 7.1, 7.2, 7.3 (x86)
+- GNU/Linux Mandrake 7.2, 8.0, 8.1, 8.2 (x86, ppc)
+- Debian GNU/Linux 2.2 potato (x86)
+- Debian GNU/Linux woody/sid
+  (x86, alpha, arm, hppa, ia64, m68k, mips, ppc, s390, sparc)
+- GNU/Linux SuSE 7.0, 7.1 (x86)
+- GNU/Linux Gentoo 1.0, 1.0a (x86, powerpc)
+- FreeBSD 3.5-STABLE (x86)
+- FreeBSD 4-STABLE (x86, alpha)
+- FreeBSD 5-CURRENT (x86, alpha)
+- OpenBSD 2.9 (x86)
+- NetBSD-current (x86, amigappc, bebox, macppc, powerpc, prep, vax)
+- BSDi 4.1
+- Solaris 7, 8
+- Cygwin 1.3.3 / Windows 98, Me
+- Cygwin 1.3.10 / Windows 98, Me, 2000
+
+Patches to make it work on other platforms are welcome.
+
+
+Requirements:
+=============
+
+- Basic obvious stuff
+	If you will build WMCPULoad, make sure you have gcc (or some Other ANSI
+	C compiler).the X header files installed.
+
+- X11R6.x
+	WMCPULoad can NOT be compiled in older versions of X, like X11R5 or
+	X11R4. Upgrading the client libraries (Xlib, Xext) will help if you
+	can't upgrade the server.
+
+- libXPM 4.7 or newer
+	Older versions may not work.
+	Available at ftp://sunsite.unc.edu/pub/Linux/libs/X/
+
+- kernel header (multiprocessors support on GNU/Linux system)
+	If you will compiled WMCPULoad on GNU/Linux, make sure you have
+	kernel header 'linux/threads.h'.
+
+
+Installation:
+=============
+
+1: tar -zxvf wmcpuload-<version>.tar.gz
+2: cd wmcpuload-<version>
+3: ./configure
+4: make
+5: su root
+6: make install (or 'make install-strip')
+7: wmcpuload &
+
+NOTE: Non-GNU make may not work.
+      e.g., it doesn't work on OpenBSD when you run 'make clean'

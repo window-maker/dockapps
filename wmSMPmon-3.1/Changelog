@@ -1,0 +1,26 @@
+3.1
+
+- Fixed bug where wmSMPmon would crash if no swap is enabled/present
+  on the system (thanks to John Schmerge for finding this!)
+- Added INSTALL file (thanks to Paul Johnson for reminding me)
+
+
+3.0
+
+- Improved processing of command line options - unknown options and
+  missing parameters are now dealt with
+- wmSMPmon now properly supports single CPU machines! On a single CPU 
+  machine, the CPU load bar is drawn wider and only one graph style is
+  supported.
+- man page improved and edited Makefile so man page will get installed as well
+
+
+2.9.2
+
+- Separated OS dependent code from rest of program to improve portability
+
+
+2.9.1
+
+- Adapted wmSMPmon to kernel 2.6, using code from top and
+  procps. kernels 2.2, 2.4 and 2.6 are now supported. 

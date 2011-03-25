@@ -1,0 +1,98 @@
+This is not a prioritized list.  Patches that accomplish
+these todo items are welcome.
+
+* Config file rewrite
+  The current configuration file has the following problems
+** # comments make #'s unsuitable for passwords.
+** : and @ delimiters make such characters unsuitable for
+   passwords.
+** the hierarchical configuration is not exported cleanly, 
+   setting a default and then propagating or overriding it
+   requires an odd syntax.
+** elements with spaces are problematic
+** annotations / customizations (such as the authentication
+   methods) are cumbersome.
+** continuation lines would allow richer shell actions without
+   external shell scripts.
+* GNUTLS 0.5.9 
+** adds gnutls_set_default_priority, which could clean up 
+   a lot of the code to set priorities for ciphers that
+   don't really matter to wmbiff.
+* Font support
+** Erase counts > 1000 successfully (redraw the whole line)
+** Discover height of the font, scale appropriately.
+** Draw relative to symbolic width, height.
+* Finish checking .wmbiffrc permissions.
+  With shell command execution support, it is even more
+  important to protect against other/group writability.
+  With passwords in the .wmbiffrc, .wmbiffrc shouldn't be
+  readable.  It might be best to complain all the time, but
+  only abort when a password is used from a readable file,
+  or a shell command is executed from a writable file.
+* Better timeout handling
+  Sometimes my IMAP server is slow... well, it's my fault
+  that I keep a few thousand messages on it.  The current
+  timeout code will cause it to fail prematurely.
+* Generic constructors for mboxes.  
+  There's some common code across different Clients;
+  this is one piece that could use refactoring.
+* Add more shell "recipes" besides gicu.
+  Just added 'finger'.  I'm hoping to add something to
+  integrate 'remind' just as soon as I can figure it out.
+* Support on/off status LED's, for, for example,
+  grep eth0 /proc/net/dev | wc -l
+  The colored LED's are already in WMBiff's pixmap.
+* Support buttons 4 and 5
+  The mousewheel could be useful for some behaviors, like
+  controlling volume, or selecting different mailboxes.
+* Use a helper program to blink keyboard led's.
+  Requires killing the 'notify' program when new mail no
+  longer exists.  Keyboard blinking is done via a helper
+  program because it requires root.  ledcontrol seems ok,
+  but extra complicated, and has a useless default install
+  that requires root.  xbuffy's led program seems quite
+  good, but depending on another biff program seems odd.
+* Add a failure-expect case in tlsComm. 
+  For example, an IMAP status query has a good response (*
+  STATUS) and a bad response (a003 NO STATUS).  As soon as
+  one of them is received, we're done.
+* Reload .wmbiffrc when it changes
+  This is straightforward, except for IMAP mailboxes that
+  keep a connection to the server open.  A close function
+  will have to be implemented to shut those down gracefully.
+  Do not involve sighup or any other signals.  Use or
+  improve fileHasChanged().
+* Runtime back-tick expansion for non-mbox
+  Because interesting mailboxes can be defined by date,
+  though its not clear any other clients can take advantage.
+* Support GSSAPI or SASL authentication
+  Authentication using krb5 would be sweet.
+
+* Unlikely to get done, unless someone volunteers:
+* KDE/Gnome users: Test with KDE or gnome-panel
+  Does Debian bug #108529 apply to wmbiff?  Can wmbiff
+  be swallowed by gnome-panel?  It seems possible.  It 
+  appears to be swallowed by FVWM correctly.
+* Autoconf / Automake Wizards: fix FromCVS.sh
+  How best to deal with libgnutls's macros?  All 
+  I can do is hack.
+* Paranoid Pop People: Support POP over TLS.
+  tlsComm.c should make it easy to provide TLS support
+  for POP.  Unfortunately, this would only be useful for
+  someone who has such a server that doesn't support IMAPS.
+* MH support
+  Try "path.n=shell:::ls -1 directoryname | wc -l".
+  If it works, tell us.  Optionally the patch at sourceforge
+  could be integrated.
+* Recursive maildir support
+  Aggregation in general is an oft-desired feature.
+* G-Mail support 
+  Though the business model of free mail forces screen scrubbing,
+  having someone else write and maintain the interface seems 
+  like it would significantly improve the utility of gmail.
+
+$Id: TODO,v 1.21 2004/10/31 22:08:42 bluehal Exp $
+
+Local Variables:
+mode: outline
+End:

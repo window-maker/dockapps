@@ -1,0 +1,69 @@
+# wmmixer - A mixer designed for WindowMaker
+# 8 Jun 2002  Release 1.4
+# Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
+# This software comes with ABSOLUTELY NO WARRANTY
+# This software is free software, and you are welcome to redistribute it
+# under certain conditions
+# See the README file for a more complete notice.
+
+# User config file
+# Should be saved as ~/.wmmixer
+# Comments and blank lines mostly allowed
+
+# The format of this file is a series of commands:
+
+# addchannel %i
+#    Adds a channel to the sequence. %i specifies a channel.
+#    These are the values from my <linux/soundcard.h>:
+#       SOUND_MIXER_VOLUME    0
+#       SOUND_MIXER_BASS      1
+#       SOUND_MIXER_TREBLE    2
+#       SOUND_MIXER_SYNTH     3
+#       SOUND_MIXER_PCM       4
+#       SOUND_MIXER_SPEAKER   5
+#       SOUND_MIXER_LINE      6
+#       SOUND_MIXER_MIC       7
+#       SOUND_MIXER_CD        8
+#    There are a few more, but these are the important ones (and are
+#    those identified with appropriate icons).
+#    Ths channel added becomes the current channel for subsequent
+#    setmono, setleft, setright and setrecsrc commands.
+
+# setchannel %i
+#    Similar to addchannel, except the channel is not actually added
+#    to the sequence, merely made the current channel for subsequent
+#    setmono, setleft, setright and setrecsrc commands.
+
+# setmono %i
+#    Sets both left and right volumes for the current channel.
+#    The channel may be mono or stereo.
+#    The value specified must be an integer in the range 0 to 100.
+
+# setleft %i
+#    Sets left volume for the current channel.
+#    Do not use on a mono channel.
+#    The value specified must be an integer in the range 0 to 100.
+
+# setright %i
+#    Sets right volume for the current channel.
+#    Do not use on a mono channel.
+#    The value specified must be an integer in the range 0 to 100.
+
+# setrecsrc TRUE | FALSE
+#    Enable or disable recording from the current channel.
+#    Ignored if the channel does not support it.
+#    The value is TRUE or FALSE.
+
+# At least one channel must be added!
+
+addchannel 0
+
+addchannel 3
+
+addchannel 4
+
+addchannel 6
+
+addchannel 7
+
+addchannel 8

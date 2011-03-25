@@ -1,0 +1,20 @@
+Un grand merci à Ben Jarvis[ankou] <bjarvis@d.umn.edu> (wmlm) à qui j'ai
+"emprunté" une grande partie du code et à
+Martijn Pieterse <pieterse@xs4all.nl>, qui à permis de développer si
+facilement tant de DockApps.
+
+Aussi merci à:
+	- Phir <phir@gcu-squad.org>
+	- Izar Tarandach
+	- Alain Schroeder
+
+
+Also, thanks to the authors/contributors of top/procps:
+
+        - James C. Warner <warnerjc@worldnet.att.net>
+        - Michael K. Johnson <johnsonm@redhat.com>
+        - Albert D. Cahalan, <albert@users.sf.net>
+        - Fabian Frederick
+
+Without their code, sysinfo-linux.c would have been a lot more difficult.
+                             Thomas Ribbrock <emgaron@gmx.net>, November 2004

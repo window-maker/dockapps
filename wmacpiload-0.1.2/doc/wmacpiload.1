@@ -1,0 +1,95 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WMACPILOAD 1 "March 26, 2003"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wmacpiload \- A dockapp to monitor acpi battery status and cpu temp
+.SH SYNOPSIS
+.B wmapmload [options]
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmapmload
+command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+\fBWMacpiLoad\fP is a program to monitor battery and cpu temp. It is a dockapp 
+that is supported by X window managers such as Window Maker, AfterStep, BlackBox, and
+Enlightenment.
+
+The CPU temperature is displayed in the top half.  The battery load percentage
+is in the bottom half in two manner : number and graphic. Next to percentage
+number are the on-line/on-battery and on-charge status. It has an LCD
+look-alike user interface.
+The back-light may be turned on/off by clicking the mouse button 1 (left)
+over the application. If battery status is below a critical level, an
+alarm-mode will alert you by turning on and off back-light. This can be
+stopped (and restarted) by clicking the mouse button 3 (right) over the
+application. An application can be launched when alarm is on to notify
+user that level is too low.
+By clicking with mouse button 2 (middle), the computer can be put in
+STANDBY (default) or SUSPEND mode (with CONTROL key).
+
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long options
+starting with two dashes (`\-'). A summary of options is included below.
+.TP
+.B \-d,  \-\-display <string>
+Attempt to open a window on the named X display. In the absence of  this option,
+the  display  specified  by the
+.B DISPLAY
+environment variable is used.
+.TP
+.B \-bl, \-\-backlight
+turn on back-light
+.TP
+.B \-lc, \-\-light\-color <color>
+back-light color (rgb:6E/C6/3B is default)
+.TP
+.B \-i,  \-\-interval <number>
+number of secs between updates (1 is default)
+.TP
+.B \-a,  \-\-alarm <number>
+low battery level when to raise alarm (20 is default)
+.TP
+.B \-h,  \-\-help
+show help text and exit
+.TP
+.B \-v,  \-\-version
+show program version and exit
+.TP
+.B \-w,  \-\-windowed
+run the application in windowed mode
+.TP
+.B \-bw, \-\-broken\-wm
+activate broken window manager fix
+.TP
+.B \-n,  \-\-notify <string>
+command to launch each time there is alarm
+.TP
+.B \-s,  \-\-suspend <string>
+set command for acpi suspend
+.TP
+.B \-S,  \-\-standby <string>
+set command for acpi standby
+
+
+.SH AUTHOR
+WMACPILoad was assembled by Anthony Peacock <bratag44@hotmail.com> It is massively based on code by
+Thomas Nemeth <tnemeth@free.fr>.  It is largely based on WMMemMon and WMCPULoad by Seiichi 
+SATO <ssato@sh.rim.or.jp>, WMMemLoad by Mark Staggs <me@markstaggs.net> and wmapm by Chris D. 
+Faulhaber <jedgar@speck.ml.org> Michael G. Henderson <mghenderson@lanl.gov>.

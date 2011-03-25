@@ -1,0 +1,29 @@
+DEPLIBS = $(DEPXLIB) 
+CC = gcc -Wall
+
+#ifdef LinuxArchitecture
+STD_DEFINES = -Dlinux
+DEFINES = -Dlinux_libc5
+#if LinuxCLibMajorVersion > 5
+DEFINES = -Dlinux_libc6
+#endif
+LOCAL_LIBRARIES = $(XLIB) -lm 
+#endif
+
+#if defined (FreeBSDArchitecture) || defined (OpenBSDArchitecture)
+LOCAL_LIBRARIES = $(XLIB) -lm -lkvm
+INSTPGMFLAGS = -s -g kmem -m 2755 
+#endif
+
+LINTLIBS = $(LINTXLIB)
+
+#if defined (FreeBSDArchitecture) || defined (OpenBSDArchitecture)
+SRCS = wmnet.c drivers.c getopt.c getopt1.c
+OBJS = wmnet.o drivers.o getopt.o getopt1.o
+#else
+SRCS = wmnet.c drivers.c
+OBJS = wmnet.o drivers.o
+#endif
+
+
+ComplexProgramTarget(wmnet)

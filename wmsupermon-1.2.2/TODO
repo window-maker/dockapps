@@ -1,0 +1,16 @@
+
+* fix WindowMaker mode (I guess I broke it, but cannot test, as
+  I don't use WindowMaker)
+
+* Source = http://
+   - how to configure http request header ?
+   - POST ?
+   - or arbirtary expect-like script for network communications ?
+   
+* real value of an indicator in tooltips
+
+* "text" indicator (to show a string, not a number)
+
+* optimization - when few sources have identical Source= line, read the
+  file (run the script) only once and feed it to all regexes.
+

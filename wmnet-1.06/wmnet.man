@@ -1,0 +1,166 @@
+.\"             -*-Nroff-*-
+.\"
+.TH wmnet 1x "4 May 2000"
+.SH NAME
+wmnet \- an IP accounting monitoring tool
+.SH SYNOPSIS
+.B wmnet
+.RB [\| -h,--help \|]
+.RB [\| -v,--version \|]
+.RB [\| -T,--txrule=\fINUM \|]
+.RB [\| -R,--rxrule=\fINUM \|]
+.RB [\| -l,--logscale \|]
+.RB [\| -t,--txcolor=\fICOLOR \|]
+.RB [\| -r,--rxcolor=\fICOLOR \|]
+.RB [\| -d\ \fIDELAY \|]
+.RB [\| -x,--maxrate=\fIBYTES \|]
+.RB [\| -F,--labelfg=\fICOLOR \|]
+.RB [\| -B,--labelbg=\fICOLOR \|]
+.RB [\| -L,--label=\fILABEL \|]
+.RB [\| -e,--execute=\fICOMMAND \|]
+.RB [\| -p,--promisc=\fIDEVICE \|]
+.RB [\| -u,--unpromisc=\fIDEVICE \|]
+.RB [\| -w,--withdrawn\ |\ -n,--normalstate \|]
+.RB [\| -D,--driver=\fIDRIVER \|]
+.RB [\| -W,--device=\fIDEVICE \|]
+.SH DESCRIPTION
+\fBwmnet\fP polls network statistics and does a few things with
+the data it gets.  It has small blinking lights for the rx and tx of IP
+packets, a digital speedometer of your networks current
+speed and a bar graph like xload plotting your throughput. It
+has a tx speed graph from bottom-up and rx speed graph from the top-down.
+The speedometer keeps track of the current speed per second and shows
+it in a color corresponding to which of rx or tx that has the highest
+speed at the moment.  Also, the graph is drawn in a way that the highest
+speed is drawn on top of the other while the other is in the background.
+.SS OPTIONS
+.TP
+.B \-h,--help
+displays a brief help message
+.TP
+.B -v,--version
+displays version information
+.TP
+.B \-T,--txrule=\fINUM or NAME
+in the case of the ipfwadm driver, this is the accounting rule number
+to monitor for tx.  For the ipchains driver, this is the chain name to
+watch.
+.TP
+.B \-R,--rxrule=\fINUM or NAME
+in the case of the ipfwadm driver, this is the accounting rule number
+to monitor for rx.  For the ipchains, this is the chain name to watch.
+.TP
+.B \-t,--txcolor=\fICOLOR
+specifies the tx color
+.TP
+.B \-r,--rxcolor=\fICOLOR
+specifies the rx color
+.TP
+.B \-x,--maxrate=\fIBYTES
+maximum transfer rate for graph scale. Defaults to 6000, which should
+be in the right area for modem connections.  The key is to experiment
+with this setting and the --logscale option to get the kind of graph
+that fits your connection type.  A general rule of thumb is to set this
+to 4 to 5 times greater than your maximum throughput.  The author finds
+using --logscale and --maxrate=10000000 to work nicely for the entire range
+of his dorms ethernet based connection to the internet.
+
+.TP
+.B \-l,--logscale
+sets logarithmic scale, which is good for fast connections.  This will 
+allow, for example, the graph still being informative at extremely low
+speeds (telnet), and extremely fast speeds (local FTP) simultaneously
+without the scale constantly being blank or solid at those respective
+extremes.
+.TP
+.B -L,--label=\fILABEL
+prints a given text label on the bottom of the window  
+.TP
+.B -F,--labelfg=\fICOLOR
+specifies the color for the text of the label
+.TP
+.B -B,--labelbg=\fICOLOR
+specifies the color for the background of the label text
+.TP
+.B --withdrawn 
+.TP
+.B --normalstate
+sets the initial state of wmnet.  WMnet tries to automatically determine which
+state to start up in by starting up in withdrawn state if a WindowMaker
+defined atom is present, and in normalstate otherwise.  This behavior is
+overriden by specifying one of these options.
+.TP
+.B -e,--execute=\fICOMMAND
+executes \fICOMMAND \fPon a single click from button 1 (left mouse button).
+.TP
+.B -u,--unpromisc=\fIDEVICE
+.TP
+.B -p,--promisc=\fIDEVICE
+put \fIDEVICE \fPin promiscuous mode to start applying accounting rules to all
+network packets on your network segment.  You either need to be root or
+have the wmnet binary suid root to use this feature.  This option may be
+given more than once on the command line to specify more than one device.  
+.TP
+.B \-d \fIDELAY
+delay time for polling /proc/net/ip_account (in
+microseconds). Defaults to 25000, that is 0.025 seconds, or 40 Hz
+.TP
+.B -D,--driver=\fIDRIVER
+use \fIDRIVER \fP to get the stats we monitor.  Compiled in drivers can be listed
+with the -h switch.  
+.TP
+.B -W,--device=\fIDEVICE
+watch statistics for \fIDEVICE \fP.  This option is only used for certain
+stat drivers, namely: kmem, devstats, and pppstats.  The ipchains and ipfwadm
+stat drivers do not use this parameter. 
+.SH STAT DRIVERS
+wmnet uses different stat drivers to get the stats it needs to monitor your
+network.  Exactly what drivers are available is determined at compile time.  The
+driver wmnet ultimately uses at runtime is dependent on your system.  There
+are 4 drivers specific to Linux and 1 to *BSD.  The driver used can be overridden
+by the --driver option.  The available drivers are \fIpppstats, devstats, ipfwadm,
+ipchains\fP and \fIkmem\fP.
+.TP
+.B pppstats
+this driver works on Linux 2.0 or Linux 2.1 for ONLY ppp type devices.  
+Specify the \fI--device\fP option for the interface to monitor.  By default it
+uses interface ppp0.  Please note, that if the ppp device is not available or active, wmnet
+will continue to try in the hopes that it is only temporarily offline.
+.TP
+.B devstats
+use this driver on Linux 2.1 kernels for any interface.  Pass the \fI--device\fP option
+for the device you want monitored, otherwise, the default is eth0.  This will be available
+for ONLY Linux 2.1 kernels and will always be there on those kernels.
+.TP
+.B ipfwadm
+use this driver on Linux 2.0 kernels compiled with IP accounting.  It won't work on Linux 2.1.
+You'll also need to specify the \fI--txrule\fP and \fI--rxrule\fP options.  By default, wmnet uses
+the first two rules it finds.
+.TP
+.B ipchains
+this driver will only work in Linux 2.1 kernels with IP chains compiled in.  You'll want to also
+specify the \fI--txrule\fP and \fI--rxrule\fP options and specify the chain names.  By default it
+uses the chains "acctin" and "acctout" 
+There must be at least one rule on the named ipchain, if there is more
+than one rule in the specified chain, it uses the first.  The chain
+must not immediately return to the parent chain, it has to pass through a rule first.
+Otherwise, the kernel will not collect the stats we need.
+.TP
+.B kmem
+this driver is available on FreeBSD and OpenBSD systems and must be passed
+a device through the \fI--device\fP option.  By default, it uses ec0 but
+will accept any valid device name.
+.SH FILES
+.TP
+.I /proc/net/ip_acct /proc/net/dev /proc/net/ipchains
+kernel net accounting information
+.SH AUTHORS
+\fBwmnet\fP was created by \fIJesse B. Off <joff@iastate.edu>\fP and is
+maintained by \fIKatharine Osborne <kaos@digitalkaos.net>\fP.
+
+This manpange was originally written by \fIMarcelo Magallon
+<mmagallo@debian.org>\fP for the \fIDebian Project\fP, and is GNU
+Copyright 1998 Marcelo Magallon and later modifed by \fIJesse Off\fP
+and \fIKatharine Osborne\fP for WMnet versions 1.05 and above.
+.SH "SEE ALSO"
+.BR wmaker (1x)

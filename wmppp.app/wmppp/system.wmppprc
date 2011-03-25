@@ -1,0 +1,4 @@
+forcespeed: /etc/ppp/getmodemspeed
+forcestart: /etc/ppp/your-global-ppp-start-script-here
+forcestop: /etc/ppp/your-global-ppp-stop-script-here
+forceifdown: /etc/ppp/your-global-ppp-restart-script-here

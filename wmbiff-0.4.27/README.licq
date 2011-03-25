@@ -1,0 +1,23 @@
+wmBiff with ICQ arrival notification
+------------------------------------
+
+This is a version of Gennady Belyakov's wmBiff Window Maker doc app hacked
+to show licq message arrivals.
+
+Motivation:
+Ever found the screen space taken up by licq clients to be too much, but
+don't like to have them beeping when messages are arrived, so you can't put
+them in the background? So did I.
+
+Solution:
+wmBiff with ICQ arrival notification.
+Works alongside licq <http://www.licq.com>, and displays the number of messages
+sitting in a licq history file. When a message arrives, this file is updated,
+so wmBiff flashes and (optionally, if you like that sort of thing) makes noises.
+And, it checks regular mailboxes and pop3 servers for mail!
+
+What more could you wish?
+
+Simply add entries in the .wmbiffrc file with licq: prefixing the path.
+
+Enjoy!

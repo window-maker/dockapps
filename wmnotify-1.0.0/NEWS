@@ -1,0 +1,32 @@
+
+2011-03-16: wmnotify-1.0.0 has been released.
+        Fixes bug when receiving more than 1024 bytes from IMAP server.
+        Added SSLv3 and TLSv1 methods in addition to SSLv2.
+        Added optional IMAP folder.
+        See the file 'ChangeLog' for further details.
+
+2006-02-19: wmnotify-0.3.2 has been released.
+        Fixes a problem when compiling wmnotify with
+        openssl-0.9.8.
+        See the file 'ChangeLog' for further details.
+
+2005-06-22: wmnotify-0.3.1 has been released.
+        This is a bug fix regarding IMAP4 server responses
+	spanning multiple packets.
+        See the file 'ChangeLog' for further details.
+
+2004-02-26: wmnotify-0.3.0 has been released.
+        Added support for IMAP4 servers, and SSL encryption.
+        See the file 'ChangeLog' for further details.
+
+2003-04-04: wmnotify-0.2.2 has been released.
+        This is a bug fix regarding 'libsndfile'
+        See the file 'ChangeLog' for further details.
+
+2003-03-26: wmnotify-0.2.1 has been released.
+        See the file 'ChangeLog' to see what has changed since last version.
+
+2003-03-10: wmnotify-0.2 has been released.
+        See the file 'ChangeLog' to see what has changed since last version.
+
+2003-02-01: wmnotify-0.1 has been released.

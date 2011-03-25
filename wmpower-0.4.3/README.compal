@@ -1,0 +1,125 @@
+Compal laptop support for wmpower
+---------------------------------
+
+Francisco Rodrigo Escobedo Robles <frer@pepix.net>
+20031002
+
+
+-----
+
+0 - Objectives, requirements, legal and contact.
+1 - What is a Compal laptop?
+2 - How can I know if I have one?
+3 - What specifics has beed added to wmpower?
+4 - Known bugs.
+
+-----
+
+
+0 - Objectives, requirements, legal and contact.
+------------------------------------------------
+
+This patch to wmpower enhances its operation by supplying temperature, fan
+and remaining battery time information, as well as charging time information
+and LCD brightness control for Compal laptops. Nowadays they come in all
+kind of brands.
+
+It uses and requires the omnibook kernel module, available at
+http://sourceforge.net/projects/omke/
+
+All the code in this patch is under the GNU General Public License, version 2.
+
+For any suggestions, appraisals and critics, contact me at frer@pepix.net.
+
+
+1 - What is a Compal laptop?
+----------------------------
+
+Is a laptop made or designed by the Compal ODM (Original Design
+Manufacturer). Compal (http://www.compal.com/) is a company in Taiwan that
+makes laptops (as well as PDAs, mobile phones and TFT monitors), and offers
+them to another makers for rebranding. This is a more usual process than one
+can possibly imagine. So there it goes for "brand fidelity"...
+
+In fact, a real proof of the whole Universe being a practical joke, Acer used
+to be ODM for other well-known brands. Nowadays, the demand for Acer is so
+high, that they themselves have turned to ODMs like Compal and Quanta. My
+Acer Aspire 1403XC is made by Compal (that they sell it as model CR10, and the
+board is labelled as BR20). It's the same as the FlexNote CR10, the Beep
+Chrome and very similar to some models of the Toshiba Satellite 1900 and 2430
+series, and of course, the HP Omnibook XE3 GF.
+
+Compal models are rebranded by Acer, Toshiba, HP, Dell and some others. And
+here is where the excellent omnibook kernel module comes into scene. The
+people at http://sourceforge.net/projects/omke/ have come with a wonderful
+module that interfaces with several special features of the HP Omnibook XE3
+GF and related models. As a matter of fact, and due to their Compal origin,
+several contributed code has made it possible for similar architectures to be
+properly interfaced and available in /proc/omnibook
+
+(side note: since the 1970s, rebranding ODM producs has been a common process,
+and I took first contact with it while comparing the schematic diagrams for
+CB transceivers in the early 1980s: I could classify any given model in one
+of 4 or 5 makers, namely Cybernet (now merged into Kyocera and working on
+WiFi networks), Uniden (still on the radio market), Maxon (still on radio
+and now on mobile phone markets) and 1 or 2 unidentified makers. I was fond of
+Cybernet SSB designs, despite of them being generally messier than the Uniden
+ones. Nowadays, Uniden still produces for the President brand and others a
+chassis that is some 25 years old in its foundations, with little incremental
+changes over time. If you didn't want to know this, you'd better had not taken
+the red pill :)
+
+
+2 - How can I know if I have one?
+---------------------------------
+
+You can look for it in http://tuxmobil.org/laptop_oem.html and
+https://gullfoss2.fcc.gov/prod/oet/cf/eas/reports/GenericSearch.cfm (FCC ID
+search, for models sold in the U.S.A.; most of them carry it the FCC ID even
+if sold elsewhere).
+
+Other than that, you can try to install the omnibook module: if it fails,
+then your laptop is not supported by it, be it a Compal ODM model or not. If
+you suspect it's a Compal made one, contact the people at
+http://sourceforge.net/projects/omke/ or better yet, contribute some code :)
+
+
+3 - What specifics has beed added to wmpower?
+---------------------------------------------
+
+wmpower relies on ACPI or APM to get the power management information.
+Additionally, Toshiba and Dell are supported for their specifics. Now
+Compal/Acer/HP/whatever are :)
+
+The patch makes available the following information from the /proc/omnibook:
+
+ - fan activity
+ - CPU temperature
+ - remaining battery time (computed from the current charge over the time)
+ - remaining charge time (the same as before)
+ - the maker and model of the laptop (on stderr)
+
+Additionally, it offers the following controls:
+
+ - LCD brightness (through the mouse wheel)
+
+The fan activity and CPU temperature are shown from the information directly
+available from /proc/omnibook/fan and /proc/omnibook/temperature,
+respectively. The battery status information is read from
+/proc/omnibook/battery, as it's more reliable than /proc/acpi/battery/...
+for this kind of machines (compare 4000 mAh from ACPI and 5900 mAh from the
+omnibook module as the full battery capacity).
+
+From the remaining capacity and the time between polls, the current draw
+rate is calculated, and hence the remaining time. Similarly, the remaining
+time to get a full charge is calculated from the same data set. I couldn't
+resist to get a bit more of functionality :)
+
+Enjoy!
+
+
+4 - Known bugs.
+---------------
+
+ - currently, it draws a little more CPU time than would be ideal
+ - assumes ACPI support is present to calculate the remaining time

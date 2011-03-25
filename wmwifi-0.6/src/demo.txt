@@ -1,0 +1,6 @@
+Inter-| sta-|   Quality        |   Discarded packets               | Missed
+ face | tus | link level noise |  nwid  crypt   frag  retry   misc | beacon
+ wlan0: 0000  100.  120.  100.       0      0      0      0      0        0
+ wlan1: 0000   20   216.  160.       0      0      0      0      0        0
+ wlan2: 0000   60.  216.  160.       0      0      0      0      0        0
+ eth3: 0000   80.  216.  160.       0      0      0      0      0        0

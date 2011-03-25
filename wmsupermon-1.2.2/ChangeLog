@@ -1,0 +1,18 @@
+Sat Jun 23 10:59:03 CEST 2007
+* Fix for Slit (fluxbox)
+* Fixed gcc-4 compiler warnings
+
+Wed Apr 11 15:29:11 CEST 2007
+* Fixed WindowMaker mode (thanks to Sebastian Zagrodzki)
+
+Mon Oct  2 10:26:37 CEST 2006
+* Makefile trick to ensure release version is correct
+* '>', '<', '?:' are now supported in expressions
+
+Wed Sep 27 11:54:08 EEST 2006
+* fixed pane rotation (was confused by laptop sleeps)
+* added '-' to the font (print negative numbers)
+* corrected typos in the manual
+* fixed Makefile to build with -O2, not -g -O0
+* Makefile trick to ensure release date is correct
+

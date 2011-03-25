@@ -1,0 +1,30 @@
+Adding special keys to WindowMaker using built-in functionality.
+================================================================
+
+ 1. Start xev and press the desired key.  It will display something like:
+	KeyPress event...
+	root ...
+	state ..., keycode CODE (keysym ..., SYMBOL)...
+	...
+
+ 2. Note down SYMBOL.
+    If SYMBOL is NoSymbol, look into /usr/X11/lib/X11/XKeysymDB and pick
+    the symbol that best describes your key's functionality (eg: XF86WWW).
+    Append the new key to XModmap:
+	echo keycode CODE = SYMBOL >> ~/.Xmodmap
+
+ 3. Restart WindowMaker.
+
+ 4. Create a new menu entry somewhere in ~/GNUstep/Defaults/WMRootMenu
+	("name", SHORTCUT, "SYMBOL", EXEC, "command"),
+
+Adding special keys to WindowMaker using xhookey.
+=================================================
+
+  xhookey -key="[MOD+[MOD+]...]CODE COMMAND"
+
+  MOD is optional, and can be any of Shift, Control or Alt.
+  CODE is the desired key's code, as reported by xev.
+  COMMAND is the command to be executed (it inherits the DISPLAY of xhookey).
+
+  Much of the xhookey code was taken from xbindkeys.

@@ -1,0 +1,10 @@
+to install:
+
+* vi Makefile
+* change what you want, according to instructions, save Makefile
+* make
+* copy wmacpi somewhere useful
+* dance
+* <somewhere useful>/wmacpi &
+* phear
+(if it doesn't work, skip the phear step)

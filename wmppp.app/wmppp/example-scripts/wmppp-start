@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/sbin/pppd connect '/usr/sbin/chat -v -f /etc/ppp/wmppp-chat'

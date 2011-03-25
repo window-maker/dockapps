@@ -1,0 +1,40 @@
+
+0.01	Initial release version (23/05/2002)
+
+0.02	Some feature enhancements (25/05/2002)
+
+	- Signal level meter added for wireless interfaces
+	- LED now also shows traffic on interface
+	- Layout changed a bit
+	- Added LCD display mode, use -l option
+	- Added command line option for choosing initial interface, -i option
+	- Fixed makefile $(BINDIR) location, removed -g
+
+0.03	Bugfix and feature enhancement (28/05/2002)
+
+	- ifup/ifdown script are run in the background
+	- Added support for reading wireless link quality of
+	  No Wires Needed 1148 and swallow 550/1100 cards
+
+0.04    Added better ifup/ifdown script support (30/05/2002)
+
+	- ifup/down commands must now be set with -u and -d args
+	- Led state is now yellow when executing command
+
+0.05	Various bugfixes
+
+	- Changed delay() to select() for better performance and handling of
+	  X11 events
+	- To avoid building problems on older (libc5?) systems all
+	  in_addr_t's were changed into uint32_t's
+	- Problems with wrapped-around IP address due to wrong endianness
+	  handling were fixed
+
+0.06	Added openBSD support
+	
+	- Peter Stromberg <wilfried@openbsd.org> supplied a patch for
+	  OpenBSD support. I have not tried this myself since I don't have
+	  access to this OS. I will probably split the code into several
+	  OS-dependend modules later, for now the main .c file has some
+	  #ifdefs for linux and OpenBSD.
+

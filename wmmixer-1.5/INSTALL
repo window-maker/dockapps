@@ -1,0 +1,9 @@
+wmmixer - A mixer designed for WindowMaker
+
+INSTALLING:
+===========
+
+make
+make install
+
+

@@ -1,0 +1,247 @@
+wmweather+ (2.12) unstable; urgency=low
+
+  * Remove curl handle from the multihandle before closing the file
+    descriptor and before doing the callbacks. Otherwise we might get another
+    completion message, which will cause double-free errors and such.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Tue, 17 Aug 2010 15:27:37 -0400
+
+wmweather+ (2.11) unstable; urgency=low
+
+  * Apply 01_wmweather+_patch_displaydelay.dpatch from Debian
+  * Fix Debian bug #419644 in a different way: First, change snprintf and
+    vsnprintf handling to be more like AC_FUNC_MALLOC handles malloc. Second,
+    just always call FUNC_VSNPRINTF_LIBOBJ instead of being conditional on
+    snprintf.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Fri, 18 Jan 2008 10:30:05 -0500
+
+wmweather+ (2.10) unstable; urgency=low
+
+  * Remove libwww, add libcurl.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sun, 06 Jan 2008 22:42:07 -0500
+
+wmweather+ (2.9) unstable; urgency=low
+
+  * Add support for the new FW/SC distinction in some of the forecast data.
+    Also do it for METAR, even though the two are supposedly the same there.
+  * Fix some nasty double-free bugs in download.c if terminate_handler were to
+    be called before HTLoadAbsolute/HTPostAbsolute returned.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Mon, 17 May 2004 23:55:48 -0400
+
+wmweather+ (2.8) unstable; urgency=low
+
+  * The downloader now tracks active downloads, and refuses to start a second
+    download when one is already active for a particular target file. Also,
+    downloads now time out after 10 minutes.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Mon, 29 Mar 2004 22:22:31 -0500
+
+wmweather+ (2.7) unstable; urgency=low
+
+  * Oops, forgot to fix the manpage when the URIs changed in v2.5.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Fri, 21 Nov 2003 20:55:07 -0500
+
+wmweather+ (2.6) unstable; urgency=low
+
+  * Use atexit() to clean up downloaded files.
+  * Alter forecast parsers to be less picky. 'AVN' and 'MRF' are changing to
+    'GFS' and 'GFSX' on Dec 16, and looking for just "MOS GUIDANCE" instead of
+    "xxx MOS GUIDANCE" should work about as well.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Fri, 21 Nov 2003 20:55:07 -0500
+
+wmweather+ (2.5) unstable; urgency=low
+
+  * Added the "-display-mode" option. This fixes part of Debian bug #200110.
+  * Tack the PID on to downloaded files, so multiple instances of wmweather+
+    won't stomp on each other. This fixes the rest of Debian bug #200110
+  * Rewrote the longitude-guessing code, now it just depends on time_t being
+    an arithmetic type (which mkgmtime() did already).
+  * Replace the old b0rken/mktime.c with the one from GNU tar. The old one has
+    a SysVism that wasn't working too well for BSD people, who need the
+    replacement because mktime() on BSD fails for 'impossible' times (i.e. the
+    hour skipped when DST begins).
+  * Change forecast URIs, because NOAA changed them.
+  * Add a 'forget-warning-zones' option, which IMO adequately covers Debian
+    bug #214482. And it allows you to override zones on the command line too.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Tue, 28 Oct 2003 13:35:24 -0500
+
+wmweather+ (2.4) unstable; urgency=low
+
+  * Remove a bunch of unused variables.
+  * Initialize a few things the compiler can't tell will always be initialized
+    before they're used.
+    - dock.c update_dock(): i will be initialized if either j&1 or j&2, and
+      only used if j&3. j is not volatile, so this will always initialize i.
+    - forecast.c locate_current(): current is set to NULL at the beginning of
+      the function. curdiff is set whenever current is, and is only used when
+      current!=NULL.
+  * Added .nf commands to the manpage, so man won't complain about long
+    pseudo-URLs (Fixes Debian bug #184306).
+  * Fixed various assumptions about char signedness (i.e. I made them
+    explicitly signed char) (Fixes Debian bug #181245).
+  * Added multiple warning zones, so for example you can look at both kyz036
+    and kyc209 for warnings (Partially fixes Debian bug #185651).
+    - The summary isn't so much a warning summary, as a summary of the weather
+      over the past day or so.
+    - Unless those "warnings not in the expected place" were due to the kyc209
+      versus kyz036 issue, I can't determine where the files might actually
+      have been. Sorry.
+  * Updated some of the docs.
+  * autoconf changed the name of the malloc cache variable...
+  * Added a replacement mktime. Hopefully it works right.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sat, 22 Mar 2003 12:45:10 -0500
+
+wmweather+ (2.3) unstable; urgency=low
+
+  * Fix a compiler warning, thanks to Martin Godisch
+  * Remove the debian directory at the request of the Debian maintainer; if
+    you want those files, they are available at debian.org
+  * Removed documentation of useless -geometry option
+  * Fixed crash on right-click when no warning zone was given
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Tue, 28 Jan 2003 12:47:07 -0500
+
+wmweather+ (2.2) unstable; urgency=low
+
+  * It seems I forgot to create a b0rken/malloc.c
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Tue,  1 Oct 2002 16:36:12 -0400
+
+wmweather+ (2.1) unstable; urgency=low
+
+  * Make the 'malformed location' error message more clear.
+  * Fix stupid crash in forecast.c (didn't wrap properly when iterating over
+    an array)
+  * Fix is_forecast_current, mktime wants 0-based month.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Mon, 30 Sep 2002 15:02:29 -0400
+
+wmweather+ (2.0) unstable; urgency=low
+
+  * In no particular order:
+  * Animations can now display a label indicating the percent being shown. The
+    forecast window uses this extensively.
+  * All URIs can now be changed via command line/config file options.
+  * Added ./configure checks for b0rken snprintf/vsnprintf.
+  * Added ETA forecasts. These are mixed in with the AVN forecasts in the
+    rotation, sorted by time.
+  * Added display of the forecast type, which shows up at the bottom of the
+    forecast window where wind chill, heat index, and so on appear.
+  * When not animating, the percent chance cutoff can be adjusted using the
+    mouse wheel (as mapped to buttons 4 and 5).
+  * Made all forecast and warning options optional. Thus, if you don't specify
+    e.g. avn-station, no AVN forecasts will be downloaded.
+  * Regularized options: -radar is now -radar-uri, and -zone is now
+    -warning-zone.
+  * Support for POST for the radar image.
+  * Support for system-wide configs.
+  * -email is now optional too.
+  * Lots of code cleanups.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sun, 22 Sep 2002 14:25:58 -0400
+
+wmweather+ (1.11) unstable; urgency=low
+
+  * Fix a few URIs.
+  * Fix rounding errors in the pressure conversion functions (returned floats
+    don't need to be rounded, damnit!)
+  * Fix a bug in the warning code (displaying the wrong warnings)
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sun, 15 Sep 2002 18:35:18 -0400
+
+wmweather+ (1.10) unstable; urgency=low
+
+  * Handle libwww fds going bad, so the select will still function.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sun,  8 Sep 2002 11:22:05 -0400
+
+wmweather+ (1.9) unstable; urgency=low
+
+  * Remove dependancy on libftp, we use libwww's FTP module now.
+  * Rewrote the file downloader to take advantage of libwww's callbacks
+    (instead of waiting for the file to appear).
+  * Adjusted the m4 files to be more informative, and to check for libwraster
+    in /usr/X11R6 (stupid place for it, but oh well).
+  * Add some international METAR support. Mainly things reported in different
+    units.
+  * Make dock.c signals safe!
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Thu,  5 Sep 2002 22:01:42 -0400
+
+wmweather+ (1.8) unstable; urgency=low
+
+  * Added failure conditions to configure.ac.
+  * Actually use LIBOBJS. Change to automake-1.6 since 1.4 is b0rken.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Sun,  1 Sep 2002 20:31:55 -0400
+
+wmweather+ (1.7) unstable; urgency=low
+
+  * Initial Debianization
+  * Autoconfiscated
+  * Updated wmgeneral from wmpasman
+  * Fixed a bug in createXBMfromXPM
+  * Use createXBMfromXPM to get the mask. It's easier.
+
+ -- Brad Jorsch <anomie@users.sourceforge.net>  Thu, 15 Aug 2002 15:31:46 -0400
+
+version 1.6
+
+  * Apparently, AVN uses JUNE instead of JUN. Let's guess it uses JULY too
+    while we're at it.
+
+ -- Tue, 18 Jun 2002 08:52:27 -0500
+
+version 1.5
+
+  * Fixed heat index so it'll display when the temp is below 100 ;)
+
+ -- Tue, 16 Apr 2002 21:22:07 -0500
+
+version 1.4
+
+  * Changed the METAR display around a little bit. Local time is now primary.
+  * Changed the warning output to indicate the file the warning is from.
+  * minor code cleanups
+
+ -- Sat,  8 Sep 2001 17:14:32 -0500
+
+version 1.3
+
+  * Display a moon instead of a sun when it's supposed to be night. We even
+    calculate a rough moon phase and calculate the solar zenith to determine
+    whether the sun is up or not.
+  * Adjusted some of the graphics again. master is even smaller now!
+  * Make the forecast bottom line change priority every few seconds (in other
+    words, if more than one line could be displayed it will alternate between
+    them).
+
+ -- Thu,  6 Sep 2001 22:55:10 -0500
+
+version 1.2
+
+  * Fixed SEPT bug
+
+ -- Sat,  1 Sep 2001 21:10:22 -0500
+
+version 1.1
+
+  * Made the master xpm smaller.
+  * Changed the font handling so only 1 copy of the characters is needed.
+  * Changed some of the wmgeneral stuff more.
+
+ -- Tue, 28 Aug 2001 12:46:54 -0500
+
+version 1.0
+
+  * Wrote the thing over the past few weeks. I probably should have been
+    adding changelog entries all along, oh well.
+
+ -- Tue, 21 Aug 2001 18:36:32 -0500

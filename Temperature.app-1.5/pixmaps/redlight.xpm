@@ -1,0 +1,7 @@
+/* XPM */
+static char * redlight_xpm[] = {
+"3 2 2 1",
+" 	c None",
+".	c #FF0000",
+"...",
+"..."};

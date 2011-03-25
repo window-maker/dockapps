@@ -1,0 +1,56 @@
+wmwifi (0.6-1) unstable; urgency=low
+
+  * Version 0.6
+  * Strip trailing colon from interface name in wfi->ifname
+    Jeroen Nijhof <jnijhof@nijhofnet.nl> 
+  * Added ability to switch between scrolling and non scrolling
+    interfaces.
+    Thanks to Jeroen Nijhof <jnijhof@nijhofnet.nl> for ideas.
+  * Mouse1 now switches between scrolling / non-scrolling modes
+  * Added custom color support 
+  * Added preset color schemes -tc -tn -ts
+  * Updated Man page to reflect changes.
+  * Updated --help contents
+  * Code rework, so that display only get's updated on wireless changes
+    Now more efficient
+
+ -- Jess Mahan <jess@digitalssg.net>  Wed, 15 Mar 2006 06:15:00 -0800
+
+wmwifi (0.5-1) unstable; urgency=low
+
+  * Displays current Access Point for each interface
+  * Merged wifi_info() and get_max_qual() into get_wifi_info(),
+    which gets alot more wireless info.
+  * Added a bit of code to try and detect your quality
+    if you are using driver which do not report the max_qual
+    properly to the wireless extensions (i.e., ndiswrapper, prism54).
+  * Changed middle mouse click from previous interface to toggle
+    view of Link/Level/Noise/Bitrate.
+
+ -- Jess Mahan <jess@digitalssg.net>  Fri, 24 Sep 2004 12:45:00 -0800
+  
+wmwifi (0.4-1) unstable; urgency=low
+
+  * New release
+
+ -- Jess Mahan <jess@digitalssg.net>  Fri, 27 Feb 2004 18:10:10 -0800
+
+wmwifi (0.2-2) unstable; urgency=low
+
+  * New release 
+
+ -- Jess Mahan <jess@digitalssg.net>  Mon, 24 Nov 2003 16:29:19 -0800
+
+wmwifi (0.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Jess Mahan <jess@digitalssg.net>  Mon, 24 Nov 2003 16:27:21 -0800
+
+wmwifi (0.1-1) unstable; urgency=low
+
+  * Initial Debian Package Release.
+  * Created initial (0.1-1) Release (see README).
+
+ -- Jess Mahan <jess@digitalssg.net>  Wed,  12 Nov 2003 18:00:00 -0800
+

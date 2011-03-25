@@ -1,0 +1,3 @@
+#ifndef GNU_GPL_V2
+#include <GNU_GPL_V2.h>
+#endif

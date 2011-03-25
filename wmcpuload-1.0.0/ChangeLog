@@ -1,0 +1,212 @@
+2002 Jul 14
+  * version 1.0.0 released
+
+2002 Jul 13
+  * code cleanup/review
+
+2002 May 19
+  * dockapp.c: renamed dockapp_getcolor() to dockapp_getcolor_pixel().
+  * dockapp.c: added get_closest_color_pixel() to find closest color in Pseudo
+               visual class.
+  * src/Makefile.am: added missing @DFLAGS@
+
+2002 May 17
+  * cpu_bsdi.c: added (Nicolas Belan <belan@matranet.com>)
+
+2002 April 09
+  * dockapp.c, dockapp.h: moved to libdockapp/dockapp.[ch]
+  * libdockapp/{COPYING,AUTHORS}: added (taken from libdockapp-0.4.0)
+  * configure.ac: removed '-L/usr/local/lib' '-I/usr/local/include' from
+                  *_search_path (Thanks to Thomas Runge <coto@core.de>)
+  * README: added 'for GNOME users' section
+
+2002 April 05
+  * cpu_cywin.c: rewrote to separate cpu_get_usage().
+                 ( ==> cpu_get_usage_9x(), cpu_get_usage_NT())
+
+2002 April 01
+  * dockapp.c: removed background panel from windowed mode.
+  * dockapp.c: added '-wp, --windowed-withpanel' option.
+  * main.c: added '-t, --title' option to specify title name
+            (Thanks to Ryan Lovett <ryan@ocf.berkeley.edu>)
+  * wmcpuload.1: updated
+  * cpu_netbsd.c: added 'CP_INTR' parameter
+
+2002 March 25
+  * added NetBSD support (Thomas Runge <coto at core.de>)
+
+2002 March 23
+  * version 0.9.0 released
+  * configure.ac: added AC_CANONICAL_TARGET for cross-compiling
+  * configure.ac: changed $host_os to $target_os
+
+2002 March 17
+  * configure.ac: removed some obsolete macros
+  * dockapp.h: added header check (taken from autoconf's manual)
+
+2002 March 16
+  * configure.in: renamed as..
+  * configure.ac: this (for autoconf 2.50 or later)
+  * configure.ac: fixed a bug with checking select()
+  * configure.ac: added 2nd/3rd arguments of `AC_DEFINE' for config.h
+  * acconfig.h: removed
+
+2002 March 15
+  * main.c: code cleanup/review
+  * main.c: removed a magic number '-1' for cpu_number
+  * main.c: added the CPU number readout for SMP system.
+  * configure.in: added AC_CHECK_HEADER(linux/threads.h) for SMP system.
+
+2002 March 10
+  * main.c, wmcpuload.1: fixed misleading message for '--cpu' option
+                         (Gordon Fraser <gordon at debian.org>)
+    Thanks to Jean-Philippe Guerard <jean-philippe.guerard at laposte.net>
+
+2002 March 08
+  * changed archive name into all-lower-case.
+
+2002 March 03
+  * dockapp.c: rewrote (taken from WMMemMon-0.6.0)
+  * backlight_off.xpm, backlight_on.xpm: added the CPU number readout for SMP
+                                         system.
+  * backlight_off.xpm: changed background color brightly
+
+2002 January 17
+  * version 0.8.1 released
+  * cpu_freebsd.c: changed name list of symbol table
+
+2002 January 14
+  * fixed a bug with '-p, --ignore-proc','-c, --cpu' options (GNU/Linux)
+
+2002 January 13
+  * code review/cleanup
+  * removed cpu_common.c
+
+2002 January 05
+  * cpu_openbsd.c: re-wrote to use sysctl instead of kvm, no need for setgid
+
+2001 December 30
+  * version 0.8.0 released
+  * updated manpage
+  * updated icons
+
+2001 December 29
+  * added FAQ section to README
+
+2001 December 25
+  * added '-c, --cpu <number>' option to support SMP (GNU/Linux)
+    (Thanks to Laurent Raufaste <analogue at glop.org> for the beta test)
+  * fixed a bug of 'make install-strip' (FreeBSD/OpenBSD)
+
+2001 December 24
+  * changed arguments of get_system_cpuload()
+  * dropped the GNU coding standards:)
+
+2001 November 13
+  * updated config.guess, and config.sub for multi-platforms
+    (Gordon Fraser <gordon at debian.org>)
+
+2001 November 06
+  * renamed wmcpuload.c to main.c
+  * renamed cpuload_<arch>.c to cpu_<arch>.c
+  * renamed cpuload.c to cpu_common.c
+  * renamed cpuload.h to cpu.h
+
+2001 October 16
+  * made small modifications in dockapp.c
+    (freeing the memory that is used for wmHints, removing d_width/d_height, and
+     adding a argument for event-mask to DA_Initialize())
+
+2001 October 06
+  * added a man page (Gordon Fraser <gordon at freakzone.net>)
+
+2001 September 16
+  * version 0.7.1 released
+  * fixed a bug with the blended-color in 2/8/16 bpp.
+
+2001 September 16
+  * version 0.7.0 released
+  * fixed a bug with event handling with enlightenment.
+
+2001 September 15
+  * added '-lc, --light-color' option.
+
+2001 September 13
+  * included WMCPULoad.spec
+    (Francisco Vides Fernandez <pax at dedalo-ing.com>)
+
+2001 September 12
+  * removed '--ignore-kapm' option.
+  * added '-p --ignore-proc' option.(see README)
+
+2001 September 10
+  * added '--ignore-kapm' option.
+    (Ryan Veety <ryan at ryanspc.com>)
+
+2001 September 01
+  * added Solaris support (Jonathan Lang <lang at synopsys.com>)
+
+2001 August 20
+  * changed the output of the error messages from stdout to stderr.
+
+2001 August 12
+  * version 0.6.0 released
+
+2001 August 11
+  * added alarm-mode (see README)
+
+2001 August 10
+  * changed to remove dependence on the libdockapp
+  * added '-bw --broken-wm' option to fix a problem with enlightenment window
+    manager
+
+2001 July 25
+  * fixed a bug with '--ignore-nice' option in cpuload_linux.c
+
+2001 July 23
+  * version 0.5.6 released
+  * changed to get rid of compiler warning messages with gcc 
+    on Linux and FreeBSD.
+  * added OpenBSD support (it's testing!!)
+    (john katagawa <dhc at scurvy.org>)
+
+2001 July 22
+  * version 0.5.5 released
+
+2001 July 09
+  * added "-n, --ignore-nice" option
+  * added the icons for Mandrake GNU/Linux
+
+2001 June 02
+  * version 0.5.0 released
+  * changed the design of the graph
+  * added Cygwin support
+  * separated wmcpuload.xpm to backlight_on.xpm/backlight_off.xpm/parts.xpm
+  * changed the main-loop from while(1) to DAEventLoop()
+  * added a event(timer expired) to DACallbacks.
+  * code review/cleanup
+
+2001 April 24
+  * version 0.1.1 released
+  * fixed many typo;(
+
+2001 April 24
+  * version 0.1.0 released
+  * fixed a problem with redrawing of the icon window
+    (replace DASetPixmap with XCopyArea)
+  * added FreeBSD support
+
+2001 April 15
+  * version 0.0.3a released
+  * fixed a problem with Afterstep Wharf
+
+2001 April 13
+  * version 0.0.3 released
+  * added back-light
+
+2001 April 11
+  * version 0.0.2 released
+  * added a configure script
+
+2001 April 08
+  * Initial release

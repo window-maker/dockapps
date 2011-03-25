@@ -1,0 +1,162 @@
+wmsupermon
+==========
+Author: Sergei Golubchik <sergii@pisem.net>
+Download: http://www.dockapps.org/file.php/id/320
+
+Universal Monitoring Dockapp.
+
+Can be used to monitor
+
+ 1. CPU usage
+ 2. disk i/o 
+ 3. memory
+ 4. swap
+ 5. filesystems - space utilization
+ 6. network traffic
+ 7. wireless link quality
+ 8. cpu frequency
+ 9. CPU temperature, fan speed, voltages (no lm_sensors required!)
+10. battery status (with actual - not guessed - discharge rate!)
+11. traffic from your router
+12. anything else :)
+
+The dockapp is configured via ~/.wmsupermon file,
+which specifies what to monitor and how to present the results.
+
+The syntax of a config file is:
+=========================
+[mem]
+Source = /proc/meminfo
+Regex = {MemTotal: *([0-9]+).*MemFree: *([0-9]+).*Buffers: *([0-9]+) kB.Cached: *([0-9]+)}[(\1 - \2 - \3 - \4)/\1]s
+
+[i/o]
+Source = /proc/diskstats
+#major minor name rio rmerge rsect ruse wio wmerge wsect wuse running use aveq
+# note that "name" part is limited to letters!
+# thus we count, e.g. "sda" line, but not "sda1", "sda2", etc.
+Regex = /^ +[0-9]+ +[0-9]+ [a-z]+ ([0-9]+) [0-9]+ [0-9]+ [0-9]+ ([0-9]+) /DIFF(SUM(\1+\2))/
+
+[eml]
+Source = !/usr/local/bin/check_email
+Interval = 60
+
+[cpu]
+Source = /proc/stat
+Regex = {cpu  ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)}{DIFF(\1+\2+\3+0.01)/DIFF(\1+\2+\3+\4+0.01)}
+
+[Tem]
+Source = /sys/bus/i2c/drivers/w83627hf/9191-0290/temp2_input
+Scale     = 1000
+Range     = 37 .. 50
+
+[[wmsupermon]]
+eml=number -label
+i/o=bar -label
+mem=graph -small
+
+cpu=percent -label
+tem=bar
+cpu=graph -medium
+=========================
+
+Empty lines are allowed, if the line starts with #, it is ignored.
+
+First there are sources of readings. Every source starts with a label
+(e.g. [mem]) which can be one to three characters long.
+
+  After the label, the following keywords are allowed:
+
+  Source = specifies where to take the data from. It's either a
+  filename or an executable/script (if the value starts from the
+  exclamation sign).
+
+  Regex = defines how to parse the source (the file or the output of
+  an executable).  It consists of two parts delimited by any non-blank
+  character (e.g. regex=  !...!...!   or /..../..../) or two pairs of
+  matching brackets (e.g. [ ...]{...} or (...)<....>).
+  The first part is an extended regex, the second - an expression to
+  evaluate.  This expression can use numeric constants (floating
+  point), \1 .. \9 to refer to parts of regex, operators + - * / > < ?:,
+  parentheses, and two functions SUM() and DIFF().
+
+  The DIFF function (which means differentiate) returns the difference
+  between the value of its argument and the value of its argument from
+  the previous evaluation. See [cpu] source above to for an example -
+  DIFF is used to convert the constantly growing number of raw "cpu
+  ticks" into "cpu usage".
+
+  The SUM() function is explained below.
+
+  After the expression one can put flags. Supported are
+  i - case insensitive match
+  s - single line (see below)
+  d - debug (the result of the expression is printed to stdout).
+
+  Normally the source is read line by line, until the regex matches
+  for the first time.  The result of the expression is the reading of
+  a source.
+
+  If SUM() function is present anywhere in the expression, all lines
+  of the source are read, and all matches are accumulated. The result
+  of the SUM() is the sum of values of its argument for all matches.
+  See [i/o] source above for an example - SUM is used to calculate i/o
+  for all block devices.
+
+  If 's' (single line) flag is specified, regex is used to match
+  file's content as a whole, not linewise. See [mem] source above for
+  an example.
+
+  If no regex is specified, the source is expected to contain just one
+  number (many files on sysfs do).
+
+  Other recognized keywords are:
+
+  Interval = N, the reading of a source is taken every N seconds. 0
+  means "as fast as possible" (currently - four times a second).
+
+  Scale = N, the reading calculated from Source+Regex is divided by N.
+  That's most useful when there's no regex, see [Tem] example above.
+
+  Range = N1 .. N2, used by bar and graph widgets.  Without explicit
+  range, bar expect readings to be in 0..1 range, and graph
+  autoscales. As with scale, this is most useful when no regex is
+  specified, as in [Tem] example above.
+
+  Action = shell command to be executed on left mouse click on the
+  widget.
+
+Besides sources, config file defines windows and panes.
+
+  Every window definiftion starts from [[name]], where "name" is the
+  window title. Wmsupermon may open many windows, with different
+  layouts and values to monitor.
+  
+  Window definition consists of widgets, which are placed on panes.  A
+  pane has four rows, and a widget can take up to all the four,
+  depending on the type and options, see below. A pane is thus defined
+  by one to four lines, specifying widgets for this pane.  Empty
+  lines are used to separate panes. One widget line looks like
+
+  name=widget [options]
+
+  where <name> is the name of a source, defined above, and <widget> is
+  the widget type. Supported widget types are "number", "percent",
+  "bar", and "graph". After the type, one can optionally put
+  <options>, from the following list:
+
+    -label              - print a source name on the widget.
+                          can be used with any widget
+    -smooth             - smooth the output by averaging last 8 readings.
+                          can be used with any widget
+    -float              - print a number with the decimal dot, not an integer.
+                          can be used only with "number" widget
+    -log                - use logarithmic scale. only valid for "graph" widgets
+    -big                - 4-rows graph, only valid for "graph" widgets
+    -medium             - 2-rows graph, only valid for "graph" widgets
+    -small              - 1-row graph, only valid for "graph" widgets.
+                          by default a graph takes 3 rows.
+    -scaledown          - if the graph autoscales, allow the scale to decrease,
+                          by default it can only increase.
+
+See example-wmsupermonrc
+

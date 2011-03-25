@@ -1,0 +1,24 @@
+Installation instructions for wmCalClock.
+
+Requirements
+--------------------------------------------------------------
+wmCalClock requires the Xpm library (which should be available on
+most machines with XFree86 installed).
+
+Installation
+--------------------------------------------------------------
+1) gunzip wmCalClock-x.xx.tar.gz
+1) tar -xvf wmCalClock-x.xx.tar
+2) cd wmCalClock-x.xx/Src/
+3) make 
+4) make install (must be root) 
+5) wmCalClock & (or 'wmCalClock -h' for help, or 'man wmCalClock' for the man page)
+
+
+Notes:
+
+- On FreeBSD, you may need to use gmake.
+- On Solaris 2.6, -lsocket is required (use the Solaris-specfic
+  LIB line in the Makefile instead of the default one for Linux).
+- On SGI/IRIX, use gmake (?) or the Makefile.sgi
+

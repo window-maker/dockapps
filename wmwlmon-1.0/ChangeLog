@@ -1,0 +1,74 @@
+$Id: ChangeLog,v 1.27 2008/05/13 17:42:02 hacki Exp $
+
+1.0
+===
+- FreeBSD note:  the wi_req struct has been removed from the kernel
+  in FreeBSD 7.  This makes wmwlmon fail to compile.  The FreeBSD port
+  includes a workaround which makes wmwlmon compile again but disables
+  wi(4) support
+- do correct castings to satisfy higher gcc versions
+- added more supported devices to the man page
+
+0.9
+===
+- ported to FreeBSD, diff by Nathan Lay <nslay@hotmail.com>
+- added signal strength support for WaveLAN chipsets, diff by
+  Sam Chill <samchill@gmail.com>
+- style
+
+0.8
+===
+- fixed get_first_wnic() which can cause core dumping if wmwlmon is started
+  without args because returning (char *) which was already freed, diff by
+  Matthieu Herrb <matthieu@openbsd.org>
+- added some improvements suggested by mbalmer@openbsd.org;
+  use strtonum(3) for scroll options
+  define variable size which holds nic name with IF_NAMESIZE
+- extended manpage
+
+0.7
+===
+- added interface auto scan for startup so -i is optional now
+- fixed wmwlmon core dumping if nic is gone
+- fixed strlcpy(3) issue in wl.c to be sure that the not nul terminated
+  network id can't overflow its destination buffer, spotted by
+  Marc Balmer <mbalmer@openbsd.org>
+
+0.6
+===
+- added smooth scrolling for network id
+- added special ascii characters, sometimes used for the network id
+- extended manpage
+
+0.5
+===
+- added delay for scroll_bounce()
+- seperated nwid scroll refresh from interface poll refresh, diff by
+  Claudio Jeker <claudio@openbsd.org>
+- fixed a bug in scroll_lcd().  at the end of a string the space was ignored,
+  so the scrolling looked a little shaky
+- start adding devices to man page from which we know that they work fully
+  or partial
+
+0.4
+===
+- added LCD and Bounce scrolling regulated by the -s option
+- increased scrolling speed of the network id
+- fixed usage() and manpage.  -i is mandatory not optional
+- in signal_handler() replaced exit(3) by a volatile sig_atomic_t flag,
+  because exit(3) is not signal handler save
+
+0.3
+===
+- added scrolling of long network ids.  Can be disabled with the -s option
+- in get_nwid() limit the length of network ids to IEEE80211_NWID_LEN
+- removed default variables from BSD Makefile
+
+0.2
+===
+- if the speed result is NULL and passed to atoi(3), it cores.  Therefore
+  check speed before passing it to atoi(3)
+
+0.1
+===
+- initial version

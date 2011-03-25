@@ -1,0 +1,47 @@
+# wmtz configuration file. Comments begin with #
+
+#Three (or less) letter designation of timezone. 
+# time*=JDN gives Julian Day Number.
+# time*=GMST gives sidereal time at Greenwich.
+# time*=LMST gives local sidereal time. longitude must be set.
+# time*=xxx gives a blank (empty) timeline.
+# time*=@ gives swatch beats (float format). utdiff is ignored.
+# time*=DATE gives local date. utdiff is ignored.
+# time*=WDAY gives local weekday. utdiff is ignored.
+# time*=LOCAL gives local time (usefull to deal with DST). utdiff is ignored.
+# time*=TZONE gives the time as specified in TZ string.
+time1=JDN   
+time2=JDN    
+time3=GMST
+time4=JST    
+time5=TZONE    
+
+#Difference in hours from UT (Greenwich Civil Time) for the time zones above.
+#Negative values are required for timezones to the east of Greenwich.
+#A value of 0 gives UT.
+#
+# Automatic correction of daylight saving time changes is supported
+#only by TZONE, WDAY, DATE and LOCAL.
+#
+#If TZONE was specified for a time position, you must give the TZ environment 
+#variable for the desired time zone in the corresponding utdiff*. See 
+# "man tzset" for at description of the TZ environment variable string.
+# 
+#If JDN was specified for a time position, this value is subtracted from the 
+#Julian day number, giving days from another epoch. This enables you to see  
+#more decimals of the JD if you want to...
+#
+#Time differences in minutes is supported only for the TZONE option.
+# 
+utdiff1=0         
+#This gives days from 2000-01-01 00:00 UT:
+utdiff2=2451544.5   
+utdiff3=0         
+utdiff4=-9         
+utdiff5=XST-10XDT1,M10.5,0,M3.5.0     
+
+#Give the longitude of your location in decimal degrees, positive east.
+longitude=13.5
+
+#Give the latitude of your location in decimal degrees, positive north.
+latitude=59.5

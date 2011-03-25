@@ -1,0 +1,18 @@
+#!/bin/bash
+DEVICE=ppp0
+
+if [ -r /var/run/$DEVICE.pid ]; then
+        kill -INT `cat /var/run/$DEVICE.pid`
+
+        if [ ! "$?" = "0" ]; then
+                rm -f /var/run/$DEVICE.pid
+                echo >/dev/console "ERROR: Removed stale pid file"
+                exit 1
+        fi
+
+        echo >/dev/console "PPP link to $DEVICE terminated."
+        exit 0
+fi
+
+echo >/dev/console "ERROR: PPP link not active on $DEVICE"
+exit 1 

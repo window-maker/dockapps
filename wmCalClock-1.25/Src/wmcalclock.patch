@@ -1,0 +1,72 @@
+*** fastCalClock.c	Thu Jul  1 10:08:07 1999
+--- wmCalClock.c	Thu Jul  1 09:38:53 1999
+***************
+*** 272,278 ****
+  int     GotFirstClick2, GotDoubleClick2;
+  int     GotFirstClick3, GotDoubleClick3;
+  int     DblClkDelay;
+- int     HasExecute = 0;		/* controls perf optimization */
+  char	ExecuteCommand[1024];
+  
+  
+--- 272,277 ----
+***************
+*** 451,457 ****
+   	 *  to catch expose events, etc...
+  	 *
+  	 */
+! 	if ( HasExecute == 0 || n>10){
+  
+  	    n = 0;
+  
+--- 450,456 ----
+   	 *  to catch expose events, etc...
+  	 *
+  	 */
+! 	if (n>10){
+  
+  	    n = 0;
+  
+***************
+*** 722,734 ****
+  	 *  Redraw and wait for next update 
+  	 */
+  	RedrawWindow();
+! 	if( HasExecute == 1) {
+! 	  usleep(DELAY);
+! 	} else if( ShowSeconds == 1) {
+! 	  usleep( 200000L);
+! 	} else {
+! 	  usleep( 500000L);
+! 	}
+  
+  
+       }
+--- 721,727 ----
+  	 *  Redraw and wait for next update 
+  	 */
+  	RedrawWindow();
+! 	usleep(DELAY);
+  
+  
+       }
+***************
+*** 817,823 ****
+                  exit(-1);
+              }
+  	    strcpy(ExecuteCommand, argv[++i]);
+- 	    HasExecute = 1;
+  
+          } else if (!strcmp(argv[i], "-g")){
+  
+--- 810,815 ----
+***************
+*** 975,981 ****
+      char Command[512];
+  
+  
+-     if( HasExecute == 0) return; /* no command specified.  Ignore clicks. */
+      DblClkDelay = 0;
+      if ((xev->button == Button1) && (xev->type == ButtonPress)){
+          if (GotFirstClick1) GotDoubleClick1 = 1;
+--- 967,972 ----

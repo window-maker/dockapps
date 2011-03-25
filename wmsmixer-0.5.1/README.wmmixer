@@ -1,0 +1,160 @@
+wmmixer - A mixer designed for WindowMaker
+05/09/98  Release 1.0 Beta1
+Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
+This software comes with ABSOLUTELY NO WARRANTY
+This software is free software, and you are welcome to redistribute it
+under certain conditions
+See the COPYING file for details.
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+THE AUTHOR:
+===========
+
+Sam Hawker (17/m/uk)
+
+shawkie@geocities.com
+http://www.geocities.com/SiliconValley/Vista/2471/
+
+
+INSTALLING:
+===========
+
+xmkmf
+make
+strip wmmixer
+make install
+
+
+CONFIGURATION:
+==============
+
+Users can configure wmmixer to suit their requirements by means of a ~/.wmmixer
+file. A commented example is supplied, and would be a good starting point.
+
+cp home.wmmixer ~/.wmmixer
+
+
+USAGE:
+======
+
+You can access all the channels on your soundcard's mixer with wmmixer. Most
+common channels are identified with an appropriate icon.
+Controls include a stereo (mono where appropriate) volume control and a recording
+source toggle button.
+
+Press the "<" and ">" arrow buttons to select a channel.
+The icon identifies the current channel (a volume symbol with a question mark
+represents an unrecognised channel).
+Click and/or drag the volume display to set channel volume.
+There is a also a button to set recording sources.
+
+
+AFTERSTEP USERS:
+================
+(thanks to tygris@erols.com)
+
+This release includes in a new command line option.
+The effect this has is to enable shape support (it implies "-s"), and
+to reduce the size of the window to 56x56 pixels.
+The "-position position" option has also been added, so you can push
+wmcdplay off the edge of the screen while it gets swallowed.
+To put wmmount in your Wharf, add the following line in the appropriate
+part of your .steprc
+
+*Wharf wmmount nil MaxSwallow "wmmount" wmmount -a -position -0-0 &
+
+It is also possible (by editing and recompiling the afterstep sources),
+to make Wharf handle the new 56x56 pixel window properly - yes, I add
+an option to use a 56x56 pixel window, even though the AfterStep Wharf
+really wants 55x57 pixel ones.
+
+I am told (by tygris@erols.com):
+
+"Locate Wharf.c (or is it Wharf.cc?)  Should be in
+AfterStep-1.0/modules/Wharf.  Locate this:
+
+            if (Buttons[button].maxsize) {
+              Buttons[button].icons[0].w = 55;
+              Buttons[button].icons[0].h = 57;
+            }
+
+and change the 55 and 57 to 56's.  Save and compile."
+
+
+BUILD PROBLEMS:
+===============
+
+You may have trouble linking wmmixer with the compiler supplied on some
+recent Linux distributions (eg. Debian 2.0 & RedHat 5.1).
+It can be made to build by adding the following line to the top of the
+Imakefile, before executing xmkmf:
+
+CC = c++
+
+I am not sure of the effect this has on memory usage, etc.
+
+
+RELEASE HISTORY:
+================
+
+Release 0.1    07/02/98   Finally reached a state I am prepared to put my
+                          name to.
+                          No KNOWN bugs.
+
+Release 0.2    12/02/98   Fixed nasty memory hole.
+
+Release 0.3    24/02/98   Fixed bug relating to manual window positioning.
+
+Release 0.4    04/03/98   Reduced CPU Load (thanks to aseltine@cs.umass.edu).
+                          Support for NetBSD (you may need to make it use -lossaudio when linking).
+                             (thanks to Geir.I.Jensen@runit.sintef.no)
+                          Only updates when it has to now.
+
+Release 0.5    05/03/98   Better support for NetBSD and FreeBSD.
+                          Fixed bug relating to cards with no volume channel.
+                             (thanks to dalroi@wit401310.student.utwente.nl)
+                          Fixed bug relating to hiding "Rec" checkbox on FreeBSD.
+                             (thanks to dalroi@wit401310.student.utwente.nl)
+
+Release 0.6    12/03/98   Fixed setRec() in mixctl.h.
+                             (thanks to Geir.I.Jensen@runit.sintef.no)
+                          Now works on 8bpp displays with full colormaps.
+                             (thanks to devernay@istar.fr on the mailing-list)
+                          Now configurable through a ~/.wmmixer file.
+                             (suggested by steeve@minet.net)
+                          New channel symbols.
+                             (thanks to steeve@minet.net)
+
+Release 0.7    25/04/98   Better checking of supported channels.
+                          Now GPL.
+                          Sensible CPU load.
+                          New FAQ.
+                          New mixctl.h.
+                          New look.
+                             (thanks to warp@xs4all.nl)
+
+Release 0.8    06/05/98   Removed broken display code.
+                          Added "-b back_color" command line argument.
+
+Release 0.1    05/09/98   Added a little error checking.
+Beta1                     More delicate volume leds fit in better with other apps.
+                          Added "-a" command line argument for AfterStep users.
+                          Added "-position position" command line argument.
+                          Command line arguments, "-a", "-w" and "-s" are now toggle,
+                             so if you enable one at compile-time, you can override
+                             it at run-time.
+                          Added command to configuration file format.

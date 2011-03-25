@@ -1,0 +1,93 @@
+                    _        _____  ___  
+__      ___ __ ___ (_)_  __ |___ / / _ \    timecop@japan.co.jp
+\ \ /\ / / '_ ` _ \| \ \/ /   |_ \| | | |   skunk@mit.edu
+ \ V  V /| | | | | | |>  <   ___) | |_| |
+  \_/\_/ |_| |_| |_|_/_/\_\ |____(_)___/ 
+______________________________________________________________________________
+
+* This is a complete dockapp mixer utilizing the OSS mixer API
+* Has a nice On-Screen-Display to visualize current volume levels
+* Can adjust main volume, balance, recording status, and mute/unmute channels
+* Supports mousewheel to adjust the volume settings
+* Supports user specified signals to adjust the volume remotely
+* User configuration file can be used to set options
+
+How to use it:
+
+.---------------------------.
+| Message Area Message Area | <- (1)
+| [ Rec ]  [ ST ]  [ Mute ] | <- (2) (3) (4)
+| <- ->             xxx     | <- (5) (6) (7)
+| L        R        ___     |
+| |  |||   |       /the\    |
+| |--|||---|      |K NOB|   | <- (8) (9)
+|    ||| <- slider \___/    |
+`---------------------------'
+
+1) Current channel name is displayed in this area. If scrolling messages are
+   enabled in config, the text will scroll every 30 seconds or so, using long
+   sound channel names. If scrolling is disabled, short 5-character channel
+   names are used instead, and the message constantly stays on the screen. In
+   scroll mode, clicking in this area will re-scroll current message.
+
+2) Clicking REC will toggle record status for current channel, if the channel
+   is capable of recording. Some sound cards will allow you to set multiple
+   record sources. Some don't, so you can only have one selected at any time.
+   If you click here and nothing happens, the channel is not record-capable.
+
+3) ST indicator is lit if the current channel is stereo.
+
+4) Clicking MUTE will mute the current channel. Old volume settings are
+   remembered, so clicking it again will un-mute. Also see the knob section
+   because there is more than one way to do it :)
+   
+5) Clicking <- will switch to previous channel
+
+6) Clicking -> will switch to next channel
+
+7) Numeric indicator of current volume from 0 to 100 percent. Doesn't change
+   when the channel is muted, so you can still adjust the volume and then
+   unmute.
+
+8) If ST light is on (Stereo channel), you can move this slider left and
+   right to set balance. Click on the slider, and drag the mouse left or
+   right to adjust. Double-clicking on the slider will center the balance.
+   If you are on a mono channel, the slider doesn't move or do anything.
+   
+9) Ah, yes, the knob. One of the biggest visual differences since version
+   2.x of WMix is that the knob now rendered in real-time opposed to switching
+   pixmaps with various knob angles. Bow down to Daniel Richard G. for coming
+   up with this awesome routine. Also utilizes new "cursor-hiding-and-moving"
+   code which first appeared in volume.app by the same guy. Now you don't
+   have to scroll the mouse off your desk to adjust the volume. Anyway, simply
+   click on the knob and drag the mouse up or down to adjust the volume.
+   After you release the button, your mouse cursor is right back where you
+   started. Very Nifty! You can also double-click on the knob to mute the
+   current channel. Red LED will turn off... Channel is muted!
+
+Most people have mice with wheels these days, to this support is enabled by
+default. Scrolling the mouse wheel up or down will adjust the volume by 3%
+up or down. Buttons and step size are configurable from the config file -
+see below.
+
+You can also check out ~/.wmix.pid, and use SIGUSR1/2 to adjust the volume
+up or down by the configured step size.
+
+The config file:
+
+1 = yes, 0 = no
+
+mousewheel=1			# use mousewheel?
+scrolltext=1			# scroll the system messages?
+osd=1				# display OSD?
+osdcolor=green			# color of the OSD (from rgb.txt)
+wheelbtn1=4			# which mousewheel button is "up"
+wheelbtn2=5			# which mousewheel button is "down"
+wheelstep=3			# the step for mousewheel adjustment
+
+Most defaults are good for normal use, and if there is no config file,
+the settings you see above are used. If you want to hack on a config file,
+copy sample.wmixrc to ~/.wmixrc and change it around. Comments are ignored,
+but don't put comments at the end of line like I did here.
+
+timecop [timecop@japan.co.jp]

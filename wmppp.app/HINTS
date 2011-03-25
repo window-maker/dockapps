@@ -1,0 +1,169 @@
+Hints for WMPPP
+
+Generic
+--------------------------------------------------------------
+WMPPP supports various commandline options, 'wmppp -h' prints
+help about them...
+
+
+WindowMaker
+--------------------------------------------------------------
+WindowMaker users simply drag and drop the WMPPP dock.app on
+the WindowMaker Dock (preferred) or the Clip.
+
+Now press the rightmouse button on WMPPP's outer edges and
+select "Settings..." from the popup menu that appears.
+
+Enable the 'Start when WindowMaker is started' option, then 
+click on the 'OK' button in the Docked Applications Panel.
+
+
+Afterstep
+--------------------------------------------------------------
+Afterstep users put something like this in their .steprc
+"Wharf wmppp - MaxSwallow "wmppp" wmppp &"
+
+
+Other WindowManagers
+--------------------------------------------------------------
+For other windowmanagers, WMPPP runs nicely as a 64x64
+pixel shaped icon on your desktop.
+
+BTW, FVWM can swallow it too, so we've heard ;-)
+
+
+Dragging WMPPP 
+--------------------------------------------------------------
+Be sure to drag WMPPP on it's outer edges, WMPPP is a bit
+picky due to the large gfx pixmap it keeps ;-)
+
+
+Usage
+--------------------------------------------------------------
+WMPPP supports the following commandline options:
+
+	-h              helpscreen
+	-display        X server display (default = 0:0)
+	-geometry       +XPOS+YPOS, initial window position
+	-i <device>     Interface to monitor (ppp0, ppp1, etc)
+        	        EXPERIMENTAL!
+	-t              set the on-line timer to MM:SS instead
+    	            of HH:MM (default is HH:MM)
+	-u <rate>       (1..10), default 5 seconds
+	-v              print wmppp's version number
+
+
+Note: When you start up WMPPP and make a connection to your ISP,
+it will first display the CARRIER or CONNECT for 60 seconds on a
+succesfull connect, after those 60 seconds, the CARRIER/CONNECT
+value will dissapear and the Speed-O-Meter will take it's place.
+
+
+Creating PPP dialup scripts 
+--------------------------------------------------------------
+Since we've dropped the graphic configuration GUI,
+you'll have to create some dialup scripts yourself
+for usage with WMPPP and/or WMiFS.
+
+Because a very good PPP HowTo already exists,
+it's quite pointless for us to explain to you
+how you should and can make them...
+
+Read the PPP HowTo, and you'll see that it's very
+easy to create your own PPP scripts ;-)
+
+
+As an extra service, we've provided some example ppp scripts
+which you can find in wmppp/example-scripts/ directory.
+
+These are the ppp scripts both authors use, you just need to
+fill in your ISP's phonenumber, your loginname and password
+in wmppp/example-scripts/wmppp-chat like:
+
+	OK ATDT1234567
+	ogin:MyUserName
+	word:MyPassWord
+
+Save it, and copy all files in wmppp/example-scripts/ to
+/etc/ppp/ for example...
+
+
+Setting up the WMPPP rc files
+--------------------------------------------------------------
+WMPPP can launch your own ISP scripts for the V (connect)
+and X (disconnect) buttons and a hidden one that takes care
+of redialing in case your connection breaks.
+
+You can define them in your ~/.wmppprc like:
+
+	speed: /etc/ppp/getmodemspeed
+	start: /home/ppp/wmppp-start
+	stop: /home/ppp/wmppp-stop
+	ifdown: /home/ppp/wmppp-restart
+
+Note: The option 'speed:' is to define the location where 
+'getmodemspeed' resides, getmodemspeed is a little program
+that's responsible for the WMPPP CARRIER/CONNECT display. 
+
+You'll also need two entries in your 'chatfile' i.e.
+
+	REPORT CARRIER
+	REPORT CONNECT
+	
+This will make chat log all connects and carriers to
+/etc/ppp/connect-errors, which getmodemspeed needs,
+that is, if you want WMPPP to display your CARRIER
+or CONNECT resp.
+
+Also make sure that you use a recent ppp package (2.3.3),
+because older chat versions (chat is part of the ppp package)
+doesn't provide sufficent logging features, and because
+the older ppp versions have (major) security holes...
+
+p.s. All major _recent_ Linux distributions like Debian,
+RedHat and SuSe ship with proper ppp versions as standard.
+
+
+Linux Distribution ppp script info
+--------------------------------------------------------------
+
+RedHat users who use ControlPanel for example to set up ppp
+scripts (we don't, we assure you ;-) ) can launch the appropiate
+RedHat ppp scripts, same applies to Debian and any other other
+distribution which provide a simular non-standard ppp setup
+feature for setting up ppp scripts.
+ 
+See the documentation that ships with your Linux distribution
+for more info (if needed).
+
+Of course you may also use your previous created ppp scripts.
+
+
+Permissions to allow non-root ppp connections
+--------------------------------------------------------------
+WMPPP will connect just fine when run as root, but if you want
+to run WMPPP as a non-root user, there are a few files and
+programs to make permissions changes to.
+
+WMPPP (actually pppd) needs access to the device file your 
+modem is on, so if you use COM1, then the modem device file
+you use is /dev/cua0 or /dev/ttyS0 (depending on your Linux
+and kernel version).
+
+Change the permissions so that it is world read/writable:
+
+	chmod 666 /dev/cua0  or
+	chmod 666 /dev/ttyS0
+
+The ppp daemon also makes calls to the kernel which require root
+permissions. The pppd daemon must be owned by root, and then have
+it's set-user-id bit turned on. This way, the pppd daemon will
+always run as SUID root. Change the owner and SUID bit like:
+
+	chown root.root pppd
+	chmod +s pppd
+
+
+--------------------------------------------------------------
+Note: If you run a site where users may not fiddle with the
+      PPP scripts, read INSTALL > Info For Site Admins! 

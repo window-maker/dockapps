@@ -1,0 +1,194 @@
+$Id: README,v 1.4 2002/08/16 17:24:43 essmann Exp $
+
+----------------------------------------------------------------------
+WMPAGER
+----------------------------------------------------------------------
+
+wmpager is a simple pager docklet for the Window Maker.
+
+wmpager has the offers the following features:
+- allows workspace switching for up to nine workspaces
+- automatically configures according to the number of workspaces
+- automagically adjusts to the current workspace
+- configurable look and feel
+- workspace tooltips
+
+
+----------------------------------------------------------------------
+INSTALLATION
+----------------------------------------------------------------------
+
+To build and install wmpager perform the following steps:
+
+1. Modify the Makefile to suit your needs
+2. % make
+3. % make install
+
+Notes:
+
+In order for wmpager to work properly you need to have your Window
+Maker compiled with Gnome support. (I don't know if this is the case
+for the precompiled Window Makers usually found in Linux distributions
+since I usually build my Window Maker myself.)
+
+wmpager uses the Gnome support messages sent out by Window Maker to
+display the currently active workspace. Without Gnome support the
+pager will not automatically adjust the currently active desktop.
+
+
+----------------------------------------------------------------------
+USAGE
+----------------------------------------------------------------------
+
+usage: wmpager [options]
+
+where options include:
+  -h --help           display usage and version information
+  -v --verbose        verbose message output
+  -d --display        <name> the display to use (defaults to the
+                      'DISPLAY' environment variable)
+  -s --size           <w>x<h> number of buttons (default depends on the
+                      number of workspaces you have, i.e. 2x2 for 4
+                      workspaces, 2x3 for 6, maximum is 3x3)
+  -w --workspaces     <count> number of workspace buttons to display
+                      (default is the number of workspaces you have,
+                      maximum is 9)
+  -t --theme          <theme.xpm> the button theme to use, extension
+                      '.xpm' is optional, for more information about
+                      themes see docu (default is the built-in theme)
+  -i --installdir     <dir> specifies the installation directory location,
+                      this location is automatically searched for themes
+                      (defaults to the '/usr/local/share/wmpager/'
+                      and the user specific '~/.wmpager' directory)
+  --disable-tooltips  do not display any tooltip windows
+  --tooltip-font      <font> use the specified font as tooltip font
+                      (default is helvetica, bold, roman, 12 point)
+  --tooltip-delay     <millis> set the delay before the tooltip window
+                      is popped up (default is 750 milliseconds)
+  --tooltip-reshow    <millis> set the tooltip reshow delay (triggered
+                      when moving from button to button (default is
+                      1500 milliseconds)
+  --tooltip-outside   display tooltip window outside of docklet
+
+
+----------------------------------------------------------------------
+BUTTON THEMES
+----------------------------------------------------------------------
+
+Depending on your WindowMaker theme you might want to use another
+theme for wmpager as well. Use option '-t' or '--theme' to specify
+the location of an XPM file (the extension '.xpm' is optional, it has
+to be an XPM file though). If you use option '-i', '--installdir' or
+have set the environment variable WMPAGER to the installation location
+of the wmpager themes, then you may also skip the path to the theme.
+
+Predefined themes: Well, I'm not much of an artist therefore I've only
+included some themes to give you an idea of how a real nice theme 
+might be done. Naturally, I use the built-in theme and theme support
+is only there because I have been asked to include it...
+
+Creating your own themes: If you want to create your own theme simply
+take one of the included XPM theme files and modify it to your needs. 
+If you really want to know, the format of the file is described below.
+
+If you create a theme yourself please send it to me and I'll include it
+in the next build.
+
+The list of predefined themes in this release includes:
+- blue (the built-in theme)
+- fire
+- gray
+- steel
+
+XPM file format: The XPM file has to be at least 102 by 71 pixels in 
+size. The area 0,0 to 50,50 describes the background for the selected 
+workspace, the area 51,0 to 101,50 for unselected work spaces. The 
+area has to include a one-pixel border that is used for all workspace 
+buttons. From 0,51 to 89,60 are the digits used for the selected 
+workspace (each 10x10 pixels, 1-9 from left to right) and from 0,61 to 
+89,70 are the digits for unselected workspaces. The digits may have
+a transparent background.
+
+
+----------------------------------------------------------------------
+RELEASE NOTES
+----------------------------------------------------------------------
+
+Release 1.0
+
+I've already been asked a couple of times why I wrote wmpager (along
+the lines of "wmcp is working for me isn't it for you?"). Well, yes
+the other pagers available are working, even for me. Main reason to
+write it was to play around with C/X11 a bit -- I haven't done this
+for a couple of years now and I simply felt like it. I know that the
+code is in a bad shape, but hey, I only spent a couple of hours on
+this thingy. :-)
+
+2001 Aug 28
+// Bruno Essmann
+
+
+Release 1.1
+
+For those of you with different Window Maker themes the wmpager now
+also supports themes. Check out options '--theme' and '--installdir'.
+
+2001 Oct 12
+// Bruno Essmann
+
+
+Release 1.2
+
+As of release 1.2 the wmpager is hosted at sourceforge. Its new 
+homepage is located at 'http://wmpager.sourceforge.net/'.
+
+To report a bug please use the sourceforge bugtracker for the wmpager 
+located at 'http://sourceforge.net/projects/wmpager/'. Thanks!
+
+In addition to the new location the only thing that has changed is
+that wmpager no longer supports the WMPAGER environment variable. Use
+'--installdir' to specify its installation location or copy the theme
+file to your home directory '$HOME/.wmpager/'.
+
+2002 Aug 16
+// Bruno Essmann <essmann@users.sourceforge.net>
+
+PS: Don't be surprised that the build number has restarted. I simply
+threw away the old revision history and switched to cvs.
+
+
+----------------------------------------------------------------------
+LICENSE INFORMATION
+----------------------------------------------------------------------
+
+Copyright (c) 2001-2002 Bruno Essmann <essmann@users.sourceforge.net>
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without 
+modification, are permitted provided that the following conditions 
+are met:
+
+1. Redistributions of source code must retain the above copyright 
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above 
+   copyright notice, this list of conditions and the following 
+   disclaimer in the documentation and/or other materials provided 
+   with the distribution.
+
+3. The name of the author may not be used to endorse or promote
+   products derived from this software without specific prior
+   written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS
+OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+

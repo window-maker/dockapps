@@ -1,0 +1,14 @@
+Source: wmwifi
+Section: x11
+Priority: optional
+Maintainer: Jess Mahan <jess@digitalssg.net>
+Build-Depends: debhelper (>> 3.0.0), xlibs-dev, libdockapp-dev
+Standards-Version: 3.6.1.0
+
+Package: wmwifi
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: A wireless network signal stength monitor for Window Maker
+ wmwifi is a wireless network interface monitor dockapp for the Window Maker
+ desktop. It is designed to fit well with dockapps like wmcpuload and wmnetload.
+ wmwifi relys on the Wireless Exntension being enabled in the kernel.

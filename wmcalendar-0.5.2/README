@@ -1,0 +1,43 @@
+wmCalendar-0.5.0 release
+-----------------------
+Author....: Matthias Laabs <mattlaabs@users.sourceforge.net>
+Packaging.: Sebastian Ley(debian) <sebastian.ley@mmweg.rwth-aachen.de>
+
+for copyrights of conversions between calendar formats see:
+calendarfunc.h
+		
+  
+Description
+-----------
+wmCalendar is a Calendar with a monthly view
+it supports gregorian, persian and islamic calendar so far.
+It highlight calendar entries of an external calendar that work with iCalendar
+(like evolution or mozilla calendar) and can popup detail information.
+It can display the moonphase and launch an external (calendar) program.
+
+
+Files
+-----
+README		This file.
+INSTALL		Installation instructions.
+HINTS 		Hints about what you can do with wmCalendar
+BUGS		Bug reports
+CHANGES 	Change history.
+COPYING		GNU General Public License Version 2.
+TODO		Wish list.
+
+get the latest version at http://sourceforge.net/projects/wmcalendar/
+there is also a debian package available
+
+
+Bugs
+-----
+Send bug reports to mattlaabs@users.sourceforge.net or
+file them at sourceforge project page.
+
+
+Copyright
+----------
+wmCalendar is copyright (c) 2003 by Matthias Laabs and licensed
+through the GNU General Public License. Read the COPYING file for the complete
+GNU license.

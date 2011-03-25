@@ -1,0 +1,39 @@
+Installation instructions for wmtz: 
+
+
+Requirements
+-------------------------------------------------------------
+- root access
+
+	To be able to complete the installation as described 
+        here, you'll need root privileges...
+
+
+Installation
+--------------------------------------------------------------
+1)  % tar -zxvf wmtz-0.7.tar.gz
+2)  % cd wmtz-0.7/wmtz
+3)  % make 
+4)  % su root
+5)  # make install
+6)  # ^D
+7)  % cp /etc/wmtzrc ~/.wmtzrc
+8)* % jed ~/.wmtzrc
+9)  % wmtz & (or wmtz -h for brief help).
+
+*) Adjust ~/.wmtzrc to your preferences...
+   Instructions are included in the file.
+   You may want to edit /etc/wmtzrc as well (as root).
+    
+
+Uninstallation (Requires root access)
+--------------------------------------------------------------
+1) % su root
+2) # make uninstall
+3) (Answer the questions)
+4) # ^D
+
+General Notes
+--------------------------------------------------------------
+You may have to edit the Makefile in order to compile and 
+install the program on your particular system.

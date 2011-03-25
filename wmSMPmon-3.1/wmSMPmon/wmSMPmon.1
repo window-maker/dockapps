@@ -1,0 +1,51 @@
+.TH WMSMPMON 1
+.\" NAME should be all caps, SECTION should be 1-8, maybe w/ subsection
+.\" other parms are allowed: see man(7), man(1)
+.SH NAME
+wmSMPmon \- Window Maker System Monitor
+.SH SYNOPSIS
+.B wmSMPmon
+.I "[options]"
+.SH "DESCRIPTION"
+.B wmSMPmon
+is a Window Maker dock application that displays the following
+information about the system:
+.TP
+- Current CPU utilization of up to two CPUs
+.TP
+- Up to two minutes history of CPU utilization
+.TP
+- Current memory usage
+.TP
+- Current swap usage
+.PP
+On dual CPU systems,
+.B wmSMPmon
+has three different styles for the utilization graph. To toggle between them
+just click into the graph.
+.SH OPTIONS
+All options start with one dash.
+.TP
+.B \-h
+Show summary of options.
+.TP
+.B \-r REFRESH_RATE
+Set the refresh rate of the graph in microseconds. The default is 250000
+(a quarter of a second).
+.TP
+.B \-g GRAPH_STYLE
+Start using graph style #[1-3] (only on dual CPU systems). Style 1
+shows the utiliziation in one graph, while 2 and 3 are split in two
+little graphs. Style 2 shows the two graphs on top of each
+other. Style 3 uses a mirror like type. The default style is 1, which
+is also the style used on single CPU systems.
+.TP
+.B \-no-swap
+Do not monitor swap.
+.SH "SEE ALSO"
+wmaker(1x)
+.SH AUTHOR
+This manual page was originally written by Alain Schroeder
+<alain@debian.org> and adapted for wmSMPmon 3 by Thomas Ribbrock
+<emgaron@gmx.net>
+

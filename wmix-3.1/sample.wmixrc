@@ -1,0 +1,16 @@
+# WMix configuration file
+
+# use mousewheel
+mousewheel=1
+# scroll the system messages
+scrolltext=1
+# display OSD
+osd=1
+# color of the OSD (from rgb.txt or #xxxxxx)
+osdcolor=green
+# which mousewheel button is "up"
+wheelbtn1=4
+# which mousewheel button is "down"
+wheelbtn2=5
+# the step for mousewheel adjustment (in percent, 3 or 0.03)
+wheelstep=3

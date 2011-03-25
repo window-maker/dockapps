@@ -1,0 +1,105 @@
+wmmixer - A mixer designed for WindowMaker
+25 June 2002  Release 1.5
+
+Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
+Copyright (C) 2002  Gordon Fraser <gordon@debian.org>
+
+
+This software comes with ABSOLUTELY NO WARRANTY
+This software is free software, and you are welcome to redistribute it
+under certain conditions
+See the COPYING file for details.
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+AUTHORS:
+========
+
+Original Author: Sam Hawker <shawkie@geocities.com>
+Current Author: Gordon Fraser <gordon@debian.org>
+
+
+CONFIGURATION:
+==============
+
+Users can configure wmmixer to suit their requirements by means of a ~/.wmmixer
+file. A commented example is supplied, and would be a good starting point.
+
+cp home.wmmixer ~/.wmmixer
+
+
+USAGE:
+======
+
+You can access all the channels on your soundcard's mixer with wmmixer. Most
+common channels are identified with an appropriate icon.
+Controls include a stereo (mono where appropriate) volume control and a recording
+source toggle button.
+
+Press the "<" and ">" arrow buttons to select a channel.
+The icon identifies the current channel (a volume symbol with a question mark
+represents an unrecognised channel).
+Click and/or drag the volume display to set channel volume.
+There is a also a button to set recording sources.
+
+See the program's manpage ('man wmmixer') for detailed listings of the
+available options.
+
+SHADED VOLUME BARS:
+===================
+As of version 1.5 wmmixer allows shading the volume bar in two colours.
+If you do not want this and prefer the traditional single-coloured
+look, you'll have to tell wmmixer to use the same colour for high and
+low colours:
+
+$ wmmixer -l green -L green
+...this will give you the traditional look.
+
+$ wmmixer -l lightgreen -L blue
+...this is an example for the new look. By default, green is used for low volume
+settings and fade to red for high volumes.
+
+
+AFTERSTEP USERS:
+================
+(thanks to tygris@erols.com)
+
+This release includes in a new command line option.
+The effect this has is to enable shape support (it implies "-s"), and
+to reduce the size of the window to 56x56 pixels.
+The "-position position" option has also been added, so you can push
+wmcdplay off the edge of the screen while it gets swallowed.
+To put wmmount in your Wharf, add the following line in the appropriate
+part of your .steprc
+
+*Wharf wmmixer nil MaxSwallow "wmmount" wmmixer -a -g -0-0 &
+
+It is also possible (by editing and recompiling the afterstep sources),
+to make Wharf handle the new 56x56 pixel window properly - yes, I add
+an option to use a 56x56 pixel window, even though the AfterStep Wharf
+really wants 55x57 pixel ones.
+
+I am told (by tygris@erols.com):
+
+"Locate Wharf.c (or is it Wharf.cc?)  Should be in
+AfterStep-1.0/modules/Wharf.  Locate this:
+
+            if (Buttons[button].maxsize) {
+              Buttons[button].icons[0].w = 55;
+              Buttons[button].icons[0].h = 57;
+            }
+
+and change the 55 and 57 to 56's.  Save and compile."

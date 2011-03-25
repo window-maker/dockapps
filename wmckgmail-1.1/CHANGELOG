@@ -1,0 +1,24 @@
+wmckgmail 1.1 : A dockapp to monitor the number of unread mails in a gmail inbox
+written by    : Sylvain Tremblay <stremblay@gmail.com>
+release date  : September 09, 2006
+
+#################
+## Change log  ##
+#################
+
+#################
+## Version 1.0 ##
+#################
+
+Initial release.
+
+#################
+## Version 1.1 ##
+#################
+
+Bugs corrected :
+  - When not specifying the 'pollinterval' value in the config file, the default was set to 5
+    seconds instead of 5 minutes.
+
+Enhancements:
+  - The 'browsercmd1' and 'browsercmd2' configuration options have been added.

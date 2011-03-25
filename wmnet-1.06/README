@@ -1,0 +1,100 @@
+wmnet -- network monitor for WindowMaker using kernel IP accounting
+for Linux, FreeBSD, and OpenBSD.  version 1.06
+
+Jesse B. Off <joff@iastate.edu>  8/9/1998
+Katharine Osborne <kaos@digitalkaos.net> 4/5/2000
+
+
+This little program polls network statistics and does a few things with
+the data it gets.  It has small blinking lights for the rx and tx of IP
+packets, a digital speedometer of your polled stat's current
+speed and a bar graph like xload et. al which has a
+tx speed graph from bottom-up and rx speed graph from the top-down.
+The speedometer keeps track of the current speed per second and shows
+it in a color corresponding to which of rx or tx that has the highest
+speed at the moment.  Also, the graph is drawn in a way that the highest
+speed is drawn on top of the other while the other is in the background.
+Depending on whether  you are running ppp or ethernet
+connections, you should set the -x parameter to about 1.5 times the
+high speed of your connection...  the default is 6000 which will be
+stupid if you're on a ethernet line with a max of about 800 kb/sec.
+I've found the best for an ethernet line is '-x 10000000 -l'  Having
+the logarithmic scale lets you see any speed of traffic from a telnet
+session to downloadeding something from across the hall at 600 kb/sec.
+
+I tried to keep this is as small and efficient as possible CPU time on my
+K5 PR100 with the default poll time of 25000 microseconds (1 microsecond
+== 1 millionth of a second.)  is less than 20 seconds per 24 hours 
+Which is less than even wmmixer uses for me.
+
+wmnet now uses drivers to get stats.  The existing stat driver from previous
+versions has been moved to the ipfwadm driver.  To get some generic IP 
+accounting rules using ipfwadm:
+
+ipfwadm -A in -i -S 0.0.0.0/0 
+ipfwadm -A out -i -D 0.0.0.0/0
+
+
+I have also included a couple drivers for Linux 2.1.  You can either use
+ipchains or general device stats received from /proc/net/dev.  If you don't 
+want to fool around with IP chains, use the devstats driver and specify the
+interface to monitor useing the --device option.  To get a generic set of ip
+chains rules for the ipchains driver:
+
+ipchains -N acctin
+ipchains -N acctout
+ipchains -I input 1 -j acctin
+ipchains -I output 1 -j acctout
+ipchains -I acctin 1
+ipchains -I acctout 1
+
+There is also the pppstats driver available for both Linux 2.0 and 2.1.
+If you just want general monitoring of your ppp devices, use this driver.
+
+In version 1.04+ I have added (among others) the --promisc option.
+This makes your IP accounting rules apply across the whole of your
+network segment.  This could be useful for monitoring your whole subnet
+traffic bandwidth.  However, using this option as a normal user requires
+wmnet to be suid root, which is something many people dispise so it is
+not suid by default.  To make wmnet suid, as root:
+
+chmod u+s /usr/X11R6/bin/wmnet 
+
+Please only do this if you need to.  I did write this program with it
+possibly being suid in mind so I am fairly confident that this can be
+suid without any security concerns. But then again, thats what they all
+say.  Read the code then judge for yourself if need be, I WONT have
+it done automatically for you.  Really the only 'if' is the GNU libc
+getopt_long() function.  
+
+For those afterstep users out there using wmnet, you may have noticed that
+when wmnet is swallowed, the whole thing is not visible.  This is due to
+the afterstep wharf's inability to swallow a dock.app as large as wmnet.
+(Sorry guys, theres nothing I can do about that!)  Theres supposedly an
+unofficial patch around for afterstep that allows it to fully display,
+consult your local afterstep guru on the what and where.
+
+Much thanks goes to Vladimir Popov for writing the OpenBSD patch.
+
+Consult the man page for additional documentation.
+
+homepage for wmnet:
+http://www.digitalkaos.net/linux/wmnet/
+
+
+
+TO INSTALL from tar.gz: 
+tar xfzv wmnet-1.06.tar.gz 
+cd wmnet-1.06 
+xmkmf 
+make 
+strip wmnet 
+make install
+make install.man
+
+NOTE: you may wanna change config.h to change the compiled in drivers.
+
+
+ideas/comments/bug reports -----> kaos@digitalkaos.net
+http://www.digitalkaos.net/linux/wmnet/
+

@@ -1,0 +1,11 @@
+Since your reading this, you are probably done with the tar zxvf part.
+
+1. make
+2. become root
+3. make install
+4. wmix
+
+pretty easy.  See README for instructions on how to use the mixer and about
+some information on the programming involved.
+
+timecop [timecop@japan.co.jp]

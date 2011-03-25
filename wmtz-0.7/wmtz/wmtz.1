@@ -1,0 +1,106 @@
+.TH wmtz 1 "16 April 2001" 
+.SH NAME
+WMTZ \- Window Make Time Zone dockapp
+.SH SYNOPSIS
+.B wmtz [-display <Display>] [-e <Editor>] [-geometry <+XPOS+YPOS>] [-jd] [-c <Filename>] [-h] [-v]
+.SH DESCRIPTION
+.PP
+wmtz displays the time in different time zones and can also show Julian day
+numbers, sidereal time, internet time (swatch beats) and local time, date
+and weekday. wmtz can also convert between JD and Gregorian dates via a
+command line interface. It is configured via a text configuration file,
+usually ~/.wmtzrc. If wmtz is clicked on with the mouse it shows a menu
+where the configuration can be changed and updated. wmtz can also be shut
+down with this menu by clicking on QUIT.
+.SH OPTIONS
+.TP
+.B \-display <Display>
+Use an alternate X Display.
+.TP
+.B \-e <Editor>
+Set preferred text editor to use when CONFIG on the menu is choosen. (E.g. xemacs or xjed)
+.TP
+.B \-geometry <+XPOS+YPOS>
+Set position on X display.
+.TP
+.B \-jd
+Invoke JD conversion utility.
+.TP
+.B \-c <Filename>
+Use specified file as configuration file.
+.TP
+.B -m
+Start monochrome version of wmtz. Use this when there isn't enough color cells.
+.TP
+.B -h
+Display list of command line options.
+.TP
+.B -v
+Print version number.
+.SH CONFIGURATION
+wmtz is configured with a configuration file, usually ~/.wmtzrc. In this
+file several values must be given in order for wmtz to function properly.
+It is recommended to use the configuration file that follows with the 
+distribution and modify it according to your needs. wmtz has five "timeslots" 
+that can show different times.
+.br
+What must be present in the file is the "time*=<string>" token for every 
+timeslot (1 to 5), followed by the "utdiff*=<integer>" for every timeslot 
+(1 to 5) even if it is to be ignored. "longitude=<longitude in decimal 
+degrees>" must also be given in the config file.
+.br
+The options available for "time*=" are the following:
+.TP
+.B ***
+Three (or less) letter designation of timezone. utdiff for this timeslot is
+subtracted from UT to give time in that timezone. 
+.TP
+.B TZONE
+Gives time in timezone described by TZ environment variable string in utdiff. See man page for tzset for a description of the TZ string. 
+.TP
+.B JDN
+Gives Julian Day Number. The value for utdiff for the timeslot is subtracted
+from the current JD, which enables you to show JD from another epoch.
+.TP
+.B xxx
+Gives a blank (empty) timeslot. utdiff for this timeslot is ignored.
+.TP
+.B @
+Gives swatch beats. utdiff for this timeslot is ignored.
+.TP
+.B DATE
+Gives local date. utdiff for this timeslot is ignored.
+.TP
+.B WDAY 
+Gives local weekday. utdiff for this timeslot is ignored.
+.TP
+.B LOCAL
+Gives local time, automatically corrected for summer/winter time. utdiff for
+this timeslot is ignored.
+.SH ENVIRONMENT
+.TP
+.B XEDITOR 
+Can be used to specify which editor to use when clicking on "Config" in the
+wmtz menu. See also the "-e <Editor>" option above.
+.TP
+.B HOME
+Must be set for wmtz to find the users config file. 
+.PP
+The config file is
+searched for in the following order:
+.br
+1) User specified config file, if any.
+.br
+2) $HOME/.wmtzrc
+.br
+3) /etc/wmtzrc
+.SH FILES
+.nf
+~/.wmtzrc     Users personal configuration file
+/etc/wmtzrc   Systems configuration file (usually just a fallback)
+.fi
+.SH BUGS
+Doesn't handle errors in the configuration file very well. Be careful when
+editing .wmtzrc.
+.SH AUTHOR
+Jan Lindblom <99jl@home.se>

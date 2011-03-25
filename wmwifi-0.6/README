@@ -1,0 +1,187 @@
+
+Copyright (c) 2006 Jess Mahan <jess@digitalssg.net>
+
+-----------------
+WmWiFi      0.6
+-----------------
+
+ It's been a long time since the last release. I know, I know, you've been 
+ jonesin' for the next iteration, but over the last year or so, we've had very 
+ little complaints and even fewer bug reports, so "if it aint broke don't 
+ fix it!".
+
+ If your reading this, then you are probably running Window Maker, and have a 
+ Wifi (wireless) card installed on your Linux box.
+
+ !!!! BE AWARE !!!!
+ This is my first attempt at writing a Window Maker dockapp, so if this thing
+ destroys your computer, kills your dog, or burns down your house, don't 
+ blame me for it. This is very experimental at the moment.
+
+ This dockapp displays the signal strength, link level, noise level, and 
+ bitrate to your current access point. It also displays the current access 
+ point's name.
+
+ I sincerely apologize for any inconveniences or problems with the this
+ version, or previous versions of WmWiFi. 
+ 
+ Many thanks to the people that actually e-mailed me with bug reports, those 
+ bug reports have made this version possible. WmWiFi now works 
+ properly (i hope).
+
+-----------------
+Getting Help
+-----------------
+
+ If you need help, there is a mailing list at wmwifi@lists.digitalssg.net. 
+ 
+ Simply subscribe to it by sending a blank e-mail to 
+ wmwifi-subscribe@lists.digitalssg.net.
+
+ When asking a question, please be sure to include the nature of your problem,
+ and the output from the following commands:
+
+ "cat /proc/net/wireless"
+ "iwconfig"
+ "head -10 /usr/include/linux/wireless.h | grep Version"
+ 
+-----------------
+Requirements
+-----------------
+
+ libXpm          http://freshmeat.net/projects/libxpm
+ libdockapp      ftp://truffula.com/pub/libdockapp-0.4.tgz
+
+ To compile this, you'll need libdockapp, libxpm, and all the X development 
+ libs. Chances are, if you have installed other dockapps, then you will have 
+ no problems compiling this.
+
+ Linux Wireless Extensions.
+ This program relys on the Wireless Extensions being enabled (and working) in
+ the 2.4.X and 2.6.X kernel series. If you can "cat /proc/net/wireless", then 
+ this thing will probably work for you. If "cat /proc/net/wireless" returns 
+ nothing, then this dockapp wont work.
+
+
+-----------------
+Building
+-----------------
+
+ Yup, you guessed it...
+ If you have met all the *requirements* then just do:
+ ./configure; make; make install
+
+
+-----------------
+What's New
+-----------------
+
+ 0.6 -
+ Many thanks to Jeroen Nijhof <jnijhof@nijhofnet.nl> for his contribution
+ of a patch for WmWifi. 
+
+ I decided to only use a couple of lines of code from Jeroen's patch, and 
+ implement the rest myself, so that it could better integrate with the 
+ "classic" wmwifi. I also wanted to make WmWifi a bit more flexible, whereas
+ Jeroen's version was locked in to a specific look, and foreced the scrolling.
+
+ WmWifi now features preset "themes", fully customizable colors (for making
+ your own theme). We also now scroll the interface name and essid by default,
+ but this can be turned off with the -s command line switch or by clicking the
+ left mouse button (to retain our classic look and feel).
+
+ The Backlight turns on when Signal Strength goes below 1%
+ 
+-----------------
+The "Look"
+-----------------
+
+ 0.6 -
+ We've got a new look, actually a few of them.
+ You will most likely notice the differences from the old version and the
+ new becuase the font's have changed and now the interface name and essid
+ scroll across the top (which can be disabled). 
+ 
+ Many thanks to Jeroen Nijhof <jnijhof@nijhofnet.nl> for his contribution of 
+ a new theme and the scrolling interface and essid. I decided not to use 
+ all of his changes, but did use his fonts.xpm (becuase they are waaay nicer), 
+ and a couple lines of code.
+
+ # wmwifi -tc          # classic theme (Default)
+ # wmwifi -tn          # Jeroen Nijhof's theme
+ # wmwifi -ts          # snow theme
+ # wmwifi -lc <string> # back-light color
+ # wmwifi -fg <string> # foreground color
+ # wmwifi -bg <string> # background color
+ # wmwifi -hi <string> # highlight color
+ # wmwifi -mt <string> # midtone color
+ # wmwifi -s           # turn scrolling text off
+
+ <string> is an RGB color. for instance:
+ # wmwifi -bg rgb:00/00/00 -fg rgb:ff/ff/ff -hi rgb:c1/c1/c1 -mt rgb:ff/00/00
+ will give you a black background, white foreground/text, grey highlights, 
+ and red midtones.
+
+ If you don't know what an RGB color is, it's basically the same thing as an 
+ HTML color, just ditch the '#', and add a '/' every two characters.
+
+ This version allows you to customize the colors to create your own themes,
+ checkout wmwifi --help for more information.
+ 
+ 0.5 - 
+ This version (0.5) of wmwifi still uses the look introduced by version 0.2.
+ For now, you cannot change the look, and to be honest, there has been
+ no complaints, so if you want a new look or have a kewl design, e-mail me.
+
+ There were bug reports of the percentages not being displayed correctly, 
+ this is my fault, since I assumed that the maximum link quality would
+ always be 92. I had reports of varying link qualities, so in this version
+ it should be fixed (if it's not, you know where to e-mail me). We not
+ get the maximum link quality directly from the wireless extensions in the
+ kernel, rather than assume it's 92.
+
+ The Link quality of your card is now displayed as a percentage (0% - 100%).
+
+
+-----------------
+Stuff it does do 
+-----------------
+
+ 
+ WmWiFi now monitors all of you wireless interfaces. So if you have more
+ than one, WmWiFi can now handle it!
+
+ - Monitors all wireless interfaces attached to your machine
+   (If you have the module(s) loaded)
+ - Displays Link, Level, Noise, Bitrate, and Current Access Point
+   for each interface.
+ - Customizable Colors.
+ - Preset Themes.
+ - Scrolling Interface Name and ESSID
+ - Turn's backlight on when link quality goes below 1%
+   
+ To disable interface and essid scrolling, simply left click (mouse 1).
+ To switch to the next wireless interface, simply middle click (mouse 2).
+ To switch to the next screen, simply right click (mouse 3).
+
+-----------------
+Stuff if doesn't do or can't do
+-----------------
+
+ WmWifi cannot properly report the stats from drivers like the prism54 or 
+ ndiswrapper drivers. Believe me, I have tried to get these to work, but
+ the stats don't even report correctly from iwconfig, so I am assuming it's
+ not my fault.
+
+ If you post to the mailing list complaining about wrong stats, and you are
+ using one of those drivers, I'm going to slap you silly, because you didn't 
+ read this!
+
+ I did try and put some code in this version to "auto-learn" your link quality
+ if the maximum cannot be read from the driver, but it's not guaranteed.
+
+----------------- 
+Rants / Raves
+-----------------
+
+ forward beer, pizza, scotch, smokes, or hate mail to jess@digitalssg.net

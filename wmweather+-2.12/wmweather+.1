@@ -1,0 +1,418 @@
+.de Sh
+.br
+.if t .Sp
+.ne 5
+.PP
+\fB\\$1\fR
+.PP
+..
+.TH wmweather+ 1x "August 17, 2010"
+.SH NAME
+wmweather+ \- A dock app for displaying weather information
+.P
+.SH SYNOPSIS
+.B wmweather+
+.RB [\| options \|]
+.SH DESCRIPTION
+\fBwmweather+\fP downloads current conditions, forecast data, and optionally a
+radar image. It will also watch for various warnings and display them using an
+external command.
+.SH OPTIONS
+Note that later options override earlier ones, and command line options
+override configuration file options. All multi-character options may be
+specified with one or two leading dashes. The configuration file is simply one
+option (with value if necessary) per line, leading dashes optional. Empty lines
+and lines beginning with the '#' character are ignored.
+.SS General Options
+.TP
+.BI "-display " <display\ name>
+Name of display to use.
+.TP
+.BI "-c " <file>
+Specify a configuration file instead of the default. This option is ignored in
+the configuration file.
+.TP
+.BI "-display-mode " <string>
+Specify the starting display mode. Valid values are "cur"/"current",
+"fcst"/"forecast", and "map"/"radar".
+.TP
+.BI "-location " <latitude+longitude>
+Specify a latitude and longitude, for example "41'59'00N 87'55'00W" or
+"N41.9833333333333 W87.9166666666667". You may use either the decimal or DMS
+notation, with either a prefixed sign or a prefixed or suffixed N/S/E/W. If
+this option isn't given, the program will assume you live on the equator and
+guess your longitude based on your system timezone offset.
+.TP
+.BR "-e\fR,\fP\ -email " <address>
+Specify the anonymous FTP password.
+.TP
+.BR -v ", " -version
+Display version number and exit.
+.TP
+.BI "-viewer " <program>
+External program for viewing weather warnings. This command must take the text
+to display from standard input. It will be executed as '/bin/sh -c
+\fI<program>\fP' with stdout redirected to /dev/null. If not specified, it will
+default to "xless".
+.TP
+.BR -animate ", " -noanimate
+Turn animation on or off. Animation may still be toggled with the middle mouse
+button as described below. The default is on.
+.SS Station Options
+.TP
+.BI "-s\fR,\fP\ -station " <ID>
+Station ID for all stations. Equivalent to 
+.RI "'-metar-station " <ID> " -avn-station " <ID>
+.RI " -eta-station " <ID> " -mrf-station " <ID> '.
+.TP
+.BI "-metar-station " <ID>
+Station ID for METAR observations. See \fBCurrent Conditions\fP for more
+information. A value must be provided.
+.TP
+.BI "-avn-station " <ID>
+Station ID for AVN forecasts. See \fBForecasts\fP for more information.
+.TP
+.BI "-eta-station " <ID>
+Station ID for ETA forecasts. See \fBForecasts\fP for more information.
+.TP
+.BI "-mrf-station " <ID>
+Station ID for MRF forecasts. See \fBForecasts\fP for more information.
+.TP
+.BI "-warning-zone " <zoneID>
+Zone ID for weather warnings. See \fBWarnings\fP for more information. This
+option may be repeated for multiple zones.
+.TP
+.BI "-forget-warning-zones"
+Cause wmweather+ to forget all warning zones found to this point. Useful for
+user configuration files to override the warning zones specified in the
+system-wide configuration.
+.P
+.BI "-metar-uri " <URI>
+.br
+.BI "-avn-uri " <URI>
+.br
+.BI "-eta-uri " <URI>
+.br
+.BI "-mrf-uri " <URI>
+.br
+.BI "-warning-uri " <URI>
+.RS
+URI to download the specified data from. See \fBURIs\fP for more information.
+.RE
+.P
+.BI "-metar-post " <DATA>
+.br
+.BI "-avn-post " <DATA>
+.br
+.BI "-eta-post " <DATA>
+.br
+.BI "-mrf-post " <DATA>
+.br
+.BI "-warning-post " <DATA>
+.RS
+Post data for downloading the specified data. See \fBURIs\fP for more
+information. Note that the post option must follow the corresponding URI
+option. Note that the post data will \fInot\fP be URL-encoded for you.
+.RE
+.TP
+.B -noradar
+Do not display a radar image. This is the default.
+.P
+.BI "-radar-uri " <URI>
+.br
+.BI "-radar-post " <DATA>
+.RS
+Retrieve an image from the specified URI. See \fBRadar Map\fP for more
+information.
+.RE
+.TP
+.BI "-radar-crop " <string>
+How to crop the radar image. 
+.IR X x Y + W + H
+format. See \fBRadar Map\fP for more information.
+.TP
+.BI "-radar-cross " <string>
+Where to draw radar crosshairs. 
+.IR X x Y
+format. See \fBRadar Map\fP for more
+information.
+.SS Measurement Options
+.TP
+.BR -m ", " -metric
+Same as '-cm -hPa -kph -tempc'.
+.TP
+.B -in
+Display precipitation amounts in inches. This is the default.
+.TP
+.B -cm
+Display precipitation amounts in centimeters.
+.TP
+.B -inHg
+Display pressure in inches of mercury. This is the default.
+.TP
+.BR -hPa ", " -mbar
+Display pressure in hectopascal (millibars)
+.TP
+.B -mmHg
+Display pressure in millimeters of mercury.
+.TP
+.B -atm
+Display pressure in atmospheres.
+.TP
+.B -mph
+Display windspeed in miles/hour. This is the default.
+.TP
+.B -kph
+Display windspeed in kilometers/hour.
+.TP
+.B -knots
+Display windspeed in knots.
+.TP
+.B -mps
+Display windspeed in meters/second.
+.TP
+.B -beaufort
+Display windspeed on the Beaufort scale.
+.TP
+.B -tempf
+Display temperature in degrees Fahrenheit. This is the default.
+.TP
+.B -tempc
+Display temperature in degrees Celcius.
+.SH DISPLAY
+The dockapp has three display modes: Current Conditions, Forecasts, and Radar
+Map. Modes are selected by the buttons across the top of the icon. Weather
+Warning status is indicated by the font color. At any point
+double-(left)clicking the main display will send SIGUSR1 to the process (see
+\fBSIGNALS\fP).
+.Sh "Current Conditions"
+This mode displays the current conditions as given in the METAR report for the
+selected station, as downloaded from
+.UR http://weather.noaa.gov/pub/data/observations/metar/stations/
+http://weather.noaa.gov/pub/data/observations/metar/stations/
+.UE
+.RI .
+Downloads are attempted every 15 minutes. Find your station at
+.UR http://www.nws.noaa.gov/tg/siteloc.shtml
+http://www.nws.noaa.gov/tg/siteloc.shtml
+.UE
+.RI .
+.P
+The station ID is displayed at the top left of the display. The observation
+date (local) is to the right, and the time (local and UTC) occupies the line
+below. Under that, to the right is the temperature and relative humidity, the
+wind direction and speed, the atmospheric pressure (indicated by "P"), the
+heat index (indicated by "HI"), and the wind chill (indicated by "WC").
+.P
+To the left is a graphical display of the current weather. The sky condition is
+indicated as clear (sun), partly cloudy (sun with small clouds), mostly cloudy
+(sun behind a large cloud), or overcast (large cloud). This image may be
+covered by fog (foggy overlay), dust/sand/haze (brownish particles), or blowing
+snow/dust/sand (blue wind-lines), with the level of transparency indicating the
+degree of visibility. If a funnel cloud or tornado was reported, a tornado
+graphic will be displayed instead of the sky condition.
+.P
+Beneath this graphic, icons will depict rain (raindrop), snow (snowflake),
+freezing precipitation (hailstones), and thunderstorms (lightning bolt). If
+animation is enabled, the icons will appear and vanish on a ten second cycle
+to indicate precipitation intensity. Animation may be enabled or disabled by
+middle-clicking the display.
+.Sh Forecasts
+This mode displays the current conditions as given in the AVN, ETA, and MRF
+data for the selected stations, as downloaded from
+.UR http://www.nws.noaa.gov/tdl/synop/products/bullform.mav.htm
+http://www.nws.noaa.gov/tdl/synop/products/bullform.mav.htm
+.UE
+.RI ,
+.UR http://www.nws.noaa.gov/mdl/synop/products/bullform.met.htm
+http://www.nws.noaa.gov/mdl/synop/products/bullform.met.htm
+.UE
+and
+.UR http://www.nws.noaa.gov/tdl/synop/products/bullform.mex.htm
+http://www.nws.noaa.gov/tdl/synop/products/bullform.mex.htm
+.UE
+.RI .
+AVN and ETA reports are downloaded at startup, 0000Z, and 1200Z. MRF reports
+are downloaded at startup and 0000Z. In the event of failure, downloads will be
+retried every 15 minutes. See the URIs given to find your stations.
+.P
+The display is divided into two sections. A small window at the top indicates
+the date and hour (local time) for which this forecast is valid. Left-clicking
+this window or clicking the small arrow-button to the right will advance to
+the next forecast; right-clicking or clicking the small arrow-button to the
+left will move to the previous forecast. Middle-clicking will return to the
+first forecast in the list.
+.P
+The larger display at the bottom shows the forecast for the selected date and
+time. To the right from top to bottom are the station ID, the daily high and
+low temperatures, the predicted temperature and relative humidity, and the
+wind direction and speed. The final line may display the heat index (HI), the
+wind chill (WC), the amount of snow to fall in that period (SN), the amount of
+liquid-equivalent precipitation to fall in that period (P), or the forecast
+type (e.g. "AVN" or "MRF").
+.P
+To the left is a weather display similar to that for the Current Conditions.
+The animation here indicates the percent chance of rain, snow, freezing
+precipitation, thunderstorms, and severe thunderstorms (large lightning bolt).
+Animation may be turned on or off with the middle button. When animation is
+off, the mouse wheel may be used to adjust the cutoff chance for the display
+(hold Shift to adjust faster). The cutoff will be displayed briefly when first
+turning off animation, when first displaying forecasts, whenever button 6
+(typically, the 'side' button) is held down in the large display. Permanent
+cutoff display may be toggled by double-middle-clicking the large display.
+.Sh "Radar Map"
+The radar image will be downloaded every 30 minutes from the URI specified.
+Then, if -radar-crop was specified in the form
+.IR X x Y + W + H ,
+a subimage of witdh \fIW\fP and height \fIH\fP will be taken, with the
+upper-left pixel taken from
+.RI ( X ", " Y ).
+If \fIX\fP or \fIY\fP is negative, it will be measured from the right/bottom of
+the image instead of the top/left. The image is then resized to fit within the
+52x40 rectangle available. A border around the image indicates the current font
+color. If -radar-cross was specified in the form
+.IR X x Y ,
+crosshairs will then be
+drawn over the pixel
+.RI ( X ", " Y )
+when the middle button is held on the radar map.
+.P
+If -noradar was specified or no radar data is available, an image to that
+effect will be displayed instead.
+.P
+Some nice images are available from
+.UR http://weather.noaa.gov/radar/mosaic/DS.p19r0/ar.us.conus.shtml
+http://weather.noaa.gov/radar/mosaic/DS.p19r0/ar.us.conus.shtml
+.UE
+and
+.UR http://www.weather.com/common/home/maps.html
+http://www.weather.com/common/home/maps.html
+.UE
+.RI .
+Be kind, since the display is so small pick the smallest version of the image
+to download.
+.Sh "Weather Warnings"
+Various weather warnings, watches, and statements for the specified zone are
+downloaded from 
+.UR http://weather.noaa.gov/pub/data/watches_warnings/
+http://weather.noaa.gov/pub/data/watches_warnings/
+.UE
+.RI .
+Downloads are attempted at the same time METAR observations are retrieved. Find
+your zone at
+.UR http://weather.noaa.gov/
+http://weather.noaa.gov/
+.UE
+or
+.UR http://weather.gov/
+http://weather.gov/
+.UE
+.RI .
+Note that some areas issue weather warnings by multiple geopolitical units
+(e.g. "zones" and "counties"). The -warning-zone option may be specified
+multiple times, so all appropriate files may be inspected.
+.P
+If any new warnings are downloaded, all text will be displayed in an
+orange/red scheme instead of the normal blue/orange. The new warnings may then
+be viewed by left-clicking the large display window in any mode. At any point,
+all current warnings may be displayed by right-clicking the large display.
+.SH "URIs"
+The URIs from which the various observations, forecasts, and images are
+downloaded can be easily customized by supplying values for the various
+.I -*-uri
+options. The following substitution variables are available:
+.TP
+.B %s
+The station ID for the specified data type (note that warnings have no station
+ID).
+.TP
+.B %z
+The zone ID, for warnings.
+.TP
+.B %f
+The warning type, for warnings (e.g. "tornado", "special_weather_stmt").
+.P
+The substitutions can be manipulated with the standard
+.BR printf (3)
+modifiers for strings, in particular the
+.BR # ", " 0 ", " - ", "
+.BR "' '" ", " + ", and " '
+flags, the
+.BR "field width" ,
+and the
+.B precision
+fields are accepted. Also, an additional flag
+.B !
+is recognized to use the capitalized versions of various numeric flags (e.g.
+\fBX\fP versus \fBx\fP) and to capitalize character or string values, and an
+additional syntax
+.BI ">" "<offset>"
+after the precision is recognized to start at an offset into the string value
+(negative values indicate offset from the end of the string).
+.P
+The current defaults are:
+.TP
+metar-uri
+.nf
+http://weather.noaa.gov/pub/data/observations/metar/stations/%s.TXT
+.fi
+.TP
+avn-uri
+.nf
+http://www.nws.noaa.gov/cgi-bin/mos/getmav.pl?sta=%s
+.fi
+.TP
+eta-uri
+.nf
+http://www.nws.noaa.gov/cgi-bin/mos/getmet.pl?sta=%s
+.fi
+.TP
+mrf-uri
+.nf
+http://www.nws.noaa.gov/cgi-bin/mos/getmex.pl?sta=%s
+.fi
+.TP
+warning-uri
+.nf
+http://weather.noaa.gov/pub/data/watches_warnings/%f/%.2z/%z.txt
+.fi
+.SH FILES
+.TP
+.I $HOME/.wmweather+/
+Directory used to store downloaded data files. These files may be deleted at
+any time.
+.TP
+.I $HOME/.wmweather+/conf
+User configuration.
+.TP
+.I /etc/wmweather+.conf
+System configuration.
+.TP
+.I $HOME/.wmweather+/.dir-test
+Created and deleted to test write access to \fI$HOME/.wmweather+/\fP
+.SH SIGNALS
+.TP
+.I SIGUSR1
+Forces downloads for the current mode to be attempted immediately.
+.TP
+.I SIGUSR2
+Forces all downloads to be attempted immediately.
+.SH BUGS
+Before reporting a bug, please check the HINTS file (in particular,
+proxy instructions are in that file). Also, please verify that you have
+the latest version of wmweather+, and that your bug has not already been
+reported. Bugs may be filed at
+.UR http://sourceforge.net/tracker/?group_id=60336&atid=493854
+http://sourceforge.net/tracker/?group_id=60336&atid=493854
+.UE
+.RI .
+.SH AUTHORS
+\fBwmweather+\fP was written by \fIBrad Jorsch
+<anomie@users.sourceforge.net>\fP, using the wmgeneral code by \fIMartijn
+Pieterse <pieterse@xs4all.nl>\fP.
+.P
+Email regarding wmweather+ should be sent to
+\fIanomie@users.sourceforge.net\fP.
+.SH INSPIRATION
+wmWeather was a good idea, but it didn't give me enough information. However,
+no code from wmWeather was used in writing wmweather+.

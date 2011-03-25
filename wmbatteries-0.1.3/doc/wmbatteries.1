@@ -1,0 +1,120 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WMBATTERIES 1 "November 10, 2003"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wmbatteries \- A dockapp to monitor status of up to 2 batteries and cpu temp
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmbatteries
+command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+\fBwmbatteries\fP is a program to monitor status of two batteries and cpu temp using
+ACPI (http://acpi.sf.net). It is a dockapp 
+that is supported by X window managers such as Window Maker, AfterStep, BlackBox, Fluxbox and
+Enlightenment.
+
+In the top half the sum of the remaining time of all existing batteries ist
+displayed when the system runs in battery mode. Otherwise, the time
+is displayed, until the currently charging battery is complete charged.
+When on AC and the batteries are not charging, 00:00 is displayed.
+Below, current capacity of availible batteries is displayed in percent and in form of bars.
+
+In the bottom half, there are 4 indicators: The left is shown when on AC. 
+The two battery symbols in the middle are shown when the corresponding
+battery is discharging, and animated if it is charging.
+The animation speed may be set with the -s option.
+On the right there is an indicator which is displayed when the remaining capacity
+of all batteries is less than a certain (default:20) percentage of the 
+maximum capacity of all batteries.
+
+The last line may be used to display either CPU temperature or the current power consumption.
+The mode of the last line may be set with the -m option. when -m s is given, the display 
+switches between cpu temperature and power consumption in a certain time (option -ts).
+That line may also be switched manually by rightclicking in the dockapp.
+
+The back-light may be turned on/off by clicking the mouse button 1 (left)
+over the application. If battery status is below a critical level, an
+alarm-mode will alert you by turning on and off back-light. 
+
+wmbatteries makes use of a config file which may be given via command line
+option ,$HOME/.wmbatteriesrc or /etc/wmbatteries, whichever comes first.
+An example may be found in the source distribution of wmbatteries.
+
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long options
+starting with two dashes (`\-'). A summary of options is included below.
+.TP
+.B \-d,  \-\-display <string>
+Attempt to open a window on the named X display. In the absence of  this option,
+the  display  specified  by the
+.B DISPLAY
+environment variable is used.
+.TP
+.B \-bl, \-\-backlight
+turn on back-light
+.TP
+.B \-lc, \-\-light\-color <color>
+back-light color (rgb:6E/C6/3B is default)
+.TP
+.B \-i,  \-\-interval <number>
+number of secs between updates (1 is default)
+.TP
+.B \-c,  \-\-config <string>
+config file to use, otherwise $HOME/.wmbatteriesrc or /etc/wmbatteries will
+be used
+.TP
+.B \-a,  \-\-alarm <number>
+low battery level when to raise alarm (20 is default)
+.TP
+.B \-h,  \-\-help
+show help text and exit
+.TP
+.B \-v,  \-\-version
+show program version and exit
+.TP
+.B \-w,  \-\-windowed
+run the application in windowed mode
+.TP
+.B \-bw, \-\-broken\-wm
+activate broken window manager fix
+.TP
+.B \-n,  \-\-notify <string>
+command to launch each time there is alarm
+.TP
+.B \-s,  \-\-suspend <string>
+set command for acpi suspend
+.TP
+.B \-S,  \-\-standby <string>
+set command for acpi standby
+.TP
+.B \-m,  \-\-mode [t|r|s]
+set mode for the lower row , 
+t=temperature,r=current rate,s=toggle
+.TP
+.B \-ts,  \-\-togglespeed <integer>
+set togglespeed in seconds
+.TP
+.B \-as,  \-\-animationspeed <integer>
+set speed for charging animation in msec
+.TP
+.B \-hs,  \-\-historysize <integer>
+set size of history for calculating average power consumption rate
+.SH AUTHOR
+wmbatteries was assembled by Florian Krohs <florian.krohs@informatik.uni-oldenburg.de>

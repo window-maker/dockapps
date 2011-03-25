@@ -1,0 +1,156 @@
+.\" $Id: wmpager.1x,v 1.2 2002/08/16 17:20:37 essmann Exp $
+.\"
+.\" Copyright (c) 2001-2002 Bruno Essmann <essmann@users.sourceforge.net>
+.\" All rights reserved.
+.\"
+.TH wmpager 1x "2002 Aug 16" "wmpager-1.2"
+.SH NAME
+wmpager - Window Maker workspace pager docklet
+.SH SYNOPSIS
+.B wmpager
+[options]
+.SH DESCRIPTION
+.B wmpager
+is a Window Maker pager docklet that offers:
+.PD 0
+.IP \(bu 2
+workspace switching for up to nine workspaces
+.IP \(bu 2
+automatic configuration according to the number of available workspaces
+.IP \(bu 2
+automagic adjustment to the currently active workspace
+.IP \(bu 2
+configurable look and feel
+.IP \(bu 2
+workspace tooltips
+.PD
+.SH OPTIONS
+.PD 0
+.TP
+.B \-h \-\-help
+Display usage and version information.
+.TP
+.B \-v \-\-verbose
+Enable verbose message output.
+.TP
+.B \-d \-\-display \fI<name>\fP
+The display to use (defaults to the 'DISPLAY' environment variable).
+.TP
+.B \-s \-\-size \fI<w>x<h>\fP
+The number of buttons to display. The default depends on the number of 
+workspaces you have, i.e. 2x2 for 4 workspaces, 2x3 for 6, maximum is 3x3.
+.TP
+.B \-w \-\-workspaces \fI<count>\fP
+The number of workspace buttons to display. The default is the number of 
+workspaces you have up to a maximum is 9.
+.TP
+.B \-t \-\-theme \fI<theme.xpm>\fP
+The button theme to use. \fI<theme.xpm>\fP is either an absolute pathname
+pointing to an 'xpm' theme file or a filename relative to the installation
+directory (see option \-\-installdir). The extension '.xpm' in the file or
+pathname is optional.
+.RS
+.PP
+For more information on theme files see the entry \fIBUTTON THEMES\fP below.
+.RE
+.TP
+.B \-i \-\-installdir \fI<dir>\fP
+Specifies the location of the installation directory. wmpager looks for 'xpm'
+theme files at this location. The default are '/usr/local/share/wmpager/' and
+the user specific '~/.wmpager' directory.
+.TP
+.B \-\-disable\-tooltips
+Disables display of any tooltip windows. By default tooltips are enabled.
+.TP
+.B \-\-tooltip\-font \fI<font>\fP
+Specifies the font to as tooltip font. The default is helvetica, bold, roman, 
+12 point:
+.RS
+.PP
+\-*\-helvetica\-bold\-r\-normal\-*\-12\-*\-*\-*\-*\-*\-*\-*
+.RE
+.TP
+.B \-\-tooltip\-delay \fI<millis>\fP
+Sets the delay before the tooltip window is popped up (default is 750 milliseconds).
+.TP
+.B \-\-tooltip\-reshow \fI<millis>\fP
+Set the tooltip reshow delay (triggered when moving from button to button).
+The default is 1500 milliseconds.
+.TP
+.B \-\-tooltip\-outside
+Specifies that tooltips should be displayed outside of the docklet window.
+By default they are displayed next to the workspace button.
+.PD
+.SH BUTTON THEMES
+.PD
+Depending on your WindowMaker theme you might want to use another
+theme for wmpager as well. Use option '\-t' or '\-\-theme' to specify
+the location of an XPM file (the extension '.xpm' is optional, it has
+to be an XPM file though). If you use option '\-i', '\-\-installdir' or
+have set the environment variable WMPAGER to the installation location
+of the wmpager themes, then you may also skip the path to the theme.
+
+Predefined themes: Well, I'm not much of an artist therefore I've only
+included some themes to give you an idea of how a real nice theme 
+might be done. Naturally, I use the built\-in theme and theme support
+is only there because I have been asked to include it...
+
+If you create a theme yourself please send it to me and I'll include it
+in the next build.
+
+The list of predefined themes in this release includes:
+.PD 0
+.IP \(bu 2
+blue (the built\-in theme)
+.IP \(bu 2
+fire
+.IP \(bu 2
+gray
+.IP \(bu 2
+steel
+.RE 2
+
+Creating your own themes: If you want to create your own theme simply
+take one of the included XPM theme files and modify it to your needs. 
+If you really want to know, the format of the file is described below.
+
+XPM file format: The XPM file has to be at least 102 by 71 pixels in 
+size. The area 0,0 to 50,50 describes the background for the selected 
+workspace, the area 51,0 to 101,50 for unselected work spaces. The 
+area has to include a one\-pixel border that is used for all workspace 
+buttons. From 0,51 to 89,60 are the digits used for the selected 
+workspace (each 10x10 pixels, 1\-9 from left to right) and from 0,61 to 
+89,70 are the digits for unselected workspaces. The digits may have
+a transparent background.
+.PD
+.SH REQUIREMENTS
+In order for wmpager to work properly you need to have your Window
+Maker compiled with Gnome support. (I don't know if this is the case
+for the precompiled Window Makers usually found in Linux distributions
+since I usually build my Window Maker myself.)
+
+wmpager uses the Gnome support messages sent out by Window Maker to
+display the currently active workspace. Without Gnome support the
+pager will not automatically adjust the currently active desktop.
+.PD
+.SH BUGS
+.PD 0
+To file a bugreport please use the bug tracking system at:
+.TP
+\fIhttp://sourceforge.net/projects/wmpager/\fP
+.PD
+.SH AUTHOR
+.PD 0
+Bruno Essmann <essmann@users.sourceforge.net>
+.LP
+\fIhttp://wmpager.sourceforge.net/\fP
+.PD
+.SH ACKNOWLEDGEMENTS
+.PD 0
+Thanks to all at Ergon Informatik AG who are using wmpager and helped 
+improve it!
+.LP
+\fIhttp://www.ergon.ch/\fP
+.PD
+.SH "SEE ALSO"
+\fBwmaker\fP(1x)

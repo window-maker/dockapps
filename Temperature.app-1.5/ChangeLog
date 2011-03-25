@@ -1,0 +1,38 @@
+Vesrion 1.5  -  Feb 7, 2010
+	- Fix ancient c++ codeing, using std:: namespace (carlos@gamma.ttk.pte.hu)
+
+Version 1.4  -  April 6, 2002
+	- Now fetching temperature information over http (instead of ftp).
+	- Fixed possible race condition when creating temporary files.
+
+Version 1.3  -  Jul 2, 2001
+	- Added option -V, which enables verbose messages from wget and
+	  can be useful for tracing if wget fails.
+	- Minor bug fixes.
+
+Version 1.2  -  Jun 29, 2001
+	- Temporary files are now unique to the process,
+	  so that multiple instances can run at once.
+	
+Version 1.1  -  Jun 25, 2001
+	- Fixed some compilation problems.
+	- Fixed potential race condition.
+	- Now works better on Solaris.
+
+Version 1.0  -  March 17, 2001
+	- New Makefile.
+
+Version 0.4  -  April 23, 2000
+	- Added option -t, which makes the time of the temperature observation
+	  appear (in 12 or 24 hour format).
+
+Version 0.3  -  April 19, 2000
+	- Fixed exit bug.
+
+Version 0.2  -  April 18, 2000
+	- Minor code clean up.
+	- Updated help text.
+	- Corrected spelling faults.
+
+Version 0.1  -  April 16, 2000
+	- First release.

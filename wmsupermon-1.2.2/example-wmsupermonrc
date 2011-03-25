@@ -1,0 +1,78 @@
+[mem]
+Source = /proc/meminfo
+Regex = {MemTotal: *([0-9]+).*MemFree: *([0-9]+).*Buffers: *([0-9]+) kB.Cached: *([0-9]+)}[\1 - \2 - \3 - \4]s
+Scale=1024
+
+[i/o]
+Source = /proc/diskstats
+#major minor name rio rmerge rsect ruse wio wmerge wsect wuse running use aveq
+# note that "name" part is limited to letters!
+# thus we count, e.g. "sda" line, but bit "sda1", "sda2", etc.
+Regex = /^( +[0-9]+){2} [a-z]+ ([0-9]+) ([0-9]+ ){3}([0-9]+) /DIFF(SUM(\2+\4))/
+
+# cpu load
+[cpu]
+Source = /proc/stat
+Regex = {cpu  ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)}{DIFF(\1+\2+\3+0.01)/DIFF(\1+\2+\3+\4+0.01)}
+
+# cpu load - CPU0
+[cp0]
+Source = /proc/stat
+Regex = {cpu0 ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)}{DIFF(\1+\2+\3+0.01)/DIFF(\1+\2+\3+\4+0.01)}
+
+# cpu load - CPU1
+[cp1]
+Source = /proc/stat
+Regex = {cpu1 ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)}{DIFF(\1+\2+\3+0.01)/DIFF(\1+\2+\3+\4+0.01)}
+
+# cpu frequency
+[mhz]
+Source = /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+Scale = 1000
+
+# temperature from the second sensor (cpu temperature on my motherboard)
+[Tem]
+Source = /sys/bus/i2c/drivers/w83627hf/9191-0290/temp2_input
+Scale  = 1000
+Range  = 37 .. 55
+
+# second fan speed (cpu fan on my motherboard)
+[fan]
+Source = /sys/bus/i2c/drivers/w83627hf/9191-0290/fan2_input
+
+# eth0 - download speed
+[in]
+Source   = /proc/net/dev
+Regex    = !eth0:([0-9]+) +([0-9]+ +){7}([0-9]+) !DIFF(\1)!
+Scale    = 1000
+Action   = xterm -e "netstat -a|less"
+
+# eth0 - upload speed
+[out]
+Source   = /proc/net/dev
+Regex    = !eth0:([0-9]+) +([0-9]+ +){7}([0-9]+) !DIFF(\3)!
+Scale    = 1000
+Action   = xterm -e "netstat -a|less"
+
+# network monitor - down- and upload speed, alternating
+[[wm1]]
+in = number -label
+in = graph -scaledown smooth
+
+out = number  -label
+out = graph -scaledown -smooth
+
+# CPU monitor - cpu load, frequency, temperature, fan speed
+[[wm2]]
+cpu = graph -small
+Tem = bar -label
+mhz = number -label
+fan = number -label
+
+# memory and i/o monitor
+[[wm3]]
+mem = number -label
+mem = graph -small
+i/o = number -label
+i/o = graph -small
+

@@ -1,0 +1,7 @@
+- Split the program in two parts:
+  - powerd daemon, which will do all the low level power management stuff
+  - wmpower proper, which will be an interface to powerd, this way writing
+    other user interfaces (kde, gnome...) will become much easier as the
+    dirty stuff will be all in one place.
+- Add theme support
+- Allow for multiple warning/commands for different configurable battery levels...

@@ -1,0 +1,21 @@
+wmkeys
+------
+Copyright (C) 1999 Eric Crampton <EricCrampton@worldnet.att.net>
+
+See the file COPYING for license information. wmkeys is distributed
+under the GNU General Public License.
+
+wmkeys is a Window Maker and AfterStep dock app which allows you to
+quickly switch between different X keymaps, for example QWERTY and
+Dvorak. I wrote this so I could easily switch between those two
+keymaps as I learned the Dvorak mapping.
+
+Some code was taken from existing dock applications, such as
+wmtime. For more information on other dock apps available, see
+http://windowmaker.mezaway.org/
+
+For updates, see the wmkeys page at
+http://home.att.net/~EricCrampton/wmkeys/
+
+Feel free to send comments, suggestions, and patches to
+EricCrampton@worldnet.att.net.

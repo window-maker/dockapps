@@ -1,0 +1,59 @@
+Version 0.6.5
+-------------
+Date	-	25/4/99
+		-	Fixed fullscreen freeze bug
+		-	Change mouse button assignments for launch of external application
+		-	Settings for fullscreen mode in config file
+
+Version 0.6.3b
+--------------
+Date	-	22/4/99
+		-	Releases video device when TV is turned off
+		-	Support for both external TV application and inbuilt fullscreen
+		-	Auto edit of config file for finetune offsets. 
+		-   Other bug fixes
+
+Version 0.6.2b
+--------------
+Date	-   25/3/99
+		- 	Added support for fine tune parameters in config file
+		-   Some keyboard bindings in fullscreen
+		-	Mute feature
+		- 	Misc bug fixes
+		
+Version 0.6.1b
+--------------
+Date    -   17/3/99
+Changes -   Fixed CPU utilisation hog bug. 
+		-   Should now take up less than 1% CPU
+		-   Fixed hanging state for executables
+		-   Other minor bugfixes
+
+Version 0.6b
+------------
+Date	-	15/3/99
+Changes	-	Full Screen Support!
+	-	Changed preset displays for Composite and S-Video
+	-	Changed command line parsing format
+	-	Miscellaneous minor bug fixes
+
+Version 0.5.2b
+--------------
+Date	-	3/3/99
+Changes - 	TV Source bug fixed - Composite and S-Video inputs should work 
+		properly now.
+	-	Now supports editing of config file after startup of wmtv.
+		(ie. wmtv's config file will be reread when the TV is turned On)
+	-	Fixed TV Off mode. Clicking and holding down more than 3 seconds 
+		during TV On mode or Set Tuner mode would turn wmtv off.
+	
+Version 0.5.1b
+--------------
+Date 	-   26/2/99
+Changes - 	Supports 8/16/24/32 depths as opposed to the first version 
+        	which only runs on 16 bit displays.
+
+Version 0.5b
+------------
+Date	-	25/2/99
+Changes - 	Initial Public Beta Release

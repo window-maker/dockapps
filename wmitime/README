@@ -1,0 +1,54 @@
+wmitime 0.2 beta Public Release
+--------------------------------------------------------------
+Author...:	Dave Clark (clarkd@skynet.ca)
+
+Homepage :      http://www.neotokyo.org
+
+Description
+--------------------------------------------------------------
+I cooked this up one night when i was bored and had read about
+the new internet time thing from Swatch... kinda interesting
+idea, who knows if it'll go anywhere...
+
+wmitime is yet another clock for your dock/clip/etc...
+It's quite overglorified :)
+
+It tells standard 12/24hr time and Swatch's new Internet Time
+(see www.swatch.com)
+
+Let me know what you think of it. ;)
+
+Installing
+--------------------------------------------------------------
+cd wmitime
+make
+make install
+
+should do it.
+
+Options
+--------------------------------------------------------------
+Do a 'wmitime -h' to see the options...
+
+
+Files
+--------------------------------------------------------------
+README		This file.
+BUGS		Things you don't want to know ;-)
+CHANGES		Description of changes.
+COPYING		GNU General Public License Version 2.
+	
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to clarkd@skynet.ca and describe the
+problem as detailed! as you can.
+
+
+Copyright
+--------------------------------------------------------------
+wmitime is copyright (c) 1997/98 by Dave Clark
+
+wmitime is licensed through the GNU General Public License.
+Read the COPYING file for the complete GNU license.

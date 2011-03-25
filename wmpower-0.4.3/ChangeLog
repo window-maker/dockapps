@@ -1,0 +1,224 @@
+2008-11-25  Michele Noberasco  <noberasco@zirak.it>
+
+	* src/Makefile.am:
+	Fixed linker arguments to prevent issues compiling with -as-needed.
+
+2005-12-15  Michele Noberasco  <michele.noberasco@tiscali.it>
+
+	* src/power_management/power_management.c,
+	* src/power_management/power_management.h,
+	* src/wmpower.c:
+	Removed support for lin-seti as the original Seti@Home
+	project has shut down its activities.
+
+2005-09-12  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/compal/compal_lib.c,
+	* src/power_management/compal/compal_lib.h,
+	* src/power_management/power_management.c (get_power_status):
+	Removed redundant Compal specific battery time retrieval feature.
+
+2005-09-02  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/toshiba/toshiba_lib.c (acpi_set_lcd_brightness),
+	(hardware_set_lcd_brightness),
+	* src/power_management/compal/compal_lib.c (compal_set_lcd_brightness), 
+	* src/power_management/power_management.h,
+	* src/wmpower.c (main, ParseCMDLine, message): 
+	Added new command line arguments to be able to force wmpower to use
+	our values for minimum and maximum brightness.
+
+	* src/power_management/compal/compal_lib.c (compal_get_battery_time):
+	Check wether battery is present instead of segfaulting when we think
+	it is while, in face, it is not.
+	(compal_set_lcd_brightness): 
+	Fixed lcd brightness handling.
+
+2005-07-19  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/power_management.c (calculate_battery_time):
+	When online, calculate time left until battery s fully charged
+
+	* src/power_management/cpufreq/cpufreq.c:
+	Fix an allocation issue that could make wmpower crash on rare occasions.
+
+2005-03-29  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/wmpower.c (main):
+	Fix small bug that made wmpower print forever that it would not
+	fast charge the battery as it was already at maximum capacity
+
+2005-02-23  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/cpufreq/cpufreq.c (check_cpufreq_2_6):
+	Fixed bug, reported by Pezhman Givy <phg@snafu.de>,
+	that made wmpower crash on startup when checking for cpufreq
+	support, if this support wasn't there...
+
+2005-02-22  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/power_management.c (calculate_battery_time):
+	Fixed bug that made wmpower incorrectly re-initialize its
+	self-calculated battery time variables...
+
+2005-02-21  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* configure.in:
+	Added compile optimizations for K6 and Athlon-64 processors...
+
+	* src/Makefile.am,
+	* src/open_syslog_on_stderr.h,
+	* src/open_syslog_on_stderr.c:
+	Added cmd line arg to redirect wmpower output to the system logger.
+
+2005-02-16  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/power_management.c (calculate_battery_time):
+	When calculating battery time directly, make wmpower reinitialize its
+	stuff also when the time elapsed since our last update is significantly
+	higher than our polling interval, because this likely means that
+	the system has been suspended (we allow it some play -60 seconds-
+	because -who knows- the system might be on really heavy load)
+
+2005-02-15  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/cpufreq/cpufreq.c (cpufreq_get_governor)
+	(cpufreq_get_governor_2_6),
+	* src/wmpower.c (message, ParseCMDLine),
+	* src/power_management/power_management.c (internal_set_pm_features)
+	(pm_support): 
+	Allow user to choose his own CPUFreq governors when online and offline...
+
+2005-02-04  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/power_management.h,
+	* src/power_management/power_management.c:
+	When calculating battery time directly, make wmpower
+	reinitialize its stuff every time the system switches
+	to/from battery power. Also, we now display the time
+	until the battery is fully recharged.
+
+2005-01-28  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/power_management.c (calculate_battery_time)
+	(get_power_status):
+	Make wmpower calculate battery time directly if it fails
+	to get it from ACPI, APM, or whatever other means...
+
+2005-01-25  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/cpufreq/cpufreq.c:
+	Internally split some functions according to kernel version.
+
+	* src/power_management/power_management.c (internal_set_pm_features):
+	Make wmpower (try to) start/stop lin-seti and noflushd, according
+	to PM status, when it is first started...
+
+2005-01-24  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/wmpower.c (ParseCMDLine, message),
+	* src/power_management/power_management.h,
+	* src/power_management/power_management.c (set_cpufreq_use):
+	Continue adding CPUfreq support, now we can disable it from cmd line.
+
+	* configure.in,
+	* src/power_management/Makefile.am (AM_CFLAGS),
+	* src/power_management/toshiba/toshiba_lib.c: 
+	Added fix to make it compile on non x86 hardware...
+	Problem reported by Benjamin Rich <rich@math.fu-berlin.de>
+
+	* configure.in:
+	Changed VERSION to 0.4.0...
+
+	* src/wmpower.c (message),
+	(ParseCMDLine):
+	Added '-geometry' command line argument, thanks to
+	Johan Vromans <jvromans@squirrel.nl>
+
+	* src/power_management/power_management.c,
+	* src/power_management/power_management.h,
+	* src/power_management/Makefile.am,
+	* src/power_management/cpufreq/cpufreq.h,
+	* src/power_management/cpufreq/cpufreq.c:
+	Added initial support for CPU frequency scaling.
+
+2004-12-08  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/wmpower.c:
+	Don't allow manual PM status changes (i.e. actions
+	triggered by wheel mouse up/down, button clicks)
+	when in 'mo_meddling' mode. Bug reported by
+	gabor papp <rod AT inf DOT bme DOT hu>
+
+2004-12-05  Noberasco Michele  <s4t4n@gentoo.org>
+
+	* src/power_management/acpi/libacpi.c (check_acpi):
+	Fixed a battery (mis)ordering issue, thanks to
+	Michel Ganguin <michel.ganguin@epfl.ch>
+
+2004-07-16  Noberasco Michele  <noberasco.gnu@disi.unige.it>
+
+	* src/power_management/acpi/libacpi.h,
+	* src/power_management/power_management.c (get_fan_status),
+	* src/power_management/acpi/libacpi.c (get_fan_info),
+	(acpi_get_fan_status):
+	Added support for any number of fans under ACPI.
+
+2004-04-02  Noberasco Michele  <noberasco.gnu@disi.unige.it>
+
+	* src/power_management/power_management.c (internal_set_pm_features):
+	update lin-seti start/stop code
+
+2004-03-27  Noberasco Michele  <noberasco.gnu@disi.unige.it>
+
+	* configure.in:
+	Changed version to 0.3.2
+
+	* src/power_management/toshiba/sci.h,
+	* src/power_management/toshiba/hci.h:
+	Added a couple of #ifndefs so that wmpower
+	doesn't fail compilation in some circumstances
+	complaining about symbols already defined
+
+2004-03-18  Noberasco Michele  <noberasco.gnu@disi.unige.it>
+
+	* NEWS: update documentation
+
+2004-03-14  Noberasco Michele  <noberasco.gnu@disi.unige.it>
+
+	* src/power_management/acpi/libacpi.c (read_acpi_state):
+	(code contributed by Ondrej Bojar <obo@cuni.cz>)
+	under ACPI correctly displays the time to full charge when the battery
+	is charging
+
+	* src/wmpower.c:
+	(code contributed by Ondrej Bojar <obo@cuni.cz>)
+	- the battery symbol is not shown as critical (blinking), if the battery
+	  is charging
+	- two new options added:
+	  -w   to specify any command to execute when the remaining time sinks to
+	       a threshold
+	  -W   the threshold of remaining time in minutes.
+
+2004-03-10  Noberasco Michele  <noberasco.gnu@disi.unige.it>
+
+	* wmpower.spec:
+	updated to reflect version 0.3.1
+
+	* src/wmpower.c (ShowBatteryPercentage):
+	some code clean ups
+
+	* configure.in:
+	some tweaks, update VERSION to 0.3.1
+
+	* src/power_management/acpi/libacpi.c (check_acpi):
+	Fix battery detection code: now batteries are presented
+	in the correct order
+
+2004-03-05  Noberasco Michele  <noberasco.gnu@disi.unige.it>
+
+	* src/power_management/toshiba/toshiba_lib.c (machine_is_toshiba):
+	Added machine id for Toshiba Satellite Pro 6100
+
+
+ChangeLog available only since March 05, 2004...

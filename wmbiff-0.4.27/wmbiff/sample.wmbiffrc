@@ -1,0 +1,143 @@
+# $Id: sample.wmbiffrc,v 1.18 2003/11/09 07:01:15 bluehal Exp $
+#
+# See wmbiffrc(5) for more info.
+#
+# Global interval -- seconds between check mailboxes
+interval=60
+
+# Global askpass -- choose a password acting program
+# that behaves like ssh-askpass.  The default is 
+# askpass = /usr/bin/ssh-askpass.
+# askpass is invoked on IMAP entries that have no password
+# below.
+# the commented version below is likely to work on RedHat 
+# systems; wmbiff's default is likely to work on Debian
+# systems with ssh-askpass installed.
+#askpass = /usr/libexec/openssh/x11-ssh-askpass
+
+# If you'd like it to be visually distinct so that
+# you aren't confused with your normal passphrase:
+#askpass = /usr/bin/ssh-askpass -fg cyan -bg black -xrm '*Dialog.font: -b&h-lucida-medium-r-normal-*-*-100-*-*-*-*-iso8859-1' -xrm '*Dialog.title: WMBiff Password Entry'
+
+# If you're writing a better program for password prompting,
+# or that stores passwords cleverly, and don't like that
+# wmbiff adds 'password for wmbiff: user@site' to the command
+# line, you can use something like this:
+#askpass = /bin/echo mypassword ; true
+
+# If you's like to chain the password to another program,
+# such as kinit for Kerberos authentication, use (with the
+# ruby interpreter installed):
+askpass = /usr/bin/ssh-askpass -fg cyan -bg black -xrm '*Dialog.title: WMBiff Password Entry' | /usr/bin/ruby -e 'm = gets; IO.popen("/usr/bin/kinit > /dev/null", "w").puts(m); puts(m)' && true
+
+# Skin.  A different source pixmap can be loaded dynamically.
+# If not a full path, wmbiff will search /usr/share/wmbiff:/usr/local/share/wmbiff:.
+# which is intended to keep the .wmbiffrc simple and portable to
+# different systems with wmbiff installed differently.
+#
+# default
+#skinfile=wmbiff-master-led.xpm
+# higher contrast for lower-color displays
+#skinfile=wmbiff-master-contrast.xpm
+# make your own derivative and submit it 
+# to us at wmbiff-devel@lists.sourceforge.net
+
+### First string ###
+
+# Label, that will be displayed
+label.0=Spool
+
+# Path to mailbox for UNIX-style mailboxes,
+# or pop3:user:password@mailserver[:port] for POP3 accounts
+# port are optional, default - 110
+path.0=mbox:/var/mail/gb
+
+# Command, which will be executed for new mail in any watched mailbox
+globalnotify=my_play /home/gb/sounds/new_mail_has_arrived.wav
+
+# Command, which executed on new mail arrival, or special keyword 'beep'
+#notify.0=beep
+#notify.0=my_play /home/gb/sounds/new_mail_has_arrived.wav
+
+# Don't want any global notification for this mailbox
+notify.0=true
+
+# Command, which executed on left mouse click on label 
+action.0=rxvt -name mutt -e mutt
+
+# Rescan interval; default to global interval
+# For POP3-accounts bigger values (>60sec) is recommended
+#interval.0=5
+
+# Interval between mail auto-fetching; use 0 for disable (only
+# mouse right-clicking still worked)
+# use -1 for auto-fetching on new mail arrival
+#fetchinterval.0=300
+
+# Command, which used for fetching mail. Leave commented out for full disable
+#fetchcmd.0=/usr/bin/fetchmail
+
+###
+# NOTE: line under this line will not be parsed because the space before equal
+label.1 = MBOX
+# MBOX format: mbox:fullpathname
+path.1=mbox:/home/gb/mail/10_ksi-linux-list
+#notify.1=my_play /home/gb/sounds/new_mail_has_arrived.wav
+action.1=rxvt -name mutt -e mutt -f /home/gb/mail/10_ksi-linux-list
+
+# label.1 = MDIR
+# # Maildir format: maildir:fullpathname
+# path.1=maildir:/home/gb/Maildir/
+# notify.1=my_play /home/gb/sounds/new_mail_has_arrived.wav
+# action.1=rxvt -name mutt -e mutt -f /home/gb/Maildir
+
+label.2=LICQ
+# LICQ format: licq:fullpathname
+path.2=licq:/home/person/.licq/history/1111111.history
+notify.2=beep
+action.2=licq&
+
+#or if you use gnomeicu:
+#label.2=ICQ
+#path.2=gicu:USER_UIN
+#notify.2=beep
+#action.2=gnomeicu-client show
+
+label.3=POP3
+# pop3 format: pop3:user:password@server[:port] [auth]
+path.3=pop3:user:password@server apop
+#notify.3=my_play /home/gb/sounds/new_mail_has_arrived.wav
+action.3=rxvt -name mutt -e mutt -f /home/gb/mail/30_nftp-list
+interval.3=300		# 5 minutes
+fetchinterval.3=-1
+fetchcmd.3=fetchmail
+
+label.4=IMAP4
+# IMAP4 format: imap:user:password@server[/mailbox][:port] [auth]
+# mailbox is optional, default - INBOX
+# password is optional, default - ask using the askpass config
+# port is optional, default - 143
+path.4=imap:user:password@server
+interval.4=300		# 5 minutes
+
+# label.4=IMAPS
+# Secure IMAP format: imaps:user:password@server[/mailbox][:port] [auth]
+# mailbox is optional, default - INBOX
+# password is optional, default - ask using the askpass config
+# port is optional, default - 993
+# path.4=imaps:user:password@server cram-md5
+# interval.4=300          # 5 minutes
+
+# Shell expansion.  (can't be nested.)
+# path.4=mbox:/home/me/Mail/`ls -t1 /home/me/Mail/list-archive-* | head -1`
+# label.4=tick
+
+# Shell method
+# path.4=shell:::lpq | grep Queue | awk '{print $2}'
+
+# To check for security updates in debian
+path.4=shell:::/usr/lib/wmbiff/security.debian.rb
+
+# Ways wmbiff can drive MAC OS X Mail using AppleScript.
+# action.0 = osascript -e 'tell application "Mail"' -e 'set selected mailboxes of first message viewer to {mailbox "in-grads" of imap account "me@myaccount.org"}' -e 'activate' -e 'end tell'
+# action.1 = osascript -e 'tell application "Mail"' -e 'set selected mailboxes of first message viewer to {inbox}' -e 'activate' -e 'end tell'

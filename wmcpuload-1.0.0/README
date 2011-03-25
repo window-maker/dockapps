@@ -1,0 +1,135 @@
+WMCPULoad - A dockapp to monitor CPU usage
+
+General Information
+===================
+WMCPULoad is a program to monitor CPU usage. It is a dockapp that is supported
+by X window managers such as Window Maker, AfterStep, BlackBox, and
+Enlightenment.
+
+It displays the current usage, expressed as a percentile and a chart, and has an
+LCD look-alike user interface. The back-light may be turned on/off by clicking
+the mouse button over the application. If the CPU usage hits a certain
+threshold, an alarm-mode will alert you by turning back-light on.
+
+It runs on GNU/Linux / FreeBSD / OpenBSD / NetBSD / BSDi / Solaris / Cygwin.
+
+Installation
+============
+See the file 'INSTALL' for instructions.
+
+
+Copyright
+=========
+- GPL applies all portions of the code I wrote. Please see COPYING file.
+
+
+Usage
+=====
+$ wmcpuload [OPTIONS]
+ -d,  --display <string>        display to use
+ -t,  --title <string>          application title name
+ -bl, --backlight               turn on back-light
+ -lc, --light-color <color>     back-light color (rgb:6E/C6/3B is default)
+ -i,  --interval <number>       number of secs between updates (1 is default)
+ -c,  --cpu <number>            CPU number (0, 1, ...)
+ -n,  --ignore-nice             ignore a nice value
+ -p,  --ignore-proc <name><...> ignore all processes specified by command name
+ -h,  --help                    show this help text and exit
+ -v,  --version                 show program version and exit
+ -w,  --windowed                run the application in windowed mode
+ -wp, --windowed-withpanel      run the application in windowed mode
+                                with background panel
+ -bw, --broken-wm               activate broken window manager fix
+ -a,  --alarm <percentage>      activate alarm mode. <percentage> is threshold
+                                of percentage from 0 to 100 (90 is default)
+
+NOTES:
+- '-n, --ignore-nice' option is activated under GNU/Linux / {Free,Open,Net}BSD.
+- '-p, --ignore-proc' option is activated under GNU/Linux.
+- '-c,  --cpu'        option is activated under GNU/Linux.
+
+
+For AfterStep users
+===================
+Add below entry to your Wharf
+
+  *Wharf wmcpuload - Swallow "wmcpuload" wmcpuload -w &
+
+
+For GNOME users
+===============
+If you want to run wmcpuload as swallowed application inside the GNOME panel,
+open 'Create swallow Applet' dialog and enter the values as below.
+
+  1. Title application to swallow: <title name> - specified with '-t' option
+  2. Command (optional): wmcpuload -w -t <title name>
+  3. width: 62
+  4. height: 62
+
+NOTE: You can't run swallowed application with sawfish 1.0.1. This problem has
+fixed in current cvs.
+
+
+For Enlightenment users
+=======================
+Use '-bw, --broken-wm' option.
+
+
+For Golem users
+===============
+Add below entry to your ~/.golem/plugins/pier/rc
+
+  param "item" "dock" {
+          param "cmd" "exec wmcpuload";
+          param "class" "wmcpuload.DockApp";
+  }
+
+
+Frequently Asked Questions
+==========================
+
+Q) Which window managers do support dockapps?
+A) - Window Maker  http://www.windowmaker.org/
+   - AfterStep     http://www.afterstep.org/
+   - Blackbox      http://blackbox.alug.org/
+   - Enlightenment http://www.enlightenment.org/
+   - Fluxbox       http://fluxbox.sourceforge.net/
+   - Waimea        http://waimea.sourceforge.net/
+   - PWM           http://www.students.tut.fi/~tuomov/pwm/
+   - Golem         http://golem.sourceforge.net/
+
+Q) Can I set the initial size?
+A) No. As far as I know, there is no dockapp which can be set the size.
+
+Q) (How) Does WMCPULoad support SMP system?
+A) WMCPULoad will probably work fine on an SMP system. However, it only displays
+   the usage statistics for the all CPUs. I may add the new command line option
+   (e.g. '--cpu <number>') to specify the CPU number. but this feature is the
+   bottom of my TODO list, since I do not have an SMP system.
+   -----------------------------------------------------------------------------
+   NOTE: WMCPULoad has '-c, --cpu' option since version 0.8.0. but it only works
+         on GNU/Linux. (Thanks to Laurent Raufaste for beta test)
+   -----------------------------------------------------------------------------
+
+Q) Why is kamp-idled spending many CPU time on my GNU/Linux box?
+A) kapm-idled executes HLT instructions to save power.
+
+   Stephen Rothwell (GNU/Linux APM maintainer) said:
+   "kapm-idled may do quite a lot more than just execute HLT instructions
+   depending on how smart the BIOS is about saving power.  Unfortunately, some
+   BIOSs are pretty dumb and in some cases more power is consumed by having
+   CONFIG_APM_CPU_IDLE defined in your kernel build than by not."
+                                              -- from debian-devel mailing lists
+
+   '-p, --ignore-proc' option will help you. (e.g., wmcpuload -p kapm-idled)
+
+
+Bug reports
+===========
+Please send e-mail to ssato@sh.rim.or.jp.
+
+
+URL
+===
+http://www.sh.rim.or.jp/~ssato/dockapp/#wmcpuload
+

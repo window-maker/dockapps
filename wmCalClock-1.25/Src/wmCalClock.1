@@ -1,0 +1,65 @@
+.TH WMCALCLOCK 1 "16 December 1998" 
+.SH NAME
+WMCALCLOCK \- Dockable Calendar Clock
+.SH SYNOPSIS
+.B wmCalClock
+[-h] [-display <Display>] [-b <Volume>] [-e <Command>] [-24] [-s] [-S] [-L <Longitude>] [-l] [-tc <color>] [-bc <color>] [-tekton] [-comicsans] [-arial] [-luggerbug] [-jazz]
+.SH DESCRIPTION
+.PP
+wmCalClock is a simple Calendar Clock with anti-aliased text and drop-shadows. 
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-display [display]
+Use an alternate X Display.
+.TP
+.B \-b <Volume>
+Beep on the hour with specified volume (between -100 and 100).
+.TP
+.B \-e <Command>
+Command to execute via double click of mouse button 1. (Use quotes if your command 
+has white space in it).
+.TP
+.B \-24
+Show time in 24-hour format instead of default 12-hour AM/PM format.
+.TP
+.B \-s
+Show Greenwich Mean Sidereal Time (GMST) in 24-hour format. 
+.TP
+.B \-S
+Dont show seconds.
+.TP
+.B \-L <Longitude>
+Show Local Sidereal Time (LST) in 24-hour format. Longitude is in degrees 
+(- for West + for East).
+.TP
+.B \-l 
+Force use of lower color pixmap to conserve colors. On displays with <= 8 bits,
+the low color Pixmap will always be used.
+.TP
+.B \-tc <color>
+Change color of time-field digits. 
+.TP
+.B \-bc <color>
+Change color of time-field background. 
+.TP
+.B \-tekton
+Use the Tekton font for time field.
+.TP
+.B \-arial
+Use the Arial (i.e. Helvetica)  font for time field.
+.TP
+.B \-jazz
+Use the JazzPoster font for time field.
+.TP
+.B \-luggerbug
+Use the LuggerBug font for time field.
+.TP
+.B \-comicsans
+Use the ComicSans font for time field.
+.SH BUGS
+Who knows? (Let me know if you find any).
+.SH AUTHOR
+Michael G. Henderson <mghenderson@lanl.gov>

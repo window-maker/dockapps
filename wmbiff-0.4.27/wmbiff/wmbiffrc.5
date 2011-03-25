@@ -1,0 +1,310 @@
+.\" Hey, Emacs!  This is an -*- nroff -*- source file.
+.\" $Id: wmbiffrc.5.in,v 1.18 2004/12/12 00:01:53 bluehal Exp $
+.\"
+.\" wmbiff/wmbiffrc.5.  Generated from wmbiffrc.5.in by configure.
+.\"
+.\" wmbiff.1 and wmbiffrc.5 are copyright 1999-2002 by 
+.\" Jordi Mallach <jordi@debian.org>
+.\"
+.\" This is free documentation, see the latest version of the GNU
+.\" General Public License for copying conditions. There is NO warranty.
+.TH WMBIFFRC 5 "November 11, 2002" "wmbiff"
+
+.SH NAME
+wmbiffrc \- configuration file for
+.BR wmbiff (1)
+
+.SH DESCRIPTION
+\fBWMbiff\fP is a mail notification tool for the WindowMaker and AfterStep
+window managers. It can handle up to 5 mailboxes, more when run using other
+window managers. You can define actions
+on mouse clicks for the different mailboxes. This manpage explains the
+different options which can be specified in a user's wmbiffrc.
+
+.SH OPTIONS
+Each option takes the form
+.IR option[.mbox] " = " value .
+Comments must be preceeded by pound signs (#).
+
+The supported configuration options are:
+
+.TP 3
+\fBcertfile\fP
+File that holds TLS (SSL) certificates.  If specified,
+wmbiff will check certificates and exit on a failure, so
+your password is secure.  If not present, wmbiff will trust
+all certificates and may be vulnerable to a
+man-in-the-middle attack.  WMbiff's will not prompt if you
+want to accept new certificates.  Instead, wmbiff expects
+your mail client to keep certificates in a file.  For
+example, if mutt is your mailreader, you may add:
+
+.RS
+certfile=/home/<me>/.muttsslcerts
+.RE
+.TP
+\fBinterval\fP
+Global interval between mailbox checking. Value is the number of seconds, 5
+is the default.
+.TP 
+\fBaskpass\fP
+Program run to ask for IMAP passwords, if left empty in the configuration file.
+The default is /usr/bin/ssh-askpass.  Can be specified on a per-mailbox basis.
+.TP 
+\fBskinfile\fP
+XPM pixmap file to load for the background.  If not a full
+path, wmbiff will search /usr/local/share/wmbiff/skins, /usr/share/wmbiff,
+/usr/local/share/wmbiff, and the current directory for the
+pixmap file.
+.TP
+\fBglobalnotify\fP
+Command to be executed when new mail is recieved in any mailbox. Set
+notify.n to override this option for mailbox n.
+.TP
+\fBlabel.n\fP
+Specifies the displayed label for a mailbox. It can be up to five characters
+long.
+.TP
+\fBpath.n\fP
+Path to the mailbox, local or remote one. Path lines start with a prefix,
+which specifies the type of wmbiff box you're setting up. The following types
+are supported:
+.RS
+.TP
+.I mbox
+This is a local mbox mailbox. After the prefix, you only need to put the
+path to the mailbox wmbiff needs to read.  
+Local mboxes may be specified using shell commands enclosed
+in back-ticks. (`s.)
+.\"This is also the default.
+.RS
+mbox:/path/to/mail/debian-devel
+.RE
+.\"  let's stop making this available.
+.\" .RS
+.\" - or -
+.\" .RE
+.\" /path/to/mail/debian-devel
+.\" .RS
+.TP
+.I maildir
+This works just like \fImbox\fP above.  
+.RS
+maildir:[:\fIflags\fP:]/path/to/mail/bugtraq/
+.TP
+\fIflags\fP can one or more of:
+.TP
+.I F
+Flush directory caches by creating (then deleting) a temporary file
+in each maildir prior to checking.  This hack speeds up checking 
+network-mounted maildirs in cases where directory caching can cause 
+unwanted delays (eg. SFS-mounted maildirs).
+.RE
+.TP
+.I pop3
+Using this type, WMBiff will check for mail on a pop3 server using the
+specified username, password, host and an optional port number (defaulting
+to 110).  If your password contains a special character, eg. '@' or ':',
+use the second path format.  See Authentication below for a description of 
+the auth field. 
+.RS
+pop3:user:passwd@server[:port] [auth]
+.RE
+.RS
+pop3:user passwd server[ port] [auth] 
+.RE
+.TP
+.I pop3s
+Exactly like pop3, only uses TLS (SSL) when built with gnutls and defaults
+to port 995. This copy of WMBiff was compiled with GNUTLS. 
+.TP
+.I imap
+These are IMAP4 boxes. As with pop3, WMBiff will report the
+status of an IMAP4 mbox using the given values. This type
+accepts user, optional password, host and optional path to
+mailbox and port number.  See Authentication below for a
+description of the auth field.  The password may be left
+empty: see askpass above for information on password
+prompting.  If your password includes a @, use the 
+space delimited form.  If it contains a space or #, use the
+askpass option instead.  The mailbox field may be quoted, 
+e.g., server/"Mail/Eggs and Spam".  Mailboxes in subfolders 
+may be described as /INBOX.subfolder by some servers and 
+/Mail/subfolder by others.
+.RS
+imap:user:passwd@server[/mailbox][:port] [auth]
+.RE
+.RS
+imap:user:@server[/mailbox][:port] [auth]
+.RE
+.RS
+imap:user passwd server[/mailbox][ port] [auth]
+.RE
+.RS
+imap:user:passwd@server[/"mail box"][:port] [auth]
+.RE
+.TP
+.I imaps
+These are IMAP4 boxes wrapped in a TLS (SSL)
+connection. This copy of WMBiff was compiled with GNUTLS. Parameters are the same as
+those for ordinary IMAP4 boxes.  Port defaults to 993. If
+143 is specified, WMBiff will attempt to connect unencrypted
+but negotiate TLS using IMAP's STARTTLS command.  TLS
+support uses GNUTLS, which is under development and may be
+insecure.  See the imap format above
+for additional detail about specifying your password.
+.RS
+imaps:user:passwd@server[/mailbox][:port] [auth]
+.RE
+.RS
+imaps:user:@server[/mailbox][:port] [auth]
+.RE
+.RS
+imaps:user passwd server[/mailbox][ port] [auth]
+.RE
+.TP
+.I licq
+With this box type, wmbiff will read the given history file and track the
+number of messages in it. It just needs a path to a given licq history file.
+.RS
+licq:/path/to/.licq/history/file.history
+.RE
+.TP
+.I gicu
+With this box type, wmbiff will ask gnomeicu for the number
+of pending messages.  If gnomeicu is not running, nothing
+will be displayed.  gnomeicu-client must be in your path.
+The user's icq UIN is optional.
+.RS
+gicu:[UIN]
+.RE
+.TP
+.I finger
+With this box type, wmbiff will finger an account to see if
+there is unread mail.  Both finger and perl must be in your
+path, and your server must run a finger daemon.
+.RS
+finger:user@host
+.RE
+.TP
+.I shell
+With this keyword, wmbiff will launch the
+specified shell command and read its output (STDOUT)
+expecting an integer message count or a three-character
+string.  If "new" is in the first line, the string or number
+will be displayed in yellow. The behavior of this
+experimental keyword is likely to change in future
+revisions.
+.RS
+shell:::/path/to/command
+shell:::lpq | grep Queue | awk '{print $2}'
+.RE
+.RE
+.TP
+\fBnotify.n\fP
+Command to be executed on new mail arrival in the given mailbox. Accepts
+the special keyword "beep" to use the pc speaker.
+.TP
+\fBaction.n\fP
+Command to be executed on left mouse click on a mailbox label.  
+Accepts
+the special keyword "msglst" to pop up a window of recent message headers 
+from IMAP or POP3 mailboxes when the left mouse button is held.
+.TP
+\fBbuttontwo.n\fP
+Command to be executed on middle mouse click on a mailbox level.
+Accepts
+the special keyword "msglst" to pop up a window of 
+recent message headers from IMAP or POP3 mailboxes when the middle mouse button is held.
+.TP
+\fBinterval.n\fP
+Per mailbox check interval. Value is the amount of seconds between
+checkings, default is the global interval.
+.TP
+\fBfetchinterval.n\fP
+Interval between mail auto-fetching. Values accept 0 to disable, -1 for
+autofetching on new mail arrival, and positive values for a given interval
+in seconds.
+.TP
+\fBfetchcmd.n\fP
+Command to be executed to fetch mail. If not specified, fetching through
+wmbiff is disabled completely.
+Accepts
+the special keyword "msglst" to pop up a window of recent message headers 
+from IMAP and POP3 mailboxes when the right mouse button is held down,
+though not when fetchinterval is nonzero.
+.TP
+\fBdebug.n\fP 
+Show debugging messages from this mailbox.  Currently
+supported values are "all" and "none".  The \-debug option
+to wmbiff overrides this setting.  Since IMAP uses a single
+connection per server, per-mailbox debugging may not
+
+.SH SIZING
+
+WMBiff will automatically size its window to the number of
+configured mailboxes.  While WindowMaker's Dock and
+AfterStep's Wharf expect square, 64x64 applets, other window
+managers, such as Blackbox or Openbox do not have this
+limitation.  This uncharacteristic "dockapp" behavior is
+intended to help those users who don't have exactly five
+mailboxes to watch.
+
+To preserve the old-style five-mailbox window even when you
+have only two, add
+.IR path.4=<space><space>
+to configure a blank 5th mailbox.
+
+To use the new-style sizing, just configure as many
+mailboxes as you want.
+
+.SH AUTHENTICATION
+
+Authentication methods include "cram-md5", "apop" (for
+Pop3), and "plaintext".  "cram-md5" and "apop" are only
+available when wmbiff is compiled with libgcrypt.
+This copy of WMBiff was compiled with gcrypt.
+Authentication methods are tried in the following order:
+cram-md5, apop, plaintext.
+
+Each authentication method will be tried unless a list is
+included in the [auth] field.  For example, append "cram-md5
+apop" if you don't want your password to be sent in
+cleartext over the network.  Conversely, append "plaintext"
+if you don't want wmbiff to bother with other authentication
+methods.  Leaving authentication methods unspecified should
+be reasonably safe.  The order of entries in the [auth] list
+is not currently considered.
+
+.SH TROUBLESHOOTING
+
+For problems authenticating to servers, try specifying the
+authentication method explicitly as described above:
+sometimes a failed attempt to authenticate can cause later
+failures.  Some servers claim to support cram-md5 but fail:
+telling wmbiff not to try can help.
+
+For other problems, run wmbiff with the -debug option.  See
+wmbiff(1) for details.
+
+While editing .wmbiffrc, you may find it useful to restart
+wmbiff using either control-shift mouse button 1, or killall
+-USR1 wmbiff.
+
+
+.SH FILES
+.TP
+.I ~/.wmbiffrc
+per-user wmbiff configuration file.
+
+.SH AUTHOR
+This manual page was written by Jordi Mallach <jordi@debian.org>,
+originally for the Debian system (but may be used by others).
+
+.SH SEE ALSO
+.PD 0
+.TP
+\fBwmbiff\fP(1)
+.PP
+\fI/usr/share/doc/wmbiff/examples/sample.wmbiffrc\fP
+(or equivalent on your system)

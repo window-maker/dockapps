@@ -1,0 +1,85 @@
+2002 Feb 17 1.34
+    Updated ACPI statistics gathering code for the latest ACPI patch from
+    Intel. Now uses/checks for subsystem version 20020214+. Redone the version
+    check a little bit.
+
+2001 Apr 29 1.33
+    Little fix to ACPI version check so that I don't have to make a new
+    version each time a new kernel comes out
+
+2001 Mar 24 1.32
+    Split ACPI and APM portions in different source files
+    Added power_init() function - handles checking subsystem presence,
+    version, etc.  Enumerates batteries in ACPI implementation
+    ACPI: Beginnings of multiple battery support - not fully implemented
+    ACPI: Get the battery ID from /proc/acpi/battery instead of hard-coding
+          it in - also helps with multi battery stuff
+    Added some stupid command line help
+    Added -c option to set critical battery alarm level.  Defaults to
+    10 percent, and added -b option to make noise when this critical level
+    is reached
+    APM: Updated for critical alarm stuff
+    Made a 20 color "low" quality pixmap for machines running 8bit displays
+    Updated README with some stuff, made separate INSTALL file
+
+2001 Mar 13 1.31
+    Update for intel ACPI release version 20010313
+    Minor updates for new /proc layout
+
+2001 Mar 07 1.3
+    Update for intel ACPI release verion 20010302
+    Proc format changed a little bit, so updates were necessary.
+    Added a check for specific acpi subsystem version - since each
+    new version seems to have a new interface, better be safe than
+    sorry :)
+    As usual, please test and report to me.
+
+    This ONLY works with linux acpica 20010302.  Download this version from
+    http://developer.intel.com/technology/iapc/acpi/downloads.htm - it's a
+    patch against 2.4.2
+
+2001 Feb 28 1.21
+    Finally read through the ACPI specification.  Hah, they had all my
+    questions answered :)  Thus,
+
+    Confirmed remaining percentage formula (correct)
+
+    Now calculate "time remaining" according to the spec formula
+
+    Removed "battery load" hack since we now have "time remaining"
+
+    Fixed bug in display_percentage (10% didn't display right)
+
+    Released version 1.21
+
+2001 Feb 23 1.2
+    Added support for ACPI.  This is very untested, and not very clean.
+    This has been tested on machines with only ONE battery, and only
+    with kernel 2.4.2 (that's where ACPI started to work for me)
+
+    Added some hackery to do with ACPI.  Check README.
+
+    Released 1.2
+
+2001 Jan 16 1.1
+    Fixed all the stuff so that wmapm works as advertised:
+    	Fixed dumb bug where after charging was done new message didn't scroll.
+
+    	Added support for fucked APM bioses that display stuff wrong. (See
+	README to learn how to enable it. Obviously, it's disabled by default)
+	
+    	Reorganized apminfo structure and got rid of redundancy.
+	
+    	Reorganized acquire_apm_info.  All APM data is processed there.
+	
+    	Fixed display_state to do the Right Thing.
+	
+    	Fixed red blinking button to actually blink on critical battery, and
+    	to stop when it isn't critical anymore.  I don't think it ever worked
+	right in 1.0.
+
+    Created ChangeLog.
+
+    Updated README.
+
+    Released 1.1.

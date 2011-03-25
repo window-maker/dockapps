@@ -1,0 +1,26 @@
+  3/24/1998  --  First release, wrote this yesterday, so it may have 
+                 some bugs.
+  3/25/1998  --  added logarithmic scaling.  
+                 some touch ups on the updateSpeedometer() to be a 
+                   little more helpful
+                 added a little more width to the speedometer display
+                    from a report that the text sometimes was drawn off
+                    the scale (couldnt confirm, is it fixed?)
+                 fixed prob for speeds > 9.9 megabytes per second (I 
+                    think... I can't go that fast myself 
+                 Made default maxspeed 6000 which I assume is better 
+                    for modems.
+  5/11/1998  --  I witnessed the little problem with the speedometer 
+                    going off into the main window so I set a clipmask
+                    Still don't understand how it could go off..I'm 
+                    using a fixed size font...
+  5/13/1998  --  Modified the way it gets its stats from /proc/net/ip_acct
+                    You now have to give it explicit accounting rule numbers
+                    through the -T and -R options or else it defaults to the
+                    fist two in tx, rx order, best just to make sure
+                    you  set the -T and -R options.
+  5/15/1998  --  Completed interface rewrite, definitely have more graphing 
+                    space, but I dont know if I like it yet.
+  5/16/1998  --  Added shaded graphs, xload style.  Its a lot prettier! 
+  8/6/1998   --  Put in the stat driver interface and some drivers
+  5/4/2000   --  Added support for OpenBSD, thanks to Vladimir Popov

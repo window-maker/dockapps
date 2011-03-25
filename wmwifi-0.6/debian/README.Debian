@@ -1,0 +1,19 @@
+wmwifi-0.6 for Debian
+---------------------
+
+  Tested with ndiswrapper/2.6.14 x86_64 && i386
+
+wmwifi-0.5 for Debian
+---------------------
+
+ This release of wmwifi has been tested using the linux-wlan-ng drivers, the standard 
+ orinoco_cs shipped with the kernel, ndiswrapper, and the prism54 drivers.
+
+ The ndiswrapper and prism54 drivers do not report thier stat's correctly to the
+ wireless extensions in the kernel, so wmwifi cannot reply them correctly.
+ 
+ This program was tested with kernel 2.4.18,2.4.22,2.4.23, 2.6.3, 2.6.7, and 2.6.8.1
+ but should work with any 2.4.X or 2.6.X kernel, or backport wich supports
+ Wireless Extentions.
+
+ -- Jess Mahan <jess@digitalssg.net>, Fri Sep 24 10:18:00 PST 2004 -0800

@@ -1,0 +1,61 @@
+wmCalClock changes.
+
+  Version         		Description
+------------------------------------------------------------------------------------------------
+Version 1.25  - released July 2, 1999.
+		Some optimization + ignores double click if no command set (patch from
+		Robert Horn).
+
+
+Version 1.24  	- released March 27, 1999.
+		  Added support for additional fonts for time field;
+
+			-tekton     for Tekton
+			-arial      for Arial (Helvetica) (this is the same font as usual)
+			-luggerbug  for LuggerBug (part of AcidFonts).
+			-comicsans  for ComicSans
+			-jazz       for JazzPoster
+
+		   Different width fonts get used depending on whether or not seconds
+		   are displayed. Still need to add in a few more fonts... Graphite
+		   would be nice! Or EagleFeather (Frank Lloyd Wright inspired font)?
+
+Version 1.23  	- released March 20, 1999.
+		  Switched from wmgeneral.c stuff to xutils.c (a more stripped down version
+		  of wmgeneral).
+		  Centered Calendar text better.
+		  Added command line options and code to change colors of the time
+		  field digits and the background of the time field. So now you can
+		  get things like darkblue on light grey or very dark color on an LCD-ish
+		  colored background (e.g. wmCalClock -bc #6e9e69 -tc #001100)..
+		  Rewrote the command line parsing routine.
+
+Version 1.22 	- released February 24, 1999.
+		  Added double click detection and -e command-line option.
+ 
+Version 1.21 	- released February 4, 1999.
+		  cosmetic for AfterStep users. removed spurious black line at RHS edge an mask.
+ 
+Version 1.2 	- released January 14, 1999.
+		  Changed support for LowColor Pixmap. Now, check for Depth
+		  automatically. If its <= 8, then use LowColor.
+
+
+Version 1.11 	- released January 8, 1999.
+		  Fixed bug in 12-hour mode. Now displays 12:xx:xx AM instead
+		  of 0:xx:xx AM.
+
+
+Version 1.1  	- released January 7, 1999.
+		  Added support for LowColor Pixmap. (21 colors may still be a
+		  bit high, but the poor saps with 8-bit displays can at least run
+		  it now.)
+
+Version 1.02 	- released January 7, 1999.
+		  Fixed bug in AM/PM determination...
+
+Version 1.01 	- released January 3, 1999.
+		  Added "-S" option to inhibit drawing of seconds.
+
+Version 1.0  	- released December 16, 1998.
+

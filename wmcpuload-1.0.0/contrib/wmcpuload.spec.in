@@ -1,0 +1,50 @@
+%define name    @PACKAGE@
+%define version @VERSION@
+Summary: A dockapp to monitor CPU usage.
+Name: %{name}
+Version: %{version}
+Release: 1
+Source: %{name}-%{version}.tar.gz
+Copyright: GPL
+Group: applications
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{PACKAGE_RELEASE}
+Packager: Francisco Vides Fernandez <pax@dedalo-ing.com>
+
+
+%description
+WMCPULoad is a program to monitor CPU usage. It is a dockapp that is supported
+by X window managers such as Window Maker, AfterStep, BlackBox, and
+Enlightenment. It dispalys the current usage, expressed as a percentile and a
+graph, and has an LCD look-alike user interface. The back-light may be turned
+on/off by clicking the mouse button over the application. If the CPU usage hits
+a certain threshold, an alarm-mode will alart you by turning on back-light.
+
+%prep
+rm -rf $RPM_BUILD_ROOT
+
+%setup
+
+%build
+./configure --prefix=/usr
+make
+
+%install
+make DESTDIR=$RPM_BUILD_ROOT install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%doc AUTHORS COPYING ChangeLog INSTALL NEWS README THANKS TODO
+/usr/bin/wmcpuload
+
+%changelog
+* Wed Mar 13 2002 Seiichi SATO <ssato@sh.rim.or.jp>
+  - fixed %build section ('--prefix=$DESTDIR/usr' to '--prefix=/usr')
+  - fixed %install section
+    ('make install' to 'make DESTDIR=$RPM_BUILD_ROOT install')
+  - Changed spec file name to all-lower-case alphanumeric
+
+* Wed Oct 03 2001 Seiichi SATO<ssato@sh.rim.or.jp>
+  - Changed description section.
+

@@ -1,0 +1,134 @@
+wmpower 0.4.3 (25 Nov 2008):
+- Added new command line arguments to be able to force wmpower to use
+  our values for minimum and maximum brightness.
+- Added some more checks to prevent segfaults on rare occasions.
+- Removed support for lin-seti as the original Seti@Home
+  project has shut down its activities.
+- Fixed linker arguments to prevent issues compiling with -as-needed.
+
+wmpower 0.4.2 (22 Jul 2005):
+- Fixed a memory allocation issue that on rare occasions could make
+  wmpower crash.
+- Fixed small bug that made wmpower print forever that it would not
+  fast charge the battery as it was already at maximum capacity.
+- When calculating battery time, and battery is charging, now wmpower
+  displays time remaining until battery is fully charged instead of
+	how much time would be left if we were running on battery power.
+
+wmpower 0.4.1 (25 Feb 2005):
+- Fixed bug, reported by Pezhman Givy <phg@snafu.de>,
+  that made wmpower crash on startup when checking for cpufreq
+  support, if this support wasn't there...
+
+
+wmpower 0.4.0 (23 Feb 2005):
+- Added option to redirect wmpower output to the system logger.
+- Added support for CPU frequency scaling (2.6 kernels only).
+- Now wmpower calculates battery time directly if it fails
+  to get it from ACPI, APM, or whatever other means...
+  It is far less accurate, but at least you get some
+  numbers ;-)
+- Added small fix to make it compile on ppc hardware...
+  Problem reported by Benjamin Rich <rich@math.fu-berlin.de>
+- Added '-geometry' command line argument, thanks to
+  Johan Vromans <jvromans@squirrel.nl>
+- Don't allow manual PM status changes (i.e. actions
+  triggered by wheel mouse up/down, button clicks)
+  when in 'mo_meddling' mode. Bug reported by
+  gabor papp <rod AT inf DOT bme DOT hu>
+- Fixed a battery (mis)ordering issue, thanks to
+  Michel Ganguin <michel.ganguin@epfl.ch>
+- Added support for any number of fans under generic ACPI.
+- Fixed code so that wmpower doesn't fail compilation in some
+  circumstances complaining about symbols already defined
+- Added compile optimizations for K6 and Athlon-64 processors
+- Random minor bug fixing ;-)
+
+
+wmpower 0.3.1 (18 March 2004):
+- Added machine id for Toshiba Satellite Pro 6100
+- Added machine id for Toshiba Portege 2010
+- Added machine id for Toshiba Satellite 5005 S504
+- Now wmpower searches for /proc files to read
+  for AC status and temperature from instead of
+  relying on internal lists of files to try out
+- Fixed battery detection code: now batteries are
+  presented in the correct order
+- reworked some functions (those that get acpi status)
+  to be less resource intensive
+* under ACPI now we correctly display the time to full charge
+  when the battery is charging
+* the battery symbol is not shown as critical (blinking),
+  if the battery is charging
+* two new options added:
+  -w   to specify any command to execute when the remaining
+       time sinks to a threshold
+  -W   the threshold of remaining time in minutes.
+* Code contributed by Ondrej Bojar <obo@cuni.cz>)
+
+
+wmpower 0.3.0 (22 October 2003):
+- Added machine id for Satellite Pro 6000
+- Added support for hardware manifatured by Compal
+  and used by vendors such as Acer, HP, Toshiba...
+  You probably need to patch to your kernel to
+  enable support for this. See file README.compal
+  for all details. Credits and a big thank you go to
+  Francisco Rodrigo Escobedo Robles <frer@pepix.net>
+  who contributed this code.
+- Added spec file for RPM creation, thanks (again) to
+  Francisco Rodrigo Escobedo Robles.
+- Yet another /proc file to read temperature from,
+  thanks to Masahide Matsumoto <masahide@masahide.dip.jp>
+
+
+wmpower 0.2.0 (30 September 2003):
+- Project moved to autoconf/automake tools
+- General code reorganization
+- Hopefully lessened high CPU usage problems
+	Note for DELL users: your problem sits in
+	ACPI, not wmpower, so I can't help you :-(
+	Try setting a higher polling interval
+- Added option to set wmpower polling interval
+- You can now choose which battery to monitor
+- Added machine id for Toshiba Libretto L2
+- Fixed bug that on some machines showed battery charge > 100%
+- Added initial support for Dell laptops, thanks to
+  code contributed by Massimo Battistel <mbat@libero.it>
+	and revised by myself:
+	- battery
+	- fans (shows number of active fans)
+	- temperature
+- added another proc file to read temperature from
+  (  patch contributed by Christian Schlamkow
+     <christian.schlamkow@bau.uni-rostock.de>  )
+- if battery charge is critical, not beep if AC power is on
+  (  patch contributed by Christian Schlamkow
+     <christian.schlamkow@bau.uni-rostock.de>  )
+- Other things I'm forgetting to mention ;-)
+
+
+wmpower 0.1.3 (04 June 2003):
+- Various code clean-ups
+- Made diagnostic messages a bit less 'scary'
+- Fixed a segfault when using a malformed -B option
+- New feature (for Toshiba): now wmpower tries to use acpi
+	to set lcd brightness; if this fails it tries using
+	hardware calls. This should work for newer Toshibas,
+	where the hardware method fails
+- New feature (for Toshiba): you can now adjust lcd
+	brightness using your mouse wheel, step by step.
+	Notice: right now, this works only for ACPI calls
+
+
+wmpower 0.1.2 (21 March 2003):
+- Makefile tweaks to make it aware of Gentoo Linux CFLAGS
+
+
+wmpower 0.1.1 (19 March 2003):
+- add support for CPU detection for compile optimizations
+- different install for root/normal user
+
+
+wmpower 0.1.0 (11 March 2003):
+- First public release

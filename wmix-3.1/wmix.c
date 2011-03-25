@@ -1,0 +1,419 @@
+/* WMix 3.0 -- a mixer using the OSS mixer API.
+ * Copyright (C) 2000, 2001 timecop@japan.co.jp
+ * Mixer code in version 3.0 based on mixer api library by
+ * Daniel Richard G. <skunk@mit.edu>, which in turn was based on
+ * the mixer code in WMix 2.x releases.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <signal.h>
+#include <string.h>
+#include <getopt.h>
+#include <unistd.h>
+
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+
+#include <sys/soundcard.h>
+
+#include "include/common.h"
+#include "include/mixer.h"
+#include "include/misc.h"
+#include "include/ui_x.h"
+
+#define VERSION "3.0"
+
+static Display *display;
+static char *display_name = NULL;
+static char *mixer_device = NULL;
+static bool button_pressed = false;
+static bool slider_pressed = false;
+static double prev_button_press_time = 0.0;
+
+static float display_height;
+static float display_width;
+Config config;
+static int mouse_drag_home_x;
+static int mouse_drag_home_y;
+static int idle_loop;
+static bool verbose;
+static char *exclude[SOUND_MIXER_NRDEVICES];
+
+/* local stuff */
+static void parse_cli_options(int argc, char **argv);
+static void signal_catch(int sig);
+static void button_press_event(XButtonEvent *event);
+static void button_release_event(XButtonEvent *event);
+static void motion_event(XMotionEvent *event);
+
+#define HELP_TEXT \
+	"WMixer " VERSION " by timecop@japan.co.jp + skunk@mit.edu\n" \
+	"usage:\n" \
+	"  -d <dsp>  connect to remote X display\n" \
+	"  -f <file> parse this config [~/.wmixrc]\n" \
+	"  -m <dev>  mixer device [/dev/mixer]\n" \
+	"  -h        print this help\n" \
+	"  -v        verbose -> id, long name, name\n" \
+	"  -e <name> exclude channel, can be used many times\n" \
+
+static void parse_cli_options(int argc, char **argv)
+{
+    int opt;
+    int count_exclude = 0 ;
+    verbose = false ;
+
+    while ((opt = getopt(argc, argv, "d:f:hm:ve:")) != EOF) {
+	switch (opt) {
+	    case 'd':
+		if (optarg != NULL)
+		    display_name = strdup(optarg);
+		break;
+	    case 'm':
+		if (optarg != NULL)
+		    mixer_device = strdup(optarg);
+		break;
+	    case 'f':
+		if (optarg != NULL)
+		    if (config.file != NULL)
+			free(config.file);
+		    config.file = strdup(optarg);
+		break;
+	    case 'h':
+		fputs(HELP_TEXT, stdout);
+		exit(0);
+		break;
+   	    case 'v':
+	        verbose = true;
+		break;
+   	    case 'e':
+		if (count_exclude < SOUND_MIXER_NRDEVICES) {
+		    exclude[count_exclude] = strdup(optarg);
+		    /* printf("exclude : %s\n", exclude[count_exclude]); */
+		    count_exclude++;
+		} else
+		    fprintf(stderr, "Warning: You can't exclude this many channels\n");
+		break;
+	    default:
+		break;
+	}
+    }
+    exclude[count_exclude] = NULL ;
+}
+
+int main(int argc, char **argv)
+{
+    XEvent event;
+    char *home;
+    char *pid;
+    FILE *fp;
+
+    memset(&config, 0, sizeof(config));
+
+    /* we can theoretically live without a config file */
+    home = getenv("HOME");
+    if (home) {
+	config.file = calloc(1, strlen(home) + 9);
+	sprintf(config.file, "%s/.wmixrc", home);
+    }
+
+    /* handle writing PID file, silently ignore if we can't do it */
+    pid = calloc(1, strlen(home) + 10);
+    sprintf(pid, "%s/.wmix.pid", home);
+    fp = fopen(pid, "w");
+    if (fp) {
+	fprintf(fp, "%d\n", getpid());
+	fclose(fp);
+    }
+    free(pid);
+
+    /* default values */
+    config.mousewheel = 1;
+    config.scrolltext = 1;
+    config.wheel_button_up = 4;
+    config.wheel_button_down = 5;
+    config.scrollstep = 0.03;
+    config.osd = 1;
+    config.osd_color = strdup("green");
+
+    parse_cli_options(argc, argv);
+    config_read();
+
+    if (mixer_device == NULL)
+	mixer_device = "/dev/mixer";
+
+    mixer_init(mixer_device, verbose, (const char **)exclude);
+    mixer_set_channel(0);
+
+    if ((display = XOpenDisplay(display_name)) == NULL) {
+	fprintf(stderr, "Unable to open display \"%s\"\n", display_name);
+	return EXIT_FAILURE;
+    }
+    display_width = (float)DisplayWidth(display, DefaultScreen(display)) / 4.0;
+    display_height = (float)DisplayHeight(display, DefaultScreen(display)) / 2.0;
+
+    dockapp_init(display);
+    new_window("wmix", 64, 64);
+    new_osd(DisplayWidth(display, DefaultScreen(display)) - 200, 60);
+    blit_string("wmix 3.0");
+    scroll_text(3, 4, 57, true);
+    ui_update();
+
+    /* add click regions */
+    add_region(1, 37, 36, 25, 25);	/* knob */
+    add_region(2, 4, 42, 27, 15);	/* balancer */
+    add_region(3, 2, 26, 7, 10);	/* previous channel */
+    add_region(4, 10, 26, 7, 10);	/* next channel */
+    add_region(5, 39, 14, 20, 7);	/* mute toggle */
+    add_region(6, 4, 14, 13, 7);	/* rec toggle */
+    add_region(10, 3, 4, 56, 7);	/* re-scroll current channel name */
+
+    /* setup up/down signal handler */
+    signal(SIGUSR1, (void *) signal_catch);
+    signal(SIGUSR2, (void *) signal_catch);
+
+    while (true) {
+	if (button_pressed || slider_pressed || (XPending(display) > 0)) {
+	    XNextEvent(display, &event);
+	    switch (event.type) {
+		case Expose:
+		    redraw_window();
+		    break;
+		case ButtonPress:
+		    button_press_event(&event.xbutton);
+		    idle_loop = 0;
+		    break;
+		case ButtonRelease:
+		    button_release_event(&event.xbutton);
+		    idle_loop = 0;
+		    break;
+		case MotionNotify:
+		    /* process cursor change, or drag events */
+		    motion_event(&event.xmotion);
+		    idle_loop = 0;
+		    break;
+		case LeaveNotify:
+		    /* go back to standard cursor */
+		    if ((!button_pressed) && (!slider_pressed))
+			set_cursor(NORMAL_CURSOR);
+		    break;
+		case DestroyNotify:
+		    XCloseDisplay(display);
+		    return EXIT_SUCCESS;
+		default:
+		    break;
+	    }
+	} else {
+	    usleep(100000);
+	    scroll_text(3, 4, 57, false);
+	    /* rescroll message after some delay */
+	    if (idle_loop++ > 256) {
+		scroll_text(3, 4, 57, true);
+		idle_loop = 0;
+	    }
+	    /* get rid of OSD after a few seconds of idle */
+	    if ((idle_loop > 15) && osd_mapped() && !button_pressed) {
+		unmap_osd();
+		idle_loop = 0;
+	    }
+	    if (mixer_is_changed())
+		ui_update();
+	}
+    }
+    return EXIT_SUCCESS;
+}
+
+static void signal_catch(int sig)
+{
+    switch (sig) {
+	case SIGUSR1:
+	    mixer_set_volume_rel(config.scrollstep);
+	    if (!osd_mapped())
+		map_osd();
+	    if (osd_mapped())
+		update_osd(mixer_get_volume(), false);
+	    ui_update();
+	    idle_loop = 0;
+	    break;
+	case SIGUSR2:
+	    mixer_set_volume_rel(-config.scrollstep);
+	    if (!osd_mapped())
+		map_osd();
+	    if (osd_mapped())
+		update_osd(mixer_get_volume(), false);
+	    ui_update();
+	    idle_loop = 0;
+	    break;
+    }
+}
+
+static void button_press_event(XButtonEvent *event)
+{
+    double button_press_time = get_current_time();
+    int x = event->x;
+    int y = event->y;
+    bool double_click = false;
+
+    /* handle wheel scrolling to adjust volume */
+    if (config.mousewheel) {
+	if (event->button == config.wheel_button_up) {
+	    mixer_set_volume_rel(config.scrollstep);
+	    if (!osd_mapped())
+		map_osd();
+	    if (osd_mapped())
+		update_osd(mixer_get_volume(), false);
+	    ui_update();
+	    return;
+	}
+	if (event->button == config.wheel_button_down) {
+	    mixer_set_volume_rel(-config.scrollstep);
+	    if (!osd_mapped())
+		map_osd();
+	    if (osd_mapped())
+		update_osd(mixer_get_volume(), false);
+	    ui_update();
+	    return;
+	}
+    }
+
+    if ((button_press_time - prev_button_press_time) <= 0.5) {
+	double_click = true;
+	prev_button_press_time = 0.0;
+    } else
+	prev_button_press_time = button_press_time;
+
+    switch (check_region(x, y)) {
+	case 1:			/* on knob */
+	    button_pressed = true;
+	    slider_pressed = false;
+	    mouse_drag_home_x = x;
+	    mouse_drag_home_y = y;
+	    if (double_click) {
+		mixer_toggle_mute();
+		ui_update();
+	    }
+	    break;
+	case 2:			/* on slider */
+	    button_pressed = false;
+	    slider_pressed = true;
+	    mouse_drag_home_x = x;
+	    mouse_drag_home_y = y;
+	    if (double_click) {
+		mixer_set_balance(0.0);
+		ui_update();
+	    }
+	    break;
+	case 3:			/* previous channel */
+	    mixer_set_channel_rel(-1);
+	    blit_string(config.scrolltext ? mixer_get_channel_name() : mixer_get_short_name());
+	    scroll_text(3, 4, 57, true);
+	    unmap_osd();
+	    map_osd();
+	    ui_update();
+	    break;
+	case 4:			/* next channel */
+	    mixer_set_channel_rel(1);
+	    blit_string(config.scrolltext ? mixer_get_channel_name() : mixer_get_short_name());
+	    scroll_text(3, 4, 57, true);
+	    unmap_osd();
+	    map_osd();
+	    ui_update();
+	    break;
+	case 5:			/* toggle mute */
+	    mixer_toggle_mute();
+	    ui_update();
+	    break;
+	case 6:			/* toggle rec */
+	    mixer_toggle_rec();
+	    ui_update();
+	    break;
+	case 10:
+	    scroll_text(3, 4, 57, true);
+	    break;
+	default:
+	    printf("unknown region pressed\n");
+	    break;
+    }
+}
+
+static void button_release_event(XButtonEvent *event)
+{
+    int x = event->x;
+    int y = event->y;
+    int region;
+
+    region = check_region(x, y);
+
+    if (region == 1)
+	set_cursor(HAND_CURSOR);
+    
+    button_pressed = false;
+    slider_pressed = false;
+}
+
+static void motion_event(XMotionEvent *event)
+{
+    int x = event->x;
+    int y = event->y;
+    int region;
+
+    if ((x == mouse_drag_home_x) && (y == mouse_drag_home_y))
+	return;
+
+    region = check_region(x, y);
+
+    if (button_pressed) {
+	if (y != mouse_drag_home_y) {
+	    float delta;
+
+	    set_cursor(NULL_CURSOR);
+
+	    delta = (float)(mouse_drag_home_y - y) / display_height;
+	    knob_turn(delta);
+	    if (!osd_mapped())
+		map_osd();
+	    if (osd_mapped())
+		update_osd(mixer_get_volume(), false);
+	}
+	XWarpPointer(display, None, event->window, x, y, 0, 0,
+			mouse_drag_home_x, mouse_drag_home_y);
+	return;
+    }
+
+    if (slider_pressed) {
+	if (x != mouse_drag_home_x) {
+	    float delta;
+
+	    set_cursor(NULL_CURSOR);
+
+	    delta = (float)(x - mouse_drag_home_x) / display_width;
+	    slider_move(delta);
+	}
+	XWarpPointer(display, None, event->window, x, y, 0, 0,
+			mouse_drag_home_x, mouse_drag_home_y);
+	return;
+    }
+    
+    if (region == 1)
+	set_cursor(HAND_CURSOR);
+    else if (region == 2)
+	set_cursor(BAR_CURSOR);
+    else
+	set_cursor(NORMAL_CURSOR);
+}

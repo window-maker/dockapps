@@ -1,0 +1,114 @@
+
+                                  Introducing
+                                       
+   WMBiff is an WindowMaker docking utility, that displays number of
+   total messages count or unread mail messages count in differrent
+   mailboxes.
+
+   WMBiff was created by Gennady Belyakov in 1999, and was continued by
+   a team of volunteers after his death.
+
+   Green ( cyan? :) ) digits display total number of messages, if there
+   are no unread messages in it.
+   
+   Yellow digits display number of unread messages, with blinking on new
+   mail arrival, if any.
+   
+   At this moment unix-style (mbox), maildir, POP3, APOP and IMAP mailboxes
+   are supported. WMBiff also understands Licq's history files.
+   WMBiff supports up to 5 mailboxes (but you can start 2 or more
+   wmbiff's with differrent configs).
+   
+   Pressing on a 1st (left) mouse button will execute appropriate mail
+   reader (if defined in config file). Right-clicking will exec mail
+   fetching program (if any).
+   
+   It is also possible to execute user-defined command line on new mail
+   arrival (for example, play .WAV file).
+   
+     _________________________________________________________________
+   
+                          Compiling and Installation
+                                       
+Extract the archive:
+        tar -xvzf wmbiff-0.x.tar.gz
+
+Enter the wmbiff directory and follow INSTALL's directions.
+        cd wmbiff-0.x/
+        ./configure
+
+For crypto support either:
+ *) Install gnutls and libgrcypt packages from your distribution.
+ *) Download them from http://www.gnupg.org/(en)/download/mirrors.html
+   Choose a mirror, then download from the alpha/gnutls and
+   alpha/libgcrypt directories.
+ *) Do nothing; the configure script will note its absence.
+
+NOTE: gnutls-0.3.5 is the version that this release was
+tested with.  Newer versions may have incompatible changes.
+
+Make the binary:
+        make
+
+Install the binary:
+        make install
+
+This will copy the binary to /usr/local/bin
+
+Then you need to copy sample.wmbiffrc into your home directory as
+.wmbiffrc, correct it as you like. Or, you can use the ``-c'' option
+and specify differrent name of config file.
+ Without any config file wmbiff will use only default mailbox
+(from environment variable MAIL), labeled with word SPOOL, at first
+position. All other positions will be empty.
+     _________________________________________________________________
+   
+   See AUTHORS to see who has contributed to WMBiff.
+     _________________________________________________________________
+   
+   Any suggestions/bug reports please send to our mailing list,
+ 
+    wmbiff-devel@lists.sourceforge.net
+
+   Please include the output of 'wmbiff -debug'.
+
+     _________________________________________________________________
+
+UPDATE [2001-06-18]:
+
+On Tuesday, 22 May 2001, Jordi Mallach sent the following email to the
+wmbiff-devel list:
+
+    Hello,
+    I just found evidence of what I had believed for a long time.
+    
+    http://www.monkey.org/openbsd/archive/ports/0101/msg00311.html
+    
+    Gennady Belyakov passed away right after releasing 0.2 and when he
+    stopped answering mail :|
+    
+    I guess we need to update the docs.
+    
+    Jordi
+
+Here is the message, if that URL becomes unavailable:
+
+    To: ports@openbsd.org 
+    Subject: Re: mail/wmbiff update 
+    From: Vladimir Popov <pva48@mail.ru> 
+    Date: Sat, 27 Jan 2001 09:34:15 +0500 
+    
+    On Fri, Jan 26, 2001 at 01:02:59PM +0000, Christian Weisgerber wrote:
+    > 
+    > The major issue I have with this port is that the master site/home
+    > page is unreachable.
+    > 
+    
+    Well, wmbiff's author Gennady Belyakov passed away in late November 1999.
+    That's why that url isn't any longer valid.
+    
+    --
+    Vladimir
+
+May your soul rest in peace, Gennady.
+

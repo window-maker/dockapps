@@ -1,0 +1,11 @@
+Installation of wmSMPmon is very simple:
+
+- cd wmSMPmon
+- The default location wmSMPmon gets installed in is /usr/local/bin
+  (executable) and /usr/local/share/man (man page). If you'd like to
+  change that, you need to edit "Makefile" - both paths are defined
+  right at the top. The should be no need to change anything else.
+- Run "make" followed by "make install". This will build and install
+  wmSMPmon.
+
+That's all! :-)

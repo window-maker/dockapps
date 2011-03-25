@@ -1,0 +1,10 @@
+/dev/modem
+38400
+modem
+crtscts
+lock
+debug
+defaultroute
+netmask 255.255.255.0
+ipcp-accept-remote
+disconnect "chat -- \d+++\d\c OK ath0 OK"

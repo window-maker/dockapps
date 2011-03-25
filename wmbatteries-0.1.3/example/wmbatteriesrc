@@ -1,0 +1,44 @@
+#wmbatteries config file
+#see manpage for details
+
+#lightcolor	=	<string> // must be rgb:XX/XX/XX (hex)
+lightcolor 	=	rgb:A0/A0/50
+
+#temperature	=	<string> // name of temperature file
+temperature	=	/proc/acpi/thermal_zone/THM0/temperature
+
+#bat0_state	=	<string> // name of bat0 state file
+bat0_state	=	/proc/acpi/battery/BAT0/state
+
+#bat1_state	=	<string> // name of bat1 state file
+bat1_state	=	/proc/acpi/battery/BAT1/state
+
+#bat0_info	=	<string> // name of bat0 info file
+bat0_info	=	/proc/acpi/battery/BAT0/info
+
+#bat1_info	=	<string> // name of bat1 info file
+bat1_info	=	/proc/acpi/battery/BAT1/info
+
+#ac_state	=	<string> // name of ac_adapter state file
+ac_state	=	/proc/acpi/ac_adapter/AC/state
+
+#togglespeed	= 	<integer> // in seconds
+togglespeed	=   	5
+
+#animationspeed	=	<integer> // in ms >=100
+animationspeed	= 	150
+
+#historysize	=	<integer> // >=1 <=1000
+history_size	=	20
+
+#mode		= 	<string> // [rate,temp,toggle]
+mode		= 	toggle
+
+#backlight	=	[yes|no|true|false]
+backlight	=	no
+
+#updateinterval	=	<integer> // interval in seconds
+updateinterval	=	2
+
+#alarm		=	<integer> // alarm level in percent
+alarm		= 	10

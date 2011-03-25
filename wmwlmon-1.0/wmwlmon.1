@@ -1,0 +1,117 @@
+.\" $Id: wmwlmon.1,v 1.17 2008/05/13 17:42:02 hacki Exp $
+.\"
+.\" Copyright (c) 2005, 2006 Marcus Glocker <marcus@nazgul.ch>
+.\"
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\"
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd Jul 9, 2006
+.Dt WMWLMON 1
+.Os
+.Sh NAME
+.Nm wmwlmon
+.Nd Wireless Monitor wmdockapp
+.Sh SYNOPSIS
+.Nm wmwlmon
+.Op Fl Dhvw
+.Op Fl i Ar interface
+.Op Fl s Ar scrolling
+.Op Fl display Ar display
+.Sh DESCRIPTION
+.Nm
+is a wmdockapp which shows the state of a wireless network interface.  In the
+title you see the network interface name and a led showing if the interface
+link is active.  As next you see the signal strength from the conntected access
+point in dB (decibel).  The bar shows the signal strength in percents.  If the
+bar is full, it means that you have the full throughput of the bandwidth
+displayed in Mbps.  As next you see the channel number.  A red lock shines if
+WEP is enabled.  The last line shows the network id.
+.Pp
+If no interface is set at startup,
+.Nm
+scans all initialized interfaces until the first wireless interface is found
+and uses that.
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl D
+Debug mode.  Instead starting a wmdockapp, the data is sent to stdout.
+.It Fl h
+Prints short listing of
+.Nm
+options.
+.It Fl v
+Shows version.
+.It Fl w
+Enable WaveLAN compatibility.  If a device is named wi* it gets recognized as
+WaveLAN device automatically.  Otherwise you can force WaveLAN compatibility
+by this option.
+.It Fl i Ar interface
+Set interface.
+.It Fl s Ar scrolling
+Network id scrolling.  If a network id is to long to display in the wmdockapp
+window it will be scrolled by default.  The
+.Ar scrolling
+types are:
+.Pp
+.Bl -tag -width xxxxxxxxxxxx -compact
+.It Fl s Cm 0
+Disable scrolling.  Long network id's will be cut down to 8 characters.
+.It Fl s Cm 1
+LCD scrolling (default).  The network id moves from left to right separated by
+a space.
+.It Fl s Cm 2
+Bounce scrolling.  The network id moves from left to right and bounces back
+from right to left.
+.It Fl s Cm 3
+Fade scrolling.  The network id moves from left to right, fading out and
+begins again.
+.El
+.It Fl display Ar display
+Set display name.
+.El
+.Sh HISTORY
+First version of
+.Nm
+appeared in 2005.
+.Sh THANKS
+Thanks to Claudio Jeker, Marc Winiger, Marc Balmer, and Matthieu Herrb for
+their support.
+.Sh AUTHORS
+Marcus Glocker
+.Aq marcus@nazgul.ch
+.Sh CAVEATS
+As I can't test
+.Nm
+with every wireless chipset for which a driver exists, because I don't have
+them all, it is most possible that with some chipsets the behavement of
+.Nm
+is wrong, or some informations are missing.  If you have such a chipset
+causing troubles, please report me, including a dmesg and a problem
+explanation.
+.Pp
+Full supported devices known yet:
+.Pp
+.Bl -tag -width Ds -offset indent -compact
+.It ath(4)
+.It iwi(4)
+.It ral(4)
+.It upgt(4)
+.It wi(4)
+.It wpi(4)
+.El
+.Pp
+Partial supported devices known yet:
+.Pp
+.Bl -tag -width Ds -offset indent -compact
+.It atw(4)
+.It ipw(4)
+.El

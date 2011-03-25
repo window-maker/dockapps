@@ -1,0 +1,124 @@
+# wmsmixer - A mixer designed for WindowMaker with scrollwheel support
+# Copyright (C) 2001  Damian Kramer <psiren@hibernaculum.demon.co.uk>
+# Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
+# This software comes with ABSOLUTELY NO WARRANTY
+# This software is free software, and you are welcome to redistribute it
+# under certain conditions
+# See the README file for a more complete notice.
+
+# User config file
+# Should be saved as ~/.wmsmixer
+# Comments and blank lines mostly allowed
+
+# The format of this file is a series of commands:
+
+# addchannel %i
+#    Adds a channel to the sequence. %i specifies a channel.
+#    These are the values from my <linux/soundcard.h>:
+#
+#    SOUND_MIXER_VOLUME		0
+#    SOUND_MIXER_BASS		1
+#    SOUND_MIXER_TREBLE		2
+#    SOUND_MIXER_SYNTH		3
+#    SOUND_MIXER_PCM		4
+#    SOUND_MIXER_SPEAKER	5
+#    SOUND_MIXER_LINE		6
+#    SOUND_MIXER_MIC		7
+#    SOUND_MIXER_CD		8
+#    SOUND_MIXER_IMIX		9	/*  Recording monitor  */
+#    SOUND_MIXER_ALTPCM		10
+#    SOUND_MIXER_RECLEV		11	/* Recording level */
+#    SOUND_MIXER_IGAIN		12	/* Input gain */
+#    SOUND_MIXER_OGAIN		13	/* Output gain */
+#    SOUND_MIXER_LINE1		14	/* Input source 1  (aux1) */
+#    SOUND_MIXER_LINE2		15	/* Input source 2  (aux2) */
+#    SOUND_MIXER_LINE3		16	/* Input source 3  (line) */
+#    SOUND_MIXER_DIGITAL1	17	/* Digital (input) 1 */
+#    SOUND_MIXER_DIGITAL2	18	/* Digital (input) 2 */
+#    SOUND_MIXER_DIGITAL3	19	/* Digital (input) 3 */
+#    SOUND_MIXER_PHONEIN	20	/* Phone input */
+#    SOUND_MIXER_PHONEOUT	21	/* Phone output */
+#    SOUND_MIXER_VIDEO		22	/* Video/TV (audio) in */
+#    SOUND_MIXER_RADIO		23	/* Radio in */
+#    SOUND_MIXER_MONITOR	24	/* Monitor (usually mic) volume */
+#
+#    Ths channel added becomes the current channel for subsequent
+#    setmono, setleft, setright and setname commands.
+
+# setchannel %i
+#    Similar to addchannel, except the channel is not actually added
+#    to the sequence, merely made the current channel for subsequent
+#    setmono, setleft, setright and setname commands.
+
+# setmono %i
+#    Sets both left and right volumes for the current channel.
+#    The channel may be mono or stereo.
+#    The value specified must be an integer in the range 0 to 100.
+
+# setleft %i
+#    Sets left volume for the current channel.
+#    Do not use on a mono channel.
+#    The value specified must be an integer in the range 0 to 100.
+
+# setright %i
+#    Sets right volume for the current channel.
+#    Do not use on a mono channel.
+#    The value specified must be an integer in the range 0 to 100.
+
+# setname <text>
+#    Set the name for this channel. This will be displayed briefly
+#    when you switch to this channel, or when you click on the
+#    icon. The program will only use the first 4 characters of this
+#    text.
+
+# At least one channel must be added!
+
+# VOLUME
+addchannel 0
+setmono 90
+setname main
+
+# PCM
+addchannel 4
+setmono 64
+
+# SPEAKER
+addchannel 5
+setmono 0
+
+# LINE
+addchannel 6
+setmono 0
+
+# MIC
+addchannel 7
+setmono 0
+
+# CD
+addchannel 8
+setmono 90
+
+# RECLEVEL
+addchannel 11      
+setmono 0
+
+# OGAIN
+addchannel 13
+setmono 0
+
+# LINE1
+addchannel 14
+setmono 0
+
+# LINE2
+addchannel 15
+setmono 100
+
+# DIGITAL1
+addchannel 17
+setmono 0
+
+# PHONEIN
+addchannel 20
+setmono 0
+

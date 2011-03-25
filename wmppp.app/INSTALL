@@ -1,0 +1,82 @@
+Installation instructions for WMPPP. 
+
+
+NOTE!
+--------------------------------------------------------------
+Installing this program requires root privileges, ask your 
+local system/network administrator kindly if she/he wants
+to install this software for you ;-)
+
+
+Requirements
+----------------------------------------------------------
+- root access
+
+	To be able to complete the installation you'll need
+	to make changes in the system's /etc/ directory,
+	the installation copies the GLOBAL config files
+	there, don't worry, nothing will be overwritten ;-)
+
+
+Installation
+--------------------------------------------------------------
+1) % tar -zxvf wmppp-1.x.x-tar.gz
+2) % cd wmppp.app/
+3) % make all
+4) % su root
+5) # make install
+6) # vi ~/.wmppprc
+	 set up the paths to your ppp start,
+	 stop & restart scripts
+
+7) % wmppp & (try 'wmppp -h &' for help) 
+
+
+Extra Install Info For Site Administrators!
+--------------------------------------------------------------
+For site administrators who don't want their users messing
+up pppd's configuration files, but do want them to be able
+to make a dialup connection, a sample system.rc file is 
+included (system.wmppprc), please take a look at it!
+
+The installation will install standard rc files in $HOME 
+and /etc/ WITHOUT the 'force' option!
+
+How it works:
+
+WMPPP first scans /etc/ if there is a wmppprc present. 
+ 
+If true, it will scan if the keyword 'force' is trailing
+a command, for example 'forceleft' instead of 'left'.
+
+If the keywords 'force' are indeed trailing the 'normal'
+commands, all user .wmppprc files will be ignored i.e. 
+OVERRIDDEN ;-)
+
+If the 'force' keyword is not found in /etc/wmppprc,
+WMPPP will scan the users home directory to see if
+there is a valid .wmppprc available.
+
+When a valid ~/.wmppprc is found, and no 'force' keyword
+is present in /etc/wmppprc, WMPPP will use the users
+.wmppprc file instead.
+
+If no wmppprc file is found in the users home directory,
+WMPPP will use the global one (/etc/wmppprc).
+
+If NO wmppprc files are found at all, WMPPP will work,
+but quite obvious, WMPPP won't launch your scripts.
+
+Make sure there are valid and FULL pathnames in wmppprc
+if you want WMPPP to launch your pppd scripts ;-)
+
+
+General Notes
+--------------------------------------------------------------
+Note 1: If "make install" fails on your system, please edit
+        the Makefile to set the paths according to your setup.
+        Make install defaults to /usr/local/bin & /etc/ppp/.
+
+Note 2: Please DO read the HINTS, this file contains some
+        very usefull tips and hints about WMPPP. 
+

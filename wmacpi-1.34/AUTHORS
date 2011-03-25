@@ -1,0 +1,15 @@
+ timecop
+ timecop@japan.co.jp
+ all the code
+
+ Daniel Pittman <daniel@rimspace.net>
+ sent some suggestions and a patch for a broken APM implementations.
+ version 1.1 includes his patch in a modified form
+
+ Michael G. Henderson <mghenderson@lanl.gov>
+ some weird dude who generated a lot of random noise about my dockapp and
+ forced me to change the name to wmacpi.  general asshole.
+
+ portions of master.xpm that i was too lazy to draw (the plug and battery
+ icons) came from wmapm-2 by jedgar.  the numbers were copied off some other
+ dockapp, too.  the button was drawn by ME. PHEAR YES PHEAR IT.

@@ -1,0 +1,92 @@
+.TH wmmixer 1 "April 02, 2002" Debian "Windowmaker Mixer Application" 
+
+.SH NAME
+wmmixer \- A mixer application designed for WindowMaker 
+.SH DESCRIPTION
+\fBwmmixer\fP is a mixer application designed for WindowMaker, although
+there is nothing in the program that makes it require WindowMaker, except
+maybe the NeXTStep look and the fact that it
+properly docks. It can be used with other window managers without problems.
+.SH SYNOPSIS
+.B wmmixer [options]
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long options
+starting with two dashes ('\-\-'). A summary of options is included below. 
+.TP
+.B \-d,  \-\-display <\fIstring\fP>
+Attempt to open a window on the named X display. In the absence of  this
+option
+the  display  specified  by the
+.B DISPLAY
+environment variable is used.
+.TP
+.B \-g, \-\-geometry <\fIstring\fP>
+geometry to use, e.g. +100+100 to place it at 100/100
+.TP
+.B \-h, \-\-help
+show help text and exit.
+.TP
+.B \-v, \-\-version
+show program version and exit.
+.TP
+.B \-w, \-\-withdrawn
+run the application in withdrawn mode. This is for use with WindowMaker or
+other window managers supporting docks (e.g. KDE)
+.TP
+.B \-a, \-\-afterstep
+use smaller window (for AfterStep Wharf)
+.TP
+.B \-s, \-\-shaped
+shaped window
+.TP
+.B \-l, \-\-led\-color <\fIstring\fP>
+use the specified color for led, e.g. red, green, blue (default: green)
+.TP
+.B \-L, \-\-led\-highcolor <\fIstring\fP>
+use the specified color for led-shading, e.g. red, green, blue (default: red)
+.TP
+.B \-b, \-\-back\-color <\fIstring\fP>
+use the specified color for backgrounds, e.g. red, green, blue
+.TP
+.B \-m, \-\-mix\-device <\fIstring\fP>
+use specified device (rather than /dev/mixer)
+.TP
+.B \-r, \-\-scrollwheel <\fInumber\fP>
+Set the volume increase/decrease when using the mouse wheel (default: 2)
+.TP
+For backward compatibility the following obsolete options are still supported:
+
+.TP
+.B \-help
+show help text and exit.
+.TP
+.B \-display
+attempt to open a window on the named X display
+.TP
+.B \-position
+geometry to use, e.g. +100+100 to place it at 100/100
+
+.SH USAGE
+All available channels on your soundcard's mixer are accessible with
+\fIwmmixer\fP. Most common channels are identified with an appropriate icon.
+Controls include a stereo (mono where appropriate) volume control and a
+recording source toggle button.
+
+Press the "<" and ">" arrow buttons to select a channel.
+The icon identifies the current channel (a volume symbol with a question
+mark represents an unrecognised channel).
+Click and/or drag the volume display to set channel volume.
+There is a also a button to set recording sources.
+
+
+.SH CONFIGURATION
+Users can configure wmmixer to suit their requirements by means of a
+\fI~/.wmmixer\fP file. A commented example can be found in /usr/share/doc/wmmixer on Debian systems, and would be a good starting point
+
+
+.SH AUTHOR
+wmmixer was originally written by Sam Hawker <shawkie@geocities.com>,
+and then adopted by Gordon Fraser <gordon@debian.org>.
+
+This manual page was written by Gordon Fraser <gordon@debian.org>.
+

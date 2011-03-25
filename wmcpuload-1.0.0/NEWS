@@ -1,0 +1,14 @@
+Overview of Changes in WMCPULoad 0.9.0:
+
+
+New windowed mode
+-----------------
+
+If you want to run wmcpuload as *non-dockable* application, please use command
+line options:
+
+    '-w, --windowed' or '-wp, --windowed-withpanel'
+
+These options will help you if you want to use wmcpuload with window managers
+which are NOT support dockapps and also it is useful to swallow into
+AfterStep's Wharf or GNOME Panel. For more information, please see README.

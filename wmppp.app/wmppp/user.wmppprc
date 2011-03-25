@@ -1,0 +1,4 @@
+speed: /etc/ppp/getmodemspeed
+start: /foo/bar/your-personal-wmppp-start-script-here
+stop: /foo/bar/your-personal-wmppp-stop-script-here
+ifdown: /foo/bar/your-personal-wmppp-restart-script-here

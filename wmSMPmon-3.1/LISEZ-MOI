@@ -1,0 +1,40 @@
+All further changes are documented in the file "Changelog"!
+
+Thomas Ribbrock <emgaron@ribbrock.org>, March 2005
+
+        wmSMPmon 2.2
+
+	Sert à monitorer les charges CPU d'un système bi-processeurs, ainsi que
+la RAM et le SWAP utilisés.
+
+	Nouveauté 1.3 : Prise en compte du taux de rafraichissement à la ligne
+de commande.
+
+	Nouveauté 1.4 : Divers bugfixes. Réécriture partielle du système de
+lecture des données pour une petite économie de CPU.
+
+	Nouveauté 1.5 : Nouvelles optimisations par PhiR. <phir@gcu-squad.org>
+
+	Nouveauté 2.0 : Nouvelle interface, apparition d'un graphique qui peut
+avoir trois aspects différents.
+
+	Nouveauté 2.1 : Correction de quelques bugs et mise en place d'un switch
+"-smp-fake" qui permet de tester wmSMPmon sur un machine mono-processeur, ainsi
+que d'un autre switch "-no-swap" qui permet de désactiver le monitoring du swap.
+
+	Nouveauté 2.2 : Nettoyage permettant la compilation sur plus
+d'architectures.
+
+Pour compiler :
+	# make
+
+Pour executer :
+	# ./wmSMPmon
+
+Pour installer (en tant que root) :
+	# make install
+
+
+Par RedSeb <red_seb@yahoo.com>, 1999-2000.
+
+http://goupil.linuxfr.org

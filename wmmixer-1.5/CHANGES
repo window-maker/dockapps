@@ -1,0 +1,84 @@
+wmmixer - A mixer designed for WindowMaker
+
+RELEASE HISTORY:
+================
+
+Release 0.1    07/02/98   Finally reached a state I am prepared to put my
+                          name to.
+                          No KNOWN bugs.
+
+Release 0.2    12/02/98   Fixed nasty memory hole.
+
+Release 0.3    24/02/98   Fixed bug relating to manual window positioning.
+
+Release 0.4    04/03/98   Reduced CPU Load (thanks to aseltine@cs.umass.edu).
+                          Support for NetBSD (you may need to make it use -lossaudio when linking).
+                             (thanks to Geir.I.Jensen@runit.sintef.no)
+                          Only updates when it has to now.
+
+Release 0.5    05/03/98   Better support for NetBSD and FreeBSD.
+                          Fixed bug relating to cards with no volume channel.
+                             (thanks to dalroi@wit401310.student.utwente.nl)
+                          Fixed bug relating to hiding "Rec" checkbox on FreeBSD.
+                             (thanks to dalroi@wit401310.student.utwente.nl)
+
+Release 0.6    12/03/98   Fixed setRec() in mixctl.h.
+                             (thanks to Geir.I.Jensen@runit.sintef.no)
+                          Now works on 8bpp displays with full colormaps.
+                             (thanks to devernay@istar.fr on the mailing-list)
+                          Now configurable through a ~/.wmmixer file.
+                             (suggested by steeve@minet.net)
+                          New channel symbols.
+                             (thanks to steeve@minet.net)
+
+Release 0.7    25/04/98   Better checking of supported channels.
+                          Now GPL.
+                          Sensible CPU load.
+                          New FAQ.
+                          New mixctl.h.
+                          New look.
+                             (thanks to warp@xs4all.nl)
+
+Release 0.8    06/05/98   Removed broken display code.
+                          Added "-b back_color" command line argument.
+
+Release 1.0    05/09/98   Added a little error checking.
+Beta1                     More delicate volume leds fit in better with other apps.
+                          Added "-a" command line argument for AfterStep users.
+                          Added "-position position" command line argument.
+                          Command line arguments, "-a", "-w" and "-s" are now toggle,
+                             so if you enable one at compile-time, you can override
+                             it at run-time.
+                          Added command to configuration file format.
+
+Release 1.1   3 Apr 2002  Adopted as obviously orhpaned:
+                             Gordon Fraser <gordon@debian.org>
+                          Added mouse-wheel support
+                          Rewrote parts of the X handling to make it work
+                             with the KDE Dock Application Bar
+                          Added manpage
+                          Changed to GNU getopt command line parsing
+                          Added simple Makefile, get rid of imake
+
+Release 1.2   25 May 2002 Merge Debian patches
+                          Cleanup/Splitup MixCtl
+                          Preparing for major rewrite...
+                          Makefile updated again
+
+
+Release 1.3   26 May 2002 Change the whole thing to actual C++ code.
+                          It is not yet pretty code, but it is a lot 
+                          better. Still, much work to do.
+
+Release 1.4   08 Jun 2002 Display only one bar for mono channels
+                          (Taken from Damian Kramer's wmsmixer)
+                          Split X code up into smaller pieces
+                          Fix channel rotating (repeat timer)
+                          Add mute button
+
+Release 1.5   25 Jun 2002 Several fixes (really open mixer device given
+                          with -m, don't segfault when /dev/mixer is not
+                          there, don't go to max if using scrollwheel to
+                          set volume below 0)
+                          Shaded LED-Bar
+                          Initial Exception Handling

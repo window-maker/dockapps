@@ -1,0 +1,145 @@
+Version         Description
+--------------------------------------------------------------
+1.3.0	* Released 980916
+
+	* WMPPP is almost completely rewritten, WMPPP is now
+	  also based on the WMGeneral code core;
+	* WMPPP now parces arguments from it's rc files;
+	* Major overall code cleanup;
+	* Added a bytes/sec Speed-O-Meter;
+	* Commandline option for loadgraph/meter update speed;
+	* Added createXBMfromXPM (maskless .xpm);
+	* Geometry support has been added (finaly);
+	* Some cosmetic changes to the GUI;
+	* Multiple ppp devices support (EXPERIMENTAL!);
+	* getmodemspeed.c now reads /etc/ppp/connect-errors,
+	  and scans for both CARRIER and CONNECT;
+	  
+
+
+1.2p1	* Released 980502
+
+        * Updated the docs, sorry, we forgot to update some
+          of them, due to some last minute changes in the code
+          the docs where incorrect on some parts (systemrc).
+
+        * Updated the Makefile because the systemrc files
+          went to the wrong location (due to above changes).
+
+        * Updated the WMPPP rc files, again, due to some last
+          minute changes in the code, WMPPP's rc files where
+          no longer working properly. 
+
+
+1.2	* Released 980429
+	
+	* Completely revamped the WMPPP & WMiFS GUI :)
+	
+	* Added 'forceleft, forcemiddle and forceright'
+	  options in WMiFS for 'real' multiuser systems,
+	  when 'force*' is detected in /etc/wmifsrc the
+	  user settings in ~/.wmifsrc are overridden
+	  (usefull for sites where users may not fiddle
+	   with pppd's options :)
+		
+	* WMPPP: Ditto, added 'force' facility here too
+	
+	* WMPPP: now correctly redisplays time when killed
+          	 and restarted
+	
+	* WMPPP: timer now starts to run when the actual
+		 connection is made
+	
+	* WMPPP: added BAUD CONNECT value display
+	
+	* WMPPP: added 'getmodemspeed', a SUID proggie to
+	         read the CONNECT value from /var/log/messages
+	
+	* WMPPP: dropped the config GUI and added an
+	         .wmppprc file instead > motivation to do so:
+	         this way, WMPPP is much more platform and
+	         distribution independant :)
+	
+	* WMPPP: enhanced the status LED, yellow means
+	         dialing, green means online, red means error
+	
+	* WMPPP: added -display commandline option
+	
+	* WMPPP: added -t commandline option, default
+	         the timer will display HH:MM, -t will display
+	         MM:SS and switch to HH:MM after 60 minutes
+	
+	* WMiFS: added support for all interfaces in
+	         /proc/net/, now all interfaces are supported :)
+	
+	* WMiFS: added -display commandline option
+	
+	* WMiFS: added -w commandline option, this will
+	         draw the graph in our new 'waveform' look :)
+	
+	* WMiFS: fixed the coredump problems that occured
+	         on some systems with or without .wmifsrc file
+	         typo's, errors, etc. in the .wmifsrc file are 
+	         now also being ignored/rejected, the worst
+	         thing that can happen now is that the scripts
+	         do not execute (i.e. luser error) ;-)
+	
+	* WMiFS: when monitoring a ppp interface, bytes
+	         are used to draw the graph, otherwise packets
+	
+	* WMiFS: made the RX/TX/Status LED box identical
+	         to the one in WMPPP, the right LED is the status
+	         LED, green means interface is working, red means
+	         error (interface down, NIC broken, etc.)
+	
+
+1.1		- Released 980407 
+		- Added WMiFS, the no button more stats version
+		- All ppp/eth load graphs are now autoscaling
+		- Autosensing of all active ppp/eth interfaces
+		- 99 hours --> 00 hours is now okay
+		- Now detects already running WMPPP(s)
+		- WMIFS has 'mousebutton' script launch support
+		- Now reads pppsocket instead of /proc/dev/net
+		- WMIFS reads ~/.wmifsrc (optional)
+
+1.0 	        - Released 980315
+		- Total rewrite of WMPPP-1.0pre2
+		- WMPPP dock.app again redesigned
+		  improved timer display readability
+		  Some code cleanups
+
+1.0pre7		- Not released, developers release
+		  Started writing documentation
+		  Enhanced Makefile
+		  Bugfixes
+
+1.0pre6		- Not released, developers release
+		  Redesigned WMPPP's dock.app GUI	
+		  Added failsave Yes/No disconnect
+		  requester
+		  Some code cleaning
+		  Configuration GUI is ready
+
+1.0pre5		- Not released, developers release
+		  Bugfixes
+		  Enhanced configuration GUI
+
+1.0pre4		- Not released, developers release
+		  Bugfixes
+		  Enhanced configuration GUI
+
+1.0pre3		- Not released, developers release
+		- WMPPP dialup frontend is now a
+		  dock.app with online timer.
+
+
+1.0pre2		- Released 980115
+		  First initial public release
+		  Bugfixes and some cosmetic stuff
+
+0.5b		- Not released, developers release
+		  Bugfixes and cosmetic changes
+
+0.3b		- Not released, developers release
+		  First working WMPPP version

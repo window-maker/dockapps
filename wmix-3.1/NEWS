@@ -1,0 +1,86 @@
+3.1 NEWS:
+Fixed a 3 years old bug about volume level showing up as "0" when it's
+actually set to 10. Thank to all 20 or so people who e-mailed me about this.
+Changed struct mixer_info name to allow compiling wmix under 2.6.1+ kernels.
+Thanks Neil Burch <burch@cs.ualberta.ca> for the patch.
+Added a patch to enable exclusion of channels from display - allows you to
+remove mixer channels you never use. adds '-e <channame>' command line option
+which can be repeated any number of times. Thanks to Nicolas Descomps <nico_206@noos.fr>.
+Added #include <string.h> since glibc finally fixed most of the includes since 2001.
+
+3.0 NEWS:
+Major code rewrite. Now uses much better mixer library. New knob drawing code.
+New config parsing code - no more segfaults. New mouse control code for knob
+and slider dragging - more intuitive. Documentation updates. Removed runtime
+config parsing, only reading config file once on startup. New command line
+options to specify X display, config file, and mixer device. Removed "mixermax"
+code until someone complains. Current channel title scrolling is now
+configurable.
+
+2.2 NEWS:
+This is a bugfix release.  On-Screen-Display code now looks for some common
+large bitmap font.  Check that $HOME is set before trying to write a config
+file.  Wmix makes a pid file for use with signal changing volume up/down.
+Minor code reorganization.
+
+2.11 NEWS:
+Mostly bugfixes and other random stuff.  OSD now really stays on top provided
+you run a GNOME-compliant window manager (wmaker/E/saw-what-ever,etc)
+
+2.1 NEWS:
+Configuration file implemented.  Mousewheel functionality, OSD display,
+OSD color, main mixer device, and OSS bug work-around can now be selected
+through WMixer rc file, by default placed in ~/.wmixrc
+Changes to the rc file are loaded dynamically, while the mixer is running -
+you can change the OSD color, for example, and see the results right away.
+
+2.04 NEWS:
+New feature: Volume of the current channel can be controlled using signals.
+Sending SIGUSR1 will increase the volume by 1 step, and SIGUSR2 will decrase
+the volume by 1 step.  This could be useful if you have a newer style keyboard
+with volume buttons and all the other extra shit.  You can tell your favorite
+window manager to run a program on keypress, and that program could be
+something like "killall -USR1 wmix" for volume up key, and "killall -USR2 wmix"
+for volume down.  How to assign programs to specific keys is up to you.  I know
+Blackbox and WindowMaker can both do it.  Keep in mind most X-servers don't
+automatically support those extra keys, so some hacking might be required.
+Usually they are sent as a Win95 key scancode plus another scancode.  I don't
+have one of these keyboards so I don't know.  If enough people ask for it
+I will add 2 more signal handlers to switch the current "channel" back and
+forth.
+
+2.02 NEWS:
+Version 2.02 adds mouse wheel support to adjust volume, thanks to the 
+patch from Gilles QUERRET <gilles.querret@free.fr>.  Now instead of
+dragging the knob, you can use your mouse wheel to adjust the current channel
+volume.  Position the cursor anywhere on the dockapp, and move the wheel.
+This behaviour is off by default, but you can compile wmix with -DMOUSEWHEEL
+in the Makefile to enable this feature.  Incase your mouse has more than 2
+buttons and a wheel, you can set which button signals the wheel generates as
+"up" and "down" in mix.c, lines 45 and 46.  The default is for a standard
+mouse with 2 buttons and a wheel.  WHEEL_STEP is the amount to adjust the knob.
+The default of 3 should be good for everyone.  Changing the volume using the
+wheel also brings up OSD for the current channel following same rules as if the
+knob was used directly.
+
+2.01 NEWS:
+New feature, which isn't really new, but a feature move from WMixer 1.5, is the
+On-Screen-Display (OSD), just like the one you probably have on your TV.  The
+concept was the only thing copied from Wmixer 1.5 though, the code has been
+rewritten to use a modeless window instead of drawing on the root window,
+and draw code has been optimized not to draw any unnecessary stuff. The OSD
+only comes up when the Knob is turned, i.e. during manual adjustment.  OSD stays
+hidden during automatic updates due to mixer reads or changing rec/balance etc.
+However, due to the way the OSD timer is done, as long as you are moving inside
+the dockapp (adjusting balance, or just generally moving the mouse inside the
+dockapp window, the OSD will stay lit.  After all movement is gone, and in
+approximately 1.5 seconds, the OSD fades out.  If some Xlib programmer knows
+a /NON GAY/ way to handle always-on-top, feel free to mail me a diff that makes
+the OSD continuously on top while being displayed.  Right now, it comes up
+on top, but if you move a window over it or something, it gets hidden.  Not
+too much of a loss, but still could be improved.  OSD follows the same low-CPU
+use guidelines as the rest of the code.  No updates happen unless something
+changes that requires an update.  Also, expose events after uncovering the OSD
+window are not handled - if you can manage to obscure it in 1.5 seconds and
+want to see it again after that, you can always go back and twiddle the knob
+or something.

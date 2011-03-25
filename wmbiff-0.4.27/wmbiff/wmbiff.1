@@ -1,0 +1,123 @@
+.\" Hey, Emacs!  This is an -*- nroff -*- source file.
+.\" $Id: wmbiff.1,v 1.13 2003/02/08 21:04:48 bluehal Exp $
+.\"
+.\" wmbiff.1 and wmbiffrc.5 are copyright 1999-2001 by
+.\" Jordi Mallach <jordi@debian.org>
+.\"
+.\" This is free documentation, see the latest version of the GNU
+.\" General Public License for copying conditions. There is NO warranty.
+.TH WMBIFF 1 "October 4, 2001" "wmbiff"
+
+.SH NAME
+WMBiff \- A dockable Mailbox Monitor
+
+.SH SYNOPSIS
+.B wmbiff
+[-display <display name>] [-geometry +XPOS+YPOS] [-c <filename>] [-h] [-v] [-debug] [-fg <foreground-color>] [-font <X11 font>|default] [-hi <highlight-color>] [+w]
+.br
+
+.SH DESCRIPTION
+WMbiff displays the status of up to five mailboxes. It shows the number
+of new mail messages, if any, or the total number of messages.
+It also has mail
+retrieval capabilies, and can be configured to do this automatically. At the
+moment, UNIX-style, maildir, POP3, APOP and IMAP4 mailboxes are supported.
+WMbiff also supports Licq history files and gnomeicu, displaying the number of new
+messages in your running session, as if they were mail.  
+
+The mailboxes are displayed in 5 different lines, each one with its own
+description of up to five chars. If no mail is present in a given mailbox,
+WMbiff will display the total number of mails in cyan. If there's new mail
+in the box, the number of new messages will be displayed in yellow. When new
+mail arrives, this number will optionally flash for a small period of time,
+and also optionally, a command can be executed on mail arrival (for example,
+opening your mail reader or playing a sound file).
+
+Pressing mouse button 1 will execute a command, defined in the user's config
+file. Mouse button 3 will execute a command to fetch mail, if defined.  
+To restart wmbiff, press mouse button 1 while holding control and shift keys,
+or send it SIGUSR1.
+
+.PP
+
+.SH OPTIONS
+.TP
+.B \-h
+Show summary of options.
+.TP
+.B \-v
+Show version of program.
+.TP
+.B \-display <display name>
+Use an alternate X Display.
+.TP
+.B \-geometry <geometry>
+Initial window position.
+.TP
+.B \-c <filename>
+Use specified configuration file instead of ~/.wmbiffrc.
+.TP
+.B \-debug 
+Print verbose log of progress.
+.TP
+.B \-fg <color>
+Use specified X11 color.  Implies -font default, unless 
+overridden.
+.TP
+.B \-font <font>
+Use specified X11 font instead of the LED pixmap.  This may
+be more readable or suitable for some non-US characters.
+The special font "default" tells wmbiff to use a compile
+time default.
+.TP
+.B \-hi <color>
+Use specified X11 color for new mail counters.  Implies -font
+default, unless overridden.
+.TP
+.B \-skip-certificate-check
+When using TLS (IMAPS), keep going, even if the server's
+certificate is invalid.  Invalid certificates have expired,
+have a different hostname than you connected to, are
+corrupt, or have been revoked.  Do not use this option
+unless wmbiff fails and suggests it to you, and even then,
+be careful and consider alerting your mail system
+administrator first.  The need to use this option is a sign
+of server misconfiguration.
+.TP
+.B \+w 
+Do not use the "withdrawn" state: the wmbiff window will not
+be captured as an icon and placed in the dock, but will
+instead have its own window.  This option starts with a '+'
+for consistency with other software programs: many use '-w'
+to mean the opposite.
+
+.SH BUGS
+Send bug reports or suggestions to the WMBiff Development
+Mailing List <wmbiff-devel@lists.sourceforge.net>.   Consider
+attaching a transcript of your session, generated using:
+.RS
+wmbiff -debug | tee wmbiff-log
+.RE
+Be sure to remove any instances of your password.
+
+.SH FILES
+.TP
+.I ~/.wmbiffrc
+peruser wmbiff configuration file.
+
+.SH AUTHOR
+This manual page was written by Jordi Mallach <jordi@sindominio.net>,
+originally for the Debian system (but may be used by others).
+.br
+WMBiff was first maintained by Gennady Belyakov. Since January 2001 it is
+maintained group of people that have added lots of new features to the
+original program. Please see the README document for a list of all the people
+involved.
+
+.SH SEE ALSO
+.PD 0
+.TP
+\fBwmbiffrc\fP(5)
+.PP
+\fI/usr/share/doc/wmbiff/examples/sample.wmbiffrc\fP
+(or equivalent for your system)

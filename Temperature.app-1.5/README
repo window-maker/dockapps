@@ -1,0 +1,49 @@
+
+                     Temperature.app
+        <http://www.fukt.bth.se/~per/temperature/>
+
+                      by Per Liden
+                    <per@fukt.bth.se>
+
+        modified to work with modern compilers by:
+                 <carlos@gamma.ttk.pte.hu>
+
+Description
+--------------------------------------------------------------
+Temperature.app is a Window Maker dock application which
+fetches local temperature information every 15 minutes from 
+ftp://weather.noaa.gov and displays it (in Celsius or Fahrenheit).
+
+
+Hints
+--------------------------------------------------------------
+The led:
+	If the led is blinking (green/red), then that means 
+	Temperature.app is trying to fetch weather information.
+	If successful the led will stop blinking and go green.
+	If unsuccessful the led will stop blinking and go red.
+	Also, a error message will be printed in the console,
+	describing what went wrong. If the error message is
+	"wget failed" and you can't figure out why, try using
+	option -V, which will cause wget to be run in verbose
+	mode.
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to per@fukt.bth.se and describe the problem.
+
+
+Special thanks to
+--------------------------------------------------------------
+Mike Henderson (mghenderson@lanl.gov) - Author of wmWeather 
+(I didn't know about the weather.noaa.gov ftp-site before I 
+caught sight of his program).
+
+
+Copyright
+--------------------------------------------------------------
+Temperature.app is copyright (c) 2000-2002 by Per Liden and is 
+licensed through the GNU General Public License. Read the 
+COPYING file for the complete license.
+

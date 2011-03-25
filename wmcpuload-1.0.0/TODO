@@ -1,0 +1,3 @@
+* optimize drawing-routines (MIT-SHM)
+* other OS support (Mac OS X, HP-UX, IRIX, AIX ...)
+* multiprocessors support on Solaris, FreeBSD, NetBSD, OpenBSD and BSDi

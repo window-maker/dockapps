@@ -1,0 +1,4 @@
+2003-28-03
+ Changed currcap and remain to be floating cars rather than int in order to
+ fix a divide by zero problem.
+

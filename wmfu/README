@@ -1,0 +1,134 @@
+wmfu
+=====
+
+wmfu displays all sorts of information about your Linux (laptop) system.
+It is designed for WindowMaker, but can also be run in other window managers.
+It does not need external custom libraries, but does need a recent kernel,
+since it uses ACPI and proc/sys pseudo-filesystems to read system data.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.
+
+
+INSTALL
+=======
+
+Just "make" it.  You only need wmfu executable.
+"make install [prefix=...]" will build everything and will attempt to install
+in the location pointed to by prefix (default: /usr/local).
+
+If build fails on linux, it is probably because it can't find wireless.h
+You need to install wireless-tools package.  If you don't have it, or just
+don't want to install it, you need 2.6.x kernel sources and you have to modify
+linux/system.c to include <linux/wireless.h>
+
+
+USAGE
+=====
+
+MAIN PANEL:
+			current time (A)
+			      v
+			+-----------+
+	drag zone    ->	| =  time x | <- close icon
+			+-----------+
+			| CPU  load%| <- average CPU load (B)
+			+-----+-----+
+      (C) best wlink ->	|wifi~|temp°| <- max temperature (D)
+			+-----+-----+
+      battery symbol ->	|bat time ac| <- AC/charging symbol
+			+-----------+
+			      ^
+		battery estimate and meter (E)
+
+Left click asks more information about a specific topic:
+
+A - TIME PANEL:
+			+-----------+
+			| dayofweek |
+			|  day mon  | <- current date
+			|    year   |
+			+-----------+
+			|   UPTIME  |
+			|days hr:min| <- uptime
+			+-----------+
+
+B - CPU PANEL (use mouse scroll for up to 8 CPUs):
+			+-----------+
+	  cpu number ->	|CPUn freq M| <- current frequency in MHz
+     load percentage ->	|load% govnr| <- scaling governor
+			+-----------+
+	  cpu number ->	|CPUn freq M| <- current frequency
+     load percentage ->	|load% govnr| <- scaling governor
+			+-----------+
+			| MEM usage%| <- memory
+			| SWP usage%| <- swap
+			+-----------+
+
+C - NET PANEL (use mouse scroll for up to 8 interfaces):
+			+-----------+
+      interface name ->	|ifnam wifi~| <- wlink (only for wireless)
+			|essid      | <- ESSID (only for wireless)
+	   ipv4 addr ->	|xx.yy.zz.ww|
+			+-----------+
+      interface name ->	|ifnam wifi~| <- wlink (only for wireless)
+			|essid      | <- ESSID (only for wireless)
+	   ipv4 addr ->	|xx.yy.zz.ww|
+			+-----------+
+
+D - TEMPERATURE PANEL (use mouse scroll for up to 16 sensors):
+			+-----------+
+	 sensor name ->	|nam tmp°max| <- current and maximum temperature
+			+-----------+
+	 sensor name ->	|nam tmp°max| <- current and maximum temperature
+			+-----------+
+	 sensor name ->	|nam tmp°max| <- current and maximum temperature
+			+-----------+
+	 sensor name ->	|nam tmp°max| <- current and maximum temperature
+			+-----------+
+	 sensor name ->	|nam tmp°max| <- current and maximum temperature
+			+-----------+
+
+E - BATTERY PANEL:
+			+-----------+
+	battery name ->	|name       |
+			|status     | <- status: CHARGING/DISCHARGING/STEADY
+    current capacity ->	|load% hr:mn| <- charging/discharging estimate time
+	       meter ->	|"""""""""""|
+	battery name ->	|name       |
+	      status ->	|status     |
+    current capacity ->	|load% hr:mn| <- charging/discharging estimate time
+	       meter ->	|"""""""""""|
+			+-----------+
+
+
+THANKS
+======
+
+wmwifi-0.6	Jess Mahan	dockapp system
+gkrellm-2.2.10	Bill Wilson	sensors system
+wmifinfo-0.06	Ico Doornekamp	small fonts
+wmacpi-1.34	timecop		gradient
+wmcpuload-1.0.0	Seiichi SATO	cpu / dockapp
+wmfire-1.2.3	Alan Swanson	cpu routine
+wmhdplop-0.9.8	Julien Pommier	stuff
+
+
+TODO
+====
+
+0. optimize for speed
+1. implement visible/audible alerts
+2. brokenwm for some window managers
+3. put additional info in main panel (in place of "CPU" string)
+4. more stuff in detail panels: network, calendar (compress date to SA 12 DEC)
+5. read HDD temperature (use smartmontools/hddtemp)
+6. use iwlib instead of manually scanning wireless interfaces
+7. add more systems: BSD etc
+8. handle fahrenheit temperatures
+9. implement consistent UI: left-click, right-click
+
+
+Have fun,
+Daniel Borca <dborca@yahoo.com>

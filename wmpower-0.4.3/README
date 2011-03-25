@@ -1,0 +1,36 @@
+                                  WMPOWER
+                                  
+wmpower is a Window Maker dock application allowing the user to
+graphically see (and set) the power management status of his laptop.
+
+----------------------------------------------------------------------
+
+Features:
+- It works;
+- Battery status display (you choose the battery);
+- Both APM and ACPI kernels are supported;
+- On ACPI kernels you get fan status and a thermal sensor;
+- Direct access to Toshiba hardware: you get fan status
+  and LCD brightness management even without an APCI kernel;
+- While on battery, it can stop your fan, HD
+  to make the battery last longer; if you have a
+  Toshiba Laptop, it can also adjust your LCD brightness;
+- Fast battery charge mode: you can keep 'on battery'
+  settings until your battery reaches 100%: this will
+  make it recharge much faster;
+- no-meddling option: if you want the program to display
+  power manamenegt status, but not to take any action.
+- On Toshiba laptops you can use your mouse wheel to adjust
+  the brightness of your lcd screen.
+- Support for Dell laptops for temperature and fan status
+- Support for Compal hardware (see README.compal)
+- CPU frequency scaling support
+
+----------------------------------------------------------------------
+
+Usage:
+Just type 'wmpower' in a shell...
+Type 'wmpower -h' to see all available options.
+Obviously it needs a running X-Server to work.
+
+----------------------------------------------------------------------

@@ -1,0 +1,8 @@
+# DO NOT DELETE
+
+dockapp.o: dockapp.h
+util.o: util.h
+wmfu.o: dockapp.h sensors.h system.h util.h font.h font.xpm
+wmfu.o: frame0.xpm frame1.xpm frame2.xpm frame3.xpm frame4.xpm frame5.xpm
+linux/sensors.o: list.h sensors.h
+linux/system.o: list.h sensors.h system.h

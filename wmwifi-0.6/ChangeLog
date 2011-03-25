@@ -1,0 +1,57 @@
+2006-03-07  Jess Mahan <jess@digitalssg.net>
+	* Version 0.6
+	* Strip trailing colon from interface name in wfi->ifname
+	  Jeroen Nijhof <jnijhof@nijhofnet.nl> 
+	* Added ability to switch between scrolling and non scrolling
+	  interfaces.
+	  Thanks to Jeroen Nijhof <jnijhof@nijhofnet.nl> for ideas.
+	* Mouse1 now switches between scrolling / non-scrolling modes
+	* Added custom color support 
+	* Added preset color schemes -tc -tn -ts
+	* Updated Man page to reflect changes.
+	* Updated --help contents
+	* Code rework, so that display only get's updated on wireless changes
+	  Now more efficient
+
+2004-09-24  Jess Mahan <jess@digitalssg.net>
+	* Version 0.5
+	* Displays current Access Point for each interface
+	* Merged wifi_info() and get_max_qual() into get_wifi_info(),
+	  which gets alot more wireless info.
+	* Added a bit of code to try and detect your quality
+	  if you are using driver which do not report the max_qual
+	  properly to the wireless extensions (i.e., ndiswrapper, prism54).
+	* Changed middle mouse click from previous interface to toggle
+	  view of Link/Level/Noise/Bitrate.
+
+2004-02-27  Jess Mahan <jess@digitalssg.net>
+	* Version 0.4
+	* Added abilty to monitor all interfaces from /proc/net/wireless,
+	  users are no longer limited to one interface.
+	* wmwifi will not exit if a card is removed, instead it
+	  displays an error
+
+	  
+2003-16-12  Jess Mahan <jess@digitalssg.net>
+
+	* Added "get_max_qual" to get the maximum quality directly from
+	  the wireless extension in the kernel instead of assuming it
+	  would always be 92, which isn't the case. This means that
+	  quality reporting is now accurate.
+
+	  
+2003-22-24  Jess Mahan <jess@digitalssg.net>
+	
+	* Changes the "look" of the display.
+	* wmwifi now exits if it cannot open the wireless extensions.
+	* Displays link in percentage now, rather than actuall amount.
+	* Display of link is now more accurate.
+	* Dockapp now displays the your interface name in the upper left
+	  hand corner (wlan0, eth0, ethc.).
+
+
+2003-11-12  Jess Mahan <jess@digitalssg.net>
+
+	* Created initial (0.1-1) Release (see README)
+	* Created initial (0.1-1) Debian Package
+	

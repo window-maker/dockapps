@@ -1,0 +1,36 @@
+wmCalendar changes.
+
+  Version         Description
+--------------------------------------------------------------
+
+Version 0.5.0	- Memory leak fixed
+		- switch to gtk2 - enables utf8
+		- am/pm and date/time display is specified by locale
+		- new design of popup window
+Version 0.4.4	- added islamic calendar
+		- mark day with leftclick
+Version 0.4.3   - bugfix: compile error 
+Version 0.4.2	- added free start of week
+		- added proper handling of reoccurencies of events
+		- fixed Makefile to compile properly with libical 0.24
+		- added am/pm mode
+Version 0.4.1	- changed applaunch to doubleclick(requested by Sebastian Ley)
+		- direct startup when rcfile is created (requested by Sebastian Ley)
+		- some Makefile cleanup (taken from Alexey Dokuchaev's bsd port)
+Version 0.4.0   - added settings menu (for appicon, applaunch-command, 
+			language and *.ics file)
+		- bugfix: other calendarfiles(like mozilla) work now
+		- lots of code cleanup
+Version 0.3.6   - persian calendar added
+		- application launch added for mozilla calendar and evolution
+		- some code cleanup
+                - show/hide buttons (settings button is not working yet)
+		- file access to *.ics changed to reload only when modified
+Version 0.3.5   - moonphase added (error +-1day due simple algorithm...)
+Version 0.3.4   - manpage added
+Version 0.3.3   - bugfix: days between months don't show details anymore 
+		- changed dockapp to gdk with dockapp.c
+		- added farsi (but still in gregorian calendar)
+Version 0.3.2   - added box in bottom right corner for movement and access to settings 
+Version 0.3.1  	- memory leak fixed, code cleanup, switch to sourceforge email
+Version 0.3.0  	- first public alpha release March 19, 2003.

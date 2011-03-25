@@ -1,0 +1,21 @@
+timecop [timecop@japan.co.jp]
+the main author of wmix
+
+Daniel Richard G. [skunk@mit.edu]
+author of volume.app, where I got the knob math and mixer routines from
+(which was in turn based on mixer routines in wmix 2.x)
+
+/* the people below have contributed code in the past, though most of the
+   code has been rewritten in 3.0 */
+
+gilles querret [gilles.querret@free.fr]
+author of the mousewheel patch for wmix
+
+Travis Whitton [travis@atlantic.net]
+submitted a patch to restore volume and balance when pressing mute button,
+and also did changes in the Makefile to make sure it works on systems other
+than my own.
+
+Vinnie Yesue [vinnie@fizz.sonicity.com]
+Did the work on changing mixermax stuff, because he had one of those broken
+soundcards that made things break (see BUGS)

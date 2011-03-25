@@ -1,0 +1,123 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WMWIFI 1 "March 07, 2006"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wmwifi \- A dockapp to monitor wireless signal strength.
+.SH SYNOPSIS
+.B wmwifi [options]
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmwifi
+command.
+This manual page was written for the Debian GNU/Linux distribution.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+\fBWMWiFi\fP is a dockapp that is supported by X window managers such as
+Window Maker, AfterStep, BlackBox, and Enlightenment. It monitors all
+wireless network interfaces on your machine. 
+
+The main screen displays the link (signal) strength between the currently 
+selected card and your wireless access point as a percentage, and has an 
+LCD look-alike user interface. 
+
+The second screen diplays extended stats, which are:
+the current rate/speed in megabits, the noise (in dBm), the level (in dBm), 
+and the actual link amount.
+
+Both screens toggle the interface name and the current associated access
+point at the top every 5 seconds. 
+
+The back-light may be turned on/off by clicking the mouse
+button over the application. 
+
+Mouse1 activates/deactivates the scrolling of the Wireless Interface Name / ESSID.
+
+Mouse2 switches the current wireless network interface.
+
+Mouse3 switches between standard and extended modes.
+
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long options
+starting with two dashes (`\-'). A summary of options is included below.
+.TP
+.B \-d,  \-\-display <string>
+Attempt to open a window on the named X display. In the absence of  this option,
+the  display  specified  by the
+.B DISPLAY
+environment variable is used.
+.TP
+.B \-bl, \-\-backlight
+turn on back-light.
+.TP
+.B \-lc, \-\-light-color <color>
+back-light color. (default: rgb:6E/C6/3B)
+.TP
+.B \-fg, \-\-foreground-color <color>
+back-light color. (default: rgb:00/00/00)
+.TP
+.B \-bg, \-\-background-color <color>
+back-light color. (default: rgb:8E/96/8A)
+.TP
+.B \-hc, \-\-highlight-color <color>
+back-light color. (default: rgb:76/7C/6F)
+.TP
+.B \-mt, \-\-midtone-color <color>
+back-light color. (default: rgb:44/44/44)
+.TP
+.B \-tc, \-\-theme-classic
+Theme: use <= 0.5 style interface theme
+.TP
+.B \-tn, \-\-theme-new
+Theme: use updated (new) theme
+.TP
+.B \-ts, \-\-theme-snow
+Theme: use snow theme
+.TP
+.B \-i,  \-\-interval <integer>
+sets update interval (in seconds)
+.TP
+.B \-h,  \-\-help
+show help text and exit.
+.TP
+.B \-v,  \-\-version
+show program version and exit.
+.TP
+.B \-w,  \-\-windowed
+run the application in windowed mode
+.TP
+.B \-bw,  \-\-broken-wm
+activate broken window manager fix
+.TP
+.B \-l,   \-\-learn
+attempt max signal quality autodetection/learning for broken wireless drivers 
+(ndiswrapper, prism54). 
+*Note* this may break the max signal quality.
+.TP
+.B \\+s,   \-\-scroll-on
+scroll the interface name and essid
+.TP
+.B \\-s,   \-\-scroll-off
+use <= 0.5 style interface and essid (i.e. don't scroll)
+
+
+.SH AUTHOR
+wmwifi was written by Jess Mahan <jess@digitalssg.net>.
+
+This manual page was written by Jess Mahan <jess@digitalssg.net>,
+for the Debian GNU/Linux system (but may be used by others).
