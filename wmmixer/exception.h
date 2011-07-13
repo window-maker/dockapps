@@ -37,4 +37,4 @@ class MixerDeviceException : public Exception
   //  virtual ~MixerDeviceException();
 };
 
-#endif _exception_h__
+#endif //_exception_h__

@@ -3,6 +3,7 @@
 // Release 1.5
 // Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
 // Copyright (C) 2002 Gordon Fraser <gordon@debian.org>
+// Patch added by Rodolfo (kix) Garcia <kix@kix.es> to select the config file
 // This software comes with ABSOLUTELY NO WARRANTY
 // This software is free software, and you are welcome to redistribute it
 // under certain conditions
@@ -31,7 +32,7 @@
 
 // For repeating next and prev buttons
 #define RPTINTERVAL   5
-
+#define CONFIGFILELEN 256
 
 class WMMixer
 {
@@ -41,6 +42,7 @@ class WMMixer
   MixCtl *mixctl_;
 
   char     mixer_device_[256];
+  char     config_file_[CONFIGFILELEN];
   unsigned num_channels_;
   unsigned current_channel_;
   unsigned current_channel_left_;

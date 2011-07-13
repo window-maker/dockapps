@@ -85,6 +85,7 @@ class XHandler
   char ledcolor_name_[256];
   char ledcolor_high_name_[256];
   char backcolor_name_[256];
+  char window_class_[256];
 
   Pixel back_pix;
   Pixel fore_pix;
@@ -142,6 +143,7 @@ class XHandler
   void setLedColor(char* arg);
   void setLedHighColor(char* arg);
   void setBackColor(char* arg);
+  void setWindowClass(char* arg);
   void setUnshaped();
   void setWindowMaker();
   void setAfterStep();

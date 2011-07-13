@@ -82,3 +82,11 @@ Release 1.5   25 Jun 2002 Several fixes (really open mixer device given
                           set volume below 0)
                           Shaded LED-Bar
                           Initial Exception Handling
+
+Release 1.6   13 Jul 2011 Support of multiple config files to run multiple
+                          instances of wmmixer. Hurd support. Support of
+                          XClasses. These patches was created first in Debian
+                          01_restore_pristine_code.patch
+                          02_multiple_config_files.patch
+                          03_hurd_support.patch
+                          04_xclass_support.patch

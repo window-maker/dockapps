@@ -82,10 +82,10 @@ The effect this has is to enable shape support (it implies "-s"), and
 to reduce the size of the window to 56x56 pixels.
 The "-position position" option has also been added, so you can push
 wmcdplay off the edge of the screen while it gets swallowed.
-To put wmmount in your Wharf, add the following line in the appropriate
+To put wmmixer in your Wharf, add the following line in the appropriate
 part of your .steprc
 
-*Wharf wmmixer nil MaxSwallow "wmmount" wmmixer -a -g -0-0 &
+*Wharf wmmixer nil MaxSwallow "wmmixer" wmmixer -a -g -0-0 &
 
 It is also possible (by editing and recompiling the afterstep sources),
 to make Wharf handle the new 56x56 pixel window properly - yes, I add

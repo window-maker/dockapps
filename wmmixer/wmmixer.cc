@@ -3,6 +3,7 @@
 // Release 1.5
 // Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
 // Copyright (C) 2002 Gordon Fraser <gordon@debian.org>
+// Patch added by Rodolfo (kix) Garcia <kix@kix.es> to select the config file
 // This software comes with ABSOLUTELY NO WARRANTY
 // This software is free software, and you are welcome to redistribute it
 // under certain conditions
@@ -234,10 +235,14 @@ void WMMixer::parseArgs(int argc, char **argv)
     {"led-highcolor",  1, NULL, 'L'},
     {"back-color", 1, NULL, 'b'},
     {"mix-device", 1, NULL, 'm'},
+    {"config-file", 1, NULL, 'c'},
+    {"x-class",    1, NULL, 'x'},
     {"scrollwheel",1, NULL, 'r'},
     {NULL,         0, NULL, 0  }};
   int i, opt_index = 0;
-  
+
+  // init the config file name
+  snprintf(config_file_, CONFIGFILELEN -1, "%s/.wmmixer", getenv("HOME"));
 
   // For backward compatibility
   for(i=1; i<argc; i++) 
@@ -256,7 +261,7 @@ void WMMixer::parseArgs(int argc, char **argv)
 	}
     }
 
-  while ((i = getopt_long(argc, argv, "hvd:g:wasl:L:b:m:r:", long_opts, &opt_index)) != -1) 
+  while ((i = getopt_long(argc, argv, "hvd:g:wasl:L:b:m:c:x:r:", long_opts, &opt_index)) != -1)
     {
       switch (i) 
 	{
@@ -295,6 +300,12 @@ void WMMixer::parseArgs(int argc, char **argv)
 	case 'm':
 	  sprintf(mixer_device_, "%s", optarg);
 	  break;
+	case 'c':
+	  snprintf(config_file_, CONFIGFILELEN -1, "%s", optarg);
+	  break;
+	case 'x':
+	  xhandler_->setWindowClass(optarg);
+	  break;
 	case 'r':
 	  if(atoi(optarg)>0)
 	    wheel_scroll_ = atoi(optarg);
@@ -307,14 +318,12 @@ void WMMixer::parseArgs(int argc, char **argv)
 void WMMixer::readConfigurationFile()
 {
    FILE *rcfile;
-   char rcfilen[256];
    char buf[256];
    int done;
    //   int current=-1;
    unsigned current = mixctl_->getNrDevices() + 1;
 
-   sprintf(rcfilen, "%s/.wmmixer", getenv("HOME"));
-   if((rcfile=fopen(rcfilen, "r"))!=NULL)
+   if((rcfile=fopen(config_file_, "r"))!=NULL)
      {
        num_channels_=0;
        do
@@ -412,6 +421,8 @@ void WMMixer::displayUsage(const char* name)
   std::cout << "  -L,  --led-highcolor <string>  use the specified color for led shading" << std::endl;
   std::cout << "  -b,  --back-color <string>     use the specified color for backgrounds" << std::endl;
   std::cout << "  -m,  --mix-device              use specified device (rather than /dev/mixer)" << std::endl;
+  std::cout << "  -c,  --config-file             use specified config file (rather than $HOME/.wmmixer)" << std::endl;
+  std::cout << "  -x,  --x-class <string>        use specified class (rather than WMMmixer)" << std::endl;
   std::cout << "  -r,  --scrollwheel <number>    volume increase/decrease with mouse wheel (default: 2)" << std::endl;
   std::cout << "\nFor backward compatibility the following obsolete options are still supported:" << std::endl;
   std::cout << "  -help                          display this help screen" << std::endl;

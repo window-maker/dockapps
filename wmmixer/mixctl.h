@@ -23,11 +23,14 @@
 #ifdef __NetBSD__
 #include <soundcard.h>
 #endif
-#ifdef __FreeBSD__
-#include <machine/soundcard.h>
+#if defined (__FreeBSD__) || defined(__FreeBSD_kernel__)
+#include <sys/soundcard.h>
 #endif
 #ifdef __linux__
 #include <linux/soundcard.h>
+#endif
+#ifdef __GNU__  // Hurd
+#include <sys/soundcard.h>
 #endif
 
 #include "exception.h"

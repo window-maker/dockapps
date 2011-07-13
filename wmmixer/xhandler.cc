@@ -22,8 +22,10 @@ XHandler::XHandler()
   strcpy(ledcolor_name_, LEDCOLOR);
   strcpy(ledcolor_high_name_, LEDCOLOR_HIGH);
   strcpy(backcolor_name_, BACKCOLOR);
+  strcpy(window_class_, CLASS);
 
   button_state_ = 0;
+  icon_list_ = NULL;
 }
 
 //--------------------------------------------------------------------
@@ -334,6 +336,12 @@ void XHandler::setBackColor(char* arg)
 }
 
 //--------------------------------------------------------------------
+void XHandler::setWindowClass(char* arg)
+{
+  snprintf(window_class_, 254, "%s", arg);
+}
+
+//--------------------------------------------------------------------
 void XHandler::setUnshaped()
 {
   is_ushape_ = 1;
@@ -488,7 +496,7 @@ void XHandler::initWindow(int argc, char** argv)
     }
   
   classHint.res_name=NAME;
-  classHint.res_class=CLASS;
+  classHint.res_class = window_class_;
   
   XSetClassHint(display_default_, window_main_, &classHint);
   XSetClassHint(display_default_, window_icon_, &classHint);

@@ -243,16 +243,16 @@ char* MixCtl::getLabel(int dev)
 //----------------------------------------------------------------------
 bool MixCtl::hasChanged()
 {
-  struct mixer_info mixer_info;
-  ioctl(mixfd, SOUND_MIXER_INFO, &mixer_info);
+  struct mixer_info mixer_info1;
+  ioctl(mixfd, SOUND_MIXER_INFO, &mixer_info1);
      
-  if (mixer_info.modify_counter == modify_counter)
+  if (mixer_info1.modify_counter == modify_counter)
     {
       return false;
     }
   else 
     {
-      modify_counter = mixer_info.modify_counter;
+      modify_counter = mixer_info1.modify_counter;
       return true;
     }
 }
