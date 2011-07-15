@@ -1,0 +1,10 @@
+?package(wmmixer):\
+   needs="x11"\
+   section="Applications/Sound"\
+   title="WMMixer (Docked)"\
+   command="/usr/bin/wmmixer -w"
+?package(wmmixer):\
+   needs="x11"\
+   section="Applications/Sound"\
+   title="WMMixer"\
+   command="/usr/bin/wmmixer"
