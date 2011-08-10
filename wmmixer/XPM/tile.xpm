@@ -1,5 +1,5 @@
 /* XPM */
-static char *tile_xpm[] = {
+static char const *tile_xpm[] = {
 "64 64 54 1",
 " 	c #F3CEF3CEF3CE",
 ".	c #000000000000",

@@ -403,22 +403,22 @@ void XHandler::initGraphicsContext()
 //--------------------------------------------------------------------
 void XHandler::initPixmaps(int display_depth)
 {
-  XpmColorSymbol xpmcsym[4]={{"back_color",     NULL, colors_[0]},
-			     {"led_color_high", NULL, colors_[1]},
-			     {"led_color_med",  NULL, colors_[2]},
-			     {"led_color_low",  NULL, colors_[3]}};
+  XpmColorSymbol const xpmcsym[4]={{(char *)"back_color",     NULL, colors_[0]},
+				   {(char *)"led_color_high", NULL, colors_[1]},
+				   {(char *)"led_color_med",  NULL, colors_[2]},
+				   {(char *)"led_color_low",  NULL, colors_[3]}};
   XpmAttributes xpmattr;
 
   xpmattr.numsymbols   = 4;
-  xpmattr.colorsymbols = xpmcsym;
+  xpmattr.colorsymbols = (XpmColorSymbol *)xpmcsym;
   xpmattr.exactColors  = false;
   xpmattr.closeness    = 40000;
   xpmattr.valuemask    = XpmColorSymbols | XpmExactColors | XpmCloseness;
   
-  XpmCreatePixmapFromData(display_default_, window_root_, wmmixer_xpm, &pixmap_main, &pixmap_mask, &xpmattr);
-  XpmCreatePixmapFromData(display_default_, window_root_, tile_xpm, &pixmap_tile, NULL, &xpmattr);
-  XpmCreatePixmapFromData(display_default_, window_root_, icons_xpm, &pixmap_icon, NULL, &xpmattr);
-  XpmCreatePixmapFromData(display_default_, window_root_, norec_xpm, &pixmap_nrec, NULL, &xpmattr);
+  XpmCreatePixmapFromData(display_default_, window_root_, (char **)wmmixer_xpm, &pixmap_main, &pixmap_mask, &xpmattr);
+  XpmCreatePixmapFromData(display_default_, window_root_, (char **)tile_xpm, &pixmap_tile, NULL, &xpmattr);
+  XpmCreatePixmapFromData(display_default_, window_root_, (char **)icons_xpm, &pixmap_icon, NULL, &xpmattr);
+  XpmCreatePixmapFromData(display_default_, window_root_, (char **)norec_xpm, &pixmap_nrec, NULL, &xpmattr);
 
   pixmap_disp = XCreatePixmap(display_default_, window_root_, 64, 64, display_depth);
 }
@@ -461,8 +461,8 @@ void XHandler::initWindow(int argc, char** argv)
 
   window_root_ = RootWindow(display_default_, screen);
 
-  back_pix = getColor("white");
-  fore_pix = getColor("black");
+  back_pix = getColor((char *)"white");
+  fore_pix = getColor((char *)"black");
 
   window_main_ = XCreateSimpleWindow(display_default_, window_root_, shints.x, shints.y,
 			    shints.width, shints.height, 0, fore_pix, back_pix);
@@ -495,7 +495,7 @@ void XHandler::initWindow(int argc, char** argv)
       wmhints.flags = WindowGroupHint | StateHint;
     }
   
-  classHint.res_name=NAME;
+  classHint.res_name=(char *)NAME;
   classHint.res_class = window_class_;
   
   XSetClassHint(display_default_, window_main_, &classHint);

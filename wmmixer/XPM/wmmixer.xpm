@@ -1,5 +1,5 @@
 /* XPM */
-static char * wmmixer_xpm[] = {
+static char const *wmmixer_xpm[] = {
 "64 64 10 1",
 " 	c None",
 ".	c #000000",

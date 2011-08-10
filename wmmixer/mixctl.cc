@@ -23,8 +23,8 @@ MixCtl::MixCtl(char *device_name) throw(MixerDeviceException)
   if((mixfd = open(device_,O_RDONLY | O_NONBLOCK)) != -1)
     {
       num_devices_      = SOUND_MIXER_NRDEVICES;
-      char *devnames[]  = SOUND_DEVICE_NAMES;
-      char *devlabels[] = SOUND_DEVICE_LABELS;
+      const char *devnames[]  = SOUND_DEVICE_NAMES;
+      const char *devlabels[] = SOUND_DEVICE_LABELS;
       ioctl(mixfd, SOUND_MIXER_READ_DEVMASK, &devmask);
       ioctl(mixfd, SOUND_MIXER_READ_STEREODEVS, &stmask);
       ioctl(mixfd, SOUND_MIXER_READ_RECMASK, &recmask);
@@ -39,8 +39,8 @@ MixCtl::MixCtl(char *device_name) throw(MixerDeviceException)
 	  mixer_devices_[count].stereo  = stmask  & mixmask;
 	  mixer_devices_[count].records = recmask & mixmask;
 	  mixer_devices_[count].mask    = mixmask;
-	  mixer_devices_[count].name    = devnames[count];
-	  mixer_devices_[count].label   = devlabels[count];
+	  mixer_devices_[count].name    = (char *) devnames[count];
+	  mixer_devices_[count].label   = (char *) devlabels[count];
 	  mixer_devices_[count].muted   = 0;
 	  mixmask*=2;
 	}

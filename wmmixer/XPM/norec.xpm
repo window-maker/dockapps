@@ -1,5 +1,5 @@
 /* XPM */
-static char * norec_xpm[] = {
+static char const *norec_xpm[] = {
 "10 9 3 1",
 " 	c None",
 ".	c #AEAAAE",
