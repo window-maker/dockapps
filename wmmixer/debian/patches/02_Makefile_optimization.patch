@@ -1,4 +1,6 @@
-This patch includes the optimization parameters for g++
+Description: This patch includes the optimization parameters for g++
+Author: Sandro Tosi <matrixhasu@gmail.com>
+Last-Update: 2007-10-08
 --- a/Makefile
 +++ b/Makefile
 @@ -6,7 +6,14 @@

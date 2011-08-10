@@ -1,3 +1,10 @@
+wmmixer (1.6-2) unstable; urgency=low
+
+  * debian/copyright is now DEP-5
+  * debian/patches/* are now DEP-3
+
+ -- Rodolfo Garc??a Pe??as (kix) <kix@kix.es>  Mon, 8 Aug 2011 17:28:42 +0200
+
 wmmixer (1.6-1) unstable; urgency=low
 
   * New upstream version 1.6

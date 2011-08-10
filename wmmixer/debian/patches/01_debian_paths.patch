@@ -1,4 +1,6 @@
-This patch changes the installation path to /usr
+Description: This patch changes the installation path to /usr
+Author: Sandro Tosi <matrixhasu@gmail.com>
+Last-Update: 2007-10-08
 --- a/Makefile
 +++ b/Makefile
 @@ -1,12 +1,10 @@
