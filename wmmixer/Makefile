@@ -13,7 +13,7 @@ EXTRA_LIBS  = -L/usr/X11R6/lib -lX11 -lXpm -lXext
 
 
 LD 	    = g++
-LDFLAGS     = -o $(EXECUTABLE) $(EXTRA_LIBDIRS) $(EXTRA_LIBS) $(CXXFLAGS)
+LDFLAGS     = -o $(EXECUTABLE) $(CXXFLAGS)
 
 EXECUTABLE  = wmmixer
 OBJS	    = xhandler.o mixctl.o wmmixer.o exception.o
@@ -26,7 +26,7 @@ INSTALL_PROGRAM = $(INSTALL) -D -p    -o root -g root  -m  755
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(EXECUTABLE): $(OBJS)
-	$(LD) $(LDFLAGS) $(OBJS)
+	$(LD) $(LDFLAGS) $(OBJS) $(EXTRA_LIBDIRS) $(EXTRA_LIBS)
 
 all: $(EXECUTABLE)
 

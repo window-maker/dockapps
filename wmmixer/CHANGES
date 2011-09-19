@@ -90,3 +90,6 @@ Release 1.6   13 Jul 2011 Support of multiple config files to run multiple
                           02_multiple_config_files.patch
                           03_hurd_support.patch
                           04_xclass_support.patch
+
+Release 1.7   19 Sep 2011 Fix FTBFS with ld --as-needed
+                          Patch sent by Angel Abad <angelabad@ubuntu.com>

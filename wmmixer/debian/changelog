@@ -1,3 +1,11 @@
+wmmixer (1.7-1) unstable; urgency=low
+
+  * New upstream version 1.7
+    - Fix FTBFS with ld --as-needed
+      Patch sent by Angel Abad <angelabad@ubuntu.com> [Closes: #640301]
+
+ -- Rodolfo García Peñas (kix) <kix@kix.es>  Mon, 19 Sep 2011 15:29:32 +0200
+
 wmmixer (1.6-2) unstable; urgency=low
 
   * debian/copyright is now DEP-5
