@@ -3,11 +3,11 @@
 WMMOONCLOCK \- Dockable Moon Phase Clock
 .SH SYNOPSIS
 .B wmMoonClock
-[-display <Display>] [-bc <Color>] [-lc <Color>] [-dc <Color>] [-low] [-lat <Latitude>] [-lon <Longitude>] [-h]
+[\-display <Display>] [\-bc <Color>] [\-lc <Color>] [\-dc <Color>] [\-low] [\-lat <Latitude>] [\-lon <Longitude>] [\-h]
 .SH DESCRIPTION
 .PP
 wmMoonClock displays the current phase of the moon. Clicking on the icon
-brings up different displays -- there are 5 in all. The different "pages"
+brings up different displays \-\- there are 5 in all. The different "pages"
 are;
 
 .TP
@@ -25,8 +25,8 @@ it above the horizon?).
 .B Third Page
 Shows the Rise and Set times for yesterday (first line), today (middle line), and
 tommorrow (last line). If the Moon does not rise or set on a given day a `null
-time' is shown (--:--). Note that these times should still be good for high
-latitude observers. Also note that there will always be at least one (--:--) 
+time' is shown (\-\-:\-\-). Note that these times should still be good for high
+latitude observers. Also note that there will always be at least one (\-\-:\-\-)
 showing up per month. This is because once per month the Moon will rise (set) on 
 a given day but will set (rise) in the very early portion of the next day.
 .TP
@@ -58,19 +58,19 @@ Set color of text labels.
 Set color of data values.
 .TP
 .B \-low
-Conserve colors. For 8-bit displays, a lower-color pixmap will be used automatically,
-but you can also force its use on higher-color displays if necessary.
+Conserve colors. For 8\-bit displays, a lower\-color pixmap will be used automatically,
+but you can also force its use on higher\-color displays if necessary.
 .TP
-.B -lat <Latitude>         
+.B \-lat <Latitude>
 Observers Latitude in degrees. Positive in northern hemisphere, negative in southern hemisphere.
 .TP
-.B -lon <Longitude>        
+.B \-lon <Longitude>
 Observers Longitude in degrees. Greenwich is 0.0, and longitude increases positively
 toward the west. (Alternatively, negative numbers can also be used to specify
 longitudes to the east of Greenwich).
 .TP
 .B \-h
-Display list of command-line options.
+Display list of command\-line options.
 .SH BUGS
 Who knows? (Let me know if you find any).
 .SH AUTHOR

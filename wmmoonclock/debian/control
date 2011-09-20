@@ -1,0 +1,17 @@
+Source: wmmoonclock
+Section: x11
+Priority: optional
+Maintainer: Rodolfo García Peñas (kix) <kix@kix.es>
+DM-Upload-Allowed: yes
+Build-Depends: debhelper (>= 7.0.50~), libx11-dev, libxext-dev, libxpm-dev
+Standards-Version: 3.9.2
+
+Package: wmmoonclock
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Suggests: wmsun, wmaker | afterstep
+Description: WindowMaker moon phase dockapp
+ wmMoonClock displays a small pixmap of the current phase of the moon.
+ You have to enter your Latitude and Longitude for it to work correctly.
+ wmMoonClock is designed to work with the WindowMaker dock, but will
+ work with other window managers as well.

@@ -8,6 +8,10 @@
 
 double angle360();
 
+void addthe(double, double, double, double, double*, double*);
+void addsol(double, double, double, double, int, int, int, int);
+void addn(double, int, int, int, int);
+void term(int, int, int, int, double*, double*);
 
 double	TwoPi = 6.283185308;
 double	ARC = 206264.81;
@@ -25,8 +29,8 @@ double	T2;
 double	S1, S2, S3, S4, S5, S6, S7;
 double	DL0, DL, DD, DGAM, DLS, DF;
 double	L0, L, LS, F, D;
-double	ARG, FAC;
-int	MAX, i, j;
+double	ARG = 0.0, FAC = 0.0;
+int	MAX = 0, i, j;
 double	S; 
 
 
@@ -274,7 +278,7 @@ double frac(double x){
 
 
 
-addsol(double COEFFL, double COEFFS, double COEFFG, double COEFFP, int P, int Q, int R, int S){
+void addsol(double COEFFL, double COEFFS, double COEFFG, double COEFFP, int P, int Q, int R, int S){
 
     double	X, Y;
 
@@ -289,7 +293,7 @@ addsol(double COEFFL, double COEFFS, double COEFFG, double COEFFP, int P, int Q,
 
 
 
-term(int P, int Q, int R, int S, double *X, double *Y){
+void term(int P, int Q, int R, int S, double *X, double *Y){
 
     double	XX, YY;
     int		k, I[5];
@@ -307,7 +311,7 @@ term(int P, int Q, int R, int S, double *X, double *Y){
 
 
 
-addthe(double C1, double S1, double C2, double S2, double *C, double *S){
+void addthe(double C1, double S1, double C2, double S2, double *C, double *S){
 
     *C = C1*C2 - S1*S2;
     *S = S1*C2 + C1*S2;
@@ -316,7 +320,7 @@ addthe(double C1, double S1, double C2, double S2, double *C, double *S){
 }
 
 
-addn(double COEFFN, int P, int Q, int R, int S){
+void addn(double COEFFN, int P, int Q, int R, int S){
 
     double	X, Y;
 
@@ -381,7 +385,7 @@ double NewMoon(double ax, double bx, double cx){
  *            DEC: declination (in deg; equinox of date)    
  *
  */
-MiniMoon(double T, double *RA, double *DEC){
+void MiniMoon(double T, double *RA, double *DEC){
 
     double	L0,L,LS,F,D,H,S,N,DL,CB,L_MOON,B_MOON,V,W,X,Y,Z,RHO;
     double	frac(), cosEPS, sinEPS, P2, ARC;
@@ -424,7 +428,6 @@ MiniMoon(double T, double *RA, double *DEC){
     *RA   =  ( 48.0/P2)*atan2(Y, X+RHO); 
     if (*RA<0.0) *RA += 24.0;
 
-    return(0);
 
 
 }

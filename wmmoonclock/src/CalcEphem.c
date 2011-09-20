@@ -1,13 +1,12 @@
+#include <string.h>
 #include "CalcEphem.h"
 
 
-CalcEphem(date, UT, c)
+void CalcEphem(date, UT, c)
 long int     	 date;	/* integer containing the date (e.g. 960829) */
 double  	 UT; 	/* Universal Time */
 CTrans 		*c;	/* structure containing all the relevent coord trans info */
 {
-double vv;
-int dd, mm, ss;
 
     int    year, month, day;
     double TU, TU2, TU3, T0, gmst;
@@ -16,12 +15,7 @@ int dd, mm, ss;
     double days, M, E, nu, lambnew;
     double r0, earth_sun_distance;
     double RA, DEC, RA_Moon, DEC_Moon;
-    double dt, g0_1, g1_1, h1_1, gclat, glon, psi;
-    double TDT, Lmoon_0, P0, N0, Imoon, Lmoon, Mmoon_m, Nmoon, Cmoon;
-    double Emoon_nu, Amoon_e, Amoon_3, Mmoon_mp, Emoon_c, amoon, emoon, AGE;
-    double Amoon_4, Lmoon_p, Vmoon, Lmoon_pp, Nmoon_p, LambdaMoon, BetaMoon, R;
-    Vector S, K, Y, Z, D, Dgei, Dgsm;
-    int i, j;
+    double TDT, AGE, LambdaMoon, BetaMoon, R;
     double jd(), hour24(), angle2pi(), angle360(), kepler(), Moon(), NewMoon();
     double Ta, Tb, Tc, frac();
     double SinGlat, CosGlat, SinGlon, CosGlon, Tau, lmst, x, y, z;
@@ -237,7 +231,7 @@ int year, month, day;
 char dowstr[];
 {
         double JD, A, Afrac, jd();
-        int n, iday, iA;
+        int n, iA;
 
         JD = jd(year, month, day, 0.0);
         A = (JD + 1.5)/7.0;
@@ -282,7 +276,7 @@ double jd(ny, nm, nd, UT)
 int ny, nm, nd;
 double UT;
 {
-        double A, B, C, D, JD, MJD, day;
+        double A, B, C, D, JD, day;
 
         day = nd + UT/24.0;
 
@@ -372,7 +366,7 @@ double angle;
 }
 
 
-Radec_to_Cart(ra, dec, r)
+void Radec_to_Cart(ra, dec, r)
 double  ra, dec;	/* RA and DEC */
 Vector *r;		/* returns corresponding cartesian unit vector */
 {

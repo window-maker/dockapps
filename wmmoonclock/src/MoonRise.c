@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <math.h>
+#include "MoonRise.h"
+#include "Moon.h"
 
 #define DegPerRad       57.29577951308232087680
 #define RadPerDeg        0.01745329251994329576
@@ -7,7 +9,7 @@
 extern	double	Glon, SinGlat, CosGlat, TimeZone;
 
 
-MoonRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
+void MoonRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
 
     double	UT, ym, y0, yp, SinH0;
     double	xe, ye, z1, z2, SinH(), hour24();
@@ -76,7 +78,7 @@ MoonRise(int year, int month, int day, double LocalHour, double *UTRise, double 
 }
 
 
-UTTohhmm(double UT, int *h, int *m){
+void UTTohhmm(double UT, int *h, int *m){
 
 
     if (UT < 0.0) {
@@ -85,6 +87,14 @@ UTTohhmm(double UT, int *h, int *m){
     } else {
         *h = (int)UT;
         *m = (int)((UT-(double)(*h))*60.0+0.5);
+	if (*m == 60) {
+	    /*
+	     *  If it was 23:60 this should become 24:00
+	     *  I prefer this designation to 00:00. So dont reset h to 0 when it goes above 24.
+	     */
+	    *h += 1;
+	    *m = 0;
+	}
     }
 
 }
@@ -94,7 +104,7 @@ UTTohhmm(double UT, int *h, int *m){
 
 
 
-Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, double *z2, int *nz){
+void Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, double *z2, int *nz){
 
     double	a, b, c, d, dx;
 
@@ -115,7 +125,6 @@ Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, doub
 	if (*z1 < -1.0) *z1 = *z2;
     }
 
-    return(0);
 
 
 }
@@ -125,8 +134,8 @@ Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, doub
 
 double SinH(int year, int month, int day, double UT){
 
-    double	TU, TU2, TU3, LambdaMoon, BetaMoon, R, AGE, frac(), jd();
-    double	RA_Moon, DEC_Moon, T0, gmst, lmst, Tau, epsilon, Moon();
+    double	TU, frac(), jd();
+    double	RA_Moon, DEC_Moon, gmst, lmst, Tau, Moon();
     double	angle2pi();
 
     TU = (jd(year, month, day, UT) - 2451545.0)/36525.0;

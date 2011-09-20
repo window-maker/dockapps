@@ -1,0 +1,8 @@
+The user's latitude and longitude are needed for wmMoonClock to work
+correctly. They may be found at http://www.tageo.com/, positive is north/west,
+negative is south/east. These have to be specified using the "-lat" and "-lon"
+command line arguments. For the X menu system, please copy
+"/usr/share/menu/wmmoonclock" to "/etc/menu/wmmoonclock", add latitude and
+longitude there, and call "update-menus".
+
+ -- Martin A. Godisch <godisch@debian.org>  Sun, 25 Mar 2007 10:27:18 +0200

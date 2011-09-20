@@ -1,0 +1,2 @@
+?package(wmmoonclock):needs="X11" section="Applications/Science/Geoscience" \
+  title="wmMoonClock" command="/usr/bin/wmMoonClock"

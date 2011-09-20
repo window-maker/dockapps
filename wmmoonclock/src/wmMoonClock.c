@@ -112,6 +112,7 @@
 #include <X11/X.h>
 #include <X11/xpm.h>
 #include "CalcEphem.h"
+#include "MoonRise.h"
 #include "xutils.h"
 #include "wmMoonClock_master.xpm"
 #include "wmMoonClock_masterLow.xpm"
@@ -122,7 +123,7 @@
 /* 
  *  Delay between refreshes (in microseconds) 
  */
-#define DELAY 10000L
+#define DELAY 1000000L
 #define WMMOONCLOCK_VERSION "1.27"
 
 
@@ -159,14 +160,13 @@ int main(int argc, char *argv[]) {
 
     struct tm		*GMTTime, *LocalTime;
     XEvent		event;
-    int			i, n, k, j, ImageNumber;
-    int 		Year, Month, DayOfWeek, DayOfMonth;
-    int			Hours, Mins, Secs, OldSecs, digit, xoff, xsize;
+    int			i, n, j, ImageNumber, Year, Month, DayOfMonth, digit;
     long		CurrentLocalTime, CurrentGMTTime, date;
     double		UT, val, RA, DEC, UTRise, UTSet, LocalHour, hour24();
     int			D, H, M, S, sgn, A, B, q;
-    char		str[10];
     CTrans           	c;
+    struct timeval	timeout;
+    fd_set		xfdset;
 
 
 
@@ -244,6 +244,7 @@ int main(int argc, char *argv[]) {
 		nMAX = 1000;
 	        ImageNumber = (int)(c.MoonPhase * 60.0 + 0.5);
 	        if (ImageNumber > 59) ImageNumber = 0;
+			if (Glat < 0) ImageNumber = 59 - ImageNumber;		/* add southern hemisphere support, closes: #537480 */
 	        j = ImageNumber/10;
 	        i = ImageNumber%10;
 	        copyXPMArea(67+58*i, 2+58*j, 54, 54, 5, 5);
@@ -254,8 +255,8 @@ int main(int argc, char *argv[]) {
 	         *  Update Numerical Display
 	         */
 
-
-		nMAX = 500;
+		/* This requires second precision for LT and UT */
+		nMAX = 0;
 
 
 		/*
@@ -371,7 +372,7 @@ int main(int argc, char *argv[]) {
 		 */
 
 
-		nMAX = 500;
+		nMAX = 60;
 
 		/*
 		 * Clear plotting area
@@ -478,7 +479,7 @@ int main(int argc, char *argv[]) {
 
 
 
-		nMAX = 500;
+		nMAX = 3;
 
 		/*
 		 * Clear plotting area
@@ -580,7 +581,7 @@ int main(int argc, char *argv[]) {
 
 
 
-		nMAX = 500;
+		nMAX = 3;
 
 		/*
 		 * Clear plotting area
@@ -705,6 +706,11 @@ int main(int argc, char *argv[]) {
 
 
 
+	/*
+	 *  Add X display to file descriptor set for polling.
+	 */
+	FD_ZERO(&xfdset);
+	FD_SET(ConnectionNumber(display), &xfdset);
 
 
 
@@ -734,7 +740,9 @@ int main(int argc, char *argv[]) {
 	 *  Redraw and wait for next update 
 	 */
 	RedrawWindow();
-	usleep(DELAY);
+	timeout.tv_sec = DELAY / 1000000L;
+	timeout.tv_usec = DELAY % 1000000L;
+	select(ConnectionNumber(display) + 1, &xfdset, NULL, NULL, &timeout);
 
 
      }

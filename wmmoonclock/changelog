@@ -35,9 +35,15 @@
  *		    - Next new moons, next full moons, next quarters, etc...
  *		    - Moon names. I.e. Harvest, Blue, etc...
  *
- *
- *
  *      Changes:
+ *      Version 1.28 - 	released September 20, 2011.
+ *			Debian patches added to the upstream version. These patches are included:
+ *			01_all_previous_diff.diff, 02_update_time.diff, 03_add_southern_hemisphere_support.diff
+ *			03_add_southern_hemisphere_support.diff and 04_fix_hyphen_used_as_minus_sign.diff
+ *			BUGS file updated to report to wmaker-dev@lists.windowmaker.info
+ *			Source is now at http://repo.or.cz/w/dockapps.git
+ *			Updated by Rodolfo García Peñas (kix) <kix@kix.es>
+ *
  *      Version 1.27 - 	released June 7, 1999.
  *			fixed a minor bug in computation of azimuth (A in Horizon Coords). Thanks to
  *			Dan Moraru for spotting this one. (There were two SinGlat factors instead of one).

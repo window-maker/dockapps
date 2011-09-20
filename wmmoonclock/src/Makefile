@@ -1,5 +1,5 @@
 CC     = gcc
-CFLAGS = -O2
+# CFLAGS = -O2
 INCDIR = -I/usr/X11R6/include/X11
 DESTDIR= /usr/X11R6
 LIBDIR = -L/usr/X11R6/lib
@@ -22,7 +22,7 @@ all:	wmMoonClock.o wmMoonClock
 
 wmMoonClock.o: wmMoonClock_master.xpm wmMoonClock_mask.xbm CalcEphem.h
 wmMoonClock:	$(OBJS) 
-	$(CC) $(COPTS) $(SYSTEM) -lm -o wmMoonClock $^ $(INCDIR) $(LIBDIR) $(LIBS)
+	$(CC) $(CFLAGS) $(SYSTEM) -lm -o wmMoonClock $^ $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:
 	for i in $(OBJS) ; do \
@@ -31,6 +31,7 @@ clean:
 	rm -f wmMoonClock
 
 install:: wmMoonClock
-	install -s -m 0755 wmMoonClock $(DESTDIR)/bin
-	install    -m 0644 wmMoonClock.1 $(DESTDIR)/man/man1 
+	install -d -m 0755 $(DESTDIR)/usr/bin $(DESTDIR)/usr/share/man/man1
+	install    -m 0755 wmMoonClock $(DESTDIR)/usr/bin
+	install    -m 0644 wmMoonClock.1 $(DESTDIR)/usr/share/man/man1
 

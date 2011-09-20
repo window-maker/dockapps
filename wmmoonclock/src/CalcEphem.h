@@ -54,4 +54,7 @@ typedef struct CTrans {
     int	   Visible;		/* Wether or not moon is above horizon */
 } CTrans;
 
+void CalcEphem(long int, double, CTrans*);
+int  DayofWeek(int, int, int, char*);
+int  DayofYear(int, int, int);
 
