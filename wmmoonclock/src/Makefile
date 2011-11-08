@@ -5,10 +5,10 @@ DESTDIR= /usr/X11R6
 LIBDIR = -L/usr/X11R6/lib
 
 # for Linux
-LIBS   = -lXpm -lX11 -lXext
+LIBS   = -lXpm -lX11 -lXext -lm
 
 # for Solaris
-# LIBS   = -lXpm -lX11 -lXext -lsocket
+# LIBS   = -lXpm -lX11 -lXext -lm -lsocket
 
 OBJS   = wmMoonClock.o CalcEphem.o Moon.o MoonRise.o \
          xutils.o
@@ -22,7 +22,7 @@ all:	wmMoonClock.o wmMoonClock
 
 wmMoonClock.o: wmMoonClock_master.xpm wmMoonClock_mask.xbm CalcEphem.h
 wmMoonClock:	$(OBJS) 
-	$(CC) $(CFLAGS) $(SYSTEM) -lm -o wmMoonClock $^ $(INCDIR) $(LIBDIR) $(LIBS)
+	$(CC) $(CFLAGS) $(SYSTEM) -o wmMoonClock $^ $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:
 	for i in $(OBJS) ; do \
