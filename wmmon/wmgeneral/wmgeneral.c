@@ -318,7 +318,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	            &mysizehints.width, &mysizehints.height, &dummy);
 	if (geometry)
 		XParseGeometry(geometry, &mysizehints.x, &mysizehints.y,
-		               &mysizehints.width, &mysizehints.height);
+		               (unsigned int *) &mysizehints.width, (unsigned int *) &mysizehints.height);
 
 	mysizehints.width = 64;
 	mysizehints.height = 64;

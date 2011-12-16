@@ -14,6 +14,6 @@ wmmon: $(OBJS)
 
 clean::
 	for i in $(OBJS) ; do \
-		rm $$i;\
+		rm -f $$i;\
 	done
-	rm wmmon
+	rm -f wmmon
