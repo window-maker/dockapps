@@ -12,6 +12,8 @@
 	---
 	CHANGES:
 	---
+	10/10/2003 (Simon Law, sfllaw@debian.org)
+		* changed the parse_rcfile function to use getline instead of fgets.
 	02/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* changed the read_rc_file to parse_rcfile, as suggester by Marcelo E. Magallon
 		* debugged the parse_rc file.
@@ -21,6 +23,7 @@
 
 */
 
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -83,17 +86,18 @@ int CheckMouseRegion(int, int);
 void parse_rcfile(const char *filename, rckeys *keys) {
 
 	char	*p;
-	char	temp[128];
+	char	*line = NULL;
+	size_t  line_size = 0;
 	char	*tokens = " :\t\n";
 	FILE	*fp;
 	int		i,key;
 
 	fp = fopen(filename, "r");
 	if (fp) {
-		while (fgets(temp, 128, fp)) {
+		while (getline(&line, &line_size, fp) >= 0) {
 			key = 0;
 			while (key >= 0 && keys[key].label) {
-				if ((p = strstr(temp, keys[key].label))) {
+				if ((p = strstr(line, keys[key].label))) {
 					p += strlen(keys[key].label);
 					p += strspn(p, tokens);
 					if ((i = strcspn(p, "#\n"))) p[i] = 0;
@@ -270,6 +274,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	unsigned int	borderwidth = 1;
 	XClassHint		classHint;
 	char			*display_name = NULL;
+	char			*geometry = NULL;
 	char			*wname = argv[0];
 	XTextProperty	name;
 
@@ -282,7 +287,9 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 	for (i=1; argv[i]; i++) {
 		if (!strcmp(argv[i], "-display")) 
-			display_name = argv[i+1];
+			display_name = argv[++i];
+		else if (!strcmp(argv[i], "-geometry"))
+			geometry = argv[++i];
 	}
 
 	if (!(display = XOpenDisplay(display_name))) {
@@ -307,7 +314,11 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	fore_pix = GetColor("black");
 
 	XWMGeometry(display, screen, Geometry, NULL, borderwidth, &mysizehints,
-				&mysizehints.x, &mysizehints.y,&mysizehints.width,&mysizehints.height, &dummy);
+	            &mysizehints.x, &mysizehints.y,
+	            &mysizehints.width, &mysizehints.height, &dummy);
+	if (geometry)
+		XParseGeometry(geometry, &mysizehints.x, &mysizehints.y,
+		               &mysizehints.width, &mysizehints.height);
 
 	mysizehints.width = 64;
 	mysizehints.height = 64;
@@ -364,3 +375,6 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XMapWindow(display, win);
 
 }
+
+/* vim: sw=4 ts=4 columns=82
+ */

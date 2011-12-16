@@ -28,6 +28,14 @@
 	Changes:
 	----
 
+	17/10/2009 (Romuald Delavergne, romuald.delavergne@free.fr)
+		* Support SMP processors in realtime CPU stress meter
+	15/05/2004 (Simon Law, sfllaw@debian.org)
+		* Support disabling of mode-cycling
+	23/10/2003 (Simon Law, sfllaw@debian.org)
+		* Eliminated exploitable static buffers
+		* Added -geometry support.
+		* /proc/meminfo support for Linux 2.6
 	18/05/1998 (Antoine Nulle, warp@xs4all.nl)
 		* MEM/SWAP/UPTIME only updated when visible
 		* Using global file descriptors to reduce file
@@ -65,6 +73,7 @@
 		* First Working Version
 */
 
+#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -100,31 +109,29 @@
  /* Global Variables */
 /********************/
 
-char	*ProgName;
 int	stat_current = 0; /* now global */
+int mode_cycling = 1; /* Allow mode-cycling */
+int cpu_avg_max  = 0; /* CPU stress meter with average and max for SMP */
 FILE	*fp_meminfo;
 FILE	*fp_stat;
 FILE	*fp_loadavg;
 
 /* functions */
-void usage(void);
+void usage(char*);
 void printversion(void);
 void DrawStats(int *, int, int, int, int);
 void DrawStats_io(int *, int, int, int, int);
 
 void wmmon_routine(int, char **);
 
-void main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
 
 	int		i;
+	char	*name = argv[0];
 	
 
 	/* Parse Command Line */
 
-	ProgName = argv[0];
-	if (strlen(ProgName) >= 5)
-		ProgName += (strlen(ProgName) - 5);
-	
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
 
@@ -132,13 +139,20 @@ void main(int argc, char *argv[]) {
 			switch (arg[1]) {
 			case 'd' :
 				if (strcmp(arg+1, "display")) {
-					usage();
-					exit(1);
+					usage(name);
+					return 1;
 				}
 				break;
-			case 'v' :
-				printversion();
-				exit(0);
+			case 'g' :
+				if (strcmp(arg+1, "geometry")) {
+					usage(name);
+					return 1;
+				}
+			case 'l' :
+				mode_cycling = 0;
+				break;
+			case 'c' :
+				cpu_avg_max = 1;
 				break;
 			case 'i' :
 				stat_current = 1;
@@ -146,21 +160,27 @@ void main(int argc, char *argv[]) {
 			case 's' :
 				stat_current = 2;
 				break;
+			case 'v' :
+				printversion();
+				return 0;
 			default:
-				usage();
-				exit(0);
-				break;
+				usage(name);
+				return 1;
 			}
 		}
 	}
 
 	wmmon_routine(argc, argv);
+  
+      exit (0);
+   
 }
 
 /*******************************************************************************\
 |* wmmon_routine															   *|
 \*******************************************************************************/
 
+#define MAX_CPU (10) /* depends on graph height */
 typedef struct {
 
 	char	name[5];			/* "cpu0..cpuz", eventually.. :) */
@@ -170,6 +190,11 @@ typedef struct {
 	long	statlast;
 	long	rt_idle;
 	long	idlelast;
+	/* Processors stats */
+	long	*cpu_stat;
+	long	*cpu_last;
+	long	*idle_stat;
+	long	*idle_last;
 	
 } stat_dev;
 
@@ -181,11 +206,14 @@ char		*right_action;
 char		*middle_action;
 
 
+int	nb_cpu, cpu_max;
+int getNbCPU(void);
+unsigned long getWidth(long, long);
 int checksysdevs(void);
-void get_statistics(char *, long *, long *, long *);
+void get_statistics(char *, long *, long *, long *, long *, long *);
 void DrawActive(char *);
 
-void update_stat_cpu(stat_dev *);
+void update_stat_cpu(stat_dev *, long *, long *);
 void update_stat_io(stat_dev *);
 void update_stat_mem(stat_dev *st, stat_dev *st2);
 void update_stat_swp(stat_dev *);
@@ -212,10 +240,11 @@ void wmmon_routine(int argc, char **argv) {
 
 	long		istat;
 	long		idle;
+	long		*istat2;
+	long		*idle2;
 
 	FILE		*fp;
-	char		temp[128];
-	char		*p;
+	char		*conffile = NULL;
 
 	int			xpm_X = 0, xpm_Y = 0;
 
@@ -246,19 +275,39 @@ void wmmon_routine(int argc, char **argv) {
 	if (RIGHT_ACTION) right_action = strdup(RIGHT_ACTION);
 	if (MIDDLE_ACTION) middle_action = strdup(MIDDLE_ACTION);
 
-	strcpy(temp, "/etc/wmmonrc");
-	parse_rcfile(temp, wmmon_keys);
+	/* Scan through the .rc files */
+	if (asprintf(&conffile, "/etc/wmmonrc") >= 0) {
+		parse_rcfile(conffile, wmmon_keys);
+		free(conffile);
+	}
 
-	p = getenv("HOME");
-	strcpy(temp, p);
-	strcat(temp, "/.wmmonrc");
-	parse_rcfile(temp, wmmon_keys);
-	
-	strcpy(temp, "/etc/wmmonrc.fixed");
-	parse_rcfile(temp, wmmon_keys);
+	if (asprintf(&conffile, "%s/.wmmonrc", getenv("HOME")) >= 0) {
+		parse_rcfile(conffile, wmmon_keys);
+		free(conffile);
+	}
+
+	if (asprintf(&conffile, "/etc/wmmonrc.fixed") >= 0) {
+		parse_rcfile(conffile, wmmon_keys);
+		free(conffile);
+	}
 
 	stat_online = checksysdevs();
 
+	nb_cpu = getNbCPU();
+	stat_device[0].cpu_stat = calloc(nb_cpu, sizeof(long));
+	stat_device[0].cpu_last = calloc(nb_cpu, sizeof(long));
+	stat_device[0].idle_stat = calloc(nb_cpu, sizeof(long));
+	stat_device[0].idle_last = calloc(nb_cpu, sizeof(long));
+	if (!stat_device[0].cpu_stat || !stat_device[0].cpu_last || !stat_device[0].idle_stat || !stat_device[0].idle_last) {
+		fprintf(stderr, "%s: Unable to alloc memory !\n", argv[0]);
+		exit(1);
+	}
+	istat2 = calloc(nb_cpu, sizeof(long));
+	idle2 = calloc(nb_cpu, sizeof(long));
+	if (!istat2 || !idle2) {
+		fprintf(stderr, "%s: Unable to alloc memory !!\n", argv[0]);
+		exit(1);
+	}
 
 	openXwindow(argc, argv, wmmon_master_xpm, wmmon_mask_bits, wmmon_mask_width, wmmon_mask_height);
 
@@ -269,31 +318,48 @@ void wmmon_routine(int argc, char **argv) {
 	starttime = time(0);
 	nexttime = starttime + 10;
 
+	/* Collect information on each panel */
 	for (i=0; i<stat_online; i++) {
-		get_statistics(stat_device[i].name, &k, &istat, &idle);
+		get_statistics(stat_device[i].name, &k, &istat, &idle, istat2, idle2);
 		stat_device[i].statlast = istat;
 		stat_device[i].idlelast = idle;
+		if (i == 0 && nb_cpu > 1) {
+			int cpu;
+			for (cpu = 0; cpu < nb_cpu; cpu++) {
+				stat_device[i].cpu_last[cpu] = istat2[cpu];
+				stat_device[i].idle_last[cpu] = idle2[cpu];
+			}
+		}
 	}
-	if (stat_current == 0) DrawStats(stat_device[stat_current].his, 54, 40, 5, 58);
-	if (stat_current == 1) {
+
+	/* Set the mask for the current window */
+	switch (stat_current) {
+		case 0:
+		case 1:
+			xpm_X = 0;
+			setMaskXY(0, 0);
+			break;
+		case 2:
+			xpm_X = 64;
+			setMaskXY(-64, 0);
+		default:
+			break;
+	}
+
+	/* Draw statistics */
+	if (stat_current == 0)
+		DrawStats(stat_device[stat_current].his, 54, 40, 5, 58);
+	if (stat_current == 1)
 		DrawStats_io(stat_device[stat_current].his, 54, 40, 5, 58);
-	}
-	if (stat_current == 2) {
-		xpm_X = 64;
-		setMaskXY(-64, 0);
-	} else {
-		xpm_X = 0;
-		setMaskXY(0, 0);
-	}
 	DrawActive(stat_device[stat_current].name);
 
 	while (1) {
-		curtime = time(0);
+		curtime = time(NULL);
 
 		waitpid(0, NULL, WNOHANG);
 
 
-		update_stat_cpu(&stat_device[0]);
+		update_stat_cpu(&stat_device[0], istat2, idle2);
 		update_stat_io(&stat_device[1]);
 
 		if(stat_current == 2) {
@@ -307,13 +373,26 @@ void wmmon_routine(int argc, char **argv) {
 			/* Load ding is 45 pixels hoog */
 			copyXPMArea(0, 64, 32, 12, 28, 4);
 
-			j = (stat_device[i].rt_stat + stat_device[i].rt_idle);
-			if (j != 0) {
-				j = (stat_device[i].rt_stat * 100) / j;
+			if (i == 0 && nb_cpu > 1) {
+				if (nb_cpu > MAX_CPU || cpu_avg_max) {
+					/* show average CPU */
+					j = getWidth(stat_device[i].rt_stat, stat_device[i].rt_idle);
+					copyXPMArea(32, 64, j, 6, 28, 4);
+					/* Show max CPU */
+					j = getWidth(stat_device[i].cpu_stat[cpu_max], stat_device[i].idle_stat[cpu_max]);
+					copyXPMArea(32, 70, j, 6, 28, 10);
+				} else {
+					int cpu;
+					for (cpu = 0; cpu < nb_cpu; cpu++) {
+						j = getWidth(stat_device[i].cpu_stat[cpu], stat_device[i].idle_stat[cpu]);
+						copyXPMArea(32, 65, j, MAX_CPU/nb_cpu, 28, 5+(MAX_CPU/nb_cpu)*cpu);
+					}
+				}
 			}
-			j = j * 0.32;
-			if (j > 32) j = 32;
-			copyXPMArea(32, 64, j, 12, 28, 4);
+			else {
+				j = getWidth(stat_device[i].rt_stat, stat_device[i].rt_idle);
+				copyXPMArea(32, 64, j, 12, 28, 4);
+			}
 		} else {
 			/* Nu zal ie wel 3 zijn. */
 
@@ -377,6 +456,9 @@ void wmmon_routine(int argc, char **argv) {
 		if (curtime >= nexttime) {
 			nexttime+=10;
 
+			if (curtime > nexttime) /* dont let APM suspends make this crazy */
+			  nexttime = curtime;
+
 			for (i=0; i<stat_online; i++) {
 				if (stat_device[i].his[54])
 					stat_device[i].his[54] /= stat_device[i].hisaddcnt;
@@ -411,7 +493,7 @@ void wmmon_routine(int argc, char **argv) {
 				break;
 			case ButtonRelease:
 				i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
-				if (but_stat == i && but_stat >= 0) {
+				if (but_stat == i && but_stat >= 0 && mode_cycling) {
 					switch (but_stat) {
 					case 0:
 						switch (Event.xbutton.button) {
@@ -430,7 +512,6 @@ void wmmon_routine(int argc, char **argv) {
 						}
 					case 1:
 						stat_current++;
-						printf("current stat is :%d\n", stat_current);
 						if (stat_current == stat_online)
 							stat_current = 0;
 
@@ -458,17 +539,36 @@ void wmmon_routine(int argc, char **argv) {
 	}
 }
 
-void update_stat_cpu(stat_dev *st) {
-
+void update_stat_cpu(stat_dev *st, long *istat2, long *idle2) {
 	long	k, istat, idle;
 
-	get_statistics(st->name, &k, &istat, &idle);
+	get_statistics(st->name, &k, &istat, &idle, istat2, idle2);
 
 	st->rt_idle = idle - st->idlelast;
 	st->idlelast = idle;
 
 	st->rt_stat = istat - st->statlast;
 	st->statlast = istat;
+
+	if (nb_cpu > 1) {
+		int cpu;
+		unsigned long  max, j;
+		cpu_max = 0; max = 0;
+		for (cpu = 0; cpu < nb_cpu; cpu++) {
+			st->idle_stat[cpu] = idle2[cpu] - st->idle_last[cpu];
+			st->idle_last[cpu] = idle2[cpu];
+
+			st->cpu_stat[cpu] = istat2[cpu] - st->cpu_last[cpu];
+			st->cpu_last[cpu] = istat2[cpu];
+
+			j = st->cpu_stat[cpu] + st->idle_stat[cpu];
+			if (j != 0)  j = (st->cpu_stat[cpu] << 7) / j;
+			if (j > max) {
+				max = j;
+				cpu_max = cpu;
+			}
+		}
+	}
 
 	st->his[54] += k;
 	st->hisaddcnt += 1;
@@ -479,7 +579,7 @@ void update_stat_io(stat_dev *st) {
 	long			j, k, istat, idle;
 	static long		maxdiskio = 0;
 
-	get_statistics(st->name, &k, &istat, &idle);
+	get_statistics(st->name, &k, &istat, &idle, NULL, NULL);
 
 	st->rt_idle = idle - st->idlelast;
 	st->idlelast = idle;
@@ -499,57 +599,94 @@ void update_stat_io(stat_dev *st) {
 
 void update_stat_mem(stat_dev *st, stat_dev *st2) {
 
-	char	temp[128];
+	static char *line = NULL;
+	static size_t line_size = 0;
+
+	unsigned long swapfree;
 	unsigned long free, shared, buffers, cached;
 
 	freopen("/proc/meminfo", "r", fp_meminfo);
-	while (fgets(temp, 128, fp_meminfo)) {
-		if (strstr(temp, "Mem:")) {
-			sscanf(temp, "Mem: %ld %ld %ld %ld %ld %ld",
-			       &st->rt_idle, &st->rt_stat,
-			       &free, &shared, &buffers, &cached);
-			st->rt_idle >>= 10;
-			st->rt_stat -= buffers+cached;
-			st->rt_stat >>= 10;
-//			break;
+	while ((getline(&line, &line_size, fp_meminfo)) > 0) {
+		/* The original format for the first two lines of /proc/meminfo was
+		 * Mem: total used free shared buffers cached
+		 * Swap: total used free
+		 *
+		 * As of at least 2.5.47 these two lines were removed, so that the
+		 * required information has to come from the rest of the lines.
+		 * On top of that, used is no longer recorded - you have to work
+		 * this out yourself, from total - free.
+		 *
+		 * So, these changes below should work. They should also work with
+		 * older kernels, too, since the new format has been available for
+		 * ages.
+		 */
+		if (strstr(line, "MemTotal:")) {
+			sscanf(line, "MemTotal: %ld", &st->rt_idle);
 		}
-		if (strstr(temp, "Swap:")) {
-			sscanf(temp, "Swap: %ld %ld", &st2->rt_idle, &st2->rt_stat);
-			st2->rt_idle >>= 10;
-			st2->rt_stat >>= 10;
-			break;
+		else if (strstr(line, "MemFree:")) {
+			sscanf(line, "MemFree: %ld", &free);
+		}
+		else if (strstr(line, "MemShared:")) {
+			sscanf(line, "MemShared: %ld", &shared);
+		}
+		else if (strstr(line, "Buffers:")) {
+			sscanf(line, "Buffers: %ld", &buffers);
+		}
+		else if (strstr(line, "Cached:")) {
+			sscanf(line, "Cached: %ld", &cached);
+		}
+		else if (strstr(line, "SwapTotal:")) {
+			sscanf(line, "SwapTotal: %ld", &st2->rt_idle);
+		}
+		else if (strstr(line, "SwapFree:")) {
+			sscanf(line, "SwapFree: %ld", &swapfree);
 		}
 	}
+
+	/* memory use - rt_stat is the amount used, it seems, and this isn't
+	 * recorded in current version of /proc/meminfo (as of 2.5.47), so we
+	 * calculate it from MemTotal - MemFree
+	 */
+	st->rt_stat = st->rt_idle - free;
+	st->rt_stat -= buffers+cached;
+	/* As with the amount of memory used, it's not recorded any more, so
+	 * we have to calculate it ourselves.
+	 */
+	st2->rt_stat = st2->rt_idle - swapfree;
 }
 
 void update_stat_swp(stat_dev *st) {
 
-	char	temp[128];
+	static char *line = NULL;
+	static size_t line_size = 0;
+	unsigned long swapfree;
 
 	fseek(fp_meminfo, 0, SEEK_SET);
-	while (fgets(temp, 128, fp_meminfo)) {
-		if (strstr(temp, "Swap:")) {
-			sscanf(temp, "Swap: %ld %ld", &st->rt_idle, &st->rt_stat);
-			st->rt_idle >>= 10;
-			st->rt_stat >>= 10;
-			break;
+	while ((getline(&line, &line_size, fp_meminfo)) > 0) {
+		/* As with update_stat_mem(), the format change to /proc/meminfo has
+		 * forced some changes here. */
+		if (strstr(line, "SwapTotal:")) {
+			sscanf(line, "SwapTotal: %ld", &st->rt_idle);
+		}
+		else if (strstr(line, "SwapFree:")) {
+			sscanf(line, "SwapFree: %ld", &swapfree);
 		}
 	}
-
+	st->rt_stat = st->rt_idle - swapfree;
 }
 
 /*******************************************************************************\
 |* get_statistics															   *|
 \*******************************************************************************/
 
-void get_statistics(char *devname, long *is, long *ds, long *idle) {
+void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, long *idle2) {
 
 	int	i;
-	char	temp[128];
+	static char *line = NULL;
+	static size_t line_size = 0;
 	char	*p;
 	char	*tokens = " \t\n";
 	float	f;
-	long	maxdiskio=0;
 
 	*is = 0;
 	*ds = 0;
@@ -557,16 +694,28 @@ void get_statistics(char *devname, long *is, long *ds, long *idle) {
 
 	if (!strncmp(devname, "cpu", 3)) {
 		fseek(fp_stat, 0, SEEK_SET);
-		while (fgets(temp, 128, fp_stat)) {
-			if (strstr(temp, "cpu")) {
-				p = strtok(temp, tokens);
+		while ((getline(&line, &line_size, fp_stat)) > 0) {
+			if (strstr(line, "cpu")) {
+				int cpu = -1; /* by default, cumul stats => average */
+				if (!strstr(line, "cpu ")) {
+					sscanf(line, "cpu%d", &cpu);
+					ds2[cpu] = 0;
+					idle2[cpu] = 0;
+				}
+				p = strtok(line, tokens);
 				/* 1..3, 4 == idle, we don't want idle! */
 				for (i=0; i<3; i++) {
 					p = strtok(NULL, tokens);
-					*ds += atol(p);
+					if (cpu == -1)
+						*ds += atol(p);
+					else
+						ds2[cpu] += atol(p);
 				}
 				p = strtok(NULL, tokens);
-				*idle = atol(p);
+				if (cpu == -1)
+					*idle = atol(p);
+				else
+					idle2[cpu] = atol(p);
 			}
 		}
 		fp_loadavg = freopen("/proc/loadavg", "r", fp_loadavg);
@@ -577,19 +726,74 @@ void get_statistics(char *devname, long *is, long *ds, long *idle) {
 	if (!strncmp(devname, "i/o", 3)) {
 
 		fseek(fp_stat, 0, SEEK_SET);
-		while (fgets(temp, 128, fp_stat)) {
-			if (strstr(temp, "disk_rio") || strstr(temp, "disk_wio")) {
-				p = strtok(temp, tokens);
+		while ((getline(&line, &line_size, fp_stat)) > 0) {
+			if (strstr(line, "disk_rio") || strstr(line, "disk_wio")) {
+				p = strtok(line, tokens);
 				/* 1..4 */
 				for (i=0; i<4; i++) {
 					p = strtok(NULL, tokens);
 					*ds += atol(p);
 				}
 			}
+			else if (strstr(line, "disk_io")) {
+				int val;
+				unsigned int a, b, c, d, e, h, g;
+   
+				p = strtok(line, tokens);
+   
+				while ((p = strtok(NULL, tokens))) {
+					val = sscanf (p,
+						      "(%d,%d):(%d,%d,%d,%d,%d)",
+						      &a, &b, &c, &d, &e, &h,
+						      &g);
+   
+					if (val != 7)
+						continue;
+   
+					*ds += d;
+					*ds += h;
+				}
+			}
 		}
-		if (*ds > maxdiskio) maxdiskio = *ds;
 	}
 }
+
+/*******************************************************************************\
+|* getWidth
+\*******************************************************************************/
+
+unsigned long getWidth(long actif, long idle) {
+	unsigned long j;
+
+	j = (actif + idle);
+	if (j != 0) {
+		j = (actif * 100) / j;
+	}
+	j = j * 0.32;
+	if (j > 32) j = 32;
+
+	return j;
+}
+
+
+/*******************************************************************************\
+|* getNbCPU																   *|
+\*******************************************************************************/
+
+int getNbCPU(void) {
+	static char *line = NULL;
+	static size_t line_size = 0;
+	int cpu = 0;
+
+	fseek(fp_stat, 0, SEEK_SET);
+	while ((getline(&line, &line_size, fp_stat)) > 0) {
+		if (strstr(line, "cpu") && !strstr(line, "cpu "))
+			sscanf(line, "cpu%d", &cpu);
+	}
+
+	return cpu+1;
+}
+
 
 /*******************************************************************************\
 |* checksysdevs																   *|
@@ -715,16 +919,19 @@ void DrawStats_io(int *his, int num, int size, int x_left, int y_bottom) {
 |* usage																	   *|
 \*******************************************************************************/
 
-void usage(void) {
-
-	fprintf(stderr, "\nwmmon - programming: tijno, (de)bugging & design warp, webhosting: bobby\n\n");
-	fprintf(stderr, "usage:\n");
-	fprintf(stderr, "\t-display <display name>\n");
-	fprintf(stderr, "\t-h\tthis screen\n");
-	fprintf(stderr, "\t-v\tprint the version number\n");
-	fprintf(stderr, "\t-i\tstartup in DiskIO mode\n");
-	fprintf(stderr, "\t-s\tstartup in SysInfo mode\n");
-	fprintf(stderr, "\n");
+void usage(char *name) {
+	printf("Usage: %s [OPTION]...\n", name);
+	printf("WindowMaker dockapp that displays system information.\n");
+	printf("\n");
+	printf("  -display DISPLAY     contact the DISPLAY X server\n");
+	printf("  -geometry GEOMETRY   position the clock at GEOMETRY\n");
+	printf("  -l                   locked view - cannot cycle modes\n");
+	printf("  -c                   show average and max CPU for SMP machine.\n");
+	printf("                       default if there is more than %d processors\n", MAX_CPU);
+	printf("  -i                   start in Disk I/O mode\n");
+	printf("  -s                   start in System Info mode\n");
+	printf("  -h                   display this help and exit\n");
+	printf("  -v                   output version information and exit\n");
 }
 
 /*******************************************************************************\
@@ -733,7 +940,7 @@ void usage(void) {
 
 void printversion(void) {
 
-	if (!strcmp(ProgName, "wmmon")) {
-		fprintf(stderr, "%s\n", WMMON_VERSION);
-	}
+	printf("WMMon version %s\n", WMMON_VERSION);
 }
+/* vim: sw=4 ts=4 columns=82
+ */
