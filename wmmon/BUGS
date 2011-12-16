@@ -1,0 +1,22 @@
+Known 'features and easter eggs' in WMMon,
+(or in non M$ talk, BUGS).
+
+WMMon 1.0b2
+--------------------------------------------------------------
+
+	* CPU usage is now normal again, except SysInfo mode,
+	  SysInfo mode consumes about 1.6% CPU still :( ;
+	* On some systems the MEM and SWP gfx are 'eaten';
+	* On some systems the MEM & SWP gauge seems dead, hopefully
+	  this is solved now, but we'll notice if this is not so ;)
+	* GUI also cycles mode when clicking in the loadgraph area,
+	  should only happen when mode gadget is clicked;
+
+
+WMMon 1.0b1
+--------------------------------------------------------------
+
+	* CPU usage is still too high (yes, i'm a whiner > warp);
+	* GUI jumps back to the default CPU display if monitoring
+	  Disk I/O and/or System Info when you stop/restart X;
+	* No real bugs in WMMon so far, mostly unfinished business ;)

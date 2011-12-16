@@ -1,0 +1,54 @@
+Hints for WMMon
+
+Generic
+--------------------------------------------------------------
+WMMon supports 5 commandline options:
+
+	-h (help); 
+	-v (prints);
+	-d (display);
+	-i (startup in DiskI/O mode);
+	-s (startup in SysInfo mode);
+
+WMMon can lauch 3 user definable commands for left, middle and
+right mouse button clicks, which you can define in ~/.wmmonrc,
+
+left: mycommand-1 &
+middle: mycommand-2 &
+right: mycommand-3 &
+
+If wmmon detects a ~/.wmmonrc file, it will launch your defined
+command(s) when you click in the average load display area.
+
+WMMon can cycle in realtime between CPU, Disk I/O and the 
+SysInfo displays by simply left clicking on the upperleft
+gadget (which displays CPU info by default).
+
+Be sure to drag WMMon on it's outer edges, WMMon is a bit picky 
+due to the large gfx pixmap it keeps ;-)
+
+
+WindowMaker
+--------------------------------------------------------------
+WindowMaker users simply drag and drop the WMMon dock.app on
+the WindowMaker Dock (preferred) or on the Fiend and select
+'autolaunch' from the rightmouse button popupmenu.
+
+
+Afterstep
+--------------------------------------------------------------
+Afterstep users put the following in their .steprc
+"Wharf wmmon - MaxSwallow "wmmon" wmmon &".
+
+Note: AfterStep's Wharf has a problem with pixmaps that are
+larger than 60x60 pixels. Please tell the AfterStep authors
+to fix this, this is not our fault, but a Wharf problem!
+ 
+
+Other WindowManagers
+--------------------------------------------------------------
+For other windowmanagers, WMMon runs nicely as a 64x64 shaped
+icon on your desktop.
+
+
+

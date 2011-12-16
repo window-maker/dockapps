@@ -1,0 +1,19 @@
+WMMon changes.
+
+Version         Description
+--------------------------------------------------------------
+1.0b2		- Released 980520
+		- Vastly reduced CPU usage in CPU & IO mode,
+		  MEM/SWAP/UPTIME (i.e. SysInfo) only updated
+		  when visible now and now uses global file
+		  descriptors to reduce filesystem overhead,
+		  based on diff by Dave Harden (dharden@wisewire.com);
+		- Fixed memory overflow bug;
+		- Memory gauge now displays real used mem, buffered
+		  & cached mem are no longer being displayed;
+		- Added -i & -s parameters to select startupmode, based
+		  on diff by Brendan Knox (knoxy@origob.demon.co.uk);
+		
+
+1.0b1		- Released 980513
+		- First initial stable public BETA release.

@@ -1,0 +1,77 @@
+WMMon-1.0b2 - Public BETA release
+--------------------------------------------------------------
+Authors...: Martijn Pieterse (pieterse@xs4all.nl)
+       	    Antoine Nulle    (warp@xs4all.nl)
+		
+Note......: WMMon has it's own mailbox, as our pop3 accounts
+	    are already way too crowded :)
+	    Please mail bugreports, comments, suggestions,
+	    requests and flames to:
+
+	    dockapps@windowmaker.mezaway.org
+	    
+	    The official WMMon support website address:
+ 
+	    http://windowmaker.mezaway.org
+	    
+Credits...: Bobby Mezaway (bobby@mezaway.org) for generously
+	    hosting our website!    				
+	    Dave Harden (dharden@wisewire.com) for the major
+	    speedup diffs!    
+	    	    
+
+Description
+--------------------------------------------------------------
+WMMon monitors the realtime CPU load as well the average
+system load and gives you some nice additional features too...
+
+WMMon currently provides:
+
+        * Realtime CPU 'stress' meter;
+        * Average systemload, like xload & wmavgload;
+        * Average systemload graphic is autoscaling;
+	* Realtime Disk I/O 'stress' meter;
+	* Average Disk I/O load grapic (autoscaling);
+	* Realtime total Mem & Swap usage meters;
+	* System uptime display;
+	* Realtime cycling through all monitor modes;
+	* Can lauch 3 user definable commands through ~/.wmmonrc;
+	* Can be started multiple times;
+	* Commandline options for help (-h), version (-v),
+	  start mode (-i & -s) and display (-d);
+
+There are some 'known' unfinished parts, be sure to read the TODO
+file, but we decided to release it early because of the high
+demand and many requests we got for this one ;)
+	  
+WMMon is being developped on DEC Alpha machines running
+Linux/RedHat-5.0, but, WMMon has been intensively tested
+on x86 and 68K Linux machines too ;-)
+
+p.s. WMMon is still a Linux ONLY app, sorry about that :(
+
+Files
+--------------------------------------------------------------
+README		This file.
+INSTALL		Installation instructions.
+HINTS 		Hints about what you can do with WMMon.
+BUGS		Things you don't want to know ;-)
+CHANGES 	Description of changes.
+COPYING		GNU General Public License Version 2.
+TODO		Stuff we've planned for future WMMon releases.
+	
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to dockapps@windowmaker.mezaway.org and describe
+the problem as detailed as you can.
+
+
+Copyright
+--------------------------------------------------------------
+WMMon.app is copyright (c) 1997, 1998 by Martijn Pieterse and
+Antoine Nulle and licensed through the GNU General Public License. 
+Read the COPYING file for the complete GNU license.
+
+
