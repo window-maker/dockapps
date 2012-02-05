@@ -8,10 +8,10 @@
 </head>
 
 <body>
-<?php
-	include("header.php");
-	include("dock.php");
-?>
+  <?php
+          include("header.php");
+          include("dock.php");
+  ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
@@ -67,18 +67,18 @@
 </code>
 </pre>
 
-	<h3> External sources of information</h3>
+          <h3>External sources of information</h3>
 
           <p>As this section evolves, we will be providing more documentation on the internals of WINGs. For the time being,
           developers interested in WINGs should see Alexey Voinov's <a href=
           "http://voins.program.ru/windowmaker/wingsman.html">WINGsman documentation project</a>. Starters may find <a href=
           "http:///www.quantitativefinanceservices.com/OpenDir/WINGslib/WINGToc.html">this tutorial</a>, which includes a library
           listing based on Voinov's work, useful. We'll try to cover some examples and/or more tutorials on how to program small
-          applications in WINGs in the near future. For anyone already using WINGs for a project, please <a href="lists.php">contact us</a>,
-	  as we'd like to get an idea of its popularity and practical uses, as
-          well as some additional material to place here.</p>
-
-	  <br><br></br></br>
+          applications in WINGs in the near future. For anyone already using WINGs for a project, please <a href=
+          "lists.php">contact us</a>, as we'd like to get an idea of its popularity and practical uses, as well as some
+          additional material to place here.</p><br />
+          <br />
+          <br />
         </td>
       </tr>
     </table>

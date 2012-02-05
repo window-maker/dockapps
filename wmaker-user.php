@@ -8,10 +8,10 @@
 </head>
 
 <body>
-<?php
-	include("header.php");
-	include("dock.php");
-?>
+  <?php
+          include("header.php");
+          include("dock.php");
+  ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">

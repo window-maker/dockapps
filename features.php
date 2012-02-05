@@ -9,9 +9,9 @@
 
 <body>
   <?php
-            include("header.php");
-            include("dock.php");
-    ?>
+                include("header.php");
+                include("dock.php");
+        ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
@@ -22,10 +22,10 @@
 
           <h3>Features</h3>
 
-          <p>We have already mentioned that Window Maker is a window manager. There are other window managers out there, such as
-          the infamous FVWM, Enlightenment, AfterStep, and the list goes on. All window managers perform the same basic tasks,
-          which are to create, place, keep track of, and draw borders around the windows on the screen. Beyond this, they can
-          become quite different in their various abilities.</p>
+          <p>We have already mentioned that Window Maker is a <a href="http://en.wikipedia.org/wiki/Window_manager">window
+          manager</a>. There are other window managers out there, such as the infamous FVWM, Enlightenment, AfterStep, and the
+          list goes on. All window managers perform the same basic tasks, which are to create, place, keep track of, and draw
+          borders around the windows on the screen. Beyond this, they can become quite different in their various abilities.</p>
 
           <p>Window Maker firmly adheres to the behavior and functionality of the NEXTSTEP&#8482; user interface. The developers
           have put forth a great deal of effort in capturing the essense and beauty of the original design, and have incorporated

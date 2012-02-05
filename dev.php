@@ -8,11 +8,10 @@
 </head>
 
 <body>
-
-<?php
-	include("header.php");
-	include("dock.php");
-?>
+  <?php
+          include("header.php");
+          include("dock.php");
+  ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
@@ -48,11 +47,25 @@
           of introducing regressions when doing cleanups exists, but if you also follow the practice of having a patch for each
           unrelated change you do, the eventuall regressions can be easily found and reverted.</p>
 
-          <h3>WINGs</h3>
+          <h3>Git repository for dockapps</h3>
 
-          <p>Window Maker uses the WINGs library for its widgets. For more information
-          click <a href="wings.php">here</a>.</p>
-	<br><br></br></br>
+          <p>There is also a <a href="http://repo.or.cz/w/dockapps.git">git repository</a> containing a few dockapps which
+          apparently have no maintainers anymore. Patches for those dockapps (or to include more apps) can also be sent to
+          wmaker-dev@lists.windowmaker.org.</p>
+
+          <h3>Some sources of information</h3>
+
+          <ul>
+            <li>
+              <p><a href="wings.php">The Window Maker WINGs library</a>.</p>
+            </li>
+
+            <li>
+              <p><a href="http://tronche.com/gui/x/xlib/">The Xlib Manual</a></p>
+            </li>
+          </ul><br />
+          <br />
+          <br />
         </td>
       </tr>
     </table>

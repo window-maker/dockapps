@@ -8,11 +8,10 @@
 </head>
 
 <body>
-
-<?php
-	include("header.php");
-	include("dock.php");
-?>
+  <?php
+            include("header.php");
+            include("dock.php");
+    ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
@@ -30,7 +29,6 @@
           <a href="http://liw.iki.fi/liw/eoc/index.html">Enemies of Carlotta</a>. <a href="http://www.mhonarc.org/">MHonArc</a>
           enables us to provide web-based archives to our users. Selecting a link under the Name field will bring up more details
           and instructions regarding that specific list.</p>
-
 
           <table border="1" align="center">
             <col />
@@ -81,19 +79,19 @@
             </li>
 
             <li style="list-style: none; display: inline">
-              <p>Do not post questions to a list without having <strong>read all of <a href="/documentation">documentation</a>
-              that is available to you.</strong> The Window Maker source code comes with a README, INSTALL, and NEWS file. There
-              is also an FAQ to read. These pieces of information are <em>MANDATORY</em> reading and contain answers to many
-              common questions. Please, do not post a question to the lists unless it can't be found in the documentation.</p>
+              <p>Please consider reading some of our <a href="docs.php">documentation</a> before posting questions to the lists.
+              The Window Maker source code comes with a README, INSTALL, and NEWS file. There is also a <a href="FAQ.php">FAQ</a>
+              to read.</p>
             </li>
 
             <li>
               <p>Please, please, and pretty please <strong>THINK</strong> before you post. Try very hard not to intentionally
               provoke others and cause flame-wars. We reserve the right to unsubscribe and ban any user that has a history of
-              causing trouble.</p>
+              causing trouble.<br />
+              <br />
+              <br /></p>
             </li>
           </ul>
-          <hr />
         </td>
       </tr>
     </table>

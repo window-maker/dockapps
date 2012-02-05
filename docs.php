@@ -8,10 +8,10 @@
 </head>
 
 <body>
-<?php
-	include("header.php");
-	include("dock.php");
-?>
+  <?php
+          include("header.php");
+          include("dock.php");
+  ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
@@ -37,12 +37,13 @@
           <ul>
             <li><a href="installation.php">Installation Basics</a></li>
 
-<!--        <li><a href="tour.php">Guided Tour</a></li>
+            <li><a href="http://main.linuxfocus.org/~georges.t/">Guided Tour</a></li><!--        
             <li><a href="guide.php">User Guide</a></li>
             <li><a href="desktop.php">Desktop/X Integration</a></li> -->
 
             <li><a href="FAQ.php">FAQ</a></li>
-	    <li><a href="wings.php">FAQ</a></li>
+
+            <li><a href="wings.php">WINGs</a></li>
           </ul>
         </td>
       </tr>

@@ -9,17 +9,16 @@
 
 <body>
   <?php
-	include("header.php");
-	include("dock.php");
-?>
+          include("header.php");
+          include("dock.php");
+  ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
       <tr>
         <td content="content" colspan="2" valign="top">
-
           <h3>git diff --stat --summary 688a56e8ab67b..wmaker-0.95.1</h3>
-<pre>
+          <pre>
 <code>
  .cvsignore                                 |    8 -
  .gitignore                                 |   98 +-
@@ -189,10 +188,10 @@
  WPrefs.app/tiff/.cvsignore                 |    2 -
  WPrefs.app/tiff/Makefile.am                |    5 +
  WPrefs.app/tiff/README                     |    4 -
- WPrefs.app/tiff/nextstyle.tiff             |  Bin 0 -> 4004 bytes
- WPrefs.app/tiff/noopaqueresize.tiff        |  Bin 0 -> 9522 bytes
- WPrefs.app/tiff/oldstyle.tiff              |  Bin 1044 -> 4004 bytes
- WPrefs.app/tiff/opaqueresize.tiff          |  Bin 0 -> 9519 bytes
+ WPrefs.app/tiff/nextstyle.tiff             |  Bin 0 -&gt; 4004 bytes
+ WPrefs.app/tiff/noopaqueresize.tiff        |  Bin 0 -&gt; 9522 bytes
+ WPrefs.app/tiff/oldstyle.tiff              |  Bin 1044 -&gt; 4004 bytes
+ WPrefs.app/tiff/opaqueresize.tiff          |  Bin 0 -&gt; 9519 bytes
  WPrefs.app/xmodifier.c                     |   85 +-
  WPrefs.app/xpm/.cvsignore                  |    2 -
  WPrefs.app/xpm/Makefile.am                 |    4 +
@@ -210,11 +209,11 @@
  WindowMaker/IconSets/.cvsignore            |    3 -
  WindowMaker/IconSets/Makefile.am           |    8 +-
  WindowMaker/Icons/.cvsignore               |    2 -
- WindowMaker/Icons/DefaultAppIcon.tiff      |  Bin 6832 -> 0 bytes
+ WindowMaker/Icons/DefaultAppIcon.tiff      |  Bin 6832 -&gt; 0 bytes
  WindowMaker/Icons/Makefile.am              |   86 +-
- WindowMaker/Icons/Netscape.png             |  Bin 2418 -> 0 bytes
+ WindowMaker/Icons/Netscape.png             |  Bin 2418 -&gt; 0 bytes
  WindowMaker/Icons/README                   |    2 +-
- WindowMaker/Icons/sound.tiff               |  Bin 5608 -> 0 bytes
+ WindowMaker/Icons/sound.tiff               |  Bin 5608 -&gt; 0 bytes
  WindowMaker/Icons/sound.xpm                |  263 --
  WindowMaker/Makefile.am                    |   16 +-
  WindowMaker/Pixmaps/.cvsignore             |    2 -
@@ -822,8 +821,7 @@
  delete mode 100644 wrlib/x86_specific.c
 </code>
 </pre>
-
-</td>
+        </td>
       </tr>
     </table>
   </div>
