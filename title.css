@@ -1,6 +1,6 @@
 body  {
 	color: #FFF;
-	font-size: 0.9em;
+	font-size: 1.0em;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	background-color: #505075;
 	border-size: 0px;
@@ -9,11 +9,7 @@ body  {
 	margin-bottom: 0px;
 	margin-left: 0px;
 }
-td    {
-}
-th    {
-      color: #000
-}
+
 .hpadding   {
 	color: #483d8b;
 	font-weight: normal;
@@ -21,6 +17,7 @@ th    {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	padding: 0px 10px
 }
+
 .textpadding    {
 	color: white;
 	font-size: 12px;
@@ -29,9 +26,11 @@ th    {
 	margin: 0;
 	padding: 0 10px
 }
+
 a        {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
+
 h1       {
 	color: #ebdeff;
 	font-size: 20pt;
@@ -40,6 +39,7 @@ h1       {
 	font-weight: bold;
 	line-height: 22pt
 }
+
 h2       {
 	color: #ebdeff;
 	font-size: 18pt;
@@ -47,6 +47,7 @@ h2       {
 	font-style: italic;
 	line-height: 20pt
 }
+
 h3        {
 	color: #e8fd00;
 	font-size: 14pt;
@@ -54,6 +55,7 @@ h3        {
 	font-style: normal;
 	line-height: 16pt
 }
+
 h4       {
 	color: #FFF;
 	font-size: 12pt;
@@ -62,40 +64,39 @@ h4       {
 	font-weight: bolder;
 	line-height: 12pt
 }
-pre {
-        background-color: #FFFFFF;
-        color: #000;
-}
+
 .caption {
 	font-size: 11pt;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif
 }
-a:hover {
-        text-decoration: underline;
-	color: #F00;
+
+a:hover, a:focus   {
+	text-decoration: underline;
+	font-style: italic;
+	color: #CCC;
 }
-a: link {
-        text-decoration: underline;
-        color: #FFF;
+
+a:link, a:visited, a:active {
+	text-decoration: underline;
+	color: #FFF;
 }
-# a:visited, a:active {
-#	text-decoration: underline;
-#	color: #FFF;
-#}
+
 img {
 	border: none;
 }
-#header { position: relative; top: 0px; left: 6%;
-  width: 100%; }
 
-#dock { position: absolute; top: 150px; left: 5px;
-  width: 100%; height: 500px;
-  }
+#header { 
+	font-family: "American Typewriter", Courier, monospace;
+	font-size: 4.5em;
+	font-weight: normal;
+	position: absolute; top: 0px; left: 100px;
+}
 
-#inhalt { position: relative; top: 10px; left: 10%;
-  width: 100%;
-  }
+#dock {
+	position: absolute; top: 100px; left: 5px;
+}
 
-#tableline {
-        color: #F00;
+#inhalt {
+	position: absolute; top: 110px; left: 100px;
+	width: 70%;
 }

@@ -2,15 +2,19 @@
 
 <html>
 <head>
-  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+  <meta name="generator" content="vim :-)">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
   <title>Window Maker - A window manager for X</title>
-  <meta name="Keywords" content="">
+  <meta name="Keywords" content="Window Maker, Window Manager, X11, X-Window">
   <link href="title.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-  <?php include("header.php"); ?><?php include("dock.php"); ?><?php include("main.php"); ?>
+  <?php
+    include("header.php"); 
+    include("dock.php"); 
+    include("main.php");
+  ?>
 </body>
 </html>
