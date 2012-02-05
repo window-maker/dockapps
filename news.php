@@ -8,22 +8,23 @@
 </head>
 
 <body>
-  <?php include("header.php"); ?><?php include("dock.php"); ?>
+  <?php
+	include("header.php");
+	include("dock.php");
+?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
       <tr>
         <td content="content" colspan="2" valign="top">
-          <br />
-          <br />
 
           <h3>Version 0.95.1 released</h3>
 
           <p>Window Maker 0.95.1 was released on January 29th 2012.</p>
 
           <p>The last official Window Maker release was version 0.92.0 from 2006, and version 0.95.1 contains many bug fixes and
-          also a few new features. Window Maker 0.92.0 was already very stable, so most of the bug fixes are related to odd or
-          not very frequent situations. One random example is the fix which avoids a segfault when creating more than 81
+          also a few new features. Window Maker 0.92.0 was already very stable, so most of the bug fixes are related to odd
+          situations. One random example is the fix which avoids a segfault when creating more than 81
           workspaces, as reported on youtube <a href="http://www.youtube.com/watch?v=fkNJZvKwmhE">here</a>.</p>
 
           <p>Another bug-fix of peculiar nature is this <a href=
@@ -39,7 +40,9 @@
  566 files changed, 37676 insertions(+), 41817 deletions(-)
 </pre>The first shortstat is really everything, including the (huge) patch generated in this <a href=
 "http://repo.or.cz/w/wmaker-crm.git/commit/688a56e8ab67b56550e2874d9d7423f0d435bfd9">commit</a> from 2009, which changed the old
-sources to the linux kernel coding style. The second shortstat contains the summary of development after that patch.
+sources to the linux kernel coding style. The second shortstat contains the summary of development afterwards -- but included
+is the addition of a debian folder with files summing around ~20k lines. The full diffstat for the second command can be seen
+<a href="fulldiffstat.php">here</a>.
 
           <h2>New features and highlights</h2>
 
@@ -67,6 +70,11 @@ sources to the linux kernel coding style. The second shortstat contains the summ
               <p>History and TAB completion in the run dialog</p>
             </li>
 
+	<li>
+		<p> Preliminary XRandR support (needs a bit more work to be bug-free; not compiled in by default.
+		Use --enable-xrandr if you want to test it).</p>
+	</li>
+
             <li>
               <p>A WPrefs option to make icons bounce when their respective applications want attention</p>
             </li>
@@ -78,8 +86,8 @@ sources to the linux kernel coding style. The second shortstat contains the summ
 
             <li>
               <p>Automatic detection of configuration changes. Linux users whose kernel supports the <a href=
-              "http://en.wikipedia.org/wiki/Inotify">inotify</a> mechanism no longer can have their configuration changes
-              detected automatically without polling, which reduces the number of CPU wakeups</p>
+              "http://en.wikipedia.org/wiki/Inotify">inotify</a> mechanism have their configuration changes
+              detected automatically without polling, reducing the number of CPU wakeups.</p>
             </li>
 
             <li>
@@ -91,10 +99,16 @@ sources to the linux kernel coding style. The second shortstat contains the summ
               control whether or not Window Maker should do automatic workspace switching to satisfy a focus request from a
               window located in another workspace.</p>
             </li>
+
+	<li>
+		<p> (For developers). The addition of a debian/ folder which allows the creation of a debian package for wmaker using the
+		git sources.</p>
           </ul>
 
           <p><br />
+	<div align="center">
           <img src="v0_95_1.png" alt="Info v0.95.1" width="382" height="257" /></p>
+	</div>
         </td>
       </tr>
     </table>

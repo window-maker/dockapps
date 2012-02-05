@@ -2,13 +2,16 @@
 <head>
   <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>Window Maker: Home</title>
+  <title>Window Maker: Mailing List</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
   <link href="title.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-  <?php include("header.php"); ?><?php include("dock.php"); ?>
+<?php
+	include("header.php");
+	include("dock.php");
+?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">

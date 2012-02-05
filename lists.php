@@ -8,7 +8,11 @@
 </head>
 
 <body>
-  <?php include("header.php"); ?><?php include("dock.php"); ?>
+
+<?php
+	include("header.php");
+	include("dock.php");
+?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
@@ -26,9 +30,7 @@
           <a href="http://liw.iki.fi/liw/eoc/index.html">Enemies of Carlotta</a>. <a href="http://www.mhonarc.org/">MHonArc</a>
           enables us to provide web-based archives to our users. Selecting a link under the Name field will bring up more details
           and instructions regarding that specific list.</p>
-          <pre>
-          
-</pre>
+
 
           <table border="1" align="center">
             <col />
@@ -48,7 +50,7 @@
               <tr>
                 <td><a href="wmaker-dev.php">wmaker-dev</a></td>
 
-                <td style="tableline"><font color="#000">Development discussion about the Window Maker window manager</font></td>
+                <td>Development discussion about the Window Maker window manager</td>
 
                 <td><a href="http://news.gmane.org/gmane.compw.window-managers.windowmaker.devel">wmaker-dev Archives</a></td>
               </tr>
@@ -56,7 +58,7 @@
               <tr>
                 <td><a href="wmaker-user.php">wmaker-user</a></td>
 
-                <td><font color="#000">User discussion about the Window Maker window manager</font></td>
+                <td>User discussion about the Window Maker window manager</td>
 
                 <td><a href="http://news.gmane.org/gmane.compw.window-managers.windowmaker.user">wmaker-user Archives</a></td>
               </tr>

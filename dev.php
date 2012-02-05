@@ -8,7 +8,11 @@
 </head>
 
 <body>
-  <?php include("header.php"); ?><?php include("dock.php"); ?>
+
+<?php
+	include("header.php");
+	include("dock.php");
+?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
@@ -46,8 +50,9 @@
 
           <h3>WINGs</h3>
 
-          <p>Window Maker uses the <a href="wings.php">WINGs</a> library for its widgets, click on that link for more information
-          about it.</p>
+          <p>Window Maker uses the WINGs library for its widgets. For more information
+          click <a href="wings.php">here</a>.</p>
+	<br><br></br></br>
         </td>
       </tr>
     </table>
