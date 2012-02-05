@@ -14,7 +14,7 @@
   <?php
     include("header.php"); 
     include("dock.php"); 
-    include("main.php");
+    include("home.php");
   ?>
 </body>
 </html>
