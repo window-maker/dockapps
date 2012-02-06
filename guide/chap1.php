@@ -2,16 +2,16 @@
 <head>
   <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>Window Maker: News</title>
+  <title>User Guide: Introduction</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
   <link href="../title.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <?php
-              include("../header.php");
-              include("../dock.php");
-      ?>
+                include("../header.php");
+                include("../dock.php");
+        ?>
 
   <div id="inhalt">
     <table width="880" border="0" cellpadding="1" cellspacing="1">
