@@ -33,8 +33,7 @@
           "http://dockapps.windowmaker.org">dockapps</a> which make everyday tasks such as monitoring system performance and
           battery usage, mounting devices or connecting to the internet very easy. Please see the <a href=
           "features.php">features</a> section for more specifics on what Window Maker can do, and how it compares with other
-          popular window managers. A screenshot of a typical Window Maker workspace is <a href="wmaker-screenshot.png" target=
-          "_blank">here</a>.</p>
+          popular window managers.</p>
 
           <h3>Latest stable version</h3>
 

@@ -37,7 +37,7 @@
 
             <li>
               <p><a href="http://repo.or.cz/w/wmaker-crm.git/commit/cf62d1591f5aef1e6760a8c0881a6de97ae26e92">Maximus: tiled
-              maximization</a>. Maximizes windows such that it occupies the largest area without overlapping others.</p>
+              maximization</a>. Maximizes a window such that it occupies the largest area without overlapping others.</p>
             </li>
 
             <li>
@@ -135,9 +135,9 @@
           <p>A lot of effort was put into cleaning up the code, with lots of code removal and tidying things up. The following
           output should give you an idea of the development in the last cycle:</p>
           <pre>
-[mafra@Pilar:wmaker.git]$ git diff --shortstat wmaker-0.92.0+..wmaker-0.95.1
+git diff --shortstat wmaker-0.92.0+..wmaker-0.95.1
  592 files changed, 118361 insertions(+), 133342 deletions(-)
-[mafra@Pilar:wmaker.git]$ git diff --shortstat 688a56e8ab67b..wmaker-0.95.1
+git diff --shortstat 688a56e8ab67b..wmaker-0.95.1
  566 files changed, 37676 insertions(+), 41817 deletions(-)
 </pre>The first shortstat is really everything, including the (huge) patch generated in this <a href=
 "http://repo.or.cz/w/wmaker-crm.git/commit/688a56e8ab67b56550e2874d9d7423f0d435bfd9">commit</a> from 2009, which changed the old

@@ -87,7 +87,8 @@
           <p>Despite all of these features, Window Maker is not resource intensive and remains stable across many UNIX varients.
           It is extremely flexible, and many options can be included or excluded at compile time. This means that you can easily
           tailor Window Maker to meet your needs; whether you're a minimalist wanting to save resources, or an extremist that
-          likes to theme everything in sight.</p>
+          likes to theme everything in sight. A screenshot of a typical Window Maker workspace is <a href="wmaker-screenshot.png" target=
+          "_blank">here</a>.</p>
           <!--    <p>Visit the links below to learn more about this versatile window manager.</p>
 
 <ul>
