@@ -9,7 +9,7 @@
 
 <body>
   <div id="header">
-    Window Maker Home
+  <img src="header.png" width="880" height="44" alt="title bar"></div>
   </div>
 </body>
 </html>
