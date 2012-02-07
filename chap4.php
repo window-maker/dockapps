@@ -4,13 +4,13 @@
 
   <title>User Guide: Configuration</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="../title.css" rel="stylesheet" type="text/css" />
+  <link href="title.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <?php
-              include("../header.php");
-              include("../dock.php");
+              include("header.php");
+              include("dock.php");
       ?>
 
   <div id="inhalt">
@@ -385,7 +385,7 @@
                   FocusFollowsMouse, SemiAuto or Sloppy (default: ClickToFocus)</font></td>
 
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">The mode of input focus setting.
-                  Refer to section <a href="http://wmaker.orconhosting.net.nz/help/user_guide/chap2.htm#2.2.1">2.2.1, Focusing a
+                  Refer to section <a href="chap2.php#2.2.1">2.2.1, Focusing a
                   Window</a></font></td>
                 </tr>
 
@@ -791,14 +791,14 @@
             <table border="0" width="80%" cellspacing="0" cellpadding="5">
               <tbody>
                 <tr>
-                  <td align="center" valign="middle"><img src="images/texsolid.gif" border="0" width="151" height="21" alt=
+                  <td align="center" valign="middle"><img src="guide/images/texsolid.gif" border="0" width="151" height="21" alt=
                   "[Solid Color]" /></td>
 
                   <th align="left" valign="top"><font face="Times New Roman, Times, Times Roman">(solid, gray)</font></th>
                 </tr>
 
                 <tr>
-                  <td align="center" valign="middle"><img src="images/texdgrad.gif" border="0" width="151" height="21" alt=
+                  <td align="center" valign="middle"><img src="guide/images/texdgrad.gif" border="0" width="151" height="21" alt=
                   "[Diagoonal Gradient]" /></td>
 
                   <th align="left" valign="top"><font face="Times New Roman, Times, Times Roman">(dgradient, gray80,
@@ -806,7 +806,7 @@
                 </tr>
 
                 <tr>
-                  <td align="center" valign="middle"><img src="images/texhgrad.gif" border="0" width="151" height="21" alt=
+                  <td align="center" valign="middle"><img src="guide/images/texhgrad.gif" border="0" width="151" height="21" alt=
                   "[Horizontal Gradient]" /></td>
 
                   <th align="left" valign="top"><font face="Times New Roman, Times, Times Roman">(hgradient, gray80,
@@ -814,7 +814,7 @@
                 </tr>
 
                 <tr>
-                  <td align="center" valign="middle"><img src="images/texvgrad.gif" border="0" width="151" height="21" alt=
+                  <td align="center" valign="middle"><img src="guide/images/texvgrad.gif" border="0" width="151" height="21" alt=
                   "[Vertical Gradient]" /></td>
 
                   <th align="left" valign="top"><font face="Times New Roman, Times, Times Roman">(vgradient, gray80,
@@ -1164,7 +1164,7 @@
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">None</font></td>
 
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">Opens the <a href=
-                  "http://wmaker.orconhosting.net.nz/help/user_guide/chap3.htm#3.1.1">root window menu</a> at the current
+                  "chap3.php#3.1.1">root window menu</a> at the current
                   position of the mouse pointer.</font></td>
                 </tr>
 
@@ -1174,7 +1174,7 @@
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">None</font></td>
 
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">Opens the <a href=
-                  "http://wmaker.orconhosting.net.nz/help/user_guide/chap3.htm#3.1.2">window list menu</a> menu at the current
+                  "chap3.php#3.1.2">window list menu</a> menu at the current
                   position of the mouse pointer.</font></td>
                 </tr>
 
@@ -1184,7 +1184,7 @@
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">None</font></td>
 
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">Opens the <a href=
-                  "http://wmaker.orconhosting.net.nz/help/user_guide/chap2.htm#2.2.9">window commands menu</a> for the currently
+                  "chap2.php#2.2.9">window commands menu</a> for the currently
                   focused window.</font></td>
                 </tr>
 
@@ -1628,7 +1628,7 @@
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">boolean</font></td>
 
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">Do not list the window in the
-                  <a href="http://wmaker.orconhosting.net.nz/help/user_guide/chap3.htm#3.12">window list menu</a>.</font></td>
+                  <a href="chap3.php#3.12">window list menu</a>.</font></td>
                 </tr>
 
                 <tr>

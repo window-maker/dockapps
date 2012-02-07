@@ -2,15 +2,15 @@
 <head>
   <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>User Guide: Windows</title>
+  <title>User Guide: Window</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="../title.css" rel="stylesheet" type="text/css" />
+  <link href="title.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <?php
-              include("../header.php");
-              include("../dock.php");
+              include("header.php");
+              include("dock.php");
       ?>
 
   <div id="inhalt">
@@ -31,7 +31,7 @@
           <br />
 
           <center>
-            <img src="images/anatomy.gif" border="0" width="426" height="344" alt="[Anatomy of a Window]" /><br />
+            <img src="guide/images/anatomy.gif" border="0" width="426" height="344" alt="[Anatomy of a Window]" /><br />
             <br />
 
             <table border="0" width="90%" cellspacing="0" cellpadding="5">
@@ -104,7 +104,7 @@
           <br />
 
           <center>
-            <img src="images/focus.gif" border="0" width="574" height="360" alt="[Focused, Unfocused, and Parent Window]" />
+            <img src="guide/images/focus.gif" border="0" width="574" height="360" alt="[Focused, Unfocused, and Parent Window]" />
           </center><br />
           <br />
           There are three styles of window focusing:<br />
@@ -345,7 +345,7 @@
           <br />
 
           <center>
-            <img src="images/resizebar.gif" border="0" width="470" height="47" alt="[A Resizebar]" />
+            <img src="guide/images/resizebar.gif" border="0" width="470" height="47" alt="[A Resizebar]" />
           </center><br />
           <br />
           Depending on the place you click to drag the resizebar, the resize operation is constrained to a direction.<br />
@@ -437,7 +437,7 @@
           <br />
 
           <center>
-            <img src="images/title.gif" border="0" width="200" height="50" alt="[A Titlebar]" />
+            <img src="guide/imagtitle.gif" border="0" width="200" height="50" alt="[A Titlebar]" />
           </center><br />
           <br />
 
@@ -445,7 +445,7 @@
             <table border="0" cellspacing="0" cellpadding="5" width="40%">
               <tbody>
                 <tr>
-                  <td align="left"><img src="images/mini.gif" border="0" width="64" height="64" alt="[A Mini-window]" /></td>
+                  <td align="left"><img src="guide/images/mini.gif" border="0" width="64" height="64" alt="[A Mini-window]" /></td>
 
                   <td align="left"><font face="Times New Roman, Times, Times Roman">A mini-window</font></td>
                 </tr>
@@ -493,7 +493,7 @@
           </ul>
 
           <center>
-            <img src="images/shade.gif" border="0" width="287" height="279" alt="[A Shaded window]" />
+            <img src="guide/images/shade.gif" border="0" width="287" height="279" alt="[A Shaded window]" />
           </center><br />
           <br />
           <br />
@@ -505,7 +505,7 @@
           <br />
 
           <center>
-            <img src="images/title2.gif" border="0" width="200" height="50" alt="A Titlebar with a close button" />
+            <img src="guide/imagtitle2.gif" border="0" width="200" height="50" alt="A Titlebar with a close button" />
           </center><br />
           <br />
           Some windows will have a close button with some dots around it. These windows can't be closed normally and the only way
@@ -623,7 +623,7 @@
                   <th align="right" valign="top"><font face="Times New Roman, Times, Times Roman">Attributes...</font></th>
 
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">Opens the Window Attributes
-                  Inspector (see section <a href="http://wmaker.orconhosting.net.nz/help/user_guide/chap2.htm#2.3">2.3</a>
+                  Inspector (see section <a href="chap2.php#2.3">2.3</a>
                   )</font></td>
                 </tr>
 
@@ -652,7 +652,7 @@
           <br />
 
           <center>
-            <img src="images/wiaspec.gif" border="0" width="262" height="374" alt=
+            <img src="guide/images/wiaspec.gif" border="0" width="262" height="374" alt=
             "[Window Attributes Inspector: Window Specification]" />
           </center><br />
           <br />
@@ -664,7 +664,7 @@
           <br />
 
           <center>
-            <img src="images/wiaattrib.gif" border="0" width="262" height="374" alt=
+            <img src="guide/images/wiaattrib.gif" border="0" width="262" height="374" alt=
             "[Window Attributes Inspector: Window Attributes]" />
           </center><br />
           <br />
@@ -740,7 +740,7 @@
           <br />
 
           <center>
-            <img src="images/wiaadvanced.gif" border="0" width="262" height="374" alt=
+            <img src="guide/images/wiaadvanced.gif" border="0" width="262" height="374" alt=
             "[Window Attributes Inspector: Advanced Options]" />
           </center><br />
           <br />
@@ -753,7 +753,7 @@
 
                   <td align="left" valign="top"><font face="Times New Roman, Times, Times Roman">Causes the selected window to
                   remain visible when <b>HideOthers</b> is selected from the <a href=
-                  "http://wmaker.orconhosting.net.nz/help/user_guide/chap2.htm#2.2.9">Window Commands Menu</a></font></td>
+                  "chap2.php#2.2.9">Window Commands Menu</a></font></td>
                 </tr>
 
                 <tr>
@@ -815,7 +815,7 @@
           <br />
 
           <center>
-            <img src="images/wiaiandiw.gif" border="0" width="262" height="374" alt=
+            <img src="guide/images/wiaiandiw.gif" border="0" width="262" height="374" alt=
             "[Window Attributes Inspector: Icon and Initia Workspace]" />
           </center><br />
           <br />
@@ -829,7 +829,7 @@
           <br />
 
           <center>
-            <img src="images/wiaappspec.gif" border="0" width="262" height="374" alt=
+            <img src="guide/images/wiaappspec.gif" border="0" width="262" height="374" alt=
             "[Window Attributes Inspector: Icon and Initia Workspace]" />
           </center><br />
           <br />

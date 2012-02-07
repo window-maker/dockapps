@@ -4,13 +4,13 @@
 
   <title>User Guide: Introduction</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="../title.css" rel="stylesheet" type="text/css" />
+  <link href="title.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <?php
-                include("../header.php");
-                include("../dock.php");
+                include("header.php");
+                include("dock.php");
         ?>
 
   <div id="inhalt">

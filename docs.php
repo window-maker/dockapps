@@ -38,7 +38,7 @@
             <li><a href="installation.php">Installation Basics</a></li>
 
             <li><a href="http://main.linuxfocus.org/~georges.t/">Guided Tour</a></li>
-            <li><a href="guide/guide_toc.php">User Guide</a></li>
+            <li><a href="guide_toc.php">User Guide</a></li>
 <!--            <li><a href="desktop.php">Desktop/X Integration</a></li> -->
 
             <li><a href="FAQ.php">FAQ</a></li>

@@ -4,13 +4,13 @@
 
   <title>User Guide: The Workspace</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="../title.css" rel="stylesheet" type="text/css" />
+  <link href="title.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <?php
-              include("../header.php");
-              include("../dock.php");
+              include("header.php");
+              include("dock.php");
       ?>
 
   <div id="inhalt">
@@ -33,7 +33,7 @@
           <br />
 
           <center>
-            <img src="images/menu.gif" border="0" width="480" height="300" alt="[An Example Menu]" />
+            <img src="guide/images/menu.gif" border="0" width="480" height="300" alt="[An Example Menu]" />
           </center><br />
           <br />
           To execute a command listed in a menu, click in the corresponding item. The item will blink telling that the command is
@@ -121,7 +121,7 @@
             <br /></font></li>
 
             <li><font face="Helvetica">User the hide command in the <a href=
-            "http://wmaker.orconhosting.net.nz/help/user_guide/chap2.htm#2.2.9">window commands menu</a> brought up when the
+            "chap2.php#2.2.9">window commands menu</a> brought up when the
             window titlebar is clicked with the right mouse button.<br />
             <br />
             OR<br />
@@ -300,7 +300,7 @@
           You can click the top icon (the one with the GNUstep logo) and drag it downward to remove most of the dock from view.
           You can also drag it sideways to move the entire dock from side of the screen to the other.<br />
           <br />
-          A menu similar to the <a href="http://wmaker.orconhosting.net.nz/help/user_guide/chap3.htm#3.2.2">application icon
+          A menu similar to the <a href="chap3.php#3.2.2">application icon
           menu</a> is brought up when you click a docked icon with the right mouse button.<br />
           <br />
           To make the dock <i>float</i> over windows (not be coverable by windows), either double-click the top dock icon while
@@ -358,7 +358,7 @@
           <br />
 
           <center>
-            <img src="images/dockapppanel.gif" border="0" width="297" height="369" alt="[Docked Application Settings Panel]" />
+            <img src="guide/imagdockapppanel.gif" border="0" width="297" height="369" alt="[Docked Application Settings Panel]" />
           </center><br />
           <br />
           In the <i>Application path and arguments</i> field, the path for the application and its arguments can be changed. Note
@@ -409,7 +409,7 @@
           <br />
 
           <center>
-            <img src="images/wsmenu.gif" border="0" width="350" height="200" alt="[Workspace Menu]" />
+            <img src="guide/images/wsmenu.gif" border="0" width="350" height="200" alt="[Workspace Menu]" />
           </center><br />
           <br />
           To change the name of a workspace you must first ``stick'' the menu. Then Control click in the item corresponding to
@@ -422,7 +422,7 @@
           An example Workspace menu being edited:
 
           <center>
-            <img src="images/wsmenued.gif" border="0" width="101" height="103" alt=
+            <img src="guide/images/wsmenued.gif" border="0" width="101" height="103" alt=
             "[Workspace Menu: Editing a Workspace name]" />
           </center><br />
           <br />
