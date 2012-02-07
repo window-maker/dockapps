@@ -35,9 +35,10 @@
           "features.php">features</a> section for more specifics on what Window Maker can do, and how it compares with other
           popular window managers.</p>
 
-          <h3>Latest stable version</h3>
+          <h3>Download</h3>
 
-          <p>The latest <a href="http://repo.or.cz/w/wmaker-crm.git/shortlog/refs/heads/master">stable</a> version is 0.95.1,
+          <p>The latest <a href="http://repo.or.cz/w/wmaker-crm.git/shortlog/refs/heads/master">stable</a> version is
+	  0.95.1 (<a href="http://repo.or.cz/w/wmaker-crm.git/snapshot/b618febb2c52a3ad3c6d77ec3559c8abebe28320.tar.gz">tar.gz</a>, 2.6 MB</a>),
           released on 29.01.2012. See the <a href="news.php">NEWS</a> section for more information.</p>
         </td>
       </tr>
