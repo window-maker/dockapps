@@ -1,11 +1,3 @@
-<html>
-<head>
-  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org">
-
-  <title></title>
-</head>
-
-<body>
   <div id="dock">
     <table width="64" height="500" border="0" cellpadding="0" cellspacing="0">
       <tr>
@@ -36,5 +28,3 @@
       </tr>
     </table>
   </div>
-</body>
-</html>
