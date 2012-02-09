@@ -26,5 +26,11 @@
         "MM_swapImage('Image5','','development.png',0)"><img src="development.png" alt="Development" width="60" height=
         "81"></a></td>
       </tr>
+
+      <tr>
+        <td><a href="links.php" onmouseout="MM_swapImgRestore()" onmouseover=
+        "MM_swapImage('Image6','','links.png',0)"><img src="links.png" alt="Development" width="60" height=
+        "81"></a></td>
+      </tr>
     </table>
   </div>

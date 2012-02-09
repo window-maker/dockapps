@@ -2,7 +2,7 @@
 <head>
   <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
 
-  <title>WINGst</title>
+  <title>WINGs</title>
   <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
   <link href="title.css" rel="stylesheet" type="text/css" />
 </head>
