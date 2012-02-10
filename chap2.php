@@ -8,13 +8,10 @@
 </head>
 
 <body>
-  <?php
-              include("header.php");
-              include("dock.php");
-      ?>
+  <?php include("dock.php");  ?>
+  <?php include("header.php"); ?>
 
-  <div id="inhalt">
-    <table width="880" border="0" cellpadding="1" cellspacing="1">
+    <table class="inner" border="0" cellpadding="1" cellspacing="1">
       <tr>
         <td content="content" colspan="2" valign="top">
           <br />
@@ -856,6 +853,8 @@
         </td>
       </tr>
     </table>
-  </div>
+
+  <?php include("footer.php"); ?>
+
 </body>
 </html>

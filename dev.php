@@ -8,13 +8,11 @@
 </head>
 
 <body>
-  <?php
-          include("header.php");
-          include("dock.php");
-  ?>
+  <?php include("dock.php");  ?>
+  <?php include("header.php"); ?>
 
-  <div id="inhalt">
-    <table width="880" border="0" cellpadding="1" cellspacing="1">
+  <div>
+    <table class="inner" border="0" cellpadding="1" cellspacing="1">
       <tr>
         <td content="content" colspan="2" valign="top">
           <p>Here are some pieces of information regarding development in Window Maker.</p>
@@ -69,6 +67,8 @@
         </td>
       </tr>
     </table>
-  </div>
+
+  <?php include("footer.php"); ?>
+
 </body>
 </html>

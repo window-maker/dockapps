@@ -31,6 +31,11 @@ a        {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
+table .inner {
+	margin-left: 1em;
+	width: 90%;
+}
+
 h1       {
 	color: #ebdeff;
 	font-size: 20pt;
@@ -85,20 +90,13 @@ img {
 	border: none;
 }
 
-#header { 
-	font-family: "American Typewriter", Courier, monospace;
-	font-size: 4.5em;
-	font-weight: normal;
-	position: absolute; top: 40px; left: 100px;
-}
-
 #dock {
 	position: absolute; top: 100px; left: 5px;
 }
 
 #inhalt {
-	position: absolute; top: 110px; left: 100px;
-	width: 70%;
+        position: absolute; top: 40px; left: 100px;
+        min-width: 800px;
 }
 div.screenshot {
       height: 250px;

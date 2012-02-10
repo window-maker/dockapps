@@ -8,13 +8,11 @@
 </head>
 
 <body>
-  <?php
-            include("header.php");
-            include("dock.php");
-    ?>
+  <?php include("dock.php");  ?>
+  <?php include("header.php"); ?>
 
-  <div id="inhalt">
-    <table width="880" border="0" cellpadding="1" cellspacing="1">
+  <div>
+    <table class="inner" border="0" cellpadding="1" cellspacing="1">
       <tr>
         <td content="content" colspan="2" valign="top">
           <h3>Version 0.95.1 released</h3>
@@ -151,6 +149,8 @@ the addition of a debian folder with files summing around ~20k lines. The full d
         </td>
       </tr>
     </table>
-  </div>
+
+  <?php include("footer.php"); ?>
+
 </body>
 </html>
