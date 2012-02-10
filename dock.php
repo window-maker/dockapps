@@ -28,8 +28,14 @@
       </tr>
 
       <tr>
+        <td><a href="themes.php" onmouseout="MM_swapImgRestore()" onmouseover=
+        "MM_swapImage('Image6','','themes.png',0)"><img src="themes.png" alt="Themes" width="60" height=
+        "81"></a></td>
+      </tr>
+
+      <tr>
         <td><a href="links.php" onmouseout="MM_swapImgRestore()" onmouseover=
-        "MM_swapImage('Image6','','links.png',0)"><img src="links.png" alt="Development" width="60" height=
+        "MM_swapImage('Image7','','links.png',0)"><img src="links.png" alt="Links" width="60" height=
         "81"></a></td>
       </tr>
     </table>

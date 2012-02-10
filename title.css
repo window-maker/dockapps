@@ -100,3 +100,9 @@ img {
 	position: absolute; top: 110px; left: 100px;
 	width: 70%;
 }
+div.screenshot {
+      height: 250px;
+      border: none;
+      float: left;
+      margin: 5px;
+   }
