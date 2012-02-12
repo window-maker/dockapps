@@ -1,6 +1,0 @@
-This is a port of wmxmms to GTK 2.x and Audacious.
-
-Just type 'make' to compile and 'make install' to install to /usr/local
-
-Michael Stewart <vericgar@gracefulsymmetry.com>
-Christian Birchinger <joker@netswarm.net>
