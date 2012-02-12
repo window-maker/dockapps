@@ -11,7 +11,7 @@ CFLAGS 	+= $(shell pkg-config audacious --cflags) $(shell pkg-config dbus-1 --cf
 LIBS 	:= $(shell pkg-config audacious --libs) $(shell pkg-config audclient --libs)  $(shell pkg-config dbus-1 --libs)
 
 CFLAGS  += $(shell pkg-config gtk+-2.0 --cflags)
-LIBS    += $(shell pkg-config gtk+-2.0 --libs)
+LIBS    += $(shell pkg-config gtk+-2.0 --libs) -lX11
 
 OBJS 	= wmauda.o
 HEADERS = config.h dock-master.xpm
