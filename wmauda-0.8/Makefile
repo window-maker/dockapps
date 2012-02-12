@@ -1,7 +1,7 @@
 CC	?= gcc
 CFLAGS	?= -g -pipe
 
-PREFIX	?= /usr/local
+PREFIX	?= /usr
 
 INSTALL_DIR	:= $(PREFIX)/bin
 PIXMAP_DIR	:= $(PREFIX)/share/pixmaps
