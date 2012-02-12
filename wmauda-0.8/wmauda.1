@@ -1,0 +1,35 @@
+.TH WMAUDA 1 "12 Feb 2012" "Version 0.8" "WMAuda Manual Pages"
+.SH NAME
+WMAUDA \- a dockable Audacious control applet.
+.SH SYNOPSIS
+.B wmauda
+[\-h] [\-\-help] [\-c \fI<command>\fP] [\-\-command=\fI<command>\fP] [\-i \fI<icon>\fP]
+[\-\-icon=\fI<icon>\fP] [\-n] [\-\-single] [\-t] [\-\-title] [\-\-version]
+.SH DESCRIPTION
+\fIWMAUDA\fP is a dock applet for the Window Maker window manager.
+From the applet you can start and control Audacious.
+
+.SH OPTIONS
+wmauda accepts the following options:
+.TP
+.B \-h, \-\-help
+Show summary of options.
+.TP
+.B \-c, \-\-command
+Command to start Audacious (Default: audacious).
+.TP
+.B \-i, \-\-icon 
+Icon to show instead of the default one when Audacious is not running.  The
+icon must be in XPM format.
+.TP
+.B \-n, \-\-single
+Start Audacious with only a single click (Default: Double click).
+.TP
+.B \-t, \-\-title
+Show the song title when the mouse is in the wmauda window.
+.TP
+.B \-v, \-\-version
+Print version number and exit.
+.SH SEE ALSO
+.BR audacious (1),
+.BR wmaker (1),
