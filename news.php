@@ -18,7 +18,7 @@
 
 	  <h3>Version 0.95.2 released</h3>
 	  <p> Window Maker 0.95.2 was released on February 14th 2012, and it contains just a few
-	  commits on top of 0.95.1. They necessary to fix a few issues like 'make dist' not compiling.
+	  commits on top of 0.95.1. They were necessary to fix a few issues like 'make dist' not compiling.
 	  Furthermore a few more code cleanups slipped in.</p>
 
 
