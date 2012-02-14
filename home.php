@@ -36,8 +36,8 @@
           <h3>Download</h3>
 
           <p>The latest <a href="http://repo.or.cz/w/wmaker-crm.git/shortlog/refs/heads/master">stable</a> version is
-	  0.95.1 (<a href="http://repo.or.cz/w/wmaker-crm.git/snapshot/b618febb2c52a3ad3c6d77ec3559c8abebe28320.tar.gz">tar.gz</a>, 2.6 MB</a>),
-          released on 29.01.2012. See the <a href="news.php">NEWS</a> section for more information.</p>
+	  0.95.2 (<a href="http://repo.or.cz/w/wmaker-crm.git/snapshot/87ce0de15fe02fe4d96d13cb46c7a352803d5126.tar.gz">tar.gz</a>, 2.6 MB</a>),
+          released on 14.02.2012. See the <a href="news.php">NEWS</a> section for more information.</p>
         </td>
       </tr>
     </table>
