@@ -20,8 +20,8 @@
           <h3>Themes Gallery</h3>
 
           <div class="screenshot">
-            <a href="Themes/NeXT-Retro.tar.gz"><img src="screenshots/NeXT-Retro.png" height="250" alt="NeXT-Retro" /></a><br />
-            <b>NeXT-Retro</b><br />
+            <a href="screenshots/NeXT-Retro.png"><img src="screenshots/thumb_NeXT-Retro.png" height="250" alt="NeXT-Retro" /></a><br />
+            <b><a href="Themes/NeXT-Retro.tar.gz">NeXT-Retro</a></b> by Martin Dietze (<a href="Themes/NeXT-Retro_README.txt">README</a>, <a href="Themes/NeXT-Retro_dockapps.txt">dockapps information</a>) <br />
           </div>
         </td>
       </tr>
@@ -31,3 +31,4 @@
 
 </body>
 </html>
+
