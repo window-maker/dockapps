@@ -40,9 +40,7 @@
           "http://repo.or.cz/w/wmaker-crm.git/blob/HEAD:/The-perfect-Window-Maker-patch.txt" target="_blank">The perfect Window Maker patch</a>
           which gives you further details about patches to Window Maker.</p>
 
-          <p>If your patch is really good and important, feel free to send it to the mailing list at
-          wmaker-dev@lists.windowmaker.org anyway in whatever form most suits you. But please consider the fact that patches sent
-          in odd formats induce extra work for who applies them.</p>
+          <p>Patches not submitted according to the above guidelines will not be accepted.</p>
 
           <p>Last but not least, patches doing code cleanups are <strong>STRONGLY</strong> encouraged.</p>
 
