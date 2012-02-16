@@ -47,7 +47,7 @@
 	    </li>
 
 	    <li>
-	      <p><a href="http://repo.or.cz/w/whome.git" target="_blank">Source code</a> of www.windowmaker.org -- Patches welcome</p>
+	      <p><a href="http://repo.or.cz/w/whome.git" target="_blank">Source code</a> of www.windowmaker.org </p>
 	    </li>
 
 	    <li>
