@@ -26,7 +26,7 @@
 
           <p>Window Maker 0.95.1 was released on January 29th 2012.</p>
 
-          <p>The last official Window Maker release was version 0.92.0 from 2006, and version 0.95.1 contains many bug fixes and
+          <p>The last official Window Maker release was version 0.92.0 from 2005, and version 0.95.1 contains many bug fixes and
           also a few new features.</p>
 
           <h3>New features and highlights</h3>
