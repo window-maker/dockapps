@@ -22,8 +22,8 @@
 
           <h2>Downloading and Extracting</h2>
 
-          <p>The first necessary step is to <span class="newWikiWord"><a title="Not found. Click to create this page." href=
-          "/download.edit">download?</a></span> the Window Maker source distribution. From this point on, we'll assume it has
+          <p>The first necessary step is to <a href="http://windowmaker.org/pub/source/release/WindowMaker-0.95.2.tar.gz">download</a>
+	  the Window Maker source distribution. From this point on, we'll assume it has
           been retrieved and is residing on the local hard disk. The next step is to extract it, and change into the source
           directory.</p>
           <pre>
@@ -37,10 +37,6 @@
           <p>Now that things are extracted, it's time to look at the relevant pieces of documentation. Most UNIX oriented free
           software packages come with a README file, and Window Maker is no exception. The README file contains a summary
           overview of what the distribution is, what the various directories contain, and other general information.</p>
-
-          <p>Next, we have the ChangeLog which describes a list of changes since the first version. Although it usually lists
-          technical advancements about the distribution, it is also useful for finding out about bug fixes and recently added
-          features.</p>
 
           <p>Moving along, we have the NEWS file. For now, we just want to point out its existence. It will become more useful to
           novice users over time. Veteran Window Maker users will find it handy for keeping their configuration files up to date,
@@ -58,41 +54,36 @@
           build tools are available on the local system. The configure script allows for various arguments to be passed to it
           which relate to Window Maker's installation. For a complete list of all configurable settings, enter:</p>
           <pre>
-<code># ./configure -help
+<code>$ ./configure --help
 </code>
 </pre>
 
-          <p>Three commonly used configuration options are:</p>
+          <p>Commonly used configuration options are:</p>
           <pre>
-<code>--prefix=DIR --enable-kde --enable-gnome
+<code>--prefix=DIR --enable-modelock --enable-xinerama --enable-silent-rules
 </code>
 </pre>
 
           <p>The first configuration option lets Window Maker be installed into a non-default installation directory (e.g if
           Window Maker cannot be installed system wide for some reason, a user can specify a path under his/her home directory).
-          The default installation directory is /usr/local/bin for the wmaker binary and /usr/local/GNUstep/Apps for the WPrefs
-          application (the WPrefs installation directory can be specified by using --with-appspath=DIR). Note that root access
-          will be needed later on during the installation process if the defaults were used. The second and third configuration
-          options will enable Window Maker to fully cooperate with <a href="http://kde.org">KDE</a> and <a href=
-          "http://gnome.org">GNOME</a> respectively.</p>
+          The default installation directory is /usr/local/bin. Note that root access
+          will be needed later on during the installation process if the defaults were used.</p>
 
           <p>So if a user johndoe would like to install the wmaker binary into /home/johndoe/wmaker/bin instead of the default
-          /usr/local/bin, and if he wishes to use Window Maker in cooperation with KDE, the following arguments would be passed
-          to the configure script:</p>
+          /usr/local/bin, the following argument would be passed to the configure script:</p>
           <pre>
-<code> # ./configure --prefix=/home/johndoe/wmaker --enable-kde
+<code> $ ./configure --prefix=/home/johndoe/wmaker
 </code>
 </pre>
 
           <p>After the configure script has been successfully executed, Window Maker can now be compiled with the make command;
           simply enter:</p>
           <pre>
-<code># make
+<code>$ make
 </code>
 </pre>
 
-          <p>Now is a good time to get a drink while the compilation takes place. Providing the compilation goes well, the final
-          step is to install the binaries and other support files. This is accomplished by entering: # make install</p>
+          <p>The final step is to install the binaries and other support files. This is accomplished by entering: # make install</p>
 
           <p>Note that this is the step that needs to be performed by root if the default installation directory was used, or if
           a directory was specified that the running user cannot write to. If the installing user has root access, they should
@@ -105,11 +96,16 @@
 
           <p>This script copies the default Window Maker configuration to your user's home directory and sets Window Maker as the
           default window manager. It is recommended to create ~/GNUstep before executing the script.</p>
+
+	<p> You can also edit your ~/.xinitrc to load your newly installed Window Maker using the line 
+	<code> exec /usr/local/bin/wmaker</code>.</p>
+	<br><br><br>
         </td>
       </tr>
     </table>
 
   <?php include("footer.php"); ?>
+
 
 </body>
 </html>
