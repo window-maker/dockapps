@@ -84,9 +84,28 @@
 
           <p>Despite all of these features, Window Maker is not resource intensive and remains stable across many UNIX varients.
           It is extremely flexible, and many options can be included or excluded at compile time. This means that you can easily
-          tailor Window Maker to meet your needs; whether you're a minimalist wanting to save resources, or an extremist that
+          tailor Window Maker to meet your needs; whether you are a minimalist wanting to save resources, or an extremist that
           likes to theme everything in sight. A screenshot of a typical Window Maker workspace is <a href="wmaker-screenshot.png" target=
           "_blank">here</a>.</p>
+
+	<h3>Very frequent asked question </h3>
+
+	<div align="center"><img src="essential_dockapps.png" alt="Essential dockapps" width="66" height="135" /><div>wmvolman and wmsystemtray with nm-applet</div></div>
+
+	<h2> Can I easily mount my external drives or connect to the internet with Window Maker?</h2>
+	<p> Yes, you can. Mounting external media is not the problem of a window manager to solve, but
+	a tipical Window Maker user can mount external media just as easily as any other desktop user.
+	You just need to use a dockapp like <a href="http://dockapps.windowmaker.org/file.php/id/275">wmvolman</a> or 
+	<a href="http://dockapps.windowmaker.org/file.php/id/357">wmudmount</a> and you are just a click away to
+	having your external media mounted on /media/VOLUME_LABEL.</p>
+
+       	<p> And you can just as easily manage your network connections using the standard <code>nm-applet</code> running
+	inside a system tray on your dock. See for example the excellent <a href="http://dockapps.windowmaker.org/file.php/id/355">wmsystemtray</a>.</p>
+
+	<br><br><br>
+
+
+
           <!--    <p>Visit the links below to learn more about this versatile window manager.</p>
 
 <ul>

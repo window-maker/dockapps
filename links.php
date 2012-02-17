@@ -27,6 +27,10 @@
             </li>
 
 	   <li>
+	      <p><a href="http://dockapps.windowmaker.org" target="_blank">Dockapps</a></p>
+	    </li>
+
+	   <li>
 	      <p><a href="http://www.quantitativefinanceservices.com/OpenDir/WINGslib/WINGToc.html" target="_blank">WINGs tutorial</a></p>
 	    </li>
 
