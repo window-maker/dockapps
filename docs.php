@@ -32,6 +32,20 @@
           overlook this information, leading them to frustration and a bad first impression. Please take a moment to peruse the
           sections below, which should make the experience of learning Window Maker a more pleasant one.</p>
 
+	<h3>Very frequently asked question </h3>
+
+	<div align="center"><img src="essential_dockapps.png" alt="Essential dockapps" width="66" height="135" /><div>wmvolman and wmsystemtray with nm-applet</div></div>
+
+	<h2> Can I easily mount my external drives or connect to the internet with Window Maker?</h2>
+	<p> Yes, you can. Mounting external media is not the problem of a window manager to solve, but
+	a tipical Window Maker user can mount external media just as easily as any other desktop user.
+	If you use a dockapp like <a href="http://dockapps.windowmaker.org/file.php/id/275">wmvolman</a> or 
+	<a href="http://dockapps.windowmaker.org/file.php/id/357">wmudmount</a> you are just a click away from
+	having your external media mounted on /media/VOLUME_LABEL.</p>
+
+       	<p> And you can just as easily manage your network connections using the standard <code>nm-applet</code> running
+	in a system tray on your dock. See for example the excellent <a href="http://dockapps.windowmaker.org/file.php/id/355">wmsystemtray</a>.</p>
+
           <ul>
             <li><a href="installation.php">Installation Basics</a></li>
 

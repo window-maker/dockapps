@@ -18,9 +18,9 @@
           <br />
           <br />
 
-          <h1>Installation Basics</h1>
+          <h3>Installation Basics</h3>
 
-          <h2>Downloading and Extracting</h2>
+          <h3>Downloading and Extracting</h3>
 
           <p>The first necessary step is to <a href="http://windowmaker.org/pub/source/release/WindowMaker-0.95.2.tar.gz">download</a>
 	  the Window Maker source distribution. From this point on, we'll assume it has
@@ -47,7 +47,7 @@
           user feels they've found a bug in Window Maker, they should consult the BUGS file first. If the bug isn't listed,
           proceed to the Bug Tracker and see if its there.</p>
 
-          <h2>Compiling</h2>
+          <h3>Compiling</h3>
 
           <p>After extracting the latest version of Window Maker using the previous instructions, the next step is to compile it.
           First of all, the configure script should be run. It will test to make sure all the necessary libraries, compilers and
@@ -97,8 +97,21 @@
           <p>This script copies the default Window Maker configuration to your user's home directory and sets Window Maker as the
           default window manager. It is recommended to create ~/GNUstep before executing the script.</p>
 
-	<p> You can also edit your ~/.xinitrc to load your newly installed Window Maker using the line 
+	<h3> Final tweaks</h3>
+
+	<p> Edit your ~/.xinitrc to load your newly installed Window Maker using the line 
 	<code> exec /usr/local/bin/wmaker</code>.</p>
+
+	<p> Generate a new root menu (accessible with F12) with <code>wmgenmenu</code>, for example
+	<pre>
+	<code> $ wmgenmenu > $HOME/GNUstep/Defaults/WMRootMenu </code>
+	</pre>
+       
+
+	<p> Another recommended step is to install a few dockapps like wmvolman, wmmixer and wmsystemtray which allow one to
+	easily mount external media on /media among other things. Visit <a href="http://dockapps.windowmaker.org"> dockapps</a>
+	for many more choices.</p>
+
 	<br><br><br>
         </td>
       </tr>
