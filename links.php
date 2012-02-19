@@ -66,6 +66,9 @@
               <p><a href="http://blog.bigsmoke.us/2009/03/30/wmaker" target="_blank">My Window Maker 'desktop' configuration</a> (blog post)</p>
             </li>
 
+	    <li> <a href="http://browse.deviantart.com/customization/skins/themes/windowmaker/" target="_blank"> Window Maker themes</a></li>
+            <li> <a href="chaos-wmaker.tar.gz">WMaker Skin</a> for audacious</li>
+
 	<br><br><br>
           </ul>
         </td>
