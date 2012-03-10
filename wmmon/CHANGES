@@ -2,6 +2,29 @@ WMMon changes.
 
 Version         Description
 --------------------------------------------------------------
+1.2b1		- Released 20120325
+		- I/O monitor - updated to use /proc/diskstats instead 
+		  of obsolete /proc/stat interface, which is no longer 
+		  present in post 2.6 kernels. TODO: The non-/proc based
+		  solutions used in the various BSD ports trees should
+		  be incorporated into mainline version.
+		- I/O monitor - Fixed scaling issues with graph caused
+		  by improper use of static data. The graph would 
+		  continually scale up, making smaller values invisible.
+		  Eventually the system would appear to be idle, only
+		  graphing the biggest spikes. A similar issue affecting
+		  the upper-right meter is also fixed. Meter scaling is 
+		  recalibrated every couple of minutes to avoid losing
+		  meter funtionality after anomalously large peaks.
+		- I/O Monitor - Fixed rounding errors caused by use of
+		  integer types, which were causing relatively small
+		  values not to appear on graph or meter. Added code to
+		  round very low values up, so they will appear on meter
+		  and graph. 
+		- ONGOING: Style edits to improve readability and
+		  maintainability (removing hardcoded values, adding
+		  newlines to "if" conditions, etc).
+
 1.0b2		- Released 980520
 		- Vastly reduced CPU usage in CPU & IO mode,
 		  MEM/SWAP/UPTIME (i.e. SysInfo) only updated

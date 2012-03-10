@@ -5,12 +5,18 @@ OBJS =  wmmon.o \
 		../wmgeneral/misc.o \
 		../wmgeneral/list.o
 
+CFLAGS = -O3
+CC = cc $(CFLAGS)
+
 
 .c.o:
-	cc -c -O2 -Wall $< -o $*.o
+	$(CC) -c -Wall $< -o $*.o
 
 wmmon: $(OBJS)
-	cc -o wmmon $^ $(LIBDIR) $(LIBS)
+	$(CC) -o wmmon $^ $(LIBDIR) $(LIBS)
+
+debug: CFLAGS = -g3 
+debug: wmmon
 
 clean::
 	for i in $(OBJS) ; do \
