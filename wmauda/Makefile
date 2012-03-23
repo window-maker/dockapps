@@ -1,20 +1,18 @@
 CC	?= gcc
 CFLAGS	?= -g -pipe
 
-PREFIX	?= /usr
+PREFIX	?= /usr/local
 
 INSTALL_DIR	:= $(PREFIX)/bin
 PIXMAP_DIR	:= $(PREFIX)/share/pixmaps
 MANPAGE_DIR	:= $(PREFIX)/share/man/man1
 
-CFLAGS 	+= $(shell pkg-config audacious --cflags) $(shell pkg-config dbus-1 --cflags)
-LIBS 	:= $(shell pkg-config audacious --libs) $(shell pkg-config audclient --libs)  $(shell pkg-config dbus-1 --libs)
+CFLAGS 	+= $(shell pkg-config audclient --cflags) $(shell pkg-config dbus-glib-1 --cflags) $(shell pkg-config gtk+-2.0 --cflags) -DPIXMAP_DIR="\"$(PIXMAP_DIR)\""
 
-CFLAGS  += $(shell pkg-config gtk+-2.0 --cflags)
-LIBS    += $(shell pkg-config gtk+-2.0 --libs) -lX11
+LIBS 	:= $(shell pkg-config audclient --libs) $(shell pkg-config dbus-glib-1 --libs) $(shell pkg-config gtk+-2.0 --libs) -lX11
 
 OBJS 	= wmauda.o
-HEADERS = config.h dock-master.xpm
+HEADERS = dock-master.xpm
 
 wmauda:	$(OBJS) $(HEADERS)
 	$(CC) -o wmauda $(OBJS) $(CFLAGS) $(LIBS)

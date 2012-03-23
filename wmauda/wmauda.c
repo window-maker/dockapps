@@ -29,11 +29,17 @@
 #include <audacious/dbus.h>
 #include <audacious/audctrl.h>
 
-#include "config.h"
-
 #include "dock-master.xpm"
 
 #include <getopt.h>
+
+#ifndef VERSION
+# define VERSION 0.8
+#endif
+
+#ifndef PIXMAP_DIR
+# define PIXMAP_DIR "/usr/local/share/pixmaps"
+#endif
 
 typedef struct
 {
@@ -731,7 +737,7 @@ void init(void)
 	gdk_draw_rectangle(launch_mask, mask_gc, TRUE, 0, 0, -1, -1);
 
 	if (!icon_name)
-		icon_name = g_strdup_printf("%s/wmauda.xpm", DATA_DIR);
+		icon_name = g_strdup_printf("%s/wmauda.xpm", PIXMAP_DIR);
 	pixmap = gdk_pixmap_create_from_xpm(icon_win->window, &mask,
 					    NULL, icon_name);
 	if (!pixmap)
