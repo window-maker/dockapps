@@ -5,7 +5,7 @@ OBJS =  wmmon.o \
 		../wmgeneral/misc.o \
 		../wmgeneral/list.o
 
-CFLAGS = -O3
+CFLAGS = -O2
 CC = cc $(CFLAGS)
 
 
