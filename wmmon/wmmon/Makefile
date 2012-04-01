@@ -6,14 +6,14 @@ OBJS =  wmmon.o \
 		../wmgeneral/list.o
 
 CFLAGS = -O2
-CC = cc $(CFLAGS)
+CC = cc
 
 
 .c.o:
-	$(CC) -c -Wall $< -o $*.o
+	$(CC) $(CFLAGS) -c -Wall $< -o $*.o
 
 wmmon: $(OBJS)
-	$(CC) -o wmmon $^ $(LIBDIR) $(LIBS)
+	$(CC) $(LDFLAGS) -o wmmon $^ $(LIBDIR) $(LIBS)
 
 debug: CFLAGS = -g3 
 debug: wmmon

@@ -116,11 +116,17 @@
  /* Defines */
 /***********/
 
-#define LEFT_ACTION (NULL)
+/* wbk - see notes below (search on these preprocessor variables).
+ * TODO: remove if causing no problems. This was probably used to 
+ * hardcode test cases.
+ */
+/*#define LEFT_ACTION (NULL)
 #define RIGHT_ACTION (NULL)
-#define MIDDLE_ACTION (NULL)
+#define MIDDLE_ACTION (NULL)*/
 
-#define WMMON_VERSION "1.0.b2"
+#define WMMON_VERSION "1.2.b2"
+
+#define HISTORY_ENTRIES 55
 
 #define HISTORY_ENTRIES 55
 
@@ -280,7 +286,8 @@ void wmmon_routine(int argc, char **argv) {
 	fp_diskstats = fopen("/proc/diskstats", "r");
 
 	if (fp) {
-		fscanf(fp, "%ld", &online_time);
+		if (fscanf(fp, "%ld", &online_time) == EOF)
+			perror("Error! fscanf() of /proc/uptime failed!\n");
 		ref_time = time(0);
 		fclose(fp);
 	}
@@ -292,9 +299,20 @@ void wmmon_routine(int argc, char **argv) {
 		stat_device[i].hisaddcnt = 0;
 	}
 
-	if (LEFT_ACTION) left_action = strdup(LEFT_ACTION);
-	if (RIGHT_ACTION) right_action = strdup(RIGHT_ACTION);
-	if (MIDDLE_ACTION) middle_action = strdup(MIDDLE_ACTION);
+	/* wbk - I don't fully understand this. Probably just a means of providing
+	 * test cases. ifdef'ing to clear compiler warnings. TODO: remove.		*/
+#ifdef LEFT_ACTION
+	if (LEFT_ACTION) 
+	  left_action = strdup(LEFT_ACTION);
+#endif
+#ifdef RIGHT_ACTION
+	if (RIGHT_ACTION) 
+		right_action = strdup(RIGHT_ACTION);
+#endif
+#ifdef MIDDLE_ACTION
+	if (MIDDLE_ACTION)
+		middle_action = strdup(MIDDLE_ACTION);
+#endif
 
 	/* Scan through the .rc files */
 	if (asprintf(&conffile, "/etc/wmmonrc") >= 0) {
@@ -661,7 +679,9 @@ void update_stat_mem(stat_dev *st, stat_dev *st2) {
 	unsigned long swapfree;
 	unsigned long free, shared, buffers, cached;
 
-	freopen("/proc/meminfo", "r", fp_meminfo);
+	if (freopen("/proc/meminfo", "r", fp_meminfo) == NULL)
+		perror("freopen() of /proc/meminfo failed!)\n");
+
 	while ((getline(&line, &line_size, fp_meminfo)) > 0) {
 		/* The original format for the first two lines of /proc/meminfo was
 		 * Mem: total used free shared buffers cached
@@ -777,7 +797,8 @@ void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, lo
 		if ((fp_loadavg = freopen("/proc/loadavg", "r", fp_loadavg)) == NULL)
 			perror("ger_statistics(): freopen(proc/loadavg) failed!\n");
 
-		fscanf(fp_loadavg, "%f", &f);
+		if (fscanf(fp_loadavg, "%f", &f) == EOF)
+			perror("fscanf() failed to read f\n");
 		*is = (long) (100 * f);
 	}
 
