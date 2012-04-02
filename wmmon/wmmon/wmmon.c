@@ -137,6 +137,8 @@
 int	stat_current = 0; /* now global */
 int	mode_cycling = 1; /* Allow mode-cycling */
 int	cpu_avg_max  = 0; /* CPU stress meter with average and max for SMP */
+int show_buffers = 0; /* wbk adding per Gentoo -b enhancement. */
+
 FILE	*fp_meminfo;
 FILE	*fp_stat;
 FILE	*fp_loadavg;
@@ -182,6 +184,9 @@ int main(int argc, char *argv[]) {
 				break;
 			case 'i' :
 				stat_current = 1;
+				break;
+			case 'b' :
+				show_buffers = 1;
 				break;
 			case 's' :
 				stat_current = 2;
@@ -457,7 +462,7 @@ void wmmon_routine(int argc, char **argv) {
 			j = j * 0.32;
 			if (j > 32) j = 32;
 			copyXPMArea(32, 64, j, 12, 28+64, 4);
-			/*---------------------           ------------------*/
+			/*--------------------- swap?     ------------------*/
 			j = stat_device[3].rt_idle;
 			if (j != 0) {
 				j = (stat_device[3].rt_stat * 100) / j;
@@ -724,7 +729,10 @@ void update_stat_mem(stat_dev *st, stat_dev *st2) {
 	 * calculate it from MemTotal - MemFree
 	 */
 	st->rt_stat = st->rt_idle - free;
-	st->rt_stat -= buffers+cached;
+
+	/* wbk -b flag (from Gentoo patchkit) */
+	if (!show_buffers)
+		st->rt_stat -= buffers+cached;
 	/* As with the amount of memory used, it's not recorded any more, so
 	 * we have to calculate it ourselves.
 	 */
@@ -1059,6 +1067,7 @@ void usage(char *name) {
 	printf("                       default if there is more than %d processors\n", MAX_CPU);
 	printf("  -i                   start in Disk I/O mode\n");
 	printf("  -s                   start in System Info mode\n");
+	printf("  -b                   include buffers and cache in memory usage\n");
 	printf("  -h                   display this help and exit\n");
 	printf("  -v                   output version information and exit\n");
 }
