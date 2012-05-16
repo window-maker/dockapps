@@ -16,6 +16,12 @@
       <tr>
         <td content="content" colspan="2" valign="top">
 
+	<h3>Version 0.95.3 released</h3>
+	  <p> Window Maker 0.95.3 was released on May 16th 2012. This release fixes a regression
+	  which would cause more than one instance of an application to start (under some circunstances) when using menu
+	  shortcuts. The window maximization procedures now have a more intuitive behavior with respect to remembering
+          the old geometry and going back to it. Furthermore, there are some other small fixes and cleanups.</p>
+
 	  <h3>Version 0.95.2 released</h3>
 	  <p> Window Maker 0.95.2 was released on February 14th 2012, and it contains just a few
 	  commits on top of 0.95.1. They were necessary to fix a few issues like 'make dist' not compiling.
