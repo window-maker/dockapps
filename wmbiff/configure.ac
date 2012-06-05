@@ -110,7 +110,7 @@ AC_CHECK_HEADERS(regex.h) dnl gnuregex.h
 dnl no longer needed AC_CHECK_LIB(gnuregex, re_search) dnl BSD.
 
 dnl X11 stuff.
-AC_PATH_XTRA_CORRECTED
+AC_PATH_XTRA
 if test "$no_x" = yes; then
    AC_MSG_ERROR("Really need a working X.  Check config.log to see why configure couldn't find it")
 fi
