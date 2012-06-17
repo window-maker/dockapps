@@ -28,6 +28,8 @@
 	Changes:
 	----
 
+	17/06/2012 (Rodolfo García Peñas (kix), <kix@kix.es>)
+		* Code style.
 	13/3/2012 (Barry Kelly (wbk), <coydog@devio.us>)
 		* Fixed get_statistics() I/O features to work with newer
 		  /proc/diskstats instead of the old /proc/stat.
@@ -115,55 +117,42 @@
   /***********/
  /* Defines */
 /***********/
-
-/* wbk - see notes below (search on these preprocessor variables).
- * TODO: remove if causing no problems. This was probably used to 
- * hardcode test cases.
- */
-/*#define LEFT_ACTION (NULL)
-#define RIGHT_ACTION (NULL)
-#define MIDDLE_ACTION (NULL)*/
-
 #define WMMON_VERSION "1.2.b2"
-
 #define HISTORY_ENTRIES 55
-
 #define HISTORY_ENTRIES 55
+#define MAX_CPU (10) /* depends on graph height */
+#define MAX_STAT_DEVICES (4)
 
   /********************/
  /* Global Variables */
 /********************/
-
-int	stat_current = 0; /* now global */
-int	mode_cycling = 1; /* Allow mode-cycling */
-int	cpu_avg_max  = 0; /* CPU stress meter with average and max for SMP */
+int stat_current = 0; /* now global */
+int mode_cycling = 1; /* Allow mode-cycling */
+int cpu_avg_max  = 0; /* CPU stress meter with average and max for SMP */
 int show_buffers = 0; /* wbk adding per Gentoo -b enhancement. */
 
-FILE	*fp_meminfo;
-FILE	*fp_stat;
-FILE	*fp_loadavg;
-FILE	*fp_diskstats;    /* wbk new io stats API */
+FILE *fp_meminfo;
+FILE *fp_stat;
+FILE *fp_loadavg;
+FILE *fp_diskstats;    /* wbk new io stats API */
 
 /* functions */
 void usage(char*);
 void printversion(void);
 void DrawStats(int *, int, int, int, int);
 void DrawStats_io(int *, int, int, int, int);
-
 void wmmon_routine(int, char **);
 
-int main(int argc, char *argv[]) {
-
-	int		i;
-	char	*name = argv[0];
-	
+int main(int argc, char *argv[])
+{
+	int i;
+	char *name = argv[0];
 
 	/* Parse Command Line */
-
-	for (i=1; i<argc; i++) {
+	for (i = 1; i < argc; i++) {
 		char *arg = argv[i];
 
-		if (*arg=='-') {
+		if (*arg=='-')
 			switch (arg[1]) {
 			case 'd' :
 				if (strcmp(arg+1, "display")) {
@@ -198,46 +187,36 @@ int main(int argc, char *argv[]) {
 				usage(name);
 				return 1;
 			}
-		}
 	}
 
 	wmmon_routine(argc, argv);
-  
-    exit (0);
-   
+	exit(0);
 }
 
 /*******************************************************************************\
-|* wmmon_routine															   *|
+|* wmmon_routine								*|
 \*******************************************************************************/
 
-#define MAX_CPU (10) /* depends on graph height */
 typedef struct {
-
-	char	name[5];			/* "cpu0..cpuz", eventually.. :) */
-	int		his[HISTORY_ENTRIES];
-	int		hisaddcnt;
-	long	rt_stat;
-	long	statlast;
-	long	rt_idle;
-	long	idlelast;
+	char name[5];	/* "cpu0..cpuz", eventually.. :) */
+	int his[HISTORY_ENTRIES];
+	int hisaddcnt;
+	long rt_stat;
+	long statlast;
+	long rt_idle;
+	long idlelast;
 	/* Processors stats */
-	long	*cpu_stat;
-	long	*cpu_last;
-	long	*idle_stat;
-	long	*idle_last;
-	
+	long *cpu_stat;
+	long *cpu_last;
+	long *idle_stat;
+	long *idle_last;
 } stat_dev;
 
-#define MAX_STAT_DEVICES (4)
-stat_dev	stat_device[MAX_STAT_DEVICES];
+stat_dev stat_device[MAX_STAT_DEVICES];
 
-char		*left_action;
-char		*right_action;
-char		*middle_action;
+char *left_action, *right_action, *middle_action; 
+int nb_cpu, cpu_max;
 
-
-int	nb_cpu, cpu_max;
 int getNbCPU(void);
 unsigned long getWidth(long, long);
 int checksysdevs(void);
@@ -249,39 +228,33 @@ void update_stat_io(stat_dev *);
 void update_stat_mem(stat_dev *st, stat_dev *st2);
 void update_stat_swp(stat_dev *);
 
-void wmmon_routine(int argc, char **argv) {
-
-	rckeys		wmmon_keys[] = {
+void wmmon_routine(int argc, char **argv)
+{
+	rckeys wmmon_keys[] = {
 		{ "left", &left_action },
 		{ "right", &right_action },
 		{ "middle", &middle_action },
 		{ NULL, NULL }
 	};
 
-	unsigned long		i,j;
-	long		k;
-	XEvent		Event;
-	int			but_stat = -1;
+	unsigned long i, j;
+	long k;
+	XEvent Event;
+	int but_stat = -1;
 
-	int			stat_online;
+	int stat_online;
 
-	long		starttime;
-	long		curtime;
-	long		nexttime;
+	long starttime, curtime, nexttime;
+	long istat, idle, *istat2, *idle2;
 
-	long		istat;
-	long		idle;
-	long		*istat2;
-	long		*idle2;
+	FILE *fp;
+	char *conffile = NULL;
 
-	FILE		*fp;
-	char		*conffile = NULL;
+	int xpm_X = 0, xpm_Y = 0;
 
-	int			xpm_X = 0, xpm_Y = 0;
-
-	long		online_time = 0;
-	long		ref_time = 0;
-	long		cnt_time;
+	long online_time = 0;
+	long ref_time = 0;
+	long cnt_time;
 
 
 	fp = fopen("/proc/uptime", "r");
@@ -298,9 +271,9 @@ void wmmon_routine(int argc, char **argv) {
 	}
 
 	for (i = 0; i < MAX_STAT_DEVICES; i++) {
-		for (j = 0; j < HISTORY_ENTRIES; j++) {
+		for (j = 0; j < HISTORY_ENTRIES; j++)
 			stat_device[i].his[j] = 0;
-		}
+
 		stat_device[i].hisaddcnt = 0;
 	}
 
@@ -342,13 +315,14 @@ void wmmon_routine(int argc, char **argv) {
 	stat_device[0].cpu_last = calloc(nb_cpu, sizeof(long));
 	stat_device[0].idle_stat = calloc(nb_cpu, sizeof(long));
 	stat_device[0].idle_last = calloc(nb_cpu, sizeof(long));
-	if (!stat_device[0].cpu_stat 
-			|| !stat_device[0].cpu_last 
-			|| !stat_device[0].idle_stat 
-			|| !stat_device[0].idle_last) {
+	if (!stat_device[0].cpu_stat ||
+	    !stat_device[0].cpu_last ||
+	    !stat_device[0].idle_stat ||
+	    !stat_device[0].idle_last) {
 		fprintf(stderr, "%s: Unable to alloc memory !\n", argv[0]);
 		exit(1);
 	}
+
 	istat2 = calloc(nb_cpu, sizeof(long));
 	idle2 = calloc(nb_cpu, sizeof(long));
 	if (!istat2 || !idle2) {
@@ -357,7 +331,7 @@ void wmmon_routine(int argc, char **argv) {
 	}
 
 	openXwindow(argc, argv, wmmon_master_xpm, wmmon_mask_bits, 
-						  wmmon_mask_width, wmmon_mask_height);
+		    wmmon_mask_width, wmmon_mask_height);
 
 	/* add mouse region */
 	AddMouseRegion(0, 12, 13, 58, 57);
@@ -367,7 +341,7 @@ void wmmon_routine(int argc, char **argv) {
 	nexttime = starttime + 10;
 
 	/* Collect information on each panel */
-	for (i=0; i<stat_online; i++) {
+	for (i = 0; i < stat_online; i++) {
 		get_statistics(stat_device[i].name, &k, &istat, &idle, istat2, idle2);
 		stat_device[i].statlast = istat;
 		stat_device[i].idlelast = idle;
@@ -398,11 +372,11 @@ void wmmon_routine(int argc, char **argv) {
 	if (stat_current == 0) {
 		DrawStats(stat_device[stat_current].his, 
                 HISTORY_ENTRIES-1, 40, 5, 58);
-  }
-  else if (stat_current == 1) {
+	} else if (stat_current == 1) {
 		DrawStats_io(stat_device[stat_current].his, 
                 HISTORY_ENTRIES, 40, 5, 58);
-  }
+	}
+
 	DrawActive(stat_device[stat_current].name);
 
 	while (1) {
@@ -414,10 +388,8 @@ void wmmon_routine(int argc, char **argv) {
 		update_stat_cpu(&stat_device[0], istat2, idle2);
 		update_stat_io(&stat_device[1]);
 
-		if(stat_current == 2) {
+		if(stat_current == 2)
 			update_stat_mem(&stat_device[2], &stat_device[3]);
-/*			update_stat_swp(&stat_device[3]);*/
-		}
 
 		if (stat_current < 2) {
 			i = stat_current;
@@ -444,8 +416,7 @@ void wmmon_routine(int argc, char **argv) {
 									  5 + (MAX_CPU / nb_cpu) * cpu);
 					}
 				}
-			}
-			else {
+			} else {
 				j = getWidth(stat_device[i].rt_stat, stat_device[i].rt_idle);
 				copyXPMArea(32, 64, j, 12, 28, 4);
 			}
@@ -462,17 +433,17 @@ void wmmon_routine(int argc, char **argv) {
 			j = j * 0.32;
 			if (j > 32) j = 32;
 			copyXPMArea(32, 64, j, 12, 28+64, 4);
+
 			/*--------------------- swap?     ------------------*/
 			j = stat_device[3].rt_idle;
-			if (j != 0) {
+			if (j != 0)
 				j = (stat_device[3].rt_stat * 100) / j;
-			}
+
 			j = j * 0.32;
 			if (j > 32) j = 32;
 			copyXPMArea(32, 64, j, 12, 28+64, 18);
 
 			/*----------- online tijd neerzetten! ----------*/
-			
 			cnt_time = time(0) - ref_time + online_time;
 
 			/* cnt_time = uptime in seconden */
@@ -498,7 +469,6 @@ void wmmon_routine(int argc, char **argv) {
 			copyXPMArea(40 + (i / 10)*7, 78, 6, 9, 70, 47);
 
 			/* De rest is dagen!  5x7*/
-			
 			i = cnt_time;
 			copyXPMArea(66 + (i % 10)*6, 66, 5, 7, 88, 35);
 			i /= 10;
@@ -513,22 +483,22 @@ void wmmon_routine(int argc, char **argv) {
 			nexttime+=10;
 
 			if (curtime > nexttime) /* dont let APM suspends make this crazy */
-			  nexttime = curtime;
+				nexttime = curtime;
 
 			for (i=0; i<stat_online; i++) {
-        stat_dev *sd = stat_device + i;
+			        stat_dev *sd = stat_device + i;
+
 				if (sd->his[HISTORY_ENTRIES-1])
 					sd->his[HISTORY_ENTRIES-1] /= sd->hisaddcnt;
 
-				for (j = 1; j < HISTORY_ENTRIES; j++) {
+				for (j = 1; j < HISTORY_ENTRIES; j++)
 					sd->his[j-1] = sd->his[j];
-				}
 
 				if (i == stat_current) {
 					if (i == 0) 
-            DrawStats(sd->his, HISTORY_ENTRIES-1, 40, 5, 58);
-          else if (i == 1) 
-            DrawStats_io(sd->his, HISTORY_ENTRIES-1, 40, 5, 58);
+						DrawStats(sd->his, HISTORY_ENTRIES - 1, 40, 5, 58);
+					else if (i == 1) 
+						DrawStats_io(sd->his, HISTORY_ENTRIES - 1, 40, 5, 58);
 				}
 				sd->his[HISTORY_ENTRIES-1] = 0;
 				sd->hisaddcnt = 0;
@@ -575,14 +545,14 @@ void wmmon_routine(int argc, char **argv) {
 							stat_current = 0;
 
 						DrawActive(stat_device[stat_current].name);
-						if (stat_current == 0) {
-              DrawStats(stat_device[stat_current].his, 
-                            HISTORY_ENTRIES-1, 40, 5, 58);
-            }
-						if (stat_current == 1) {
+						if (stat_current == 0)
+							DrawStats(stat_device[stat_current].his, 
+								  HISTORY_ENTRIES-1, 40, 5, 58);
+
+						if (stat_current == 1)
 							DrawStats_io(stat_device[stat_current].his, 
-                            HISTORY_ENTRIES-1, 40, 5, 58);
-						}
+								     HISTORY_ENTRIES-1, 40, 5, 58);
+
 						if (stat_current == 2) {
 							xpm_X = 64;
 							setMaskXY(-64, 0);
@@ -597,13 +567,14 @@ void wmmon_routine(int argc, char **argv) {
 				break;
 			}
 		}
-
 		usleep(250000L);
 	}
 }
 
-void update_stat_cpu(stat_dev *st, long *istat2, long *idle2) {
-	long	k, istat, idle;
+
+void update_stat_cpu(stat_dev *st, long *istat2, long *idle2)
+{
+	long k, istat, idle;
 
 	get_statistics(st->name, &k, &istat, &idle, istat2, idle2);
 
@@ -625,7 +596,10 @@ void update_stat_cpu(stat_dev *st, long *istat2, long *idle2) {
 			st->cpu_last[cpu] = istat2[cpu];
 
 			j = st->cpu_stat[cpu] + st->idle_stat[cpu];
-			if (j != 0)  j = (st->cpu_stat[cpu] << 7) / j;
+
+			if (j != 0)
+				j = (st->cpu_stat[cpu] << 7) / j;
+
 			if (j > max) {
 				max = j;
 				cpu_max = cpu;
@@ -637,14 +611,15 @@ void update_stat_cpu(stat_dev *st, long *istat2, long *idle2) {
 	st->hisaddcnt += 1;
 }
 
-void update_stat_io(stat_dev *st) {
 
-	long			j, k, istat, idle;
+void update_stat_io(stat_dev *st)
+{
+	long j, k, istat, idle;
 
 	/* Periodically re-sample. Sometimes we get anomalously high readings;
 	 * this discards them. */
 	static int stalemax = 300;
-	static long		maxdiskio = 0;
+	static long maxdiskio = 0;
 	if (--stalemax <= 0) {
 		maxdiskio = 0;
 		stalemax = 300;
@@ -658,11 +633,11 @@ void update_stat_io(stat_dev *st) {
 	st->rt_stat = istat - st->statlast;
 	st->statlast = istat;
 
-	/* remember peak for scaling of upper-right meter.						  */
+	/* remember peak for scaling of upper-right meter. */
 	j = st->rt_stat;
-	if (maxdiskio < j) {
+	if (maxdiskio < j)
 		maxdiskio = j;
-	}
+
 	/* Calculate scaling factor for upper-right meter. "/ 5" will clip
 	* the highest peaks, but makes moderate values more visible. We are
 	* compensating for wild fluctuations which are probably caused by
@@ -676,8 +651,9 @@ void update_stat_io(stat_dev *st) {
 	st->hisaddcnt += 1;
 }
 
-void update_stat_mem(stat_dev *st, stat_dev *st2) {
 
+void update_stat_mem(stat_dev *st, stat_dev *st2)
+{
 	static char *line = NULL;
 	static size_t line_size = 0;
 
@@ -701,27 +677,20 @@ void update_stat_mem(stat_dev *st, stat_dev *st2) {
 		 * older kernels, too, since the new format has been available for
 		 * ages.
 		 */
-		if (strstr(line, "MemTotal:")) {
+		if (strstr(line, "MemTotal:"))
 			sscanf(line, "MemTotal: %ld", &st->rt_idle);
-		}
-		else if (strstr(line, "MemFree:")) {
+		else if (strstr(line, "MemFree:"))
 			sscanf(line, "MemFree: %ld", &free);
-		}
-		else if (strstr(line, "MemShared:")) {
+		else if (strstr(line, "MemShared:"))
 			sscanf(line, "MemShared: %ld", &shared);
-		}
-		else if (strstr(line, "Buffers:")) {
+		else if (strstr(line, "Buffers:"))
 			sscanf(line, "Buffers: %ld", &buffers);
-		}
-		else if (strstr(line, "Cached:")) {
+		else if (strstr(line, "Cached:"))
 			sscanf(line, "Cached: %ld", &cached);
-		}
-		else if (strstr(line, "SwapTotal:")) {
+		else if (strstr(line, "SwapTotal:"))
 			sscanf(line, "SwapTotal: %ld", &st2->rt_idle);
-		}
-		else if (strstr(line, "SwapFree:")) {
+		else if (strstr(line, "SwapFree:"))
 			sscanf(line, "SwapFree: %ld", &swapfree);
-		}
 	}
 
 	/* memory use - rt_stat is the amount used, it seems, and this isn't
@@ -739,8 +708,8 @@ void update_stat_mem(stat_dev *st, stat_dev *st2) {
 	st2->rt_stat = st2->rt_idle - swapfree;
 }
 
-void update_stat_swp(stat_dev *st) {
-
+void update_stat_swp(stat_dev *st)
+{
 	static char *line = NULL;
 	static size_t line_size = 0;
 	unsigned long swapfree;
@@ -749,28 +718,25 @@ void update_stat_swp(stat_dev *st) {
 	while ((getline(&line, &line_size, fp_meminfo)) > 0) {
 		/* As with update_stat_mem(), the format change to /proc/meminfo has
 		 * forced some changes here. */
-		if (strstr(line, "SwapTotal:")) {
+		if (strstr(line, "SwapTotal:"))
 			sscanf(line, "SwapTotal: %ld", &st->rt_idle);
-		}
-		else if (strstr(line, "SwapFree:")) {
+		else if (strstr(line, "SwapFree:"))
 			sscanf(line, "SwapFree: %ld", &swapfree);
-		}
 	}
 	st->rt_stat = st->rt_idle - swapfree;
 }
 
 /*******************************************************************************\
-|* get_statistics															   *|
+|* get_statistics								*|
 \*******************************************************************************/
-
 void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, long *idle2)
 {
-	int     i;
+	int i;
 	static char *line = NULL;
 	static size_t line_size = 0;
-	char    *p;
-	char    *tokens = " \t\n";
-	float   f;
+	char *p;
+	char *tokens = " \t\n";
+	float f;
 
 	*is = 0;
 	*ds = 0;
@@ -841,68 +807,44 @@ void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, lo
 					p = strtok(NULL, tokens);
 
 				*ds += atol(p);
-				/* Field 11 looks tailor made for a simple load monitor. In 
-				* practice, it doesn't show much unless the system	is 
-				* hammered. Feel free to uncomment as a command line option.  */
-				/*for (i=1; i<14; i++)
-					p = strtok(NULL, tokens);
-				 ds += atol(p);*/
 			}
-
-			/* wbk 20120308 as far as I know, this code would only work with
-			 * very old kernels (early 2.4.x). If the above change does not
-			 * work on your system, we will need to add logic to check
-			 * /proc/stat OR /proc/diskstats. (This was a Debian patch)  */
-			/*else if (strstr(line, "disk_io")) {
-					int val;
-					unsigned int a, b, c, d, e, h, g;
-					p = strtok(line, tokens);
-					while ((p = strtok(NULL, tokens))) {
-						val = sscanf (p, "(%d,%d):(%d,%d,%d,%d,%d)",
-								  &a, &b, &c, &d, &e, &h,
-								  &g);
-						if (val != 7)
-							continue;
-						*ds += d;
-						*ds += h;
-					}
-				}
-			 */
-		} /* end while */
-	} /* end if i/o */
+		}
+	}
 }
 
-/*******************************************************************************\
-|* getWidth																	   *|
-\*******************************************************************************/
 
-unsigned long getWidth(long actif, long idle) {
+/*******************************************************************************\
+|* getWidth									*|
+\*******************************************************************************/
+unsigned long getWidth(long actif, long idle)
+{
 	/* wbk - work with a decimal value so we don't round < 1 down to zero.  */
 	double j = 0;
 	unsigned long r = 0;
 
 	j = (actif + idle);
-	if (j != 0) {
+	if (j != 0)
 		j = (actif * 100) / j;
-	}
+
 	j = j * 0.32;
 
 	/* round up very low positive values so they are visible. */
 	if (actif > 0 && j < 2)
-	j = 2;
-	if (j > 32) 
-	j = 32;
+		j = 2;
 
-	r = (unsigned long)j;
+	if (j > 32) 
+		j = 32;
+
+	r = (unsigned long) j;
 	return r;
 }
 
 
 /*******************************************************************************\
-|* getNbCPU																		*|
+|* getNbCPU									*|
 \*******************************************************************************/
-
-int getNbCPU(void) {
+int getNbCPU(void)
+{
 	static char *line = NULL;
 	static size_t line_size = 0;
 	int cpu = 0;
@@ -918,11 +860,9 @@ int getNbCPU(void) {
 
 
 /*******************************************************************************\
-|* checksysdevs																   *|
+|* checksysdevs									*|
 \*******************************************************************************/
-
 int checksysdevs(void) {
-
 	strcpy(stat_device[0].name, "cpu0");
 	strcpy(stat_device[1].name, "i/o");
 	strcpy(stat_device[2].name, "sys");
@@ -932,10 +872,10 @@ int checksysdevs(void) {
 
 
 /*******************************************************************************\
-|* void DrawActive(char *)													   *|
+|* void DrawActive(char *)							*|
 \*******************************************************************************/
-
-void DrawActive(char *name) {
+void DrawActive(char *name)
+{
 
 	/* Alles op X,77
 	   CPU: 0
@@ -945,27 +885,23 @@ void DrawActive(char *name) {
 	   Destinatie: 5,5
 	*/
 
-	if (name[0] == 'c') {
+	if (name[0] == 'c')
 		copyXPMArea(0, 77, 19, 10, 5, 5);
-	} else if (name[0] == 'i') {
+	else if (name[0] == 'i')
 		copyXPMArea(19, 77, 19, 10, 5, 5);
-	}
-
 }
+
 
 /*******************************************************************************\
 |* DrawStats                                                                   *|
 \*******************************************************************************/
-
-void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
-
-	int     pixels_per_byte;
-	int     j,k;
-	int     *p;
-	int		d;
+void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
+{
+	int pixels_per_byte, j, k, *p, d;
 
 	pixels_per_byte = 100;
 	p = his;
+
 	for (j=0; j<num; j++) {
 		if (p[0] > pixels_per_byte)
 			pixels_per_byte += 100;
@@ -978,7 +914,6 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 		d = (1.0 * p[0] / pixels_per_byte) * size;
 
 		for (j=0; j<size; j++) {
-		
 			if (j < d - 3)
 				copyXPMArea(2, 88, 1, 1, k+x_left, y_bottom-j);
 			else if (j < d)
@@ -999,15 +934,14 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 	}
 }
 
+
 /*******************************************************************************\
 |* DrawStats_io                                                                *|
 \*******************************************************************************/
-
-void DrawStats_io(int *his, int num, int size, int x_left, int y_bottom) {
-
+void DrawStats_io(int *his, int num, int size, int x_left, int y_bottom)
+{
 	float	pixels_per_byte;
-	int     j,k;
-	int     *p;
+	int     j, k, *p;
 	/* wbk - Use a double to avoid rounding values of d < 1 to zero. */
 	double d = 0;
 	int border = 3;
@@ -1021,12 +955,12 @@ void DrawStats_io(int *his, int num, int size, int x_left, int y_bottom) {
 	int	io_scale = 1;
 
 	p = his;
-	for (j=0; j<num; j++) {
+	for (j=0; j<num; j++)
 		if (p[j] > io_scale) io_scale = p[j];
-	}
 
 	pixels_per_byte = 1.0 * io_scale / size;
-	if (pixels_per_byte == 0) pixels_per_byte = 1;
+	if (pixels_per_byte == 0)
+		pixels_per_byte = 1;
 
 	for (k=0; k<num; k++) {
 		d = (1.0 * p[0] / pixels_per_byte);
@@ -1053,10 +987,10 @@ void DrawStats_io(int *his, int num, int size, int x_left, int y_bottom) {
 
 
 /*******************************************************************************\
-|* usage																	   *|
+|* usage									*|
 \*******************************************************************************/
-
-void usage(char *name) {
+void usage(char *name)
+{
 	printf("Usage: %s [OPTION]...\n", name);
 	printf("WindowMaker dockapp that displays system information.\n");
 	printf("\n");
@@ -1072,12 +1006,12 @@ void usage(char *name) {
 	printf("  -v                   output version information and exit\n");
 }
 
+
 /*******************************************************************************\
-|* printversion																   *|
+|* printversion									*|
 \*******************************************************************************/
-
-void printversion(void) {
-
+void printversion(void)
+{
 	printf("WMMon version %s\n", WMMON_VERSION);
 }
 /* vim: sw=4 ts=4 columns=82
