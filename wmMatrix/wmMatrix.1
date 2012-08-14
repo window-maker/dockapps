@@ -1,0 +1,43 @@
+.TH WMMATRIX 1 "September 1999" 
+.SH NAME
+wmMatrix \- Dockable Matrix Display
+.SH SYNOPSIS
+.B wmMatrix
+[\-h] [\-display <Display>] [\-c command] [\-sml] [\-med] [\-lrg]
+.SH DESCRIPTION
+.PP
+wmMatrix displays The Matrix (from the film of the
+same name) in a dockable window
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-display [display]
+Use an alternate X Display.
+.TP
+.B \-c command
+Specify the command to launch when receiving a left double-click.
+.TP
+.B \-cr command
+Specify the command to launch when receiving a right double-click.
+.TP
+.B \-sml
+Use small characters for the display.
+.TP
+.B \-med
+Use medium-sized characters for the display.
+.TP
+.B \-lrg
+Use large characters for the display.
+
+.PP
+Double clicking on the wmMatrix window will run xscreensaver if it's installed.
+
+.SH BUGS
+Who knows? (Let me know if you find any).
+
+.SH AUTHOR
+Michael G. Henderson <mghenderson@lanl.gov>
+.br
+Manual page created by Michael-John Turner <mj@debian.org>
