@@ -371,9 +371,12 @@ unsigned long getBlendedColor(char *ColorName, float fac, int red, int grn, int 
 void uusleep(unsigned long usecs) {
 
     struct timeval tv;
+    fd_set fds;
     tv.tv_sec  = usecs / 1000000UL;
     tv.tv_usec = usecs % 1000000UL;
-    select(1, NULL, NULL, NULL, &tv);
+    FD_ZERO(&fds);
+    FD_SET(x_fd,  &fds);
+    select(x_fd + 1, &fds, NULL, NULL, &tv);
 
 }
 
@@ -385,9 +388,12 @@ void uusleep(unsigned long usecs) {
 void short_uusleep(unsigned long usecs) {
 
     struct timeval tv;
+    fd_set fds;
     tv.tv_sec  = 0;
     tv.tv_usec = usecs;
-    select(1, NULL, NULL, NULL, &tv);
+    FD_ZERO(&fds);
+    FD_SET(x_fd,  &fds);
+    select(x_fd + 1, &fds, NULL, NULL, &tv);
 
 }
 
