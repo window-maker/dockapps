@@ -9,7 +9,6 @@
  *  that your changes will be lost if you ever run `configure' again.
  */
 
-
 /* *************************************************************************
                           CONFIGURING SERVER EXTENSIONS
    ************************************************************************* */
@@ -110,8 +109,6 @@
  */
 /* #undef HAVE_PROC_INTERRUPTS */
 
-
-
 /* *************************************************************************
                           CONFIGURING GRAPHICS TOOLKITS
    ************************************************************************* */
@@ -183,8 +180,6 @@
     be used to override it.
  */
 #define ZIPPY_PROGRAM "/packages/libexec/emacs/20.2/sparc-sun-solaris2.6/yow"
-
-
 
 /* *************************************************************************
                        CONFIGURING PASSWORD AUTHENTICATION
@@ -258,12 +253,10 @@
  */
 /* #undef HAVE_VT_LOCKSWITCH */
 
-
 /* Define this if you the openlog(), syslog(), and closelog() functions.
    This is used for logging failed login attempts.
  */
 #define HAVE_SYSLOG 1
-
 
 /* *************************************************************************
                             OTHER C ENVIRONMENT JUNK

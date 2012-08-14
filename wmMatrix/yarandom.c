@@ -42,14 +42,12 @@
    Irix 6.2; Indy r5k; SGI cc version 6; gcc version 2.7.2.1.
  */
 
-
 #ifdef HAVE_UNISTD_H
-# include <unistd.h>  /* for getpid() */
+#include <unistd.h>				/* for getpid() */
 #endif
-#include <sys/time.h> /* for gettimeofday() */
+#include <sys/time.h>			/* for gettimeofday() */
 
 #include "yarandom.h"
-
 
 /* The following 'random' numbers are taken from CRC, 18th Edition, page 622.
    Each array element was taken from the corresponding line in the table,
@@ -58,55 +56,53 @@
  */
 #define VectorSize 55
 static unsigned int a[VectorSize] = {
- 035340171546, 010401501101, 022364657325, 024130436022, 002167303062, /*  5 */
- 037570375137, 037210607110, 016272055420, 023011770546, 017143426366, /* 10 */
- 014753657433, 021657231332, 023553406142, 004236526362, 010365611275, /* 14 */
- 007117336710, 011051276551, 002362132524, 001011540233, 012162531646, /* 20 */
- 007056762337, 006631245521, 014164542224, 032633236305, 023342700176, /* 25 */
- 002433062234, 015257225043, 026762051606, 000742573230, 005366042132, /* 30 */
- 012126416411, 000520471171, 000725646277, 020116577576, 025765742604, /* 35 */
- 007633473735, 015674255275, 017555634041, 006503154145, 021576344247, /* 40 */
- 014577627653, 002707523333, 034146376720, 030060227734, 013765414060, /* 45 */
- 036072251540, 007255221037, 024364674123, 006200353166, 010126373326, /* 50 */
- 015664104320, 016401041535, 016215305520, 033115351014, 017411670323  /* 55 */
+	035340171546, 010401501101, 022364657325, 024130436022, 002167303062,	/*  5 */
+	037570375137, 037210607110, 016272055420, 023011770546, 017143426366,	/* 10 */
+	014753657433, 021657231332, 023553406142, 004236526362, 010365611275,	/* 14 */
+	007117336710, 011051276551, 002362132524, 001011540233, 012162531646,	/* 20 */
+	007056762337, 006631245521, 014164542224, 032633236305, 023342700176,	/* 25 */
+	002433062234, 015257225043, 026762051606, 000742573230, 005366042132,	/* 30 */
+	012126416411, 000520471171, 000725646277, 020116577576, 025765742604,	/* 35 */
+	007633473735, 015674255275, 017555634041, 006503154145, 021576344247,	/* 40 */
+	014577627653, 002707523333, 034146376720, 030060227734, 013765414060,	/* 45 */
+	036072251540, 007255221037, 024364674123, 006200353166, 010126373326,	/* 50 */
+	015664104320, 016401041535, 016215305520, 033115351014, 017411670323	/* 55 */
 };
 
 static int i1, i2;
 
-unsigned int
-ya_random (void)
+unsigned int ya_random(void)
 {
-  register int ret = a[i1] + a[i2];
-  a[i1] = ret;
-  if (++i1 >= VectorSize) i1 = 0;
-  if (++i2 >= VectorSize) i2 = 0;
-  return ret;
+	register int ret = a[i1] + a[i2];
+	a[i1] = ret;
+	if (++i1 >= VectorSize)
+		i1 = 0;
+	if (++i2 >= VectorSize)
+		i2 = 0;
+	return ret;
 }
 
-void
-ya_rand_init(unsigned int seed)
+void ya_rand_init(unsigned int seed)
 {
-  int i;
-  if (seed == 0)
-    {
-      struct timeval tp;
+	int i;
+	if (seed == 0) {
+		struct timeval tp;
 #ifdef GETTIMEOFDAY_TWO_ARGS
-      struct timezone tzp;
-      gettimeofday(&tp, &tzp);
+		struct timezone tzp;
+		gettimeofday(&tp, &tzp);
 #else
-      gettimeofday(&tp);
+		gettimeofday(&tp);
 #endif
-      /* ignore overflow */
-      seed = (999*tp.tv_sec) + (1001*tp.tv_usec) + (1003 * getpid());
-    }
+		/* ignore overflow */
+		seed = (999 * tp.tv_sec) + (1001 * tp.tv_usec) + (1003 * getpid());
+	}
 
-  a[0] += seed;
-  for (i = 1; i < VectorSize; i++)
-    {
-      seed = a[i-1]*1001 + seed*999;
-      a[i] += seed;
-    }
+	a[0] += seed;
+	for (i = 1; i < VectorSize; i++) {
+		seed = a[i - 1] * 1001 + seed * 999;
+		a[i] += seed;
+	}
 
-  i1 = a[0] % VectorSize;
-  i2 = (i1 + 024) % VectorSize;
+	i1 = a[0] % VectorSize;
+	i2 = (i1 + 024) % VectorSize;
 }

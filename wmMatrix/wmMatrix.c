@@ -38,7 +38,6 @@
  *
  */
 
-
 /*
  *   Includes
  */
@@ -54,156 +53,154 @@
 #include "wmMatrix_mask.xbm"
 #include "matrix.h"
 
-
 /*
  *  Delay between refreshes (in microseconds)
  */
-#define DELAY 20000UL /* 0.020000 sec */
+#define DELAY 20000UL			/* 0.020000 sec */
 #define WMMATRIX_VERSION "0.2"
 
+void ParseCMDLine(int argc, char *argv[]);
+void ButtonPressEvent(XButtonEvent *);
+void print_usage();
+m_state *init_matrix(Display *, Window);
+void draw_matrix(m_state *, int);
 
-void 	 ParseCMDLine(int argc, char *argv[]);
-void 	 ButtonPressEvent(XButtonEvent *);
-void 	 print_usage();
-m_state *init_matrix( Display *, Window );
-void 	 draw_matrix( m_state *, int );
-
-
-int     	 GotFirstClick1, GotDoubleClick1;
-int     	 GotFirstClick2, GotDoubleClick2;
-int     	 GotFirstClick3, GotDoubleClick3;
-int     	 DblClkDelay;
+int GotFirstClick1, GotDoubleClick1;
+int GotFirstClick2, GotDoubleClick2;
+int GotFirstClick3, GotDoubleClick3;
+int DblClkDelay;
 /*int		 HasExecute;*/
 /*char*    	 ExecuteCommand = "xmatrixsmall";*/
-char		*progname  = "wmMatrix";
-char		*progclass = "WMMatrix";
-int		 PixmapSize;
+char *progname = "wmMatrix";
+char *progclass = "WMMatrix";
+int PixmapSize;
 char *DoubleClickCmd = NULL;
 char *RDoubleClickCmd = NULL;
-char*   TimeColor    	= "#ffff00";
-char*   BackgroundColor	= "#181818";
-
+char *TimeColor = "#ffff00";
+char *BackgroundColor = "#181818";
 
 /*
  *   main
  */
-int main(int argc, char *argv[]) {
-    XEvent		 event;
-    m_state     	*state;
-
-
-    /*
-     *  Parse any command line arguments.
-     */
-    ParseCMDLine(argc, argv);
-    if(DoubleClickCmd==NULL)
-	DoubleClickCmd=strdup("xscreensaver-demo");
-    if(RDoubleClickCmd==NULL)
-	RDoubleClickCmd=strdup("xscreensaver-command -activate");
-    initXwindow(argc, argv);
-    openXwindow(argc, argv, wmMatrix_master, wmMatrix_mask_bits, wmMatrix_mask_width, wmMatrix_mask_height);
-    state = init_matrix( display, iconwin );
-
-    /*
-     *  Loop until we die
-     */
-    while(1) {
-	draw_matrix( state, 40 );
-
-        /*
-         *  Double Click Delays
-         *  Keep track of click events. If Delay too long, set GotFirstClick's to False.
-         */
-	/* 25 * 0.02 = .5 sec */
-        if (DblClkDelay > 25) {
-            DblClkDelay = 0;
-            GotFirstClick1 = 0; GotDoubleClick1 = 0;
-            GotFirstClick2 = 0; GotDoubleClick2 = 0;
-            GotFirstClick3 = 0; GotDoubleClick3 = 0;
-        } else {
-            ++DblClkDelay;
-        }
+int main(int argc, char *argv[])
+{
+	XEvent event;
+	m_state *state;
 
 	/*
-	 *   Process any pending X events.
+	 *  Parse any command line arguments.
 	 */
-        while(XPending(display)){
-            XNextEvent(display, &event);
-            switch(event.type){
-                case Expose:
-                        RedrawWindow();
-                        break;
-                case ButtonPress:
-                        ButtonPressEvent(&event.xbutton);
-                        break;
-                case ButtonRelease:
-                        break;
-            }
-        }
+	ParseCMDLine(argc, argv);
+	if (DoubleClickCmd == NULL)
+		DoubleClickCmd = strdup("xscreensaver-demo");
+	if (RDoubleClickCmd == NULL)
+		RDoubleClickCmd = strdup("xscreensaver-command -activate");
+	initXwindow(argc, argv);
+	openXwindow(argc, argv, wmMatrix_master, wmMatrix_mask_bits, wmMatrix_mask_width, wmMatrix_mask_height);
+	state = init_matrix(display, iconwin);
 
 	/*
-	 *  sleep till next update. I cant seem to get usleep or select to work properly
-	 *  with args smaller than 10000. A kernel tick problem? If I comment out the next line,
-	 *  the app screams (chews up cpu too). Or if I use DELAY of 0 it also screams.
-	 *  But a delay of 1 or higher is slow.....
-	 *
+	 *  Loop until we die
 	 */
-	short_uusleep(DELAY);
-     }
+	while (1) {
+		draw_matrix(state, 40);
+
+		/*
+		 *  Double Click Delays
+		 *  Keep track of click events. If Delay too long, set GotFirstClick's to False.
+		 */
+		/* 25 * 0.02 = .5 sec */
+		if (DblClkDelay > 25) {
+			DblClkDelay = 0;
+			GotFirstClick1 = 0;
+			GotDoubleClick1 = 0;
+			GotFirstClick2 = 0;
+			GotDoubleClick2 = 0;
+			GotFirstClick3 = 0;
+			GotDoubleClick3 = 0;
+		} else {
+			++DblClkDelay;
+		}
+
+		/*
+		 *   Process any pending X events.
+		 */
+		while (XPending(display)) {
+			XNextEvent(display, &event);
+			switch (event.type) {
+			case Expose:
+				RedrawWindow();
+				break;
+			case ButtonPress:
+				ButtonPressEvent(&event.xbutton);
+				break;
+			case ButtonRelease:
+				break;
+			}
+		}
+
+		/*
+		 *  sleep till next update. I cant seem to get usleep or select to work properly
+		 *  with args smaller than 10000. A kernel tick problem? If I comment out the next line,
+		 *  the app screams (chews up cpu too). Or if I use DELAY of 0 it also screams.
+		 *  But a delay of 1 or higher is slow.....
+		 *
+		 */
+		short_uusleep(DELAY);
+	}
 }
-
 
 /*
  *   ParseCMDLine()
  */
-void ParseCMDLine(int argc, char *argv[]) {
-    int  i;
-    PixmapSize = 2;
-    for (i = 1; i < argc; i++) {
-	if (!strcmp(argv[i], "-display")){
-            ++i;
-	} else if (!strcmp(argv[i], "-c")){
-            if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
-                fprintf(stderr, "wmMatrix: No command given\n");
-                print_usage();
-                exit(-1);
-            }
-	    if(DoubleClickCmd!=NULL)
-	      free(DoubleClickCmd);
-	    DoubleClickCmd=strdup(argv[++i]);
-	} else if (!strcmp(argv[i], "-cr")){
-            if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
-                fprintf(stderr, "wmMatrix: No command given\n");
-                print_usage();
-                exit(-1);
-            }
-	    if(RDoubleClickCmd!=NULL)
-	      free(RDoubleClickCmd);
-	    RDoubleClickCmd=strdup(argv[++i]);
-        } else if (!strcmp(argv[i], "-sml")){
-	    PixmapSize  = 1;
-        } else if (!strcmp(argv[i], "-med")){
-	    PixmapSize  = 2;
-        } else if (!strcmp(argv[i], "-lrg")){
-	    PixmapSize  = 3;
-        } else {
-	    print_usage();
-            exit(1);
+void ParseCMDLine(int argc, char *argv[])
+{
+	int i;
+	PixmapSize = 2;
+	for (i = 1; i < argc; i++) {
+		if (!strcmp(argv[i], "-display")) {
+			++i;
+		} else if (!strcmp(argv[i], "-c")) {
+			if ((i + 1 >= argc) || (argv[i + 1][0] == '-')) {
+				fprintf(stderr, "wmMatrix: No command given\n");
+				print_usage();
+				exit(-1);
+			}
+			if (DoubleClickCmd != NULL)
+				free(DoubleClickCmd);
+			DoubleClickCmd = strdup(argv[++i]);
+		} else if (!strcmp(argv[i], "-cr")) {
+			if ((i + 1 >= argc) || (argv[i + 1][0] == '-')) {
+				fprintf(stderr, "wmMatrix: No command given\n");
+				print_usage();
+				exit(-1);
+			}
+			if (RDoubleClickCmd != NULL)
+				free(RDoubleClickCmd);
+			RDoubleClickCmd = strdup(argv[++i]);
+		} else if (!strcmp(argv[i], "-sml")) {
+			PixmapSize = 1;
+		} else if (!strcmp(argv[i], "-med")) {
+			PixmapSize = 2;
+		} else if (!strcmp(argv[i], "-lrg")) {
+			PixmapSize = 3;
+		} else {
+			print_usage();
+			exit(1);
+		}
 	}
-    }
 }
 
-
-void print_usage() {
-    printf("\nwmMatrix version: %s\n", WMMATRIX_VERSION);
-    printf("\t-h\t\tDisplay help screen.\n");
-    printf("\t-c cmd\t\tCommand executed on doubleclick.\n");
-    printf("\t-cr cmd\t\tCommand executed on right doubleclick\n");
-    printf("\t-sml\t\tUse small size pixmap.\n");
-    printf("\t-med\t\tUse medium size pixmap.\n");
-    printf("\t-lrg\t\tUse large size pixmap.\n");
+void print_usage()
+{
+	printf("\nwmMatrix version: %s\n", WMMATRIX_VERSION);
+	printf("\t-h\t\tDisplay help screen.\n");
+	printf("\t-c cmd\t\tCommand executed on doubleclick.\n");
+	printf("\t-cr cmd\t\tCommand executed on right doubleclick\n");
+	printf("\t-sml\t\tUse small size pixmap.\n");
+	printf("\t-med\t\tUse medium size pixmap.\n");
+	printf("\t-lrg\t\tUse large size pixmap.\n");
 }
-
 
 /*
  *  This routine handles button presses.
@@ -215,46 +212,50 @@ void print_usage() {
  *
  *
  */
-void ButtonPressEvent(XButtonEvent *xev){
-    DblClkDelay = 0;
-    if ((xev->button == Button1) && (xev->type == ButtonPress)){
-        if (GotFirstClick1) GotDoubleClick1 = 1;
-        else GotFirstClick1 = 1;
-    } else if ((xev->button == Button2) && (xev->type == ButtonPress)){
-        if (GotFirstClick2) GotDoubleClick2 = 1;
-        else GotFirstClick2 = 1;
-    } else if ((xev->button == Button3) && (xev->type == ButtonPress)){
-        if (GotFirstClick3) GotDoubleClick3 = 1;
-        else GotFirstClick3 = 1;
-    }
+void ButtonPressEvent(XButtonEvent * xev)
+{
+	DblClkDelay = 0;
+	if ((xev->button == Button1) && (xev->type == ButtonPress)) {
+		if (GotFirstClick1)
+			GotDoubleClick1 = 1;
+		else
+			GotFirstClick1 = 1;
+	} else if ((xev->button == Button2) && (xev->type == ButtonPress)) {
+		if (GotFirstClick2)
+			GotDoubleClick2 = 1;
+		else
+			GotFirstClick2 = 1;
+	} else if ((xev->button == Button3) && (xev->type == ButtonPress)) {
+		if (GotFirstClick3)
+			GotDoubleClick3 = 1;
+		else
+			GotFirstClick3 = 1;
+	}
 
+	/*
+	 *  We got a double click on Mouse Button1 (i.e. the left one)
+	 */
+	if (GotDoubleClick1) {
+		GotFirstClick1 = 0;
+		GotDoubleClick1 = 0;
+		system(DoubleClickCmd);
+	}
 
-    /*
-     *  We got a double click on Mouse Button1 (i.e. the left one)
-     */
-    if (GotDoubleClick1) {
-        GotFirstClick1 = 0;
-        GotDoubleClick1 = 0;
-        system(DoubleClickCmd);
-    }
+	/*
+	 *  We got a double click on Mouse Button2 (i.e. the middle one)
+	 */
+	if (GotDoubleClick2) {
+		GotFirstClick2 = 0;
+		GotDoubleClick2 = 0;
+	}
 
-
-    /*
-     *  We got a double click on Mouse Button2 (i.e. the middle one)
-     */
-    if (GotDoubleClick2) {
-        GotFirstClick2 = 0;
-        GotDoubleClick2 = 0;
-    }
-
-
-    /*
-     *  We got a double click on Mouse Button3 (i.e. the right one)
-     */
-    if (GotDoubleClick3) {
-        GotFirstClick3 = 0;
-	GotDoubleClick3 = 0;
-        system(RDoubleClickCmd);
-    }
-   return;
+	/*
+	 *  We got a double click on Mouse Button3 (i.e. the right one)
+	 */
+	if (GotDoubleClick3) {
+		GotFirstClick3 = 0;
+		GotDoubleClick3 = 0;
+		system(RDoubleClickCmd);
+	}
+	return;
 }
