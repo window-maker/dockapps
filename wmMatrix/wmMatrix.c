@@ -1,12 +1,12 @@
 /*
  *
  *  	wmMatrix-0.2 (C) 1999 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *  		- A DockApp version of Jamie Zawinski's xmatrix screensaver hack.
- *		  
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -39,11 +39,8 @@
  */
 
 
-
-
-
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -58,16 +55,11 @@
 #include "matrix.h"
 
 
-
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000UL
 #define WMMATRIX_VERSION "0.2"
-
-
-
-
 
 
 void 	 ParseCMDLine(int argc, char *argv[]);
@@ -77,63 +69,42 @@ m_state *init_matrix( Display *, Window );
 void 	 draw_matrix( m_state *, int );
 
 
-
-
 int     	 GotFirstClick1, GotDoubleClick1;
 int     	 GotFirstClick2, GotDoubleClick2;
 int     	 GotFirstClick3, GotDoubleClick3;
 int     	 DblClkDelay;
-int		 HasExecute;
-char    	 ExecuteCommand[1024];
+/*int		 HasExecute;*/
+char*    	 ExecuteCommand = "xmatrixsmall";
 char		*progname  = "wmMatrix";
 char		*progclass = "WMMatrix";
 int		 PixmapSize;
+char *DoubleClickCmd = NULL;
+char*   TimeColor    	= "#ffff00";
+char*   BackgroundColor	= "#181818";
 
 
-
-
-
-char    TimeColor[30]    	= "#ffff00";
-char    BackgroundColor[30]    	= "#181818";
-
-
-
-
-
-
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
-
-
     XEvent		 event;
     int			 n, k, m;
-    float		 avg1, user;
+/*    float		 avg1;*/
     /*char 		 Command[512];*/
     m_state     	*state;
-    FILE		*fp;
-
+/*    FILE		*fp;*/
 
 
     /*
      *  Parse any command line arguments.
      */
     ParseCMDLine(argc, argv);
-
-
-    strcpy(ExecuteCommand, "xmatrixsmall");
-    HasExecute = 1;
-
-
-
-
-    
+    if(DoubleClickCmd==NULL)
+	DoubleClickCmd=strdup("xscreensaver-demo");
+    /*HasExecute = 1;*/
     initXwindow(argc, argv);
     openXwindow(argc, argv, wmMatrix_master, wmMatrix_mask_bits, wmMatrix_mask_width, wmMatrix_mask_height);
-
     state = init_matrix( display, iconwin );
-
 
 /*
     if (HasExecute){
@@ -142,59 +113,36 @@ int main(int argc, char *argv[]) {
     }
 */
 
-
-
-
-
-   
     /*
      *  Loop until we die
      */
     n = k = m = 32000;
     while(1) {
-
-
 #if 0
 	if ( n>10 ){
-
 	    n = 0;
 	    if ( (fp = fopen("/proc/loadavg", "r")) != NULL ){
-
 	        fscanf(fp, "%f", &avg1); avg1 *= 10.0; fclose(fp);
 		m = (int)(40.0 - 1.00*avg1 + 0.5);
 		if (m < 0) m = 0;
-		
 	    } else {
-
 		printf("problem opening /proc/loadavg file for read\n");
 		exit(-1);
-
 	    }
-
 	} else {
-
 	    /*
 	     *  Update the counter. 
 	     */
 	    ++n;
-
 	}
 #endif
-
-m=0;
-
-
+	m=0;
 	if (k > m){
-
 	    k = 0;
 	    draw_matrix( state, 40 );
-
 	} else {
-
 	    ++k;
-
 	}
-
 
 
         /*
@@ -202,22 +150,16 @@ m=0;
          *  Keep track of click events. If Delay too long, set GotFirstClick's to False.
          */
         if (DblClkDelay > 150) {
-
             DblClkDelay = 0;
             GotFirstClick1 = 0; GotDoubleClick1 = 0;
             GotFirstClick2 = 0; GotDoubleClick2 = 0;
             GotFirstClick3 = 0; GotDoubleClick3 = 0;
-
         } else {
-
             ++DblClkDelay;
-
         }
 
 
-
-
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -235,114 +177,57 @@ m=0;
         }
 
 
-
-
-
-	
-	/* 
+	/*
 	 *  sleep till next update. I cant seem to get usleep or select to work properly
 	 *  with args smaller than 10000. A kernel tick problem? If I comment out the next line,
 	 *  the app screams (chews up cpu too). Or if I use DELAY of 0 it also screams.
 	 *  But a delay of 1 or higher is slow.....
-	 *  
+	 *
 	 */
 	short_uusleep(DELAY);
-
-
      }
-
-
-
 }
 
 
-
-
-
-
-
-
-/* 
- *   ParseCMDLine()  
+/*
+ *   ParseCMDLine()
  */
 void ParseCMDLine(int argc, char *argv[]) {
-
-int  i;
-
+    int  i;
     PixmapSize = 2;
-  
     for (i = 1; i < argc; i++) {
-
-        if (!strcmp(argv[i], "-display")){
-
+	if (!strcmp(argv[i], "-display")){
             ++i;
-
-        } else if (!strcmp(argv[i], "-tc")){
-
-            if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
-                fprintf(stderr, "wmMatrix: No color found\n");
-                print_usage();
-                exit(-1);
-            }
-            strcpy(TimeColor, argv[++i]);
-
-        } else if (!strcmp(argv[i], "-bc")){
-
-            if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
-                fprintf(stderr, "wmMatrix: No color found\n");
-                print_usage();
-                exit(-1);
-            }
-            strcpy(BackgroundColor, argv[++i]);
-
-        } else if (!strcmp(argv[i], "-e")){
-
+	} else if (!strcmp(argv[i], "-c")){
             if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
                 fprintf(stderr, "wmMatrix: No command given\n");
                 print_usage();
                 exit(-1);
             }
-	    strcpy(ExecuteCommand, argv[++i]);
-	    HasExecute = 1;
-
+	    if(DoubleClickCmd!=NULL)
+	      free(DoubleClickCmd);
+	    DoubleClickCmd=strdup(argv[++i]);
         } else if (!strcmp(argv[i], "-sml")){
-
 	    PixmapSize  = 1;
-
         } else if (!strcmp(argv[i], "-med")){
-
 	    PixmapSize  = 2;
-
         } else if (!strcmp(argv[i], "-lrg")){
-
 	    PixmapSize  = 3;
-
         } else {
-
 	    print_usage();
             exit(1);
 	}
-
     }
-    
-
 }
 
 
-void print_usage(){
-
+void print_usage() {
     printf("\nwmMatrix version: %s\n", WMMATRIX_VERSION);
     printf("\t-h\t\tDisplay help screen.\n");
     printf("\t-sml\t\tUse small size pixmap.\n");
     printf("\t-med\t\tUse medium size pixmap.\n");
     printf("\t-lrg\t\tUse large size pixmap.\n");
-
 }
-
-
-
-
-
 
 
 /*
@@ -356,9 +241,6 @@ void print_usage(){
  *
  */
 void ButtonPressEvent(XButtonEvent *xev){
-
-
-
     DblClkDelay = 0;
     if ((xev->button == Button1) && (xev->type == ButtonPress)){
         if (GotFirstClick1) GotDoubleClick1 = 1;
@@ -378,12 +260,12 @@ void ButtonPressEvent(XButtonEvent *xev){
     if (GotDoubleClick1) {
         GotFirstClick1 = 0;
         GotDoubleClick1 = 0;
-        system("xscreensaver-demo");
+        system(DoubleClickCmd);
     }
 
 
     /*
-     *  We got a double click on Mouse Button2 (i.e. the left one)
+     *  We got a double click on Mouse Button2 (i.e. the middle one)
      */
     if (GotDoubleClick2) {
         GotFirstClick2 = 0;
@@ -392,16 +274,11 @@ void ButtonPressEvent(XButtonEvent *xev){
 
 
     /*
-     *  We got a double click on Mouse Button3 (i.e. the left one)
+     *  We got a double click on Mouse Button3 (i.e. the right one)
      */
     if (GotDoubleClick3) {
         GotFirstClick3 = 0;
-        GotDoubleClick3 = 0;
+	GotDoubleClick3 = 0;
     }
-
-
-
    return;
-
 }
-

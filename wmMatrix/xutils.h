@@ -43,7 +43,8 @@ void  		setMaskXY(int, int);
 unsigned long 	getColor(char *, float, int *, int *, int *);
 unsigned long 	getBlendedColor(char *, float, int, int, int);
 void 		RedrawWindow(void);
-void 		wusleep( unsigned int );
+void 		uusleep( unsigned long );
+void 		short_uusleep( unsigned long );
 
 
 
