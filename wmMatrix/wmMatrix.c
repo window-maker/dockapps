@@ -58,7 +58,7 @@
 /*
  *  Delay between refreshes (in microseconds)
  */
-#define DELAY 10000UL
+#define DELAY 20000UL /* 0.020000 sec */
 #define WMMATRIX_VERSION "0.2"
 
 
@@ -89,11 +89,7 @@ char*   BackgroundColor	= "#181818";
  */
 int main(int argc, char *argv[]) {
     XEvent		 event;
-    int			 n, k, m;
-/*    float		 avg1;*/
-    /*char 		 Command[512];*/
     m_state     	*state;
-/*    FILE		*fp;*/
 
 
     /*
@@ -104,55 +100,22 @@ int main(int argc, char *argv[]) {
 	DoubleClickCmd=strdup("xscreensaver-demo");
     if(RDoubleClickCmd==NULL)
 	RDoubleClickCmd=strdup("xscreensaver-command -activate");
-    /*HasExecute = 1;*/
     initXwindow(argc, argv);
     openXwindow(argc, argv, wmMatrix_master, wmMatrix_mask_bits, wmMatrix_mask_width, wmMatrix_mask_height);
     state = init_matrix( display, iconwin );
 
-/*
-    if (HasExecute){
-        sprintf(Command, "%s -window-id 0x%x &", ExecuteCommand, (int)iconwin);
-        system(Command);
-    }
-*/
-
     /*
      *  Loop until we die
      */
-    n = k = m = 32000;
     while(1) {
-#if 0
-	if ( n>10 ){
-	    n = 0;
-	    if ( (fp = fopen("/proc/loadavg", "r")) != NULL ){
-	        fscanf(fp, "%f", &avg1); avg1 *= 10.0; fclose(fp);
-		m = (int)(40.0 - 1.00*avg1 + 0.5);
-		if (m < 0) m = 0;
-	    } else {
-		printf("problem opening /proc/loadavg file for read\n");
-		exit(-1);
-	    }
-	} else {
-	    /*
-	     *  Update the counter. 
-	     */
-	    ++n;
-	}
-#endif
-	m=0;
-	if (k > m){
-	    k = 0;
-	    draw_matrix( state, 40 );
-	} else {
-	    ++k;
-	}
-
+	draw_matrix( state, 40 );
 
         /*
          *  Double Click Delays
          *  Keep track of click events. If Delay too long, set GotFirstClick's to False.
          */
-        if (DblClkDelay > 150) {
+	/* 25 * 0.02 = .5 sec */
+        if (DblClkDelay > 25) {
             DblClkDelay = 0;
             GotFirstClick1 = 0; GotDoubleClick1 = 0;
             GotFirstClick2 = 0; GotDoubleClick2 = 0;
@@ -160,7 +123,6 @@ int main(int argc, char *argv[]) {
         } else {
             ++DblClkDelay;
         }
-
 
 	/*
 	 *   Process any pending X events.
@@ -178,7 +140,6 @@ int main(int argc, char *argv[]) {
                         break;
             }
         }
-
 
 	/*
 	 *  sleep till next update. I cant seem to get usleep or select to work properly
