@@ -74,11 +74,12 @@ int     	 GotFirstClick2, GotDoubleClick2;
 int     	 GotFirstClick3, GotDoubleClick3;
 int     	 DblClkDelay;
 /*int		 HasExecute;*/
-char*    	 ExecuteCommand = "xmatrixsmall";
+/*char*    	 ExecuteCommand = "xmatrixsmall";*/
 char		*progname  = "wmMatrix";
 char		*progclass = "WMMatrix";
 int		 PixmapSize;
 char *DoubleClickCmd = NULL;
+char *RDoubleClickCmd = NULL;
 char*   TimeColor    	= "#ffff00";
 char*   BackgroundColor	= "#181818";
 
@@ -101,6 +102,8 @@ int main(int argc, char *argv[]) {
     ParseCMDLine(argc, argv);
     if(DoubleClickCmd==NULL)
 	DoubleClickCmd=strdup("xscreensaver-demo");
+    if(RDoubleClickCmd==NULL)
+	RDoubleClickCmd=strdup("xscreensaver-command -activate");
     /*HasExecute = 1;*/
     initXwindow(argc, argv);
     openXwindow(argc, argv, wmMatrix_master, wmMatrix_mask_bits, wmMatrix_mask_width, wmMatrix_mask_height);
@@ -207,6 +210,15 @@ void ParseCMDLine(int argc, char *argv[]) {
 	    if(DoubleClickCmd!=NULL)
 	      free(DoubleClickCmd);
 	    DoubleClickCmd=strdup(argv[++i]);
+	} else if (!strcmp(argv[i], "-cr")){
+            if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
+                fprintf(stderr, "wmMatrix: No command given\n");
+                print_usage();
+                exit(-1);
+            }
+	    if(RDoubleClickCmd!=NULL)
+	      free(RDoubleClickCmd);
+	    RDoubleClickCmd=strdup(argv[++i]);
         } else if (!strcmp(argv[i], "-sml")){
 	    PixmapSize  = 1;
         } else if (!strcmp(argv[i], "-med")){
@@ -224,6 +236,8 @@ void ParseCMDLine(int argc, char *argv[]) {
 void print_usage() {
     printf("\nwmMatrix version: %s\n", WMMATRIX_VERSION);
     printf("\t-h\t\tDisplay help screen.\n");
+    printf("\t-c cmd\t\tCommand executed on doubleclick.\n");
+    printf("\t-cr cmd\t\tCommand executed on right doubleclick\n");
     printf("\t-sml\t\tUse small size pixmap.\n");
     printf("\t-med\t\tUse medium size pixmap.\n");
     printf("\t-lrg\t\tUse large size pixmap.\n");
@@ -234,9 +248,9 @@ void print_usage() {
  *  This routine handles button presses.
  *
  *   Double click on
- *              Mouse Button 1: Execute the command defined in the -e command-line option.
+ *              Mouse Button 1: Execute the command defined in the -c command-line option.
  *              Mouse Button 2: No action assigned.
- *              Mouse Button 3: No action assigned.
+ *              Mouse Button 3: Execute the command defined in the -cr command-line option.
  *
  *
  */
@@ -279,6 +293,7 @@ void ButtonPressEvent(XButtonEvent *xev){
     if (GotDoubleClick3) {
         GotFirstClick3 = 0;
 	GotDoubleClick3 = 0;
+        system(RDoubleClickCmd);
     }
    return;
 }
