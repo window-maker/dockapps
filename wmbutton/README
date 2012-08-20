@@ -52,10 +52,10 @@ helping out, catching bugs in the code, etc.
 INSTALLATION:
 -------------
 	Untar the file: 
-		tar xvzf wmbutton-0.5.tar.gz
+		tar xvzf wmbutton-0.6.1.tar.gz
 
 	CD to source directory:  
-		cd wmbutton-0.5
+		cd wmbutton-0.6.1
 
 	Edit background xpm, and buttons.xpm to your preferences
 	There are icon files in ./icons to work from

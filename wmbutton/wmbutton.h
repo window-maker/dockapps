@@ -2,11 +2,11 @@
 /* Last Modified 3/27/04 */
 
 /******  Include Files ***************************************************/
-#include <Xlib.h>
-#include <Xutil.h>
-#include <xpm.h>
-#include <extensions/shape.h>
-#include <keysym.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/xpm.h>
+#include <X11/extensions/shape.h>
+#include <X11/keysym.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
