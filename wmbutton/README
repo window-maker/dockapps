@@ -1,0 +1,208 @@
+wmbutton Ver. 0 Rel 6.1
+-------------------------------------------------------------
+   Code is based on wmppp, wmload, wmtime, wmcp, and asbutton
+   Author: Edward H. Flora <ehf_dockapps@cox.net>
+	   This version is released by:
+	   Christian 'Greek0' Aichinger <Greek0@gmx.net>
+   Ver 0 Rel 6.1    Jan 23, 2005
+
+DESCRIPTION:
+------------
+wmbutton is a simple application launching program that sits in the
+dock in WindowMaker, can be swallowed by Wharf in Afterstep, and
+should be fairly configurable.
+
+LICENSING:
+----------
+This program is released under the GPL license.  A copy (in case you
+don't already have hundreds of them floating around) can be found in
+this distribution in the file COPYING
+
+CONTRIBUTORS:
+-------------
+              Christian 'Greek0' Aichinger <Greek0@gmx.net>
+                  Did some code cleanup and fixed several memory leaks.
+              Ralf Horstmann <ralf.horstmann@gmx.de>
+                  Added ability to load pixmaps at startup,
+                  without having to re-compile
+              Michael Cohrs <camico@users.sourceforge.net> 
+                  Added Tool Tips, and updated graphics
+              Bruno Essmann <essmann@users.sourceforge.net>)
+                  Creator of wmpager
+              Ben Cohen <buddog@aztec.asu.edu>
+                  original author of wmcp (et al.)
+              Thomas Nemeth <tnemeth@multimania.com>
+                  contributor to wmcp
+              Casey Harkins <charkins@cs.wisc.edu> 
+                  Bug fix reading config file path - 3/6/99
+                  Added button-presses, and other - denoted by *charkins*
+              Michael Henderson <mghenderson@lanl.gov>
+                  Application ideas, suggestions
+              Ryan ?? <pancake@mindspring.com> 
+                  Modified wmbutton to asbutton.
+                  Note: asbutton is a seperate program, not associated 
+                        with wmbutton (just as wmbutton is not associated
+                        with wmcp)
+              Jon Bruno
+                  Web Page Development
+The contributors listed above are not necessarily involved with the 
+development of wmbutton.  I'm listing them here partially as thanks for 
+helping out, catching bugs in the code, etc.
+
+INSTALLATION:
+-------------
+	Untar the file: 
+		tar xvzf wmbutton-0.5.tar.gz
+
+	CD to source directory:  
+		cd wmbutton-0.5
+
+	Edit background xpm, and buttons.xpm to your preferences
+	There are icon files in ./icons to work from
+
+	Compile it:
+	 	make clean; make
+
+	Copy the config file:
+		cp .wmbutton ~
+
+	Put the executable somewhere in your path:
+		mv wmbutton /usr/local/bin (or anyhere in your path)
+	
+	Run it:
+		wmbutton &
+
+	Grab the appicon and move it to the dock. 
+	Change the settings to start with Windowmaker
+
+	Afterstep Wharf 1.6.??:
+	*Wharf wmbutton -Swallow "wmbutton" wmbutton &
+
+    ***Note***: 
+	The appicon has only a two pixel border where you can grab 
+	and move it.
+
+	If make doesn't work, you may need to fiddle with the settings in 
+	the Makefile.
+
+	Tested on: (Well, it runs, I don't know if 'Tested' is quite right...)
+		WindowMaker-0.80.1
+		Afterstep 1.6.?
+		Fluxbox 0.9.9
+		Clients: Red Hat 8.x, Kernel 2.4.18
+
+
+USAGE:
+------
+wmbutton [-g geom] [-d dpy] [-f cfgfile] [-b btnfile] [-F <font>] 
+	 [-v] [-s] [-n]
+
+ wmbutton Ver 0 Rel 6.1
+
+-g <geometry>  Window Geometry - ie: 64x64+10+10
+-d <display>   Display -  ie: 127.0.0.1:0.0
+-f <filename>  Full path to configuration file.
+-b <filename>  Full path to button xpm.
+-F <font>      Custom tooltip font (e.g. -b\&h-lucidatypewriter-medium-*-*-*-12-*)
+-v             Verbose Mode.
+-h             Help. This message.
+-m             Disable Middle Mouse functionality.
+-s             Swap tooltip colors.
+-n             Turn off tooltips.
+
+Left mouse button:
+	Selects the application to launch, numbered 1 through 9
+
+Middle mouse button: (unless disabled (-m))
+	Selects the application to launch, numbered 11 through 19
+
+Right mouse button:
+	Selects the application to launch, numbered 21 through 29
+
+NOTES:
+------
+This is a simple application launching tool for use in WindowMaker, and 
+possibly Afterstep.  (Who knows, it should run for other window managers too, 
+by why bother??  It is taken from wmcp, by Ben Cohen, and modified just
+enough to run applications rather than send ALT-[1..9] key sequences to 
+WindowMaker.  It has also taken some ideas from asbuttons, and
+included them back into the original.  There may still be some code
+left over from wmcp that is no longer needed, but...  
+
+The mini-icons must be combined into a single graphic, buttons.xpm.  The 
+background border is defined in backdrop.xpm.  Both must be edited in your
+favorite graphics editor (GIMP??), and then recompiled.  wmbuttons uses a
+configuration file (usually ~/.wmbutton) for which applications to launch.
+There is no need to restart wmbuttons when simply changing the configuration, 
+as wmbutton searches the file whenever a button is pressed.
+
+As of release 0.5, you can also pass in your own pixmap file for the
+buttons, to override the buttons that are compiled it.  This file should
+still have the same height and width so that it will make sense,
+though really you give it any XPM you want, but it will only display
+the upper left 54x54 pixel corner.
+
+
+An example file is included, related to the the buttons.xpm graphic file.
+
+
+CHANGE LOG:
+-----------
+0.6.1 Minor changes to the Makefile.
+0.6 Code cleanup and fixes for memory leaks by Christian 'Greek0' Aichinger.
+0.5	Added Modifications submitted by Ralf Horstmann.
+	  Load different pixmaps at start-up time, rather than having
+	  to compile them in.  This also makes it much easier to run
+	  multiple copies.
+	Added Modifications submitted by Michael Cohrs.
+	  Added Tool-Tips
+	Updated default buttons.xpm graphics
+	General Code clean-up, including export must functions to
+	  seperate C file, to reduce clutter.
+
+0.4	Added Modifications submitted by Casey Harkins. 
+	  Start application on mouse button release, 
+	  Only start app if cursor is still on application button
+	  Added 3-D button press look
+	Added new .wmbutton configuration file
+
+0.3	Graphics changed to incorporate most changes made by asbutton
+	Removed Middle/Right mouse click on button to turn off buttons
+	  after it.
+	Added Middle and Right mouse buttons to run more Applications
+	  (Yes, you can now really run 27 different Apps from a single 
+	  instance of wmbuttons, if you would want too...)
+	Fixed bug for finding config file .wmbutton.
+	  It used to not look in the home directory, but in the
+	  startup directory.  Thanks to Casey harkins for the fix.
+	Included the icons directory from the asbutton distribution,
+	  plus a few more.
+
+0.2	Added single configuration file, user selectable.
+
+0.1	Origional version.
+	  Shamelessly taken from wmcp 1.2.5, 
+	  by Ben Cohen <buddog@aztec.asu.edu>
+
+TODO:
+-----
+Add ability (via config file) to use discrete 16x16 pixel icons for
+  the buttons, rather than having to paste them all into the existing file.
+Make changing icons and/or background graphics easier.
+Allow for less than 9 icons, 4 would be nicer on the mini-icon size.
+
+BUGS: 
+-----
+Remember, they're just undocumented FEATURES!!!
+
+Probably Lots.  Send comments (preferably with fixes) to
+<ehf_dockapps@cox.net>
+
+
+Good Luck.
+
+
+"C code.  C code run.  Run, code, run.
+			PLEASE!?!?!?!?!?!?"
+
+

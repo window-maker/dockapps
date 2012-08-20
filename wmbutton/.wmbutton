@@ -1,0 +1,47 @@
+# .wmbutton - Configuration file for wmbutton
+# Last Modified 03/21/04
+
+# Buttons are numbered as follows 
+# 	Left	1 2 3	Middle	11 12 13	Right	21 22 23
+# 	button	4 5 6	button	14 15 16	button	24 25 26
+#		7 8 9		17 18 19		27 28 29
+#
+
+1	mozilla &
+11	mozilla -mail &
+21	firefox &
+
+2	xterm -geometry 80x35 -sb -fg white -bg grey20 -T 'Xterm: User' &
+12	xterm -geometry 80x35 -sb -fg snow -bg midnightblue -T 'Xterm: Root' &
+22	gnome-terminal &
+
+3	gftp &
+13	nxterm -fg black -bg grey70 -T 'FTP' -e ftp &
+23	jpilot &
+
+4	ooffice &
+14	wordperfect &
+24	presentations &
+
+5	gnucash &
+15	xterm -geometry 120x20 -fg white -bg grey20 -T 'Gnuplot' -e gnuplot &
+25	quattropro &
+
+6	xemacs &
+16	xterm -geometry 80x35 -fg black -bg grey50 -T 'Pico Editor' -e pico -w &
+26	xterm -geometry 120x35 -fg black -bg grey70 -T 'WMButton Config Editor' -e pico -w ~/.wmbutton &
+
+7	gimp &
+17	xfig &
+27	kpaint &
+
+8	kghostview &
+18	ggv &
+28	xpdf &
+
+9	xmms &
+19	xanim &
+29	gnome-sound-recorder &
+
+# The above don't need to be in any particular order.
+# Repeated entries will be ignored
