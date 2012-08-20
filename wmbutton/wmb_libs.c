@@ -107,7 +107,7 @@ void show_usage() {
   fprintf(stderr,"usage: %s [-g geom] [-d dpy] [-f cfgfile] [-b btnfile] "\
 	  "[-F <font>] [-v] [-s] [-n]\n",app_name);
   fprintf(stderr,"\n");
-  fprintf(stderr," wmbutton Ver %d Rel %d\n",VER,REL);
+  fprintf(stderr," wmbutton version %s\n", VER_STR);
   fprintf(stderr,"\n");
   fprintf(stderr,"-g <geometry>  Window Geometry - ie: 64x64+10+10\n");
   fprintf(stderr,"-d <display>   Display -  ie: 127.0.0.1:0.0\n"); 
