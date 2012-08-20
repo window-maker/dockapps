@@ -16,9 +16,10 @@
 
 /******  Define Config File Info  ***************************************/
 #define CONFFILENAME  "/.wmbutton"   /* Default conf filename $HOME/.wmbutton */
+#define CONFIGGLOBAL "/etc/wmbutton.conf" /* system configuration */
 #define BUTTONFILENAME "/.wmbutton.xpm"
 
-/******  Version / Release Number ***************************************/
+/******  Version Number *************************************************/
 #define VER           0     /* Version Number */     
 #define REL           6     /* Release Number */
 

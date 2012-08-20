@@ -151,7 +151,9 @@ void err_mess(int err, char *str) {
     fprintf(stderr,"Fail: XCreateGC\n");	
     exit(err);
   case FAILCONF:
-    fprintf(stderr, "Fail: Can't Find configuration file %s\n",str);
+    fprintf(stderr, "Fail: Can't Find user or system configuration file.\n");
+    fprintf(stderr, "Fail: User Config: '%s'\n", str);
+    fprintf(stderr, "Fail: System Config: '%s'\n", CONFIGGLOBAL);
     exit(err);
   case FAILTMPL:
     fprintf(stderr, "Fail: Can't Create 'template' Pixmap\n");
@@ -200,7 +202,8 @@ char *Parse(int app) {
   char *Ptr;
 
   if ((fp = fopen(Config.configfile, "r")) == NULL)
-    err_mess(FAILCONF,Config.configfile);
+    if ((fp = fopen(CONFIGGLOBAL, "r")) == NULL)
+      err_mess(FAILCONF,Config.configfile);
 
   while ((Ptr = fgets(Buf, BUFFER_SIZE, fp))) {
     if (atoi(Buf) == app)
