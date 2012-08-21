@@ -43,7 +43,7 @@
 
 #define EOLN '\n'	     /* Defines the new line character */
 #define SIZE1 20	     /* Defines the increment to increase the */
-			     /*   string by until a newline of EOF is found */
+			     /* string by until a newline of EOF is found */
 
 /******   Defines for Tool Tips  ***************************************/
 #define TOOLTIP_SUPPORT      1
@@ -66,41 +66,41 @@
 /******  Typedefs  *******************************************/
 
 struct Config_t {
-  char *configfile;
-  char *buttonfile;
-  char *Geometry_str;
-  char *Display_str;
-  int mmouse;
-  int Verbose;
-  char* szTooltipFont;
-  int bTooltipSwapColors;
-  int bTooltipDisable;
+	char *configfile;
+	char *buttonfile;
+	char *Geometry_str;
+	char *Display_str;
+	int mmouse;
+	int Verbose;
+	char* szTooltipFont;
+	int bTooltipSwapColors;
+	int bTooltipDisable;
 };
 
 /******  Function Prototyes  *******************************************/
-void RunAppN(int app);             // function to run app N as found in conf file
-char *Parse(int app);              // parse data in config file
+void RunAppN(int app);             /* function to run app N as found in conf file */
+char *Parse(int app);              /* parse data in config file */
 void parseargs(int argc, char **argv);
-char *readln(FILE *fp);            // read line from file, return pointer to it
-void err_mess(int err, char *str); // Error Handling Routine
-void show_usage(void);            // show usage message to stderr
-int  flush_expose(Window w);
+char *readln(FILE *fp);            /* read line from file, return pointer to it */
+void err_mess(int err, char *str); /* Error Handling Routine */
+void show_usage(void);             /* show usage message to stderr */
+int flush_expose(Window w);
 
 
 /******  Tooltip Function Prototypes  **********************************/
 void initTooltip();
-void destroyTooltip ();
-int hasTooltipSupport ();
-void showTooltip (int nButton, int nMouseX, int nMouseY);
-void hideTooltip ();
-int hasTooltip ();
-void drawTooltipBalloon (Pixmap pix, GC gc, int x, int y, int w, int h, int side);
-Pixmap createTooltipPixmap (int width, int height, int side, Pixmap *mask);
+void destroyTooltip(void);
+int hasTooltipSupport(void);
+void showTooltip(int nButton, int nMouseX, int nMouseY);
+void hideTooltip(void);
+int hasTooltip(void);
+void drawTooltipBalloon(Pixmap pix, GC gc, int x, int y, int w, int h, int side);
+Pixmap createTooltipPixmap(int width, int height, int side, Pixmap *mask);
 
-void initTime ();
-long currentTimeMillis ();
-void getWindowOrigin (Window w, int* nX, int* nY);
-void getButtonLocation (int nButton, int* nLocationX, int* nLocationY);
-char *getButtonAppNames (int nButton);
+void initTime(void);
+long currentTimeMillis(void);
+void getWindowOrigin(Window w, int *nX, int *nY);
+void getButtonLocation(int nButton, int *nLocationX, int *nLocationY);
+char *getButtonAppNames(int nButton);
 
 /**********************************************************************/
