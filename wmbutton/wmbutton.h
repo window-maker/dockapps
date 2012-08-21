@@ -20,7 +20,7 @@
 #define BUTTONFILENAME "/.wmbutton.xpm"
 
 /******  Version Number *************************************************/
-#define VER_STR       "0.6.1"     /* Version Number String */
+#define VER_STR       "0.7.0"     /* Version Number String */
 
 /******  Define Error Codes *********************************************/
 #define FAILDISP      20
