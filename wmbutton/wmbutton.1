@@ -1,0 +1,115 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WMBUTTON 1 "August 20, 2012"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wmbutton \- dockable launcher application
+.SH SYNOPSIS
+.B wmbutton
+.\"[-g \fIgeometry\fP] [-d \fIdisplay\fP] [-v] [-f \fIconfigfile\fP] [-h]
+[\fIOPTIONS\fP]
+
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmbutton
+command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" respectively.
+\fBwmbutton\fP is a 64x64 pixel application that displays nine buttons and can be used as dockapp for X window managers such as Window Maker, AfterStep, BlackBox, and Enlightenment. Each of these buttons can be configured via a configuration file to run just about any application you would like to. Basically, if you can type it in a shell command, wmbutton can run it.
+
+.PP
+\fBwmbutton\fP is configured using a configuration file, ~/.wmbutton (or /etc/wmbutton.conf). Its format is documented in the "Configuration" section below.
+.SH OPTIONS
+.TP
+.B \-g <geometry>
+Window Geometry - ie: 64x64+10+10
+.TP
+.B \-d  <display>
+Display -  ie: 127.0.0.1:0.0
+.TP
+.B \-f  <filename>
+Full path to configuration file.
+.TP
+.B \-b  <filename>
+Full path to button xpm.
+.TP
+.B \-F  <font>
+Custom tooltip font (e.g. -b\&h-lucidatypewriter-medium-*-*-*-12-*)
+.TP
+.B \-v
+Verbose Mode, gives extra debug output.
+.TP
+.B \-h
+Quick overview of available options.
+.TP
+.B \-m
+Disable Middle Mouse functionality.
+.TP
+.B \-s
+Swap tooltip colors.
+.TP
+.B \-n
+Turn off tooltips.
+
+.SH CONFIGURATION
+.TP
+The configuration file is case sensitive. A # starts a comment, and lines consisting entirely of whitespace are ignored. The syntax is simply:
+.TP
+.B <buttonnumber> <command>
+.TP
+\fBcommand\fP can be anything you can type in as a shell command.
+.TP
+Buttons are numbered as follows:
+.TP
+.B Left button
+.nf
+ 	1 2 3
+	4 5 6
+	7 8 9
+.fi
+.TP
+.B Middle button
+.nf
+	11 12 13
+	14 15 16
+	17 18 19
+.fi
+.TP
+.B Right button
+.nf
+	21 22 23
+	24 25 26
+	27 28 29
+.fi
+
+.TP
+To use other icons, wmbutton has to be rebuilt. View /usr/share/doc/wmbutton/README.Debian for further information.
+
+.SH FILES
+.TP
+.I /etc/wmbutton.conf
+system wide wmbutton configuration file.
+.TP
+.I ~/.wmbutton
+per user wmbutton configuration file. If it doesn't exist, the system wide wmbutton configuration file will be used.
+
+
+.SH AUTHOR
+wmbutton was written by Edward H. Flora <ehflora@access1.net>, and is licensed under the terms of the GNU  General Public License.
+.TP
+This manual page was originaly written by Gordon Fraser <gordon@debian.org>, for the Debian GNU/Linux system (but may be used by others). It was updated by Christian Aichinger <Greek0@gmx.net> and Rodolfo García Peñas (kix) <kix@kix.es>.
