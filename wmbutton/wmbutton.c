@@ -296,7 +296,7 @@ int main(int argc, char **argv)
 					break;
 
 				case Button2:
-					if (Config.mmouse) {
+					if (!Config.mmouse) {
 						N = whichButton(report.xbutton.x, report.xbutton.y);
 						if ((N >= 0) && (N <= NUMB_OF_APPS)) {
 							button_pressed = N + MMASK;
@@ -339,7 +339,7 @@ int main(int argc, char **argv)
 					break;
 
 				case Button2:
-					if (Config.mmouse) {
+					if (!Config.mmouse) {
 						N = whichButton(report.xbutton.x, report.xbutton.y);
 						if ((N >= 0) && (N <= NUMB_OF_APPS) && (N == button_pressed))
 							RunAppN(N + MMASK);

@@ -116,11 +116,7 @@ void show_usage() {
   fprintf(stderr,"-F <font>      Custom tooltip font (e.g. -b\\&h-lucidatypewriter-medium-*-*-*-12-*)\n");
   fprintf(stderr,"-v             Verbose Mode.\n");
   fprintf(stderr,"-h             Help. This message.\n");
-#if MIDMOUSE
   fprintf(stderr,"-m             Disable Middle Mouse functionality.\n");
-#else
-  fprintf(stderr,"-m             Enable Middle Mouse functionality.\n");
-#endif
   fprintf(stderr,"-s             Swap tooltip colors.\n");
   fprintf(stderr,"-n             Turn off tooltips.\n");
   fprintf(stderr,"\n");

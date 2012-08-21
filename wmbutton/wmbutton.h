@@ -36,7 +36,6 @@
 
 /******   Define Other Options  ****************************************/
 #define VERB          0      /* Enable=1, Disable=0: Debugging (verbose) Mode*/
-#define MIDMOUSE      1      /* Define Middle Mouse functionality */
 #define LMASK         0      /* left button mask: run app # mask + button #*/
 #define MMASK         10     /* middle button mask: run app # mask + button #*/
 #define RMASK         20     /* right button mask: run app # mask + button #*/
