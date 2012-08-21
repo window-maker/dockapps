@@ -219,7 +219,7 @@ int main(int argc, char **argv)
 
 	/* Initialize Tooltip Support */
 	initTime();
-	initTooltip(!Config.bTooltipDisable, Config.szTooltipFont, Config.bTooltipSwapColors);
+	initTooltip();
 
 	/* X Event Loop */
 	while (1) {

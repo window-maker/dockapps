@@ -88,7 +88,7 @@ int flush_expose(Window w);
 
 
 /******  Tooltip Function Prototypes  **********************************/
-void initTooltip();
+void initTooltip(void);
 void destroyTooltip(void);
 int hasTooltipSupport(void);
 void showTooltip(int nButton, int nMouseX, int nMouseY);
