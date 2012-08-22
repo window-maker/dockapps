@@ -27,8 +27,6 @@
 #define AUTHOR "Bruno Essmann <essmann@users.sourceforge.net>"
 #define APPLICATION "wmpager"
 #define VERSION "1.2"
-#define BUILD_REV "$Revision: 1.4 $"
-#define BUILD_DATE "$Date: 2002/08/16 17:22:26 $"
 
 #define XA_NET_NUMBER_OF_DESKTOPS "_NET_NUMBER_OF_DESKTOPS"
 #define XA_NET_CURRENT_DESKTOP "_NET_CURRENT_DESKTOP"
@@ -159,7 +157,7 @@ int main (int nArgc, char** szArgv) {
 		} else if (strcmp("-t", szArgv[i]) == 0 || strcmp("--theme", szArgv[i]) == 0) {
 			i+= 1;
 			if (i < nArgc) {
-				szTheme= szArgv[i];
+				szTheme= strdup(szArgv[i]);
 			} else {
 				fprintf(stderr, "%s: theme argument expected for '%s'\n\n", getApplicationName(), szArgv[i-1]);
 				usage(0);
@@ -254,13 +252,7 @@ void usage (int bVerbose) {
 }
 
 void info () {
-	char* szRev= strdup(BUILD_REV);
-	char* szDate= strdup(BUILD_DATE);
-	szRev= &szRev[11];
-	szRev[strlen(szRev) - 2]= '\0';
-	szDate= &szDate[7];
-	szDate[strlen(szDate) - 2]= '\0';
-	fprintf(stdout, "%s %s (build %s, %s)\n\n", APPLICATION, VERSION, szRev, szDate);
+	fprintf(stdout, "%s %s\n\n", APPLICATION, VERSION);
 }
 
 /*
@@ -373,8 +365,7 @@ void initWindow (int nArgc, char** szArgv) {
 	XSizeHints *xsizehints;
 	XWMHints* xwmhints;
 	XClassHint* xclasshint;
-	XTextProperty* xtApplication;
-	XGCValues xgcMain;
+	XTextProperty xtApplication;
 	
 	if (isVerbose()) {
 		fprintf(stdout, "[%8ld] initializing application window\n", currentTimeMillis());
@@ -419,14 +410,18 @@ void initWindow (int nArgc, char** szArgv) {
 
 	XSetWMNormalHints(display, _wMain, xsizehints);
 
-	xtApplication= (XTextProperty*) malloc(sizeof(XTextProperty));
-	if (XStringListToTextProperty(&szApplicationName, 1, xtApplication) == 0) {
+	XFree(xclasshint);
+	XFree(xwmhints);
+	XFree(xsizehints);
+
+	if (XStringListToTextProperty(&szApplicationName, 1, &xtApplication) == 0) {
 		fprintf(stderr, "Cannot set window title.\n");
 		exit(-1);
 	}
-	XSetWMName(display, _wMain, xtApplication);
+	XSetWMName(display, _wMain, &xtApplication);
+	XFree(xtApplication.value);
 	
-	_gcMain= XCreateGC(display, _wMain, (GCForeground | GCBackground), &xgcMain);
+	_gcMain= XCreateGC(display, _wMain, 0L, NULL);
 	if (_gcMain == NULL) {
 		fprintf(stderr, "Cannot create graphics context.\n");
 		exit(-1);
@@ -453,7 +448,6 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 	Window wRoot= getRootWindow();
 	Window wMain= getMainWindow();
 	Window wIcon= getIconWindow();
-	XGCValues xgc, xgcWindow;
 	Pixmap pOpaque, pTransparent, pMask;
 	char* mask= (char*) malloc(512);
 	int i;
@@ -484,7 +478,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 		exit(-1);
 	}
 
-	gc= XCreateGC(display, pMask, (GCForeground | GCBackground), &xgc);
+	gc= XCreateGC(display, pMask, 0L, NULL);
 	if (gc == NULL) {
 		fprintf(stderr, "%s: couldn't create window mask (mask graphics).\n", getApplicationName());
 		exit(-1);
@@ -495,6 +489,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 		XCopyArea(display, pOpaque, pMask, gc, nButtonX, nButtonY, getButtonWidth(), getButtonHeight(), nButtonX, nButtonY);
 	}
 	
+	free(mask);
 	XFreePixmap(display, pOpaque);
 	XFreePixmap(display, pTransparent);
 	XFreeGC(display, gc);
@@ -522,7 +517,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 		struct stat buf;
 		/* check for absolute button theme pathname */
 		if (stat(szButtonTheme, &buf) == -1) {
-			char* szNewTheme= (char*) malloc(strlen(szButtonTheme) + 4);
+			char* szNewTheme= (char*) malloc(strlen(szButtonTheme) + 5);
 			strcpy(szNewTheme, szButtonTheme);
 			strcat(szNewTheme, ".xpm");
 			if (isVerbose()) {
@@ -530,6 +525,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 			}
 			/* check for absolute button theme pathname (with .xpm added) */
 			if (stat(szNewTheme, &buf) == 0) {
+				free(szButtonTheme);
 				szButtonTheme= szNewTheme;
 				if (isVerbose()) {
 					fprintf(stdout, "[%8ld] initializing button theme '%s'\n", currentTimeMillis(), szButtonTheme);
@@ -540,7 +536,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 			}
 		}
 		if (bCheckAgain && szInstallDir != NULL) {
-			char* szNewTheme= (char*) malloc(strlen(szInstallDir) + strlen(szButtonTheme) + 5);
+			char* szNewTheme= (char*) malloc(strlen(szInstallDir) + strlen(szButtonTheme) + 6);
 			strcpy(szNewTheme, szInstallDir);
 			if (szNewTheme[strlen(szNewTheme) - 1] != '/') {
 				strcat(szNewTheme, "/");
@@ -548,6 +544,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 			strcat(szNewTheme, szButtonTheme);
 			if (stat(szNewTheme, &buf) == 0) {
 				bCheckAgain= 0;
+				free(szButtonTheme);
 				szButtonTheme= szNewTheme;
 				if (isVerbose()) {
 					fprintf(stdout, "[%8ld] initializing button theme '%s'\n", currentTimeMillis(), szButtonTheme);
@@ -556,10 +553,13 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 				strcat(szNewTheme, ".xpm");
 				if (stat(szNewTheme, &buf) == 0) {
 					bCheckAgain= 0;
+					free(szButtonTheme);
 					szButtonTheme= szNewTheme;
 					if (isVerbose()) {
 						fprintf(stdout, "[%8ld] initializing button theme '%s'\n", currentTimeMillis(), szButtonTheme);
 					}
+				} else {
+					free(szNewTheme);
 				}
 			}
 		}
@@ -568,7 +568,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 			char* szHome= (char*) getenv("HOME");
 			if (szHome) {
 				/* one really shouldn't copy&paste but hey this is a q&d tool */
-				char* szNewTheme= (char*) malloc(strlen(szHome) + strlen(szButtonTheme) + strlen(WMPAGER_USER_DIR) + 5);
+				char* szNewTheme= (char*) malloc(strlen(szHome) + strlen(szButtonTheme) + strlen(WMPAGER_USER_DIR) + 6);
 				strcpy(szNewTheme, szHome);
 				if (szNewTheme[strlen(szNewTheme) - 1] != '/') {
 					strcat(szNewTheme, "/");
@@ -577,6 +577,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 				strcat(szNewTheme, szButtonTheme);
 				if (stat(szNewTheme, &buf) == 0) {
 					bCheckAgain= 0;
+					free(szButtonTheme);
 					szButtonTheme= szNewTheme;
 					if (isVerbose()) {
 						fprintf(stdout, "[%8ld] initializing button theme '%s'\n", currentTimeMillis(), szButtonTheme);
@@ -585,10 +586,13 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 					strcat(szNewTheme, ".xpm");
 					if (stat(szNewTheme, &buf) == 0) {
 						bCheckAgain= 0;
+						free(szButtonTheme);
 						szButtonTheme= szNewTheme;
 						if (isVerbose()) {
 							fprintf(stdout, "[%8ld] initializing button theme '%s'\n", currentTimeMillis(), szButtonTheme);
 						}
+					} else {
+						free(szNewTheme);
 					}
 				}
 			}
@@ -601,6 +605,8 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 			fprintf(stderr, "%s: couldn't read button theme '%s'.\n", getApplicationName(), szButtonTheme);
 			exit(-1);
 		}
+
+		free(szButtonTheme);
 	}
 
 	if (isVerbose()) {
@@ -617,8 +623,8 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 		exit(-1);
 	}
 
-	_gcWindow= XCreateGC(_display, _pWindow, (GCForeground | GCBackground), &xgcWindow);
-	if (gc == NULL) {
+	_gcWindow= XCreateGC(_display, _pWindow, 0L, NULL);
+	if (_gcWindow == NULL) {
 		fprintf(stderr, "%s: couldn't create screen buffer graphics.\n", getApplicationName());
 		exit(-1);
 	}
@@ -690,6 +696,7 @@ void getWindowOrigin (Window w, int* nX, int* nY) {
 void loop () {
 	Display* display= getDisplay();
 	XEvent event;
+	char* atom_name;
 
 	if (isVerbose()) {
 		fprintf(stdout, "[%8ld] starting event loop\n", currentTimeMillis());
@@ -719,7 +726,10 @@ void loop () {
 					}
 					break;
 				case PropertyNotify:
-					if (strcmp(XA_NET_CURRENT_DESKTOP, XGetAtomName(getDisplay(), event.xproperty.atom)) == 0) {
+					atom_name = XGetAtomName(getDisplay(), event.xproperty.atom);
+					if (atom_name == NULL)
+						break;
+					if (strcmp(XA_NET_CURRENT_DESKTOP, atom_name) == 0) {
 						setCurrentScreen(-1);
 						if (isVerbose()) {
 							fprintf(stdout, "[%8ld] new current workspace (%d= %s)\n", 
@@ -727,6 +737,7 @@ void loop () {
 						}
 						redrawWindow();
 					}
+					XFree(atom_name);
 					break;
 				case DestroyNotify:
 					if (isVerbose()) {
@@ -947,9 +958,7 @@ void setCurrentScreen (int nCurrentScreen) {
 		if ((nFormat == 32) && (nItems == 1) && (nBytesAfter == 0)) {
 			nScreen= *(long*) data;
 		}
-		if (xaType != None) {
-			XFree(data);
-		}
+		XFree(data);
 		_nLastScreen= nScreen;
 	} else {
 		_nLastScreen= nCurrentScreen;
@@ -977,12 +986,11 @@ void initScreens () {
 	if ((nFormat == 32) && (nItems == 1) && (nBytesAfter == 0)) {
 		_nScreens= *(long*) data;
 	}
-	if (xaType != None) {
-		XFree(data);
-	}
+	XFree(data);
 
 	XGetTextProperty(getDisplay(), getRootWindow(), &tp, _xaNetDesktopNames);
 	Xutf8TextPropertyToTextList(getDisplay(), &tp, &_szScreenNames, &_nDesktopNames);
+	XFree(tp.value);
 
 	_nLastScreen= -1;
 	setCurrentScreen(-1);
