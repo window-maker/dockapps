@@ -11,6 +11,7 @@
 #include <X11/extensions/shape.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <sys/select.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -278,6 +279,7 @@ void initApplicationName (char* szApplicationName) {
  */
 
 static Display* _display;
+static int _xfd;
 
 Display* getDisplay () {
 	return _display;
@@ -308,6 +310,7 @@ void initDisplay (char* szDisplay) {
 		);
 		exit(-1);
 	}
+	_xfd= XConnectionNumber(_display);
 }
 
 /*
@@ -697,6 +700,8 @@ void loop () {
 	Display* display= getDisplay();
 	XEvent event;
 	char* atom_name;
+	struct timeval tv;
+	fd_set fds;
 
 	if (isVerbose()) {
 		fprintf(stdout, "[%8ld] starting event loop\n", currentTimeMillis());
@@ -749,7 +754,12 @@ void loop () {
 					break;
 			}
 		}
-		usleep(50000);
+
+		tv.tv_sec = 0;
+		tv.tv_usec = 500000UL;
+		FD_ZERO(&fds);
+		FD_SET(_xfd, &fds);
+		select(_xfd + 1, &fds, NULL, NULL, &tv);
 	}
 }
 
