@@ -30,8 +30,9 @@
 #define BUILD_REV "$Revision: 1.4 $"
 #define BUILD_DATE "$Date: 2002/08/16 17:22:26 $"
 
-#define XA_WIN_WORKSPACE "_WIN_WORKSPACE"
-#define XA_WIN_WORKSPACE_NAMES "_WIN_WORKSPACE_NAMES"
+#define XA_NET_NUMBER_OF_DESKTOPS "_NET_NUMBER_OF_DESKTOPS"
+#define XA_NET_CURRENT_DESKTOP "_NET_CURRENT_DESKTOP"
+#define XA_NET_DESKTOP_NAMES "_NET_DESKTOP_NAMES"
 
 #define WMPAGER_ENV "WMPAGER"
 #define WMPAGER_DEFAULT_INSTALL_DIR "/usr/local/share/wmpager/"
@@ -718,7 +719,7 @@ void loop () {
 					}
 					break;
 				case PropertyNotify:
-					if (strcmp(XA_WIN_WORKSPACE, XGetAtomName(getDisplay(), event.xproperty.atom)) == 0) {
+					if (strcmp(XA_NET_CURRENT_DESKTOP, XGetAtomName(getDisplay(), event.xproperty.atom)) == 0) {
 						setCurrentScreen(-1);
 						if (isVerbose()) {
 							fprintf(stdout, "[%8ld] new current workspace (%d= %s)\n", 
@@ -896,10 +897,12 @@ long currentTimeMillis () {
  * Screen Handling
  */
 
-static Atom _xaWinWorkspace;
-static Atom _xaWinWorkspaceNames;
+static Atom _xaNetNumberOfDesktops;
+static Atom _xaNetCurrentDesktop;
+static Atom _xaNetDesktopNames;
 static int _nScreens;
 static char** _szScreenNames;
+static int _nDesktopNames;
 static int _nLastScreen;
 
 int getScreenCount () {
@@ -907,8 +910,8 @@ int getScreenCount () {
 }
 
 char* getScreenName (int nScreen) {
-	if (nScreen < 0 || nScreen >= _nScreens) {
-		return NULL;
+	if (nScreen < 0 || nScreen >= _nDesktopNames) {
+		return "<empty>";
 	}
 	return _szScreenNames[nScreen];
 }
@@ -918,7 +921,7 @@ void gotoScreen (int nWorkspace) {
 	event.type= ClientMessage;
 	event.xclient.type= ClientMessage;
 	event.xclient.window= getRootWindow();
-	event.xclient.message_type= _xaWinWorkspace;
+	event.xclient.message_type= _xaNetCurrentDesktop;
 	event.xclient.format= 32;
 	event.xclient.data.l[0]= nWorkspace;
 	event.xclient.data.l[1]= currentTimeMillis();
@@ -938,7 +941,7 @@ void setCurrentScreen (int nCurrentScreen) {
 		unsigned char* data;
 		
 		XGetWindowProperty(
-			getDisplay(), getRootWindow(), _xaWinWorkspace,
+			getDisplay(), getRootWindow(), _xaNetCurrentDesktop,
 			0, 8192, False, XA_CARDINAL, &xaType, &nFormat, &nItems, &nBytesAfter, &data
 		);
 		if ((nFormat == 32) && (nItems == 1) && (nBytesAfter == 0)) {
@@ -955,21 +958,39 @@ void setCurrentScreen (int nCurrentScreen) {
 
 void initScreens () {
 	XTextProperty tp;
+	Atom xaType;
+	int nFormat;
+	unsigned long nItems, nBytesAfter;
+	unsigned char* data;
 	
 	if (isVerbose()) {
 		fprintf(stdout, "[%8ld] initializing window maker communication\n", currentTimeMillis());
 	}
-	_xaWinWorkspace= XInternAtom(getDisplay(), XA_WIN_WORKSPACE, False);
-	_xaWinWorkspaceNames= XInternAtom(getDisplay(), XA_WIN_WORKSPACE_NAMES, False);
-	XGetTextProperty(getDisplay(), getRootWindow(), &tp, _xaWinWorkspaceNames);
-	XTextPropertyToStringList(&tp, &_szScreenNames, &_nScreens);
+	_xaNetNumberOfDesktops= XInternAtom(getDisplay(), XA_NET_NUMBER_OF_DESKTOPS, False);
+	_xaNetCurrentDesktop= XInternAtom(getDisplay(), XA_NET_CURRENT_DESKTOP, False);
+	_xaNetDesktopNames= XInternAtom(getDisplay(), XA_NET_DESKTOP_NAMES, False);
+
+	XGetWindowProperty(
+		getDisplay(), getRootWindow(), _xaNetNumberOfDesktops,
+		0, 8192, False, XA_CARDINAL, &xaType, &nFormat, &nItems, &nBytesAfter, &data
+	);
+	if ((nFormat == 32) && (nItems == 1) && (nBytesAfter == 0)) {
+		_nScreens= *(long*) data;
+	}
+	if (xaType != None) {
+		XFree(data);
+	}
+
+	XGetTextProperty(getDisplay(), getRootWindow(), &tp, _xaNetDesktopNames);
+	Xutf8TextPropertyToTextList(getDisplay(), &tp, &_szScreenNames, &_nDesktopNames);
+
 	_nLastScreen= -1;
 	setCurrentScreen(-1);
 	if (_nLastScreen == -1) {
 		fprintf(
 			stderr, 
 			"%s: couldn't determine current workspace.\n" \
-			"Make sure your WindowMaker has Gnome support enabled!\n", 
+			"Make sure your WindowMaker has EWMH support enabled!\n", 
 			getApplicationName()
 		);
 		setCurrentScreen(0);
