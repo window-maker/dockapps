@@ -37,18 +37,6 @@
 #define WMPAGER_DEFAULT_INSTALL_DIR "/usr/local/share/wmpager/"
 #define WMPAGER_USER_DIR ".wmpager/"
 
-#define TOOLTIP_SUPPORT 1
-#define TOOLTIP_FONT "-*-helvetica-bold-r-normal-*-12-*-*-*-*-*-*-*"
-#define TOOLTIP_OUTSIDE 0
-#define TOOLTIP_SHOW_DELAY 750
-#define TOOLTIP_RESHOW_DELAY 1500
-
-#define TOOLTIP_SPACE 12
-#define TOOLTIP_TOP	0
-#define TOOLTIP_BOTTOM	1
-#define TOOLTIP_LEFT	0
-#define TOOLTIP_RIGHT	2
-
 /*
  * Prototypes
  */
@@ -77,7 +65,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme);
 void redrawWindow ();
 void getWindowOrigin (Window w, int* nX, int* nY);
 
-void loop (long nTooltipShowDelay, long nTooltipReshowDelay);
+void loop ();
 
 void initButtons (int nButtons, int nColumns, int nRows);
 int getButtonCount ();
@@ -98,15 +86,6 @@ int getCurrentScreen ();
 void setCurrentScreen (int nCurrentScreen);
 void gotoScreen (int nWorkspace);
 
-void initTooltip (int bTooltipSupport, char* szFontName, int bTooltipOutside);
-void destroyTooltip ();
-int hasTooltipSupport ();
-void showTooltip (int nButton, int nMouseX, int nMouseY);
-void hideTooltip ();
-int hasTooltip ();
-void drawTooltipBalloon (Pixmap pix, GC gc, int x, int y, int w, int h, int side);
-Pixmap createTooltipPixmap (int width, int height, int side, Pixmap *mask);
-
 /*
  * Main
  */
@@ -115,14 +94,9 @@ int main (int nArgc, char** szArgv) {
 	char* szDisplay= NULL;
 	char* szTheme= NULL;
 	char* szInstallDir= NULL;
-	char* szTooltipFont= TOOLTIP_FONT;
-	long nTooltipShowDelay= TOOLTIP_SHOW_DELAY;
-	long nTooltipReshowDelay= TOOLTIP_RESHOW_DELAY;
 	int nWorkspaces= -1;
 	int bVerbose= 0;
 	int nSizeX= -1, nSizeY= -1;
-	int bTooltipSupport= TOOLTIP_SUPPORT;
-	int bTooltipOutside= TOOLTIP_OUTSIDE;
 	int i;
 	initApplicationName(szArgv[0]);
 	/* we no longer use the WMPAGER environment variable 
@@ -173,46 +147,6 @@ int main (int nArgc, char** szArgv) {
 				fprintf(stderr, "%s: display argument expected for '%s'\n\n", getApplicationName(), szArgv[i-1]);
 				usage(0);
 			}
-		} else if (strcmp("--disable-tooltips", szArgv[i]) == 0) {
-			bTooltipSupport= 0;
-		} else if (strcmp("--tooltip-outside", szArgv[i]) == 0) {
-			bTooltipOutside= 1;
-		} else if (strcmp("--tooltip-font", szArgv[i]) == 0) {
-			i+= 1;
-			if (i < nArgc) {
-				szTooltipFont= szArgv[i];
-			} else {
-				fprintf(stderr, "%s: font argument expected for '%s'\n\n", getApplicationName(), szArgv[i-1]);
-				usage(0);
-			}
-		} else if (strcmp("--tooltip-delay", szArgv[i]) == 0) {
-			i+= 1;
-			if (i < nArgc) {
-				long nDelay= -1;
-				sscanf(szArgv[i], "%ld", &nDelay);
-				if (nDelay < 0) {
-					fprintf(stderr, "%s: illegal tooltip delay '%s' for option '%s'\n\n", getApplicationName(), szArgv[i], szArgv[i-1]);
-					usage(0);
-				}
-				nTooltipShowDelay= nDelay;
-			} else {
-				fprintf(stderr, "%s: delay argument expected for '%s'\n\n", getApplicationName(), szArgv[i-1]);
-				usage(0);
-			}
-		} else if (strcmp("--tooltip-reshow", szArgv[i]) == 0) {
-			i+= 1;
-			if (i < nArgc) {
-				long nDelay= -1;
-				sscanf(szArgv[i], "%ld", &nDelay);
-				if (nDelay < 0) {
-					fprintf(stderr, "%s: illegal tooltip delay '%s' for option '%s'\n\n", getApplicationName(), szArgv[i], szArgv[i-1]);
-					usage(0);
-				}
-				nTooltipReshowDelay= nDelay;
-			} else {
-				fprintf(stderr, "%s: delay argument expected for '%s'\n\n", getApplicationName(), szArgv[i-1]);
-				usage(0);
-			}
 		} else if (strcmp("-d", szArgv[i]) == 0 || strcmp("--display", szArgv[i]) == 0) {
 			i+= 1;
 			if (i < nArgc) {
@@ -250,21 +184,12 @@ int main (int nArgc, char** szArgv) {
 			"[        ] - installdir= '%s'\n" \
 			"[        ] - theme= '%s'\n" \
 			"[        ] - workspaces= '%d'\n" \
-			"[        ] - size= '%dx%d'\n" \
-			"[        ] - tooltip support= %s\n" \
-			"[        ] - tooltip font= %s\n" \
-			"[        ] - tooltip show delay= %ld\n" \
-			"[        ] - tooltip reshow delay= %ld\n" \
-			"[        ] - tooltip outside= %s\n",
+			"[        ] - size= '%dx%d'\n",
 			szRealDisplay,
 			szInstallDir == NULL ? "<undefined>" : szInstallDir,
 			szTheme == NULL ? "<built-in>" : szTheme,
 			nWorkspaces,
-			nSizeX, nSizeY,
-			bTooltipSupport ? "true" : "false", 
-			szTooltipFont,
-			nTooltipShowDelay, nTooltipReshowDelay,
-			bTooltipOutside ? "true" : "false"
+			nSizeX, nSizeY
 		);
 	}
 	initTime();
@@ -273,8 +198,7 @@ int main (int nArgc, char** szArgv) {
 	initScreens();
 	initButtons(nWorkspaces, nSizeX, nSizeY);
 	initWindowMask(szInstallDir, szTheme);
-	initTooltip(bTooltipSupport, szTooltipFont, bTooltipOutside);
-	loop(nTooltipShowDelay, nTooltipReshowDelay);
+	loop();
 	return 0;
 }
 
@@ -315,16 +239,7 @@ int isVerbose () {
 	"  -i --installdir     <dir> specifies the installation directory location,\n" \
 	"                      this location is automatically searched for themes\n" \
 	"                      (defaults to the '/usr/local/share/wmpager/'\n" \
-	"                      and the user specific '~/.wmpager' directory)\n" \
-	"  --disable-tooltips  do not display any tooltip windows\n" \
-	"  --tooltip-font      <font> use the specified font as tooltip font\n" \
-	"                      (default is helvetica, bold, roman, 12 point)\n" \
-	"  --tooltip-delay     <millis> set the delay before the tooltip window\n" \
-	"                      is popped up (default is 750 milliseconds)\n" \
-	"  --tooltip-reshow    <millis> set the tooltip reshow delay (triggered\n" \
-	"                      when moving from button to button (default is\n" \
-	"                      1500 milliseconds)\n" \
-	"  --tooltip-outside   display tooltip window outside of docklet\n"
+	"                      and the user specific '~/.wmpager' directory)\n"
 
 void usage (int bVerbose) {
 	if (bVerbose) {
@@ -771,17 +686,15 @@ void getWindowOrigin (Window w, int* nX, int* nY) {
  * Event Loop
  */
 
-void loop (long nTooltipShowDelay, long nTooltipReshowDelay) {
+void loop () {
 	Display* display= getDisplay();
 	XEvent event;
-	long nTooltipTimer= -1, nTooltipHideTimer= -1, nNow;
-	int nTooltipButton, nTooltipX, nTooltipY;
 
 	if (isVerbose()) {
 		fprintf(stdout, "[%8ld] starting event loop\n", currentTimeMillis());
 	}
 	for (;;) {
-		while (XPending(display) || (nTooltipTimer == -1)) {
+		while (XPending(display)) {
 			XNextEvent(display, &event);
 			switch (event.type) {
 				case Expose:
@@ -792,33 +705,6 @@ void loop (long nTooltipShowDelay, long nTooltipReshowDelay) {
 				case ConfigureNotify:
 					redrawWindow();
 					break;
-				case MotionNotify:
-					if (hasTooltipSupport()) {
-						if (!hasTooltip()) {
-							nTooltipTimer= currentTimeMillis();
-							nTooltipX= event.xbutton.x;
-							nTooltipY= event.xbutton.y;
-							nTooltipButton= getButtonAt(event.xbutton.x, event.xbutton.y);
-						} else {
-							int nButton= getButtonAt(event.xbutton.x, event.xbutton.y);
-							if (nButton != nTooltipButton) {
-								hideTooltip();
-								nTooltipTimer= -1;
-								nTooltipX= event.xbutton.x;
-								nTooltipY= event.xbutton.y;
-								nTooltipButton= nButton;
-								showTooltip(nTooltipButton, nTooltipX, nTooltipY);
-							}
-						}
-					}
-					break;
-				case LeaveNotify:
-					if (hasTooltip()) {
-						hideTooltip();
-						nTooltipHideTimer= currentTimeMillis();
-					}
-					nTooltipTimer= -1;
-					break;
 				case ButtonPress:
 					{
 						int nButton= getButtonAt(event.xbutton.x, event.xbutton.y);
@@ -826,10 +712,6 @@ void loop (long nTooltipShowDelay, long nTooltipReshowDelay) {
 							fprintf(stdout, "[%8ld] button %d pressed\n", currentTimeMillis(), nButton);
 						}
 						if (nButton != -1) {
-							if (hasTooltip()) {
-								hideTooltip();
-								nTooltipHideTimer= currentTimeMillis();
-							}
 							setCurrentScreen(nButton);
 							gotoScreen(nButton);
 						}
@@ -849,7 +731,6 @@ void loop (long nTooltipShowDelay, long nTooltipReshowDelay) {
 					if (isVerbose()) {
 						fprintf(stdout, "[%8ld] quit application\n", currentTimeMillis());
 					}
-					destroyTooltip();
 					destroyWindow();
 					destroyDisplay();
 					exit(0);
@@ -857,17 +738,6 @@ void loop (long nTooltipShowDelay, long nTooltipReshowDelay) {
 			}
 		}
 		usleep(50000);
-		nNow= currentTimeMillis();
-		if (
-			nTooltipTimer != -1 && 
-			(
-				(nNow > nTooltipTimer + nTooltipShowDelay) ||
-				(nNow < nTooltipHideTimer + nTooltipReshowDelay)
-			)
-		)	{
-			showTooltip(nTooltipButton, nTooltipX, nTooltipY);
-			nTooltipTimer= -1;
-		}
 	}
 }
 
@@ -1114,257 +984,4 @@ void initScreens () {
 			getCurrentScreen(), getScreenName(getCurrentScreen()));
 	}
 }
-
-/*
- * Tooltip
- */
-
-int _bTooltip= 0, _bTooltipSupport, _bTooltipOutside;
-XFontStruct* _fTooltip;
-int _nFontHeight, _nFontY;
-int _nScreenWidth, _nScreenHeight;
-GC _gcMono= 0;
-Window _wTooltip;
-
-int hasTooltipSupport () {
-	return _bTooltipSupport;
-}
-
-void showTooltip (int nButton, int nMouseX, int nMouseY) {
-	Pixmap pixmap, mask;
-	int nMainWinX, nMainWinY;
-	int nButtonX, nButtonY, nButtonWidth, nButtonHeight;
-	int nTextY, nX, nY, nWidth, nHeight, nSide;
-	char* szText;
-
-	if (!_bTooltipSupport) {
-		return;
-	}
-	if (_bTooltip) {
-		hideTooltip();
-	}
-	_bTooltip= 1;
-	if (isVerbose()) {
-		fprintf(stdout, "[%8ld] showing tooltip for button %d (%s) at %d, %d\n", currentTimeMillis(), 
-			nButton, getScreenName(nButton), nMouseX, nMouseY);
-	}
-
-	szText= strdup(getScreenName(nButton));
-	nWidth= XTextWidth(_fTooltip, szText, strlen(szText)) + 16;
-	nHeight= _nFontHeight + 4;
-	if (nHeight < 16) {
-		nHeight= 16;
-	}
-	if (nWidth < nHeight) {
-		nWidth= nHeight;
-	}
-	if (isVerbose()) {
-		fprintf(stdout, "[%8ld] tooltip size: %d, %d\n", currentTimeMillis(), nWidth, nHeight);
-	}
-	
-	getWindowOrigin(getIconWindow(), &nMainWinX, &nMainWinY);
-	if (_bTooltipOutside) {
-		nButtonX= nMainWinX;
-		nButtonY= nMainWinY;
-		nButtonWidth= 64;
-		nButtonHeight= 64;
-	} else {
-		getButtonLocation(nButton, &nButtonX, &nButtonY);
-		nButtonX+= nMainWinX;
-		nButtonY+= nMainWinY;
-		nButtonWidth= getButtonWidth();
-		nButtonHeight= getButtonHeight();
-	}
-	
-	if (nButtonX + nWidth > _nScreenWidth) {
-		nSide= TOOLTIP_RIGHT;
-		nX= nButtonX - nWidth + nButtonWidth / 2;
-		if (nX < 0) {
-			nX= 0;
-		}
-	} else {
-		nSide= TOOLTIP_LEFT;
-		nX= nButtonX + nButtonWidth / 2;
-	}
-	if (nX + nWidth > _nScreenWidth) {
-		nX= _nScreenWidth - nWidth;
-	}
-
-	if (nButtonY - (nHeight + TOOLTIP_SPACE) < 0) {
-		nSide|= TOOLTIP_TOP;
-		nY= nButtonY + nButtonHeight - 1;
-		nTextY= TOOLTIP_SPACE;
-	} else {
-		nSide|= TOOLTIP_BOTTOM;
-		nY= nButtonY - (nHeight + TOOLTIP_SPACE);
-		nTextY= 0;
-	}
-	
-	pixmap= createTooltipPixmap(nWidth, nHeight, nSide, &mask);
-	
-	XSetForeground(getDisplay(), getMainGraphics(), getBlackPixel());
-	XSetFont(getDisplay(), getMainGraphics(), _fTooltip->fid);
-	XDrawString(getDisplay(), pixmap, getMainGraphics(), 
-		8, nTextY + (nHeight - _nFontHeight) / 2 + _nFontY, szText, strlen(szText));
-		
-	XSetWindowBackgroundPixmap(getDisplay(), _wTooltip, pixmap);
-
-	XResizeWindow(getDisplay(), _wTooltip, nWidth, nHeight + TOOLTIP_SPACE);
-	XShapeCombineMask(getDisplay(), _wTooltip, ShapeBounding, 0, 0, mask, ShapeSet);
-	XFreePixmap(getDisplay(), mask);
-	XMoveWindow(getDisplay(), _wTooltip, nX, nY);
-	XMapRaised(getDisplay(), _wTooltip);
-	XFreePixmap(getDisplay(), pixmap);
-
-	free(szText);
-}
-
-void hideTooltip () {
-	if (!_bTooltipSupport) {
-		return;
-	}
-	if (_bTooltip) {
-		if (isVerbose()) {
-			fprintf(stdout, "[%8ld] hiding tooltip\n", currentTimeMillis());
-		}
-		XUnmapWindow(getDisplay(), _wTooltip);
-		_bTooltip= 0;
-	}
-}
-
-int hasTooltip () {
-	if (!_bTooltipSupport) {
-		return 0;
-	}
-	return _bTooltip;
-}
-
-void initTooltip (int bTooltipSupport, char* szFontName, int bTooltipOutside) {
-	XSetWindowAttributes attribs;
-	unsigned long vmask;
-	
-	_bTooltipSupport= bTooltipSupport;
-	if (!_bTooltipSupport) {
-		if (isVerbose()) {
-			fprintf(stdout, "[%8ld] initializing tooltips (disabled)\n", currentTimeMillis());
-		}
-		return;
-	}
-	if (isVerbose()) {
-		fprintf(stdout, "[%8ld] initializing tooltips\n", currentTimeMillis());
-	}
-	_bTooltipOutside= bTooltipOutside;
-	_fTooltip= XLoadQueryFont(getDisplay(), szFontName);
-	if (!_fTooltip) {
-		fprintf(stderr, "%s: couldn't allocate font '%s'.\n", getApplicationName(), szFontName);
-		exit(-1);
-	}
-	_nFontHeight= _fTooltip->ascent + _fTooltip->descent;
-	_nFontY= _fTooltip->ascent;
-	_nScreenWidth= WidthOfScreen(ScreenOfDisplay(getDisplay(), getDefaultScreen()));
-	_nScreenHeight= HeightOfScreen(ScreenOfDisplay(getDisplay(), getDefaultScreen()));
-	if (isVerbose()) {
-		fprintf(stdout, "[%8ld] configuring tooltip font:\n" \
-			"[%8ld] - '%s'\n[%8ld] - font-height= %d, font-ascent= %d\n" \
-			"[%8ld] configuring screen size: %dx%d\n",
-			currentTimeMillis(), currentTimeMillis(), szFontName, currentTimeMillis(), _nFontHeight, _nFontY,
-			currentTimeMillis(), _nScreenWidth, _nScreenHeight
-		);
-	}
-
-	vmask= CWSaveUnder | CWOverrideRedirect | CWBorderPixel;
-	attribs.save_under= True;
-	attribs.override_redirect= True;
-	attribs.border_pixel= 0;
-	_wTooltip= XCreateWindow(getDisplay(), getRootWindow(), 1, 1, 10, 10, 1,
-		CopyFromParent, CopyFromParent, CopyFromParent, vmask, &attribs);
-	if (_wMain == 0) {
-		fprintf(stderr, "Cannot create tooltip window.\n");
-		exit(-1);
-	}
-}
-
-void destroyTooltip () {
-	if (!_bTooltipSupport) {
-		return;
-	}
-	if (_gcMono) {
-		XFreeGC(getDisplay(), _gcMono);
-		_gcMono= 0;
-	}
-	XDestroyWindow(getDisplay(), _wTooltip);
-}
-
-void drawTooltipBalloon (Pixmap pix, GC gc, int x, int y, int w, int h, int side) {
-	Display* display= getDisplay();
-	int rad = h*3/10;
-	XPoint pt[3];
-
-	XFillArc(display, pix, gc, x, y, rad, rad, 90*64, 90*64);
-	XFillArc(display, pix, gc, x, y+h-1-rad, rad, rad, 180*64, 90*64);
-
-	XFillArc(display, pix, gc, x+w-1-rad, y, rad, rad, 0*64, 90*64);
-	XFillArc(display, pix, gc, x+w-1-rad, y+h-1-rad, rad, rad, 270*64, 90*64);
-
-	XFillRectangle(display, pix, gc, x, y+rad/2, w, h-rad);
-	XFillRectangle(display, pix, gc, x+rad/2, y, w-rad, h);
-
-	if (side & TOOLTIP_BOTTOM) {
-		pt[0].y = y+h-1;
-		pt[1].y = y+h-1+TOOLTIP_SPACE;
-		pt[2].y = y+h-1;
-	} else {
-		pt[0].y = y;
-		pt[1].y = y-TOOLTIP_SPACE;
-		pt[2].y = y;
-	}
-	if (side & TOOLTIP_RIGHT) {
-		pt[0].x = x+w-h+2*h/16;
-		pt[1].x = x+w-h+11*h/16;
-		pt[2].x = x+w-h+7*h/16;
-	} else {
-		pt[0].x = x+h-2*h/16;
-		pt[1].x = x+h-11*h/16;
-		pt[2].x = x+h-7*h/16;
-	}
-	XFillPolygon(display, pix, gc, pt, 3, Convex, CoordModeOrigin);
-}
-
-Pixmap createTooltipPixmap (int width, int height, int side, Pixmap *mask) {
-	Display* display= getDisplay();
-	Window wRoot= getRootWindow();
-	GC gc= getMainGraphics();
-	Pixmap bitmap;
-	Pixmap pixmap;
-	int x, y;
-
-	bitmap = XCreatePixmap(display, wRoot, width+TOOLTIP_SPACE, height+TOOLTIP_SPACE, 1);
-
-	if (!_gcMono) {
-		_gcMono= XCreateGC(display, bitmap, 0, NULL);
-	}
-	XSetForeground(display, _gcMono, 0); 
-	XFillRectangle(display, bitmap, _gcMono, 0, 0, width+TOOLTIP_SPACE, height+TOOLTIP_SPACE);
-
-	pixmap = XCreatePixmap(display, wRoot, width+TOOLTIP_SPACE, height+TOOLTIP_SPACE, getDefaultDepth());
-	XSetForeground(display, gc, getBlackPixel());
-	XFillRectangle(display, pixmap, gc, 0, 0, width+TOOLTIP_SPACE, height+TOOLTIP_SPACE);
-
-	if (side & TOOLTIP_BOTTOM) {
-		y = 0;
-	} else {
-		y = TOOLTIP_SPACE;
-	}
-	x = 0;
-
-	XSetForeground(display, _gcMono, 1);
-	drawTooltipBalloon(bitmap, _gcMono, x, y, width, height, side);
-	XSetForeground(display, gc, getWhitePixel());
-	drawTooltipBalloon(pixmap, gc, x+1, y+1, width-2, height-2, side);
-
-	*mask = bitmap;
-
-	return pixmap;
-}
-
 
