@@ -4,23 +4,21 @@ LIBS = -lX11 -lXpm -lXext
 
 TARGET = wmbutton
 OBJECTS = wmbutton.o wmb_libs.o
-DESTDIR =
-PREFIX = /usr/local
-BINDIR = ${PREFIX}/bin
-MANDIR = ${PREFIX}/share/man
+DESTDIR = /usr/local
+PREFIX = /usr
+BINDIR = /bin
 CONF   = /etc
 CONFFL = ${CONF}/wmbutton.conf
 INSTALL = /usr/bin/install
-INSTALL_PROGRAM = $(INSTALL) -p -o root -g root -m 755
-INSTALL_FILE    = $(INSTALL) -p -o root -g root -m 644
 
 CFLAGS += -Wall -O2
+LDFLAGS +=
 
 .c.o:
 	gcc -c ${CFLAGS} ${INCLUDES} $< -o $*.o
 
 ${TARGET}: ${OBJECTS}
-	gcc -o ${TARGET} ${OBJECTS} ${LIBINC} ${LIBS}
+	gcc -o ${TARGET} ${OBJECTS}  ${LDFLAGS} ${LIBINC} ${LIBS}
 
 clean::
 	for i in ${OBJECTS}; do if [ -e $$i ] ; then rm $$i; fi; done 
@@ -29,8 +27,9 @@ clean::
 	if [ -e core ]; then rm core; fi
 
 install::
-	${INSTALL_PROGRAM} wmbutton ${DESTDIR}${BINDIR}
-	${INSTALL_FILE} sample.wmbutton ${DESTDIR}${CONFFL}
+	$(INSTALL) -d -m 0755 ${DESTDIR}${PREFIX}${BINDIR} ${DESTDIR}${CONF}
+	$(INSTALL) -p -o root -g root -m 755 wmbutton ${DESTDIR}${PREFIX}${BINDIR}
+	$(INSTALL) -p -o root -g root -m 644 sample.wmbutton ${DESTDIR}${CONFFL}
 
 wmbutton.o: wmbutton.c wmbutton.h Makefile
 
