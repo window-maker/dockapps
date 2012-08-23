@@ -34,7 +34,9 @@
 #define XA_NET_DESKTOP_NAMES "_NET_DESKTOP_NAMES"
 
 #define WMPAGER_ENV "WMPAGER"
+#ifndef WMPAGER_DEFAULT_INSTALL_DIR
 #define WMPAGER_DEFAULT_INSTALL_DIR "/usr/local/share/wmpager/"
+#endif
 #define WMPAGER_USER_DIR ".wmpager/"
 
 /*
