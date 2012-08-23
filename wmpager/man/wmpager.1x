@@ -21,8 +21,6 @@ automatic configuration according to the number of available workspaces
 automagic adjustment to the currently active workspace
 .IP \(bu 2
 configurable look and feel
-.IP \(bu 2
-workspace tooltips
 .PD
 .SH OPTIONS
 .PD 0
@@ -58,28 +56,6 @@ For more information on theme files see the entry \fIBUTTON THEMES\fP below.
 Specifies the location of the installation directory. wmpager looks for 'xpm'
 theme files at this location. The default are '/usr/local/share/wmpager/' and
 the user specific '~/.wmpager' directory.
-.TP
-.B \-\-disable\-tooltips
-Disables display of any tooltip windows. By default tooltips are enabled.
-.TP
-.B \-\-tooltip\-font \fI<font>\fP
-Specifies the font to as tooltip font. The default is helvetica, bold, roman, 
-12 point:
-.RS
-.PP
-\-*\-helvetica\-bold\-r\-normal\-*\-12\-*\-*\-*\-*\-*\-*\-*
-.RE
-.TP
-.B \-\-tooltip\-delay \fI<millis>\fP
-Sets the delay before the tooltip window is popped up (default is 750 milliseconds).
-.TP
-.B \-\-tooltip\-reshow \fI<millis>\fP
-Set the tooltip reshow delay (triggered when moving from button to button).
-The default is 1500 milliseconds.
-.TP
-.B \-\-tooltip\-outside
-Specifies that tooltips should be displayed outside of the docklet window.
-By default they are displayed next to the workspace button.
 .PD
 .SH BUTTON THEMES
 .PD
