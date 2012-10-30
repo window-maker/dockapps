@@ -1,0 +1,15 @@
+Known 'features and easter eggs' in WMTime,
+(or in non M$ talk, BUGS).
+
+WMTime 1.0b2
+--------------------------------------------------------------
+	* Pixmap is not properly updated when starting WMTime
+	  with the -digital parameter and being 'cycled' to
+	  analog mode (not really a bug, but a beta easteregg,
+	  this will be removed in the final 1.0 version) :)
+
+
+WMTime 1.0b1
+--------------------------------------------------------------
+
+	* None 'known' bugs in WMTime so far ;-)

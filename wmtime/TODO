@@ -1,0 +1,20 @@
+TODO list for WMTime.
+--------------------------------------------------------------
+Here's some stuff we've already planned for WMTime-1.0:
+
+	* Commandline? option for LED colors;
+	* Optional LCD GUI, either compiletime or runtime;
+	* Alarmclock function with sound support, note that
+	  the 'empty space' in -digital is reserved for the
+	  alarm settings buttons, gadgets etc.;
+	* Add more language files with the distribution;
+	* Dualmode time display (analog mode with transparent
+	  digital clock that shines through);
+	* Simple crontab job launcher/setter?;
+
+Your feedback! If you have nice suggestions, ideas, whatever,
+that aren't on this list, feel free to mail them to:
+
+	dockapps@windowmaker.mezaway.org
+
+If you don't let us know... how are we suppose to know? ;-)

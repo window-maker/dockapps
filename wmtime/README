@@ -1,0 +1,72 @@
+WMTime-1.0b2 - The 2nd public BETA release
+--------------------------------------------------------------
+Authors...: Martijn Pieterse (pieterse@xs4all.nl)
+       	    Antoine Nulle    (warp@xs4all.nl)
+		
+Note......: WMTime has it's own mailbox, as our pop3 accounts
+	    are already way too crowded :)
+	    Please mail bugreports, comments, suggestions,
+	    requests and flames to:
+
+	    dockapps@windowmaker.mezaway.org
+	    
+	    The official WMTime support website address:
+ 
+     	    http://windowmaker.mezaway.org
+	    
+Credits...: Bobby Mezaway (bobby@mezaway.org) for generously
+	    hosting our website
+	    Pascal G.Hofstee (daeron@Wit401305.student.utwente.nl)
+	    for supplying an Imakefile for *BSD systems
+	    Alen Salamun (snowman@hal9000.medinet.si) 
+	    for supplying the Locale support patches!
+
+Description
+--------------------------------------------------------------
+WMTime, guess what, displays the time and date and gives you
+some nice additional features too...
+
+WMTime currently provides:
+
+        * Time and date;
+        * Realtime morphing UI (analog <> digital mode);
+        * Autoscaling and anti aliased hands;
+	* Locale, can display DAY and DATE in various languages;
+	* Can lauch 3 user definable commands through ~/.wmtimerc;
+	* Can be run multiple times;
+	* Commandline options for help (-h), version (-v), digital
+	  clock mode (-digital) and and display (-d);
+
+WMTime is being developped on DEC Alpha machines running
+Linux/RedHat-5.0, but, WMTime has been intensively tested
+on x86 and 68K Linux machines too ;-)
+
+WMTime also seems to compile and work okay on *BSD and SGI/
+IRIX-6.x systems (so we've heard and been told) ;-)
+
+
+Files
+--------------------------------------------------------------
+README		This file.
+INSTALL		Installation instructions.
+HINTS 		Usefull hints and tips about WMTime.
+BUGS		Things you don't want to know ;-)
+CHANGES 	Description of changes.
+TODO            Stuff we've planned for future WMTime releases.
+COPYING		GNU General Public License Version 2.
+	
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to dockapps@windowmaker.mezaway.org and describe
+the problem as detailed as you can.
+
+
+Copyright
+--------------------------------------------------------------
+WMTime.app is copyright (c) 1997, 1998 by Martijn Pieterse and
+Antoine Nulle and licensed through the GNU General Public License. 
+Read the COPYING file for the complete GNU license.
+
+

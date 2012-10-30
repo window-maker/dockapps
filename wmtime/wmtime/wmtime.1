@@ -1,0 +1,178 @@
+'\" t
+.\" Man page for wmtime
+.\" Copyright (c) 2003  Software in the Public Interest, Inc.
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or (at
+.\" your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful, but
+.\" WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+.\" General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.
+.\"
+.TH WMTIME 1 "May 1998" "WMTIME 1.0b2"
+
+.SH NAME
+wmtime \- Window Maker dockapp that displays the time and date
+
+.SH SYNOPSIS
+
+.B wmtime
+[
+.I OPTION
+]
+
+.SH DESCRIPTION
+
+.B WMTime
+displays the time and date and gives you some nice additional
+features too. It is intended for docking in Window Maker.
+
+It currently provides:
+
+.IP \(bu 4
+the time and date;
+
+.IP \(bu
+a realtime morphing interface (analog <> digital mode);
+.IP \(bu
+auto\-scaled and anti\-aliased hands;
+.IP \(bu
+localization, displaying the day and date in various languages;
+.IP \(bu
+three user\-defined commands to launch.
+
+.SH OPTIONS
+
+.TP
+.BR \-d , \ \-digital
+Display the digital clock on startup, instead of the analog clock.
+
+.TP
+.BI \-display \ display
+This option specifies the X server to contact; see
+.IR X(7x) .
+
+.TP
+.BI \-geometry \ geometry
+This option specifies the preferred position of clock; see
+.IR X(7x) .
+
+.TP
+.BR \-n , \ \-noseconds
+Disables the second hand.
+
+.TP
+.B \-h
+Show help information.
+
+.TP
+.B \-v
+Print the version number.
+
+.SH USAGE
+The
+.B WMTime
+window is separated into top and bottom sections.  The top section
+contains a clock and the bottom section contains the date.
+
+The clock can be toggled between analog and digital modes.  To do this,
+click in the bottom section of the window.
+
+WMTime can also be used to launch programs.  You may click either left,
+middle, or right mouse buttons in the top section of the window.  The
+pre\-configured program will be launched according to the mouse button
+clicked.  (see
+.B CONFIGURATION FILE
+below.)
+
+In order to move
+.BR WMTime ,
+drag on the outer edges.  These are not sensitive to mouse clicks.
+
+.SH "DOCKING IN WINDOW MANAGERS"
+
+.TP
+Window Maker
+
+Window Maker users should drag and drop the
+.B WMTime
+window on the Dock.  Then, right\-click on the border of the window and
+select \*(lqSettings...\*(rq.  Check \*(lqStart when Window Maker
+is started\*(rq.
+
+.TP
+AfterStep
+
+AfterStep users should put the following in their
+.I $HOME/.steprc
+
+.RS 16
+Wharf wmtime \- MaxSwallow "wmtime" wmtime &
+.RE
+
+.TP
+Other window managers
+
+.B WMTime
+runs nicely as a 64x64 shaped icon on your desktop.
+
+.SH "CONFIGURATION FILE"
+
+.B WMTime
+can launch three user\-defined commands, triggered by left, middle and
+right mouse button clicks.  You can define the commands to launch in
+.I $HOME/.wmtimerc
+
+.RS
+.PD 0
+left: xterm
+.PP
+middle: xload
+.PP
+right: xcalc
+.PP
+.PD 
+.RE
+
+If
+.B WMTime
+detects a
+.I $HOME/.wmtimerc
+file, it will launch the appropriate command when you click on the clock.
+
+The system administrator can define default commands in
+.IR /etc/wmtimerc .
+The administrator may also choose to \*(lqfix\*(rq particular commands,
+making it impossible for users to change.  These commands can be defined in
+.IR /etc/wmtimerc.fixed ,
+although this isn't a nice thing to do.
+
+.SH FILES
+
+.I /etc/wmtimerc
+.br
+.I $HOME/.wmtimerc
+.br
+.I /etc/wmtimerc.fixed
+
+.SH AUTHORS
+
+.B WMTime
+was written by Martijn Pieterse and Antoine Nulle.
+
+This manual page was written by Simon Law <sfllaw@debian.org> for the
+.B Debian
+system (but may be used by others). It is based on the documentation provided
+by the original program.
+
+This manual is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or (at
+your option) any later version.

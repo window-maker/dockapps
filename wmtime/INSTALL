@@ -1,0 +1,38 @@
+Installation instructions for WMTime.
+
+Requirements
+--------------------------------------------------------------
+Nothing particular, but a computer might come in handy doh ;-)
+
+
+Installation
+--------------------------------------------------------------
+1)  % tar -zxvf wmtime-1.0.tar.gz
+2)  % cd wmtime.app/wmtime
+3)* Optional, make a symlink to your preffered language like:
+    % rm language
+    % ln -s languages/slovene.lang language
+4)* xmkmf -a (for *BSD systems needed only!).    
+5)  % make
+6)  copy 'wmtime' somewhere in your $PATH like /usr/local/bin;
+7)  % wmtime & (or wmtime -h for help)
+
+
+3)* The default language is US/English, WMTime currently only
+    supports the US/English, Dutch and Slovenia languages.
+    
+    A locale version of your language is very simple to create,
+    just take a look at the supplied '.lang' files in the 
+    wmtime.app/wmtime/languages/ directory.
+
+    If you do create one, please be so kind to mail it to us,
+    this way we can include it with future releases of WMTime.
+    
+4)* This Imakefile was kindly donated by Pascal Hofstede but
+    untested by the authors because we don't have a *BSD box
+    to test and try it out... we're working on generic 
+    Imakefiles though ;-)
+           
+Be sure to read the HINTS and TODO files too!
+
+

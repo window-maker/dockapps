@@ -1,0 +1,52 @@
+Hints for WMTime
+
+Generic
+--------------------------------------------------------------
+WMTime supports 4 commandline options:
+
+	-h (help); 
+	-v (prints);
+	-d (display);
+	-digital (digital clock);
+
+WMTime can lauch 3 user definable commands for left, middle and
+right mouse button clicks, which you can define in ~/.wmtimerc,
+
+left: mycommand-1 &
+middle: mycommand-2 &
+right: mycommand-3 &
+
+If wmtime detects a ~/.wmtimerc file, it will launch your defined
+command(s) when you click in the clock display area.
+
+WMtime can realtime 'morph' it's UI from analog <> digital,
+simply left click in either the DAY or DATE gadget ;-)
+
+Be sure to drag WMTime on it's outer edges, WMTime is a bit picky 
+due to the large gfx pixmap it keeps ;-)
+
+
+WindowMaker
+--------------------------------------------------------------
+WindowMaker users simply drag and drop the WMTime dock.app on
+the WindowMaker Dock (preferred) or on the Fiend and select
+'autolaunch' from the rightmouse button Dock popupmenu.
+
+
+Afterstep
+--------------------------------------------------------------
+Afterstep users put the following in their .steprc
+"Wharf wmtime - MaxSwallow "wmtime" wmtime &".
+
+Note: AfterStep's Wharf has a problem with pixmaps that are
+larger than 60x60 pixels. Please tell the AfterStep authors
+to fix this, this is not our fault, but a Wharf problem!
+ 
+
+Other WindowManagers
+--------------------------------------------------------------
+For other windowmanagers, WMTime runs nicely as a 64x64 shaped
+icon on your desktop.
+
+
+
