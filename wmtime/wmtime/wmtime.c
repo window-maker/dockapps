@@ -65,6 +65,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <math.h>
+#include <locale.h>
+#include <langinfo.h>
+#include <iconv.h>
+#include <ctype.h>
 
 #include <sys/wait.h>
 #include <sys/param.h>
@@ -148,7 +152,10 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	get_lang();
+
+	if (setlocale(LC_ALL, "") != NULL)
+		get_lang();
+
 	wmtime_routine(argc, argv);
 	return 0;
 }
@@ -156,26 +163,44 @@ int main(int argc, char *argv[]) {
 /************/
 /* get_lang */
 /************/
-void get_lang(){
-   FILE *fp;
-   int i;
-   const int line_size = 5;
-   char line[line_size];
-   
-   fp=fopen("language","r");
-   if (fp) {
-	   /* Grab the days of the week */
-       for (i=0;i<7;i++){
-		   fgets(line, line_size, fp);
-		   strncpy(day_of_week[i], line, 2);
-       };
-	   /* Grab the names of the months */
-       for (i=0;i<12;i++){
-		   fgets(line, line_size, fp);
-		   strncpy(mon_of_year[i], line, 3);
-       };
-	   fclose(fp);
-    };
+void get_lang(void)
+{
+	char langbuf[10], outbuf[10];
+	char *inp, *outp;
+	iconv_t icd;
+	int i, ret;
+	size_t insize, outsize;
+
+	icd = iconv_open("ASCII//TRANSLIT", nl_langinfo(CODESET));
+	if (icd < 0)
+		return;
+
+	for (i = 0; i < 7; i++) {
+		strncpy(langbuf, nl_langinfo(ABDAY_1 + i), 10);
+		insize = outsize = 10;
+		inp = langbuf;
+		outp = outbuf;
+		do {
+			ret = iconv(icd, &inp, &insize, &outp, &outsize);
+		} while (outsize > 0 && ret > 0);
+		for (outp = outbuf, outsize = 0; *outp != 0 && outsize < 2;
+		    outp++, outsize++)
+			day_of_week[i][outsize] = toupper(*outp);
+	}
+	for (i = 0; i < 12; i++) {
+		strncpy(langbuf, nl_langinfo(ABMON_1 + i), 10);
+		insize = outsize = 10;
+		inp = langbuf;
+		outp = outbuf;
+		do {
+			ret = iconv(icd, &inp, &insize, &outp, &outsize);
+		} while (outsize > 0 && ret > 0);
+		for (outp = outbuf, outsize = 0; *outp != 0 && outsize < 3;
+		    outp++, outsize++)
+			mon_of_year[i][outsize] = toupper(*outp);
+	}
+
+	iconv_close(icd);
 }
 
 /*******************************************************************************\
