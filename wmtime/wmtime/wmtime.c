@@ -344,17 +344,20 @@ void DrawTime(int hr, int min, int sec) {
 	char	time[time_size];
 	char	*p = time;
 	int		i,j,k=6;
+	int numfields;
 
 	/* 7x13 */
 
 	if (noseconds) {
 		snprintf(time, time_size, "%02d:%02d ", hr, min);
+		numfields = 2;
 	}
 	else {
 		snprintf(time, time_size, "%02d:%02d:%02d ", hr, min, sec);
+		numfields = 3;
 	}
 
-	for (i=0; i < 3; i++) {
+	for (i=0; i < numfields; i++) {
 		for (j=0; j<2; j++) {
 			copyXPMArea((*p-'0')*7 + 1, 84, 8, 13, k, 18);
 			k += 7;
