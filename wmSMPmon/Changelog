@@ -1,3 +1,9 @@
+3.2
+
+- Added Solaris support.
+- Added CPU load aggreggation so that they fit into two columns.
+- A bit of code clean-up to speed up things.
+
 3.1
 
 - Fixed bug where wmSMPmon would crash if no swap is enabled/present

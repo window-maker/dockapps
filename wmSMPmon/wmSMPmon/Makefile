@@ -5,7 +5,9 @@
 BINDIR=/usr/local/bin/
 MANDIR=/usr/local/share/man/
 
-SRC = general.c sysinfo-linux.c ../wmgeneral/wmgeneral.c wmSMPmon.c 
+OS := $(shell uname -s)
+
+SRC = general.c ../wmgeneral/wmgeneral.c wmSMPmon.c
 EXE = wmSMPmon
 MAN = wmSMPmon.1
 OBJ = $(SRC:.c=.o)
@@ -16,10 +18,18 @@ CC = gcc
 CFLAGS = -Wall -O2 -g
 LIB = -L/usr/X11R6/lib -lXpm -lXext -lX11
 
+ifeq ($(OS),Linux)
+SRC += sysinfo-linux.c
+endif
+ifeq ($(OS),SunOS)
+SRC += sysinfo-solaris.c
+LIB += -lkstat
+endif
+
 all: $(OBJ)
 	$(CC) -o $(EXE) $(OBJ) $(LIB)
 
-$(OBJ): %.o : %.c 
+$(OBJ): %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
