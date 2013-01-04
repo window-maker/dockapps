@@ -16,6 +16,11 @@
       <tr>
         <td content="content" colspan="2" valign="top">
 
+	<h3>Version 0.95.4 released</h3>
+	  <p> Window Maker 0.95.4 was released on January 3rd 2013. There was a major code cleanup related to icons, some changes
+	      in WPrefs, the addition of a new "Center" placement strategy, support for _NET_FRAME_EXTENTS, the removal of CPP
+	      dependency to process menu files and small fixes and improvements all around.</p>
+
 	<h3>Version 0.95.3 released</h3>
 	  <p> Window Maker 0.95.3 was released on May 16th 2012. This release fixes a regression
 	  which would cause more than one instance of an application to start (under some circunstances) when using menu
