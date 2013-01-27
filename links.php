@@ -63,6 +63,10 @@
             </li>
 
 	    <li>
+              <p><a href="http://windowmakerandi.blogspot.co.uk/" target="_blank">Window Maker and I</a> Blog</p>
+            </li>
+
+	    <li>
               <p><a href="http://blog.bigsmoke.us/2009/03/30/wmaker" target="_blank">My Window Maker 'desktop' configuration</a> (blog post)</p>
             </li>
 
