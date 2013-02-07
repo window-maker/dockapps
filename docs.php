@@ -32,9 +32,20 @@
           overlook this information, leading them to frustration and a bad first impression. Please take a moment to peruse the
           sections below, which should make the experience of learning Window Maker a more pleasant one.</p>
 
+	<ul>
+            <li><a href="installation.php">Installation Basics</a></li>
+
+            <li><a href="guidedtour/index.html">Guided Tour</a></li>
+            <li><a href="guide_toc.php">User Guide</a></li>
+<!--            <li><a href="desktop.php">Desktop/X Integration</a></li> -->
+
+            <li><a href="FAQ.php">FAQ</a></li>
+
+            <li><a href="wings.php">WINGs</a></li>
+          </ul>
+
 	<h3>Very frequently asked question </h3>
 
-	<div align="center"><img src="essential_dockapps.png" alt="Essential dockapps" width="66" height="135" /><div>wmvolman and wmsystemtray with nm-applet</div></div>
 
 	<h2> Can I easily mount my external drives or connect to the internet with Window Maker?</h2>
 	<p> Yes, you can. Mounting external media is not the problem of a window manager to solve, but
@@ -44,19 +55,11 @@
 	having your external media mounted on /media/VOLUME_LABEL.</p>
 
        	<p> And you can just as easily manage your network connections using the standard <code>nm-applet</code> running
-	in a system tray on your dock. See for example the excellent <a href="http://dockapps.windowmaker.org/file.php/id/355">wmsystemtray</a>.</p>
+	in a system tray like <a href="http://dockapps.windowmaker.org/file.php/id/355">wmsystemtray</a> on your dock.</p>
 
-          <ul>
-            <li><a href="installation.php">Installation Basics</a></li>
+	<div align="center"><img src="essential_dockapps.png" alt="Essential dockapps" width="66" height="135" /><div>wmvolman and wmsystemtray with nm-applet</div></div>
 
-            <li><a href="http://main.linuxfocus.org/~georges.t/">Guided Tour</a></li>
-            <li><a href="guide_toc.php">User Guide</a></li>
-<!--            <li><a href="desktop.php">Desktop/X Integration</a></li> -->
 
-            <li><a href="FAQ.php">FAQ</a></li>
-
-            <li><a href="wings.php">WINGs</a></li>
-          </ul>
         </td>
       </tr>
     </table>
