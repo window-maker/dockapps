@@ -366,7 +366,7 @@ int test_sock_connect(void)
 {
 	struct sockaddr_in addr;
 	int s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	int addrlen = sizeof(struct sockaddr_in);
+	socklen_t addrlen = sizeof(struct sockaddr_in);
 	if (s < 0) {
 		perror("socket");
 		return 1;

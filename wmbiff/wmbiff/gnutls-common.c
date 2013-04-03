@@ -39,7 +39,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 {
 	gnutls_x509_crt crt;
 	const gnutls_datum *cert_list;
-	int cert_list_size = 0, ret;
+	unsigned int cert_list_size = 0, ret;
 	char digest[20];
 	char serial[40];
 	char dn[256];

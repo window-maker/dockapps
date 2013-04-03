@@ -124,7 +124,7 @@ static int wait_for_it(int sd, int timeoutseconds)
             ProcessPendingEvents();
 
             gettimeofday(&time_now, NULL);
-            tv.tv_sec = max(time_out.tv_sec - time_now.tv_sec + 1, 0); /* sloppy, but bfd */
+            tv.tv_sec = max(time_out.tv_sec - time_now.tv_sec + 1, (time_t) 0); /* sloppy, but bfd */
             tv.tv_usec = 0;
             /* select will return if we have X stuff or we have comm stuff on sd */
             FD_ZERO(&readfds);
@@ -295,6 +295,7 @@ void tlscomm_printf(struct connection_state *scs, const char *format, ...)
 	va_list args;
 	char buf[1024];
 	int bytes;
+	ssize_t unused __attribute__((unused));
 
 	if (scs == NULL) {
 		DMA(DEBUG_ERROR, "null connection to tlscomm_printf\n");
@@ -316,7 +317,8 @@ void tlscomm_printf(struct connection_state *scs, const char *format, ...)
 			}
 		} else
 #endif
-			(void) write(scs->sd, buf, bytes);
+			/* Why???? */
+			unused = write(scs->sd, buf, bytes);
 	} else {
 		printf
 			("warning: tlscomm_printf called with an invalid socket descriptor\n");
@@ -382,8 +384,8 @@ static int tls_compare_certificates(const gnutls_datum * peercert)
 			return 0;
 		}
 
-		ptr = (unsigned char *) strstr(b64_data.data, CERT_SEP) + 1;
-		ptr = (unsigned char *) strstr(ptr, CERT_SEP);
+		ptr = (unsigned char *) strstr((char *) b64_data.data, CERT_SEP) + 1;
+		ptr = (unsigned char *) strstr((char *) ptr, CERT_SEP);
 
 		b64_data.size = b64_data.size - (ptr - b64_data.data);
 		b64_data.data = ptr;
@@ -412,7 +414,7 @@ tls_check_certificate(struct connection_state *scs,
 {
 	int certstat;
 	const gnutls_datum *cert_list;
-	int cert_list_size = 0;
+	unsigned int cert_list_size = 0;
 	gnutls_x509_crt cert;
 
 	if (gnutls_auth_get_type(scs->tls_state) != GNUTLS_CRD_CERTIFICATE) {
