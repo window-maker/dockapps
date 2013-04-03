@@ -408,7 +408,7 @@ static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 pc,
 	char buf[BUF_SIZE];
 
 	tlscomm_printf(scs, "USER %s\r\n", PCU.userName);
-	if (tlscomm_gets(buf, BUF_SIZE, scs) == NULL) {
+	if (tlscomm_gets(buf, BUF_SIZE, scs) == 0) {
 		POP_DM(pc, DEBUG_ERROR,
 			   "Error reading from server authenticating '%s@%s:%d'\n",
 			   PCU.userName, PCU.serverName, PCU.serverPort);
@@ -426,7 +426,7 @@ static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 pc,
 
 
 	tlscomm_printf(scs, "PASS %s\r\n", PCU.password);
-	if (tlscomm_gets(buf, BUF_SIZE, scs) == NULL) {
+	if (tlscomm_gets(buf, BUF_SIZE, scs) == 0) {
 		POP_DM(pc, DEBUG_ERROR,
 			   "Error reading from server (2) authenticating '%s@%s:%d'\n",
 			   PCU.userName, PCU.serverName, PCU.serverPort);
@@ -437,7 +437,7 @@ static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 pc,
         PCU.password[0] = '\0';
         ask_user_for_password(pc, 1);	/* 1=overwrite the cache */
         tlscomm_printf(scs, "PASS %s\r\n", PCU.password);
-        if (tlscomm_gets(buf, BUF_SIZE, scs) == NULL) {
+        if (tlscomm_gets(buf, BUF_SIZE, scs) == 0) {
           POP_DM(pc, DEBUG_ERROR,
                  "Error reading from server (2) authenticating '%s@%s:%d'\n",
                  PCU.userName, PCU.serverName, PCU.serverPort);
