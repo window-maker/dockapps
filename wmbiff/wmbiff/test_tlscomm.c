@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <tlsComm.h>
 
 int debug_default = 2;
 int SkipCertificateCheck = 0;
