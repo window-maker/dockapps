@@ -1107,7 +1107,6 @@ extern void ProcessPendingEvents(void)
 static void do_biff(int argc, const char **argv)
 {
 	unsigned int i;
-	time_t curtime;
 	int Sleep_Interval;
 	const char **skin_xpm = NULL;
 	const char **bkg_xpm = NULL;
@@ -1148,7 +1147,6 @@ static void do_biff(int argc, const char **argv)
 	}
 
 	/* First time setup of button regions and labels */
-	curtime = time(0);
 	for (i = 0; i < num_mailboxes; i++) {
 		/* make it easy to recover the mbox index from a mouse click */
 		AddMouseRegion(i, x_origin, mbox_y(i), 58, mbox_y(i + 1) - 1);
