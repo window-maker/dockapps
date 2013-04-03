@@ -23,7 +23,7 @@
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
 #include <X11/cursorfont.h>
-#include <X11/keysym.h>
+#include <X11/XKBlib.h>
 
 #include <errno.h>
 #include <string.h>
@@ -1084,7 +1084,7 @@ extern void ProcessPendingEvents(void)
 			break;
 		case KeyPress:{
 				XKeyPressedEvent *xkpe = (XKeyPressedEvent *) & Event;
-				KeySym ks = XKeycodeToKeysym(display, xkpe->keycode, 0);
+				KeySym ks = XkbKeycodeToKeysym(display, xkpe->keycode, 0, 0);
 				if (ks > XK_0 && ks < XK_0 + min(9U, num_mailboxes)) {
 					const char *click_action = mbox[ks - XK_1].action;
 					if (click_action != NULL
