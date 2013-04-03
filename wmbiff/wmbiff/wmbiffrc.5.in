@@ -163,30 +163,6 @@ imaps:user:@server[/mailbox][:port] [auth]
 imaps:user passwd server[/mailbox][ port] [auth]
 .RE
 .TP
-.I licq
-With this box type, wmbiff will read the given history file and track the
-number of messages in it. It just needs a path to a given licq history file.
-.RS
-licq:/path/to/.licq/history/file.history
-.RE
-.TP
-.I gicu
-With this box type, wmbiff will ask gnomeicu for the number
-of pending messages.  If gnomeicu is not running, nothing
-will be displayed.  gnomeicu-client must be in your path.
-The user's icq UIN is optional.
-.RS
-gicu:[UIN]
-.RE
-.TP
-.I finger
-With this box type, wmbiff will finger an account to see if
-there is unread mail.  Both finger and perl must be in your
-path, and your server must run a finger daemon.
-.RS
-finger:user@host
-.RE
-.TP
 .I shell
 With this keyword, wmbiff will launch the
 specified shell command and read its output (STDOUT)

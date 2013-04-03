@@ -13,7 +13,7 @@ WMBiff \- A dockable Mailbox Monitor
 
 .SH SYNOPSIS
 .B wmbiff
-[-display <display name>] [-geometry +XPOS+YPOS] [-c <filename>] [-h] [-v] [-debug] [-fg <foreground-color>] [-font <X11 font>|default] [-hi <highlight-color>] [+w]
+[-display <display name>] [-geometry +XPOS+YPOS] [-c <filename>] [-h] [-v] [-debug] [-fg <foreground-color>] [-bg <background-color>] [-hi <highlight-color>] [-font <X11 font>|default] [+w]
 .br
 
 .SH DESCRIPTION
@@ -61,18 +61,22 @@ Use specified configuration file instead of ~/.wmbiffrc.
 Print verbose log of progress.
 .TP
 .B \-fg <color>
-Use specified X11 color.  Implies -font default, unless 
-overridden.
+Use specified X11 color for foreground. Implies -font default,
+unless overridden.
+.TP
+.B \-bg <color>
+Use specified X11 color for background. Implies -font default,
+unless overridden.
+.TP
+.B \-hi <color>
+Use specified X11 color for new mail counters. Implies -font
+default, unless overridden.
 .TP
 .B \-font <font>
 Use specified X11 font instead of the LED pixmap.  This may
 be more readable or suitable for some non-US characters.
 The special font "default" tells wmbiff to use a compile
 time default.
-.TP
-.B \-hi <color>
-Use specified X11 color for new mail counters.  Implies -font
-default, unless overridden.
 .TP
 .B \-skip-certificate-check
 When using TLS (IMAPS), keep going, even if the server's
