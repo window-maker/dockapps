@@ -39,7 +39,8 @@ void print_x509_info(gnutls_session session, const char* hostname)
 {
 	gnutls_x509_crt crt;
 	const gnutls_datum *cert_list;
-	unsigned int cert_list_size = 0, ret;
+	unsigned int cert_list_size = 0;
+	int ret;
 	char digest[20];
 	char serial[40];
 	char dn[256];
@@ -63,7 +64,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 	printf(" - Got a certificate list of %d certificates.\n\n",
 	       cert_list_size);
 
-	for (j = 0; j < (unsigned int)cert_list_size; j++) {
+	for (j = 0; j < cert_list_size; j++) {
 
 		gnutls_x509_crt_init(&crt);
 		ret =
@@ -213,7 +214,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 	size_t name_len = sizeof(name);
 	gnutls_openpgp_key crt;
 	const gnutls_datum *cert_list;
-	int cert_list_size = 0;
+	unsigned int cert_list_size = 0;
 	time_t expiret;
 	time_t activet;
 	
