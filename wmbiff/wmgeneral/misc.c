@@ -21,7 +21,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "list.h"
 #include "misc.h"
 
 extern pid_t execCommand(const char *command)
