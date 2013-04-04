@@ -1168,6 +1168,12 @@ static void do_biff(int argc, const char **argv)
 		free(skin_xpm);			// added 3 jul 02, appeasing valgrind
 	}
 	if (bkg_xpm != NULL) {
+		// Allocated in CreateBackingXPM()
+		free((void *)bkg_xpm[0]);
+		free((void *)bkg_xpm[2]);
+		int mem_block;
+		for (mem_block = 6; mem_block < 6 + wmbiff_mask_height; mem_block++)
+			free((void *)bkg_xpm[mem_block]);
 		free(bkg_xpm);
 	}
 }

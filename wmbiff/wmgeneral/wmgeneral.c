@@ -469,6 +469,11 @@ void openXwindow(int argc, const char *argv[],
 	int dummy = 0;
 	int i;
 
+	if (!wname) {
+		fprintf(stderr, "Unable to allocate memory for window name!\n");
+		abort();
+	}
+
 	for (i = 1; argv[i]; i++) {
 		if (!strcmp(argv[i], "-display")) {
 			display_name = argv[i + 1];
@@ -543,6 +548,7 @@ void openXwindow(int argc, const char *argv[],
 	}
 
 	XSetWMName(display, win, &name);
+	XFree(name.value);
 
 	/* Create GC for drawing */
 
@@ -609,4 +615,7 @@ void openXwindow(int argc, const char *argv[],
 		   exit(1);
 		   } */
 	}
+
+	if (wname)
+		free(wname);
 }
