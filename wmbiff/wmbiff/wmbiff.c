@@ -88,6 +88,7 @@ static unsigned int num_mailboxes = 1;
 static const int x_origin = 5;
 static const int y_origin = 5;
 static int forever = 1;			/* keep running. */
+unsigned int custom_skin = 0;		/* user has choose a custom skin */
 
 extern Window win;
 extern Window iconwin;
@@ -251,6 +252,7 @@ static int Read_Config_File(char *filename, int *loopinterval)
 			continue;
 		} else if (!strcmp(setting, "skinfile")) {
 			skin_filename = strdup_ordie(value);
+			custom_skin = 1;
 			continue;
 		} else if (!strcmp(setting, "certfile")) {	/* not yet supported */
 			certificate_filename = strdup_ordie(value);
@@ -1407,6 +1409,8 @@ int main(int argc, const char *argv[])
 	// free resources
 	if (restart_args)
 		free(restart_args);
+	if (custom_skin)
+		free((void *)skin_filename);
 
 	return 0;
 }
