@@ -475,11 +475,11 @@ void openXwindow(int argc, const char *argv[],
 	}
 
 	for (i = 1; argv[i]; i++) {
-		if (!strcmp(argv[i], "-display")) {
+		if (!strcmp(argv[i], "-display") && i < argc - 1) {
 			display_name = argv[i + 1];
 			i++;
 		}
-		if (!strcmp(argv[i], "-geometry")) {
+		if (!strcmp(argv[i], "-geometry") && i < argc - 1) {
 			geometry = argv[i + 1];
 			i++;
 		}
