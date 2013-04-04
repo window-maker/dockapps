@@ -963,12 +963,16 @@ static void restart_wmbiff(int sig
 #endif
 	)
 {
-	DMA(DEBUG_ERROR, "exec()'ing %s\n", restart_args[0]);
-	sleep(1);
-	execvp(restart_args[0], (char *const *) restart_args);
-	DMA(DEBUG_ERROR, "exec of %s failed: %s\n",
-		restart_args[0], strerror(errno));
-	exit(EXIT_FAILURE);
+	if (restart_args) {
+		DMA(DEBUG_ERROR, "exec()'ing %s\n", restart_args[0]);
+		sleep(1);
+		execvp(restart_args[0], (char *const *) restart_args);
+		DMA(DEBUG_ERROR, "exec of %s failed: %s\n",
+			restart_args[0], strerror(errno));
+		exit(EXIT_FAILURE);
+	}
+	else
+		fprintf(stderr, "Unable to restart wmbiff: missing restart arguments (NULL)!\n");
 }
 
 extern int x_socket(void)
@@ -1367,8 +1371,10 @@ int main(int argc, const char *argv[])
 	   will need them if we have to restart on sigusr1 */
 	restart_args =
 		(const char **) malloc((argc + 1) * sizeof(const char *));
-	memcpy(restart_args, argv, (argc) * sizeof(const char *));
-	restart_args[argc] = NULL;
+	if (restart_args) {
+		memcpy(restart_args, argv, (argc) * sizeof(const char *));
+		restart_args[argc] = NULL;
+	}
 
 	parse_cmd(argc, argv, uconfig_file);
 
@@ -1397,5 +1403,10 @@ int main(int argc, const char *argv[])
 	signal(SIGPIPE, SIG_IGN);	/* write() may fail */
 
 	do_biff(argc, argv);
+
+	// free resources
+	if (restart_args)
+		free(restart_args);
+
 	return 0;
 }
