@@ -233,16 +233,7 @@ int pop3Create(Pop3 pc, const char *str)
 
 	if (strncmp("pop3s:", str, 6) == 0) {
 #ifdef HAVE_GNUTLS_GNUTLS_H
-		static int haveBeenWarned;
 		PCU.dossl = 1;
-		if (!haveBeenWarned) {
-			printf("wmbiff uses gnutls for TLS/SSL encryption support:\n"
-				   "  If you distribute software that uses gnutls, don't forget\n"
-				   "  to warn the users of your software that gnutls is at a\n"
-				   "  testing phase and may be totally insecure.\n"
-				   "\nConsider yourself warned.\n");
-			haveBeenWarned = 1;
-		}
 #else
 		printf("This copy of wmbiff was not compiled with gnutls;\n"
 			   "imaps is unavailable.  Exiting to protect your\n"

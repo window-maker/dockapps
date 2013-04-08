@@ -77,7 +77,7 @@ AC_ARG_ENABLE(crypto, AC_HELP_STRING([ --disable-crypto ], [ disable gnutls/gcry
 
 GNUTLS_MAN_STATUS="This copy of WMBiff was not compiled with GNUTLS."
 if test "$gnutls" = "ok"; then
- PKG_CHECK_MODULES([LIBGNUTLS], [gnutls > 1.0.4], [LIBS="$LIBS $LIBGNUTLS_LIBS"
+ PKG_CHECK_MODULES([LIBGNUTLS], [gnutls > 2.2.0], [LIBS="$LIBS $LIBGNUTLS_LIBS"
                           CFLAGS="$CFLAGS $LIBGNUTLS_CFLAGS"
                          CPPFLAGS="$CPPFLAGS $LIBGNUTLS_CFLAGS"
                          GNUTLS_COMMON_O="gnutls-common.o"

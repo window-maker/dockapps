@@ -9,6 +9,8 @@
 int debug_default = 2;
 int SkipCertificateCheck = 0;
 const char *certificate_filename = NULL;
+const char *tls = "NORMAL";
+
 int exists(const char *filename __attribute__ ((unused)))
 {
 	return (0);

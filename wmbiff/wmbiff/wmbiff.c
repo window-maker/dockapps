@@ -69,6 +69,10 @@ static const char *globalnotify = NULL;
 static const char *skin_search_path = DEFAULT_SKIN_PATH;
 /* for gnutls */
 const char *certificate_filename = NULL;
+/* gnutls: specify the priorities to use on the ciphers, key exchange methods,
+   macs and compression methods. */
+const char *tls = NULL;
+
 
 /* it could be argued that a better default exists. */
 #define DEFAULT_FONT  "-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*"
@@ -260,6 +264,9 @@ static int Read_Config_File(char *filename, int *loopinterval)
 		} else if (!strcmp(setting, "globalnotify")) {
 			globalnotify = strdup_ordie(value);
 			continue;
+		} else if (!strcmp(setting, "tls")) {
+			tls = strdup_ordie(value);
+			continue;
 		} else if (mbox_index == -1) {
 			DMA(DEBUG_INFO, "Unknown global setting '%s'\n", setting);
 			continue;			/* Didn't read any setting.[0-5] value */
@@ -375,6 +382,11 @@ static int Read_Config_File(char *filename, int *loopinterval)
 		}
 	}
 	(void) fclose(fp);
+
+	if (!tls)
+		// use GnuTLS's default ciphers.
+		tls = "NORMAL";
+
 	for (i = 0; i < num_mailboxes; i++)
 		if (mbox[i].label[0] != '\0')
 			parse_mbox_path(i);

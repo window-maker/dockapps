@@ -398,6 +398,7 @@ int print_info(UNUSED(void *state))
 	return (0);
 }
 const char *certificate_filename = NULL;
+const char *tls = "NORMAL";
 int SkipCertificateCheck = 0;
 int exists(UNUSED(const char *filename))
 {

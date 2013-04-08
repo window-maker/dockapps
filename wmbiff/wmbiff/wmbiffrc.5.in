@@ -43,6 +43,45 @@ example, if mutt is your mailreader, you may add:
 certfile=/home/<me>/.muttsslcerts
 .RE
 .TP
+\fBtls\fP
+Specify cipher suite preferences on a TLS session. Can be a
+predefined value from gnults or a custom value. Default value
+is: \fINORMAL\fP.
+
+gnutls predefined values:
+.SP
+.RS 8
+\fIPERFORMANCE\fP (gnutls >= 2.2.0)
+.RE
+.RS 8
+\fINORMAL\fP (gnutls >= 2.2.0)
+.RE
+.RS 8
+\fISECURE128\fP (gnutls >= 2.2.0)
+.RE
+.RS 8
+\fISECURE192\fP (gnutls >= 3.0.0)
+.RE
+.RS 8
+\fISECURE256\fP (gnutls >= 2.2.0)
+.RE
+.RS 8
+\fISUITEB128\fP (gnutls >= 3.0.0)
+.RE
+.RS 8
+\fISUITEB192\fP (gnutls >= 3.0.0)
+.RE
+.RS 8
+\fIEXPORT\fP (gnutls >= 2.2.0)
+.RE
+.RS 8
+\fINONE\fP (gnutls >= 2.2.0)
+.RE
+.RS
+.TP
+See \fBhttp://gnutls.org/manual/gnutls.html#Priority-Strings\fR for more details.
+.RE
+.TP
 \fBinterval\fP
 Global interval between mailbox checking. Value is the number of seconds, 5
 is the default.
