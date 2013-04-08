@@ -17,9 +17,11 @@ EXTRA_test_wmbiff_SOURCES = gnutls-common.c gnutls-common.h
 test_wmbiff_LDADD = @LIBGCRYPT_LIBS@ 
 man_MANS = wmbiff.1 wmbiffrc.5
 skindir = $(datadir)/wmbiff/skins
-skin_DATA = wmbiff-master-led.xpm wmbiff-master-contrast.xpm 
+skin_DATA = wmbiff-master-led.xpm wmbiff-master-contrast.xpm \
+	wmbiff-classic-master-led.xpm wmbiff-classic-master-contrast.xpm
 
-EXTRA_DIST = $(man_MANS) sample.wmbiffrc wmbiff-master-led.xpm 
+EXTRA_DIST = $(man_MANS) sample.wmbiffrc wmbiff-master-led.xpm \
+	wmbiff-classic-master-led.xpm
 
 MAINTAINERCLEANFILES = Makefile.in
 
@@ -48,12 +50,19 @@ indent:
 dist-hook-local: indent config-h-check
 
 distclean-local:
-	-rm -f wmbiff-master-contrast.xpm wmbiff-master.xpm
+	-rm -f wmbiff-master-contrast.xpm wmbiff-master.xpm \
+		wmbiff-classic-master-contrast.xpm
 
 # remove colors, then substitute old colors, then repalletize
 # for some reason $< doesn't always work. 
 wmbiff-master-contrast.xpm:  wmbiff-master-led.xpm Makefile
 	egrep -v '^"[:%][[:space:]]c #' < wmbiff-master-led.xpm | \
+	sed -e 's/:/./g' -e 's/%/$$/g' -e 's/ 15 / 13 /' | \
+	sed -e 's/#\([0-9A-F]\{2\}\)[0-9A-F]\{2\}\([0-9A-F]\{2\}\)[0-9A-F]\{2\}\([0-9A-F]\{2\}\)[0-9A-F]\{2\}/#\1\2\3/'\
+	> $@ || rm $@
+
+wmbiff-classic-master-contrast.xpm:  wmbiff-classic-master-led.xpm Makefile
+	egrep -v '^"[:%][[:space:]]c #' < wmbiff-classic-master-led.xpm | \
 	sed -e 's/:/./g' -e 's/%/$$/g' -e 's/ 15 / 13 /' | \
 	sed -e 's/#\([0-9A-F]\{2\}\)[0-9A-F]\{2\}\([0-9A-F]\{2\}\)[0-9A-F]\{2\}\([0-9A-F]\{2\}\)[0-9A-F]\{2\}/#\1\2\3/'\
 	> $@ || rm $@

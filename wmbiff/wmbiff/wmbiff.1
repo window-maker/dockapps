@@ -13,12 +13,13 @@ WMBiff \- A dockable Mailbox Monitor
 
 .SH SYNOPSIS
 .B wmbiff
-[-display <display name>] [-geometry +XPOS+YPOS] [-c <filename>] [-h] [-v] [-debug] [-fg <foreground-color>] [-bg <background-color>] [-hi <highlight-color>] [-font <X11 font>|default] [+w]
+[-display <display name>] [-geometry +XPOS+YPOS] [-c <filename>] [-h] [-v] [-debug] [-fg <foreground-color>] [-bg <background-color>] [-hi <highlight-color>] [-font <X11 font>|default] [-o] [+w]
 .br
 
 .SH DESCRIPTION
 WMbiff displays the status of up to five mailboxes. It shows the number
-of new mail messages, if any, or the total number of messages.
+of new mail messages, if any, otherwise 0. In classic mode instead of 0
+it shows the total number of messages.
 It also has mail
 retrieval capabilies, and can be configured to do this automatically. At the
 moment, UNIX-style, maildir, POP3, APOP and IMAP4 mailboxes are supported.
@@ -85,6 +86,12 @@ unless wmbiff fails and suggests it to you, and even then,
 be careful and consider alerting your mail system
 administrator first.  The need to use this option is a sign
 of server misconfiguration.
+.TP
+.B \-o
+Enable classical mode look and behaviour: shows the number of
+new mail messages, if any, or the total number of messages.
+This option also enables the special keyword "beep" (disabled
+by default).
 .TP
 .B \+w 
 Do not use the "withdrawn" state: the wmbiff window will not

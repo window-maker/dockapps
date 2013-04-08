@@ -41,6 +41,7 @@
 
 
 #include "wmbiff-master-led.xpm"
+#include "wmbiff-classic-master-led.xpm"
 static char wmbiff_mask_bits[64 * 64];
 static const int wmbiff_mask_width = 64;
 // const int wmbiff_mask_height = 64;
@@ -58,6 +59,7 @@ static mbox_t mbox[MAX_NUM_MAILBOXES];
 
 /* this is the normal pixmap. */
 static const char *skin_filename = "wmbiff-master-led.xpm";
+static const char *classic_skin_filename = "wmbiff-classic-master-led.xpm";
 /* global notify action taken (if globalnotify option is set) */
 static const char *globalnotify = NULL;
 
@@ -73,7 +75,6 @@ const char *certificate_filename = NULL;
    macs and compression methods. */
 const char *tls = NULL;
 
-
 /* it could be argued that a better default exists. */
 #define DEFAULT_FONT  "-*-fixed-*-r-*-*-10-*-*-*-*-*-*-*"
 static const char *font = NULL;
@@ -84,6 +85,9 @@ int debug_default = DEBUG_ERROR;
 const char *foreground = "white";	/* foreground white */
 const char *background = "#505075";	/* background blue */
 static const char *highlight = "red";
+const char *foreground_classic = "#21B3AF";		/* classic foreground cyan */
+const char *background_classic = "#202020";		/* classic background gray */
+static const char *highlight_classic = "yellow";	/* classic highlight color */
 int SkipCertificateCheck = 0;
 int Relax = 0;					/* be not paranoid */
 static int notWithdrawn = 0;
@@ -93,6 +97,7 @@ static const int x_origin = 5;
 static const int y_origin = 5;
 static int forever = 1;			/* keep running. */
 unsigned int custom_skin = 0;		/* user has choose a custom skin */
+static int classic_mode = 0;		/* use classic behaviour/theme of wmbiff */
 
 extern Window win;
 extern Window iconwin;
@@ -228,6 +233,11 @@ static int Read_Config_File(char *filename, int *loopinterval)
 	char setting[BUF_SMALL], value[BUF_SIZE];
 	int mbox_index;
 	unsigned int i;
+	char *skin = NULL;
+
+	if (classic_mode) {
+		skin = strdup_ordie(skin_filename);
+	}
 
 	if (!(fp = fopen(filename, "r"))) {
 		DMA(DEBUG_ERROR, "Unable to open %s, no settings read: %s\n",
@@ -386,6 +396,12 @@ static int Read_Config_File(char *filename, int *loopinterval)
 	if (!tls)
 		// use GnuTLS's default ciphers.
 		tls = "NORMAL";
+
+	if (classic_mode && skin && !strcmp(skin, skin_filename))
+			skin_filename = classic_skin_filename;
+
+	if (skin)
+		free(skin);
 
 	for (i = 0; i < num_mailboxes; i++)
 		if (mbox[i].label[0] != '\0')
@@ -699,7 +715,7 @@ static void blitMsgCounters(unsigned int i)
 			BlitString(mbox[i].TextStatus, 39, y_row, newmail);
 		} else {
 			int mailcount =
-				(newmail) ? mbox[i].UnreadMsgs : 0;
+				(newmail) ? mbox[i].UnreadMsgs : ( classic_mode ? mbox[i].TotalMsgs : 0 );
 			BlitNum(mailcount, 45, y_row, newmail);
 		}
 	}
@@ -711,7 +727,9 @@ static void blitMsgCounters(unsigned int i)
 static void execnotify( /*@null@ */ const char *notifycmd)
 {
 	if (notifycmd != NULL) {	/* need to call notify() ? */
-		if (!strcasecmp(notifycmd, "true")) {
+		if (classic_mode && !strcasecmp(notifycmd, "beep"))
+			XBell(display, 100);
+		else if (!strcasecmp(notifycmd, "true")) {
 			/* Yes, nothing */
 		} else {
 			/* Else call external notifyer, ignoring the pid */
@@ -1141,15 +1159,15 @@ static void do_biff(int argc, const char **argv)
 	if (skin_xpm == NULL) {
 		DMA(DEBUG_ERROR, "using built-in xpm; %s wasn't found in %s\n",
 			skin_filename, skin_search_path);
-		skin_xpm = wmbiff_master_xpm;
+		skin_xpm = (classic_mode ? wmbiff_classic_master_xpm : wmbiff_master_xpm);
 	}
 
 	bkg_xpm = (const char **) CreateBackingXPM(wmbiff_mask_width, wmbiff_mask_height, skin_xpm);
 
-	createXBMfromXPM(wmbiff_mask_bits, bkg_xpm,
+	createXBMfromXPM(wmbiff_mask_bits, (const char**)bkg_xpm,
 					 wmbiff_mask_width, wmbiff_mask_height);
 
-	openXwindow(argc, argv, bkg_xpm, skin_xpm, wmbiff_mask_bits,
+	openXwindow(argc, argv, (const char**)bkg_xpm, skin_xpm, wmbiff_mask_bits,
 				wmbiff_mask_width, wmbiff_mask_height, notWithdrawn);
 
 	/* now that display is set, we can create the cursors
@@ -1182,7 +1200,8 @@ static void do_biff(int argc, const char **argv)
 	}
 	while (forever);			/* forever is usually true,
 								   but not when debugging with -exit */
-	if (skin_xpm != NULL && skin_xpm != wmbiff_master_xpm) {
+	if (skin_xpm != NULL && skin_xpm != wmbiff_master_xpm
+		&& skin_xpm != wmbiff_classic_master_xpm) {
 		free(skin_xpm);			// added 3 jul 02, appeasing valgrind
 	}
 	if (bkg_xpm != NULL) {
@@ -1244,6 +1263,7 @@ static void printversion(void)
 static void parse_cmd(int argc, const char **argv, char *config_file)
 {
 	int i;
+	int fg = 0, bg = 0, hi = 0;
 
 	config_file[0] = '\0';
 
@@ -1258,7 +1278,8 @@ static void parse_cmd(int argc, const char **argv, char *config_file)
 				if (strcmp(arg + 1, "bg") == 0) {
 					if (argc > (i + 1)) {
 						background = strdup_ordie(argv[i + 1]);
-						DMA(DEBUG_INFO, "new background: %s", foreground);
+						bg = 1;
+						DMA(DEBUG_INFO, "new background: '%s'\n", foreground);
 						i++;
 						if (font == NULL)
 							font = DEFAULT_FONT;
@@ -1279,7 +1300,8 @@ static void parse_cmd(int argc, const char **argv, char *config_file)
 				if (strcmp(arg + 1, "fg") == 0) {
 					if (argc > (i + 1)) {
 						foreground = strdup_ordie(argv[i + 1]);
-						DMA(DEBUG_INFO, "new foreground: %s", foreground);
+						fg = 1;
+						DMA(DEBUG_INFO, "new foreground: '%s'\n", foreground);
 						i++;
 						if (font == NULL)
 							font = DEFAULT_FONT;
@@ -1291,7 +1313,7 @@ static void parse_cmd(int argc, const char **argv, char *config_file)
 						} else {
 							font = strdup_ordie(argv[i + 1]);
 						}
-						DMA(DEBUG_INFO, "new font: %s", font);
+						DMA(DEBUG_INFO, "new font: '%s'\n", font);
 						i++;
 					}
 				} else {
@@ -1315,7 +1337,8 @@ static void parse_cmd(int argc, const char **argv, char *config_file)
 				if (strcmp(arg + 1, "hi") == 0) {
 					if (argc > (i + 1)) {
 						highlight = strdup_ordie(argv[i + 1]);
-						DMA(DEBUG_INFO, "new highlight: %s", highlight);
+						hi = 1;
+						DMA(DEBUG_INFO, "new highlight: '%s'\n", highlight);
 						i++;
 						if (font == NULL)
 							font = DEFAULT_FONT;
@@ -1358,6 +1381,9 @@ static void parse_cmd(int argc, const char **argv, char *config_file)
 					forever = 0;
 				}
 				break;
+			case 'o':			/* use classic behaviour/theme */
+				classic_mode = 1;
+				break;
 			default:
 				usage();
 				exit(EXIT_SUCCESS);
@@ -1374,6 +1400,16 @@ static void parse_cmd(int argc, const char **argv, char *config_file)
 				break;
 			}
 		}
+	}
+
+	if (classic_mode) {
+		/* load classic colors if user did not override them */
+		if(!fg)
+			foreground = foreground_classic;
+		if(!bg)
+			background = background_classic;
+		if(!hi)
+			highlight = highlight_classic;
 	}
 }
 

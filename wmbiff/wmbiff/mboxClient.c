@@ -48,6 +48,7 @@ static void countMessages(Pop3 pc, const char *mbox_filename)
 	int next_from_is_start_of_header = 1;
 	int count_from = 0, count_status = 0;
 	int len_from = strlen(FROM_STR), len_status = strlen(STATUS_STR);
+	int pseudo_mail = 0;
 
 	F = openMailbox(pc, mbox_filename);
 	if (F == NULL)
@@ -55,6 +56,13 @@ static void countMessages(Pop3 pc, const char *mbox_filename)
 
 	/* count message */
 	while (fgets(buf, BUF_SIZE, F)) {
+		// The first message usually is automatically created by POP3/IMAP
+		// clients for internal record keeping and is ignored
+		// (not displayed) by most email clients.
+		if (is_header && !strncmp(buf, "X-IMAP: ", 8))
+		{
+			pseudo_mail = 1;
+		}
 		if (buf[0] == '\n') {
 			/* a newline by itself terminates the header */
 			if (is_header)
@@ -77,6 +85,12 @@ static void countMessages(Pop3 pc, const char *mbox_filename)
 				count_status++;
 			}
 		}
+	}
+
+	if (count_from && pseudo_mail) {
+		count_from--;
+		if (count_status)
+			count_status--;
 	}
 
 	DM(pc, DEBUG_INFO, "from: %d status: %d\n", count_from, count_status);
