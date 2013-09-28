@@ -22,7 +22,7 @@
 	<ul>
 	<li>
          <p>Window Maker can now maximize windows to the top/bottom halves of
- 	the scren as well as to the corners (top left, top right etc). The keyboard shortcuts to do that can be configured via WPrefs (Renan Traba).
+ 	the screen as well as to the corners (top left, top right etc). The keyboard shortcuts to do that can be configured via WPrefs (Renan Traba).
 	</p>
 	</li>
 
