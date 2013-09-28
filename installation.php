@@ -22,7 +22,7 @@
 
           <h3>Downloading and Extracting</h3>
 
-          <p>The first necessary step is to <a href="http://windowmaker.org/pub/source/release/WindowMaker-0.95.2.tar.gz">download</a>
+          <p>The first necessary step is to <a href="http://windowmaker.org/pub/source/release/WindowMaker-0.95.5.tar.gz">download</a>
 	  the Window Maker source distribution. From this point on, we'll assume it has
           been retrieved and is residing on the local hard disk. The next step is to extract it, and change into the source
           directory.</p>
