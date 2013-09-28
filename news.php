@@ -16,6 +16,40 @@
       <tr>
         <td content="content" colspan="2" valign="top">
 
+	<h3>Version 0.95.5 released</h3>
+	  <p> Window Maker 0.95.5 was released on August 29th 2013.</p>
+
+	<ul>
+	<li>
+         <p>Window Maker can now maximize windows to the top/bottom halves of
+ 	the scren as well as to the corners (top left, top right etc). The keyboard shortcuts to do that can be configured via WPrefs (Renan Traba).
+	</p>
+	</li>
+
+	<li>
+	<p> Support for <a href="http://www.dechelotte.com/en/wmaker.php"> drawers</a> in the dock has been added (Daniel Dechelotte).</p>
+	</li>
+
+	<li>
+	<p> Keyboard shortcuts to move windows between workspaces (Iain Patterson).</p>
+	</li>
+
+	<li>
+	<p> Window border colours and width are now configurable (Iain Patterson).</p>
+	</li>
+
+	<li>
+	<p> The menu is now able to parse command-generated <a href="http://repo.or.cz/w/wmaker-crm.git/commit/c21ae6b580889d247408123a5c624abf6d784232"> proplist style menus</a>.
+	WPrefs support for this has been added too (Andreas Bierfert).</p>
+	</li>
+
+	<li>
+	<p> Plus a few other new features and a lot of bug fixes and code cleanups by various people.</p<
+	</li>
+
+
+	</ul>
+
 	<h3>Version 0.95.4 released</h3>
 	  <p> Window Maker 0.95.4 was released on January 3rd 2013. There was a major code cleanup related to icons, some changes
 	      in WPrefs, the addition of a new "Center" placement strategy, support for _NET_FRAME_EXTENTS, the removal of CPP
