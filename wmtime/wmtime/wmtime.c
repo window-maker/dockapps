@@ -183,6 +183,7 @@ void get_lang(void)
 		do {
 			ret = iconv(icd, &inp, &insize, &outp, &outsize);
 		} while (outsize > 0 && ret > 0);
+		if (strstr(outbuf,"?") != NULL) return;
 		for (outp = outbuf, outsize = 0; *outp != 0 && outsize < 2;
 		    outp++, outsize++)
 			day_of_week[i][outsize] = toupper(*outp);
@@ -195,6 +196,7 @@ void get_lang(void)
 		do {
 			ret = iconv(icd, &inp, &insize, &outp, &outsize);
 		} while (outsize > 0 && ret > 0);
+		if (strstr(outbuf,"?") != NULL) return;
 		for (outp = outbuf, outsize = 0; *outp != 0 && outsize < 3;
 		    outp++, outsize++)
 			mon_of_year[i][outsize] = toupper(*outp);
@@ -413,7 +415,10 @@ void DrawDate(int wkday, int dom, int month) {
 
 	k = 5;
 	for (i=0; i<2; i++) {
-		copyXPMArea((*p-'A')*6, 74, 6, 9, k, 49);
+		if (*p < 'A') 
+			copyXPMArea((*p-'0')*6, 64, 6, 9, k, 49);
+		else
+			copyXPMArea((*p-'A')*6, 74, 6, 9, k, 49);
 		k += 6;
 		p++;
 	}
@@ -426,7 +431,10 @@ void DrawDate(int wkday, int dom, int month) {
 	copyXPMArea(61, 64, 4, 9, k, 49);
 	k += 4;
 	for (i=0; i<3; i++) {
-		copyXPMArea((*p-'A')*6, 74, 6, 9, k, 49);
+		if (*p < 'A') 
+			copyXPMArea((*p-'0')*6, 64, 6, 9, k, 49);
+		else
+			copyXPMArea((*p-'A')*6, 74, 6, 9, k, 49);
 		k += 6;
 		p++;
 	}
