@@ -92,7 +92,7 @@ const char* default_left_action = NULL;
 const char* default_middle_action = NULL;
 const char* default_right_action = NULL;
 
-#define WMMON_VERSION "1.0b2"
+#define WMMON_VERSION "1.1"
 
   /********************/
  /* Global Variables */

@@ -20,3 +20,6 @@ clean::
 		rm $$i; \
 	done
 	rm wmtime
+
+install:: wmtime
+	install -m 755 wmtime $(DESTDIR)/usr/bin

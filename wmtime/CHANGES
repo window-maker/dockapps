@@ -3,6 +3,12 @@ WMTime changes.
 Version         Description
 --------------------------------------------------------------
 
+1.1		- Released 131013
+		- Incorporated many patches from Debian, including
+		  + Added manual page
+		  + Added -geometry and -noseconds options
+		  + Improved locale support
+
 1.0b2		- Released 980519
 		- Locale support has been added.
 

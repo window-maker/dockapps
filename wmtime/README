@@ -1,21 +1,16 @@
-WMTime-1.0b2 - The 2nd public BETA release
+WMTime-1.1
 --------------------------------------------------------------
 Authors...: Martijn Pieterse (pieterse@xs4all.nl)
        	    Antoine Nulle    (warp@xs4all.nl)
-		
-Note......: WMTime has it's own mailbox, as our pop3 accounts
-	    are already way too crowded :)
-	    Please mail bugreports, comments, suggestions,
-	    requests and flames to:
 
-	    dockapps@windowmaker.mezaway.org
-	    
-	    The official WMTime support website address:
+Maintainer: Doug Torrance    (dtorrance@monmouthcollege.edu)
+		
+Note......: The official WMTime support website address:
  
-     	    http://windowmaker.mezaway.org
+     	    http://wmtime.sourceforge.net
 	    
 Credits...: Bobby Mezaway (bobby@mezaway.org) for generously
-	    hosting our website
+	    hosting the original website
 	    Pascal G.Hofstee (daeron@Wit401305.student.utwente.nl)
 	    for supplying an Imakefile for *BSD systems
 	    Alen Salamun (snowman@hal9000.medinet.si) 
@@ -58,10 +53,9 @@ COPYING		GNU General Public License Version 2.
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please send a 
-bugreport to dockapps@windowmaker.mezaway.org and describe
-the problem as detailed as you can.
-
+If you discover any bugs in this software, please submit a  
+bugreport at
+https://sourceforge.net/p/wmtime/tickets/
 
 Copyright
 --------------------------------------------------------------
