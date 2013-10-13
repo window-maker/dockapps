@@ -1832,8 +1832,7 @@ Themes are a great aspect of Window Maker allowing a user to simply
 save the entire 'look' of their desktop in an archive to distribute freely among
 friends, fellow users and/or the whole net in general. :)
 <P>
-See the theme-HOWTO at <A HREF="http://largo.windowmaker.org/themes/themepacks.php">http://largo.windowmaker.org/themes/themepacks.php</A>
-for an in-depth walk-through on making a Theme archive.
+See the <a href="themepacks.php">theme-HOWTO</a> for an in-depth walk-through on making a Theme archive.
 <A name="122"></A>
 <h2>6.2 &nbsp;How do I install a theme?</h2>
 This should be as simple as untarring the Theme.tar.gz into one of two
@@ -1861,8 +1860,7 @@ If libjpeg is not listed, you will need to install libjpeg that is available
 from ftp.windowmaker.org
 <A name="124"></A>
 <h2>6.4 &nbsp;How do I make a Theme?</h2>
-Please see the theme-HOWTO at <A HREF="http://largo.windowmaker.org/themes/themepacks.php">http://largo.windowmaker.org/themes/themepacks.php</A>
-for details on making both new and old style themes (and the differences
+Please see the <a href="themepacks.php">theme-HOWTO</a> for details on making both new and old style themes (and the differences
 between the two), here is a short summary on making old style themes.
 Also, read the README.themes file included with the Window Maker
 distribution in the WindowMaker/ directory.
