@@ -522,7 +522,7 @@ void wmmon_routine(int argc, char **argv)
 				break;
 			case ButtonRelease:
 				i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
-				if (but_stat == i && but_stat >= 0 && mode_cycling) {
+				if (but_stat == i && but_stat >= 0) {
 					switch (but_stat) {
 					case 0:
 						switch (Event.xbutton.button) {
@@ -539,28 +539,31 @@ void wmmon_routine(int argc, char **argv)
 								execCommand(right_action);
 							break;
 						}
+						break;
 					case 1:
-						stat_current++;
-						if (stat_current == stat_online)
-							stat_current = 0;
+						if (mode_cycling) {
+							stat_current++;
+							if (stat_current == stat_online)
+								stat_current = 0;
 
-						DrawActive(stat_device[stat_current].name);
-						if (stat_current == 0)
-							DrawStats(stat_device[stat_current].his, 
-								  HISTORY_ENTRIES-1, 40, 5, 58);
+							DrawActive(stat_device[stat_current].name);
+							if (stat_current == 0)
+								DrawStats(stat_device[stat_current].his,
+									  HISTORY_ENTRIES-1, 40, 5, 58);
 
-						if (stat_current == 1)
-							DrawStats_io(stat_device[stat_current].his, 
-								     HISTORY_ENTRIES-1, 40, 5, 58);
+							if (stat_current == 1)
+								DrawStats_io(stat_device[stat_current].his,
+									     HISTORY_ENTRIES-1, 40, 5, 58);
 
-						if (stat_current == 2) {
-							xpm_X = 64;
-							setMaskXY(-64, 0);
-						} else {
-							xpm_X = 0;
-							setMaskXY(0, 0);
+							if (stat_current == 2) {
+								xpm_X = 64;
+								setMaskXY(-64, 0);
+							} else {
+								xpm_X = 0;
+								setMaskXY(0, 0);
+							}
+							RedrawWindowXY(xpm_X, xpm_Y);
 						}
-						RedrawWindowXY(xpm_X, xpm_Y);
 						break;
 					}
 				}
