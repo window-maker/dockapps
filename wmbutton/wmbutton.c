@@ -111,6 +111,14 @@ int main(int argc, char **argv)
 	/* Parse Command Line Arguments */
 	parseargs(argc, argv);
 
+	/* Catch fire if no configuration file exists */
+	if (!canOpenFile(Config.configfile)) {
+		if(!canOpenFile(CONFIGGLOBAL)) {
+			err_mess(FAILCONF, Config.configfile);
+			return (1);
+		}
+	}
+
 	/* Open Display */
 	if ((display = XOpenDisplay(Config.Display_str)) == NULL)
 		err_mess(FAILDISP, Config.Display_str);

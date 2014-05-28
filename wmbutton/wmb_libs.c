@@ -192,6 +192,23 @@ void RunAppN(int app)
 /***********************************************************************/
 
 /***********************************************************************
+ * canOpenFile(const char *path)
+ *
+ * Check if the file at a given path can be opened.
+ ***********************************************************************/
+int canOpenFile(const char *path)
+{
+	FILE *fp;
+
+	if ((fp = fopen(path, "r")) == NULL)
+		return 0;
+	else {
+		fclose(fp);
+		return 1;
+	}
+}
+
+/***********************************************************************
  * Parse(int app)
  *
  * Parses the file 'configfile' for command to execute.

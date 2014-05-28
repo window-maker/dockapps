@@ -84,6 +84,7 @@ void parseargs(int argc, char **argv);
 char *readln(FILE *fp);            /* read line from file, return pointer to it */
 void err_mess(int err, char *str); /* Error Handling Routine */
 void show_usage(void);             /* show usage message to stderr */
+int canOpenFile(const char *path);
 int flush_expose(Window w);
 
 
