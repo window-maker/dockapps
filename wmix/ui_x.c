@@ -531,7 +531,7 @@ static void draw_knob(float volume)
 {
     float bearing, led_x, led_y;
     int led_topleft_x, led_topleft_y;
-    Pixmap led_pixmap, led_mask;
+    Pixmap led_pixmap;
 
     bearing = (1.25 * PI) - (1.5 * PI) * volume;
 
@@ -544,13 +544,11 @@ static void draw_knob(float volume)
     /* clear previous knob picture */
     copy_xpm_area(87, 0, 26, 26, 36, 35);
 
-    if (mixer_is_muted()) {
+    if (mixer_is_muted())
 	led_pixmap = led_off_pixmap;
-	led_mask = led_off_mask;
-    } else {
+    else
 	led_pixmap = led_on_pixmap;
-	led_mask = led_on_mask;
-    }
+
     XCopyArea(display, led_pixmap, dockapp.pixmap, dockapp.gc,
 	    0, 0, LED_WIDTH, LED_HEIGHT, led_topleft_x, led_topleft_y);
     draw_percent();
