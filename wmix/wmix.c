@@ -37,6 +37,7 @@
 #include "include/mixer.h"
 #include "include/misc.h"
 #include "include/ui_x.h"
+#include "include/mmkeys.h"
 #include "include/config.h"
 
 
@@ -55,6 +56,7 @@ static int idle_loop;
 static void signal_catch(int sig);
 static void button_press_event(XButtonEvent *event);
 static void button_release_event(XButtonEvent *event);
+static int  key_press_event(XKeyEvent *event);
 static void motion_event(XMotionEvent *event);
 
 
@@ -91,6 +93,7 @@ int main(int argc, char **argv)
     dockapp_init(display);
     new_window("wmix", 64, 64);
     new_osd(DisplayWidth(display, DefaultScreen(display)) - 200, 60);
+    mmkey_install(display);
 
     config_release();
 
@@ -116,6 +119,10 @@ int main(int argc, char **argv)
 	if (button_pressed || slider_pressed || (XPending(display) > 0)) {
 	    XNextEvent(display, &event);
 	    switch (event.type) {
+		case KeyPress:
+		    if (key_press_event(&event.xkey))
+			idle_loop = 0;
+		    break;
 		case Expose:
 		    redraw_window();
 		    break;
@@ -274,6 +281,36 @@ static void button_press_event(XButtonEvent *event)
 	    printf("unknown region pressed\n");
 	    break;
     }
+}
+
+static int key_press_event(XKeyEvent *event)
+{
+	if (event->keycode == mmkeys.raise_volume) {
+		mixer_set_volume_rel(config.scrollstep);
+		if (!osd_mapped())
+			map_osd();
+		if (osd_mapped())
+			update_osd(mixer_get_volume(), false);
+		ui_update();
+		return 1;
+	}
+	if (event->keycode == mmkeys.lower_volume) {
+		mixer_set_volume_rel(-config.scrollstep);
+		if (!osd_mapped())
+			map_osd();
+		if (osd_mapped())
+			update_osd(mixer_get_volume(), false);
+		ui_update();
+		return 1;
+	}
+	if (event->keycode == mmkeys.mute) {
+		mixer_toggle_mute();
+		ui_update();
+		return 1;
+	}
+
+	/* Ignore other keys */
+	return 0;
 }
 
 static void button_release_event(XButtonEvent *event)

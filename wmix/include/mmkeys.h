@@ -1,7 +1,5 @@
-/* WMix 3.0 -- a mixer using the OSS mixer API.
- * Copyright (C) 2000, 2001
- *	Daniel Richard G. <skunk@mit.edu>,
- *	timecop <timecop@japan.co.jp>
+/* WMix -- a mixer using the OSS mixer API
+ * Copyright (C)2014 Christophe CURIS for the WindowMaker Team
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,27 +15,20 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
+/* include/mmkeys.h: functions related to handling Multimedia keys */
 
-typedef unsigned int bool;
+#ifndef WMIX_MMKEYS_H
+#define WMIX_MMKEYS_H
 
-#define false 0
-#define true (!false)
 
-#define NULL_CURSOR 1
-#define NORMAL_CURSOR 2
-#define HAND_CURSOR 3
-#define BAR_CURSOR 4
+/* Global Configuration */
+extern struct multimedia_keys {
+	KeyCode raise_volume;
+	KeyCode lower_volume;
+	KeyCode mute;
+} mmkeys;
 
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
-#define CLAMP(x, low, high) (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
+/* Grab the multimedia keys */
+void mmkey_install(Display *display);
 
-#define MAX_DOUBLE_CLICK_TIME 0.5
-
-/*
- * Get the number of element in a static array
- *
- * Do not use on an allocated array, it will not work
- */
-#define lengthof(arr)  \
-	((ssize_t)(sizeof( arr ) / sizeof( arr[0] )))
+#endif	/* WMIX_MMKEYS_H */
