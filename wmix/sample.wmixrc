@@ -6,7 +6,7 @@ mousewheel=1
 scrolltext=1
 # display OSD
 osd=1
-# color of the OSD (from rgb.txt or #xxxxxx)
+# color of the OSD (from rgb.txt or rgb:xx/xx/xx)
 osdcolor=green
 # which mousewheel button is "up"
 wheelbtn1=4

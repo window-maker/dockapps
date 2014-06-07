@@ -40,7 +40,47 @@ Use specified mixer device instead of
 \fB\-v\fR
 Verbose start, report detected channels
 .
+.SH CONFIGURATION FILE
+If readable, the file \fI~/.wmixrc\fP (or the file specified through \fB\-f\fR option)
+is read on startup.
+It may contains one configuration command per line:
+.TP
+mousewheel=<\fI0\fP|\fI1\fP>
+when set to \fI0\fP, disable the volume control through mouse wheel (default=\fI1\fP)
+.TP
+osd=<\fI0\fP|\fI1\fP>
+when set to \fI0\fP, disable display of the volume in an OSD like fashion (default=\fI1\fP)
+.TP
+osdcolor=<\fIcolor\fP>
+specify the color to use for OSD volume display.
+It can be the name of a color (see \fI/usr/share/X11/rgb.txt\fP)
+or an RGB specification (as \fBrgb:\fP<\fIred\fP>/<\fIgreen\fP>/<\fIblue\fP>
+with hexadecimal numbers) as expected by X11 (default=\fIgreen\fP)
+.TP
+scrolltext=<\fI0\fP|\fI1\fP>
+when set to \fI0\fP, disable text scrolling to display the name of current selected
+channel, use static short name instead (default=\fI1\fP)
+.TP
+wheelbtn1=<\fIbutton\fP>
+.TQ
+wheelbtn2=<\fIbutton\fP>
+defines the buttons events associated in X11 to the mouse wheel,
+with \fIbtn1\fP for up and \fIbtn2\fP for down
+(default: btn1=\fI4\fP and btn2=\fI5\fP)
+.TP
+wheelstep=<\fIpercentage\fP>
+sets the volume change step when using the mouse wheel,
+specified as a percentage of the total volume range (i.e.: 1\~<\~\fIvalue\fP\~<\~100,
+default=\fI3\fP)
+.br
+For compatibility, values between 0.0 and 1.0 will be considered as a raw percentage
+.LP
+.
 .SH FILES
+.TP
+.I ~/.wmixrc
+User configuration file (change with option
+.BR \-f )
 .LP
 See \fI/usr/share/doc/wmix/README.gz\fP for more information
 .

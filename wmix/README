@@ -87,7 +87,7 @@ wheelstep=3			# the step for mousewheel adjustment
 
 Most defaults are good for normal use, and if there is no config file,
 the settings you see above are used. If you want to hack on a config file,
-copy sample.wmixrc to ~/.wmixrc and change it around. Comments are ignored,
-but don't put comments at the end of line like I did here.
+copy sample.wmixrc to ~/.wmixrc and change it around. You can find
+complete description of the format in than man page.
 
 timecop [timecop@japan.co.jp]

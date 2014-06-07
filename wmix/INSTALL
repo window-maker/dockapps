@@ -5,7 +5,8 @@ Since your reading this, you are probably done with the tar zxvf part.
 3. make install
 4. wmix
 
-pretty easy.  See README for instructions on how to use the mixer and about
-some information on the programming involved.
+pretty easy. See README for instructions on how to use the mixer and about
+some information on the programming involved. See the man page (man wmix)
+for invocation and configuration information.
 
 timecop [timecop@japan.co.jp]
