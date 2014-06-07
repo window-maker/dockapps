@@ -71,13 +71,29 @@ void parse_cli_options(int argc, char **argv)
 {
 	int opt;
 	int count_exclude = 0;
+	bool error_found;
 
+	opterr = 0;	/* We take charge of printing the error message */
 	config.verbose = false;
-	while ((opt = getopt(argc, argv, "d:e:f:hm:v")) != EOF) {
+	error_found = false;
+	for (;;) {
+		opt = getopt(argc, argv, ":d:e:f:hm:v");
+		if (opt == -1)
+			break;
+
 		switch (opt) {
+		case '?':
+			fprintf(stderr, "wmix:error: unknow option '-%c'\n", optopt);
+			error_found = true;
+			break;
+
+		case ':':
+			fprintf(stderr, "wmix:error: missing argument for option '-%c'\n", optopt);
+			error_found = true;
+			break;
+
 		case 'd':
-			if (optarg != NULL)
-				config.display_name = strdup(optarg);
+			config.display_name = strdup(optarg);
 			break;
 
 		case 'e':
@@ -89,9 +105,8 @@ void parse_cli_options(int argc, char **argv)
 			break;
 
 		case 'f':
-			if (optarg != NULL)
-				if (config.file != NULL)
-					free(config.file);
+			if (config.file != NULL)
+				free(config.file);
 			config.file = strdup(optarg);
 			break;
 
@@ -101,8 +116,7 @@ void parse_cli_options(int argc, char **argv)
 			break;
 
 		case 'm':
-			if (optarg != NULL)
-				config.mixer_device = strdup(optarg);
+			config.mixer_device = strdup(optarg);
 			break;
 
 		case 'v':
@@ -114,6 +128,14 @@ void parse_cli_options(int argc, char **argv)
 		}
 	}
 	config.exclude_channel[count_exclude] = NULL;
+
+	if (optind < argc) {
+		fprintf(stderr, "wmix:error: argument '%s' not understood\n", argv[optind]);
+		error_found = true;
+	}
+
+	if (error_found)
+		exit(EXIT_FAILURE);
 }
 
 /*
