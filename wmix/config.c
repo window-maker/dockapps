@@ -23,6 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <getopt.h>
 
 #include <sys/soundcard.h>
@@ -149,8 +150,8 @@ void config_read(void)
 	const char *filename;
 	char buffer_fname[512];
 	FILE *fp;
+	int line;
 	char buf[512];
-	char *ptr;
 
 	if (config.file != NULL) {
 		filename = config.file;
@@ -179,43 +180,98 @@ void config_read(void)
 	if (config.verbose)
 		printf("Using configuration file: %s\n", filename);
 
+	line = 0;
 	while (fgets(buf, 512, fp)) {
-		if ((ptr = strstr(buf, "mousewheel="))) {
-			ptr += 11;
-			config.mousewheel = atoi(ptr);
+		char *ptr;
+		char *keyword;
+		char *value;
+
+		line++;
+
+		ptr = buf;
+		while (isspace(*ptr))
+			ptr++;
+
+		if ((*ptr == '\0') || (*ptr == '#'))
+			continue;
+
+		/* Isolate the keyword */
+		keyword = ptr;
+		if (*ptr == '=') {
+			fprintf(stderr, "wmix:warning: syntax error at line %d in \"%s\", no keyword before '='\n",
+			        line, filename);
+			continue;
 		}
-		if ((ptr = strstr(buf, "scrolltext="))) {
-			ptr += 11;
-			config.scrolltext = atoi(ptr);
+		value = NULL;
+		while (*ptr) {
+			if (*ptr == '=') {
+				value = ptr + 1;
+				break;
+			}
+			if (*ptr == '#')
+				break;
+			ptr++;
 		}
-		if ((ptr = strstr(buf, "osd="))) {
-			ptr += 4;
-			config.osd = atoi(ptr);
+		if (value == NULL) {
+			fprintf(stderr, "wmix:warning: syntax error at line %d in \"%s\", missing '='\n",
+			        line, filename);
+			continue;
 		}
-		if ((ptr = strstr(buf, "osdcolor="))) {
-			char *end;
-			ptr += 9;
-			end = strchr(ptr, '\n');
-			ptr[end - ptr] = '\0';
+		while (isspace(ptr[-1]))
+			ptr--;
+		*ptr = '\0';
+
+		/* Isolate the value */
+		while (isspace(*value))
+			value++;
+		ptr = value;
+		while (*ptr) {
+			if (*ptr == '#')
+				break;
+			ptr++;
+		}
+		while (isspace(ptr[-1]))
+			ptr--;
+		*ptr = '\0';
+
+		/* Check what keyword we have */
+		if (strcmp(keyword, "mousewheel") == 0) {
+			config.mousewheel = atoi(value);
+
+		} else if (strcmp(keyword, "osd") == 0) {
+			config.osd = atoi(value);
+
+		} else if (strcmp(keyword, "osdcolor") == 0) {
 			if (config.osd_color)
 				free(config.osd_color);
-			config.osd_color = strdup(ptr);
-		}
-		if ((ptr = strstr(buf, "wheelstep="))) {
-			ptr += 10;
-			/* detect old style config */
-			if (atoi(ptr) > 1)
-				config.scrollstep = (float)atoi(ptr) / 100.0;
+			config.osd_color = strdup(value);
+
+		} else if (strcmp(keyword, "scrolltext") == 0) {
+			config.scrolltext = atoi(value);
+
+		} else if (strcmp(keyword, "wheelbtn1") == 0) {
+			config.wheel_button_up = atoi(value);
+
+		} else if (strcmp(keyword, "wheelbtn2") == 0) {
+			config.wheel_button_down = atoi(value);
+
+		} else if (strcmp(keyword, "wheelstep") == 0) {
+			double val;
+
+			val = atof(value);
+			if (val < 0.0 || val > 100.0)
+				fprintf(stderr, "wmix:error: value %f is out of range for wheelstep in %s at line %d\n",
+				        val, filename, line);
+			else if (val >= 1.0)
+				config.scrollstep = val / 100.0;
+			else if (val > 0.0)
+				config.scrollstep = val;
 			else
-				config.scrollstep = atof(ptr);
-		}
-		if ((ptr = strstr(buf, "wheelbtn1="))) {
-			ptr += 10;
-			config.wheel_button_up = atoi(ptr);
-		}
-		if ((ptr = strstr(buf, "wheelbtn2="))) {
-			ptr += 10;
-			config.wheel_button_down = atoi(ptr);
+				fprintf(stderr, "wmix:error: value '%s' not understood for wheelstep in %s at line %d\n",
+				        value, filename, line);
+		} else {
+			fprintf(stderr, "wmix:warning: unknow keyword '%s' at line %d of \"%s\", ignored\n",
+			        keyword, line, filename);
 		}
 	}
 	fclose(fp);
