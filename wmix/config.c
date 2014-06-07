@@ -32,8 +32,10 @@
 #include "include/config.h"
 
 
-#define HELP_TEXT	  \
-	"WMixer " VERSION " by timecop@japan.co.jp + skunk@mit.edu\n" \
+#define VERSION_TEXT \
+	"WMixer " VERSION " by timecop@japan.co.jp + skunk@mit.edu\n"
+
+#define HELP_TEXT \
 	"usage:\n" \
 	"  -d <dsp>  connect to remote X display\n" \
 	"  -e <name> exclude channel, can be used many times\n" \
@@ -151,6 +153,7 @@ void parse_cli_options(int argc, char **argv)
 			break;
 
 		case 'h':
+			fputs(VERSION_TEXT, stdout);
 			fputs(HELP_TEXT, stdout);
 			exit(0);
 			break;
@@ -178,6 +181,9 @@ void parse_cli_options(int argc, char **argv)
 
 	if (error_found)
 		exit(EXIT_FAILURE);
+
+	if (config.verbose)
+		fputs(VERSION_TEXT, stdout);
 }
 
 /*
