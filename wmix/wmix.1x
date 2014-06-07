@@ -134,6 +134,10 @@ if you have other application controlling the volume, and possibly
 implementing mute in similar ways, because there is no way to know
 that a channel has been muted.
 .LP
+The X server allows only one application at a time to place a grab on a key,
+so if another application already claimed the volume control keys then \fBwmix\fP
+will warn you about it and continue without the functionality.
+.LP
 If you modify the configuration file, do not expect \fBwmix\fP to reload
 it automatically, this is considered a too costly feature for such a
 small application.

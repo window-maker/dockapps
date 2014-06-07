@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include <X11/Xlib.h>
+#include <X11/Xproto.h>
 #include <X11/keysym.h>
 #include <X11/XF86keysym.h>
 
@@ -59,8 +60,19 @@ typedef struct {
 	unsigned int list[1 << lengthof(modifier_symbol)];
 } modifier_masks;
 
+/* The structure to track grab installation for errors */
+static struct mmkey_track {
+	XErrorHandler previous_handler;
+	struct {
+		const char *key_name;
+		unsigned long serial[1 << lengthof(modifier_symbol)];
+		Bool displayed;
+	} request[lengthof(key_list)];
+} *track_install = NULL;
+
 /* Local functions */
 static void mmkey_build_modifier_list(Display *display, modifier_masks *result);
+static int  mmkey_catch_grab_error(Display *display, XErrorEvent *event);
 
 
 /*
@@ -73,6 +85,7 @@ static void mmkey_build_modifier_list(Display *display, modifier_masks *result);
 void mmkey_install(Display *display)
 {
 	modifier_masks mod_masks;
+	struct mmkey_track install_info;
 	Window root_window;
 	int i, j;
 
@@ -80,6 +93,9 @@ void mmkey_install(Display *display)
 
 	root_window = DefaultRootWindow(display);
 
+	memset(&install_info, 0, sizeof(install_info));
+	install_info.previous_handler = XSetErrorHandler(mmkey_catch_grab_error);
+	track_install = &install_info;
 	for (i = 0; i < lengthof(key_list); i++) {
 		KeyCode key;
 
@@ -89,13 +105,21 @@ void mmkey_install(Display *display)
 		if (key == None)
 			continue;
 
+		install_info.request[i].key_name = key_list[i].name;
+		install_info.request[i].displayed = False;
 		for (j = 0; j < mod_masks.count; j++) {
+			install_info.request[i].serial[j] = NextRequest(display);
 			XGrabKey(display, key, mod_masks.list[j], root_window,
 			         False, GrabModeAsync, GrabModeAsync);
 		}
 		if (config.verbose)
 			printf("Found multimedia key: %s\n", key_list[i].name);
 	}
+
+	/* The grab may fail, so make sure it is reported now */
+	XSync(display, False);
+	XSetErrorHandler(install_info.previous_handler);
+	track_install = NULL;
 }
 
 /*
@@ -165,4 +189,35 @@ static void mmkey_build_modifier_list(Display *display, modifier_masks *result)
 			k <<= 1;
 		}
 	}
+}
+
+/*
+ * Callback when X11 reports an error
+ *
+ * We only track errors from XGrabKey and display them to user, instead of
+ * letting the default error handler exit
+ */
+static int mmkey_catch_grab_error(Display *display, XErrorEvent *event)
+{
+	int i, j;
+
+	if ((event->error_code == BadAccess) && (event->request_code == X_GrabKey)) {
+		for (i = 0; i < lengthof(track_install->request); i++) {
+			for (j = 0; j < lengthof(track_install->request[i].serial); j++) {
+				if (track_install->request[i].serial[j] == 0L)
+					break;
+				if (event->serial == track_install->request[i].serial[j]) {
+					if (!track_install->request[i].displayed) {
+						fprintf(stderr, "wmix:warning: could not grab key %s, is another application using it?\n",
+						        track_install->request[i].key_name);
+						track_install->request[i].displayed = True;
+					}
+					return 0;
+				}
+			}
+		}
+	}
+
+	/* That's not an XGrabKey known issue, let the default handler manage this */
+	return track_install->previous_handler(display, event);
 }
