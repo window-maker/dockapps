@@ -40,6 +40,12 @@ Use config file instead of
 \fB\-h\fR
 Display list of command\-line options
 .TP
+\fB\-k\fR
+Disable grabbing the audio volume control keys on keyboard (see
+.SM
+.B BUGS
+below)
+.TP
 \fB\-m\fR <\fIdevice\fP>
 Use specified mixer device instead of
 .I /dev/mixer
@@ -137,6 +143,11 @@ that a channel has been muted.
 The X server allows only one application at a time to place a grab on a key,
 so if another application already claimed the volume control keys then \fBwmix\fP
 will warn you about it and continue without the functionality.
+If on the other hand you encounter problem with applications that do
+not work because they could not grab these keys (a typical symptom is
+an X Error of type \fIBadAccess\fP with major opcode 33 \fIX_GrabKey\fP),
+you can ask \fBwmix\fP to not grab them using the command line option
+\fB-k\fP.
 .LP
 If you modify the configuration file, do not expect \fBwmix\fP to reload
 it automatically, this is considered a too costly feature for such a

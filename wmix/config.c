@@ -41,6 +41,7 @@
 	"  -e <name> exclude channel, can be used many times\n" \
 	"  -f <file> parse this config [~/.wmixrc]\n" \
 	"  -h        print this help\n" \
+	"  -k        disable grabing volume control keys\n" \
 	"  -m <dev>  mixer device [/dev/mixer]\n" \
 	"  -v        verbose -> id, long name, name\n" \
 
@@ -64,6 +65,7 @@ void config_init(void)
 	config.mixer_device = (char *) default_mixer_device;
 	config.mousewheel = 1;
 	config.scrolltext = 1;
+	config.mmkeys = 1;
 	config.wheel_button_up = 4;
 	config.wheel_button_down = 5;
 	config.scrollstep = 0.03;
@@ -117,7 +119,7 @@ void parse_cli_options(int argc, char **argv)
 	config.verbose = false;
 	error_found = false;
 	for (;;) {
-		opt = getopt(argc, argv, ":d:e:f:hm:v");
+		opt = getopt(argc, argv, ":d:e:f:hkm:v");
 		if (opt == -1)
 			break;
 
@@ -156,6 +158,10 @@ void parse_cli_options(int argc, char **argv)
 			fputs(VERSION_TEXT, stdout);
 			fputs(HELP_TEXT, stdout);
 			exit(0);
+			break;
+
+		case 'k':
+			config.mmkeys = false;
 			break;
 
 		case 'm':

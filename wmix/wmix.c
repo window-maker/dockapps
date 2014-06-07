@@ -93,7 +93,9 @@ int main(int argc, char **argv)
     dockapp_init(display);
     new_window("wmix", 64, 64);
     new_osd(DisplayWidth(display, DefaultScreen(display)) - 200, 60);
-    mmkey_install(display);
+
+    if (config.mmkeys)
+	    mmkey_install(display);
 
     config_release();
 

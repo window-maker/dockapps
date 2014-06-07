@@ -34,6 +34,7 @@ extern struct _Config {
 	unsigned int osd        : 1;	/* show OSD? */
 	unsigned int mousewheel : 1;	/* mousewheel enabled? */
 	unsigned int scrolltext : 1;	/* scroll channel names? */
+	unsigned int mmkeys     : 1;	/* grab multimedia keys for volume control */
 
 	unsigned int wheel_button_up;	/* up button */
 	unsigned int wheel_button_down;	/* down button */
