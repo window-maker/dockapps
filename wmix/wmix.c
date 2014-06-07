@@ -37,6 +37,7 @@
 #include "include/mixer.h"
 #include "include/misc.h"
 #include "include/ui_x.h"
+#include "include/config.h"
 
 #define VERSION "3.0"
 
@@ -49,7 +50,6 @@ static double prev_button_press_time = 0.0;
 
 static float display_height;
 static float display_width;
-Config config;
 static int mouse_drag_home_x;
 static int mouse_drag_home_y;
 static int idle_loop;

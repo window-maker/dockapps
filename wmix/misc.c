@@ -42,7 +42,6 @@ typedef struct {
 } MRegion;
 MRegion mr[16];
 
-extern Config config;
 
 /* Converts separate left and right channel volumes (each in [0, 1]) to
  * volume and balance values. (Volume is in [0, 1], balance is in [-1, 1])
@@ -107,61 +106,6 @@ int check_region(int x, int y)
     if (!found)
 	return -1;
     return (i - 1);
-}
-
-void config_read(void)
-{
-    FILE *fp;
-    char buf[512];
-    char *ptr;
-
-    if (config.file == NULL)
-	return;
-
-    fp = fopen(config.file, "r");
-    if (!fp)
-	return;
-
-    while (fgets(buf, 512, fp)) {
-	if ((ptr = strstr(buf, "mousewheel="))) {
-	    ptr += 11;
-	    config.mousewheel = atoi(ptr);
-	}
-	if ((ptr = strstr(buf, "scrolltext="))) {
-	    ptr += 11;
-	    config.scrolltext = atoi(ptr);
-	}
-	if ((ptr = strstr(buf, "osd="))) {
-	    ptr += 4;
-	    config.osd = atoi(ptr);
-	}
-	if ((ptr = strstr(buf, "osdcolor="))) {
-	    char *end;
-	    ptr += 9;
-	    end = strchr(ptr, '\n');
-	    ptr[end - ptr] = '\0';
-	    if (config.osd_color)
-		free(config.osd_color);
-	    config.osd_color = strdup(ptr);
-	}
-	if ((ptr = strstr(buf, "wheelstep="))) {
-	    ptr += 10;
-	    /* detect old style config */
-	    if (atoi(ptr) > 1)
-		config.scrollstep = (float)atoi(ptr) / 100.0;
-	    else
-		config.scrollstep = atof(ptr);
-	}
-	if ((ptr = strstr(buf, "wheelbtn1="))) {
-	    ptr += 10;
-	    config.wheel_button_up = atoi(ptr);
-	}
-	if ((ptr = strstr(buf, "wheelbtn2="))) {
-	    ptr += 10;
-	    config.wheel_button_down = atoi(ptr);
-	}
-    }
-    fclose(fp);
 }
 
 /* handle writing PID file, silently ignore if we can't do it */

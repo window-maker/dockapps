@@ -44,6 +44,8 @@
 #include "include/misc.h"
 #include "include/mixer.h"
 #include "include/ui_x.h"
+#include "include/config.h"
+
 
 #ifndef PI
 #define PI M_PI
@@ -71,8 +73,6 @@ struct _Dockapp {
     bool osd_mapped;
 
 };
-
-extern Config config;
 
 static Pixmap led_on_pixmap;
 static Pixmap led_on_mask;

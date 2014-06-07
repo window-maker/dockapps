@@ -2,7 +2,7 @@ CC		= gcc
 CFLAGS		= -O3 -W -Wall
 LDFLAGS		= -L/usr/X11R6/lib
 LIBS		= -lXpm -lXext -lX11 -lm
-OBJECTS		= misc.o mixer-oss.o ui_x.o wmix.o
+OBJECTS		= misc.o config.o mixer-oss.o ui_x.o wmix.o
 
 # where to install this program (also for packaging stuff)
 PREFIX		= /usr/local

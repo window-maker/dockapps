@@ -35,16 +35,3 @@ typedef unsigned int bool;
 #define MAX_DOUBLE_CLICK_TIME 0.5
 #define BUTTON_WHEEL_UP 4
 #define BUTTON_WHEEL_DOWN 5
-
-typedef struct _Config Config;
-
-struct _Config {
-    char 	*file;			/* full path to config file name */
-    unsigned int osd        : 1;	/* show OSD? */
-    unsigned int mousewheel : 1;	/* mousewheel enabled? */
-    unsigned int scrolltext : 1;	/* scroll channel names? */
-    unsigned int wheel_button_up;	/* up button */
-    unsigned int wheel_button_down;	/* down button */
-    float	 scrollstep;		/* scroll mouse step adjustment */
-    char	*osd_color;		/* osd color */
-};
