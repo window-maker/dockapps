@@ -66,9 +66,6 @@ int main(int argc, char **argv)
     parse_cli_options(argc, argv);
     config_read();
 
-    if (config.mixer_device == NULL)
-	config.mixer_device = "/dev/mixer";
-
     mixer_init(config.mixer_device, config.verbose, (const char **)config.exclude_channel);
     mixer_set_channel(0);
 
@@ -94,6 +91,9 @@ int main(int argc, char **argv)
     dockapp_init(display);
     new_window("wmix", 64, 64);
     new_osd(DisplayWidth(display, DefaultScreen(display)) - 200, 60);
+
+    config_release();
+
     blit_string("wmix 3.0");
     scroll_text(3, 4, 57, true);
     ui_update();

@@ -45,6 +45,9 @@
 /* The global configuration */
 struct _Config config;
 
+/* The default device used for Mixer control */
+static const char default_mixer_device[] = "/dev/mixer";
+
 /* Default color for OSD */
 const char default_osd_color[] = "green";
 
@@ -56,6 +59,7 @@ void config_init(void)
 {
 	memset(&config, 0, sizeof(config));
 
+	config.mixer_device = (char *) default_mixer_device;
 	config.mousewheel = 1;
 	config.scrolltext = 1;
 	config.wheel_button_up = 4;
@@ -63,6 +67,36 @@ void config_init(void)
 	config.scrollstep = 0.03;
 	config.osd = 1;
 	config.osd_color = (char *) default_osd_color;
+}
+
+/*
+ * Release memory associated with configuration
+ *
+ * This does not concern the complete configuration, only the parameters
+ * that are needed during startup but are not useful during run-time
+ */
+void config_release(void)
+{
+	int i;
+
+	if (config.file)
+		free(config.file);
+
+	if (config.display_name)
+		free(config.display_name);
+
+	if (config.mixer_device != default_mixer_device)
+		free(config.mixer_device);
+
+	if (config.osd_color != default_osd_color)
+		free(config.osd_color);
+
+	for (i = 0; i < SOUND_MIXER_NRDEVICES; i++) {
+		if (config.exclude_channel[i])
+			free(config.exclude_channel[i]);
+		else
+			break;
+	}
 }
 
 /*
@@ -97,6 +131,8 @@ void parse_cli_options(int argc, char **argv)
 			break;
 
 		case 'd':
+			if (config.display_name)
+				free(config.display_name);
 			config.display_name = strdup(optarg);
 			break;
 
@@ -120,6 +156,8 @@ void parse_cli_options(int argc, char **argv)
 			break;
 
 		case 'm':
+			if (config.mixer_device != default_mixer_device)
+				free(config.mixer_device);
 			config.mixer_device = strdup(optarg);
 			break;
 

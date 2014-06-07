@@ -53,6 +53,9 @@ extern const char default_osd_color[];
 /* Sets the default values in the config */
 void config_init(void);
 
+/* Release memory associated with configuration (this concern only stuff needed during startup) */
+void config_release(void);
+
 /* Sets configuration from command line */
 void parse_cli_options(int argc, char **argv);
 
