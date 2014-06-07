@@ -1,0 +1,36 @@
+..TH "wmix" "1" "2.2" "Fredrik Steen"
+..SH "NAME"
+..LP
+wmix \- Dockapp mixer for OSS or ALSA
+..SH "SYNTAX"
+..LP
+wmix [\fI\-h\fP]
+..br
+wmix \fI\-f\fP <\fIfile\fP>
+..SH "DESCRIPTION"
+..LP
+Dockapp mixer for OSS or ALSA. Allows toggling record source,
+muting individual channels, adjusting volume and balance, all in a
+compact dockapp size, with TV\-like on\-screen\-display for volume levels.
+..LP
+Supports mousewheel to adjust current channelvolume
+and can be controlled remotely with SIGUSR1 / SIGUSR2 to adjust the volume.
+Keeps a simple configuration file for user\-defined settings.
+
+..SH "OPTIONS"
+..LP
+..TP
+\fB\-h\fR Display list of command\-line options.
+..TP
+\fB\-f\fR <\fIfile\fP> use alternate config file
+..SH "FILES"
+..LP
+See \fI/usr/share/doc/wmix/README.gz\fP for more information
+
+
+..SH "AUTHORS"
+This man page was written by Fredrik Steen <stone@debian.org> for the Debian
+distribution.
+..PP
+wmix was written by Tim,
+timecop <timecop@japan.co.jp>
