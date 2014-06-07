@@ -288,7 +288,24 @@ void config_read(void)
 		*ptr = '\0';
 
 		/* Check what keyword we have */
-		if (strcmp(keyword, "mousewheel") == 0) {
+		if (strcmp(keyword, "device") == 0) {
+			if (config.mixer_device == default_mixer_device)
+				config.mixer_device = strdup(value);
+			/* If not the default, keep the previous value because it was provided in the command-line */
+
+		} else if (strcmp(keyword, "exclude") == 0) {
+			int i;
+
+			for (i = 0; i < SOUND_MIXER_NRDEVICES; i++) {
+				if (config.exclude_channel[i] == NULL) {
+					config.exclude_channel[i] = strdup(value);
+					break;
+				}
+
+				if (strcmp(value, config.exclude_channel[i]) == 0)
+					break;
+			}
+		} else if (strcmp(keyword, "mousewheel") == 0) {
 			config.mousewheel = atoi(value);
 
 		} else if (strcmp(keyword, "osd") == 0) {

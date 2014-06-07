@@ -58,6 +58,15 @@ If readable, the file \fI~/.wmixrc\fP (or the file specified through \fB\-f\fR o
 is read on startup.
 It may contains one configuration command per line:
 .TP
+device=<\fImixer_device\fP>
+defines the device file to use instead of \fB/dev/mixer\fP
+.TP
+exclude=<\fIchannel_name\fP>
+exclude the specified channel from control, you can use it as many times as needed (see
+.SM
+.B "CHANNEL NAMES"
+below)
+.TP
 mousewheel=<\fI0\fP|\fI1\fP>
 when set to \fI0\fP, disable the volume control through mouse wheel (default=\fI1\fP)
 .TP
@@ -127,7 +136,7 @@ volume control
 .TP
 .I /dev/mixer
 Device used for controlling volume (change with option
-.BR \-m )
+.BR \-m " or with command " device " in the config file)"
 .TP
 .I /usr/share/doc/wmix/README
 More information on the user interface
