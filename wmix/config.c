@@ -50,16 +50,7 @@ struct _Config config;
  */
 void config_init(void)
 {
-	char *home;
-
 	memset(&config, 0, sizeof(config));
-
-	/* we can theoretically live without a config file */
-	home = getenv("HOME");
-	if (home) {
-		config.file = calloc(1, strlen(home) + 9);
-		sprintf(config.file, "%s/.wmixrc", home);
-	}
 
 	config.mousewheel = 1;
 	config.scrolltext = 1;
@@ -133,16 +124,38 @@ void parse_cli_options(int argc, char **argv)
  */
 void config_read(void)
 {
+	const char *filename;
+	char buffer_fname[512];
 	FILE *fp;
 	char buf[512];
 	char *ptr;
 
-	if (config.file == NULL)
-		return;
+	if (config.file != NULL) {
+		filename = config.file;
+	} else {
+		const char *home;
 
-	fp = fopen(config.file, "r");
-	if (!fp)
+		home = getenv("HOME");
+		if (home == NULL) {
+			fprintf(stderr, "wmix: warning, could not get $HOME, can't load configuration file\n");
+			return;
+		}
+		snprintf(buffer_fname, sizeof(buffer_fname), "%s/.wmixrc", home);
+		filename = buffer_fname;
+	}
+
+	fp = fopen(filename, "r");
+	if (fp == NULL) {
+		if (config.file != NULL) {
+			/* The config file was explicitely specified by user, tell him there's a problem */
+			fprintf(stderr, "wmix: error, could not load configuration file \"%s\"\n", filename);
+			exit(EXIT_FAILURE);
+		}
+		/* Otherwise, it is acceptable if the file does not exist */
 		return;
+	}
+	if (config.verbose)
+		printf("Using configuration file: %s\n", filename);
 
 	while (fgets(buf, 512, fp)) {
 		if ((ptr = strstr(buf, "mousewheel="))) {
