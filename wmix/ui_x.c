@@ -589,12 +589,20 @@ unsigned long get_color(Display *display, char *color_name)
 {
     XColor color;
     XWindowAttributes winattr;
+    Status status;
 
     XGetWindowAttributes(display,
 	    RootWindow(display, DefaultScreen(display)), &winattr);
 
-    color.pixel = 0;
-    XParseColor(display, winattr.colormap, color_name, &color);
+    status = XParseColor(display, winattr.colormap, color_name, &color);
+    if (status == 0) {
+	fprintf(stderr, "wmix:warning: Could not get color \"%s\" for OSD, falling back to default\n", color_name);
+
+	if (color_name != default_osd_color)
+		status = XParseColor(display, winattr.colormap, default_osd_color, &color);
+	if (status == 0)
+		return WhitePixel(display, DefaultScreen(display));
+    }
 
     color.flags = DoRed | DoGreen | DoBlue;
     XAllocColor(display, winattr.colormap, &color);

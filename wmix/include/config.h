@@ -44,6 +44,9 @@ extern struct _Config {
 	char        *exclude_channel[SOUND_MIXER_NRDEVICES + 1];	/* Devices to exclude from GUI's list */
 } config;
 
+/* Default color for OSD */
+extern const char default_osd_color[];
+
 /* Current version of WMixer */
 #define VERSION "3.0"
 

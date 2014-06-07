@@ -45,6 +45,9 @@
 /* The global configuration */
 struct _Config config;
 
+/* Default color for OSD */
+const char default_osd_color[] = "green";
+
 
 /*
  * Sets the default values in configuration
@@ -59,7 +62,7 @@ void config_init(void)
 	config.wheel_button_down = 5;
 	config.scrollstep = 0.03;
 	config.osd = 1;
-	config.osd_color = strdup("green");
+	config.osd_color = (char *) default_osd_color;
 }
 
 /*
@@ -242,7 +245,7 @@ void config_read(void)
 			config.osd = atoi(value);
 
 		} else if (strcmp(keyword, "osdcolor") == 0) {
-			if (config.osd_color)
+			if (config.osd_color != default_osd_color)
 				free(config.osd_color);
 			config.osd_color = strdup(value);
 
