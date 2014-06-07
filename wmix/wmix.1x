@@ -3,9 +3,11 @@
 wmix \- Dockapp mixer for OSS or ALSA
 .
 .SH SYNOPSIS
-wmix [\fI\-h\fP]
+.B wmix
+.RI [ options... ]
 .br
-wmix \fI\-f\fP <\fIfile\fP>
+.B wmix
+.I \-h
 .
 .SH DESCRIPTION
 Dockapp mixer for OSS or ALSA. Allows toggling record source,
@@ -18,9 +20,25 @@ Keeps a simple configuration file for user\-defined settings.
 .
 .SH OPTIONS
 .TP
-\fB\-h\fR Display list of command\-line options.
+\fB\-d\fR <\fIdisplay\fP>
+Connect to remote X display
 .TP
-\fB\-f\fR <\fIfile\fP> use alternate config file
+\fB\-e\fR <\fIname\fP>
+Exclude channel from control
+.TP
+\fB\-f\fR <\fIfile\fP>
+Use config file instead of
+.I ~/.wmixrc
+.TP
+\fB\-h\fR
+Display list of command\-line options
+.TP
+\fB\-m\fR <\fIdevice\fP>
+Use specified mixer device instead of
+.I /dev/mixer
+.TP
+\fB\-v\fR
+Verbose start, report detected channels
 .
 .SH FILES
 .LP
