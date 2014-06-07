@@ -20,10 +20,17 @@
 #ifndef WMIX_CONFIG_H
 #define WMIX_CONFIG_H
 
+/* Needed for SOUND_MIXER_NRDEVICES */
+#include <sys/soundcard.h>
+
+
 /* Global Configuration */
 extern struct _Config {
 	char        *file;				/* full path to config file name */
+	char        *display_name;		/* X Display to connect to */
+	char        *mixer_device;		/* device file to use for controlling Mixer volumes */
 
+	unsigned int verbose    : 1;	/* be Verbose when starting */
 	unsigned int osd        : 1;	/* show OSD? */
 	unsigned int mousewheel : 1;	/* mousewheel enabled? */
 	unsigned int scrolltext : 1;	/* scroll channel names? */
@@ -33,7 +40,15 @@ extern struct _Config {
 
 	float        scrollstep;		/* scroll mouse step adjustment */
 	char        *osd_color;			/* osd color */
+
+	char        *exclude_channel[SOUND_MIXER_NRDEVICES + 1];	/* Devices to exclude from GUI's list */
 } config;
+
+/* Current version of WMixer */
+#define VERSION "3.0"
+
+/* Sets configuration from command line */
+void parse_cli_options(int argc, char **argv);
 
 /* Read configuration from file */
 void config_read(void);

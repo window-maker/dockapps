@@ -16,12 +16,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 /*
- * config.c: functions related to loading the configuration from file
+ * config.c: functions related to loading the configuration, both from
+ * command line options and from file
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <getopt.h>
 
 #include <sys/soundcard.h>
 
@@ -29,9 +31,74 @@
 #include "include/config.h"
 
 
+#define HELP_TEXT	  \
+	"WMixer " VERSION " by timecop@japan.co.jp + skunk@mit.edu\n" \
+	"usage:\n" \
+	"  -d <dsp>  connect to remote X display\n" \
+	"  -e <name> exclude channel, can be used many times\n" \
+	"  -f <file> parse this config [~/.wmixrc]\n" \
+	"  -h        print this help\n" \
+	"  -m <dev>  mixer device [/dev/mixer]\n" \
+	"  -v        verbose -> id, long name, name\n" \
+
 /* The global configuration */
 struct _Config config;
 
+
+/*
+ * Parse Command-Line options
+ *
+ * Supposed to be called before reading config file, as there's an
+ * option to change its name
+ */
+void parse_cli_options(int argc, char **argv)
+{
+	int opt;
+	int count_exclude = 0;
+
+	config.verbose = false;
+	while ((opt = getopt(argc, argv, "d:e:f:hm:v")) != EOF) {
+		switch (opt) {
+		case 'd':
+			if (optarg != NULL)
+				config.display_name = strdup(optarg);
+			break;
+
+		case 'e':
+			if (count_exclude < SOUND_MIXER_NRDEVICES) {
+				config.exclude_channel[count_exclude] = strdup(optarg);
+				count_exclude++;
+			} else
+				fprintf(stderr, "Warning: You can't exclude this many channels\n");
+			break;
+
+		case 'f':
+			if (optarg != NULL)
+				if (config.file != NULL)
+					free(config.file);
+			config.file = strdup(optarg);
+			break;
+
+		case 'h':
+			fputs(HELP_TEXT, stdout);
+			exit(0);
+			break;
+
+		case 'm':
+			if (optarg != NULL)
+				config.mixer_device = strdup(optarg);
+			break;
+
+		case 'v':
+			config.verbose = true;
+			break;
+
+		default:
+			break;
+		}
+	}
+	config.exclude_channel[count_exclude] = NULL;
+}
 
 /*
  * Read configuration from a file

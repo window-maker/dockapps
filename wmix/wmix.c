@@ -39,11 +39,8 @@
 #include "include/ui_x.h"
 #include "include/config.h"
 
-#define VERSION "3.0"
 
 static Display *display;
-static char *display_name = NULL;
-static char *mixer_device = NULL;
 static bool button_pressed = false;
 static bool slider_pressed = false;
 static double prev_button_press_time = 0.0;
@@ -53,69 +50,13 @@ static float display_width;
 static int mouse_drag_home_x;
 static int mouse_drag_home_y;
 static int idle_loop;
-static bool verbose;
-static char *exclude[SOUND_MIXER_NRDEVICES];
 
 /* local stuff */
-static void parse_cli_options(int argc, char **argv);
 static void signal_catch(int sig);
 static void button_press_event(XButtonEvent *event);
 static void button_release_event(XButtonEvent *event);
 static void motion_event(XMotionEvent *event);
 
-#define HELP_TEXT \
-	"WMixer " VERSION " by timecop@japan.co.jp + skunk@mit.edu\n" \
-	"usage:\n" \
-	"  -d <dsp>  connect to remote X display\n" \
-	"  -f <file> parse this config [~/.wmixrc]\n" \
-	"  -m <dev>  mixer device [/dev/mixer]\n" \
-	"  -h        print this help\n" \
-	"  -v        verbose -> id, long name, name\n" \
-	"  -e <name> exclude channel, can be used many times\n" \
-
-static void parse_cli_options(int argc, char **argv)
-{
-    int opt;
-    int count_exclude = 0 ;
-    verbose = false ;
-
-    while ((opt = getopt(argc, argv, "d:f:hm:ve:")) != EOF) {
-	switch (opt) {
-	    case 'd':
-		if (optarg != NULL)
-		    display_name = strdup(optarg);
-		break;
-	    case 'm':
-		if (optarg != NULL)
-		    mixer_device = strdup(optarg);
-		break;
-	    case 'f':
-		if (optarg != NULL)
-		    if (config.file != NULL)
-			free(config.file);
-		    config.file = strdup(optarg);
-		break;
-	    case 'h':
-		fputs(HELP_TEXT, stdout);
-		exit(0);
-		break;
-   	    case 'v':
-	        verbose = true;
-		break;
-   	    case 'e':
-		if (count_exclude < SOUND_MIXER_NRDEVICES) {
-		    exclude[count_exclude] = strdup(optarg);
-		    /* printf("exclude : %s\n", exclude[count_exclude]); */
-		    count_exclude++;
-		} else
-		    fprintf(stderr, "Warning: You can't exclude this many channels\n");
-		break;
-	    default:
-		break;
-	}
-    }
-    exclude[count_exclude] = NULL ;
-}
 
 int main(int argc, char **argv)
 {
@@ -143,18 +84,18 @@ int main(int argc, char **argv)
     parse_cli_options(argc, argv);
     config_read();
 
-    if (mixer_device == NULL)
-	mixer_device = "/dev/mixer";
+    if (config.mixer_device == NULL)
+	config.mixer_device = "/dev/mixer";
 
-    mixer_init(mixer_device, verbose, (const char **)exclude);
+    mixer_init(config.mixer_device, config.verbose, (const char **)config.exclude_channel);
     mixer_set_channel(0);
 
-    display = XOpenDisplay(display_name);
+    display = XOpenDisplay(config.display_name);
     if (display == NULL) {
 	const char *name;
 
-	if (display_name) {
-	    name = display_name;
+	if (config.display_name) {
+	    name = config.display_name;
 	} else {
 	    name = getenv("DISPLAY");
 	    if (name == NULL) {
