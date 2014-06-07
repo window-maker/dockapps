@@ -1,3 +1,8 @@
+3.2 NEWS:
+Added support for volume control keys found on all modern keyboards.
+Added plenty of information to the man page on invocation and configuration.
+Made wmix more verbose when something is not right in the configuration.
+
 3.1 NEWS:
 Fixed a 3 years old bug about volume level showing up as "0" when it's
 actually set to 10. Thank to all 20 or so people who e-mailed me about this.

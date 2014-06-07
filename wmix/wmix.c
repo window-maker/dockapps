@@ -99,7 +99,7 @@ int main(int argc, char **argv)
 
     config_release();
 
-    blit_string("wmix 3.0");
+    blit_string("wmix " VERSION);
     scroll_text(3, 4, 57, true);
     ui_update();
 

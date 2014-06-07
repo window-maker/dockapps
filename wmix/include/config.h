@@ -49,7 +49,7 @@ extern struct _Config {
 extern const char default_osd_color[];
 
 /* Current version of WMixer */
-#define VERSION "3.0"
+#define VERSION "3.2"
 
 /* Sets the default values in the config */
 void config_init(void);
