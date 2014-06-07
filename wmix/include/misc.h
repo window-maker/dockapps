@@ -24,3 +24,4 @@ double		get_current_time(void);
 void		add_region	(int index, int x, int y, int width, int height);
 int		check_region	(int x, int y);
 void		config_read	(void);
+void		create_pid_file	(void);

@@ -22,10 +22,12 @@
 #include "config.h"
 #endif
 
+#include <sys/types.h>
 #include <stdio.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <sys/time.h>
 
 #include "include/common.h"
@@ -160,4 +162,25 @@ void config_read(void)
 	}
     }
     fclose(fp);
+}
+
+/* handle writing PID file, silently ignore if we can't do it */
+void create_pid_file(void)
+{
+    char *home;
+    char *pid;
+    FILE *fp;
+
+    home = getenv("HOME");
+    if (home == NULL)
+	return;
+
+    pid = calloc(1, strlen(home) + 10);
+    sprintf(pid, "%s/.wmix.pid", home);
+    fp = fopen(pid, "w");
+    if (fp) {
+	fprintf(fp, "%d\n", getpid());
+	fclose(fp);
+    }
+    free(pid);
 }

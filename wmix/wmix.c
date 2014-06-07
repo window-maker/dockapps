@@ -121,8 +121,6 @@ int main(int argc, char **argv)
 {
     XEvent event;
     char *home;
-    char *pid;
-    FILE *fp;
 
     memset(&config, 0, sizeof(config));
 
@@ -132,16 +130,6 @@ int main(int argc, char **argv)
 	config.file = calloc(1, strlen(home) + 9);
 	sprintf(config.file, "%s/.wmixrc", home);
     }
-
-    /* handle writing PID file, silently ignore if we can't do it */
-    pid = calloc(1, strlen(home) + 10);
-    sprintf(pid, "%s/.wmix.pid", home);
-    fp = fopen(pid, "w");
-    if (fp) {
-	fprintf(fp, "%d\n", getpid());
-	fclose(fp);
-    }
-    free(pid);
 
     /* default values */
     config.mousewheel = 1;
@@ -197,6 +185,7 @@ int main(int argc, char **argv)
     add_region(10, 3, 4, 56, 7);	/* re-scroll current channel name */
 
     /* setup up/down signal handler */
+    create_pid_file();
     signal(SIGUSR1, (void *) signal_catch);
     signal(SIGUSR2, (void *) signal_catch);
 
