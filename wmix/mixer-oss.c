@@ -262,12 +262,15 @@ void mixer_init(const char *mixer_device, bool verbose, const char * exclude[])
     }
 
     if (verbose) {
-	printf("%s (%s)\n", m_info.name, m_info.id);
+	printf("Sound card: %s (%s)\n", m_info.name, m_info.id);
 	puts("Supported channels:");
     }
     for (count = 0; count < SOUND_MIXER_NRDEVICES; count++) {
 	mask = 1 << count;
-	if ((mask & devmask) && (!is_exclude((short_names[count]),exclude))) {
+	if (!(mask & devmask))
+		continue;
+
+	if (!is_exclude(short_names[count], exclude)) {
 	    mixer[n_channels].name = channel_names[count];
 	    mixer[n_channels].sname = short_names[count];
 	    mixer[n_channels].dev = count;
@@ -278,12 +281,9 @@ void mixer_init(const char *mixer_device, bool verbose, const char * exclude[])
 	    mixer[n_channels].is_muted = false;
 	    ++n_channels;
 	    if (verbose)
-		printf("  %d: %s \t(%s)\n", n_channels, 
-		       channel_names[count],
-		       short_names[count]);    
-	} else if ((mask & devmask) && verbose)
-	  printf("  x: %s \t(%s) - disabled\n", channel_names[count],
-		 short_names[count]);
+		printf("  %d: %s \t(%s)\n", n_channels, channel_names[count], short_names[count]);
+	} else if (verbose)
+	    printf("  x: %s \t(%s) - disabled\n", channel_names[count], short_names[count]);
     }
     get_mixer_state();
 }
@@ -414,11 +414,38 @@ bool mixer_can_rec(void)
 
 bool is_exclude(const char *short_name, const char *exclude[])
 {
-  int count = 0;
-  while (count < SOUND_MIXER_NRDEVICES && exclude[count] != NULL){
-    if ( strcmp(short_name, exclude[count]) == 0 )
-      return true;
-    count++;
-  }
-  return false;
+	int count;
+	int len;
+
+	for (count = 0; count < SOUND_MIXER_NRDEVICES; count++) {
+		if (exclude[count] == NULL)
+			break;
+
+		/*
+		 * Short names may be padded with spaces, because apparently there is a minimum
+		 * length requirement of 6 characters for the name, and we do not want to
+		 * include this padding in the match
+		 */
+		len = strlen(short_name);
+		while (len > 0) {
+			if (short_name[len - 1] == ' ')
+				len--;
+			else
+				break;
+		}
+
+		if (strncmp(short_name, exclude[count], len) != 0)
+			continue;
+
+		if (exclude[count][len] != '\0')
+			continue;
+
+		/* Check the remaining in short name is only space */
+		while (short_name[len] == ' ')
+			len++;
+
+		if (short_name[len] == '\0')
+			return true;
+	}
+	return false;
 }
