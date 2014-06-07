@@ -1,6 +1,7 @@
 CC		= gcc
 CFLAGS		= -O3 -W -Wall
 LDFLAGS		= -L/usr/X11R6/lib
+LIBS		= -lXpm -lXext -lX11 -lm
 OBJECTS		= misc.o mixer-oss.o ui_x.o wmix.o
 
 # where to install this program (also for packaging stuff)
@@ -10,7 +11,7 @@ INSTALL_BIN	= -m 755
 INSTALL_DATA	= -m 644
 
 wmix: $(OBJECTS)
-	$(CC) -o $@ $(LDFLAGS) $(OBJECTS) -lXpm -lXext -lX11 -lm
+	$(CC) -o $@ $(LDFLAGS) $(OBJECTS) $(LIBS)
 
 clean:
 	rm -rf *.o wmix *~
