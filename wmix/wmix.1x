@@ -27,7 +27,10 @@ Keeps a simple configuration file for user\-defined settings.
 Connect to remote X display
 .TP
 \fB\-e\fR <\fIname\fP>
-Exclude channel from control
+Exclude channel from control (see
+.SM
+.B "CHANNEL NAMES"
+below)
 .TP
 \fB\-f\fR <\fIfile\fP>
 Use config file instead of
@@ -78,6 +81,29 @@ default=\fI3\fP)
 .br
 For compatibility, values between 0.0 and 1.0 will be considered as a raw percentage
 .LP
+.
+.SH CHANNEL NAMES
+The names for the different channels are provided by ALSA/OSS as short names, for which
+.B wmix
+provides a long name match for readability.
+The default behavior is to scroll the long name of the current channel
+in the text line of the dockapp, but if you disable the scroll text
+then the short name will be displayed instead.
+.LP
+If you want to exclude a channel from the list of channels controlled by
+the dockapp you have to use the short name.
+You can get the list of all the channels available in your sound card with
+.B wmix -v
+and the short name will be between parentheses, here is an example:
+.LP
+.EX
+Supported channels:
+  1: Master volume      (Vol  )
+  2: PC Speaker         (Spkr )
+  3: PCM Wave 2 volume  (Pcm2 )
+  4: Input gain         (IGain)
+  5: Phone output       (PhoneOut)
+.EE
 .
 .SH FILES
 .TP
