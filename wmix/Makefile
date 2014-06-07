@@ -5,8 +5,7 @@ LIBS		= -lXpm -lXext -lX11 -lm
 OBJECTS		= misc.o mixer-oss.o ui_x.o wmix.o
 
 # where to install this program (also for packaging stuff)
-DESTDIR		=
-PREFIX		= $(DESTDIR)/usr/X11R6
+PREFIX		= /usr/local
 INSTALL_BIN	= -m 755
 INSTALL_DATA	= -m 644
 
