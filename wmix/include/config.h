@@ -47,6 +47,9 @@ extern struct _Config {
 /* Current version of WMixer */
 #define VERSION "3.0"
 
+/* Sets the default values in the config */
+void config_init(void);
+
 /* Sets configuration from command line */
 void parse_cli_options(int argc, char **argv);
 

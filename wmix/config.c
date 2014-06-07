@@ -46,6 +46,31 @@ struct _Config config;
 
 
 /*
+ * Sets the default values in configuration
+ */
+void config_init(void)
+{
+	char *home;
+
+	memset(&config, 0, sizeof(config));
+
+	/* we can theoretically live without a config file */
+	home = getenv("HOME");
+	if (home) {
+		config.file = calloc(1, strlen(home) + 9);
+		sprintf(config.file, "%s/.wmixrc", home);
+	}
+
+	config.mousewheel = 1;
+	config.scrolltext = 1;
+	config.wheel_button_up = 4;
+	config.wheel_button_down = 5;
+	config.scrollstep = 0.03;
+	config.osd = 1;
+	config.osd_color = strdup("green");
+}
+
+/*
  * Parse Command-Line options
  *
  * Supposed to be called before reading config file, as there's an

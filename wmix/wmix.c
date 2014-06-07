@@ -61,26 +61,8 @@ static void motion_event(XMotionEvent *event);
 int main(int argc, char **argv)
 {
     XEvent event;
-    char *home;
 
-    memset(&config, 0, sizeof(config));
-
-    /* we can theoretically live without a config file */
-    home = getenv("HOME");
-    if (home) {
-	config.file = calloc(1, strlen(home) + 9);
-	sprintf(config.file, "%s/.wmixrc", home);
-    }
-
-    /* default values */
-    config.mousewheel = 1;
-    config.scrolltext = 1;
-    config.wheel_button_up = 4;
-    config.wheel_button_down = 5;
-    config.scrollstep = 0.03;
-    config.osd = 1;
-    config.osd_color = strdup("green");
-
+    config_init();
     parse_cli_options(argc, argv);
     config_read();
 

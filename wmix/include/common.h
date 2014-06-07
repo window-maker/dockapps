@@ -33,5 +33,3 @@ typedef unsigned int bool;
 #define CLAMP(x, low, high) (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
 
 #define MAX_DOUBLE_CLICK_TIME 0.5
-#define BUTTON_WHEEL_UP 4
-#define BUTTON_WHEEL_DOWN 5
