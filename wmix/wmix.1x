@@ -97,6 +97,18 @@ Device used for controlling volume (change with option
 .I /usr/share/doc/wmix/README
 More information on the user interface
 .
+.SH BUGS
+The \fImute\fP functionality is implemented by setting the volume to 0
+and remembering the previous volume to restore it when unmuting.
+While this is perfectly ok, you may encounter strange looking behavior
+if you have other application controlling the volume, and possibly
+implementing mute in similar ways, because there is no way to know
+that a channel has been muted.
+.LP
+If you modify the configuration file, do not expect \fBwmix\fP to reload
+it automatically, this is considered a too costly feature for such a
+small application.
+.
 .SH AUTHORS
 This man page was written by Fredrik Steen <stone@debian.org> for the Debian
 distribution.
