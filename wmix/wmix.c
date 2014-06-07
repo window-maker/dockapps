@@ -161,8 +161,20 @@ int main(int argc, char **argv)
     mixer_init(mixer_device, verbose, (const char **)exclude);
     mixer_set_channel(0);
 
-    if ((display = XOpenDisplay(display_name)) == NULL) {
-	fprintf(stderr, "Unable to open display \"%s\"\n", display_name);
+    display = XOpenDisplay(display_name);
+    if (display == NULL) {
+	const char *name;
+
+	if (display_name) {
+	    name = display_name;
+	} else {
+	    name = getenv("DISPLAY");
+	    if (name == NULL) {
+		fprintf(stderr, "wmix:error: Unable to open display, variable $DISPLAY not set\n");
+		return EXIT_FAILURE;
+	    }
+	}
+	fprintf(stderr, "wmix:error: Unable to open display \"%s\"\n", name);
 	return EXIT_FAILURE;
     }
     display_width = (float)DisplayWidth(display, DefaultScreen(display)) / 4.0;
