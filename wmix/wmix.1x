@@ -10,12 +10,15 @@ wmix \- Dockapp mixer for OSS or ALSA
 .I \-h
 .
 .SH DESCRIPTION
-Dockapp mixer for OSS or ALSA. Allows toggling record source,
+Docked application to control audio mixer for OSS or ALSA.
+Allows toggling record source,
 muting individual channels, adjusting volume and balance, all in a
 compact dockapp size, with TV\-like on\-screen\-display for volume levels.
 .LP
-Supports mousewheel to adjust current channelvolume
-and can be controlled remotely with SIGUSR1 / SIGUSR2 to adjust the volume.
+Supports mouse wheel to adjust current channel's volume
+and can be controlled remotely with unix signals
+.IR SIGUSR1 / SIGUSR2
+to raise/lower the volume.
 Keeps a simple configuration file for user\-defined settings.
 .
 .SH OPTIONS
@@ -81,12 +84,23 @@ For compatibility, values between 0.0 and 1.0 will be considered as a raw percen
 .I ~/.wmixrc
 User configuration file (change with option
 .BR \-f )
-.LP
-See \fI/usr/share/doc/wmix/README.gz\fP for more information
+.TP
+.I ~/.wmix.pid
+Contains process id of wmix, in case you'd need it for
+.IR SIGUSR1 / SIGUSR2
+volume control
+.TP
+.I /dev/mixer
+Device used for controlling volume (change with option
+.BR \-m )
+.TP
+.I /usr/share/doc/wmix/README
+More information on the user interface
 .
 .SH AUTHORS
 This man page was written by Fredrik Steen <stone@debian.org> for the Debian
 distribution.
+It was expanded by Christophe CURIS for the Window Maker Dev Team.
 .PP
-wmix was written by Tim,
-timecop <timecop@japan.co.jp>
+wmix was written by Tim, timecop <timecop@japan.co.jp>,
+with some code by Daniel Richard G. <skunk@mit.edu>
