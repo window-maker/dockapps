@@ -1,5 +1,5 @@
 /*
- * $Id: wmifinfo.c,v 1.3 2004/03/03 18:29:50 ico Exp $
+ * $Id: wmifinfo.c,v 1.4 2004/07/11 12:00:46 ico Exp $
  */
  	 
 #include <stdio.h>
@@ -582,7 +582,9 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 	}
 	
 #ifdef ENABLE_NWN_SUPPORT
-	info->sl = nwn_get_link(parent);
+	if (info->sl == 0) {
+		info->sl = nwn_get_link(parent);
+	}
 #endif
 #elif defined(__OpenBSD__)
 	{

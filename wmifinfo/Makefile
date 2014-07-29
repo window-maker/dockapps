@@ -9,7 +9,7 @@ ENABLE_NWN_SUPPORT=n
 # Nothing to configure under here
 
 NAME=wmifinfo
-VERSION=0.07
+VERSION=0.08
 
 CC = gcc
 LD = gcc
@@ -34,7 +34,7 @@ $(BIN):	$(FILES)
 	$(LD) -o $@ $(FILES) $(LDOPTS)
 
 clean:
-	rm -f *.o $(BIN) core
+	rm -f *.o $(BIN) core ./.#* *.orig *.rej
 
 install:
 	cp $(BIN) $(BINDIR)

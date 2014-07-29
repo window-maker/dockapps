@@ -44,3 +44,8 @@
 	- On request of Jesper Anderson <jesper at pobox dot com>, wmifinfo
 	  now always switches to new interfaces when they become available;
 	  handy for new established PPP links or inserted PCMCIA cards
+
+0.08	Bugfix
+
+	- Bugfix from Hugo Haas that fixes NWN link quality
+

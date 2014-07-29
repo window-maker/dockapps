@@ -38,7 +38,7 @@ DESCRIPTION
 
 INSTALLING
 
-  - If you have a NoWiresNeeded 1148 or Swallo NIC, set ENABLE_NWN_SUPPORT
+  - If you have a NoWiresNeeded 1148 or Swallow NIC, set ENABLE_NWN_SUPPORT
     to 'y' in the makefile to enable wlan signal indication for this type of
     network adapter.
 
@@ -76,7 +76,7 @@ THANKS
 
 COPYRIGHT
 
-  Copyright (c) 2002 Ico Doornekamp <ico@pruts.nl>
+  Copyright (c) 2004 Ico Doornekamp <ico@pruts.nl>
 
   This program is free software; you can redistribute it and/or modify it
   under the terms of the GNU General Public License as published by the
