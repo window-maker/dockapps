@@ -743,8 +743,7 @@ void getifnames(void)
 
 	for(i=0; i<ifaces; i++) {
 		if(strcasecmp(ifname[i], startif) == 0) {
-			printf("whop\n");
-			ifno = ifaces;
+			ifno = i;
 			startif[0] = 0;
 		}
 	}

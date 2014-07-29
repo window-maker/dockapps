@@ -49,3 +49,9 @@
 
 	- Bugfix from Hugo Haas that fixes NWN link quality
 
+
+0.09	Bugfix
+
+	- the '-i' flag (initial interface) was broken. Thanks to Rod van
+	  Meter.
+	 
