@@ -4,6 +4,8 @@
  * cards. Since there seems to be no official range for the 'Quality' value I assume
  * it's between 0 and 15, and multiply by 4 to get the range 0-63...
  *
+ * $Id: nwn.c,v 1.2 2002/09/15 14:31:41 ico Exp $
+ *
  */
 
 #ifdef ENABLE_NWN_SUPPORT

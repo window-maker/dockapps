@@ -1,4 +1,7 @@
-	 
+/*
+ * $Id: wmifinfo.c,v 1.3 2004/03/03 18:29:50 ico Exp $
+ */
+ 	 
 #include <stdio.h>
 #include <unistd.h>
 #ifdef linux
@@ -630,10 +633,6 @@ void addifname(char *name)
 
 	strcpy(ifname[ifaces], name);
 	
-	if(strcasecmp(name, startif) == 0) {
-		ifno = ifaces;
-		startif[0] = 0;
-	}
 	
 	ifaces++;
 	
@@ -647,14 +646,24 @@ void addifname(char *name)
  
 void getifnames(void)
 {	
+	char pifname[MAXIFS][16];
+	int pifaces;
+	int i,j;
+	int isnew;
+	
+	/* 
+	 * Copy list of interface names and clean the old list
+	 */
+	 
+	for(i=0; i<ifaces; i++) strncpy(pifname[i], ifname[i], sizeof(pifname[i]));
+	pifaces = ifaces;
+	ifaces = 0;
+
 #ifdef linux
 	FILE *f;
 	char buf[128];
 	char *p1, *p2;
 	int ifcount;
-	int i;
-	
-	ifaces = 0;
 	
 	f = fopen("/proc/net/dev", "r");
 	
@@ -689,13 +698,12 @@ void getifnames(void)
 	for(i=0; i<ifcount; i++) {
 		addifname(ifc.ifc_req[i].ifr_name);
 	}
-#elif defined(__OpenBSD__)
+#endif
+#ifdef __OpenBSD__
 	struct ifreq ibuf[32];
 	struct ifconf ifc;
 	struct ifreq *ifrp, *ifend;
 	int r;
-
-	ifaces = 0;
 
 	ifc.ifc_len = sizeof(ibuf);
 	ifc.ifc_buf = (caddr_t) ibuf;
@@ -719,4 +727,24 @@ void getifnames(void)
 		ifrp = (struct ifreq *) ((char *) ifrp + r);
 	}
 #endif
+
+	/*
+	 * Check if the new list contains interfaces that were not in the old list. If a new
+	 * interface is found, make it the current one to display. (-i will override)
+	 */
+	
+	for(i=0; i<ifaces; i++) {
+		isnew = 1;
+		for(j=0; j<pifaces; j++) if(strcmp(ifname[i], pifname[j]) == 0) isnew = 0;
+		if(isnew) ifno = i;
+	}
+
+	for(i=0; i<ifaces; i++) {
+		if(strcasecmp(ifname[i], startif) == 0) {
+			printf("whop\n");
+			ifno = ifaces;
+			startif[0] = 0;
+		}
+	}
+	 
 }

@@ -9,7 +9,7 @@ ENABLE_NWN_SUPPORT=n
 # Nothing to configure under here
 
 NAME=wmifinfo
-VERSION=0.06
+VERSION=0.07
 
 CC = gcc
 LD = gcc
@@ -40,4 +40,7 @@ install:
 	cp $(BIN) $(BINDIR)
 
 dist:	clean
-	cd .. && tar -zcvf dist/wmifinfo-$(VERSION).tgz wmifinfo-$(VERSION)/
+	rm -rf /tmp/wmifinfo-$(VERSION)
+	cd .. && cp -a wmifinfo /tmp/wmifinfo-$(VERSION)
+	cd /tmp && tar --exclude CVS -zcvf wmifinfo-$(VERSION).tgz wmifinfo-$(VERSION)/
+	

@@ -32,9 +32,15 @@
 
 0.06	Added openBSD support
 	
-	- Peter Stromberg <wilfried@openbsd.org> supplied a patch for
+	- Peter Stromberg <wilfried at openbsd dot org> supplied a patch for
 	  OpenBSD support. I have not tried this myself since I don't have
 	  access to this OS. I will probably split the code into several
 	  OS-dependend modules later, for now the main .c file has some
 	  #ifdefs for linux and OpenBSD.
 
+
+0.07	New feature
+
+	- On request of Jesper Anderson <jesper at pobox dot com>, wmifinfo
+	  now always switches to new interfaces when they become available;
+	  handy for new established PPP links or inserted PCMCIA cards
