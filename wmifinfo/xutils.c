@@ -21,8 +21,8 @@
  *
  *      You should have received a copy of the GNU General Public License
  *      along with this program (see the file COPYING); if not, write to the
- *      Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- *      Boston, MA  02111-1307, USA
+ *      Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *      Boston, MA 02110-1301 USA
  *
  *
  * $Id: xutils.c,v 1.2 2002/09/15 14:31:41 ico Exp $
