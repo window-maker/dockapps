@@ -1,0 +1,12 @@
+wmmixer-alsa 0.6 by Martin Dahl <dahlm@vf.telia.no>
+
+A hacked version of wmmixer by Sam Hawker to make it use ALSA
+(Advanced Linux Sound Architecture) in stead of the OSS sound
+drivers in the linux kernel. To compile and run this program,
+you will need to get alsa-driver and alsa-lib from
+www.alsa-project.org !
+
+To compile the program, just do a 'make', and then copy the
+'wmmixer-alsa' program to your favourite location.
+
+See COPYING for licence details.
