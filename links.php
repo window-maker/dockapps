@@ -27,7 +27,7 @@
             </li>
 
 	   <li>
-	      <p><a href="http://dockapps.windowmaker.org" target="_blank">Dockapps</a></p>
+	      <p><a href="dockapps">Dockapps</a></p>
 	    </li>
 
 	   <li>
