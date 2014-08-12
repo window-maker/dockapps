@@ -8,9 +8,7 @@ wmacpiload_SOURCES =   \
 	backdrop_on.xpm \
 	parts.xpm
 
-CPPFLAGS = @CPPFLAGS@ @DFLAGS@
-
-INCLUDES = @HEADER_SEARCH_PATH@
+AM_CPPFLAGS = @CPPFLAGS@ @DFLAGS@ @HEADER_SEARCH_PATH@
 
 wmacpiload_LDADD = @LIBRARY_SEARCH_PATH@ @XLIBS@
 
