@@ -1,6 +1,6 @@
 [AlsaMixer.app]
-version-0.1 = 93d993289ee6535caa04175e17048102cf623247
 version-0.1+20121002 = d23e672fcfdbe439417970aeee2233ee90a6e87f
+version-0.1 = 93d993289ee6535caa04175e17048102cf623247
 image = AlsaMixer.app.png
 description = "AlsaMixer.app is simple mixer application for Linux with ALSA drivers (>= 0.9.x)."
 url =
@@ -17,8 +17,8 @@ dockapps = 86
 category = General/Others
 
 [wmMatrix]
-version-0.2 = 01a5e13371f4c58f360b60092e4453f6185418b7
 version-0.2+20120814 = 9721660644b188e89c8c96a80eea066c018b40b6
+version-0.2 = 01a5e13371f4c58f360b60092e4453f6185418b7
 image = wmMatrix.gif
 description = "A DockApp thats runs a slightly modified version of Jamie Zawinski's xmatrix screenhack."
 url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
@@ -26,8 +26,8 @@ dockapps = 10
 category = Date/Time
 
 [wmSMPmon]
-version-3.1 = 573f183185747f9427a0d21b234aba5f1f8bbf41
 version-3.1+20130119 = 3bbe6b43ed4f2a22edd1b29ca65853b60bee279e
+version-3.1 = 573f183185747f9427a0d21b234aba5f1f8bbf41
 image = wmSMPmon-SMP_style1.jpg
 description = "* Current CPU utilization of up to two CPUs
 * On dual CPU systems, three different styles for the utilization graph are available.
@@ -49,8 +49,8 @@ dockapps = 32
 category = System Monitoring
 
 [wmacpiload]
+version-0.1.2+20140812 = d83cb5da968bd79448fa6af44895335cb7c548a1
 version-0.1.2 = f2dc21b803c6838a0608e1a82f3fd12846638c56
-version-0.1.2+20120605 = 7110a69f84edce263fec6a1dbf1c76e2bc964ff3
 image = wmacpiload1.png
 description = "An app for monitoring CPU temp and battery time from ACPI. In the style of wmcpuload and wmapmload"
 url =
@@ -58,8 +58,8 @@ dockapps = 168
 category = System Monitoring
 
 [wmauda]
-version-0.8 = 2faebb5bbb61858c78e1dd9ceefbaaa1f5731307
 version-0.8+20120605 = 3317571f822dcbc21408f24975cc19636a2b4752
+version-0.8 = 2faebb5bbb61858c78e1dd9ceefbaaa1f5731307
 image = x1.miff.png
 description = "This is a port of wmxmms to GTK 2.x and Audacious."
 url =
@@ -67,8 +67,8 @@ dockapps = 330
 category = Audio
 
 [wmbatteries]
+version-0.1.3+20140812 = b31fc5adea2e29d14d8fad14b272c750e127b5fd
 version-0.1.3 = 46b196e291089ddceeccb3c299be3543499d2665
-version-0.1.3+20120605 = 7ba1a249a4f1e156c254f8049d2ca2d1ca394fc1
 image = wmbatteries.gif
 description = "wmbatteries - a dockapp based on wmacpiload.
 monitors up to 2 battery capacities, remaining time, current power consumption and cpu temperature.
@@ -96,8 +96,8 @@ category = E-mail
 
 [wmbutton]
 version-0.7.0+20140528 = 843be4abca3d30380a240cea1a3be43f41f0b192
-version-0.6.1 = be05f87714287663c8653209031a2f122f6be981
 version-0.7.0 = 2de17faf244b2bc992aaaf3e70bbf4c2bcac51a1
+version-0.6.1 = be05f87714287663c8653209031a2f122f6be981
 image = wmbutton5.jpg
 description = "Wmbuttons is simple little application that I wrote (and am in the process of updating). It is specifically designed to be docked in Windowmaker, or 'Swallowed' by wharf in Afterstep. If you're not familiar with these windowmanagers, check them out in the links section. Of course, it should work in just about any window manager.
 
@@ -117,8 +117,8 @@ dockapps = 9
 category = Date/Time
 
 [wmcalendar]
-version-0.5.2 = 4c8450d9d41fa0b8d5ee472d20bc6fa7f0714f7f
 version-0.5.2+20120605 = 3591c47835eb8a1ed1860bebe347cc9daea66fdc
+version-0.5.2 = 4c8450d9d41fa0b8d5ee472d20bc6fa7f0714f7f
 image = wmcalendar.png
 description = "A dockapp calendar with monthly view and interface to iCalendar based calendars like Ximian Evolution or Mozilla calendar."
 url = "http://wmcalendar.sourceforge.net/"
@@ -137,8 +137,8 @@ dockapps = 316
 category = E-mail
 
 [wmcpuload]
-version-1.0.0 = a870424a90f99b865e87e65f4502e3e1703b2f66
 version-1.0.0+20120605 = 7ba60bfea8909fca462926fa3b9a0688f12eb431
+version-1.0.0 = a870424a90f99b865e87e65f4502e3e1703b2f66
 image = "wmcpuload2.png,wmcpuload3.png"
 description = "A simple program to monitor CPU usage."
 url = https://web.archive.org/web/20080505022830/http://seiichisato.jp/dockapps/
@@ -156,8 +156,8 @@ dockapps = 338
 category = System Monitoring
 
 [wmfu]
-version-1.0 = 8c09e77da4a28b1b191a5f2385537898603845d9
 version-1.0+20120605 = 0017c6dcc5a5a1e1e7b4a3548bf2ff21b8d108c4
+version-1.0 = 8c09e77da4a28b1b191a5f2385537898603845d9
 image = wmfu-1.0.png
 description = "wmfu displays all sorts of information about your Linux (laptop) system. It is designed for WindowMaker, but can also be run in other window managers. It does not need external custom libraries, but does need a recent kernel, since it uses ACPI and proc/sys pseudo-filesystems to read system data."
 url =
@@ -165,11 +165,11 @@ dockapps = 329
 category = System Monitoring
 
 [wmifinfo]
-version-0.08 = 3a21c4d84d84a5582f4fa59a1115f71e43a0e00f
-version-0.06 = dfca364066e6888f02ecec48592d40beca4bcb9f
-version-0.07 = 1656d0324b3a1361e9e753bbf6d5dafd1788e07d
-version-0.09 = 423824aacd6be831dd4152485067e3bd4f76dc60
 version-0.09+20140806 = e01ef6e5ce05e641f9a81550e62be1ab15df96b9
+version-0.09 = 423824aacd6be831dd4152485067e3bd4f76dc60
+version-0.08 = 3a21c4d84d84a5582f4fa59a1115f71e43a0e00f
+version-0.07 = 1656d0324b3a1361e9e753bbf6d5dafd1788e07d
+version-0.06 = dfca364066e6888f02ecec48592d40beca4bcb9f
 image = led.gif
 description = "wmifinfo is a simple applet showing basic network info for all available interfaces. It shows IP address, netmask, gateway and MAC address. A bit like ifconfig."
 url = http://zevv.nl/play/code/wmifinfo/
@@ -205,10 +205,10 @@ dockapps = 215
 category = General/Others
 
 [wmmixer]
-version-1.6 = eec923477965ebc1892c86a36a13563b329f1f76
-version-1.7 = c6267bcde682914eb84109d046cb76ec51c465ca
-version-1.5 = ad70c26618a7fd4be53791a2459b6395820f9835
 version-1.7+20120605 = 725080fd87d71383319a2c8539794e7077738936
+version-1.7 = c6267bcde682914eb84109d046cb76ec51c465ca
+version-1.6 = eec923477965ebc1892c86a36a13563b329f1f76
+version-1.5 = ad70c26618a7fd4be53791a2459b6395820f9835
 image = wmmixer.gif
 description = "Mixer application designed for WindowMaker.
 wmmixer displays the mixer status of your computer in a small icon.
@@ -237,8 +237,8 @@ category = Audio
 
 [wmmon]
 version-1.2b1+20131205 = 74fcb6f945c6425cc6910e2e1cc792c7aae358af
-version-1.0b2 = 26794d80270124f3e39a036503b3edc3284c7f74
 version-1.2b1 = 1f7dc4736465673ee36dc3fa22cdf4f4aea822c4
+version-1.0b2 = 26794d80270124f3e39a036503b3edc3284c7f74
 image = wmmon.gif
 description = "Window Maker dockapp for monitoring system information WMMon monitors the realtime CPU load as well as the average system load, and gives you some nice additional features too. It is intended for docking in Window Maker.
 
@@ -266,8 +266,8 @@ dockapps = 14
 category = General/Others
 
 [wmnet]
-version-1.06 = c71cfb9e9bbd4dbd1c7ca2d79705ab3598734175
 version-1.06+20120605 = af19dbae48ce1bc9cfad2c12b47c7a072f009d12
+version-1.06 = c71cfb9e9bbd4dbd1c7ca2d79705ab3598734175
 image = wmnet.gif
 description = "WMnet is a little X dock.app network monitor I wrote for Linux. It was originally inspired by that funky program 'tleds' that blinks your keyboard LED's in response to net traffic, but its a lot more entertaining than that nowadays. I wrote this thing with low cpusage, low memory, and efficient use of screen real-estate in mind."
 url = https://web.archive.org/web/20050403180151/http://www.digitalkaos.net/linux/wmnet/
@@ -275,8 +275,8 @@ dockapps = 77
 category = Network
 
 [wmnotify]
+version-1.0.0+20140812 = 40e65f40b4b002b6d571382de3311de4853f19af
 version-1.0.0 = 0743fca1413dc10a8dc1ef8acdbd5bd40b896f49
-version-1.0.0+20120605 = 5163ff7cb5796c5cabf9e0299962d8e6f4172367
 image = mailbox2.png
 description = "Wmnotify is an E-mail checker for a single POP3 or IMAP4 mailbox, with optional SSL encryption. Notification of new messages is done with a simple graphics animation and/or by playing a sound (WAV or AIFF format)."
 url = "http://www.hugovil.com/projet.php?proj=wmnotify&lang=en_US"
@@ -310,8 +310,8 @@ dockapps = 164
 category = System Monitoring
 
 [wmppp.app]
-version-1.3.0 = ce6a2505fafc92acfb2d2f6b17cd7f7e52b5d241
 version-1.3.0+20120605 = 0351d86ebe1f730223570b83912078f1ce6d6f97
+version-1.3.0 = ce6a2505fafc92acfb2d2f6b17cd7f7e52b5d241
 image = wmppp.jpg
 description = "PPP dial control and network load monitor with NeXTStep look
 wmppp.app provides a PPP activator and network load monitor on a 64x64 mini window. With wmppp you can monitor the total traffic as well as the outbound and inbound traffic. It is designed to work with the WindowMaker dock, but will work great with other window managers as well."
@@ -338,8 +338,8 @@ dockapps = 63
 category = Audio
 
 [wmstickynotes]
-version-0.1 = 144b28f85dc3f7fb70547b36ddf7469facb9b3b6
 version-0.1+20120605 = 1d3205aaaf6773b9ffcae593166c094fbf6edfca
+version-0.1 = 144b28f85dc3f7fb70547b36ddf7469facb9b3b6
 image =
 description = "This program is a Window Maker style dockapp which allows you to create note windows.  By default, the notes, along with their position, size, and color, are stored in files and will be restored when wmstickynotes is run again."
 url = https://sourceforge.net/projects/wmstickynotes/
@@ -369,8 +369,8 @@ dockapps = 320
 category = System Monitoring
 
 [wmtime]
-version-1.0b2 = 0ead761a83788078585342c0728f3d9430baac29
 version-1.1 = 41744c0d145f064c961989e2650a279b59e27518
+version-1.0b2 = 0ead761a83788078585342c0728f3d9430baac29
 image = wmtime.png
 description = "WMTime displays the time and date and gives you some nice additional features too. It is intended for docking in Window Maker.
 
@@ -399,8 +399,8 @@ dockapps =
 category = General/Others
 
 [wmtz]
-version-0.7 = 4746377212cee072e0629d6bff8cb8269c0be96d
 version-0.7+20120605 = 12ebc9ea93b5bd03480d0c288500956fe068473c
+version-0.7 = 4746377212cee072e0629d6bff8cb8269c0be96d
 image = wmtz.jpg
 description = "wmtz displays the time in different time zones as defined in it's configuration file. It can also display the current Julian Day Number, sidereal time and swatch beats."
 url = https://web.archive.org/web/20091027110712/http://geocities.com/jl1n/wmtz/wmtz.html
@@ -408,8 +408,8 @@ dockapps = 24
 category = Date/Time
 
 [wmweather+]
-version-2.12 = 4a09f802559f102ef823acd1b1a0093a55741fc6
 version-2.12+20120605 = a2798e0119087ba99cf8246caabb8595ec9029ff
+version-2.12 = 4a09f802559f102ef823acd1b1a0093a55741fc6
 image = "wmweather+.png,wmweather+2.png,wmweather+4.png"
 description = "wmweather+ will download the National Weather Serivce METAR bulletins, ANV and MRF forecasts, and any weather map for display in a WindowMaker dockapp. Think wmweather with a smaller font, forecasts, a weather map, and a sky condition display.
 
@@ -419,8 +419,8 @@ dockapps = 112
 category = General/Others
 
 [wmWeather]
-version-1.31 = 90ec8c522a52067f732d39e7cf8e96476ad89dcb
 version-1.31+20120605 = e1b85b8b14e71fcdedac6869a6fd0594c80f181b
+version-1.31 = 90ec8c522a52067f732d39e7cf8e96476ad89dcb
 image = wmWeather.gif
 description = "Shows local weather conditions."
 url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
