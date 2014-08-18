@@ -13,8 +13,8 @@ BUILD_CLI = 1
 #OPT	= -pg -g
 
 CC	:= gcc
-CFLAGS	:= $(OPT) -Wall -W -g -ansi -I/usr/X11R6/include
-LDFLAGS := $(OPT) -lX11 -ldockapp
+CFLAGS	+= $(OPT) -Wall -W -g -ansi -I/usr/X11R6/include
+LDFLAGS += $(OPT) -lX11 -ldockapp
 
 WMSRC	:= wmacpi.c libacpi.c
 HEADERS := libacpi.h wmacpi.h
