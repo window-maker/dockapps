@@ -19,7 +19,7 @@ under /proc/acpi, reads status information from them, and then
 displays summaries.
 
 Version 1.99 and later provides full support for multiple
-batteries. You can tell it to monitor a particular batter with the -m
+batteries. You can tell it to monitor a particular battery with the -m
 option, which will display the percentage remaining and current status
 message for that battery. The time remaining and AC/battery status are
 global - the time remaining is calculated based on all batteries found

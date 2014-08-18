@@ -71,11 +71,11 @@ int main(int argc, char *argv[])
 			if(optarg != NULL) {
 				samples = atoi(optarg);
 				if(samples > 1000 || samples <= 0) {
-					printf("Please specify a reasonable number of samples\n");
+					fprintf(stderr, "Please specify a reasonable number of samples\n");
 					exit(1);
+				}
 			}
-			}
-			printf("samples: %d\n", samples);
+			pinfo("samples: %d\n", samples);
 			sleep_time = 1000000/samples;
 			break;
 		default:

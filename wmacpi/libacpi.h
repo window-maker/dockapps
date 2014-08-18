@@ -96,8 +96,6 @@ typedef struct {
  * It's a macro because I'm too lazy to deal with varargs.
  */
 
-static int verbosity = 0;
-
 #define pdebug(fmt, arg...)				\
     do {						\
 	if (verbosity > 2)				\
@@ -123,6 +121,8 @@ static int verbosity = 0;
 /* Since these /are/ needed here . . . */
 battery_t batteries[MAXBATT];
 int batt_count;
+
+int verbosity;
 
 /* check if apm/acpi is enabled, etc */
 int power_init(void);

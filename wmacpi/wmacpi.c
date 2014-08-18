@@ -63,6 +63,7 @@ typedef struct {
 Dockapp *dockapp;
 global_t *globals;
 int count = 0;			/* global timer variable */
+/* extern int verbosity; */
 
 /* Time for scroll updates */
 #define DEFAULT_UPDATE 150
@@ -584,13 +585,19 @@ void set_batt_id_area(int bno)
 
 void usage(char *name)
 {
-    printf("%s - help\t\t[timecop@japan.co.jp]\n\n"
+    printf("%s - help\t\t[simon@dreamcraft.com.au]\n\n"
 	   "-d display\t\tdisplay on remote display <display>\n"
 	   "-b\t\t\tmake noise when battery is critical low (beep)\n"
 	   "-c value\t\tset critical low alarm at <value> percent\n"
 	   "\t\t\t(default: 10 percent)\n"
 	   "-m <battery number>\tbattery number to monitor\n"
-	   "-v\t\t\tincrease verbosity.\n"
+	   "-s <sample rate>\trate at which to sample battery status\n"
+	   "\t\t\tdefault 100 (once every three seconds)\n"
+	   "-n\t\t\tdo not blink\n"
+	   "-w\t\t\trun in command line mode\n"
+	   "-a <samples>\t\tsamples to average over (cli mode only)\n"
+	   "-v\t\t\tincrease verbosity\n"
+	   "\t\t\tcan be used multiple times to increase verbosity further\n"
 	   "-h\t\t\tdisplay this help\n",
 	   name);
 }
@@ -664,11 +671,6 @@ int main(int argc, char **argv)
     globals->crit_level = 10;
     battery_no = 1;
 
-    /* see if whatever we want to use is supported */
-    if (power_init())
-	/* power_init functions handle printing error messages */
-	exit(1);
-
     /* parse command-line options */
     while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwvV")) != EOF) {
 	switch (ch) {
@@ -731,7 +733,7 @@ int main(int argc, char **argv)
 	    if(optarg != NULL) {
 		samples = atoi(optarg);
 		if(samples > 1000 || samples <= 0) {
-		    printf("Please specify a reasonable number of samples\n");
+		    fprintf(stderr, "Please specify a reasonable number of samples\n");
 		    exit(1);
 		}
 	    }
@@ -743,6 +745,11 @@ int main(int argc, char **argv)
 	
     }
     
+    /* see if whatever we want to use is supported */
+    if (power_init())
+	/* power_init functions handle printing error messages */
+	exit(1);
+
     /* check for cli mode */
     if (cli) {
 	cli_wmacpi(samples);
