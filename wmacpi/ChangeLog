@@ -1,3 +1,7 @@
+2009 August 10 2.2rc5
+	Small Makefile fix to allow compiling on newer GCCs, supplied
+	Michael Shigorin of ALT Linux.
+
 2008 November 14 2.2rc4
 	Change the way that we sleep/wait for activity, to use select
 	rather than a fixed-length sleep, supplied by Julien Blache of

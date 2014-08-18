@@ -37,7 +37,7 @@ WMOBJ := $(patsubst %.c,%.o,$(filter %.c,$(WMSRC)))
 -include $(WMOBJ:.o=.d)
 
 wmacpi:	$(WMOBJ)
-	$(CC) $(LDFLAGS) -o $@ $^
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 # for the Debian package, we want to make building the command line tools
 # optional. So, we hide all the necessary stuff here . . . 
