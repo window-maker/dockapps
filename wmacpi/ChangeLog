@@ -1,3 +1,21 @@
+2014 August 18 2.2
+	Remove VCS files from source.
+
+	Manpage installation location now follows Filesystem Hierarchy
+	Standards.
+
+	Rename acpi to wmacpi-cli to avoid conflict with the acpi binary
+	that ships with acpiclient (http://sourceforge.net/projects/acpiclient).
+
+	Allow additional flags to be appended to CFLAGS and/or LDFLAGS during
+	build.
+
+	Now maintained by the Window Maker Developers Team
+	<wmaker-dev@lists.windowmaker.org>.
+
+	Git repository:
+	git clone git://repo.or.cz/dockapps.git
+
 2009 August 10 2.2rc5
 	Small Makefile fix to allow compiling on newer GCCs, supplied
 	Michael Shigorin of ALT Linux.
