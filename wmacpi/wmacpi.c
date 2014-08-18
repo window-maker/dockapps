@@ -137,7 +137,14 @@ static void redraw_window(void)
 static void new_window(char *display, char *name, int argc, char **argv)
 {
     /* Initialise the dockapp window and appicon */
-    DAInitialize(display, name, 64, 64, argc, argv);
+    /* we don't want libdocapp to parse the command line, but we have to
+       initialize it with DAParseArguments, so we set argc to 1 */
+    DAParseArguments(1, argv, NULL, 0, 
+       "help option done", "version option done");
+    /* deprecated
+       DAInitialize(display, name, 64, 64, argc, argv); */
+    DAOpenDisplay(display, argc, argv);
+    DACreateIcon(name, 64, 64, argc, argv);
     dockapp->display = DADisplay;
     dockapp->win = DAWindow;
 

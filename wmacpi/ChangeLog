@@ -1,3 +1,9 @@
+2007 January 10 2.2a1
+	Added a patch from Patrice Dumas to support newer versions of
+	libdockapp.
+
+	Updated email address in AUTHORS and manpages.
+
 2005 February 2 2.1
 	Finalised libdockapp-0.5.0 port - no changes from 2.1rc1.
 	
