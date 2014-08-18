@@ -2,7 +2,7 @@
 #define _LIBACPI_H_
 
 
-#define LIBACPI_VER "0.92"
+#define LIBACPI_VER "0.93"
 
 /* Here because we need it for definitions in this file . . . */
 #define MAX_NAME 128

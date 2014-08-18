@@ -139,15 +139,20 @@ int power_init(global_t *globals)
     char buf[4096];
     int acpi_ver = 0;
     int retval;
+    unsigned int version_offset = 0;
 
-    if (!(acpi = fopen("/proc/acpi/info", "r"))) {
-	pfatal("This system does not support ACPI\n");
-	return 1;
+    if (!(acpi = fopen("/sys/module/acpi/parameters/acpica_version", "r"))) {
+	if (!(acpi = fopen("/proc/acpi/info", "r"))) {
+	    pfatal("This system does not support ACPI\n");
+	    return 1;
+	} else {
+	    version_offset = 25;
+	}
     }
 
     /* okay, now see if we got the right version */
     fread(buf, 4096, 1, acpi);
-    acpi_ver = strtol(buf + 25, NULL, 10);
+    acpi_ver = strtol(buf + version_offset, NULL, 10);
     pinfo("ACPI version detected: %d\n", acpi_ver);
     if (acpi_ver < 20020214) {
 	pfatal("This version requires ACPI subsystem version 20020214\n");
@@ -169,9 +174,11 @@ int power_reinit(global_t *globals)
     FILE *acpi;
     int retval;
 
-    if (!(acpi = fopen("/proc/acpi/info", "r"))) {
-	pfatal("Could not reopen ACPI info file - does this system support ACPI?\n");
-	return 1;
+    if (!(acpi = fopen("/sys/module/acpi/parameters/acpica_version", "r"))) {
+	if (!(acpi = fopen("/proc/acpi/info", "r"))) {
+	    pfatal("Could not reopen ACPI info file - does this system support ACPI?\n");
+	    return 1;
+	}
     }
     
     if (!(retval = reinit_batteries(globals)))
@@ -336,6 +343,12 @@ int get_battery_info(int batt_no)
     if (val[0] == 'u') 
 	info->charge_state = CH_ERR;
     else if ((strncmp(val, "discharging", 10)) == 0)
+	info->charge_state = DISCHARGE;
+    else if ((strncmp(val, "charged", 7)) == 0)
+	/* this is a workaround for machines that report
+	 * their charge state as 'charged', rather than
+	 * what my laptop does, which is go straight to
+	 * 'discharging'. dunno which matches the standard */
 	info->charge_state = DISCHARGE;
     else
 	info->charge_state = CHARGE;

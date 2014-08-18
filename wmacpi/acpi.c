@@ -26,7 +26,7 @@
 
 #include "libacpi.h"
 
-#define ACPI_VER "2.1"
+#define ACPI_VER "2.2rc1"
 
 global_t *globals;
 
@@ -38,7 +38,8 @@ void usage(char *name)
 	       " h - display this help information\n"
 	       " a - average remaining time over some number of samples\n"
 	       "     much more accurate than using a single sample\n"
-	       " v - increase verbosity\n",
+	       " V - increase verbosity\n"
+	       " v - print version information\n",
 	       name, name);
 }
 
@@ -61,10 +62,10 @@ int main(int argc, char *argv[])
 		case 'h':
 			usage(argv[0]);
 			return 0;
-		case 'v':
+		case 'V':
 			verbosity++;
 			break;
-		case 'V':
+		case 'v':
 			print_version();
 			return 0;
 		case 'a':

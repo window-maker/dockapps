@@ -14,7 +14,7 @@ BUILD_CLI = 1
 
 CC	:= gcc
 CFLAGS	:= $(OPT) -Wall -W -g -ansi -I/usr/X11R6/include
-LDFLAGS := $(OPT) -L/usr/X11R6/lib -lX11 -lXpm -lXext -ldockapp
+LDFLAGS := $(OPT) -lX11 -ldockapp
 
 WMSRC	:= wmacpi.c libacpi.c
 HEADERS := libacpi.h wmacpi.h
@@ -34,7 +34,7 @@ all: $(targets)
 WMOBJ := $(patsubst %.c,%.o,$(filter %.c,$(WMSRC)))
 
 # include per-file dependencies
-include $(WMOBJ:.o=.d)
+-include $(WMOBJ:.o=.d)
 
 wmacpi:	$(WMOBJ)
 	$(CC) $(LDFLAGS) -o $@ $^
@@ -44,7 +44,7 @@ wmacpi:	$(WMOBJ)
 ifdef BUILD_CLI
 CLSRC := acpi.c libacpi.c
 CLOBJ := $(patsubst %.c,%.o,$(filter %.c,$(CLSRC)))
-include $(CLOBJ:.o=.d)
+-include $(CLOBJ:.o=.d)
 
 acpi: $(CLOBJ)
 	$(CC) $(LDFLAGS) -o $@ $^

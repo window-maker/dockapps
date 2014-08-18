@@ -24,7 +24,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <getopt.h>
 #include <unistd.h>
 #include <time.h>
 
@@ -37,7 +36,7 @@
 #include "libacpi.h"
 #include "wmacpi.h"
 
-#define WMACPI_VER "2.1"
+#define WMACPI_VER "2.2rc1"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -136,13 +135,9 @@ static void redraw_window(void)
 
 static void new_window(char *display, char *name, int argc, char **argv)
 {
+    XSizeHints *hints;
+
     /* Initialise the dockapp window and appicon */
-    /* we don't want libdocapp to parse the command line, but we have to
-       initialize it with DAParseArguments, so we set argc to 1 */
-    DAParseArguments(1, argv, NULL, 0, 
-       "help option done", "version option done");
-    /* deprecated
-       DAInitialize(display, name, 64, 64, argc, argv); */
     DAOpenDisplay(display, argc, argv);
     DACreateIcon(name, 64, 64, argc, argv);
     dockapp->display = DADisplay;
@@ -166,6 +161,20 @@ static void new_window(char *display, char *name, int argc, char **argv)
 	pfatal("FATAL: Cannot create text scroll pixmap!\n");
 	exit(1);
     }
+
+    /* force the window to stay this size - otherwise the user could
+     * resize us and see our panties^Wmaster pixmap . . . */
+    hints = XAllocSizeHints();
+    if(hints) {
+	hints->flags |= PMinSize | PMaxSize;
+	hints->min_width = 64;
+	hints->max_width = 64;
+	hints->min_height = 64;
+	hints->max_height = 64;
+	XSetWMNormalHints(dockapp->display, dockapp->win, hints);
+	XFree(hints);
+    } 
+
     DAShow();
 }
 
@@ -419,7 +428,7 @@ static void blink_battery_glyph(void)
 
 static void set_power_panel(global_t *globals)
 {
-    enum panel_states power = PS_NULL;
+    static enum panel_states power = PS_NULL;
     battery_t *binfo = globals->binfo;
     adapter_t *ap = &globals->adapter;
 
@@ -568,32 +577,7 @@ void set_batt_id_area(int bno)
     copy_xpm_area(sx, sy, w, h, dx, dy);
 }
 
-void usage(char *name)
-{
-    printf("%s - help\t\t[simon@dreamcraft.com.au]\n\n"
-	   "-d display\t\tdisplay on remote display <display>\n"
-	   "-b\t\t\tenable blinking of various UI elements\n"
-	   "-r\t\t\tdisable scrolling message\n"
-	   "-c value\t\tset critical low alarm at <value> percent\n"
-	   "\t\t\t(default: 10 percent)\n"
-	   "-m <battery number>\tbattery number to monitor\n"
-	   "-s <sample rate>\tnumber of times per minute to sample battery information\n"
-	   "\t\t\tdefault 20 (once every three seconds)\n"
-	   "-f\t\t\tforce the use of capacity mode for calculating time remaining\n"
-	   "-n\t\t\tdo not blink\n"
-	   "-w\t\t\trun in command line mode\n"
-	   "-a <samples>\t\tsamples to average over (cli mode only)\n"
-	   "-v\t\t\tincrease verbosity\n"
-	   "\t\t\tcan be used multiple times to increase verbosity further\n"
-	   "-h\t\t\tdisplay this help\n",
-	   name);
-}
-
-void print_version(void)
-{
-    printf("wmacpi version %s\n", WMACPI_VER);
-    printf(" Using libacpi version %s\n", LIBACPI_VER);
-}
+#define VERSION "wmacpi version " WMACPI_VER "\nUsing libacpi version " LIBACPI_VER
 
 void cli_wmacpi(global_t *globals, int samples)
 {
@@ -647,12 +631,11 @@ void cli_wmacpi(global_t *globals, int samples)
 int main(int argc, char **argv)
 {
     char *display = NULL;
-    int ch;
     int sample_count = 0;
     int batt_reinit, ac_reinit;
     int batt_count = 0;
     int ac_count = 0;
-    int cli = 0, samples = 1;
+    int cli = 0, samples = 1, critical = 10;
     int samplerate = 20;
     int sleep_rate = 10;
     int sleep_time = 1000000/sleep_rate;
@@ -661,6 +644,19 @@ int main(int argc, char **argv)
     int rt_forced = 0;
     battery_t *binfo;
     global_t *globals;
+
+    DAProgramOption options[] = {
+     {"-r", "--no-scroll", "disable scrolling message", DONone, False, {NULL}},
+     {"-n", "--no-blink", "disable blinking of various UI elements", DONone, False, {NULL}},
+     {"-x", "--cmdline", "run in command line mode",  DONone, False, {NULL}}, 
+     {"-f", "--force-capacity-mode", "force the use of capacity mode for calculating time remaining", DONone, False, {NULL}},
+     {"-d", "--display", "display or remote display", DOString, False, {&display}},
+     {"-c", "--critical", "set critical low alarm at <number> percent\n                               (default: 10 percent)", DONatural, False, {&critical}},
+     {"-m", "--battery", "battery number to monitor", DONatural, False, {&battery_no}},
+     {"-s", "--sample-rate", "number of times per minute to sample battery information\n                               default 20 (once every three seconds)", DONatural, False, {&samplerate}},
+     {"-V", "--verbosity", "Set verbosity", DONatural, False, {&verbosity}},
+     {"-a", "--samples", "number of samples to average over (cli mode only)",  DONatural, False, {&samples}}, 
+    };
 
     dockapp = calloc(1, sizeof(struct dockapp));
     globals = calloc(1, sizeof(global_t));
@@ -682,84 +678,37 @@ int main(int argc, char **argv)
      * are available /before/ we can decide if the battery we want to
      * monitor is available. */
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "d:c:m:s:a:fhnwbrvV")) != EOF) {
-	switch (ch) {
-	case 'c':
-	    if (optarg) {
-		globals->crit_level = atoi(optarg);
-		if ((globals->crit_level < 0) || (globals->crit_level > 100)) {
-		    fprintf(stderr, "Please use values between 0 and 100%%\n");
-		    globals->crit_level = 10;
-		    fprintf(stderr, "Using default value of 10%%\n");
-		}
-	    }
-	    break;
-	case 'd':
-	    if (optarg)
-		display = strdup(optarg);
-	    break;
-	case 'm':
-	    if (optarg) {
-		battery_no = atoi(optarg);
-		if (battery_no >= MAXBATT) {
-		    fprintf(stderr, "Please specify a battery number below %d\n",
-			    MAXBATT);
-		    return 1;
-		}
-		pinfo("Monitoring battery %d\n", battery_no);
-	    } 
-	    break;
-	case 's':
-	    if (optarg) {
-		samplerate = atoi(optarg);
-		if (samplerate == 0) samplerate = 1;
-		if (samplerate > 600) samplerate = 600;
-	    } else {
-		usage(argv[0]);
-		exit(1);
-	    }
-	    break;
-	case 'f':
-	    rt_mode = RT_CAP;
-	    rt_forced = 1;
-	    break;
-	case 'h':
-	    usage(argv[0]);
-	    return 0;
-	case 'v':
-	    verbosity++;
-	    break;
-	case 'V':
-	    print_version();
-	    return 0;
-	case 'n':
-	    dockapp->blink = 0;
-	    break;
-	case 'w':
-	    cli = 1;
-	    break;
-	case 'a':
-	    if(optarg != NULL) {
-		samples = atoi(optarg);
-		if(samples > 1000 || samples <= 0) {
-		    fprintf(stderr, "Please specify a reasonable number of samples\n");
-		    exit(1);
-		}
-	    }
-	    break;
-	case 'b':
-	    dockapp->blink = 1;
-	    break;
-	case 'r':
-	    dockapp->scroll = 0;
-	    break;
-	default:
-	    usage(argv[0]);
-	    return 1;
-	}
-	
+    DAParseArguments(argc, argv, options, 10, 
+      "A battery monitor dockapp for ACPI based systems", 
+      VERSION);
+		
+    if (options[0].used)
+        dockapp->scroll = 0;
+    if (options[1].used)
+        dockapp->blink = 0;
+    if (options[2].used)
+        cli = 1;
+    if (options[3].used) {
+        rt_mode = RT_CAP;
+        rt_forced = 1;
     }
-    
+        
+    if (samplerate == 0) samplerate = 1;
+    if (samplerate > 600) samplerate = 600;
+
+    if (critical > 100) {
+        fprintf(stderr, "Please use values between 0 and 100%%\n");
+        fprintf(stderr, "Using default value of 10%%\n");
+        critical = 10;
+    }
+    globals->crit_level = critical;
+
+    if (battery_no >= MAXBATT) {
+        fprintf(stderr, "Please specify a battery number below %d\n", MAXBATT);
+        return 1;
+    }
+    pinfo("Monitoring battery %d\n", battery_no);
+
     if (power_init(globals))
 	/* power_init functions handle printing error messages */
 	exit(1);
@@ -805,6 +754,8 @@ int main(int argc, char **argv)
 
     /* main loop */
     while (1) {
+	Atom atom;
+	Atom wmdelwin;
 	XEvent event;
 	while (XPending(dockapp->display)) {
 	    XNextEvent(dockapp->display, &event);
@@ -830,6 +781,28 @@ int main(int argc, char **argv)
 		pinfo("changing to monitor battery %s\n", binfo->name);
 		set_batt_id_area(battery_no);
 		dockapp->update = 1;
+		break;
+	    case ClientMessage:
+		/* what /is/ this crap?
+		 * Turns out that libdockapp adds the WM_DELETE_WINDOW atom to
+		 * the WM_PROTOCOLS property for the window, which means that
+		 * rather than get a simple DestroyNotify message, we get a 
+		 * nice little message from the WM saying "hey, can you delete
+		 * yourself, pretty please?". So, when running as a window 
+		 * rather than an icon, we're impossible to kill in a friendly
+		 * manner, because we're expecting to die from a DestroyNotify
+		 * and thus blithely ignoring the WM knocking on our window
+		 * border . . .
+		 *
+		 * This simply checks for that scenario - it may fail oddly if
+		 * something else comes to us via a WM_PROTOCOLS ClientMessage
+		 * event, but I suspect it's not going to be an issue. */
+		wmdelwin = XInternAtom(dockapp->display, "WM_DELETE_WINDOW", 1);
+		atom = event.xclient.data.l[0];
+		if (atom == wmdelwin) {
+		    XCloseDisplay(dockapp->display);
+		    exit(0);
+		}
 		break;
 	    }
 	}

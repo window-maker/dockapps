@@ -1,3 +1,23 @@
+2007 July 14 2.2rc1
+	Major changes to command line handling and to the way we use
+	libdockapp, courtesy of Patrice Dumas. This should hopefully fix
+	several long-standing bugs with non-wmaker window managers (in
+	particular Debian bugs #280495 and 293546).
+
+	Updated to support newer kernels that no longer support
+	/proc/acpi/info - thanks to Samuel Ortiz.
+
+	Fixed a longstanding issue with redrawing - thanks to Vito
+	Caputo. 
+
+	This version changes a number of command line options (little used
+	ones, but they're still incompatible changes) due to the
+	libdockapp work. In particular, -w becomes -x, -v becomes -V (and
+	takes an argument rather than being repeated), and -V becomes -v
+	(thanks to libdockapp grabbing -h, -v and -w for itself). Also,
+	long options are now supported for everything in wmacpi (but not
+	acpi, since it doesn't use libdockapp for command line parsing).
+	
 2007 January 10 2.2a1
 	Added a patch from Patrice Dumas to support newer versions of
 	libdockapp.

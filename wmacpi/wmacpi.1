@@ -1,4 +1,4 @@
-.TH WMACPI 1 "August 15 2004"
+.TH WMACPI 1 "July 13 2007"
 .SH NAME
 wmacpi \- Battery status monitor for systems supporting ACPI
 .SH NAME
@@ -27,13 +27,13 @@ sample rate ]
 .RI -n
 ]
 [
-.RI -w
+.RI -x
 ]
 [
 .RI -a
 samples ]
 [
-.RI -V
+.RI -v
 ]
 [
 .RI -h
@@ -44,10 +44,10 @@ samples ]
 .RI -a
 samples ]
 [
-.RI -v 
+.RI -V
 ]
 [
-.RI -V
+.RI -v
 ]
 ]
 .RI -b
@@ -85,24 +85,24 @@ battery to reach full charge if the batteries are charging.
 .SH OPTIONS
 .B wmacpi
 .TP
-.B \-c percentage
-Set critical low alarm at <value>% (default: 10%).
+.B \-c, --critical=percentage
+Set critical low alarm at <percentage>% (default: 10%).
 .TP
-.B \-d display
+.B \-d, --display=display
 Set the X display to open the window on.
 .TP
-.B \-m battery number
+.B \-m, --battery=battery number
 Set the battery to monitor initially.
 .TP
-.B \-s sample rate
+.B \-s, --sample-rate=sample rate
 Set the rate at which to sample the ACPI data, in number of times per
 minute. Minimum is 1, ie once a minute, default is 20, maximum is 600.
 .TP
-.B \-n
+.B \-n, --no-blink
 Disable blinking power glyph when charging. Note that it still blinks when 
 the battery reports its capacity state as critical.
 .TP
-.B \-f
+.B \-f, --force-capacity-mode
 Force the use of capacity mode for calculating time remaining. By defalt
 .B wmacpi
 will use the reported values of remaining capacity and present rate to
@@ -113,29 +113,27 @@ of calculation generally underreports the time remaining. This mode
 works around certain buggy ACPI BIOSes that fail to report the current
 rate.
 .TP
-.B \-w
+.B \-x, --cmdline
 Run wmacpi in command line mode - this operates identically to 
 .B acpi
 ..
 .TP
-.B \-a num
+.B \-a, --samples=samples
 Average the time remaining over num samples. This greatly improves the
 accuracy of the reported time remaining.
 .TP
-.B \-v
-Increase the verbosity of the program. Can be used more than once -
-each successive use increases the verbosity.
+.B \-V, --verbosity=num
+Increase the verbosity of the program. Setting this to 1 will print extra 
+error information; 2 will produce informational output; 3 will produce 
+copious debugging output.
 .TP
-.B \-V
+.B \-v, --version
 Print the version information.
 .TP
-.B \-b
-Enable blinking of the power glyph when charging the batteries.
-.TP
-.B \-r
+.B \-r, --no-scroll
 Disable scrolling message.
 .TP
-.B \-h
+.B \-h, --help
 Display help.
 .TP
 .B acpi
@@ -144,11 +142,15 @@ Display help.
 Average the time remaining over num samples. This greatly improves the
 accuracy of the reported time remaining.
 .TP
-.B \-v
-Increase the verbosity of the program, as for
-.B wmacpi
-.TP
 .B \-V
+Increase the verbosity of the program. If repeated, the result is the
+same as setting 
+.B \--verbosity
+for
+.B wmacpi
+to the number of repetitions.
+.TP
+.B \-v
 Print the version information.
 .TP
 .B \-h
@@ -162,4 +164,4 @@ This manual page was originally written by Simon Richter
 <sjr@debian.org> for the Debian GNU/Linux system, and then updated by
 Simon Fowler. 
 .br
-Last modification by Simon Fowler <simon@himi.org>, 2007-01-10.
+Last modification by Simon Fowler <simon@himi.org>, 2007-07-13.
