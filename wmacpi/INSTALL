@@ -18,7 +18,7 @@ the files by hand . . .
 Files installed (paths relative to PREFIX):
 bin/wmacpi
 bin/acpi
-man/man1/wmacpi.1
-man/man1/acpi.1
+share/man/man1/wmacpi.1
+share/man/man1/acpi.1
 
 Simon Fowler <simon@dreamcraft.com.au>, 2005-01-05

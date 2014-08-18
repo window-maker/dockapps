@@ -64,8 +64,8 @@ clean-all: clean
 install: $(targets)
 	install -d $(PREFIX)/bin/
 	install -pc $(targets) $(PREFIX)/bin/
-	install -d $(PREFIX)/man/man1/
-	install -pc $(doc_targets) $(PREFIX)/man/man1/
+	install -d $(PREFIX)/share/man/man1/
+	install -pc $(doc_targets) $(PREFIX)/share/man/man1/
 
 tags:
 	etags $(WMSRC) $(CLSRC) $(HEADERS)
