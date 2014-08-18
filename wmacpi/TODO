@@ -1,0 +1,38 @@
+2003 July 6 0.50
+ * Fix the non-deb installation - as it stands, it doesn't even try.
+
+ * Yet more cleanups.
+
+2003 June 24 0.14
+
+ * Still more code cleanups - there's a considerable amount of dumb
+   stuff in there still . . . 
+
+ * Display time left for battery charging. But first make sure that
+   this will actually work with other systems.
+
+ * Turn libacpi into a real library?
+
+2003 May 30 0.10
+
+ * More code cleanups, particularly in the various display functions.
+
+ * Full handling of multiple batteries.
+
+ * Add some kind of progressive display of power consumption, roughly
+   similar to what wmmon displays for cpu usage (possibly as a
+   completely seperate display mode, or possibly as a replacement for
+   the (completely useless) button).
+
+ * Drop APM support (maybe?).
+
+2003 May 26 0.2a
+
+ * Restructure power state handling - split it into a boolean AC
+   on/off and a battery status flag.
+
+ * Expand the APMInfo struct to be more useful.
+
+ * Code cleanups . . .
+
+ -- Simon Fowler, <simon@dreamcraft.com.au>

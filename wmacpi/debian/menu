@@ -1,0 +1,2 @@
+?package(wmacpi-ng):needs=X11 section=Apps/System\
+  title="wmacpi-ng" command="/usr/bin/wmacpi-ng"

@@ -1,3 +1,74 @@
+2003 July 6 0.50
+	Finally got rid of that annoying button - that space now contains
+	a 'B 1' or 'B 2' (only those two at present, since I'm too lazy to
+	fix it so that the number is generic. It should work fine for
+	anyone who doesn't have a freakish system with more than two
+	batteries . . .)
+
+	A few more code cleanups.
+	
+2003 July 1 0.19
+	libacpi cleanups and reworking - we now handle the charging
+	battery case properly, it seems. 
+
+	Also, some attempts to make error printing a bit cleaner; still a
+	long way to go on that, though . . .
+	
+2003 June 24 0.15
+	Removed process_plugin_timer(), since it was doing nothing useful
+	at all . . .
+	
+2003 June 23 0.14
+	Removed libapm.c - wmacpi-ng is specifically for ACPI, with no APM
+	support. 
+	
+2003 June 23 0.13
+	Some more code cleanups, designed to move libacpi to more of a
+	library than something built into wmacpi-ng. This is useful with
+	the seperate programs, though at present it's not used much.
+	
+2003 June 21 0.12
+	Added a command line tool, acpi-ng to query battery status from
+	the command line.
+	
+2003 May 30 0.11
+	Implemented multiple battery support, and averaging of the samples
+	in an attempt to even out the jumpiness of the timer.
+	
+2003 May 30 0.10
+	More major code cleanups: in particular the handling of the power
+	panel and the message has been cleaned up so that it's actually
+	sane and clean. 
+
+	Next step from here is to actually implement handling of multiple
+	batteries, so that if there's a fully charge second battery
+	available it reports the correct time remaining (based on the
+	present rate of power consumption and the sum of the two battery's
+	remaining capacities).
+	
+2003 May 29 0.3
+	Some major reworking of the internals, to help fix the handling of
+	multiple batteries and such things. 
+	
+2003 May 26 0.2a
+	Code cleanups to fix various problems with corner cases.
+	
+2003 May 26 0.2
+	Added support for multiple batteries: I took the simple route of
+	displaying only one battery per instance - to do more I'd need to
+	hack with the display code, and I'm not ready for that yet.
+	
+	Added a -m option to specify the battery number to monitor.
+	
+2003 May 26 0.1
+	Changed package completely, to support the new ACPI code as of
+	2.4.21-rc2. 
+
+	Since this code hasn't been touched in more than a year, I figure
+	I might as well have a go at hacking on it . . .
+
+	-- Simon Fowler, <simon@dreamcraft.com.au>
+	
 2002 Feb 17 1.34
     Updated ACPI statistics gathering code for the latest ACPI patch from
     Intel. Now uses/checks for subsystem version 20020214+. Redone the version

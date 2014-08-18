@@ -13,13 +13,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
-
-/* #define RETARDED_APM */
-/* #define STUPID_APM */
-/* see README if you need to #define these or not. No user serviceable
- * parts below */
 
 #define _GNU_SOURCE
 
@@ -37,11 +32,10 @@
 #include <X11/extensions/shape.h>
 #include <X11/xpm.h>
 
-#include "wmacpi.h"
+#include "libacpi.h"
+#include "wmacpi-ng.h"
 
-#if defined(ACPI) && defined(APM)
-# error Cannot compile with ACPI and APM compiled in.  Please select only one.
-#endif
+#define WMACPI_NG_VER "0.50"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -85,9 +79,7 @@ static void redraw_window(void);
 static void render_text(char *string);
 static void scroll_text(int x, int y, int width, int tw, int reset);
 static void display_percentage(int percent);
-static void display_state(void);
 static void display_time(int minutes);
-static void blink_button(Mode mode);
 
 #define copy_xpm_area(x, y, w, h, dx, dy)				\
 {									\
@@ -96,10 +88,34 @@ static void blink_button(Mode mode);
     dockapp->update = 1;						\
 }
 
+/* display AC power symbol */
+static void display_power_glyph(void)
+{
+    copy_xpm_area(67, 38, 12, 7, 6, 17);
+}
+
+/* get rid of AC power symbol */
+static void kill_power_glyph(void)
+{
+    copy_xpm_area(67, 48, 12, 7, 6, 17);
+}
+
+/* display battery symbol */
+static void display_battery_glyph(void)
+{
+    copy_xpm_area(82, 38, 12, 7, 20, 17);
+}
+
+/* get rid of battery symbol */
+static void kill_battery_glyph(void)
+{
+    copy_xpm_area(82, 48, 12, 7, 20, 17);
+}
+
 static void redraw_window(void)
 {
     if (dockapp->update) {
-	eprint(1, "redrawing window");
+	eprint(0, "redrawing window");
 	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->iconwin,
 		  dockapp->gc, 0, 0, 64, 64, 0, 0);
 	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->win,
@@ -203,7 +219,7 @@ static void render_text(char *string)
     if (strlen(string) > 53)
 	return;
 
-    eprint(1, "rendering: %s", string);
+    eprint(0, "rendering: %s", string);
 
     /* prepare the text area by clearing it */
     for (i = 0; i < 54; i++) {
@@ -277,8 +293,6 @@ static void scroll_text(int x, int y, int width, int tw, int reset)
     }
     pos -= 2;
 
-    eprint(0, "scrolling");
-
     if (pos > 0) {
 	copy_xpm_area(66, 9, pos, 7, x, y);	/* clear */
 	XCopyArea(dockapp->display, dockapp->text, dockapp->pixmap,
@@ -292,10 +306,11 @@ static void scroll_text(int x, int y, int width, int tw, int reset)
 
 static void display_percentage(int percent)
 {
-    static int op = -1, obar;
+    static int op = -1;
+    static unsigned int obar;
     unsigned int bar;
 
-    eprint(1, "received: %d\n", percent);
+    eprint(0, "received: %d\n", percent);
 
     if (op == percent)
 	return;
@@ -365,107 +380,168 @@ static void display_time(int minutes)
     omin = min;
 }
 
-static void display_state(void)
+/* 
+ * The reworked state handling stuff.
+ */
+
+/* set the current state of the power panel */
+enum panel_states {
+    PS_AC,
+    PS_BATT,
+    PS_NULL,
+};
+
+static void set_power_panel(void)
 {
-    static int dopower;
-    static int docharging;
-    static int dobattery;
-    static int docritical;
-    static int counter;
-    
-    switch (apminfo->power) {
-    case POWER:
-	eprint(0, "selected ac power case");
-	if (!dopower) {
-	    dopower = 1;
-	    docharging = 0;
-	    dobattery = 0;
-	    dockapp->blink = OFF;
-	    copy_xpm_area(67, 38, 12, 7, 6, 17);
-	    copy_xpm_area(82, 48, 11, 7, 20, 17);
-	    render_text("On AC power");
+    enum panel_states power = PS_NULL;
+    static int counter = 0;
+    battery *binfo = apminfo->binfo;
+
+    if (apminfo->power == AC) {
+	if (power != PS_AC) {
+	    power = PS_AC;
+	    kill_battery_glyph();
+	    display_power_glyph();
 	}
-	break;
-    case CHARGING:
-	eprint(0, "selected charging case");
-	counter++;
-	if (counter == 10) {
-	    copy_xpm_area(67, 38, 12, 7, 6, 17);
-	} else if (counter == 20) {
-	    copy_xpm_area(67, 48, 12, 7, 6, 17);
+    } else if (apminfo->power == BATT) {
+	if (power != PS_BATT) {
+	    power = PS_BATT;
+	    kill_power_glyph();
+	    display_battery_glyph();
 	}
-	if (counter > 20)
+    }
+
+    if (binfo->charging) {
+	if (counter == 10) 
+	    display_power_glyph();
+	else if (counter == 20) 
+	    kill_power_glyph();
+	else if (counter > 30)
 	    counter = 0;
-	if (!docharging) {
-	    render_text("Battery is charging");
-	    /* get rid of battery symbol */
-	    copy_xpm_area(82, 48, 12, 7, 20, 17);
-	    /* housekeeping */
-	    dockapp->blink = OFF;
-	    docharging = 1;
-	    dopower = 0;
-	    dobattery = 0;
+	counter++;
+    }
+
+    if (binfo->capacity_state == CRITICAL) {
+	if (counter == 10)
+	    display_battery_glyph();
+	else if (counter == 20)
+	    kill_battery_glyph();
+	else if (counter > 30)
+	    counter = 0;
+	counter++;
+    }
+}
+
+/* 
+ * The message that needs to be displayed needs to be decided
+ * according to a heirarchy: a message like not present needs to take
+ * precedence over a global thing like the current power status, and
+ * something like a low battery warning should take precedence over
+ * the "on battery" message. Likewise, a battery charging message
+ * needs to take precedence over the on ac power message. The other
+ * question is how much of a precedence local messages should take
+ * over global ones . . . 
+ *
+ * So, there are three possible sets of messages: not present, on-line
+ * and off-line messages. We need to decide which of those sets is
+ * appropriate right now, and then decide within them. 
+ */
+enum messages {
+    M_NP,	/* not present */
+    M_AC,	/* on ac power */
+    M_CH,	/* battery charging */
+    M_BATT,	/* on battery */
+    M_LB,	/* low battery */
+    M_CB,	/* critical low battery */
+    M_NULL,	/* empty starting state */
+};
+
+static void set_message(void)
+{
+    static enum messages state = M_NULL;
+    battery *binfo = apminfo->binfo;
+    
+    /* battery not present case */
+    if (!binfo->present) {
+	if (state != M_NP) {
+	    state = M_NP;
+	    render_text("not present");
 	}
-	break;
-    case HIGH:
-    case LOW:
-    case CRIT:
-	eprint(0, "selected battery case");
-	if (!dobattery) {
-	    render_text("On Battery");
-	    /* display battery symbol */
-	    copy_xpm_area(82, 38, 12, 7, 20, 17);
-	    /* get rid of AC power symbol */
-	    copy_xpm_area(67, 48, 12, 7, 6, 17);
-	    dobattery = 1;
-	    dopower = 0;
-	    docharging = 0;
-	}
-	if (apminfo->power == CRIT) {
-	    dockapp->blink = BLINK;
-	    if (!docritical) {
-		render_text("Battery Critical Low");
-		docritical = 1;
+    } else if (apminfo->power == AC) {
+	if (binfo->charging) {
+	    if (state != M_CH) {
+		state = M_CH;
+		render_text("battery charging");
 	    }
 	} else {
-	    if (docritical) {
-		render_text("On Battery");
-		docritical = 0;
+	    if (state != M_AC) {
+		state = M_AC;
+		render_text("on ac power");
 	    }
-	    dockapp->blink = OFF;
 	}
+    } else {
+	if (binfo->state == CRIT) {
+	    if (state != M_CB) {
+		state = M_CB;
+		render_text("critical low battery");
+	    }
+	} else if (binfo->state == LOW) {
+	    if (state != M_LB) {
+		state = M_LB;
+		render_text("low battery");
+	    }
+	} else {
+	    if (state != M_BATT) {
+		state = M_BATT;
+		render_text("on battery");
+	    }
+	}
+    }    
+}
+
+/*
+ * This should really be fixed so that it can handle more than two batteries.
+ */
+
+void set_id_1(void)
+{
+    copy_xpm_area(118, 38, 15, 15, 44, 30);
+}    
+
+void set_id_2(void)
+{
+    copy_xpm_area(136, 38, 15, 15, 44, 30);
+}
+
+void set_batt_id_area(int bno)
+{
+    switch(bno) {
+    case 0:
+	set_id_1();
+	break;
+    case 1:
+	set_id_2();
 	break;
     }
 }
 
-static void blink_button(Mode mode)
+void usage(char *name)
 {
-    static int counter;
-    static int clear;
+    printf("%s - help\t\t[timecop@japan.co.jp]\n\n"
+	   "-d display\t\tdisplay on remote display <display>\n"
+	   "-b\t\t\tmake noise when battery is critical low (beep)\n"
+	   "-c value\t\tset critical low alarm at <value> percent\n"
+	   "\t\t\t(default: 10 percent)\n"
+	   "-m <battery number>\tbattery number to monitor\n"
+	   "-v\t\t\tincrease verbosity.\n"
+	   "-h\t\t\tdisplay this help\n",
+	   name);
+}
 
-    if ((mode == OFF) && !clear) {
-	eprint(0, "we are off");
-	copy_xpm_area(136, 38, 3, 3, 44, 30);
-	clear = 1;
-	return;
-    }
-    if (mode != BLINK)
-	return;
-
-    counter++;
-
-    if (counter == 5) {
-	copy_xpm_area(137, 33, 3, 3, 44, 30);
-	clear = 0;
-    } else if (counter == 10) {
-	copy_xpm_area(136, 38, 3, 3, 44, 30);
-	clear = 0;
-	/* make some noise */
-	if (noisy_critical)
-	    XBell(dockapp->display, 100);
-    }
-    if (counter > 10)
-	counter = 0;
+void print_version(void)
+{
+    printf("wmacpi-ng version %s\n", WMACPI_NG_VER);
+    printf(" Using libacpi version %s\n", LIBACPI_VER);
 }
 
 int main(int argc, char **argv)
@@ -473,21 +549,22 @@ int main(int argc, char **argv)
     char *display = NULL;
     char ch;
     int update = 0;
+    battery *binfo;
 
     dockapp = calloc(1, sizeof(Dockapp));
     apminfo = calloc(1, sizeof(APMInfo));
 
     dockapp->blink = OFF;
     apminfo->crit_level = 10;
+    battery_no = 1;
 
     /* see if whatever we want to use is supported */
-    if (power_init()) {
+    if (power_init())
 	/* power_init functions handle printing error messages */
 	exit(1);
-    }
 
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "bd:c:h")) != EOF) {
+    while ((ch = getopt(argc, argv, "bd:c:m:hvV")) != EOF) {
 	switch (ch) {
 	case 'b':
 	    noisy_critical = 1;
@@ -506,18 +583,38 @@ int main(int argc, char **argv)
 	    if (optarg)
 		display = strdup(optarg);
 	    break;
-	case 'h':
-	    printf("wmacpi - help\t\t[timecop@japan.co.jp]\n\n"
-		   "-d display\t\tdisplay on remote display <display>\n"
-		   "-b\t\t\tmake noise when battery is critical low (beep)\n"
-		   "-c value\t\tset critical low alarm at <value> percent\n"
-		   "\t\t\t(default: 10 percent)\n"
-		   "-h\t\t\tdisplay this help\n");
-	    return 0;
+	case 'm':
+	    if (optarg) {
+		battery_no = atoi(optarg);
+		if (battery_no >= MAXBATT) {
+		    fprintf(stderr, "Please specify a battery number below %d\n",
+			    MAXBATT);
+		    return 1;
+		}
+		if (battery_no > batt_count) {
+		    fprintf(stderr, "Battery %d does not appear to be installed\n",
+			    battery_no);
+		    return 1;
+		}
+		fprintf(stderr, "Monitoring battery %d\n", battery_no);
+	    } 
 	    break;
+	case 'h':
+	    usage(argv[0]);
+	    return 0;
+	case 'v':
+	    verbosity++;
+	    break;
+	case 'V':
+	    print_version();
+	    return 0;
+	default:
+	    usage(argv[0]);
+	    return 1;
 	}
 	
     }
+    battery_no--;
 
     /* open local or command-line specified display */
     if (open_display(display))
@@ -527,8 +624,11 @@ int main(int argc, char **argv)
     new_window("apm");
 
     /* get initial statistics */
-    acquire_info();
-
+    acquire_all_info();
+    binfo = &batteries[battery_no];
+    apminfo->binfo = binfo;
+    fprintf(stderr, "monitoring battery %s\n", binfo->name);
+    set_batt_id_area(battery_no);
     dockapp->dspmode = REMAIN;
 
     /* main loop */
@@ -549,40 +649,22 @@ int main(int argc, char **argv)
 		exit(0);
 		break;
 	    case ButtonPress:
-		/* press event */
-		if (event.xbutton.x >= 44 && event.xbutton.x <= 57 &&
-		    event.xbutton.y >= 30 && event.xbutton.y <= 43) {
-		    eprint(0, "inside button!");
-		    dockapp->pressed = 1;
-		    copy_xpm_area(118, 38, 15, 15, 44, 30);
-		}
 		break;
 	    case ButtonRelease:
-		/* release event */
-		if (event.xbutton.x >= 44 && event.xbutton.x <= 57 &&
-		    event.xbutton.y >= 30 && event.xbutton.y <= 43 &&
-		    dockapp->pressed) {
-		    /* handle button press */
-		    eprint(0, "release still inside button!");
-		    dockapp->pressed = 0;
-		    copy_xpm_area(136, 38, 15, 15, 44, 30);
-		    if ((apminfo->power != POWER) && (apminfo->power != CHARGING)) {
-			dockapp->dspmode = !dockapp->dspmode;
-			eprint(1, "Mode: %d", dockapp->dspmode);
-		    }
-		    /* end button press handler */
-		}
-		if (dockapp->pressed) {
-		    copy_xpm_area(136, 38, 15, 15, 44, 30);
-		    dockapp->pressed = 0;
-		}
+		/* cycle through the known batteries. */
+		battery_no++;
+		battery_no = battery_no % batt_count;
+		apminfo->binfo = &batteries[battery_no];
+		binfo = apminfo->binfo;
+		fprintf(stderr, "changing to monitor battery %d\n", battery_no + 1);
+		set_batt_id_area(battery_no);
 		break;
 	    }
 	}
 
 	if (update++ == 30) {
-	    eprint(1, "polling apm");
-	    acquire_info();
+	    eprint(0, "polling apm");
+	    acquire_all_info();
 	    update = 0;
 	}
 
@@ -591,18 +673,24 @@ int main(int argc, char **argv)
 	    count = 0;
 	}
 
-	/* it's okay to test here because display_time will not draw anything
-	 * unless there is a change.  Also if we switched power states from
-	 * battery to charging/etc, we need to exit from "timer" mode */
-	if (dockapp->dspmode == REMAIN || apminfo->power == POWER || apminfo->power == CHARGING) {
+	/* the old code had some kind of weird crap with timers and the like. 
+	 * As far as I can tell, it's meaningless - the time we want to display
+	 * is the time calculated from the remaining capacity, as per the 
+	 * ACPI spec. The only thing I'd change is the handling of a charging
+	 * state: my best guess, based on the behaviour I'm seeing with my 
+	 * Lifebook, is that the present rate value when charging is the rate
+	 * at which the batteries are being charged, which would mean I'd just
+	 * need to reverse the rtime calculation to be able to work out how 
+	 * much time remained until the batteries were fully charged . . . 
+	 * That would be rather useful, though given it would vary rather a lot
+	 * it seems likely that it'd be little more than a rough guesstimate. */
+	if (binfo->charging)
+	    display_time(binfo->charge_time);
+	else
 	    display_time(apminfo->rtime);
-	} else {
-	    display_time((time(NULL) - apminfo->timer) / 60);
-	}
-
-	display_state();
-	blink_button(dockapp->blink);
-	display_percentage(apminfo->percentage);
+	set_power_panel();
+	set_message();
+	display_percentage(binfo->percentage);
 	scroll_text(6, 50, 52, dockapp->tw, 0);
 
 	/* redraw_window, if anything changed - determined inside 
@@ -611,24 +699,4 @@ int main(int argc, char **argv)
 	usleep(100000);
     }
     return 0;
-}
-
-/* this handles enabling "on-battery" timer.  It only needs to happen once
- * for each unplug event.  Functions from libapm and libacpi call this to
- * start the timer */
-void process_plugin_timer(void)
-{
-    static int timer;
-
-    if ((apminfo->power != POWER) && (apminfo->power != CHARGING) && !timer) {
-	eprint(1, "not AC and not charging, and timer is not started");
-	eprint(1, "starting battery timer");
-	apminfo->timer = time(NULL);
-	timer = 1;
-    }
-    if (((apminfo->power == POWER) || (apminfo->power == CHARGING)) && timer) {
-	eprint(1, "disabling battery timer");
-	timer = 0;
-    }
-
 }

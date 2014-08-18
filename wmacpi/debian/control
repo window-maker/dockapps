@@ -1,0 +1,21 @@
+Source: wmacpi-ng
+Section: x11
+Priority: optional
+Maintainer: Simon Fowler <simon@dreamcraft.com.au>
+Build-Depends: debhelper (>= 4), xlibs-dev
+Standards-Version: 3.5.9
+
+Package: wmacpi-ng
+Architecture: i386
+Depends: ${shlibs:Depends}
+Recommends: wmaker
+Description: An ACPI battery monitor for WindowMaker
+ This is a battery monitor that uses ACPI to query the battery status. As
+ the interface to ACPI changes rather often, this program usually only works
+ with a very specific kernel version.
+ .
+ This is a reworked version to handle kernel version 2.4.21-rc2, done
+ by Simon Fowler <simon@dreamcraft.com.au>	
+ .
+  Author: Tim Copperfield <timecop@japan.co.jp>
+  Homepage: http://www.ne.jp/asahi/linux/timecop/

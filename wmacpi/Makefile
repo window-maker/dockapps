@@ -1,8 +1,7 @@
 # set options.  pick one, acpi or apm.  comment out the other one.  don't
 # uncomment both, bad things will happen :)
 
-OPT	= -O3 -DACPI
-#OPT	= -O3 -DAPM
+OPT	:= -O2 
 
 # uncomment this to make wmacpi use less system colors (looks uglier too)
 #OPT	+= -DLOW_COLOR
@@ -10,16 +9,41 @@ OPT	= -O3 -DACPI
 # debugging options (don't bother with these)
 #OPT	= -pg -g -DPRO -DACPI
 
-CC	= gcc
-CFLAGS	= $(OPT) -Wall -ansi -I/usr/X11R6/include
-LDFLAGS = $(OPT) -L/usr/X11R6/lib -lX11 -lXpm -lXext
+CC	:= gcc
+CFLAGS	:= $(OPT) -Wall -W -g -ansi -I/usr/X11R6/include
+LDFLAGS := $(OPT) -L/usr/X11R6/lib -lX11 -lXpm -lXext
 
-SRCS	= wmacpi.c libapm.c libacpi.c
-OBJS	= wmacpi.o libapm.o libacpi.o
+WMSRC	:= wmacpi-ng.c libacpi.c
+CLSRC := acpi-ng.c libacpi.c
+HEADERS := libacpi.h wmacpi-ng.h
+targets := wmacpi-ng acpi-ng
 
-all:	wmacpi
+all: $(targets)
 
-wmacpi:	$(OBJS)
+# build the list of object files
+WMOBJ := $(patsubst %.c,%.o,$(filter %.c,$(WMSRC)))
+CLOBJ := $(patsubst %.c,%.o,$(filter %.c,$(CLSRC)))
+
+# include per-file dependencies
+include $(WMOBJ:.o=.d)
+include $(CLOBJ:.o=.d)
+
+wmacpi-ng:	$(WMOBJ)
+	gcc $(LDFLAGS) -o $@ $^
+
+acpi-ng: $(CLOBJ)
+	gcc $(LDFLAGS) -o $@ $^
+
+# build per-file dependencies - note that -MM may not be supported
+# in gcc versions older than 2.95.4, but most likely is.
+%.d: %.c
+	gcc -MM $(CFLAGS) $< > $@
 
 clean:
-	rm -f *.o *~ wmacpi trace *.out *.bb *.bbg
+	rm -f TAGS *.o *~ trace *.out *.bb *.bbg 
+
+clean-all: clean
+	rm -f *.d $(targets)
+
+tags:
+	etags $(WMSRC) $(CLSRC) $(HEADERS)
