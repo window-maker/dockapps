@@ -2,7 +2,7 @@
 #define _LIBACPI_H_
 
 
-#define LIBACPI_VER "0.50"
+#define LIBACPI_VER "0.90"
 
 /* Here because we need it for definitions in this file . . . */
 #define MAX_NAME 128
@@ -15,11 +15,6 @@ typedef enum {
 } DspMode;
 
 typedef enum {
-    BLINK,
-    OFF
-} Mode;
-
-typedef enum {
     AC,
     BATT,
     PS_ERR,
@@ -30,11 +25,20 @@ typedef enum {
     MED,
     LOW,
     CRIT,
+    HARD_CRIT,
+    BS_ERR,
 } batt_state_t;
+
+typedef enum {
+    CHARGE,
+    DISCHARGE,
+    CH_ERR,
+} charge_state_t;
 
 typedef enum {
     OK,
     CRITICAL,
+    CS_ERR,
 } cap_state_t;
 
 typedef struct {
@@ -49,7 +53,7 @@ typedef struct {
     int design_voltage;		/* in mV */
     /* state info */
     cap_state_t capacity_state;
-    int charging;
+    charge_state_t charge_state;
     int present_rate;		/* in mAh */
     int remaining_cap;		/* in mAh */
     int present_voltage;	/* in mV */
@@ -59,14 +63,20 @@ typedef struct {
     int charge_time;		/* time left to charge this battery */
     /* and a flag to indicate that this is valid . . . */
     int valid;
-} battery;
+} battery_t;
     
 typedef struct {
-    power_state_t power;	/* On AC or not? */
+    char *name;
+    char state_file[MAX_NAME];
+    power_state_t power;
+} adapter_t;
+
+typedef struct {
+    adapter_t adapter;
     int rtime;			/* remaining time */
     int timer;			/* how long been on battery? */
     int crit_level;		/* anything below this is critical low */
-    battery *binfo;		/* pointer to the battery being monitored */
+    battery_t *binfo;		/* pointer to the battery being monitored */
 } APMInfo;
 
 /*
@@ -104,7 +114,7 @@ static int verbosity = 0;
     } while (0)
 
 /* since these /are/ needed here . . . */
-battery batteries[MAXBATT];
+battery_t batteries[MAXBATT];
 int batt_count;
 
 /* check if apm/acpi is enabled, etc */

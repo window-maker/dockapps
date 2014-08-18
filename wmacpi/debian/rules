@@ -70,7 +70,7 @@ binary-arch: build install
 #	dh_installpam
 #	dh_installinit
 #	dh_installcron
-	dh_installman debian/wmacpi-ng.1
+	dh_installman debian/wmacpi-ng.1 debian/acpi-ng.1
 #	dh_installinfo
 #	dh_undocumented
 	dh_installchangelogs ChangeLog

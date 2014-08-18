@@ -1,3 +1,50 @@
+2003 July 16 0.90
+	Make the time display show '--:--' instead of '00:00' when the
+	time remaining is 0 - I think this is reasonable, since it'll only
+	get into this state when the present rate value is 0. This only
+	happens when the battery is fully charged and neither discharging
+	or charging, or when the battery is completely drained. In any of
+	these states the time remaining is of very little interest, so we
+	don't lose anything. We also get to handle the (sadly, very
+	common) case where the ACPI subsystem doesn't report sane values
+	for the things we depend on.
+	
+2003 July 11 0.50a2
+	Make the time display show nothing (as opposed to 00:00) when the
+	time remaining is unknown, as requested by Emma Jane Hogbin.
+
+	Respect the critical level specified on the command line, and add
+	a new message to differentiate between the command line critical
+	level and the critical state reported by the battery.
+
+	Speed up the message scrolling, so that there isn't quite such a
+	painful delay between repeats. Also, up the speed when the battery
+	is low, more when it's critical, and scroll continuously when it's
+	hardware critical.
+
+	Finally, add support for disabling the blinking power and battery
+	glyphs from the command line, as requested by Sebastian
+	Henschel. We still blink the battery glyph when the battery
+	reports hardware critical level - I think that's worth being a bit
+	annoying about.
+
+	Also, added an acpi-ng manpage.
+	
+2003 July 11 0.50a1
+	Properly fix the AC adapter issue - it's not much use adding the
+	infrastructure and then forgetting to fix the code that uses it.
+
+	Fix the time disiplay so that it doesn't try to display values
+	greater than 99:59, since the display area won't fit anything
+	beyond that.
+	
+2003 July 10 0.50a
+	Bugfixes, to handle two problems: the case where something like
+	the present rate or some such is "unknown" (reported initially by
+	Emma Jane Hogbin, and where the AC adapter is called something
+	other than "AC" (reported by Sebastian Henschel). This an 'a'
+	release because I can't test these myself . . . 
+	
 2003 July 6 0.50
 	Finally got rid of that annoying button - that space now contains
 	a 'B 1' or 'B 2' (only those two at present, since I'm too lazy to

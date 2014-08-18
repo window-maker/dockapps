@@ -1,4 +1,4 @@
-.TH WMACPI-NG 1 "May 30, 2003"
+.TH WMACPI-NG 1 "July 11, 2003"
 .SH NAME
 wmacpi-ng \- Battery status monitor for systems supporting ACPI
 .SH NAME
@@ -19,6 +19,9 @@ display ]
 battery no ]
 [
 .RI -v
+]
+]
+.RI -n
 ]
 [
 .RI -V
@@ -79,6 +82,9 @@ Set the X display to open the window on.
 .B \-m
 Set the battery to monitor initially.
 .TP
+.B \-n
+Disable blinking power glyph when charging. Note that it still blinks when 
+the battery reports its capacity state as critical.
 .B \-v
 Increase the verbosity of the program. Can be used more than once -
 each successive use increases the verbosity.
@@ -122,4 +128,4 @@ This manual page was originally written by Simon Richter
 .B wmacpi-ng
 by Simon Fowler.
 .br
-Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2003-05-30.
+Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2003-07-11.

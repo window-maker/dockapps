@@ -17,6 +17,9 @@ WMSRC	:= wmacpi-ng.c libacpi.c
 CLSRC := acpi-ng.c libacpi.c
 HEADERS := libacpi.h wmacpi-ng.h
 targets := wmacpi-ng acpi-ng
+doc_targets := debian/wmacpi-ng.1 debian/acpi-ng.1
+
+PREFIX := /usr/local
 
 all: $(targets)
 
@@ -29,10 +32,10 @@ include $(WMOBJ:.o=.d)
 include $(CLOBJ:.o=.d)
 
 wmacpi-ng:	$(WMOBJ)
-	gcc $(LDFLAGS) -o $@ $^
+	$(CC) $(LDFLAGS) -o $@ $^
 
 acpi-ng: $(CLOBJ)
-	gcc $(LDFLAGS) -o $@ $^
+	$(CC) $(LDFLAGS) -o $@ $^
 
 # build per-file dependencies - note that -MM may not be supported
 # in gcc versions older than 2.95.4, but most likely is.
@@ -44,6 +47,12 @@ clean:
 
 clean-all: clean
 	rm -f *.d $(targets)
+
+install: $(targets)
+	install -d $(PREFIX)/bin/
+	install -pc $(targets) $(PREFIX)/bin/
+	install -d $(PREFIX)/man/man1/
+	install -pc $(doc_targets) $(PREFIX)/man/man1/
 
 tags:
 	etags $(WMSRC) $(CLSRC) $(HEADERS)

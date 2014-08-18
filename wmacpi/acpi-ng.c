@@ -26,7 +26,7 @@
 
 #include "libacpi.h"
 
-#define ACPI_NG_VER "0.50"
+#define ACPI_NG_VER "0.90"
 
 APMInfo *apminfo;
 
@@ -53,7 +53,8 @@ int main(int argc, char *argv[])
 	int i, j, ch;
 	int sleep_time = 0;
 	int samples = 1;
-	battery *binfo;
+	battery_t *binfo;
+	adapter_t *ap;
 
 	while((ch = getopt(argc, argv, "hvVa::")) != EOF) {
 		switch(ch) {
@@ -98,27 +99,32 @@ int main(int argc, char *argv[])
 		usleep(sleep_time);
 	}
 	
-	if(apminfo->power == AC) {
+	ap = &apminfo->adapter;
+	if(ap->power == AC) {
 		printf("On AC Power");
 		for(i = 0; i < batt_count; i++) {
 			binfo = &batteries[i];
-			if(binfo->present && binfo->charging) {
+			if(binfo->present && (binfo->charge_state == CHARGE)) {
 				printf("; Battery %s charging", binfo->name);
-				printf(", %2d:%02d remaining", binfo->charge_time/60,
-				       binfo->charge_time%60);
+				if(binfo->charge_time >= 0) 
+					printf(", %2d:%02d remaining", 
+					       binfo->charge_time/60,
+					       binfo->charge_time%60);
 			}
 		}
 		printf("\n");
-	} else if(apminfo->power == BATT) {
+	} else if(ap->power == BATT) {
 		printf("On Battery");
 		for(i = 0; i < batt_count; i++) {
 			binfo = &batteries[i];
-			if(binfo->present)
+			if(binfo->present && (binfo->percentage >= 0))
 				printf(", Battery %s at %d%%", binfo->name,
 				       binfo->percentage);
 		}
-		printf("; %d:%02d remaining\n", apminfo->rtime/60, 
-		       apminfo->rtime%60);
+		if(apminfo->rtime >= 0)
+			printf("; %d:%02d remaining", apminfo->rtime/60, 
+			       apminfo->rtime%60);
+		printf("\n");
 	}
 	return 0;
 }

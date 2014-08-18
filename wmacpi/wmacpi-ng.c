@@ -35,7 +35,7 @@
 #include "libacpi.h"
 #include "wmacpi-ng.h"
 
-#define WMACPI_NG_VER "0.50"
+#define WMACPI_NG_VER "0.90"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -56,9 +56,7 @@ typedef struct {
     Pixmap text;		/* pixmap for text scroller */
     int tw;			/* text width inside text pixmap */
     int update;			/* need to redraw? */
-    int pressed;		/* is the button pressed? */
-    DspMode dspmode;		/* time remaining or battery timer */
-    Mode blink;			/* should we blink the LED? (critical battery) */
+    int blink;			/* should we blink the LED? (critical battery) */
 } Dockapp;
 
 /* for debug printing */
@@ -71,6 +69,10 @@ Dockapp *dockapp;
 APMInfo *apminfo;
 int count = 0;			/* global timer variable */
 int noisy_critical = 0;		/* ring xbell annoyingly if critical? */
+
+/* Time for scroll updates */
+#define DEFAULT_UPDATE 150
+static int update_timeout = DEFAULT_UPDATE;
 
 /* proto for local stuff */
 static void new_window(char *name);
@@ -110,6 +112,18 @@ static void display_battery_glyph(void)
 static void kill_battery_glyph(void)
 {
     copy_xpm_area(82, 48, 12, 7, 20, 17);
+}
+
+/* clear the time display */
+static void clear_time_display(void)
+{
+    copy_xpm_area(114, 76, 31, 11, 7, 32);
+}
+
+/* set time display to -- -- */
+static void invalid_time_display(void)
+{
+    copy_xpm_area(122, 13, 31, 11, 7, 32);
 }
 
 static void redraw_window(void)
@@ -312,6 +326,9 @@ static void display_percentage(int percent)
 
     eprint(0, "received: %d\n", percent);
 
+    if (percent == -1)
+	percent = 0;
+
     if (op == percent)
 	return;
 
@@ -343,25 +360,25 @@ static void display_percentage(int percent)
 static void display_time(int minutes)
 {
     static int ohour = -1, omin = -1;
-    static int counter;
     int hour, min, tmp;
 
-    if (minutes == -1) {	/* error - blink 00:00 */
-	counter++;
-	if (counter == 5) {
-	    copy_xpm_area(80, 76, 31, 11, 7, 32);
-	} else if (counter == 10) {
-	    copy_xpm_area(114, 76, 31, 11, 7, 32);
-	}
-	if (counter > 10)
-	    counter = 0;
+    if (minutes <= 0) {	/* error - clear the display */
+	invalid_time_display();
 	ohour = omin = -1;
 	return;
     }
 
     /* render time on the display */
     hour = minutes / 60;
-    min = minutes % 60;
+    /* our display area only fits %2d:%2d, so we need to make sure
+     * what we're displaying will fit in those constraints. I don't
+     * think we're likely to see any batteries that do more than 
+     * 100 hours any time soon, so it's fairly safe. */
+    if (hour >= 100) {
+	hour = 99;
+	min = 59;
+    } else
+	min = minutes % 60;
 
     if (hour == ohour && min == omin)
 	return;
@@ -391,19 +408,57 @@ enum panel_states {
     PS_NULL,
 };
 
+static void really_blink_power_glyph(void)
+{
+    static int counter = 0;
+
+    if (counter == 10) 
+	display_power_glyph();
+    else if (counter == 20) 
+	kill_power_glyph();
+    else if (counter > 30)
+	counter = 0;
+    counter++;
+}
+
+static void blink_power_glyph(void)
+{
+    if (dockapp->blink)
+	really_blink_power_glyph();
+}
+
+static void really_blink_battery_glyph(void)
+{
+    static int counter = 0;
+
+    if (counter == 10)
+	display_battery_glyph();
+    else if (counter == 20)
+	kill_battery_glyph();
+    else if (counter > 30)
+	counter = 0;
+    counter++;
+}    
+
+static void blink_battery_glyph(void)
+{
+    if (dockapp->blink)
+	really_blink_battery_glyph();
+}
+
 static void set_power_panel(void)
 {
     enum panel_states power = PS_NULL;
-    static int counter = 0;
-    battery *binfo = apminfo->binfo;
+    battery_t *binfo = apminfo->binfo;
+    adapter_t *ap = &apminfo->adapter;
 
-    if (apminfo->power == AC) {
+    if (ap->power == AC) {
 	if (power != PS_AC) {
 	    power = PS_AC;
 	    kill_battery_glyph();
 	    display_power_glyph();
 	}
-    } else if (apminfo->power == BATT) {
+    } else if (ap->power == BATT) {
 	if (power != PS_BATT) {
 	    power = PS_BATT;
 	    kill_power_glyph();
@@ -411,25 +466,14 @@ static void set_power_panel(void)
 	}
     }
 
-    if (binfo->charging) {
-	if (counter == 10) 
-	    display_power_glyph();
-	else if (counter == 20) 
-	    kill_power_glyph();
-	else if (counter > 30)
-	    counter = 0;
-	counter++;
-    }
+    if (binfo->charge_state == CHARGE)
+	blink_power_glyph();
 
-    if (binfo->capacity_state == CRITICAL) {
-	if (counter == 10)
-	    display_battery_glyph();
-	else if (counter == 20)
-	    kill_battery_glyph();
-	else if (counter > 30)
-	    counter = 0;
-	counter++;
-    }
+    if (binfo->state == CRIT)
+	blink_battery_glyph();
+
+    if (binfo->state == HARD_CRIT)
+	really_blink_battery_glyph();
 }
 
 /* 
@@ -453,13 +497,15 @@ enum messages {
     M_BATT,	/* on battery */
     M_LB,	/* low battery */
     M_CB,	/* critical low battery */
+    M_HCB,	/* battery reported critical capacity state */
     M_NULL,	/* empty starting state */
 };
 
 static void set_message(void)
 {
     static enum messages state = M_NULL;
-    battery *binfo = apminfo->binfo;
+    battery_t *binfo = apminfo->binfo;
+    adapter_t *ap = &apminfo->adapter;
     
     /* battery not present case */
     if (!binfo->present) {
@@ -467,15 +513,17 @@ static void set_message(void)
 	    state = M_NP;
 	    render_text("not present");
 	}
-    } else if (apminfo->power == AC) {
-	if (binfo->charging) {
+    } else if (ap->power == AC) {
+	if (binfo->charge_state == CHARGE) {
 	    if (state != M_CH) {
 		state = M_CH;
+		update_timeout = DEFAULT_UPDATE;
 		render_text("battery charging");
 	    }
 	} else {
 	    if (state != M_AC) {
 		state = M_AC;
+		update_timeout = DEFAULT_UPDATE;
 		render_text("on ac power");
 	    }
 	}
@@ -483,20 +531,41 @@ static void set_message(void)
 	if (binfo->state == CRIT) {
 	    if (state != M_CB) {
 		state = M_CB;
+		update_timeout = 80;
 		render_text("critical low battery");
+	    }
+	} else if (binfo->state == HARD_CRIT) {
+	    if (state != M_HCB) {
+		state = M_HCB;
+		update_timeout = 60;
+		render_text("hard critical low battery");
 	    }
 	} else if (binfo->state == LOW) {
 	    if (state != M_LB) {
 		state = M_LB;
+		update_timeout = 100;
 		render_text("low battery");
 	    }
 	} else {
 	    if (state != M_BATT) {
 		state = M_BATT;
+		update_timeout = DEFAULT_UPDATE;
 		render_text("on battery");
 	    }
 	}
     }    
+}
+
+void set_time_display(void)
+{
+    battery_t *binfo = &batteries[battery_no];
+    
+    if (binfo->charge_state == CHARGE)
+	display_time(binfo->charge_time);
+    else if (binfo->charge_state == DISCHARGE)
+	display_time(apminfo->rtime);
+    else
+	invalid_time_display();
 }
 
 /*
@@ -549,12 +618,12 @@ int main(int argc, char **argv)
     char *display = NULL;
     char ch;
     int update = 0;
-    battery *binfo;
+    battery_t *binfo;
 
     dockapp = calloc(1, sizeof(Dockapp));
     apminfo = calloc(1, sizeof(APMInfo));
 
-    dockapp->blink = OFF;
+    dockapp->blink = 1;
     apminfo->crit_level = 10;
     battery_no = 1;
 
@@ -564,7 +633,7 @@ int main(int argc, char **argv)
 	exit(1);
 
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "bd:c:m:hvV")) != EOF) {
+    while ((ch = getopt(argc, argv, "bd:c:m:hnvV")) != EOF) {
 	switch (ch) {
 	case 'b':
 	    noisy_critical = 1;
@@ -608,6 +677,9 @@ int main(int argc, char **argv)
 	case 'V':
 	    print_version();
 	    return 0;
+	case 'n':
+	    dockapp->blink = 0;
+	    break;
 	default:
 	    usage(argv[0]);
 	    return 1;
@@ -621,15 +693,17 @@ int main(int argc, char **argv)
 	exit(1);
 
     /* make new dockapp window */
-    new_window("apm");
+    new_window("acpi");
 
     /* get initial statistics */
     acquire_all_info();
     binfo = &batteries[battery_no];
     apminfo->binfo = binfo;
     fprintf(stderr, "monitoring battery %s\n", binfo->name);
+    clear_time_display();
+    set_power_panel();
+    set_message();
     set_batt_id_area(battery_no);
-    dockapp->dspmode = REMAIN;
 
     /* main loop */
     while (1) {
@@ -663,12 +737,11 @@ int main(int argc, char **argv)
 	}
 
 	if (update++ == 30) {
-	    eprint(0, "polling apm");
 	    acquire_all_info();
 	    update = 0;
 	}
 
-	if (count++ == 256) {
+	if (count++ == update_timeout) {
 	    scroll_text(6, 50, 52, dockapp->tw, 1);
 	    count = 0;
 	}
@@ -684,10 +757,7 @@ int main(int argc, char **argv)
 	 * much time remained until the batteries were fully charged . . . 
 	 * That would be rather useful, though given it would vary rather a lot
 	 * it seems likely that it'd be little more than a rough guesstimate. */
-	if (binfo->charging)
-	    display_time(binfo->charge_time);
-	else
-	    display_time(apminfo->rtime);
+	set_time_display();
 	set_power_panel();
 	set_message();
 	display_percentage(binfo->percentage);
