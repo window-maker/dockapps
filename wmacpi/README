@@ -49,6 +49,6 @@ specify a number. Be aware that it will try to take all those samples
 in the space of one second, so if your ACPI implementation is b0rken
 this could have adverse effects.
 
-Please report bugs to <simon@himi.org>
+Please report bugs to <wmaker-dev@lists.windowmaker.org>
 
 Simon Fowler, 2007-07-13.
