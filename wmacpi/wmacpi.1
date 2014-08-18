@@ -1,13 +1,10 @@
 .TH WMACPI-NG 1 "July 11, 2003"
 .SH NAME
-wmacpi-ng \- Battery status monitor for systems supporting ACPI
+wmacpi \- Battery status monitor for systems supporting ACPI
 .SH NAME
-acpi-ng \- Query battery status for systems supporting ACPI
+acpi \- Query battery status for systems supporting ACPI
 .SH SYNOPSIS
-.B wmacpi-ng
-[
-.RI -b
-]
+.B wmacpi
 [
 .RI -c
 value ]
@@ -27,13 +24,19 @@ sample rate ]
 .RI -n
 ]
 [
+.RI -w
+]
+[
+.RI -a
+samples ]
+[
 .RI -V
 ]
 [
 .RI -h
 ]
 .PP
-.B acpi-ng
+.B acpi
 [
 .RI -a
 samples ]
@@ -48,10 +51,10 @@ samples ]
 ]
 .SH DESCRIPTION
 This manual page documents briefly the
-.B wmacpi-ng
+.B wmacpi
 command.
 .PP
-.B wmacpi-ng
+.B wmacpi
 is a program that displays the current battery status in a WindowMaker
 dock app, on systems that support Intel's Advanced Configuration and
 Power Interface specification (ACPI).
@@ -65,16 +68,13 @@ and a scrolling message with some hopefully useful information.
 Clicking on the window cycles through the batteries that the ACPI
 system knows about.
 .PP
-.B acpi-ng
+.B acpi
 queries the battery status from the command line. It prints the power
 status, the percentage remaining for each battery found, and the time
 remaining if the system is on battery, or the time remaining for each
 battery to reach full charge if the batteries are charging.
 .SH OPTIONS
-.B wmacpi-ng
-.TP
-.B \-b
-Make noise when battery is critical low (beep).
+.B wmacpi
 .TP
 .B \-c percentage
 Set critical low alarm at <value>% (default: 10%).
@@ -94,6 +94,15 @@ translates to once every three seconds. 10 gives once every 30 seconds,
 Disable blinking power glyph when charging. Note that it still blinks when 
 the battery reports its capacity state as critical.
 .TP
+.B \-w
+Run wmacpi in command line mode - this operates identically to 
+.B acpi
+..
+.TP
+.B \-a num
+Average the time remaining over num samples. This greatly improves the
+accuracy of the reported time remaining.
+.TP
 .B \-v
 Increase the verbosity of the program. Can be used more than once -
 each successive use increases the verbosity.
@@ -104,7 +113,7 @@ Print the version information.
 .B \-h
 Display help.
 .TP
-.B acpi-ng
+.B acpi
 .TP
 .B \-a num
 Average the time remaining over num samples. This greatly improves the
@@ -112,7 +121,7 @@ accuracy of the reported time remaining.
 .TP
 .B \-v
 Increase the verbosity of the program, as for
-.B wmacpi-ng
+.B wmacpi
 .TP
 .B \-V
 Print the version information.
@@ -125,16 +134,11 @@ Display help.
 .br
 .SH AUTHOR
 .B wmacpi
-as written by Tim Copperfield <timecop@japan.co.jp>. 
-.B wmacpi-ng 
-is a reworking of 
-.B wmacpi 1.34
-to support recent kernel versions, performed by Simon Fowler
-<simon@dreamcraft.com.au>. 
+was originally written by Tim Copperfield <timecop@japan.co.jp>, then
+completely rewritten after 1.34 by Simon Fowler <simon@dreamcraft.com.au>.
 .PP
 This manual page was originally written by Simon Richter
-<sjr@debian.org> for the Debian GNU/Linux system, and then updated for 
-.B wmacpi-ng
-by Simon Fowler.
+<sjr@debian.org> for the Debian GNU/Linux system, and then updated by
+Simon Fowler. 
 .br
-Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2003-07-11.
+Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2003-11-23.

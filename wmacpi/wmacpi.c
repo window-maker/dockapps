@@ -33,9 +33,9 @@
 #include <X11/xpm.h>
 
 #include "libacpi.h"
-#include "wmacpi-ng.h"
+#include "wmacpi.h"
 
-#define WMACPI_NG_VER "0.99"
+#define WMACPI_VER "1.99"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -59,16 +59,10 @@ typedef struct {
     int blink;			/* should we blink the LED? (critical battery) */
 } Dockapp;
 
-/* for debug printing */
-#ifdef PRO
-char *state[] = { "AC", "Charging", "High", "Low", "Crit" };
-#endif
-
 /* globals */
 Dockapp *dockapp;
 global_t *globals;
 int count = 0;			/* global timer variable */
-int noisy_critical = 0;		/* ring xbell annoyingly if critical? */
 
 /* Time for scroll updates */
 #define DEFAULT_UPDATE 150
@@ -129,7 +123,6 @@ static void invalid_time_display(void)
 static void redraw_window(void)
 {
     if (dockapp->update) {
-	eprint(0, "redrawing window");
 	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->iconwin,
 		  dockapp->gc, 0, 0, 64, 64, 0, 0);
 	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->win,
@@ -195,7 +188,7 @@ static void new_window(char *name)
     if (XpmCreatePixmapFromData(dockapp->display, dockapp->win,
 				master_xpm, &dockapp->pixmap,
 				&dockapp->mask, &attr) != XpmSuccess) {
-	fprintf(stderr, "FATAL: Not enough colors for main pixmap!\n");
+	pfatal("FATAL: Not enough colors for main pixmap!\n");
 	exit(1);
     }
 
@@ -204,7 +197,7 @@ static void new_window(char *name)
 				  DefaultDepth(dockapp->display,
 					       dockapp->screen));
     if (!dockapp->text) {
-	fprintf(stderr, "FATAL: Cannot create text scroll pixmap!\n");
+	pfatal("FATAL: Cannot create text scroll pixmap!\n");
 	exit(1);
     }
 
@@ -232,8 +225,6 @@ static void render_text(char *string)
 
     if (strlen(string) > 53)
 	return;
-
-    eprint(0, "rendering: %s", string);
 
     /* prepare the text area by clearing it */
     for (i = 0; i < 54; i++) {
@@ -272,7 +263,7 @@ static int open_display(char *display)
 {
     dockapp->display = XOpenDisplay(display);
     if (!dockapp->display) {
-	fprintf(stderr, "Unable to open display '%s'\n", display);
+	perr("Unable to open display '%s'\n", display);
 	return 1;
     }
     return 0;
@@ -323,8 +314,6 @@ static void display_percentage(int percent)
     static int op = -1;
     static unsigned int obar;
     unsigned int bar;
-
-    eprint(0, "received: %d\n", percent);
 
     if (percent == -1)
 	percent = 0;
@@ -383,7 +372,6 @@ static void display_time(int minutes)
     if (hour == ohour && min == omin)
 	return;
 
-    eprint(0, "redrawing time");
     tmp = hour / 10;
     copy_xpm_area(tmp * 7 + 1, 76, 6, 11, 7, 32);
     tmp = hour % 10;
@@ -609,8 +597,55 @@ void usage(char *name)
 
 void print_version(void)
 {
-    printf("wmacpi-ng version %s\n", WMACPI_NG_VER);
+    printf("wmacpi version %s\n", WMACPI_VER);
     printf(" Using libacpi version %s\n", LIBACPI_VER);
+}
+
+void cli_wmacpi(int samples)
+{
+    int i, j, sleep_time;
+    battery_t *binfo;
+    adapter_t *ap;
+    
+    sleep_time = 1000000/samples;
+
+    /* we want to acquire samples over some period of time, so . . . */
+    for(i = 0; i < samples + 2; i++) {
+	for(j = 0; j < batt_count; j++)
+	    acquire_batt_info(j);
+	acquire_global_info();
+	usleep(sleep_time);
+    }
+    
+    ap = &globals->adapter;
+    if(ap->power == AC) {
+	printf("On AC Power");
+	for(i = 0; i < batt_count; i++) {
+	    binfo = &batteries[i];
+	    if(binfo->present && (binfo->charge_state == CHARGE)) {
+		printf("; Battery %s charging", binfo->name);
+		printf(", currently at %2d%%", binfo->percentage);
+		if(binfo->charge_time >= 0) 
+		    printf(", %2d:%02d remaining", 
+			   binfo->charge_time/60,
+			   binfo->charge_time%60);
+	    }
+	}
+	printf("\n");
+    } else if(ap->power == BATT) {
+	printf("On Battery");
+	for(i = 0; i < batt_count; i++) {
+	    binfo = &batteries[i];
+	    if(binfo->present && (binfo->percentage >= 0))
+		printf(", Battery %s at %d%%", binfo->name,
+		       binfo->percentage);
+	}
+	if(globals->rtime >= 0)
+	    printf("; %d:%02d remaining", globals->rtime/60, 
+		   globals->rtime%60);
+	printf("\n");
+    }
+    return;
 }
 
 int main(int argc, char **argv)
@@ -618,6 +653,7 @@ int main(int argc, char **argv)
     char *display = NULL;
     char ch;
     int update = 0;
+    int cli = 0, samples = 1;
     int samplerate = 100;
     battery_t *binfo;
 
@@ -634,11 +670,8 @@ int main(int argc, char **argv)
 	exit(1);
 
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "bd:c:m:s:hnvV")) != EOF) {
+    while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwvV")) != EOF) {
 	switch (ch) {
-	case 'b':
-	    noisy_critical = 1;
-	    break;
 	case 'c':
 	    if (optarg) {
 		globals->crit_level = atoi(optarg);
@@ -691,12 +724,31 @@ int main(int argc, char **argv)
 	case 'n':
 	    dockapp->blink = 0;
 	    break;
+	case 'w':
+	    cli = 1;
+	    break;
+	case 'a':
+	    if(optarg != NULL) {
+		samples = atoi(optarg);
+		if(samples > 1000 || samples <= 0) {
+		    printf("Please specify a reasonable number of samples\n");
+		    exit(1);
+		}
+	    }
+	    break;
 	default:
 	    usage(argv[0]);
 	    return 1;
 	}
 	
     }
+    
+    /* check for cli mode */
+    if (cli) {
+	cli_wmacpi(samples);
+	exit(0);
+    }
+
     battery_no--;
 
     /* open local or command-line specified display */
@@ -713,7 +765,7 @@ int main(int argc, char **argv)
     acquire_all_info();
     binfo = &batteries[battery_no];
     globals->binfo = binfo;
-    fprintf(stderr, "monitoring battery %s\n", binfo->name);
+    pinfo("monitoring battery %s\n", binfo->name);
     clear_time_display();
     set_power_panel();
     set_message();
@@ -723,7 +775,6 @@ int main(int argc, char **argv)
     while (1) {
 	XEvent event;
 	while (XPending(dockapp->display)) {
-	    eprint(0, "X11 activity");
 	    XNextEvent(dockapp->display, &event);
 	    switch (event.type) {
 	    case Expose:
@@ -744,7 +795,7 @@ int main(int argc, char **argv)
 		battery_no = battery_no % batt_count;
 		globals->binfo = &batteries[battery_no];
 		binfo = globals->binfo;
-		fprintf(stderr, "changing to monitor battery %d\n", battery_no + 1);
+		pinfo("changing to monitor battery %d\n", battery_no + 1);
 		set_batt_id_area(battery_no);
 		break;
 	    }

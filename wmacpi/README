@@ -5,60 +5,50 @@ Usage:
 +-------------+
 |battery graph| <- visual percentage battery remaining
 |[:][=] [100%]| <- [:] - on AC (blink when charging) [=] - on battery
-|[00:00] [///]| <- [00:00] time remaining   [///] timer mode switch
+|[00:00]  [bX]| <- [00:00] time remaining   [bX] battery being monitored.
 |status   area| <- messages scroll here
 +-------------+
 
 see wmacpi -h for some command line switches
 
-Timer mode, available only when "on-battery", keeps track how long your laptop
-has been away from AC power.  Clicking the button toggles between timer and
-standard "time remaining" mode.
+**********************************************************************
 
-******************************************************************************
+wmacpi is a dockapp ACPI battery monitor for modern kernels (ie,
+2.4.17 or later, and 2.6 kernels). Basically, it opens various files
+under /proc/acpi, reads status information from them, and then
+displays summaries.
 
-Implementation of "ACPI" mode:
+Version 1.99 and later provides full support for multiple
+batteries. You can tell it to monitor a particular batter with the -m
+option, which will display the percentage remaining and current status
+message for that battery. The time remaining and AC/battery status are
+global - the time remaining is calculated based on all batteries found
+on the system. When charging, the time displayed is the time remaining
+until the battery is fully charged - this only works sensibly if your
+ACPI system is implemented properly (far, far too many laptops have
+buggered ACPI implementations).
 
-As far as I know, there aren't any tools available right now to process battery
-statistics provided in /proc/power by ACPI stuff in 2.4.x kernels.  This is my
-attempt to have a usable dockapp battery monitor for ACPI laptop systems.
-Since version 1.32 I've added some code to detect multiple batteries.  However
-it's not fully implemented yet, and while it will detect and enumerate
-batteries, the statistics reported are for the first found battery.
-  * Your battery is "Control Method" type
-  * Your ACPI BIOS is supported by current version of ACPI in kernel
-    2.4.17 + intel patches
-  * You applied acpi subsystem patch version 20020214 (from intel.com)
+The displayed time is averaged over 50 samples, each taken every three
+seconds (by default). This greatly improves the accuracy of the
+numbers - on my laptop, the time remaining seems to be overstated by a
+good hour or so if you only sample once compared to fifty times.
 
-If you are using kernels or ACPI version older than 2.4.17, keep using 
-wmacpi 1.32. This version is only for the latest ACPI code.
-To use ACPI support, just follow "INSTALL" instructions.  Makefile has been
-updated to include -DACPI. If you don't have ACPI, you don't need this version
-of wmacpi. Information below only applies to APM systems, without ACPI support.
+Some ACPI implementations are stupid enough to block interrupts while
+reading status information from the battery over a slow bus - this
+means that on such b0rken laptops, running an ACPI battery monitor
+could affect interactivity. To provide a workaround for this, current
+versions of wmacpi supports setting the sample rate from the command
+line. The default -s setting is 100, which translates to once every
+three seconds. -s 10 will sample every 30 seconds, -s 1 every 300
+seconds. -s 1000 will sample every 0.3 seconds - don't do that unless
+you're just having fun . . .
 
-Implementation of "APM" mode
+Also provided is a command line tool to report the battery status. By
+default this will only sample once, but with the -a option you can
+specify a number. Be aware that it will try to take all those samples
+in the space of one second, so if your ACPI implementation is b0rken
+this could have adverse effects.
 
-This works on all machines that have a standard non-borked APM implementation.
-For people with broken APM implementations, I added some stuff, which was
-sent to me by Daniel Pittman <daniel@rimspace.net>, to compensate for some
-of the stupidity.  If you see dumb behaviour from wmapm, consider editing
-wmapm.c and uncomment one, or both, of these lines (on lines 19 and 20):
+Please report bugs to <simon@dreamcraft.com.au>.
 
-#define RETARDED_APM if your bios thinks the battery is charging all the time
-when it's on AC power.  What this will do is stop "charging" process as soon
-as the battery reaches 100%.
-
-#define STUPID_APM if your bios shows -1 minutes remaining when AC is plugged
-in, or when battery is charging.
-
-If your bios is even dumber than this, and you come up with another special
-case that needs to be handled, feel free to #ifdef it under <badword>_APM and
-send me a diff -u.  I will include it in the next version.  Any of these
-changes would have to go into acquire_apm_info.  Note, I changed format of
-apminfo structure to get rid of redundancy - now there is only one power state
-variable, which keeps track whether we are on AC, charging, battery, etc.
-
-Note, all the *_APM stuff is untested - my laptop has a working BIOS :)  If you
-test this and it doesn't work as advertised, go ahead and send me a fix.
-
- -timecop
+Simon Fowler, 2003-11-23.

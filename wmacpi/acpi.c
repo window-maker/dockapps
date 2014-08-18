@@ -26,7 +26,7 @@
 
 #include "libacpi.h"
 
-#define ACPI_NG_VER "0.99"
+#define ACPI_VER "1.99"
 
 global_t *globals;
 
@@ -44,7 +44,7 @@ void usage(char *name)
 
 void print_version(void)
 {
-	printf("acpi-ng version %s\n", ACPI_NG_VER);
+	printf("acpi version %s\n", ACPI_VER);
 	printf(" Using libacpi version %s\n", LIBACPI_VER);
 }
 

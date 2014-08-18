@@ -3,21 +3,28 @@
 
 OPT	:= -O2 
 
+# uncomment this to build the command line acpi tool
+#BUILD_CLI = 1
+
 # uncomment this to make wmacpi use less system colors (looks uglier too)
 #OPT	+= -DLOW_COLOR
 
 # debugging options (don't bother with these)
-#OPT	= -pg -g -DPRO -DACPI
+#OPT	= -pg -g
 
 CC	:= gcc
 CFLAGS	:= $(OPT) -Wall -W -g -ansi -I/usr/X11R6/include
 LDFLAGS := $(OPT) -L/usr/X11R6/lib -lX11 -lXpm -lXext
 
-WMSRC	:= wmacpi-ng.c libacpi.c
-CLSRC := acpi-ng.c libacpi.c
-HEADERS := libacpi.h wmacpi-ng.h
-targets := wmacpi-ng acpi-ng
-doc_targets := debian/wmacpi-ng.1 debian/acpi-ng.1
+WMSRC	:= wmacpi.c libacpi.c
+HEADERS := libacpi.h wmacpi.h
+targets := wmacpi
+doc_targets := wmacpi.1
+
+ifdef BUILD_CLI
+targets += acpi
+doc_targets += acpi.1
+endif
 
 PREFIX := /usr/local
 
@@ -25,17 +32,23 @@ all: $(targets)
 
 # build the list of object files
 WMOBJ := $(patsubst %.c,%.o,$(filter %.c,$(WMSRC)))
-CLOBJ := $(patsubst %.c,%.o,$(filter %.c,$(CLSRC)))
 
 # include per-file dependencies
 include $(WMOBJ:.o=.d)
+
+wmacpi:	$(WMOBJ)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+# for the Debian package, we want to make building the command line tools
+# optional. So, we hide all the necessary stuff here . . . 
+ifdef BUILD_CLI
+CLSRC := acpi.c libacpi.c
+CLOBJ := $(patsubst %.c,%.o,$(filter %.c,$(CLSRC)))
 include $(CLOBJ:.o=.d)
 
-wmacpi-ng:	$(WMOBJ)
+acpi: $(CLOBJ)
 	$(CC) $(LDFLAGS) -o $@ $^
-
-acpi-ng: $(CLOBJ)
-	$(CC) $(LDFLAGS) -o $@ $^
+endif
 
 # build per-file dependencies - note that -MM may not be supported
 # in gcc versions older than 2.95.4, but most likely is.

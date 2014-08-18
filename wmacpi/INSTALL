@@ -1,10 +1,20 @@
-to install:
+The basic install is very simple: make, make install.
 
-* vi Makefile
-* change what you want, according to instructions, save Makefile
-* make
-* copy wmacpi somewhere useful
-* dance
-* <somewhere useful>/wmacpi &
-* phear
-(if it doesn't work, skip the phear step)
+You can change the default install prefix (/usr/local) by specifying
+it in the make install command, eg: make install PREFIX=/usr
+
+To build the command line tool, either uncomment the BUILD_CLI=1 line
+in the Makefile, or specify BUILD_CLI=1 on the make command line. ie, 
+make BUILD_CLI=1
+make install BUILD_CLI=1
+
+No uninstall is supported, but isn't exactly difficult to delete all
+the files by hand . . .
+
+Files installed (paths relative to PREFIX):
+bin/wmacpi
+bin/acpi
+man/man1/wmacpi.1
+man/man1/acpi.1
+
+Simon Fowler <simon@dreamcraft.com.au>, 2003-11-23

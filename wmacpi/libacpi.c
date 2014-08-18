@@ -30,7 +30,7 @@ int init_batteries(void)
     batt_count = 0;
     battdir = opendir("/proc/acpi/battery");
     if (battdir == NULL) {
-	fprintf(stderr, "No batteries or ACPI not supported\n");
+	perr("No batteries or ACPI not supported\n");
 	return 1;
     }
     while ((batt = readdir(battdir))) {
@@ -68,13 +68,13 @@ int init_batteries(void)
 		 "/proc/acpi/battery/%s/info", names[i]);
 	snprintf(batteries[i].state_file, MAX_NAME, 
 		 "/proc/acpi/battery/%s/state", names[i]);
-	eprint(0, "battery detected at %s\n", batteries[i].info_file);
-	fprintf(stderr, "found battery %s\n", names[i]);
+	pdebug("battery detected at %s\n", batteries[i].info_file);
+	pinfo("found battery %s\n", names[i]);
     }
 
     /* tell user some info */
-    eprint(0, "%d batteries detected\n", batt_count);
-    fprintf(stderr, "libacpi: found %d batter%s\n", batt_count,
+    pdebug("%d batteries detected\n", batt_count);
+    pinfo("libacpi: found %d batter%s\n", batt_count,
 	    (batt_count == 1) ? "y" : "ies");
     
     return 0;
@@ -92,7 +92,7 @@ int init_ac_adapters(void)
 
     acdir = opendir("/proc/acpi/ac_adapter");
     if (acdir == NULL) {
-	fprintf(stderr, "Unable to open /proc/acpi/ac_adapter -"
+	pfatal("Unable to open /proc/acpi/ac_adapter -"
 		" are you sure this system supports ACPI?\n");
 	return 1;
     }
@@ -102,14 +102,14 @@ int init_ac_adapters(void)
 
 	if (!strncmp(".", name, 1) || !strncmp("..", name, 2))
 	    continue;
-	fprintf(stderr, "found adapter %s\n", name);
+	pdebug("found adapter %s\n", name);
     }
     /* we /should/ only see one filename other than . and .. so
      * we'll just use the last value name acquires . . . */
     ap->name = strdup(name);
     snprintf(ap->state_file, MAX_NAME, "/proc/acpi/ac_adapter/%s/state",
 	     ap->name);
-    fprintf(stderr, "libacpi: found ac adapter %s\n", ap->name);
+    pinfo("libacpi: found ac adapter %s\n", ap->name);
     
     return 0;
 }
@@ -123,16 +123,16 @@ int power_init(void)
     int retval;
 
     if (!(acpi = fopen("/proc/acpi/info", "r"))) {
-	fprintf(stderr, "This system does not support ACPI\n");
+	pfatal("This system does not support ACPI\n");
 	return 1;
     }
 
     /* okay, now see if we got the right version */
     fread(buf, 4096, 1, acpi);
     acpi_ver = strtol(buf + 25, NULL, 10);
-    eprint(0, "ACPI version detected: %d\n", acpi_ver);
+    pinfo("ACPI version detected: %d\n", acpi_ver);
     if (acpi_ver < 20020214) {
-	fprintf(stderr, "This version requires ACPI subsystem version 20020214\n");
+	pfatal("This version requires ACPI subsystem version 20020214\n");
 	fclose(acpi);
 	return 1;
     }
@@ -194,7 +194,7 @@ int get_battery_info(int batt_no)
 
     if ((file = fopen(info->info_file, "r")) == NULL) {
 	/* this is cheating, but string concatenation should work . . . */
-	fprintf(stderr, "Could not open %s:", info->info_file );
+	pfatal("Could not open %s:", info->info_file );
 	perror(NULL);
 	return 0;
     }
@@ -209,7 +209,7 @@ int get_battery_info(int batt_no)
     if ((strncmp(val, "yes", 3)) == 0) {
 	info->present = 1;
     } else {
-	eprint(0, "Battery %s not present\n", info->name);
+	pinfo("Battery %s not present\n", info->name);
 	info->present = 0;
 	return 0;
     }
@@ -242,7 +242,7 @@ int get_battery_info(int batt_no)
 
     
     if ((file = fopen(info->state_file, "r")) == NULL) {
-	fprintf(stderr, "Could not open %s:", info->state_file );
+	perr("Could not open %s:", info->state_file );
 	perror(NULL);
 	return 0;
     }
@@ -258,7 +258,7 @@ int get_battery_info(int batt_no)
 	info->present = 1;
     } else {
 	info->present = 0;
-	eprint(1, "Battery %s no longer present\n", info->name);
+	perr("Battery %s no longer present\n", info->name);
 	return 0;
     }
 
@@ -341,13 +341,13 @@ static int calc_remaining_percentage(int batt)
 
     /* we use -1 to indicate that the value is unknown . . . */
     if (rcap < 0) {
-	eprint(0, "unknown percentage value\n");
+	perr("unknown percentage value\n");
 	retval = -1;
     } else {
 	if (lfcap <= 0)
 	    lfcap = 1;
 	retval = (int)((rcap/lfcap) * 100.0);
-	eprint(0, "percent: %d\n", retval);
+	pdebug("percent: %d\n", retval);
     }
     return retval;
 }
@@ -368,7 +368,7 @@ static int calc_charge_time(int batt)
 
     if (binfo->charge_state == CHARGE) {
 	if (binfo->present_rate == -1) {
-	    eprint(0, "unknown present rate\n");
+	    perr("unknown present rate\n");
 	    charge_time = -1;
 	} else {
 	    lfcap = (float)binfo->last_full_cap;
@@ -424,7 +424,7 @@ void acquire_batt_info(int batt)
 	 * check if we're at a critical battery level, and calculate
 	 * other interesting stuff . . . */
 	if (binfo->capacity_state == CRITICAL) {
-	    eprint(1, "Received critical battery status");
+	    pinfo("Received critical battery status");
 	    ap->power = HARD_CRIT;
 	}
     }
@@ -506,7 +506,7 @@ void acquire_global_info(void)
     if(rtime <= 0) 
 	rtime = 0;
  out:
-    eprint(0, "time rem: %d\n", rtime);
+    pdebug("time rem: %d\n", rtime);
     globals->rtime = rtime;
 
     /* get the power status.

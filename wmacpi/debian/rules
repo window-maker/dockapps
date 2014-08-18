@@ -5,7 +5,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-INSTALLDIR=$(CURDIR)/debian/wmacpi-ng
+INSTALLDIR=$(CURDIR)/debian/wmacpi
 
 # These are used for cross-compiling and for saving the configure script
 # # from having to guess our platform (since we know it already)
@@ -50,8 +50,8 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/wmacpi.
-	install -o root -g root -m 755 wmacpi-ng $(INSTALLDIR)/usr/bin/
-	install -o root -g root -m 755 acpi-ng $(INSTALLDIR)/usr/bin/
+	install -o root -g root -m 755 wmacpi $(INSTALLDIR)/usr/bin/
+#	install -o root -g root -m 755 acpi-ng $(INSTALLDIR)/usr/bin/
 
 
 # Build architecture-independent files here.
@@ -70,7 +70,7 @@ binary-arch: build install
 #	dh_installpam
 #	dh_installinit
 #	dh_installcron
-	dh_installman debian/wmacpi-ng.1 debian/acpi-ng.1
+	dh_installman wmacpi.1 # acpi.1
 #	dh_installinfo
 #	dh_undocumented
 	dh_installchangelogs ChangeLog

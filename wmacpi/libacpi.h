@@ -92,28 +92,35 @@ typedef struct {
 
 /*
  * To provide a convenient debugging function . . . 
+ *
+ * It's a macro because I'm too lazy to deal with varargs.
  */
 
 static int verbosity = 0;
 
-#define eprint(level, fmt, arg...)					\
-    do {								\
-	if (level > verbosity) {					\
-	    switch (level) {						\
-	    case 0:							\
-		break;							\
-	    case 1:							\
-		fprintf(stderr, fmt, ##arg);				\
-		 break;							\
-	    default:							\
-		fprintf(stderr, "%s: " fmt, __FUNCTION__, ##arg);	\
-		fprintf(stderr, "\n");					\
-		break;							\
-	    }								\
-	}								\
+#define pdebug(fmt, arg...)				\
+    do {						\
+	if (verbosity > 2)				\
+	    fprintf(stderr, fmt, ##arg);		\
     } while (0)
 
-/* since these /are/ needed here . . . */
+#define pinfo(fmt, arg...)				\
+    do {						\
+	if (verbosity > 1)				\
+	    fprintf(stderr, fmt, ##arg);		\
+    } while (0)
+
+#define perr(fmt, arg...)				\
+    do {						\
+	if (verbosity > 0)				\
+	    fprintf(stderr, fmt, ##arg);		\
+    } while (0)
+
+#define pfatal(fmt, arg...)				\
+    fprintf(stderr, fmt, ##arg)				\
+	
+
+/* Since these /are/ needed here . . . */
 battery_t batteries[MAXBATT];
 int batt_count;
 

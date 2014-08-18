@@ -1,3 +1,10 @@
+2003 November 23 1.99
+ * Expand libacpi to handle everything else under
+   /proc/acpi. Basically, make it into a full ACPI reporting library. 
+
+ * Make the command line tool a complete replacement for Grahame
+   Bowland's acpi tool, so that wmacpi won't conflict with it.
+
 2003 July 6 0.50
  * Fix the non-deb installation - as it stands, it doesn't even try.
 

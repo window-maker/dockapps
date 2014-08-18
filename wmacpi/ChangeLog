@@ -1,3 +1,19 @@
+2003 November 23 1.99
+	Finally claimed the wmacpi name as my own . . . 
+
+	Renamed wmacpi-ng and acpi-ng, renamed the header files, fixed up
+	the makefile.
+
+	For the Debian package, also made compilation of the command line
+	tool optional, defaulting to not building it. This is because
+	after the renaming, my acpi clashes with the acpi package that's
+	already in Debian. The command line functionality is now
+	accessible via the -w option to wmacpi.
+
+	This is wmacpi 1.99, so that I can have a release packaged and in
+	Debian before going to 2.0, so that any bugs that are left can be
+	found by all the extra users.
+	
 2003 September 26 0.99
 	Fix the last of the old wmacpi code oddities (specifically, the
 	APMInfo struct, which was a completely inappropriate name given we
