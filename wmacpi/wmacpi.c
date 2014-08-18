@@ -35,7 +35,7 @@
 #include "libacpi.h"
 #include "wmacpi.h"
 
-#define WMACPI_VER "1.99r2"
+#define WMACPI_VER "1.99r6"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -59,6 +59,7 @@ typedef struct {
     int blink;			/* should we blink the LED? (critical battery) */
     int bell;			/* bell on critical low, or not? */
     int scroll;			/* scroll message text? */
+    int scroll_reset;		/* reset the scrolling text */
 } Dockapp;
 
 /* globals */
@@ -75,7 +76,7 @@ static void new_window(char *name);
 static int open_display(char *display);
 static void redraw_window(void);
 static void render_text(char *string);
-static void scroll_text(int x, int y, int width, int tw, int reset);
+static void scroll_text(void);
 static void display_percentage(int percent);
 static void display_time(int minutes);
 
@@ -120,6 +121,10 @@ static void clear_time_display(void)
 static void invalid_time_display(void)
 {
     copy_xpm_area(122, 13, 31, 11, 7, 32);
+}
+
+static void reset_scroll(void) {
+    dockapp->scroll_reset = 1;
 }
 
 static void redraw_window(void)
@@ -262,7 +267,8 @@ static void render_text(char *string)
     }
     dockapp->tw = k;		/* length of text segment */
     /* re-scroll the message */
-    scroll_text(6, 50, 52, dockapp->tw, 1);
+    reset_scroll();
+    scroll_text();
 }
 
 static int open_display(char *display)
@@ -275,19 +281,24 @@ static int open_display(char *display)
     return 0;
 }
 
-static void scroll_text(int x, int y, int width, int tw, int reset)
+static void scroll_text(void)
 {
     static int pos, first, stop;
+    int x = 6;
+    int y = 50;
+    int width = 52;
+    int tw = dockapp->tw;
 
     if (!dockapp->scroll) 
 	return;
 
-    if (reset) {
+    if (dockapp->scroll_reset) {
 	pos = 0;
 	first = 0;
 	stop = 0;
 	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
 		  dockapp->gc, 0, 0, width, 7, x, y);
+	dockapp->scroll_reset = 0;
     }
 
     if (stop) {
@@ -487,7 +498,7 @@ void scroll_slower(double factor) {
     scroll_reset = scroll_reset * factor;
 }
 
-void reset_scroll(void) {
+void reset_scroll_speed(void) {
     scroll_reset = DEFAULT_SCROLL_RESET;
 }
 
@@ -526,20 +537,20 @@ static void set_message(void)
     if (!binfo->present) {
 	if (state != M_NP) {
 	    state = M_NP;
-	    reset_scroll();
+	    reset_scroll_speed();
 	    render_text("not present");
 	}
     } else if (ap->power == AC) {
 	if (binfo->charge_state == CHARGE) {
 	    if (state != M_CH) {
 		state = M_CH;
-		reset_scroll();
+		reset_scroll_speed();
 		render_text("battery charging");
 	    }
 	} else {
 	    if (state != M_AC) {
 		state = M_AC;
-		reset_scroll();
+		reset_scroll_speed();
 		render_text("on ac power");
 	    }
 	}
@@ -565,7 +576,7 @@ static void set_message(void)
 	} else {
 	    if (state != M_BATT) {
 		state = M_BATT;
-		reset_scroll();
+		reset_scroll_speed();
 		render_text("on battery");
 	    }
 	}
@@ -706,6 +717,7 @@ int main(int argc, char **argv)
     dockapp->blink = 1;
     dockapp->bell = 0;
     dockapp->scroll = 1;
+    dockapp->scroll_reset = 0;
     globals->crit_level = 10;
     battery_no = 1;
 
@@ -743,7 +755,7 @@ int main(int argc, char **argv)
 			    MAXBATT);
 		    return 1;
 		}
-		fprintf(stderr, "Monitoring battery %d\n", battery_no);
+		pinfo("Monitoring battery %d\n", battery_no);
 	    } 
 	    break;
 	case 's':
@@ -798,7 +810,7 @@ int main(int argc, char **argv)
 	exit(1);
 
     if (battery_no > globals->battery_count) {
-	pfatal("Battery %d not available for monitoring\n", battery_no);
+	pfatal("Battery %d not available for monitoring.\n", battery_no);
 	exit(1);
     }
 
@@ -907,7 +919,7 @@ int main(int argc, char **argv)
 	}
 
 	if (scroll_count++ >= scroll_reset) {
-	    scroll_text(6, 50, 52, dockapp->tw, 1);
+	    reset_scroll();
 	    scroll_count = 0;
 	}
 
@@ -926,7 +938,7 @@ int main(int argc, char **argv)
 	set_power_panel();
 	set_message();
 	display_percentage(binfo->percentage);
-	scroll_text(6, 50, 52, dockapp->tw, 0);
+	scroll_text();
 
 	/* redraw_window, if anything changed - determined inside 
 	 * redraw_window. */

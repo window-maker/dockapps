@@ -1,3 +1,9 @@
+2004 July 19 1.99r6
+	Fix for Debian bug #250792 - the parser for the acpi files was
+	too stupid to deal with error conditions. I've now added some
+	basic checking to make it handle the error that caused the bug
+	report, but I'll need to add more later.
+
 2004 April 23 1.99r5
 	Collected fixes for the collected fixes below . . .
 

@@ -195,6 +195,13 @@ char *get_value(char *string)
     return retval;
 }
 
+int check_error(char *buf)
+{
+    if(strstr(buf, "ERROR") != NULL)
+	return 1;
+    return 0;
+}
+
 power_state_t get_power_status(void)
 {
     FILE *file;
@@ -236,6 +243,13 @@ int get_battery_info(int batt_no)
     /* grab the contents of the file */
     buflen = fread(buf, sizeof(buf), 1, file);
     fclose(file);
+
+    /* check to see if there were any errors reported in the file */
+    if(check_error(buf)) {
+	pinfo("Error reported in file %s - discarding data\n",
+	      info->info_file);
+	return 0;
+    }
 
     /* check to see if battery is present */
     entry = strstr(buf, "present:");
@@ -282,9 +296,16 @@ int get_battery_info(int batt_no)
     }
     
     /* grab the file contents */
+    memset(buf, 0, sizeof(buf));
     buflen = fread(buf, sizeof(buf), 1, file);
     fclose(file);
 
+    /* check to see if there were any errors reported in the file */
+    if(check_error(buf)) {
+	pinfo("Error reported in file %s - discarding data\n",
+	      info->state_file);
+	return 0;
+    }
     /* check to see if battery is present */
     entry = strstr(buf, "present:");
     val = get_value(entry);
