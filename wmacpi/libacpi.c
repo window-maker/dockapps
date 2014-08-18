@@ -408,13 +408,48 @@ static int calc_remaining_percentage(int batt)
     return retval;
 }
 
+/* check to see if we've been getting bad data from the batteries - if
+ * we get more than some limit we swith to using the remaining capacity
+ * for the calculations. */
+static enum rtime_mode check_rt_mode(global_t *globals)
+{
+    int i;
+    int bad_limit = 5;
+    battery_t *binfo;
+
+    /* if we were told what to do, we should keep doing it */
+    if(globals->rt_forced)
+	return globals->rt_mode;
+
+    for(i = 0; i < MAXBATT; i++) {
+	binfo = &batteries[i];
+	if(binfo->present && globals->adapter.power == BATT) {
+	    if(binfo->present_rate <= 0) {
+		pdebug("Bad report from %s\n", binfo->name);
+		binfo->bad_count++;
+	    }
+	}
+    }
+    for(i = 0; i < MAXBATT; i++) {
+	binfo = &batteries[i];
+	if(binfo->bad_count > bad_limit) {
+	    if(globals->rt_mode != RT_CAP)
+		pinfo("More than %d bad reports from %s; "
+		      "Switching to remaining capacity mode\n",
+		      bad_limit, binfo->name);
+	    return RT_CAP;
+	}
+    }
+    return RT_RATE;
+}
+
 /* calculate remaining time until the battery is charged.
  * when charging, the battery state file reports the 
  * current being used to charge the battery. We can use 
  * this and the remaining capacity to work out how long
  * until it reaches the last full capacity of the battery.
  * XXX: make sure this is actually portable . . . */
-static int calc_charge_time(int batt)
+static int calc_charge_time_rate(int batt)
 {
     float rcap, lfcap;
     battery_t *binfo;
@@ -436,6 +471,78 @@ static int calc_charge_time(int batt)
 	if (binfo->charge_time)
 	    charge_time = 0;
     return charge_time;
+}
+
+/* we need to calculate the present rate the same way we do in rt_cap
+ * mode, and then use that to estimate charge time. This will 
+ * necessarily be even less accurate than it is for remaining time, but
+ * it's just as neessary . . . */
+#define CAP_SAMPLES (SAMPLES*10)
+static int calc_charge_time_cap(int batt)
+{
+    static float cap_samples[CAP_SAMPLES];
+    static int time_samples[CAP_SAMPLES];
+    static int sample_count = 0;
+    static int current = 0;
+    static int old = 1;
+    int rtime;
+    int tdiff;
+    float cdiff;
+    float current_rate;
+    battery_t *binfo = &batteries[batt];
+    
+    cap_samples[current] = (float) binfo->remaining_cap;
+    time_samples[current] = time(NULL);
+
+    if (sample_count == 0) {
+	/* we can't do much if we don't have any data . . . */
+	current_rate = 0;
+    } else if (sample_count < CAP_SAMPLES) {
+	/* if we have less than SAMPLES samples so far, we use the first
+	 * sample and the current one */
+	cdiff = cap_samples[current] - cap_samples[0];
+	tdiff = time_samples[current] - time_samples[0];
+	current_rate = cdiff/tdiff;
+    } else {
+	/* if we have more than SAMPLES samples, we use the oldest
+	 * current one, which at this point is current + 1. This will
+	 * wrap the same way that current will wrap, but one cycle
+	 * ahead */
+	cdiff = cap_samples[current] - cap_samples[old];
+	tdiff = time_samples[current] - time_samples[old];
+	current_rate = cdiff/(float)tdiff;
+    }
+    if (current_rate == 0) 
+	rtime = 0;
+    else {
+	float cap_left = (float)(binfo->last_full_cap - binfo->remaining_cap);
+	rtime = (int)(cap_left/(current_rate * 60.0));
+    }
+    sample_count++, current++, old++;
+    if (current >= CAP_SAMPLES)
+	current = 0;
+    if (old >= CAP_SAMPLES)
+	old = 0;
+
+    pdebug("cap charge time rem: %d\n", rtime);
+    return rtime;
+}
+
+static int calc_charge_time(global_t *globals, int batt)
+{
+    int ctime = 0;
+
+    globals->rt_mode = check_rt_mode(globals);
+
+    switch(globals->rt_mode) {
+    case RT_RATE:
+	ctime = calc_charge_time_rate(batt);
+	break;
+    case RT_CAP:
+	ctime = calc_charge_time_cap(batt);
+	break;
+    }
+    return ctime;
 }
 
 void acquire_batt_info(global_t *globals, int batt)
@@ -485,7 +592,7 @@ void acquire_batt_info(global_t *globals, int batt)
 	}
     }
     
-    binfo->charge_time = calc_charge_time(batt);
+    binfo->charge_time = calc_charge_time(globals, batt);
 
     /* and finally, we tell anyone who wants to use this information
      * that it's now valid . . .*/
@@ -582,7 +689,7 @@ int calc_time_remaining_rate(global_t *globals)
     if(rtime <= 0) 
 	rtime = 0;
  out:
-    pdebug("time rem: %d\n", rtime);
+    pdebug("discharge time rem: %d\n", rtime);
     return rtime;
 }
 
@@ -604,8 +711,8 @@ int calc_time_remaining_rate(global_t *globals)
  */
 int calc_time_remaining_cap(global_t *globals)
 {
-    static float cap_samples[SAMPLES];
-    static int time_samples[SAMPLES];
+    static float cap_samples[CAP_SAMPLES];
+    static int time_samples[CAP_SAMPLES];
     static int sample_count = 0;
     static int current = 0;
     static int old = 1;
@@ -625,9 +732,12 @@ int calc_time_remaining_cap(global_t *globals)
     cap_samples[current] = cap;
     time_samples[current] = time(NULL);
 
-    /* if we have less than SAMPLES samples so far, we use the first
-     * sample and the current one */
-    if (sample_count < SAMPLES) {
+    if (sample_count == 0) {
+	/* we can't do much if we don't have any data . . . */
+	current_rate = 0;
+    } else if (sample_count < CAP_SAMPLES) {
+	/* if we have less than SAMPLES samples so far, we use the first
+	 * sample and the current one */
 	cdiff = cap_samples[0] - cap_samples[current];
 	tdiff = time_samples[current] - time_samples[0];
 	current_rate = cdiff/tdiff;
@@ -646,18 +756,20 @@ int calc_time_remaining_cap(global_t *globals)
 	rtime = (int)(cap_samples[current]/(current_rate * 60.0));
 
     sample_count++, current++, old++;
-    if (current >= SAMPLES)
+    if (current >= CAP_SAMPLES)
 	current = 0;
-    if (old >= SAMPLES)
+    if (old >= CAP_SAMPLES)
 	old = 0;
 
-    pdebug("time rem: %d\n", rtime);
+    pdebug("cap discharge time rem: %d\n", rtime);
     return rtime;
 }    
 
 void acquire_global_info(global_t *globals)
 {
     adapter_t *ap = &globals->adapter;
+
+    globals->rt_mode = check_rt_mode(globals);
 
     switch(globals->rt_mode) {
     case RT_RATE:

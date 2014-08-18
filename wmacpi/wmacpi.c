@@ -37,7 +37,7 @@
 #include "libacpi.h"
 #include "wmacpi.h"
 
-#define WMACPI_VER "1.99r7"
+#define WMACPI_VER "2.0rc1"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -541,11 +541,9 @@ static void set_message(global_t *globals)
 
 void set_time_display(global_t *globals)
 {
-    battery_t *binfo = &batteries[battery_no];
-    
-    if (binfo->charge_state == CHARGE)
-	display_time(binfo->charge_time);
-    else if (binfo->charge_state == DISCHARGE)
+    if (globals->binfo->charge_state == CHARGE)
+	display_time(globals->binfo->charge_time);
+    else if (globals->binfo->charge_state == DISCHARGE)
 	display_time(globals->rtime);
     else
 	invalid_time_display();
@@ -596,7 +594,7 @@ void cli_wmacpi(global_t *globals, int samples)
     battery_t *binfo;
     adapter_t *ap;
     
-    printf("%d\n", samples);
+    pdebug("samples: %d\n", samples);
     if(samples > 1)
     	sleep_time = 1000000/samples;
 
@@ -653,6 +651,7 @@ int main(int argc, char **argv)
     int sleep_time = 1000000/sleep_rate;
     int scroll_count = 0;
     enum rtime_mode rt_mode = RT_RATE;
+    int rt_forced = 0;
     battery_t *binfo;
     global_t *globals;
 
@@ -715,6 +714,7 @@ int main(int argc, char **argv)
 	    break;
 	case 'f':
 	    rt_mode = RT_CAP;
+	    rt_forced = 1;
 	    break;
 	case 'h':
 	    usage(argv[0]);
@@ -758,6 +758,7 @@ int main(int argc, char **argv)
 	exit(1);
 
     globals->rt_mode = rt_mode;
+    globals->rt_forced = rt_forced;
 
     if (battery_no > globals->battery_count) {
 	pfatal("Battery %d not available for monitoring.\n", battery_no);
@@ -766,6 +767,13 @@ int main(int argc, char **argv)
 
     /* check for cli mode */
     if (cli) {
+	cli_wmacpi(globals, samples);
+	exit(0);
+    }
+    /* check to see if we've got a valid DISPLAY env variable, as a simple check to see if
+     * we're running under X */
+    if (!getenv("DISPLAY")) {
+	pdebug("Not running under X - using cli mode\n");
 	cli_wmacpi(globals, samples);
 	exit(0);
     }
@@ -812,7 +820,7 @@ int main(int argc, char **argv)
 		battery_no = battery_no % globals->battery_count;
 		globals->binfo = &batteries[battery_no];
 		binfo = globals->binfo;
-		pinfo("changing to monitor battery %d\n", battery_no + 1);
+		pinfo("changing to monitor battery %s\n", binfo->name);
 		set_batt_id_area(battery_no);
 		dockapp->update = 1;
 		break;

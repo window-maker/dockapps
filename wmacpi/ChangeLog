@@ -1,3 +1,14 @@
+2004 September 28 2.0rc1
+	Added support for switching to capacity mode automatically, on
+	detecting dodgy reports from the battery.
+
+	Added support for capacity mode on charging, with automatic
+	enabling as per discharging.
+
+	Various cleanups.
+
+	Hopefully last release before the final 2.0.
+	
 2004 August 18 1.99r7
 	Implemented the libdockapp port - this seems to close Debian bug
 	#227819, but it hasn't received sufficient testing.

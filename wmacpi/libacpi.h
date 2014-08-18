@@ -2,7 +2,7 @@
 #define _LIBACPI_H_
 
 
-#define LIBACPI_VER "0.91"
+#define LIBACPI_VER "0.92"
 
 /* Here because we need it for definitions in this file . . . */
 #define MAX_NAME 128
@@ -63,6 +63,8 @@ typedef struct {
     int charge_time;		/* time left to charge this battery */
     /* and a flag to indicate that this is valid . . . */
     int valid;
+    /* number of times we've gotten bad info on this battery's present rate */
+    int bad_count;		
 } battery_t;
     
 typedef struct {
@@ -82,7 +84,8 @@ typedef struct {
     int timer;			/* how long been on battery? */
     int crit_level;		/* anything below this is critical low */
     int battery_count;		/* number of batteries found */
-    enum rtime_mode rt_mode;   
+    enum rtime_mode rt_mode;	/* remaining time mode */
+    int rt_forced;		/* was our rt_mode forced? if so, we do what we were told */
     battery_t *binfo;		/* pointer to the battery being monitored */
     adapter_t adapter;
 } global_t;
