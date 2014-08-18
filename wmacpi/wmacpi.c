@@ -37,7 +37,7 @@
 #include "libacpi.h"
 #include "wmacpi.h"
 
-#define WMACPI_VER "2.0"
+#define WMACPI_VER "2.1rc1"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -53,8 +53,8 @@ struct dockapp {
     Pixmap pixmap;		/* main pixmap */
     Pixmap mask;		/* mask pixmap */
     Pixmap text;		/* pixmap for text scroller */
-    unsigned width;		/* width of pixmap */
-    unsigned height;		/* height of pixmap */
+    unsigned short width;	/* width of pixmap */
+    unsigned short height;	/* height of pixmap */
     int screen;			/* current screen */
     int tw;			/* text width inside text pixmap */
     int update;			/* need to redraw? */

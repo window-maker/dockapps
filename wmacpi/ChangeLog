@@ -1,3 +1,9 @@
+2005 Jan 5 2.1rc1
+	Typo fix in the manpage.
+
+	Ported to libdockapp-0.5.0 - all this needed was changing the
+	type of the dockapp width and height to unsigned short.
+	
 2004 October 24 2.0
 	Upped version number to 2.0.
 

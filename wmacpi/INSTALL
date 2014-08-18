@@ -8,6 +8,10 @@ in the Makefile, or specify BUILD_CLI=1 on the make command line. ie,
 make BUILD_CLI=1
 make install BUILD_CLI=1
 
+As of 2.1 wmacpi requires libdockapp-0.5.0 - the tarball is available
+from the same place as the wmacpi tarball. If you're running Debian
+testing you just need to install libdockapp-dev.
+
 No uninstall is supported, but isn't exactly difficult to delete all
 the files by hand . . .
 
@@ -17,4 +21,4 @@ bin/acpi
 man/man1/wmacpi.1
 man/man1/acpi.1
 
-Simon Fowler <simon@dreamcraft.com.au>, 2003-11-23
+Simon Fowler <simon@dreamcraft.com.au>, 2005-01-05
