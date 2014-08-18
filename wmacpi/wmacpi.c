@@ -682,7 +682,7 @@ int main(int argc, char **argv)
     battery_no = 1;
 
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwvV")) != EOF) {
+    while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwbvV")) != EOF) {
 	switch (ch) {
 	case 'c':
 	    if (optarg) {
