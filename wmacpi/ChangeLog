@@ -1,3 +1,21 @@
+2004 April 15 1.99r4
+	Collected fixes for various small issues.
+
+	* Fixed a problem with placement of the window when using the
+	click to place mode - turned out to be a sizehints problem.
+
+	* Some fixes to the manpage.
+
+	* Reenabled the CLI build by default - the Debian patches can
+	handle disabling it themselves.
+
+	* Added a way to disable the scrolling message, since some users
+	find this annoying.
+
+	I've left the big changes that are needed (like using libdockapp,
+	in the hope that it'll solve the docking problems) until later, so
+	that I can get these smaller fixes out. Hopefully soon . . .
+	
 2004 January 12 1.99r3
 	. . . and a fix for a fix that didn't fix it . . .
 	

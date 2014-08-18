@@ -58,6 +58,7 @@ typedef struct {
     int update;			/* need to redraw? */
     int blink;			/* should we blink the LED? (critical battery) */
     int bell;			/* bell on critical low, or not? */
+    int scroll;			/* scroll message text? */
 } Dockapp;
 
 /* globals */
@@ -225,6 +226,12 @@ static void render_text(char *string)
 {
     int i, c, k;
 
+    /* drop out immediately if scrolling is disabled - we don't render
+     * any text at all, since there's not much else we could do
+     * sensibly without scrolling. */
+    if (!dockapp->scroll)
+	return;
+
     if (strlen(string) > 53)
 	return;
 
@@ -274,6 +281,9 @@ static int open_display(char *display)
 static void scroll_text(int x, int y, int width, int tw, int reset)
 {
     static int pos, first, stop;
+
+    if (!dockapp->scroll) 
+	return;
 
     if (reset) {
 	pos = 0;
@@ -595,6 +605,7 @@ void usage(char *name)
     printf("%s - help\t\t[simon@dreamcraft.com.au]\n\n"
 	   "-d display\t\tdisplay on remote display <display>\n"
 	   "-b\t\t\tmake noise when battery is critical low (beep)\n"
+	   "-r\t\t\tdisable scrolling message\n"
 	   "-c value\t\tset critical low alarm at <value> percent\n"
 	   "\t\t\t(default: 10 percent)\n"
 	   "-m <battery number>\tbattery number to monitor\n"
@@ -678,11 +689,12 @@ int main(int argc, char **argv)
 
     dockapp->blink = 1;
     dockapp->bell = 0;
+    dockapp->scroll = 1;
     globals->crit_level = 10;
     battery_no = 1;
 
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwbvV")) != EOF) {
+    while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwbrvV")) != EOF) {
 	switch (ch) {
 	case 'c':
 	    if (optarg) {
@@ -750,6 +762,10 @@ int main(int argc, char **argv)
 	    break;
 	case 'b':
 	    dockapp->blink = 1;
+	    break;
+	case 'r':
+	    printf("disabling scroll\n");
+	    dockapp->scroll = 0;
 	    break;
 	default:
 	    usage(argv[0]);

@@ -1,3 +1,7 @@
+2004 January 18 1.99r3
+ * Correctly handle changing batteries at runtime, if possible. Note
+    the bug reported by Joey Hess against wmacpi 1.33 . . .
+
 2003 November 23 1.99
  * Expand libacpi to handle everything else under
    /proc/acpi. Basically, make it into a full ACPI reporting library. 

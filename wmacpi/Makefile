@@ -4,7 +4,7 @@
 OPT	:= -O2 
 
 # uncomment this to build the command line acpi tool
-#BUILD_CLI = 1
+BUILD_CLI = 1
 
 # uncomment this to make wmacpi use less system colors (looks uglier too)
 #OPT	+= -DLOW_COLOR

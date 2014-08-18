@@ -1,4 +1,4 @@
-.TH WMACPI-NG 1 "July 11, 2003"
+.TH WMACPI 1 "April 15 2004"
 .SH NAME
 wmacpi \- Battery status monitor for systems supporting ACPI
 .SH NAME
@@ -45,6 +45,12 @@ samples ]
 ]
 [
 .RI -V
+]
+]
+.RI -b
+]
+[
+.RI -r
 ]
 [
 .RI -h
@@ -110,6 +116,12 @@ each successive use increases the verbosity.
 .B \-V
 Print the version information.
 .TP
+.B \-b
+Make a noise when the battery is critically low.
+.TP
+.B \-r
+Disable scrolling message.
+.TP
 .B \-h
 Display help.
 .TP
@@ -141,4 +153,4 @@ This manual page was originally written by Simon Richter
 <sjr@debian.org> for the Debian GNU/Linux system, and then updated by
 Simon Fowler. 
 .br
-Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2003-11-23.
+Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2004-04-15.
