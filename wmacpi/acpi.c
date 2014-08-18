@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 	power_init();
 	/* we want to acquire samples over some period of time, so . . . */
 	for(i = 0; i < samples + 2; i++) {
-		for(j = 0; j < batt_count; j++)
+		for(j = 0; j < globals->battery_count; j++)
 			acquire_batt_info(j);
 		acquire_global_info();
 		usleep(sleep_time);
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 	ap = &globals->adapter;
 	if(ap->power == AC) {
 		printf("On AC Power");
-		for(i = 0; i < batt_count; i++) {
+		for(i = 0; i < globals->battery_count; i++) {
 			binfo = &batteries[i];
 			if(binfo->present && (binfo->charge_state == CHARGE)) {
 				printf("; Battery %s charging", binfo->name);
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
 		printf("\n");
 	} else if(ap->power == BATT) {
 		printf("On Battery");
-		for(i = 0; i < batt_count; i++) {
+		for(i = 0; i < globals->battery_count; i++) {
 			binfo = &batteries[i];
 			if(binfo->present && (binfo->percentage >= 0))
 				printf(", Battery %s at %d%%", binfo->name,

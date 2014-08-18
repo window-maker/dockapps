@@ -1,3 +1,30 @@
+2004 April 23 1.99r5
+	Collected fixes for the collected fixes below . . .
+
+	* Manpage fixes, to reflect the reality of the current code.
+
+	* Code cleanups, to make a few things more sensible. Most notably,
+	the interface for setting the samplerate has changed so that it's
+	no longer inverted and illogical - you now say how many times you
+	want to sample per minute.
+
+	* Fixed an issue with initialisation - I'd moved the power_init()
+	call below the options parsing code, without dealing with the -m
+	option properly. The end result was that if you told it to monitor
+	a battery number, it would fail saying the battery didn't exist. I
+	moved the check for this out of the options parsing and after the
+	power_init() call.
+
+	* Fixed a leaking file descriptor in init_ac_adapters.
+
+	* Implemented a way to handle changing batteries - reinitialise
+	the battery info periodically. I don't know of a better way to do
+	that, since we'd have to do all that parsing anyway to find out if
+	it had changed . . .
+
+	libdockapp is waiting, but I think that's the only change left
+	without more bug repots . . .
+	
 2004 April 15 1.99r4
 	Collected fixes for various small issues.
 

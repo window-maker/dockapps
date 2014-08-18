@@ -11,8 +11,6 @@
 
 extern char *state[];
 extern global_t *globals;
-/* temp buffer */
-char buf[512];
 
 /* local proto */
 int acpi_get_design_cap(int batt);
@@ -22,15 +20,15 @@ int init_batteries(void)
 {
     DIR *battdir;
     struct dirent *batt;
-    char *name, *tmp1, *tmp2;
+    char *name;
     char *names[MAXBATT];
     int i, j;
     
     /* now enumerate batteries */
-    batt_count = 0;
+    globals->battery_count = 0;
     battdir = opendir("/proc/acpi/battery");
     if (battdir == NULL) {
-	perr("No batteries or ACPI not supported\n");
+	pfatal("No batteries or ACPI not supported\n");
 	return 1;
     }
     while ((batt = readdir(battdir))) {
@@ -46,23 +44,27 @@ int init_batteries(void)
 	if (!strncmp(".", name, 1) || !strncmp("..", name, 2))
 	    continue;
 
-	names[batt_count] = strdup(name);
-	batt_count++;
+	names[globals->battery_count] = strdup(name);
+	globals->battery_count++;
     }
     closedir(battdir);
 
     /* A nice quick insertion sort, ala CLR. */
-    for (i = 1; i < batt_count; i++) {
-	tmp1 = names[i];
-	j = i - 1;
-	while ((j >= 0) && ((strcmp(tmp1, names[j])) < 0)) {
-	    tmp2 = names[j+1];
-	    names[j+1] = names[j];
-	    names[j] = tmp2;
+    {
+	char *tmp1, *tmp2;
+	
+	for (i = 1; i < globals->battery_count; i++) {
+	    tmp1 = names[i];
+	    j = i - 1;
+	    while ((j >= 0) && ((strcmp(tmp1, names[j])) < 0)) {
+		tmp2 = names[j+1];
+		names[j+1] = names[j];
+		names[j] = tmp2;
+	    }
 	}
     }
     
-    for (i = 0; i < batt_count; i++) {
+    for (i = 0; i < globals->battery_count; i++) {
 	snprintf(batteries[i].name, MAX_NAME, "%s", names[i]);
 	snprintf(batteries[i].info_file, MAX_NAME, 
 		 "/proc/acpi/battery/%s/info", names[i]);
@@ -73,11 +75,18 @@ int init_batteries(void)
     }
 
     /* tell user some info */
-    pdebug("%d batteries detected\n", batt_count);
-    pinfo("libacpi: found %d batter%s\n", batt_count,
-	    (batt_count == 1) ? "y" : "ies");
+    pdebug("%d batteries detected\n", globals->battery_count);
+    pinfo("libacpi: found %d batter%s\n", globals->battery_count,
+	    (globals->battery_count == 1) ? "y" : "ies");
     
     return 0;
+}
+
+/* a stub that just calls the current function */
+int reinit_batteries(void)
+{
+    pdebug("reinitialising batteries\n");
+    return init_batteries();
 }
 
 /* the actual name of the subdirectory under ac_adapter may
@@ -104,6 +113,7 @@ int init_ac_adapters(void)
 	    continue;
 	pdebug("found adapter %s\n", name);
     }
+    closedir(acdir);
     /* we /should/ only see one filename other than . and .. so
      * we'll just use the last value name acquires . . . */
     ap->name = strdup(name);
@@ -112,6 +122,13 @@ int init_ac_adapters(void)
     pinfo("libacpi: found ac adapter %s\n", ap->name);
     
     return 0;
+}
+
+/* stub that does nothing but call the normal init function */
+int reinit_ac_adapters(void)
+{
+    pdebug("reinitialising ac adapters\n");
+    return init_ac_adapters();
 }
 
 /* see if we have ACPI support and check version */
@@ -141,6 +158,23 @@ int power_init(void)
 
     if (!(retval = init_batteries()))
 	retval = init_ac_adapters();
+
+    return retval;
+}
+
+/* reinitialise everything, to deal with changing batteries or ac adapters */
+int power_reinit(void)
+{
+    FILE *acpi;
+    int retval;
+
+    if (!(acpi = fopen("/proc/acpi/info", "r"))) {
+	pfatal("Could not reopen ACPI info file - does this system support ACPI?\n");
+	return 1;
+    }
+    
+    if (!(retval = reinit_batteries()))
+	retval = reinit_ac_adapters();
 
     return retval;
 }
@@ -440,7 +474,7 @@ void acquire_all_batt_info(void)
 {
     int i;
     
-    for(i = 0; i < batt_count; i++)
+    for(i = 0; i < globals->battery_count; i++)
 	acquire_batt_info(i);
 }
 
@@ -465,7 +499,7 @@ void acquire_global_info(void)
     /* XXX: this needs to correctly handle the case where 
      * any of the values used is unknown (which we flag using
      * -1). */
-    for (i = 0; i < batt_count; i++) {
+    for (i = 0; i < globals->battery_count; i++) {
 	binfo = &batteries[i];
 	if (binfo->present && binfo->valid) {
 	    rcap += (float)binfo->remaining_cap;

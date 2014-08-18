@@ -72,11 +72,12 @@ typedef struct {
 } adapter_t;
 
 typedef struct {
-    adapter_t adapter;
     int rtime;			/* remaining time */
     int timer;			/* how long been on battery? */
     int crit_level;		/* anything below this is critical low */
+    int battery_count;		/* number of batteries found */
     battery_t *binfo;		/* pointer to the battery being monitored */
+    adapter_t adapter;
 } global_t;
 
 /*
@@ -120,12 +121,15 @@ typedef struct {
 
 /* Since these /are/ needed here . . . */
 battery_t batteries[MAXBATT];
-int batt_count;
-
 int verbosity;
 
 /* check if apm/acpi is enabled, etc */
 int power_init(void);
+/* reinitialise everything */
+int power_reinit(void);
+int reinit_ac_adapters(void);
+int reinit_batteries(void);
+
 /* fill global_t with data */
 void acquire_batt_info(int);
 void acquire_all_batt_info(void);

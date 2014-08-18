@@ -64,12 +64,11 @@ typedef struct {
 /* globals */
 Dockapp *dockapp;
 global_t *globals;
-int count = 0;			/* global timer variable */
-/* extern int verbosity; */
 
-/* Time for scroll updates */
-#define DEFAULT_UPDATE 150
-static int update_timeout = DEFAULT_UPDATE;
+/* this gives us a variable scroll rate, depending on the importance of the
+ * message . . . */
+#define DEFAULT_SCROLL_RESET 150;
+int scroll_reset = DEFAULT_SCROLL_RESET;
 
 /* proto for local stuff */
 static void new_window(char *name);
@@ -264,8 +263,6 @@ static void render_text(char *string)
     dockapp->tw = k;		/* length of text segment */
     /* re-scroll the message */
     scroll_text(6, 50, 52, dockapp->tw, 1);
-    /* reset the scroll repeat counter */
-    count = 0;
 }
 
 static int open_display(char *display)
@@ -482,6 +479,18 @@ static void set_power_panel(void)
     }
 }
 
+void scroll_faster(double factor) {
+    scroll_reset = scroll_reset * factor;
+}
+
+void scroll_slower(double factor) {
+    scroll_reset = scroll_reset * factor;
+}
+
+void reset_scroll(void) {
+    scroll_reset = DEFAULT_SCROLL_RESET;
+}
+
 /* 
  * The message that needs to be displayed needs to be decided
  * according to a heirarchy: a message like not present needs to take
@@ -517,19 +526,20 @@ static void set_message(void)
     if (!binfo->present) {
 	if (state != M_NP) {
 	    state = M_NP;
+	    reset_scroll();
 	    render_text("not present");
 	}
     } else if (ap->power == AC) {
 	if (binfo->charge_state == CHARGE) {
 	    if (state != M_CH) {
 		state = M_CH;
-		update_timeout = DEFAULT_UPDATE;
+		reset_scroll();
 		render_text("battery charging");
 	    }
 	} else {
 	    if (state != M_AC) {
 		state = M_AC;
-		update_timeout = DEFAULT_UPDATE;
+		reset_scroll();
 		render_text("on ac power");
 	    }
 	}
@@ -537,25 +547,25 @@ static void set_message(void)
 	if (binfo->state == CRIT) {
 	    if (state != M_CB) {
 		state = M_CB;
-		update_timeout = 80;
+		scroll_faster(0.75);
 		render_text("critical low battery");
 	    }
 	} else if (binfo->state == HARD_CRIT) {
 	    if (state != M_HCB) {
 		state = M_HCB;
-		update_timeout = 60;
+		scroll_faster(0.5);
 		render_text("hard critical low battery");
 	    }
 	} else if (binfo->state == LOW) {
 	    if (state != M_LB) {
 		state = M_LB;
-		update_timeout = 100;
+		scroll_faster(0.85);
 		render_text("low battery");
 	    }
 	} else {
 	    if (state != M_BATT) {
 		state = M_BATT;
-		update_timeout = DEFAULT_UPDATE;
+		reset_scroll();
 		render_text("on battery");
 	    }
 	}
@@ -604,13 +614,13 @@ void usage(char *name)
 {
     printf("%s - help\t\t[simon@dreamcraft.com.au]\n\n"
 	   "-d display\t\tdisplay on remote display <display>\n"
-	   "-b\t\t\tmake noise when battery is critical low (beep)\n"
+	   "-b\t\t\tenable blinking of various UI elements\n"
 	   "-r\t\t\tdisable scrolling message\n"
 	   "-c value\t\tset critical low alarm at <value> percent\n"
 	   "\t\t\t(default: 10 percent)\n"
 	   "-m <battery number>\tbattery number to monitor\n"
-	   "-s <sample rate>\trate at which to sample battery status\n"
-	   "\t\t\tdefault 100 (once every three seconds)\n"
+	   "-s <sample rate>\tnumber of times per minute to sample battery information\n"
+	   "\t\t\tdefault 20 (once every three seconds)\n"
 	   "-n\t\t\tdo not blink\n"
 	   "-w\t\t\trun in command line mode\n"
 	   "-a <samples>\t\tsamples to average over (cli mode only)\n"
@@ -638,7 +648,7 @@ void cli_wmacpi(int samples)
 
     /* we want to acquire samples over some period of time, so . . . */
     for(i = 0; i < samples + 2; i++) {
-	for(j = 0; j < batt_count; j++)
+	for(j = 0; j < globals->battery_count; j++)
 	    acquire_batt_info(j);
 	acquire_global_info();
 	usleep(sleep_time);
@@ -647,7 +657,7 @@ void cli_wmacpi(int samples)
     ap = &globals->adapter;
     if(ap->power == AC) {
 	printf("On AC Power");
-	for(i = 0; i < batt_count; i++) {
+	for(i = 0; i < globals->battery_count; i++) {
 	    binfo = &batteries[i];
 	    if(binfo->present && (binfo->charge_state == CHARGE)) {
 		printf("; Battery %s charging", binfo->name);
@@ -661,7 +671,7 @@ void cli_wmacpi(int samples)
 	printf("\n");
     } else if(ap->power == BATT) {
 	printf("On Battery");
-	for(i = 0; i < batt_count; i++) {
+	for(i = 0; i < globals->battery_count; i++) {
 	    binfo = &batteries[i];
 	    if(binfo->present && (binfo->percentage >= 0))
 		printf(", Battery %s at %d%%", binfo->name,
@@ -679,9 +689,15 @@ int main(int argc, char **argv)
 {
     char *display = NULL;
     int ch;
-    int update = 0;
+    int sample_count = 0;
+    int batt_reinit, ac_reinit;
+    int batt_count = 0;
+    int ac_count = 0;
     int cli = 0, samples = 1;
-    int samplerate = 100;
+    int samplerate = 20;
+    int sleep_rate = 10;
+    int sleep_time = 1000000/sleep_rate;
+    int scroll_count = 0;
     battery_t *binfo;
 
     dockapp = calloc(1, sizeof(Dockapp));
@@ -693,6 +709,15 @@ int main(int argc, char **argv)
     globals->crit_level = 10;
     battery_no = 1;
 
+    /* after this many samples, we reinit the battery and AC adapter 
+     * information. 
+     * XXX: make these configurable . . . */
+    batt_reinit = 100;
+    ac_reinit = 1000;
+
+    /* this needs to be up here because we need to know what batteries
+     * are available /before/ we can decide if the battery we want to
+     * monitor is available. */
     /* parse command-line options */
     while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwbrvV")) != EOF) {
 	switch (ch) {
@@ -718,11 +743,6 @@ int main(int argc, char **argv)
 			    MAXBATT);
 		    return 1;
 		}
-		if (battery_no > batt_count) {
-		    fprintf(stderr, "Battery %d does not appear to be installed\n",
-			    battery_no);
-		    return 1;
-		}
 		fprintf(stderr, "Monitoring battery %d\n", battery_no);
 	    } 
 	    break;
@@ -730,7 +750,7 @@ int main(int argc, char **argv)
 	    if (optarg) {
 		samplerate = atoi(optarg);
 		if (samplerate == 0) samplerate = 1;
-		if (samplerate > 3000) samplerate = 3000;
+		if (samplerate > 600) samplerate = 600;
 	    } else {
 		usage(argv[0]);
 		exit(1);
@@ -764,7 +784,6 @@ int main(int argc, char **argv)
 	    dockapp->blink = 1;
 	    break;
 	case 'r':
-	    printf("disabling scroll\n");
 	    dockapp->scroll = 0;
 	    break;
 	default:
@@ -774,10 +793,14 @@ int main(int argc, char **argv)
 	
     }
     
-    /* see if whatever we want to use is supported */
     if (power_init())
 	/* power_init functions handle printing error messages */
 	exit(1);
+
+    if (battery_no > globals->battery_count) {
+	pfatal("Battery %d not available for monitoring\n", battery_no);
+	exit(1);
+    }
 
     /* check for cli mode */
     if (cli) {
@@ -828,7 +851,7 @@ int main(int argc, char **argv)
 	    case ButtonRelease:
 		/* cycle through the known batteries. */
 		battery_no++;
-		battery_no = battery_no % batt_count;
+		battery_no = battery_no % globals->battery_count;
 		globals->binfo = &batteries[battery_no];
 		binfo = globals->binfo;
 		pinfo("changing to monitor battery %d\n", battery_no + 1);
@@ -856,17 +879,39 @@ int main(int argc, char **argv)
 	 *
 	 * So, given the base rate of once every three seconds, we want to
 	 * change this test to . . . */
-	if (update++ == (3000/samplerate)) {
+	/* Okay, this needs /fixing/ - it's ridiculous. We should be giving
+	 * the user the option of saying how many times per minute the 
+	 * battery should be sampled, defaulting to 20 times. 
+	 * 
+	 * We sleep for one tenth of a second at a time, so 60 seconds
+	 * translates to 600 sleeps. So, we change the default sample
+	 * rate to 20, and the calculation below becomes . . .*/
+	if (sample_count++ == ((sleep_rate*60)/samplerate)) {
 	    acquire_all_info();
-	    update = 0;
+
+	    /* we need to be able to reinitialise batteries and adapters, because
+	     * they change - you can hotplug batteries on most laptops these days
+	     * and who knows what kind of shit will be happening soon . . . */
+	    if (batt_count++ >= batt_reinit) {
+		    if(reinit_batteries()) 
+			    pfatal("Oh my god, the batteries are gone!\n");
+		    batt_count = 0;
+	    }
+
+	    if (ac_count++ >= ac_reinit) {
+		    if(reinit_ac_adapters()) 
+			    pfatal("What happened to our AC adapters?!?\n");
+		    ac_count = 0;
+	    }
+	    sample_count = 0;
 	}
 
-	if (count++ == update_timeout) {
+	if (scroll_count++ >= scroll_reset) {
 	    scroll_text(6, 50, 52, dockapp->tw, 1);
-	    count = 0;
+	    scroll_count = 0;
 	}
 
-	/* the old code had some kind of weird crap with timers and the like. 
+	/* The old code had some kind of weird crap with timers and the like. 
 	 * As far as I can tell, it's meaningless - the time we want to display
 	 * is the time calculated from the remaining capacity, as per the 
 	 * ACPI spec. The only thing I'd change is the handling of a charging
@@ -886,7 +931,8 @@ int main(int argc, char **argv)
 	/* redraw_window, if anything changed - determined inside 
 	 * redraw_window. */
 	redraw_window();
-	usleep(100000);
+
+	usleep(sleep_time);
     }
     return 0;
 }
