@@ -35,7 +35,7 @@
 #include "libacpi.h"
 #include "wmacpi.h"
 
-#define WMACPI_VER "1.99"
+#define WMACPI_VER "1.99r2"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -57,6 +57,7 @@ typedef struct {
     int tw;			/* text width inside text pixmap */
     int update;			/* need to redraw? */
     int blink;			/* should we blink the LED? (critical battery) */
+    int bell;			/* bell on critical low, or not? */
 } Dockapp;
 
 /* globals */
@@ -144,7 +145,7 @@ static void new_window(char *name)
     dockapp->screen = DefaultScreen(dockapp->display);
     dockapp->root = DefaultRootWindow(dockapp->display);
 
-    sizehints.flags = USSize;
+    sizehints.flags = USSize | USPosition;
     sizehints.width = 64;
     sizehints.height = 64;
 
@@ -461,8 +462,14 @@ static void set_power_panel(void)
     if (binfo->state == CRIT)
 	blink_battery_glyph();
 
-    if (binfo->state == HARD_CRIT)
+    if (binfo->state == HARD_CRIT) {
 	really_blink_battery_glyph();
+	/* we only do this here because it'd be obnoxious to 
+	 * do it anywhere else. */
+	if (dockapp->bell) {
+	    XBell(dockapp->display, 100);
+	}
+    }
 }
 
 /* 
@@ -610,11 +617,13 @@ void print_version(void)
 
 void cli_wmacpi(int samples)
 {
-    int i, j, sleep_time;
+    int i, j, sleep_time = 0;
     battery_t *binfo;
     adapter_t *ap;
     
-    sleep_time = 1000000/samples;
+    printf("%d\n", samples);
+    if(samples > 1)
+    	sleep_time = 1000000/samples;
 
     /* we want to acquire samples over some period of time, so . . . */
     for(i = 0; i < samples + 2; i++) {
@@ -658,7 +667,7 @@ void cli_wmacpi(int samples)
 int main(int argc, char **argv)
 {
     char *display = NULL;
-    char ch;
+    int ch;
     int update = 0;
     int cli = 0, samples = 1;
     int samplerate = 100;
@@ -668,6 +677,7 @@ int main(int argc, char **argv)
     globals = calloc(1, sizeof(global_t));
 
     dockapp->blink = 1;
+    dockapp->bell = 0;
     globals->crit_level = 10;
     battery_no = 1;
 
@@ -738,6 +748,9 @@ int main(int argc, char **argv)
 		}
 	    }
 	    break;
+	case 'b':
+	    dockapp->blink = 1;
+	    break;
 	default:
 	    usage(argv[0]);
 	    return 1;
@@ -764,9 +777,9 @@ int main(int argc, char **argv)
 
     /* make new dockapp window */
     /* Don't even /think/ of asking me why, but if I set the window name to 
-     * "acpi", the app refuses to dock properly - it's just plain /weird/ */
-/*    new_window("acpi"); */
-    new_window("apm");
+     * "acpi", the app refuses to dock properly - it's just plain /weird/.
+     * So, wmacpi it is . . . */
+    new_window("wmacpi");
 
     /* get initial statistics */
     acquire_all_info();
