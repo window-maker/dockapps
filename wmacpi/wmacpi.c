@@ -36,7 +36,7 @@
 #include "libacpi.h"
 #include "wmacpi.h"
 
-#define WMACPI_VER "2.2rc1"
+#define WMACPI_VER "2.2rc3"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -61,6 +61,7 @@ struct dockapp {
     int bell;			/* bell on critical low, or not? */
     int scroll;			/* scroll message text? */
     int scroll_reset;		/* reset the scrolling text */
+    int percent;
 };
 
 /* globals */
@@ -113,7 +114,7 @@ static void clear_time_display(void)
 /* set time display to -- -- */
 static void invalid_time_display(void)
 {
-    copy_xpm_area(122, 13, 31, 11, 7, 32);
+    copy_xpm_area(122, 14, 31, 11, 7, 32);
 }
 
 static void reset_scroll(void) {
@@ -195,7 +196,7 @@ static void scroll_text(void)
     static int start, end, stop;
     int x = 6;			/* x coord of the start of the text area */
     int y = 50;			/* y coord */
-    int width = 52;		/* width of the text area */
+    int width = 51;		/* width of the text area */
     int height = 7;		/* height of the text area */
     int tw = dockapp->tw;	/* width of the rendered text */
     int sx, dx, w;
@@ -298,10 +299,18 @@ static void render_text(char *string)
     scroll_text();
 }
 
+static void clear_percentage(void)
+{
+  /* clear the number */
+  copy_xpm_area(95, 47, 21, 9, 37, 16);
+  /* clear the bar */
+  copy_xpm_area(66, 18, 54, 8, 5, 5);
+
+  dockapp->percent = -1;
+}
+
 static void display_percentage(int percent)
 {
-    static int op = -1;
-    static unsigned int obar;
     unsigned int bar;
     int width = 54;		/* width of the bar */
     float ratio = 100.0/width;	/* ratio between the current percentage
@@ -310,13 +319,16 @@ static void display_percentage(int percent)
     if (percent == -1)
 	percent = 0;
 
-    if (op == percent)
+    if (dockapp->percent == percent)
 	return;
 
     if (percent < 0)
 	percent = 0;
     if (percent > 100)
 	percent = 100;
+
+    if (dockapp->percent == -1)
+	copy_xpm_area(127, 28, 5, 7, 52, 17);
 
     if (percent < 100) {	/* 0 - 99 */
 	copy_xpm_area(95, 48, 8, 7, 37, 17);
@@ -325,17 +337,13 @@ static void display_percentage(int percent)
 	copy_xpm_area((percent % 10) * 6 + 67, 28, 5, 7, 46, 17);
     } else
 	copy_xpm_area(95, 37, 21, 9, 37, 16);	/* 100% */
-    op = percent;
+    dockapp->percent = percent;
 
     bar = (int)((float)percent / ratio);
-
-    if (bar == obar)
-	return;
 
     copy_xpm_area(66, 0, bar, 8, 5, 5);
     if (bar < 54)
 	copy_xpm_area(66 + bar, 18, 54 - bar, 8, bar + 5, 5);
-    obar = bar;
 }
 
 static void display_time(int minutes)
@@ -446,19 +454,12 @@ static void set_power_panel(global_t *globals)
 	}
     }
 
-    if (binfo->charge_state == CHARGE)
-	blink_power_glyph();
+    if (globals->battery_count > 0) {
+	if (binfo->charge_state == CHARGE)
+	    blink_power_glyph();
 
-    if ((binfo->state == CRIT) && (ap->power == BATT))
-	blink_battery_glyph();
-
-    if (binfo->state == HARD_CRIT) {
-	really_blink_battery_glyph();
-	/* we only do this here because it'd be obnoxious to 
-	 * do it anywhere else. */
-	if (dockapp->bell) {
-	    XBell(dockapp->display, 100);
-	}
+	if ((binfo->state == CRIT) && (ap->power == BATT))
+	    blink_battery_glyph();
     }
 }
 
@@ -489,6 +490,7 @@ void reset_scroll_speed(void) {
  * appropriate right now, and then decide within them. 
  */
 enum messages {
+    M_NB,	/* no batteries */
     M_NP,	/* not present */
     M_AC,	/* on ac power */
     M_CH,	/* battery charging */
@@ -504,6 +506,16 @@ static void set_message(global_t *globals)
     static enum messages state = M_NULL;
     battery_t *binfo = globals->binfo;
     adapter_t *ap = &globals->adapter;
+    
+    if (globals->battery_count == 0) {
+	if (state != M_NB) {
+	    state = M_NB;
+	    reset_scroll_speed();
+	    render_text("no batteries");
+	}
+
+	return;
+    }
     
     /* battery not present case */
     if (!binfo->present) {
@@ -533,12 +545,6 @@ static void set_message(global_t *globals)
 		scroll_faster(0.75);
 		render_text("critical low battery");
 	    }
-	} else if (binfo->state == HARD_CRIT) {
-	    if (state != M_HCB) {
-		state = M_HCB;
-		scroll_faster(0.5);
-		render_text("hard critical low battery");
-	    }
 	} else if (binfo->state == LOW) {
 	    if (state != M_LB) {
 		state = M_LB;
@@ -557,6 +563,11 @@ static void set_message(global_t *globals)
 
 void set_time_display(global_t *globals)
 {
+    if (globals->battery_count == 0) {
+        invalid_time_display();
+	return;
+    }
+
     if (globals->binfo->charge_state == CHARGE)
 	display_time(globals->binfo->charge_time);
     else if (globals->binfo->charge_state == DISCHARGE)
@@ -565,12 +576,17 @@ void set_time_display(global_t *globals)
 	invalid_time_display();
 }
 
+void clear_batt_id_area(void)
+{
+    copy_xpm_area(125, 40, 7, 11, 51, 32);
+}
+
 void set_batt_id_area(int bno)
 {
     int w = 7;			/* Width of the number */
     int h = 11;			/* Height of the number */
     int dx = 50;		/* x coord of the target area */
-    int dy = 31;		/* y coord of the target area */
+    int dy = 32;		/* y coord of the target area */
     int sx = (bno + 1) * 7;	/* source x coord */
     int sy = 76;		/* source y coord */
     
@@ -628,6 +644,16 @@ void cli_wmacpi(global_t *globals, int samples)
     return;
 }
 
+battery_t *switch_battery(global_t *globals, int battno)
+{
+  globals->binfo = &batteries[battno];
+  pinfo("changing to monitor battery %s\n", globals->binfo->name);
+  set_batt_id_area(battno);
+  dockapp->update = 1;
+
+  return globals->binfo;
+}
+
 int main(int argc, char **argv)
 {
     char *display = NULL;
@@ -642,7 +668,7 @@ int main(int argc, char **argv)
     int scroll_count = 0;
     enum rtime_mode rt_mode = RT_RATE;
     int rt_forced = 0;
-    battery_t *binfo;
+    battery_t *binfo = NULL;
     global_t *globals;
 
     DAProgramOption options[] = {
@@ -717,8 +743,7 @@ int main(int argc, char **argv)
     globals->rt_forced = rt_forced;
 
     if (battery_no > globals->battery_count) {
-	pfatal("Battery %d not available for monitoring.\n", battery_no);
-	exit(1);
+	pinfo("Battery %d not available for monitoring.\n", battery_no);
     }
 
     /* check for cli mode */
@@ -744,13 +769,17 @@ int main(int argc, char **argv)
 
     /* get initial statistics */
     acquire_all_info(globals);
-    binfo = &batteries[battery_no];
-    globals->binfo = binfo;
-    pinfo("monitoring battery %s\n", binfo->name);
+
+    if (globals->battery_count > 0) {
+      binfo = &batteries[battery_no];
+      globals->binfo = binfo;
+      set_batt_id_area(battery_no);
+      pinfo("monitoring battery %s\n", binfo->name);
+    }
+
     clear_time_display();
     set_power_panel(globals);
     set_message(globals);
-    set_batt_id_area(battery_no);
 
     /* main loop */
     while (1) {
@@ -773,14 +802,14 @@ int main(int argc, char **argv)
 	    case ButtonPress:
 		break;
 	    case ButtonRelease:
+		if (globals->battery_count == 0)
+		    break;
+
 		/* cycle through the known batteries. */
 		battery_no++;
 		battery_no = battery_no % globals->battery_count;
-		globals->binfo = &batteries[battery_no];
-		binfo = globals->binfo;
-		pinfo("changing to monitor battery %s\n", binfo->name);
-		set_batt_id_area(battery_no);
-		dockapp->update = 1;
+
+		binfo = switch_battery(globals, battery_no);
 		break;
 	    case ClientMessage:
 		/* what /is/ this crap?
@@ -834,6 +863,20 @@ int main(int argc, char **argv)
 	 * translates to 600 sleeps. So, we change the default sample
 	 * rate to 20, and the calculation below becomes . . .*/
 	if (sample_count++ == ((sleep_rate*60)/samplerate)) {
+	    if (globals->battery_count == 0) {
+	        batt_count = 0;
+
+	        reinit_batteries(globals);
+
+		/* battery appeared */
+		if (globals->battery_count > 0) {
+		    if (battery_no > globals->battery_count)
+		        battery_no = 0;
+		    
+		    binfo = switch_battery(globals, battery_no);
+		}
+	    }
+
 	    acquire_all_info(globals);
 
 	    /* we need to be able to reinitialise batteries and adapters, because
@@ -872,7 +915,13 @@ int main(int argc, char **argv)
 	set_time_display(globals);
 	set_power_panel(globals);
 	set_message(globals);
-	display_percentage(binfo->percentage);
+
+	if (globals->battery_count == 0) {
+	    clear_percentage();
+	    clear_batt_id_area();
+	} else 
+	    display_percentage(binfo->percentage);
+
 	scroll_text();
 
 	/* redraw_window, if anything changed - determined inside 

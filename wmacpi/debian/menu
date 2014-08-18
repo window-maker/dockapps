@@ -1,2 +1,0 @@
-?package(wmacpi):needs=X11 section=Apps/System\
-  title="wmacpi" command="/usr/bin/wmacpi"

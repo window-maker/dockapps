@@ -4,6 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <dirent.h>
 #include <time.h>
@@ -11,13 +12,129 @@
 #include "libacpi.h"
 
 extern char *state[];
-/* extern global_t *globals; */
+
+#define PROC_DATA_SOURCE    0
+#define SYSFS_DATA_SOURCE   1
+static int data_source;
 
 /* local proto */
 int acpi_get_design_cap(int batt);
 
+static int read_sysfs_file(char *node, char *prop, char *buf, size_t buflen)
+{
+    char tmp[256];
+    FILE *fp;
+    int ret;
+
+    ret = snprintf(tmp, sizeof(tmp), "/sys/class/power_supply/%s/%s", node, prop);
+    if (ret >= (int)sizeof(tmp)) {
+	perr("Path too long for %s/%s\n", node, prop);
+	return -1;
+    }
+
+    fp = fopen(tmp, "r");
+    if (fp == NULL) {
+	perr("Could not open %s/%s\n", node, prop);
+	return -2;
+    }
+
+    ret = fread(buf, 1, buflen - 1, fp);
+
+    fclose(fp);
+
+    if (ret == 0) {
+	perr("Could not read %s/%s\n", node, prop);
+	return -3;
+    }
+  
+    buf[ret] = '\0';
+
+    return 0;
+}
+
 /* initialise the batteries */
-int init_batteries(global_t *globals)
+static int sysfs_init_batteries(global_t *globals)
+{
+    DIR *battdir;
+    struct dirent *batt;
+    char *name;
+    char *names[MAXBATT];
+    char ps_type[16];
+    int i, j;
+    
+    /* now enumerate batteries */
+    globals->battery_count = 0;
+    battdir = opendir("/sys/class/power_supply");
+    if (battdir == NULL) {
+	pfatal("No batteries or ACPI not supported\n");
+	return 1;
+    }
+    while ((batt = readdir(battdir))) {
+	/* there's a serious problem with this code when there's
+	 * more than one battery: the readdir won't return the
+	 * entries in sorted order, so battery one won't 
+	 * necessarily be the first one returned. So, we need
+	 * to sort them ourselves before adding them to the 
+	 * batteries array. */
+	name = batt->d_name;
+	
+	/* skip ., .. and dotfiles */
+	if (name[0] == '.')
+	    continue;
+
+	if (read_sysfs_file(name, "type", ps_type, sizeof(ps_type)) < 0)
+	    continue;
+
+	if (strncmp("Battery", ps_type, 7) != 0)
+	    continue;
+
+	names[globals->battery_count] = strdup(name);
+	globals->battery_count++;
+    }
+    closedir(battdir);
+
+    /* A nice quick insertion sort, ala CLR. */
+    {
+	char *tmp1, *tmp2;
+	
+	for (i = 1; i < globals->battery_count; i++) {
+	    tmp1 = names[i];
+	    j = i - 1;
+	    while ((j >= 0) && ((strcmp(tmp1, names[j])) < 0)) {
+		tmp2 = names[j+1];
+		names[j+1] = names[j];
+		names[j] = tmp2;
+	    }
+	}
+    }
+    
+    for (i = 0; i < globals->battery_count; i++) {
+	snprintf(batteries[i].name, MAX_NAME, "%s", names[i]);
+	pdebug("battery detected at /sys/class/power_supply/%s\n", batteries[i].name);
+	pinfo("found battery %s\n", names[i]);
+
+	if (read_sysfs_file(batteries[i].name, "energy_now", ps_type, sizeof(ps_type)) == 0)
+	    batteries[i].sysfs_capa_mode = SYSFS_CAPA_ENERGY;
+	else if (read_sysfs_file(batteries[i].name, "charge_now", ps_type, sizeof(ps_type)) == 0)
+	    batteries[i].sysfs_capa_mode = SYSFS_CAPA_CHARGE;
+	else if (read_sysfs_file(batteries[i].name, "capacity", ps_type, sizeof(ps_type)) == 0) {
+	    batteries[i].sysfs_capa_mode = SYSFS_CAPA_PERCENT;
+	    batteries[i].design_cap = 100;
+	    batteries[i].last_full_cap = 100;
+	} else
+	    batteries[i].sysfs_capa_mode = SYSFS_CAPA_ERR;
+    }
+
+    /* tell user some info */
+    pdebug("%d batteries detected\n", globals->battery_count);
+    pinfo("libacpi: found %d batter%s\n", globals->battery_count,
+	  (globals->battery_count == 1) ? "y" : "ies");
+
+    return 0;
+}
+
+/* initialise the batteries */
+static int procfs_init_batteries(global_t *globals)
 {
     DIR *battdir;
     struct dirent *batt;
@@ -83,6 +200,14 @@ int init_batteries(global_t *globals)
     return 0;
 }
 
+int init_batteries(global_t *globals)
+{
+  if (data_source == SYSFS_DATA_SOURCE)
+    return sysfs_init_batteries(globals);
+  else
+    return procfs_init_batteries(globals);
+}
+
 /* a stub that just calls the current function */
 int reinit_batteries(global_t *globals)
 {
@@ -90,10 +215,62 @@ int reinit_batteries(global_t *globals)
     return init_batteries(globals);
 }
 
+/* the actual name of the subdirectory under power_supply may
+ * be anything, so we need to read the directory and use the
+ * name we find there. */
+static int sysfs_init_ac_adapters(global_t *globals)
+{
+    DIR *acdir;
+    struct dirent *adapter;
+    adapter_t *ap = &globals->adapter;
+    char *name;
+    char ps_type[16];
+
+    acdir = opendir("/sys/class/power_supply");
+    if (acdir == NULL) {
+	pfatal("Unable to open /sys/class/power_supply -"
+		" are you sure this system supports ACPI?\n");
+	return 1;
+    }
+    name = NULL;
+    while ((adapter = readdir(acdir)) != NULL) {
+	name = adapter->d_name;
+
+	if (name[0] == '.') {
+	  name = NULL;
+	  continue;
+	}
+
+	if (read_sysfs_file(name, "type", ps_type, sizeof(ps_type)) < 0) {
+	  name = NULL;
+	  continue;
+	}
+
+	if (strncmp("Mains", ps_type, 5) == 0) {
+	  pdebug("found adapter %s\n", name);
+	  break;
+	} else {
+	  name = NULL;
+	}
+    }
+    closedir(acdir);
+
+    if (name == NULL) {
+      perr("No AC adapter found !\n");
+      return 1;
+    }
+
+    /* we'll just use the first adapter we find ... */
+    ap->name = strdup(name);
+    pinfo("libacpi: found ac adapter %s\n", ap->name);
+    
+    return 0;
+}
+
 /* the actual name of the subdirectory under ac_adapter may
  * be anything, so we need to read the directory and use the
  * name we find there. */
-int init_ac_adapters(global_t *globals)
+static int procfs_init_ac_adapters(global_t *globals)
 {
     DIR *acdir;
     struct dirent *adapter;
@@ -123,6 +300,14 @@ int init_ac_adapters(global_t *globals)
     pinfo("libacpi: found ac adapter %s\n", ap->name);
     
     return 0;
+}
+
+int init_ac_adapters(global_t *globals)
+{
+  if (data_source == SYSFS_DATA_SOURCE)
+    return sysfs_init_ac_adapters(globals);
+  else
+    return procfs_init_ac_adapters(globals);
 }
 
 /* stub that does nothing but call the normal init function */
@@ -162,6 +347,15 @@ int power_init(global_t *globals)
     /* yep, all good */
     fclose(acpi);
 
+    /* determine data source */
+    if (access("/sys/class/power_supply", R_OK | X_OK) == 0) {
+	data_source = SYSFS_DATA_SOURCE;
+	pinfo("Selecting sysfs as the data source\n");
+    } else {
+	data_source = PROC_DATA_SOURCE;
+	pinfo("Selecting procfs as the data source\n");
+    }
+
     if (!(retval = init_batteries(globals)))
 	retval = init_ac_adapters(globals);
 
@@ -187,7 +381,7 @@ int power_reinit(global_t *globals)
     return retval;
 }
 
-char *get_value(char *string)
+static char *get_value(char *string)
 {
     char *retval;
     int i;
@@ -203,14 +397,28 @@ char *get_value(char *string)
     return retval;
 }
 
-int check_error(char *buf)
+static int check_error(char *buf)
 {
     if(strstr(buf, "ERROR") != NULL)
 	return 1;
     return 0;
 }
 
-power_state_t get_power_status(global_t *globals)
+static power_state_t sysfs_get_power_status(global_t *globals)
+{
+    char online[2];
+    adapter_t *ap = &globals->adapter;
+
+    if (read_sysfs_file(ap->name, "online", online, sizeof(online)) < 0)
+      return PS_ERR;
+
+    if (*online == '1')
+	return AC;
+    else
+	return BATT;
+}
+
+static power_state_t procfs_get_power_status(global_t *globals)
 {
     FILE *file;
     char buf[1024];
@@ -232,7 +440,140 @@ power_state_t get_power_status(global_t *globals)
 	return BATT;
 }
 
-int get_battery_info(int batt_no)
+power_state_t get_power_status(global_t *globals)
+{
+    if (data_source == SYSFS_DATA_SOURCE)
+	return sysfs_get_power_status(globals);
+    else
+	return procfs_get_power_status(globals);
+}
+
+static int sysfs_get_battery_info(global_t *globals, int batt_no)
+{
+    battery_t *info = &batteries[batt_no];
+    char buf[32];
+    int ret;
+
+    /* check to see if battery is present */
+    ret = read_sysfs_file(info->name, "present", buf, sizeof(buf));
+    if (ret < 0) {
+	/* interestingly, when the battery is not present, the whole
+	 * /sys/class/power_supply/BATn directory does not exist.
+	 * Yes, this is broken.
+	 */
+	if (ret == -2)
+	    info->present = 0;
+
+	/* reinit batteries, this one went away and it's very
+	   possible there just isn't any other one */
+	reinit_batteries(globals);
+
+	return 0;
+    }
+
+    info->present = (*buf == '1');
+    if (!info->present) {
+	pinfo("Battery %s not present\n", info->name);
+	return 0;
+    }
+
+    /* get design capacity
+     * note that all these integer values can also contain the
+     * string 'unknown', so we need to check for this. */
+    if (info->sysfs_capa_mode == SYSFS_CAPA_ENERGY) {
+	if (read_sysfs_file(info->name, "energy_full_design", buf, sizeof(buf)) < 0)
+	    info->design_cap = -1;
+	else
+	    info->design_cap = strtoul(buf, NULL, 10) / 1000;
+
+	/* get last full capacity */
+	if (read_sysfs_file(info->name, "energy_full", buf, sizeof(buf)) < 0)
+	    info->last_full_cap = -1;
+	else
+	    info->last_full_cap = strtoul(buf, NULL, 10) / 1000;
+    } else if (info->sysfs_capa_mode == SYSFS_CAPA_CHARGE) {
+	/* get design capacity */
+	if (read_sysfs_file(info->name, "charge_full_design", buf, sizeof(buf)) < 0)
+	    info->design_cap = -1;
+	else
+	    info->design_cap = strtoul(buf, NULL, 10) / 1000;
+
+	/* get last full capacity */
+	if (read_sysfs_file(info->name, "charge_full", buf, sizeof(buf)) < 0)
+	    info->last_full_cap = -1;
+	else
+	    info->last_full_cap = strtoul(buf, NULL, 10) / 1000;
+    } else if (info->sysfs_capa_mode != SYSFS_CAPA_PERCENT) {
+	info->design_cap = -1;
+	info->last_full_cap = -1;
+    }
+
+
+    /* get design voltage */
+    if (read_sysfs_file(info->name, "voltage_min_design", buf, sizeof(buf)) < 0)
+	info->design_voltage = -1;
+    else
+	info->design_voltage = strtoul(buf, NULL, 10) / 1000;
+
+    /* get charging state */
+    if (read_sysfs_file(info->name, "status", buf, sizeof(buf)) < 0) {
+	info->charge_state = CH_ERR;
+    } else {
+	if (strncmp(buf, "Unknown", 7) == 0)
+	    info->charge_state = CH_ERR;
+	else if (strncmp(buf, "Discharging", 11) == 0)
+	    info->charge_state = DISCHARGE;
+	else if (strncmp(buf, "Charging", 8) == 0)
+	    info->charge_state = CHARGE;
+	else if (strncmp(buf, "Not charging", 12) == 0)
+	    info->charge_state = NO_CHARGE;
+	else if (strncmp(buf, "Full", 4) == 0)
+	    info->charge_state = FULL; /* DISCHARGE ? as per old comment ... */
+    }
+
+    /* get current rate of burn 
+     * note that if it's on AC, this will report 0 */
+    if (read_sysfs_file(info->name, "current_now", buf, sizeof(buf)) < 0)
+	info->present_rate = -1;
+    else {
+	int rate;
+	rate = strtoul(buf, NULL, 10) / 1000;
+	info->present_rate = (rate != 0) ? rate : info->present_rate;
+    }
+
+    if (info->sysfs_capa_mode == SYSFS_CAPA_ENERGY) {
+	/* get remaining capacity */
+	if (read_sysfs_file(info->name, "energy_now", buf, sizeof(buf)) < 0)
+	    info->remaining_cap = -1;
+	else
+	    info->remaining_cap = strtoul(buf, NULL, 10) / 1000;
+
+    } else if (info->sysfs_capa_mode == SYSFS_CAPA_CHARGE) {
+	/* get remaining capacity */
+	if (read_sysfs_file(info->name, "charge_now", buf, sizeof(buf)) < 0)
+	    info->remaining_cap = -1;
+	else
+	    info->remaining_cap = strtoul(buf, NULL, 10) / 1000;
+    } else if (info->sysfs_capa_mode == SYSFS_CAPA_PERCENT) {
+	/* get remaining capacity */
+	if (read_sysfs_file(info->name, "capacity", buf, sizeof(buf)) < 0)
+	    info->remaining_cap = -1;
+	else
+	    info->remaining_cap = strtoul(buf, NULL, 10) / 1000;
+    } else {
+	info->remaining_cap = -1;
+    }
+
+    /* get current voltage */
+    if (read_sysfs_file(info->name, "voltage_now", buf, sizeof(buf)) < 0)
+	info->present_voltage = -1;
+    else
+	info->present_voltage = strtoul(buf, NULL, 10) / 1000;
+
+    return 1;
+}
+
+static int procfs_get_battery_info(global_t *globals, int batt_no)
 {
     FILE *file;
     battery_t *info = &batteries[batt_no];
@@ -240,6 +581,8 @@ int get_battery_info(int batt_no)
     char *entry;
     int buflen;
     char *val;
+
+    globals = globals; /* silencing a warning */
 
     if ((file = fopen(info->info_file, "r")) == NULL) {
 	/* this is cheating, but string concatenation should work . . . */
@@ -325,18 +668,6 @@ int get_battery_info(int batt_no)
 	return 0;
     }
 
-    /* get capacity state 
-     * note that this has only two values (at least, in the 2.4.21-rc2
-     * source code) - ok and critical. */
-    entry = strstr(buf, "capacity state:");
-    val = get_value(entry);
-    if (val[0] == 'u')
-	info->capacity_state = CS_ERR;
-    else if ((strncmp(val, "ok", 2)) == 0)
-	info->capacity_state = OK;
-    else
-	info->capacity_state = CRITICAL;
-
     /* get charging state */
     entry = strstr(buf, "charging state:");
     val = get_value(entry);
@@ -383,6 +714,14 @@ int get_battery_info(int batt_no)
 	info->present_voltage = strtoul(val, NULL, 10);
 
     return 1;
+}
+
+int get_battery_info(global_t *globals, int batt_no)
+{
+  if (data_source == SYSFS_DATA_SOURCE)
+      return sysfs_get_battery_info(globals, batt_no);
+  else
+      return procfs_get_battery_info(globals, batt_no);
 }
 
 /*
@@ -562,7 +901,7 @@ void acquire_batt_info(global_t *globals, int batt)
     battery_t *binfo;
     adapter_t *ap = &globals->adapter;
     
-    get_battery_info(batt);
+    get_battery_info(globals, batt);
     
     binfo = &batteries[batt];
     
@@ -594,16 +933,6 @@ void acquire_batt_info(global_t *globals, int batt)
      * globals->power value . . . .*/
     ap->power = get_power_status(globals);
 
-    if ((ap->power != AC) && (binfo->charge_state == DISCHARGE)) {
-	/* we're not on power, and not charging. So we might as well 
-	 * check if we're at a critical battery level, and calculate
-	 * other interesting stuff . . . */
-	if (binfo->capacity_state == CRITICAL) {
-	    pinfo("Received critical battery status");
-	    ap->power = HARD_CRIT;
-	}
-    }
-    
     binfo->charge_time = calc_charge_time(globals, batt);
 
     /* and finally, we tell anyone who wants to use this information

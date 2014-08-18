@@ -2,7 +2,7 @@
 #define _LIBACPI_H_
 
 
-#define LIBACPI_VER "0.93"
+#define LIBACPI_VER "0.95"
 
 /* Here because we need it for definitions in this file . . . */
 #define MAX_NAME 128
@@ -26,21 +26,23 @@ typedef enum {
     MED,
     LOW,
     CRIT,
-    HARD_CRIT,
     BS_ERR,
 } batt_state_t;
 
 typedef enum {
     CHARGE,
     DISCHARGE,
+    FULL,
+    NO_CHARGE,
     CH_ERR,
 } charge_state_t;
 
 typedef enum {
-    OK,
-    CRITICAL,
-    CS_ERR,
-} cap_state_t;
+    SYSFS_CAPA_ENERGY,
+    SYSFS_CAPA_CHARGE,
+    SYSFS_CAPA_PERCENT,
+    SYSFS_CAPA_ERR,
+} sysfs_capa_t;
 
 typedef struct {
     /* general info */
@@ -48,12 +50,13 @@ typedef struct {
     /* these two are conveniences */
     char info_file[MAX_NAME];
     char state_file[MAX_NAME];
+    /* sysfs capacity mode */
+    sysfs_capa_t sysfs_capa_mode;
     int present; 
     int design_cap;		/* assuming mAh */
     int last_full_cap;
     int design_voltage;		/* in mV */
     /* state info */
-    cap_state_t capacity_state;
     charge_state_t charge_state;
     int present_rate;		/* in mAh */
     int remaining_cap;		/* in mAh */

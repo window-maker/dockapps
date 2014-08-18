@@ -1,3 +1,29 @@
+2008 March 18 2.2rc3
+	Some fixes for the sysfs interface support, supplied by
+	jblache@debian.org:
+
+	> Okay, I finally found time to make a new release including this
+	> patch - 2.2rc2. It's up on my website now.
+
+	I don't remember sending you the updated patch, as it turned out that
+	you can have different attributes in sysfs depending on what the
+	battery reports.
+
+	The current version is attached.
+
+	Thanks,
+
+	JB.
+
+	
+2008 March 14 2.2rc2
+	Support for the sysfs interface that became mandatory with kernel
+	2.6.24 (patch supplied by jblache@debian.org).
+
+	A number of graphics fixes also from jblache@debian.org.
+
+	Removed support for hardware reported critical battery status.
+	
 2007 July 14 2.2rc1
 	Major changes to command line handling and to the way we use
 	libdockapp, courtesy of Patrice Dumas. This should hopefully fix

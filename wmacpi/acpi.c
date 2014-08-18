@@ -26,7 +26,7 @@
 
 #include "libacpi.h"
 
-#define ACPI_VER "2.2rc1"
+#define ACPI_VER "2.2rc3"
 
 global_t *globals;
 
