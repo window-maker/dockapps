@@ -618,6 +618,7 @@ int main(int argc, char **argv)
     char *display = NULL;
     char ch;
     int update = 0;
+    int samplerate = 100;
     battery_t *binfo;
 
     dockapp = calloc(1, sizeof(Dockapp));
@@ -633,7 +634,7 @@ int main(int argc, char **argv)
 	exit(1);
 
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "bd:c:m:hnvV")) != EOF) {
+    while ((ch = getopt(argc, argv, "bd:c:m:s:hnvV")) != EOF) {
 	switch (ch) {
 	case 'b':
 	    noisy_critical = 1;
@@ -668,6 +669,16 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Monitoring battery %d\n", battery_no);
 	    } 
 	    break;
+	case 's':
+	    if (optarg) {
+		samplerate = atoi(optarg);
+		if (samplerate == 0) samplerate = 1;
+		if (samplerate > 3000) samplerate = 3000;
+	    } else {
+		usage(argv[0]);
+		exit(1);
+	    }
+	    break;
 	case 'h':
 	    usage(argv[0]);
 	    return 0;
@@ -693,7 +704,10 @@ int main(int argc, char **argv)
 	exit(1);
 
     /* make new dockapp window */
-    new_window("acpi");
+    /* Don't even /think/ of asking me why, but if I set the window name to 
+     * "acpi", the app refuses to dock properly - it's just plain /weird/ */
+/*    new_window("acpi"); */
+    new_window("apm");
 
     /* get initial statistics */
     acquire_all_info();
@@ -736,7 +750,26 @@ int main(int argc, char **argv)
 	    }
 	}
 
-	if (update++ == 30) {
+	/* XXX: some laptops have problems with sampling the battery
+	 * regularly - apparently, the BIOS disables interrupts while
+	 * reading from the battery, which is generally on a slow bus 
+	 * and is a slow device, so you get significant periods without
+	 * interrupts. This causes interactivity to suffer . . . 
+	 * 
+	 * My proposed workaround is to allow the user to set the sample
+	 * rate - it defaults to ten, but can be set lower (or higher).
+	 *
+	 * The only problem with this is that we need to sample less 
+	 * frequently, while still allowing the app to update normally. 
+	 * That means calling redraw_window() and all the set_*() functions
+	 * normally, but only calling acquire_all_info() every so often. 
+	 * As it stands, we only call acquire_all_info() once every three
+	 * seconds (once every thirty updates) . . . I'm not entirely sure
+	 * /how/ this could cause interactivity problems, but hey . . . 
+	 *
+	 * So, given the base rate of once every three seconds, we want to
+	 * change this test to . . . */
+	if (update++ == (3000/samplerate)) {
 	    acquire_all_info();
 	    update = 0;
 	}

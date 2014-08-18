@@ -18,6 +18,9 @@ display ]
 .RI -m
 battery no ]
 [
+.RI -s
+sample rate ]
+[
 .RI -v
 ]
 ]
@@ -73,18 +76,24 @@ battery to reach full charge if the batteries are charging.
 .B \-b
 Make noise when battery is critical low (beep).
 .TP
-.B \-c value
+.B \-c percentage
 Set critical low alarm at <value>% (default: 10%).
 .TP
-.B \-d
+.B \-d display
 Set the X display to open the window on.
 .TP
-.B \-m
+.B \-m battery number
 Set the battery to monitor initially.
+.TP
+.B \-s sample rate
+Set the rate at which to sample the ACPI data (default is 100, which 
+translates to once every three seconds. 10 gives once every 30 seconds, 
+1 once every 300 seconds (five minutes), 1000 once every 0.3 seconds).
 .TP
 .B \-n
 Disable blinking power glyph when charging. Note that it still blinks when 
 the battery reports its capacity state as critical.
+.TP
 .B \-v
 Increase the verbosity of the program. Can be used more than once -
 each successive use increases the verbosity.

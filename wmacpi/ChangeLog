@@ -1,3 +1,17 @@
+2003 September 23 0.92
+	Fix a few more bugs, and include an option to allow the user to
+	specify how often to sample the ACPI data - some BIOSes disable
+	all interrupts while reading from the battery, which apparently
+	causes some interactivity issues. I have no idea why reading once
+	every three seconds (which is our default), but there've been some
+	complaints. 
+
+	Also fixed acpi-ng to properly handle the -a option.
+	
+2003 August 6 0.91
+	Fix a problem I'm seeing with docking the app - if the window name
+	is set to "acpi" rather than "apm" it doesn't dock . . .
+	
 2003 July 16 0.90
 	Make the time display show '--:--' instead of '00:00' when the
 	time remaining is 0 - I think this is reasonable, since it'll only

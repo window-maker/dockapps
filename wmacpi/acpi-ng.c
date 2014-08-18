@@ -34,7 +34,7 @@ void usage(char *name)
 {
 	printf("%s: query battery status on ACPI enabled systems.\n"
 	       "Usage:\n"
-	       "%s [-h] [-a]\n"
+	       "%s [-h] [-a samples]\n"
 	       " h - display this help information\n"
 	       " a - average remaining time over some number of samples\n"
 	       "     much more accurate than using a single sample\n"
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	battery_t *binfo;
 	adapter_t *ap;
 
-	while((ch = getopt(argc, argv, "hvVa::")) != EOF) {
+	while((ch = getopt(argc, argv, "hvVa:")) != EOF) {
 		switch(ch) {
 		case 'h':
 			usage(argv[0]);
@@ -68,16 +68,12 @@ int main(int argc, char *argv[])
 			print_version();
 			return 0;
 		case 'a':
-			printf("case a\n");
-			if(optarg == NULL) {
-				printf("empty optarg\n");
-			} else {
-				printf("optarg: %s\n", optarg);
+			if(optarg != NULL) {
 				samples = atoi(optarg);
+				if(samples > 1000 || samples <= 0) {
+					printf("Please specify a reasonable number of samples\n");
+					exit(1);
 			}
-			if(samples > 1000 || samples <= 0) {
-				printf("Please specify a reasonable number of samples\n");
-				exit(1);
 			}
 			printf("samples: %d\n", samples);
 			sleep_time = 1000000/samples;
@@ -106,6 +102,7 @@ int main(int argc, char *argv[])
 			binfo = &batteries[i];
 			if(binfo->present && (binfo->charge_state == CHARGE)) {
 				printf("; Battery %s charging", binfo->name);
+				printf(", currently at %2d%%", binfo->percentage);
 				if(binfo->charge_time >= 0) 
 					printf(", %2d:%02d remaining", 
 					       binfo->charge_time/60,
