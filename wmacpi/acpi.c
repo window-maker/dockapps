@@ -86,12 +86,12 @@ int main(int argc, char *argv[])
 
 	globals = (global_t *) malloc(sizeof(global_t));
 
-	power_init();
+	power_init(globals);
 	/* we want to acquire samples over some period of time, so . . . */
 	for(i = 0; i < samples + 2; i++) {
 		for(j = 0; j < globals->battery_count; j++)
-			acquire_batt_info(j);
-		acquire_global_info();
+			acquire_batt_info(globals, j);
+		acquire_global_info(globals);
 		usleep(sleep_time);
 	}
 	

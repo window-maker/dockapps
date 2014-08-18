@@ -6,17 +6,18 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <dirent.h>
+#include <time.h>
 
 #include "libacpi.h"
 
 extern char *state[];
-extern global_t *globals;
+/* extern global_t *globals; */
 
 /* local proto */
 int acpi_get_design_cap(int batt);
 
 /* initialise the batteries */
-int init_batteries(void)
+int init_batteries(global_t *globals)
 {
     DIR *battdir;
     struct dirent *batt;
@@ -83,16 +84,16 @@ int init_batteries(void)
 }
 
 /* a stub that just calls the current function */
-int reinit_batteries(void)
+int reinit_batteries(global_t *globals)
 {
     pdebug("reinitialising batteries\n");
-    return init_batteries();
+    return init_batteries(globals);
 }
 
 /* the actual name of the subdirectory under ac_adapter may
  * be anything, so we need to read the directory and use the
  * name we find there. */
-int init_ac_adapters(void)
+int init_ac_adapters(global_t *globals)
 {
     DIR *acdir;
     struct dirent *adapter;
@@ -125,14 +126,14 @@ int init_ac_adapters(void)
 }
 
 /* stub that does nothing but call the normal init function */
-int reinit_ac_adapters(void)
+int reinit_ac_adapters(global_t *globals)
 {
     pdebug("reinitialising ac adapters\n");
-    return init_ac_adapters();
+    return init_ac_adapters(globals);
 }
 
 /* see if we have ACPI support and check version */
-int power_init(void)
+int power_init(global_t *globals)
 {
     FILE *acpi;
     char buf[4096];
@@ -156,14 +157,14 @@ int power_init(void)
     /* yep, all good */
     fclose(acpi);
 
-    if (!(retval = init_batteries()))
-	retval = init_ac_adapters();
+    if (!(retval = init_batteries(globals)))
+	retval = init_ac_adapters(globals);
 
     return retval;
 }
 
 /* reinitialise everything, to deal with changing batteries or ac adapters */
-int power_reinit(void)
+int power_reinit(global_t *globals)
 {
     FILE *acpi;
     int retval;
@@ -173,8 +174,8 @@ int power_reinit(void)
 	return 1;
     }
     
-    if (!(retval = reinit_batteries()))
-	retval = reinit_ac_adapters();
+    if (!(retval = reinit_batteries(globals)))
+	retval = reinit_ac_adapters(globals);
 
     return retval;
 }
@@ -202,7 +203,7 @@ int check_error(char *buf)
     return 0;
 }
 
-power_state_t get_power_status(void)
+power_state_t get_power_status(global_t *globals)
 {
     FILE *file;
     char buf[1024];
@@ -437,7 +438,7 @@ static int calc_charge_time(int batt)
     return charge_time;
 }
 
-void acquire_batt_info(int batt)
+void acquire_batt_info(global_t *globals, int batt)
 {
     battery_t *binfo;
     adapter_t *ap = &globals->adapter;
@@ -472,7 +473,7 @@ void acquire_batt_info(int batt)
 
     /* we need to /know/ that we've got a valid state for the 
      * globals->power value . . . .*/
-    ap->power = get_power_status();
+    ap->power = get_power_status(globals);
 
     if ((ap->power != AC) && (binfo->charge_state == DISCHARGE)) {
 	/* we're not on power, and not charging. So we might as well 
@@ -491,25 +492,44 @@ void acquire_batt_info(int batt)
     binfo->valid = 1;
 }
 	
-void acquire_all_batt_info(void)
+void acquire_all_batt_info(global_t *globals)
 {
     int i;
     
     for(i = 0; i < globals->battery_count; i++)
-	acquire_batt_info(i);
+	acquire_batt_info(globals, i);
 }
 
-void acquire_global_info(void)
+/*
+ * One of the feature requests I've had is for some way to deal with
+ * batteries that are too dumb or too b0rken to report a present rate
+ * value. The way to do this, obviously, is to record the time that
+ * samples were taken and use that information to calculate the rate
+ * at which the battery is draining/charging. This still won't help
+ * systems where the battery doesn't even report the remaining
+ * capacity, but without the present rate or the remaining capacity, I
+ * don't think there's /anything/ we can do to work around it.
+ *
+ * So, what we need to do is provide a way to use a different method
+ * to calculate the time remaining. What seems most sensible is to
+ * split out the code to calculate it into a seperate function, and
+ * then provide multiple implementations . . . 
+ */
+
+/*
+ * the default implementation - if present rate and remaining capacity
+ * are both reported correctly, we use them.
+ */
+int calc_time_remaining_rate(global_t *globals)
 {
     int i;
     int rtime;
     float rcap = 0;
     float rate = 0;
     battery_t *binfo;
-    adapter_t *ap = &globals->adapter;
     static float rate_samples[SAMPLES];
-    static int j = 0;
     static int sample_count = 0;
+    static int j = 0;
     static int n = 0;
 
     /* calculate the time remaining, using the battery's remaining 
@@ -529,7 +549,8 @@ void acquire_global_info(void)
     }
     rate_samples[j] = rate;
     j++, sample_count++;
-    j = j % SAMPLES;
+    if (j >= SAMPLES)
+	j = 0;
     
     /* for the first SAMPLES number of calls we calculate the
      * average based on sample_count, then we use SAMPLES to
@@ -562,16 +583,99 @@ void acquire_global_info(void)
 	rtime = 0;
  out:
     pdebug("time rem: %d\n", rtime);
-    globals->rtime = rtime;
+    return rtime;
+}
+
+/*
+ * the alternative implementation - record the time at which each
+ * sample was taken, and then use the difference between the latest
+ * sample and the one SAMPLES ago to calculate the difference over
+ * that time, and from there the rate of change of capacity.
+ *
+ * XXX: this code sucks, but largely because batteries aren't exactly
+ * precision instruments - mine only report with about 70mAH
+ * resolution, so they don't report any changes until the difference
+ * is 70mAH. This means that calculating the current rate from the
+ * remaining capacity is very choppy . . . 
+ *
+ * To fix this, we should calculate an average over some number of
+ * samples at the old end of the set - this would smooth out the
+ * transitions. 
+ */
+int calc_time_remaining_cap(global_t *globals)
+{
+    static float cap_samples[SAMPLES];
+    static int time_samples[SAMPLES];
+    static int sample_count = 0;
+    static int current = 0;
+    static int old = 1;
+    battery_t *binfo;
+    int i;
+    int rtime;
+    int tdiff;
+    float cdiff;
+    float cap = 0;
+    float current_rate;
+
+    for (i = 0; i < globals->battery_count; i++) {
+	binfo = &batteries[i];
+	if (binfo->present && binfo->valid)
+	    cap += binfo->remaining_cap;
+    }
+    cap_samples[current] = cap;
+    time_samples[current] = time(NULL);
+
+    /* if we have less than SAMPLES samples so far, we use the first
+     * sample and the current one */
+    if (sample_count < SAMPLES) {
+	cdiff = cap_samples[0] - cap_samples[current];
+	tdiff = time_samples[current] - time_samples[0];
+	current_rate = cdiff/tdiff;
+    } else {
+	/* if we have more than SAMPLES samples, we use the oldest
+	 * current one, which at this point is current + 1. This will
+	 * wrap the same way that current will wrap, but one cycle
+	 * ahead */
+	cdiff = cap_samples[old] - cap_samples[current];
+	tdiff = time_samples[current] - time_samples[old];
+	current_rate = cdiff/tdiff;
+    }
+    if (current_rate == 0) 
+	rtime = 0;
+    else
+	rtime = (int)(cap_samples[current]/(current_rate * 60.0));
+
+    sample_count++, current++, old++;
+    if (current >= SAMPLES)
+	current = 0;
+    if (old >= SAMPLES)
+	old = 0;
+
+    pdebug("time rem: %d\n", rtime);
+    return rtime;
+}    
+
+void acquire_global_info(global_t *globals)
+{
+    adapter_t *ap = &globals->adapter;
+
+    switch(globals->rt_mode) {
+    case RT_RATE:
+	globals->rtime = calc_time_remaining_rate(globals);
+	break;
+    case RT_CAP:
+	globals->rtime = calc_time_remaining_cap(globals);
+	break;
+    }
 
     /* get the power status.
      * note that this is actually reported seperately from the
      * battery info, under /proc/acpi/ac_adapter/AC/state */
-    ap->power = get_power_status();
+    ap->power = get_power_status(globals);
 }
 
-void acquire_all_info(void)
+void acquire_all_info(global_t *globals)
 {
-    acquire_all_batt_info();
-    acquire_global_info();
+    acquire_all_batt_info(globals);
+    acquire_global_info(globals);
 }

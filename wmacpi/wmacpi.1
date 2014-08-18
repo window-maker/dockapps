@@ -18,9 +18,12 @@ battery no ]
 .RI -s
 sample rate ]
 [
+.RI -f
+]
+[
 .RI -v
 ]
-]
+[
 .RI -n
 ]
 [
@@ -99,6 +102,17 @@ minute. Minimum is 1, ie once a minute, default is 20, maximum is 600.
 Disable blinking power glyph when charging. Note that it still blinks when 
 the battery reports its capacity state as critical.
 .TP
+.B \-f
+Force the use of capacity mode for calculating time remaining. By defalt
+.B wmacpi
+will use the reported values of remaining capacity and present rate to
+calculate the time remaining on battery. This flag will force the use
+of the remaining capacity and time samples to calculate the present
+rate of drain, and from there the time remaining. Note that this mode
+of calculation generally underreports the time remaining. This mode
+works around certain buggy ACPI BIOSes that fail to report the current
+rate.
+.TP
 .B \-w
 Run wmacpi in command line mode - this operates identically to 
 .B acpi
@@ -152,4 +166,4 @@ This manual page was originally written by Simon Richter
 <sjr@debian.org> for the Debian GNU/Linux system, and then updated by
 Simon Fowler. 
 .br
-Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2004-04-15.
+Last modification by Simon Fowler <simon@dreamcraft.com.au>, 2004-08-15.

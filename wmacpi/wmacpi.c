@@ -18,6 +18,8 @@
 
 #define _GNU_SOURCE
 
+#include <dockapp.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -35,56 +37,48 @@
 #include "libacpi.h"
 #include "wmacpi.h"
 
-#define WMACPI_VER "1.99r6"
+#define WMACPI_VER "1.99r7"
 
 /* main pixmap */
 #ifdef LOW_COLOR
 #include "master_low.xpm"
+static char **master_xpm = master_low_xpm;
 #else
 #include "master.xpm"
 #endif
 
-typedef struct {
-    Display *display;		/* X11 display struct */
-    int screen;			/* current screen */
-    Window root;		/* root window */
-    Window win;			/* one window */
-    Window iconwin;		/* another one */
-    Pixmap pixmap;		/* UI pixmap, window pixmap */
-    Pixmap mask;		/* mask pixmap for shape */
-    GC gc;			/* main drawing GC */
+struct dockapp {
+    Display *display;		/* display */
+    Window win;			/* main window */
+    Pixmap pixmap;		/* main pixmap */
+    Pixmap mask;		/* mask pixmap */
     Pixmap text;		/* pixmap for text scroller */
+    unsigned width;		/* width of pixmap */
+    unsigned height;		/* height of pixmap */
+    int screen;			/* current screen */
     int tw;			/* text width inside text pixmap */
     int update;			/* need to redraw? */
     int blink;			/* should we blink the LED? (critical battery) */
     int bell;			/* bell on critical low, or not? */
     int scroll;			/* scroll message text? */
     int scroll_reset;		/* reset the scrolling text */
-} Dockapp;
+};
 
 /* globals */
-Dockapp *dockapp;
-global_t *globals;
+struct dockapp *dockapp;
+/* global_t *globals; */
 
 /* this gives us a variable scroll rate, depending on the importance of the
  * message . . . */
 #define DEFAULT_SCROLL_RESET 150;
 int scroll_reset = DEFAULT_SCROLL_RESET;
 
-/* proto for local stuff */
-static void new_window(char *name);
-static int open_display(char *display);
-static void redraw_window(void);
-static void render_text(char *string);
-static void scroll_text(void);
-static void display_percentage(int percent);
-static void display_time(int minutes);
-
-#define copy_xpm_area(x, y, w, h, dx, dy)				\
-{									\
-    XCopyArea(dockapp->display, dockapp->pixmap, dockapp->pixmap,	\
-	    dockapp->gc, x, y, w, h, dx, dy);				\
-    dockapp->update = 1;						\
+/* copy a chunk of pixmap around the app */
+static void copy_xpm_area(int x, int y, int w, int h, int dx, int dy)					
+{										
+    XCopyArea(DADisplay, dockapp->pixmap, dockapp->pixmap,	
+	      DAGC, x, y, w, h, dx, dy);			
+    dockapp->update = 1;							
 }
 
 /* display AC power symbol */
@@ -127,77 +121,35 @@ static void reset_scroll(void) {
     dockapp->scroll_reset = 1;
 }
 
+static void clear_text_area(void) {
+    copy_xpm_area(66, 9, 52, 7, 6, 50);
+}
+
 static void redraw_window(void)
 {
     if (dockapp->update) {
-	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->iconwin,
-		  dockapp->gc, 0, 0, 64, 64, 0, 0);
 	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->win,
-		  dockapp->gc, 0, 0, 64, 64, 0, 0);
+		  DAGC, 0, 0, 64, 64, 0, 0);
 	dockapp->update = 0;
     }
 }
 
-static void new_window(char *name)
+static void new_window(char *display, char *name, int argc, char **argv)
 {
-    XpmAttributes attr;
-    Pixel fg, bg;
-    XGCValues gcval;
-    XSizeHints sizehints;
-    XClassHint classhint;
-    XWMHints wmhints;
-
-    dockapp->screen = DefaultScreen(dockapp->display);
-    dockapp->root = DefaultRootWindow(dockapp->display);
-
-    sizehints.flags = USSize | USPosition;
-    sizehints.width = 64;
-    sizehints.height = 64;
-
-    fg = BlackPixel(dockapp->display, dockapp->screen);
-    bg = WhitePixel(dockapp->display, dockapp->screen);
-
-    dockapp->win = XCreateSimpleWindow(dockapp->display, dockapp->root,
-				       0, 0, sizehints.width,
-				       sizehints.height, 1, fg, bg);
-    dockapp->iconwin =
-	XCreateSimpleWindow(dockapp->display, dockapp->win, 0, 0,
-			    sizehints.width, sizehints.height, 1, fg, bg);
-
-    XSetWMNormalHints(dockapp->display, dockapp->win, &sizehints);
-    classhint.res_name = name;
-    classhint.res_class = name;
-    XSetClassHint(dockapp->display, dockapp->win, &classhint);
+    /* Initialise the dockapp window and appicon */
+    DAInitialize(display, name, 64, 64, argc, argv);
+    dockapp->display = DADisplay;
+    dockapp->win = DAWindow;
 
     XSelectInput(dockapp->display, dockapp->win,
-		 ExposureMask | ButtonPressMask | ButtonReleaseMask |
-		 StructureNotifyMask);
-    XSelectInput(dockapp->display, dockapp->iconwin,
-		 ExposureMask | ButtonPressMask | ButtonReleaseMask |
-		 StructureNotifyMask);
+                 ExposureMask | ButtonPressMask | ButtonReleaseMask |
+                 StructureNotifyMask);
 
-    XStoreName(dockapp->display, dockapp->win, name);
-    XSetIconName(dockapp->display, dockapp->win, name);
-
-    gcval.foreground = fg;
-    gcval.background = bg;
-    gcval.graphics_exposures = False;
-
-    dockapp->gc =
-	XCreateGC(dockapp->display, dockapp->win,
-		  GCForeground | GCBackground | GCGraphicsExposures,
-		  &gcval);
-
-    attr.exactColors = 0;
-    attr.alloc_close_colors = 1;
-    attr.closeness = 1L << 15;
-    attr.valuemask = XpmExactColors | XpmAllocCloseColors | XpmCloseness;
-    if (XpmCreatePixmapFromData(dockapp->display, dockapp->win,
-				master_xpm, &dockapp->pixmap,
-				&dockapp->mask, &attr) != XpmSuccess) {
-	pfatal("FATAL: Not enough colors for main pixmap!\n");
-	exit(1);
-    }
+    /* create the main pixmap . . . */
+    DAMakePixmapFromData(master_xpm, &dockapp->pixmap, &dockapp->mask, 
+			 &dockapp->width, &dockapp->height);
+    DASetPixmap(dockapp->pixmap);
+    DASetShape(dockapp->mask);
 
     /* text area is 318x7, or 53 characters long */
     dockapp->text = XCreatePixmap(dockapp->display, dockapp->win, 318, 7,
@@ -207,23 +159,87 @@ static void new_window(char *name)
 	pfatal("FATAL: Cannot create text scroll pixmap!\n");
 	exit(1);
     }
+    DAShow();
+}
 
-    XShapeCombineMask(dockapp->display, dockapp->win, ShapeBounding, 0, 0,
-		      dockapp->mask, ShapeSet);
-    XShapeCombineMask(dockapp->display, dockapp->iconwin, ShapeBounding, 0,
-		      0, dockapp->mask, ShapeSet);
+static void copy_to_text_buffer(int sx, int sy, int w, int h, int dx, int dy)
+{
+    XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
+	      DAGC, sx, sy, w, h, dx, dy);
+}
 
-    wmhints.initial_state = WithdrawnState;
-    wmhints.flags = StateHint;
-    wmhints.icon_window = dockapp->iconwin;
-    wmhints.icon_x = sizehints.x;
-    wmhints.icon_y = sizehints.y;
-    wmhints.window_group = dockapp->win;
-    wmhints.flags =
-	StateHint | IconWindowHint | IconPositionHint | WindowGroupHint;
-    XSetWMHints(dockapp->display, dockapp->win, &wmhints);
+static void copy_to_text_area(int sx, int sy, int w, int h, int dx, int dy)
+{
+    XCopyArea(dockapp->display, dockapp->text, dockapp->pixmap,
+	      DAGC, sx, sy, w, h, dx, dy);
+}
 
-    XMapWindow(dockapp->display, dockapp->win);
+static void scroll_text(void)
+{
+    static int start, end, stop;
+    int x = 6;			/* x coord of the start of the text area */
+    int y = 50;			/* y coord */
+    int width = 52;		/* width of the text area */
+    int height = 7;		/* height of the text area */
+    int tw = dockapp->tw;	/* width of the rendered text */
+    int sx, dx, w;
+
+    if (!dockapp->scroll) 
+	return;
+
+    /* 
+     * Conceptually this is viewing the text through a scrolling
+     * window - the window starts out with the end immediately before
+     * the text, and stops when the start of the window is immediately
+     * after the end of the text.
+     *
+     * We begin with the start of the window at pixel (0 - width) and
+     * as we scroll we render only the portion of the window above
+     * pixel 0. The destination of the copy during this period starts
+     * out at the end of the text area and works left as more of the
+     * text is being copied, until a full window is being copied.
+     *
+     * As the end of the window moves out past the end of the text, we
+     * want to keep the destination at the beginning of the text area, 
+     * but copy a smaller and smaller chunk of the text. Eventually the
+     * start of the window will scroll past the end of the text, at 
+     * which point we stop doing any work and wait to be reset.
+     */
+
+    if (dockapp->scroll_reset) {
+	start = 0 - width;
+	end = 0;
+	stop = 0;
+	clear_text_area();
+	dockapp->scroll_reset = 0;
+    }
+
+    if (stop)
+	return;
+
+    w = 52;
+    if (end < 52)
+	w = end;
+    else if (end > tw)
+	w = 52 - (end - tw);
+	
+    dx = x + 52 - w;
+    if (end > tw)
+	dx = x;
+
+    sx = start;
+    if (start < 0)
+	sx = 0;
+
+    if (start > tw)
+	stop = 1;
+
+    clear_text_area();
+    copy_to_text_area(sx, 0, w, height, dx, y);
+    start += 2;
+    end += 2;
+
+    dockapp->update = 1;
 }
 
 static void render_text(char *string)
@@ -241,8 +257,7 @@ static void render_text(char *string)
 
     /* prepare the text area by clearing it */
     for (i = 0; i < 54; i++) {
-	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
-		  dockapp->gc, 133, 57, 6, 8, i * 6, 0);
+	copy_to_text_buffer(133, 57, 6, 8, i * 6, 0);
     }
     k = 0;
 
@@ -250,18 +265,14 @@ static void render_text(char *string)
 	c = toupper(string[i]);
 	if (c >= 'A' && c <= 'Z') {	/* letter */
 	    c = c - 'A';
-	    XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
-		      dockapp->gc, c * 6, 67, 6, 7, k, 0);
+	    copy_to_text_buffer(c * 6, 67, 6, 7, k, 0);
 	} else if (c >= '0' && c <= '9') {	/* number */
 	    c = c - '0';
-	    XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
-		      dockapp->gc, c * 6 + 66, 58, 6, 7, k, 0);
+	    copy_to_text_buffer(c * 6 + 66, 58, 6, 7, k, 0);
 	} else if (c == '.') {
-	    XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
-		      dockapp->gc, 140, 58, 6, 7, k, 0);
+	    copy_to_text_buffer(140, 58, 6, 7, k, 0);
 	} else if (c == '-') {
-	    XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
-		      dockapp->gc, 126, 58, 6, 7, k, 0);
+	    copy_to_text_buffer(126, 58, 6, 7, k, 0);
 	}
 	k += 6;
     }
@@ -271,69 +282,14 @@ static void render_text(char *string)
     scroll_text();
 }
 
-static int open_display(char *display)
-{
-    dockapp->display = XOpenDisplay(display);
-    if (!dockapp->display) {
-	perr("Unable to open display '%s'\n", display);
-	return 1;
-    }
-    return 0;
-}
-
-static void scroll_text(void)
-{
-    static int pos, first, stop;
-    int x = 6;
-    int y = 50;
-    int width = 52;
-    int tw = dockapp->tw;
-
-    if (!dockapp->scroll) 
-	return;
-
-    if (dockapp->scroll_reset) {
-	pos = 0;
-	first = 0;
-	stop = 0;
-	XCopyArea(dockapp->display, dockapp->pixmap, dockapp->text,
-		  dockapp->gc, 0, 0, width, 7, x, y);
-	dockapp->scroll_reset = 0;
-    }
-
-    if (stop) {
-	return;
-    }
-
-    if ((first == 0) && pos == 0) {
-	pos = width;
-	first = 1;
-    }
-
-    if (pos == (0 - tw - 2)) {
-	first = 1;
-	pos = width;
-	stop = 1;
-	return;
-    }
-    pos -= 2;
-
-    if (pos > 0) {
-	copy_xpm_area(66, 9, pos, 7, x, y);	/* clear */
-	XCopyArea(dockapp->display, dockapp->text, dockapp->pixmap,
-		  dockapp->gc, 0, 0, width - pos, 7, x + pos, y);
-    } else {			/* don't need to clear, already in text */
-	XCopyArea(dockapp->display, dockapp->text, dockapp->pixmap,
-		  dockapp->gc, abs(pos), 0, width, 7, x, y);
-    }
-    dockapp->update = 1;
-}
-
 static void display_percentage(int percent)
 {
     static int op = -1;
     static unsigned int obar;
     unsigned int bar;
+    int width = 54;		/* width of the bar */
+    float ratio = 100.0/width;	/* ratio between the current percentage
+				 * and the number of pixels in the bar */
 
     if (percent == -1)
 	percent = 0;
@@ -355,7 +311,7 @@ static void display_percentage(int percent)
 	copy_xpm_area(95, 37, 21, 9, 37, 16);	/* 100% */
     op = percent;
 
-    bar = percent / 1.8518;
+    bar = (int)((float)percent / ratio);
 
     if (bar == obar)
 	return;
@@ -454,7 +410,7 @@ static void blink_battery_glyph(void)
 	really_blink_battery_glyph();
 }
 
-static void set_power_panel(void)
+static void set_power_panel(global_t *globals)
 {
     enum panel_states power = PS_NULL;
     battery_t *binfo = globals->binfo;
@@ -477,7 +433,7 @@ static void set_power_panel(void)
     if (binfo->charge_state == CHARGE)
 	blink_power_glyph();
 
-    if (binfo->state == CRIT)
+    if ((binfo->state == CRIT) && (ap->power == BATT))
 	blink_battery_glyph();
 
     if (binfo->state == HARD_CRIT) {
@@ -527,7 +483,7 @@ enum messages {
     M_NULL,	/* empty starting state */
 };
 
-static void set_message(void)
+static void set_message(global_t *globals)
 {
     static enum messages state = M_NULL;
     battery_t *binfo = globals->binfo;
@@ -583,7 +539,7 @@ static void set_message(void)
     }    
 }
 
-void set_time_display(void)
+void set_time_display(global_t *globals)
 {
     battery_t *binfo = &batteries[battery_no];
     
@@ -595,30 +551,16 @@ void set_time_display(void)
 	invalid_time_display();
 }
 
-/*
- * This should really be fixed so that it can handle more than two batteries.
- */
-
-void set_id_1(void)
-{
-    copy_xpm_area(118, 38, 15, 15, 44, 30);
-}    
-
-void set_id_2(void)
-{
-    copy_xpm_area(136, 38, 15, 15, 44, 30);
-}
-
 void set_batt_id_area(int bno)
 {
-    switch(bno) {
-    case 0:
-	set_id_1();
-	break;
-    case 1:
-	set_id_2();
-	break;
-    }
+    int w = 7;			/* Width of the number */
+    int h = 11;			/* Height of the number */
+    int dx = 50;		/* x coord of the target area */
+    int dy = 31;		/* y coord of the target area */
+    int sx = (bno + 1) * 7;	/* source x coord */
+    int sy = 76;		/* source y coord */
+    
+    copy_xpm_area(sx, sy, w, h, dx, dy);
 }
 
 void usage(char *name)
@@ -632,6 +574,7 @@ void usage(char *name)
 	   "-m <battery number>\tbattery number to monitor\n"
 	   "-s <sample rate>\tnumber of times per minute to sample battery information\n"
 	   "\t\t\tdefault 20 (once every three seconds)\n"
+	   "-f\t\t\tforce the use of capacity mode for calculating time remaining\n"
 	   "-n\t\t\tdo not blink\n"
 	   "-w\t\t\trun in command line mode\n"
 	   "-a <samples>\t\tsamples to average over (cli mode only)\n"
@@ -647,7 +590,7 @@ void print_version(void)
     printf(" Using libacpi version %s\n", LIBACPI_VER);
 }
 
-void cli_wmacpi(int samples)
+void cli_wmacpi(global_t *globals, int samples)
 {
     int i, j, sleep_time = 0;
     battery_t *binfo;
@@ -660,8 +603,8 @@ void cli_wmacpi(int samples)
     /* we want to acquire samples over some period of time, so . . . */
     for(i = 0; i < samples + 2; i++) {
 	for(j = 0; j < globals->battery_count; j++)
-	    acquire_batt_info(j);
-	acquire_global_info();
+	    acquire_batt_info(globals, j);
+	acquire_global_info(globals);
 	usleep(sleep_time);
     }
     
@@ -709,9 +652,11 @@ int main(int argc, char **argv)
     int sleep_rate = 10;
     int sleep_time = 1000000/sleep_rate;
     int scroll_count = 0;
+    enum rtime_mode rt_mode = RT_RATE;
     battery_t *binfo;
+    global_t *globals;
 
-    dockapp = calloc(1, sizeof(Dockapp));
+    dockapp = calloc(1, sizeof(struct dockapp));
     globals = calloc(1, sizeof(global_t));
 
     dockapp->blink = 1;
@@ -731,7 +676,7 @@ int main(int argc, char **argv)
      * are available /before/ we can decide if the battery we want to
      * monitor is available. */
     /* parse command-line options */
-    while ((ch = getopt(argc, argv, "d:c:m:s:a:hnwbrvV")) != EOF) {
+    while ((ch = getopt(argc, argv, "d:c:m:s:a:fhnwbrvV")) != EOF) {
 	switch (ch) {
 	case 'c':
 	    if (optarg) {
@@ -767,6 +712,9 @@ int main(int argc, char **argv)
 		usage(argv[0]);
 		exit(1);
 	    }
+	    break;
+	case 'f':
+	    rt_mode = RT_CAP;
 	    break;
 	case 'h':
 	    usage(argv[0]);
@@ -805,9 +753,11 @@ int main(int argc, char **argv)
 	
     }
     
-    if (power_init())
+    if (power_init(globals))
 	/* power_init functions handle printing error messages */
 	exit(1);
+
+    globals->rt_mode = rt_mode;
 
     if (battery_no > globals->battery_count) {
 	pfatal("Battery %d not available for monitoring.\n", battery_no);
@@ -816,30 +766,26 @@ int main(int argc, char **argv)
 
     /* check for cli mode */
     if (cli) {
-	cli_wmacpi(samples);
+	cli_wmacpi(globals, samples);
 	exit(0);
     }
 
     battery_no--;
 
-    /* open local or command-line specified display */
-    if (open_display(display))
-	exit(1);
-
     /* make new dockapp window */
     /* Don't even /think/ of asking me why, but if I set the window name to 
      * "acpi", the app refuses to dock properly - it's just plain /weird/.
      * So, wmacpi it is . . . */
-    new_window("wmacpi");
+    new_window(display, "wmacpi", argc, argv);
 
     /* get initial statistics */
-    acquire_all_info();
+    acquire_all_info(globals);
     binfo = &batteries[battery_no];
     globals->binfo = binfo;
     pinfo("monitoring battery %s\n", binfo->name);
     clear_time_display();
-    set_power_panel();
-    set_message();
+    set_power_panel(globals);
+    set_message(globals);
     set_batt_id_area(battery_no);
 
     /* main loop */
@@ -868,6 +814,7 @@ int main(int argc, char **argv)
 		binfo = globals->binfo;
 		pinfo("changing to monitor battery %d\n", battery_no + 1);
 		set_batt_id_area(battery_no);
+		dockapp->update = 1;
 		break;
 	    }
 	}
@@ -899,19 +846,19 @@ int main(int argc, char **argv)
 	 * translates to 600 sleeps. So, we change the default sample
 	 * rate to 20, and the calculation below becomes . . .*/
 	if (sample_count++ == ((sleep_rate*60)/samplerate)) {
-	    acquire_all_info();
+	    acquire_all_info(globals);
 
 	    /* we need to be able to reinitialise batteries and adapters, because
 	     * they change - you can hotplug batteries on most laptops these days
 	     * and who knows what kind of shit will be happening soon . . . */
 	    if (batt_count++ >= batt_reinit) {
-		    if(reinit_batteries()) 
+		    if(reinit_batteries(globals)) 
 			    pfatal("Oh my god, the batteries are gone!\n");
 		    batt_count = 0;
 	    }
 
 	    if (ac_count++ >= ac_reinit) {
-		    if(reinit_ac_adapters()) 
+		    if(reinit_ac_adapters(globals)) 
 			    pfatal("What happened to our AC adapters?!?\n");
 		    ac_count = 0;
 	    }
@@ -934,9 +881,9 @@ int main(int argc, char **argv)
 	 * much time remained until the batteries were fully charged . . . 
 	 * That would be rather useful, though given it would vary rather a lot
 	 * it seems likely that it'd be little more than a rough guesstimate. */
-	set_time_display();
-	set_power_panel();
-	set_message();
+	set_time_display(globals);
+	set_power_panel(globals);
+	set_message(globals);
 	display_percentage(binfo->percentage);
 	scroll_text();
 

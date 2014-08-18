@@ -1,3 +1,23 @@
+2004 August 18 1.99r7
+	Implemented the libdockapp port - this seems to close Debian bug
+	#227819, but it hasn't received sufficient testing.
+
+	Implemented a capacity mode for calculating time remaining (as
+	opposed to the normal current rate mode) - this mode samples the
+	remaining capacity of the battery and notes the time at which it
+	was sampled, and uses a history of samples to estimate the rate of
+	drain on the battery. From there it calculates a value for time
+	remaining. 
+
+	Also, various cleanups have gone in: 
+
+	* a reworking of the scrolling code
+	
+	* generic battery number support (rather than just
+	using two pixmaps, one for b1 and one for b2)
+
+	* stopped the battery glyph from blinking when running on AC
+	
 2004 July 19 1.99r6
 	Fix for Debian bug #250792 - the parser for the acpi files was
 	too stupid to deal with error conditions. I've now added some

@@ -2,7 +2,7 @@
 #define _LIBACPI_H_
 
 
-#define LIBACPI_VER "0.90"
+#define LIBACPI_VER "0.91"
 
 /* Here because we need it for definitions in this file . . . */
 #define MAX_NAME 128
@@ -71,22 +71,23 @@ typedef struct {
     power_state_t power;
 } adapter_t;
 
+/* how to calculate the time remaining */
+enum rtime_mode {
+    RT_RATE,			/* using the current rate, as per the ACPI spec */
+    RT_CAP,			/* using the remaining capacity over time */
+};
+
 typedef struct {
     int rtime;			/* remaining time */
     int timer;			/* how long been on battery? */
     int crit_level;		/* anything below this is critical low */
     int battery_count;		/* number of batteries found */
+    enum rtime_mode rt_mode;   
     battery_t *binfo;		/* pointer to the battery being monitored */
     adapter_t adapter;
 } global_t;
 
 /*
- * Note that there are some serious problems with this: firstly, handling of
- * multiple batteries sucks. I've cleaned it up a reasonable amount so far,
- * but I don't know enough about how multiple batteries are handled in the
- * actual power management code to be able to do it right. I need to plug
- * in the second battery for this LifeBook to see how it goes . . .
- *
  * Moving percentage to the battery is right, but I think we need a global
  * remaining capacity somewhere, too . . . 
  */
@@ -124,16 +125,16 @@ battery_t batteries[MAXBATT];
 int verbosity;
 
 /* check if apm/acpi is enabled, etc */
-int power_init(void);
+int power_init(global_t *globals);
 /* reinitialise everything */
-int power_reinit(void);
-int reinit_ac_adapters(void);
-int reinit_batteries(void);
+int power_reinit(global_t *globals);
+int reinit_ac_adapters(global_t *globals);
+int reinit_batteries(global_t *globals);
 
 /* fill global_t with data */
-void acquire_batt_info(int);
-void acquire_all_batt_info(void);
-void acquire_global_info(void);
-void acquire_all_info(void);
+void acquire_batt_info(global_t *globals, int batt);
+void acquire_all_batt_info(global_t *globals);
+void acquire_global_info(global_t *globals);
+void acquire_all_info(global_t *globals);
 
 #endif /* _WMACPI_H_ */
