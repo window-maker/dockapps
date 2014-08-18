@@ -46,7 +46,11 @@ static char **master_xpm = master_low_xpm;
 #include "master.xpm"
 #endif
 
+/* Do NOT change the BASE_PERIOD without reading the code ... */
+#define BASE_PERIOD 100000 /* base period, 100 ms (in usecs) */
+
 struct dockapp {
+    int x_fd;                   /* X11 fd */
     Display *display;		/* display */
     Window win;			/* main window */
     Pixmap pixmap;		/* main pixmap */
@@ -62,6 +66,7 @@ struct dockapp {
     int scroll;			/* scroll message text? */
     int scroll_reset;		/* reset the scrolling text */
     int percent;
+    int period_length;         /* length of the polling period, multiple of BASE_PERIOD */
 };
 
 /* globals */
@@ -142,6 +147,7 @@ static void new_window(char *display, char *name, int argc, char **argv)
     DAOpenDisplay(display, argc, argv);
     DACreateIcon(name, 64, 64, argc, argv);
     dockapp->display = DADisplay;
+    dockapp->x_fd = XConnectionNumber(dockapp->display);
     dockapp->win = DAWindow;
 
     XSelectInput(dockapp->display, dockapp->win,
@@ -406,7 +412,8 @@ static void really_blink_power_glyph(void)
 	kill_power_glyph();
     else if (counter > 30)
 	counter = 0;
-    counter++;
+
+    counter += dockapp->period_length;
 }
 
 static void blink_power_glyph(void)
@@ -425,7 +432,8 @@ static void really_blink_battery_glyph(void)
 	kill_battery_glyph();
     else if (counter > 30)
 	counter = 0;
-    counter++;
+
+    counter += dockapp->period_length;
 }    
 
 static void blink_battery_glyph(void)
@@ -654,6 +662,7 @@ battery_t *switch_battery(global_t *globals, int battno)
   return globals->binfo;
 }
 
+
 int main(int argc, char **argv)
 {
     char *display = NULL;
@@ -663,13 +672,15 @@ int main(int argc, char **argv)
     int ac_count = 0;
     int cli = 0, samples = 1, critical = 10;
     int samplerate = 20;
-    int sleep_rate = 10;
-    int sleep_time = 1000000/sleep_rate;
     int scroll_count = 0;
     enum rtime_mode rt_mode = RT_RATE;
     int rt_forced = 0;
     battery_t *binfo = NULL;
     global_t *globals;
+
+    fd_set fds;
+    struct timeval tv_rate;
+    struct timeval tv = {0, 0};
 
     DAProgramOption options[] = {
      {"-r", "--no-scroll", "disable scrolling message", DONone, False, {NULL}},
@@ -722,6 +733,33 @@ int main(int argc, char **argv)
     if (samplerate == 0) samplerate = 1;
     if (samplerate > 600) samplerate = 600;
 
+    /* convert to number of base periods */
+    samplerate = ((60 * 1000000) / samplerate) / BASE_PERIOD;
+
+    if (!dockapp->scroll) {
+	if (!dockapp->blink) {
+	    /* Adapt the period to the sample rate */
+	    tv_rate.tv_usec = samplerate * BASE_PERIOD;
+
+	    tv_rate.tv_sec = tv_rate.tv_usec / 1000000;
+	    tv_rate.tv_usec = tv_rate.tv_usec - (tv_rate.tv_sec * 1000000);
+
+	    dockapp->period_length = samplerate;
+	} else {
+	    /* blinking is every second */
+	    tv_rate.tv_sec = 1; /* BASE_PERIOD * 10 = 1 sec */
+	    tv_rate.tv_usec = 0;
+
+	    dockapp->period_length = 10;
+	}
+    } else {
+	/* scrolling is every BASE_PERIOD (100 ms) */
+	tv_rate.tv_sec = 0;
+	tv_rate.tv_usec = BASE_PERIOD;
+
+	dockapp->period_length = 1;
+    }
+
     if (critical > 100) {
         fprintf(stderr, "Please use values between 0 and 100%%\n");
         fprintf(stderr, "Using default value of 10%%\n");
@@ -771,10 +809,10 @@ int main(int argc, char **argv)
     acquire_all_info(globals);
 
     if (globals->battery_count > 0) {
-      binfo = &batteries[battery_no];
-      globals->binfo = binfo;
-      set_batt_id_area(battery_no);
-      pinfo("monitoring battery %s\n", binfo->name);
+	binfo = &batteries[battery_no];
+	globals->binfo = binfo;
+	set_batt_id_area(battery_no);
+	pinfo("monitoring battery %s\n", binfo->name);
     }
 
     clear_time_display();
@@ -842,27 +880,29 @@ int main(int argc, char **argv)
 	 * and is a slow device, so you get significant periods without
 	 * interrupts. This causes interactivity to suffer . . . 
 	 * 
-	 * My proposed workaround is to allow the user to set the sample
-	 * rate - it defaults to ten, but can be set lower (or higher).
+	 * So, the workaround/fix for this is to sample at a much
+	 * lower rate than we may update/refresh/expose/whatever. The
+	 * user specifies how many times they want us to sample per
+	 * minute; we use select() on our X events fd to wake up when
+	 * there's some display work to be done, with the timeout set
+	 * to whatever the time between samples is. When we hit our
+	 * select() timeout we update our samples, otherwise we update
+	 * the display.
 	 *
-	 * The only problem with this is that we need to sample less 
-	 * frequently, while still allowing the app to update normally. 
-	 * That means calling redraw_window() and all the set_*() functions
-	 * normally, but only calling acquire_all_info() every so often. 
-	 * As it stands, we only call acquire_all_info() once every three
-	 * seconds (once every thirty updates) . . . I'm not entirely sure
-	 * /how/ this could cause interactivity problems, but hey . . . 
-	 *
-	 * So, given the base rate of once every three seconds, we want to
-	 * change this test to . . . */
-	/* Okay, this needs /fixing/ - it's ridiculous. We should be giving
-	 * the user the option of saying how many times per minute the 
-	 * battery should be sampled, defaulting to 20 times. 
-	 * 
-	 * We sleep for one tenth of a second at a time, so 60 seconds
-	 * translates to 600 sleeps. So, we change the default sample
-	 * rate to 20, and the calculation below becomes . . .*/
-	if (sample_count++ == ((sleep_rate*60)/samplerate)) {
+	 * Note that this has a wrinkle when blinking and/or scrolling
+	 * is enabled, since we need to update the display more
+	 * frequently than we sample (most likely). In that case we
+	 * set the timeout based on the display update cycle. */
+
+	/* have we completed our timeout, or were we woken up early? */
+	if ((tv.tv_sec != 0) || (tv.tv_usec != 0))
+	    goto win_update;
+
+	tv = tv_rate;
+
+	sample_count += dockapp->period_length;
+
+	if (sample_count >= samplerate) {
 	    if (globals->battery_count == 0) {
 	        batt_count = 0;
 
@@ -883,15 +923,15 @@ int main(int argc, char **argv)
 	     * they change - you can hotplug batteries on most laptops these days
 	     * and who knows what kind of shit will be happening soon . . . */
 	    if (batt_count++ >= batt_reinit) {
-		    if(reinit_batteries(globals)) 
-			    pfatal("Oh my god, the batteries are gone!\n");
-		    batt_count = 0;
+		if(reinit_batteries(globals)) 
+		    pfatal("Oh my god, the batteries are gone!\n");
+		batt_count = 0;
 	    }
 
 	    if (ac_count++ >= ac_reinit) {
-		    if(reinit_ac_adapters(globals)) 
-			    pfatal("What happened to our AC adapters?!?\n");
-		    ac_count = 0;
+		if(reinit_ac_adapters(globals)) 
+		    pfatal("What happened to our AC adapters?!?\n");
+		ac_count = 0;
 	    }
 	    sample_count = 0;
 	}
@@ -924,11 +964,13 @@ int main(int argc, char **argv)
 
 	scroll_text();
 
-	/* redraw_window, if anything changed - determined inside 
-	 * redraw_window. */
+    win_update:
+	/* redraw_window, if anything changed */
 	redraw_window();
 
-	usleep(sleep_time);
+	FD_ZERO(&fds);
+	FD_SET(dockapp->x_fd, &fds);
+	select(FD_SETSIZE, &fds, NULL, NULL, &tv);
     }
     return 0;
 }

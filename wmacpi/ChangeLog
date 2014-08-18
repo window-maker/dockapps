@@ -1,3 +1,36 @@
+2008 November 14 2.2rc4
+	Change the way that we sleep/wait for activity, to use select
+	rather than a fixed-length sleep, supplied by Julien Blache of
+	Debian:
+
+	Hi,
+
+	The attached patch for wmacpi makes it use select() instead of
+	sleeping. It also adjusts the timeout of the select() call
+	depending on the blink & scroll options.
+
+	If scrolling is not activated, there's no reason to wake up
+	10x/sec. If blinking is activated, waking up once per second is
+	enough. If blinking is not activated, then we can wake up just to
+	update the data and we're fine.
+
+	With scrolling and blinking disabled, this saves a number of
+	wakeups and helps battery life. Unfortunately there's another
+	source of wakeups that's probably due to libdockapp that still
+	makes 6 wakeups/seconds (in another thread it seems).
+
+	With this patch wmacpi makes a best effort to match the sample
+	rate set by the user, but that's hardly an issue I think.
+
+	I haven't released this patch yet in Debian, so if you like it and
+	want to roll out a release, feel free :) Otherwise I'll add it to
+	the package soon.
+
+	Thanks,
+
+	JB.
+	
+	
 2008 March 18 2.2rc3
 	Some fixes for the sysfs interface support, supplied by
 	jblache@debian.org:
