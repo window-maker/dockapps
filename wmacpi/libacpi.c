@@ -409,7 +409,7 @@ static int calc_remaining_percentage(int batt)
 }
 
 /* check to see if we've been getting bad data from the batteries - if
- * we get more than some limit we swith to using the remaining capacity
+ * we get more than some limit we switch to using the remaining capacity
  * for the calculations. */
 static enum rtime_mode check_rt_mode(global_t *globals)
 {
@@ -477,7 +477,6 @@ static int calc_charge_time_rate(int batt)
  * mode, and then use that to estimate charge time. This will 
  * necessarily be even less accurate than it is for remaining time, but
  * it's just as neessary . . . */
-#define CAP_SAMPLES (SAMPLES*10)
 static int calc_charge_time_cap(int batt)
 {
     static float cap_samples[CAP_SAMPLES];

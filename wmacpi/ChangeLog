@@ -1,3 +1,10 @@
+2004 October 24 2.0
+	Upped version number to 2.0.
+
+	Small typo fixes.
+
+	wmacpi 2.0 goes gold . . .
+	
 2004 September 28 2.0rc1
 	Added support for switching to capacity mode automatically, on
 	detecting dodgy reports from the battery.

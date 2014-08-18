@@ -8,6 +8,7 @@
 #define MAX_NAME 128
 #define MAXBATT 8
 #define SAMPLES 50
+#define CAP_SAMPLES (SAMPLES*10)
 
 typedef enum {
     REMAIN,
