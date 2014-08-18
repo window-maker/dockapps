@@ -22,8 +22,8 @@ targets := wmacpi
 doc_targets := wmacpi.1
 
 ifdef BUILD_CLI
-targets += acpi
-doc_targets += acpi.1
+targets += wmacpi-cli
+doc_targets += wmacpi-cli.1
 endif
 
 PREFIX := /usr/local
@@ -42,11 +42,11 @@ wmacpi:	$(WMOBJ)
 # for the Debian package, we want to make building the command line tools
 # optional. So, we hide all the necessary stuff here . . . 
 ifdef BUILD_CLI
-CLSRC := acpi.c libacpi.c
+CLSRC := wmacpi-cli.c libacpi.c
 CLOBJ := $(patsubst %.c,%.o,$(filter %.c,$(CLSRC)))
 -include $(CLOBJ:.o=.d)
 
-acpi: $(CLOBJ)
+wmacpi-cli: $(CLOBJ)
 	$(CC) $(LDFLAGS) -o $@ $^
 endif
 

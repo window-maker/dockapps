@@ -45,7 +45,7 @@ void usage(char *name)
 
 void print_version(void)
 {
-	printf("acpi version %s\n", ACPI_VER);
+	printf("wmacpi-cli version %s\n", ACPI_VER);
 	printf(" Using libacpi version %s\n", LIBACPI_VER);
 }
 

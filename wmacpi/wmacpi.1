@@ -2,7 +2,7 @@
 .SH NAME
 wmacpi \- Battery status monitor for systems supporting ACPI
 .SH NAME
-acpi \- Query battery status for systems supporting ACPI
+wmacpi-cli \- Query battery status for systems supporting ACPI
 .SH SYNOPSIS
 .B wmacpi
 [
@@ -39,7 +39,7 @@ samples ]
 .RI -h
 ]
 .PP
-.B acpi
+.B wmacpi-cli
 [
 .RI -a
 samples ]
@@ -77,7 +77,7 @@ and a scrolling message with some hopefully useful information.
 Clicking on the window cycles through the batteries that the ACPI
 system knows about.
 .PP
-.B acpi
+.B wmacpi-cli
 queries the battery status from the command line. It prints the power
 status, the percentage remaining for each battery found, and the time
 remaining if the system is on battery, or the time remaining for each
@@ -115,8 +115,7 @@ rate.
 .TP
 .B \-x, --cmdline
 Run wmacpi in command line mode - this operates identically to 
-.B acpi
-..
+.B wmacpi-cli\&.
 .TP
 .B \-a, --samples=samples
 Average the time remaining over num samples. This greatly improves the
@@ -136,7 +135,7 @@ Disable scrolling message.
 .B \-h, --help
 Display help.
 .TP
-.B acpi
+.B wmacpi-cli
 .TP
 .B \-a num
 Average the time remaining over num samples. This greatly improves the
