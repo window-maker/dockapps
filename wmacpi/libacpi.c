@@ -10,7 +10,7 @@
 #include "libacpi.h"
 
 extern char *state[];
-extern APMInfo *apminfo;
+extern global_t *globals;
 /* temp buffer */
 char buf[512];
 
@@ -87,7 +87,7 @@ int init_ac_adapters(void)
 {
     DIR *acdir;
     struct dirent *adapter;
-    adapter_t *ap = &apminfo->adapter;
+    adapter_t *ap = &globals->adapter;
     char *name;
 
     acdir = opendir("/proc/acpi/ac_adapter");
@@ -166,7 +166,7 @@ power_state_t get_power_status(void)
     FILE *file;
     char buf[1024];
     char *val;
-    adapter_t *ap = &apminfo->adapter;
+    adapter_t *ap = &globals->adapter;
     
     if ((file = fopen(ap->state_file, "r")) == NULL) {
 	snprintf(buf, 1024, "Could not open state file %s", ap->state_file);
@@ -385,7 +385,7 @@ static int calc_charge_time(int batt)
 void acquire_batt_info(int batt)
 {
     battery_t *binfo;
-    adapter_t *ap = &apminfo->adapter;
+    adapter_t *ap = &globals->adapter;
     
     get_battery_info(batt);
     
@@ -395,7 +395,7 @@ void acquire_batt_info(int batt)
 	binfo->percentage = 0;
 	binfo->valid = 0;
 	binfo->charge_time = 0;
-	apminfo->rtime = 0;
+	globals->rtime = 0;
 	return;
     }
 
@@ -403,10 +403,10 @@ void acquire_batt_info(int batt)
 
     /* set the battery's capacity state, based (at present) on some 
      * guesstimated values: more than 75% == HIGH, 25% to 75% MED, and
-     * less than 25% is LOW. Less than apminfo->crit_level is CRIT. */
+     * less than 25% is LOW. Less than globals->crit_level is CRIT. */
     if (binfo->percentage == -1)
 	binfo->state = BS_ERR;
-    if (binfo->percentage < apminfo->crit_level)
+    if (binfo->percentage < globals->crit_level)
 	binfo->state = CRIT;
     else if (binfo->percentage > 75) 
 	binfo->state = HIGH;
@@ -416,7 +416,7 @@ void acquire_batt_info(int batt)
 	binfo->state = LOW;
 
     /* we need to /know/ that we've got a valid state for the 
-     * apminfo->power value . . . .*/
+     * globals->power value . . . .*/
     ap->power = get_power_status();
 
     if ((ap->power != AC) && (binfo->charge_state == DISCHARGE)) {
@@ -451,7 +451,7 @@ void acquire_global_info(void)
     float rcap = 0;
     float rate = 0;
     battery_t *binfo;
-    adapter_t *ap = &apminfo->adapter;
+    adapter_t *ap = &globals->adapter;
     static float rate_samples[SAMPLES];
     static int j = 0;
     static int sample_count = 0;
@@ -507,7 +507,7 @@ void acquire_global_info(void)
 	rtime = 0;
  out:
     eprint(0, "time rem: %d\n", rtime);
-    apminfo->rtime = rtime;
+    globals->rtime = rtime;
 
     /* get the power status.
      * note that this is actually reported seperately from the

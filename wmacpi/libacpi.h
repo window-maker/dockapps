@@ -77,7 +77,7 @@ typedef struct {
     int timer;			/* how long been on battery? */
     int crit_level;		/* anything below this is critical low */
     battery_t *binfo;		/* pointer to the battery being monitored */
-} APMInfo;
+} global_t;
 
 /*
  * Note that there are some serious problems with this: firstly, handling of
@@ -119,7 +119,7 @@ int batt_count;
 
 /* check if apm/acpi is enabled, etc */
 int power_init(void);
-/* fill APMInfo with data */
+/* fill global_t with data */
 void acquire_batt_info(int);
 void acquire_all_batt_info(void);
 void acquire_global_info(void);

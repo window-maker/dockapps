@@ -35,7 +35,7 @@
 #include "libacpi.h"
 #include "wmacpi-ng.h"
 
-#define WMACPI_NG_VER "0.90"
+#define WMACPI_NG_VER "0.99"
 
 /* main pixmap */
 #ifdef LOW_COLOR
@@ -66,7 +66,7 @@ char *state[] = { "AC", "Charging", "High", "Low", "Crit" };
 
 /* globals */
 Dockapp *dockapp;
-APMInfo *apminfo;
+global_t *globals;
 int count = 0;			/* global timer variable */
 int noisy_critical = 0;		/* ring xbell annoyingly if critical? */
 
@@ -449,8 +449,8 @@ static void blink_battery_glyph(void)
 static void set_power_panel(void)
 {
     enum panel_states power = PS_NULL;
-    battery_t *binfo = apminfo->binfo;
-    adapter_t *ap = &apminfo->adapter;
+    battery_t *binfo = globals->binfo;
+    adapter_t *ap = &globals->adapter;
 
     if (ap->power == AC) {
 	if (power != PS_AC) {
@@ -504,8 +504,8 @@ enum messages {
 static void set_message(void)
 {
     static enum messages state = M_NULL;
-    battery_t *binfo = apminfo->binfo;
-    adapter_t *ap = &apminfo->adapter;
+    battery_t *binfo = globals->binfo;
+    adapter_t *ap = &globals->adapter;
     
     /* battery not present case */
     if (!binfo->present) {
@@ -563,7 +563,7 @@ void set_time_display(void)
     if (binfo->charge_state == CHARGE)
 	display_time(binfo->charge_time);
     else if (binfo->charge_state == DISCHARGE)
-	display_time(apminfo->rtime);
+	display_time(globals->rtime);
     else
 	invalid_time_display();
 }
@@ -622,10 +622,10 @@ int main(int argc, char **argv)
     battery_t *binfo;
 
     dockapp = calloc(1, sizeof(Dockapp));
-    apminfo = calloc(1, sizeof(APMInfo));
+    globals = calloc(1, sizeof(global_t));
 
     dockapp->blink = 1;
-    apminfo->crit_level = 10;
+    globals->crit_level = 10;
     battery_no = 1;
 
     /* see if whatever we want to use is supported */
@@ -641,10 +641,10 @@ int main(int argc, char **argv)
 	    break;
 	case 'c':
 	    if (optarg) {
-		apminfo->crit_level = atoi(optarg);
-		if ((apminfo->crit_level < 0) || (apminfo->crit_level > 100)) {
+		globals->crit_level = atoi(optarg);
+		if ((globals->crit_level < 0) || (globals->crit_level > 100)) {
 		    fprintf(stderr, "Please use values between 0 and 100%%\n");
-		    apminfo->crit_level = 10;
+		    globals->crit_level = 10;
 		    fprintf(stderr, "Using default value of 10%%\n");
 		}
 	    }
@@ -712,7 +712,7 @@ int main(int argc, char **argv)
     /* get initial statistics */
     acquire_all_info();
     binfo = &batteries[battery_no];
-    apminfo->binfo = binfo;
+    globals->binfo = binfo;
     fprintf(stderr, "monitoring battery %s\n", binfo->name);
     clear_time_display();
     set_power_panel();
@@ -742,8 +742,8 @@ int main(int argc, char **argv)
 		/* cycle through the known batteries. */
 		battery_no++;
 		battery_no = battery_no % batt_count;
-		apminfo->binfo = &batteries[battery_no];
-		binfo = apminfo->binfo;
+		globals->binfo = &batteries[battery_no];
+		binfo = globals->binfo;
 		fprintf(stderr, "changing to monitor battery %d\n", battery_no + 1);
 		set_batt_id_area(battery_no);
 		break;

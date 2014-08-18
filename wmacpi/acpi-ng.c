@@ -26,9 +26,9 @@
 
 #include "libacpi.h"
 
-#define ACPI_NG_VER "0.90"
+#define ACPI_NG_VER "0.99"
 
-APMInfo *apminfo;
+global_t *globals;
 
 void usage(char *name)
 {
@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	apminfo = (APMInfo *) malloc(sizeof(APMInfo));
+	globals = (global_t *) malloc(sizeof(global_t));
 
 	power_init();
 	/* we want to acquire samples over some period of time, so . . . */
@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 		usleep(sleep_time);
 	}
 	
-	ap = &apminfo->adapter;
+	ap = &globals->adapter;
 	if(ap->power == AC) {
 		printf("On AC Power");
 		for(i = 0; i < batt_count; i++) {
@@ -118,9 +118,9 @@ int main(int argc, char *argv[])
 				printf(", Battery %s at %d%%", binfo->name,
 				       binfo->percentage);
 		}
-		if(apminfo->rtime >= 0)
-			printf("; %d:%02d remaining", apminfo->rtime/60, 
-			       apminfo->rtime%60);
+		if(globals->rtime >= 0)
+			printf("; %d:%02d remaining", globals->rtime/60, 
+			       globals->rtime%60);
 		printf("\n");
 	}
 	return 0;

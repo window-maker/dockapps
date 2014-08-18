@@ -1,3 +1,14 @@
+2003 September 26 0.99
+	Fix the last of the old wmacpi code oddities (specifically, the
+	APMInfo struct, which was a completely inappropriate name given we
+	no longer deal with APM, and because of the various code
+	refactoring).
+
+	I think this is probably as good as I can make it without getting
+	more feedback and the like, so I'm going to make this version
+	0.99, preliminary to either wmacpi-ng 1.0 or wmacpi 2.0 (depending
+	which direction I go with that).
+	
 2003 September 23 0.92
 	Fix a few more bugs, and include an option to allow the user to
 	specify how often to sample the ACPI data - some BIOSes disable

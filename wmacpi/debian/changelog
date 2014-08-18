@@ -1,3 +1,9 @@
+wmacpi-ng (0.99-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Simon Fowler <simon@dreamcraft.com.au>  Fri, 26 Sep 2003 13:48:55 +1000
+
 wmacpi-ng (0.92-1) unstable; urgency=low
 
   * New upstream version.
