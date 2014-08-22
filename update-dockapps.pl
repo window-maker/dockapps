@@ -56,6 +56,13 @@ my $r = Git::Repository->new();
 my @tags = $r->run("tag");
 my %dockapps;
 
+# If any earlier versions of a dockapp had an alternate name, e.g. a name change
+# or a fork which has since been blessed, add it to this hash as 'alt' =>
+# 'main'.  The alternate should still have its own entry in dockapps.db.in.
+my %alts = (
+	'wmacpi-ng' => 'wmacpi'
+    );
+
 foreach my $tag (@tags) {
 	$tag =~ /([\w\-+.]+)-([\w.]+)/;
 	my $dockapp = $1;
@@ -69,11 +76,18 @@ foreach my $tag (@tags) {
 	if (!$ls) {
 		$ls = $r->run("ls-tree", $tag, "$dockapp" . "_$version");
 	}
+#for alts
+	if (!$ls) {
+		$ls = $r->run("ls-tree", $tag, $alts{$dockapp});
+	}
 	my $sha1 = (split(/\s/, $ls))[2];
 	$dockapps{$dockapp}{$version} = $sha1;
 }
 
 foreach my $dockapp (keys %dockapps) {
+	if (grep {$_ eq $dockapp} keys %alts) {
+		next;
+	}
 	my $latest_version = (sort by_version keys $dockapps{$dockapp})[-1];
 	if ($r->run("diff", "$dockapp-$latest_version", "HEAD", $dockapp)) {
 		my $commit = $r->run("log", "-1",
