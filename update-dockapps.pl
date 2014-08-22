@@ -46,6 +46,7 @@ use warnings;
 use strict;
 use Git::Repository;
 use POSIX;
+use Debian::Dpkg::Version;
 
 open DB, "dockapps.db.in" or die $!;
 my $db = do { local $/; <DB> };
@@ -73,7 +74,7 @@ foreach my $tag (@tags) {
 }
 
 foreach my $dockapp (keys %dockapps) {
-	my $latest_version = (sort keys $dockapps{$dockapp})[-1];
+	my $latest_version = (sort by_version keys $dockapps{$dockapp})[-1];
 	if ($r->run("diff", "$dockapp-$latest_version", "HEAD", $dockapp)) {
 		my $commit = $r->run("log", "-1",
 				  "--pretty=format:%H", $dockapp);
@@ -95,7 +96,7 @@ foreach my $dockapp (keys %dockapps) {
 
 foreach my $dockapp (keys %dockapps) {
 	my $versions = "";
-	foreach my $version (reverse sort keys $dockapps{$dockapp}) {
+	foreach my $version (reverse sort by_version keys $dockapps{$dockapp}) {
 		$versions .= "version-$version = " .
 		    $dockapps{$dockapp}{$version} . "\n";
 	}
@@ -107,6 +108,9 @@ open DB, ">dockapps.db" or die $!;
 print DB $db;
 close DB;
 
-
-
-
+sub by_version {
+	(my $left = $a) =~ s/(a|b|rc)/~$1/;
+	(my $right = $b) =~ s/(a|b|rc)/~$1/;
+	Debian::Dpkg::Version->new($left) <=>
+		Debian::Dpkg::Version->new($right);
+}
