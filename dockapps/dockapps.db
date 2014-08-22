@@ -40,12 +40,40 @@ dockapps = 299
 category = System Monitoring
 
 [wmacpi]
-version-1.34+20120605 = f97409b25908700bd8547f84c82d33a12832c101
+version-2.2 = efbb69d77277b35cb7689dc6850f1dc5b40b8be6
+version-2.2rc5 = daa0ba41e07a073d40576e4344d3ddfb555d6282
+version-2.2rc4 = 2d177139b0215d984ee579967f3ffdf1cbec0dc2
+version-2.2rc3 = c8826c566b626e5fe2a85374cac4ae19f79c6f04
+version-2.2rc1 = b4abb4aa3fcfab41f910d93fba750677eb478440
+version-2.2a1 = 5bd0a1506a74e130529c63eb6d9ab157d436a866
+version-2.1 = 1182b768b19cc04dc99fa30b4e6f19f6ccac70c9
+version-2.1rc1 = c96a254d7cbb32a72dd9710cc032eaf6e7a239f8
+version-2.0 = da707e549701ef92cf1762628180622d19286bce
+version-2.0rc1 = 9b05d13418865482cbb83f47f18c566a712d581c
+version-1.99r7 = e323ae0d09abf670713ee24c7237cf13db2202a6
+version-1.99r6 = 5370dbae45938b2af4c641c133092802c173599f
+version-1.99r5 = 735bbf806d41b17d1c6237534584fbf660f3437e
+version-1.99r4 = 5a41f6a64c81b88677db08f3007583a62f30a2b8
+version-1.99r3 = 7e1703daf4ece493483f643adb62c0fa400995ca
+version-1.99r2 = 861359a37f289995fb2df0cca2334ba5ab9b196f
+version-1.99r1 = 4dbaa09d56ac569fb8563e89549199a1b534f5bd
+version-1.99 = 4972f60b1e8a307a63a7364666408b2367e4dd51
 version-1.34 = e0127485c8efbee7e1a45eef2aea8a1b702f5f07
 image = wmacpi.gif
 description = "This is port of WMApm 1.1 (see below) with ACPI support. Check README, and please report success/failure issues to me. Since I can't determine "time remaining" from the information provided, its value has been replaced with "system power load", which is roughly how much power is being used while on-battery. Note, this (for now) only supports laptops with one system battery. I am working with kernel acpi people to standartize power reporting interface, and when it's usable, WMApm will be updated to support any number of batteries, and provide full information about ACPI power sources. Right now, all I can say is that it works on my laptop :)"
-url = "http://www.ne.jp/asahi/linux/timecop/"
+url = "https://web.archive.org/web/20140630032948/http://himi.org/wmacpi/"
 dockapps = 32
+category = System Monitoring
+
+[wmacpi-ng]
+version-0.99 = 8412efc4a666a6cf47ecab09f1309789966635ca
+version-0.92 = 8e9a4f401aa0f29fb73d6f86f6291f67cced2257
+version-0.90 = e44783640e4557dfca57a6390616e36898054922
+version-0.50 = 0bb6be240ee924a85a0bcd865c64374c049d1d74
+image = wmacpi.gif
+description = "wmacpi-ng was a fork of <a href=\"?name=wmacpi\">wmacpi</a>.  Eventually, wmacpi-ng was blessed as the official version of wmacpi."
+url = "https://web.archive.org/web/20140630032948/http://himi.org/wmacpi/"
+dockapps =
 category = System Monitoring
 
 [wmacpiload]
