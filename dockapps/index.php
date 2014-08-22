@@ -62,7 +62,6 @@ if ($name) {
 			array_push($versions,
 				   substr($key, strrpos($key, "-")+1));
 	}
-	rsort($versions);
 	foreach ($versions as $version) {
 		echo "<a href=\"?download=$name-$version.tar.gz\">" .
 			"$name-$version</a><br/>\n";
