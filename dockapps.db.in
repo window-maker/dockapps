@@ -34,8 +34,15 @@ category = System Monitoring
 [wmacpi]
 image = wmacpi.gif
 description = "This is port of WMApm 1.1 (see below) with ACPI support. Check README, and please report success/failure issues to me. Since I can't determine "time remaining" from the information provided, its value has been replaced with "system power load", which is roughly how much power is being used while on-battery. Note, this (for now) only supports laptops with one system battery. I am working with kernel acpi people to standartize power reporting interface, and when it's usable, WMApm will be updated to support any number of batteries, and provide full information about ACPI power sources. Right now, all I can say is that it works on my laptop :)"
-url = "http://www.ne.jp/asahi/linux/timecop/"
+url = "https://web.archive.org/web/20140630032948/http://himi.org/wmacpi/"
 dockapps = 32
+category = System Monitoring
+
+[wmacpi-ng]
+image = wmacpi.gif
+description = "wmacpi-ng was a fork of <a href=\"?name=wmacpi\">wmacpi</a>.  Eventually, wmacpi-ng was blessed as the official version of wmacpi."
+url = "https://web.archive.org/web/20140630032948/http://himi.org/wmacpi/"
+dockapps =
 category = System Monitoring
 
 [wmacpiload]
