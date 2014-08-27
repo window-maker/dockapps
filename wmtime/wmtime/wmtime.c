@@ -231,11 +231,9 @@ void wmtime_routine(int argc, char **argv) {
 	int			but_stat = -1;
 
 	struct tm	*time_struct;
-	struct tm	old_time_struct;
 
 	long		starttime;
 	long		curtime;
-	long		nexttime;
 
 	char		*conffile = NULL;
 
@@ -273,7 +271,6 @@ void wmtime_routine(int argc, char **argv) {
 	AddMouseRegion(1, 5, 5, 58, 46);
 
 	starttime = time(0);
-	nexttime = starttime + 1;
 
 	curtime = time(0);
 	time_struct = localtime(&curtime);
@@ -283,7 +280,6 @@ void wmtime_routine(int argc, char **argv) {
 
 		waitpid(0, NULL, WNOHANG);
 		
-		old_time_struct = *time_struct;
 		time_struct = localtime(&curtime);
 
 
