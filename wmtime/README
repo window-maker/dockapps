@@ -3,17 +3,17 @@ WMTime-1.1
 Authors...: Martijn Pieterse (pieterse@xs4all.nl)
        	    Antoine Nulle    (warp@xs4all.nl)
 
-Maintainer: Doug Torrance    (dtorrance@monmouthcollege.edu)
-		
+Maintainer: Window Maker Developers Team (wmaker-dev@lists.windowmaker.org)
+
 Note......: The official WMTime support website address:
- 
-     	    http://wmtime.sourceforge.net
-	    
+
+	    http://windowmaker.org/dockapps/?name=wmtime
+
 Credits...: Bobby Mezaway (bobby@mezaway.org) for generously
 	    hosting the original website
 	    Pascal G.Hofstee (daeron@Wit401305.student.utwente.nl)
 	    for supplying an Imakefile for *BSD systems
-	    Alen Salamun (snowman@hal9000.medinet.si) 
+	    Alen Salamun (snowman@hal9000.medinet.si)
 	    for supplying the Locale support patches!
 
 Description
@@ -49,18 +49,16 @@ BUGS		Things you don't want to know ;-)
 CHANGES 	Description of changes.
 TODO            Stuff we've planned for future WMTime releases.
 COPYING		GNU General Public License Version 2.
-	
+
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please submit a  
-bugreport at
-https://sourceforge.net/p/wmtime/tickets/
+If you discover any bugs in this software, please submit a
+bugreport to
+wmaker-dev@lists.windowmaker.org
 
 Copyright
 --------------------------------------------------------------
 WMTime.app is copyright (c) 1997, 1998 by Martijn Pieterse and
-Antoine Nulle and licensed through the GNU General Public License. 
+Antoine Nulle and licensed through the GNU General Public License.
 Read the COPYING file for the complete GNU license.
-
-
