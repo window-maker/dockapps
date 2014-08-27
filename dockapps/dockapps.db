@@ -397,6 +397,7 @@ dockapps = 320
 category = System Monitoring
 
 [wmtime]
+version-1.1+20140827 = 38656d1a592dda01e16e76e38466f2ec5620dcef
 version-1.1 = 41744c0d145f064c961989e2650a279b59e27518
 version-1.0b2 = 0ead761a83788078585342c0728f3d9430baac29
 image = wmtime.png
