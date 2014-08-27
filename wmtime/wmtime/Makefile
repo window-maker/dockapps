@@ -17,9 +17,9 @@ wmtime: $(OBJS) $(XPMS)
 
 clean::
 	for i in $(OBJS) ; do \
-		rm $$i; \
+		rm -f $$i; \
 	done
-	rm wmtime
+	rm -f wmtime
 
 install:: wmtime
 	install -m 755 wmtime $(DESTDIR)/usr/bin
