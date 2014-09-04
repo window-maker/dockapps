@@ -16,6 +16,40 @@
       <tr>
         <td content="content" colspan="2" valign="top">
 
+	<h3>Version 0.95.6 released</h3>
+	  <p> Window Maker 0.95.6 was released on August 30th 2014.</p>
+
+	<ul>
+	<li>
+         <p> Window Maker can now load WebP images and support ImageMagick library to support even more
+	     formats like SVG, BMP, TGA, ... (David Maciejak)
+	</p>
+	</li>
+
+	<li>
+	<p> Add mini-window <a href="http://repo.or.cz/w/wmaker-crm.git/commit/c6c7652e240f3bc49fb23939bc49eb042aff85ad"> apercu </a>, a small preview of
+            window contents (David Maciejak)
+	</li>
+
+	<li>
+	<p> Support for up to 9-buttons mouse added (David Maciejak)
+	</li>
+
+	<li>
+	<p> Many configuration options added to WPrefs.app (Doug Torrance)
+	</li>
+
+	<li>
+	<p> Add wmiv, an image viewer application (David Maciejak)
+	</li>
+
+	<li>
+	<p>  Bug fixes and code cleanups by various people.</p<
+	</li>
+
+
+	</ul>
+
 	<h3>Version 0.95.5 released</h3>
 	  <p> Window Maker 0.95.5 was released on August 29th 2013.</p>
 
