@@ -1,0 +1,103 @@
+.\"             -*-Nroff-*-
+.\"
+.TH wmppp.app 1 "September 1998" "Debian Project" "Debian GNU/Linux"
+.SH NAME
+wmppp \- Graphically monitor the average PPP load
+.P
+.SH SYNOPSIS
+.B wmppp
+.RB [\| \-display
+.IR <display\ name> \|]
+.RB [\| \-t \|]
+.RB [\| \-u
+.IR <update\ rate> \|]
+.RB [\| \-i
+.IR <device> \|]
+.RB [\| \-h \|]
+.RB [\| \-v \|]
+.SH DESCRIPTION
+\fBwmppp.app\fP displays a dynamic representation of the load on the
+PPP line on a 64x64 miniwindow. It also starts and stops the
+connection and displays the time enlapsed since the it came up. The
+traffic on the interface is also monitored.
+.SH OPTIONS
+.TP
+.B \-display <display\ name>
+name of display to use
+.TP
+.B \-t
+sets the on-line timer to display MM:SS instead of the default HH:MM.
+.TP
+.B \-u <update rate>
+sets the frequency, in seconds, for updates to the display.  Valid
+range is 1-10, default value is 5.
+.TP
+.B \-i <device>
+choose the net device (ppp1, ippp0, etc.) to monitor.  (Note that this
+feature is EXPERIMENTAL and should be used with caution.  Bug reports
+are welcomed.)
+.TP
+.B \-h
+displays a command line summary
+.TP
+.B \-v
+displays the version number.
+.SH CONFIGURATION
+The configuration file (see below) may contain any of the following
+key-value pairs. The format is \fIkey: value\fP.
+.TP
+.I start
+The program that starts the connection
+.TP
+.I stop
+The program that stops the connection
+.TP
+.I speed
+This program reports the speed of the connection. This program should
+output \fI<speed>\fP, that is, a \fInumber\fP is expected and not the
+whole \"CONNECT\" line the modem outputs.
+.TP
+.I ifdown
+This program is run if the line goes down, and the \fIstop\fP program
+hasn't been run. (Redial program)
+.TP
+.I stampfile
+The modification time of this file is used to calculate the amount of
+time the connection has been up. Something like \fItouch <stampfile>\fP
+should be run for this to work.
+.SH FILES
+.TP
+/var/run/wmppp.\fIppp0\fP
+this is the stamp file use to determine the ammount of time enlapsed
+since the connection came up. This file should be managed by the ip-up
+and ip-down scripts. On Debian systems, \fI/etc/ppp/ip-up.d/00wmppp\fP
+creates the file, and \fI/etc/ppp/ip-down.d/00wmppp\fP removes it.
+.TP
+/etc/wmppprc
+System wide defaults
+.TP
+$HOME/.wmppprc
+User defined settings
+.TP
+/etc/wmppprc.fixed
+System wide fixed options, this overrides the user settings
+.SH AUTHORS
+\fBwmppp.app\fP was written by \fIMartijn Pieterse
+<pieterse@xs4all.nl>\fP and \fIAntoine Nulle <warp@xs4all.nl>\fP, and
+it's based on work by \fIBeat Christen <bchriste@iiic.ethz.ch>\fP
+(asclock) and \fIMichael Callahan <callahan@maths.ox.ac.uk>\fP, \fIAl
+Longyear longyear@netcom.com\fP and \fIPaul Mackerras
+<Paul.Mackerras@cs.anu.edu.au>\fP (pppstats).
+.P
+Email regarding wmppp should be sent to
+\fIdockapps@windowmaker.kimitsu.com\fP.
+.P
+This manpage was written by \fIMarcelo Magallon
+<mmagallo@debian.org\fP for the \fIDebian Project\fP
+.SH "SEE ALSO"
+.BR pppd (8),
+.BR pppstats (8),
+.BR plog (1),
+.BR pon (1),
+.BR poff (1)
+

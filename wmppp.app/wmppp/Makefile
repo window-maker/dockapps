@@ -32,4 +32,5 @@ install::
 	chmod 644 /etc/wmppprc
 	chown root.root /etc/wmppprc
 	cp -f user.wmppprc $(HOME)/.wmppprc
+	cp -f wmppp.1 /usr/local/share/man/man1
 	echo "WMPPP installation finished."
