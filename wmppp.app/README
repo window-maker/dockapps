@@ -3,17 +3,14 @@ WMPPP-1.3.0 - Public release
 Authors...: Martijn Pieterse (pieterse@xs4all.nl)
        	    Antoine Nulle    (warp@xs4all.nl)
 
-Note......: WMPPP has it's own mailbox, as our pop3 accounts
-			are already way too crowded :)
+Note......: Please mail bugreports, comments, suggestions,
+	    requests and flames to:
 
-			Please mail bugreports, comments, suggestions,
-			requests and flames to:
-
-			dockapps@warped.xs4all.nl
+	    wmaker-dev@lists.windowmaker.org
 
 			The official WMPPP support website address:
 
-     	    http://windowmaker.mezaway.org/
+	    http://windowmaker.org/dockapps/?name=wmppp.app
 
 
 Description
@@ -53,7 +50,7 @@ COPYING		GNU General Public License Version 2.
 Bugs
 --------------------------------------------------------------
 If you discover any bugs in this software, please send a
-bugreport to dockapps@warped.xs4all.nl and describe the
+bugreport to wmaker-dev@lists.windowmaker.org and describe the
 problem as detailed! as you can.
 
 
