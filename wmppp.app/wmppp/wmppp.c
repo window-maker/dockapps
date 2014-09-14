@@ -771,6 +771,11 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 void PrintLittle(int i, int *k) {
 
 	switch (i) {
+	case -2:
+		*k -= 5;
+		/* Print the "k" letter */
+		copyXPMArea(11*5-5, 86, 4, 9, *k, 48);
+		break;
 	case -1:
 		*k -= 5;
 		copyXPMArea(13*5-5, 86, 4, 9, *k, 48);
@@ -835,6 +840,13 @@ void DrawLoadInd(int speed) {
 	for (i=0; i<5; i++) PrintLittle(-1, &k);
 
 	k = 30;
+
+	/* If speed is greater than 99999, display it in K */
+	if (speed > 99999 )
+	{
+		speed /= 1024 ;
+		PrintLittle(-2, &k) ;
+	}
 
 	do {
 		PrintLittle(speed % 10, &k);
