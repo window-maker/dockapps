@@ -192,7 +192,7 @@
 #define SPEED_ACTION (NULL)
 #define IFDOWN_ACTION (NULL)
 
-#define STAMP_FILE "/var/run/ppp0.pid"
+#define STAMP_FILE_PRE "/var/run/wmppp."
 
 /* Defines voor alle coordinate */
 
@@ -362,6 +362,7 @@ char	*start_action = NULL;
 char	*stop_action = NULL;
 char	*speed_action = NULL;
 char	*ifdown_action = NULL;
+char    *stamp_file = NULL;
 
 void wmppp_routine(int argc, char **argv) {
 
@@ -370,6 +371,7 @@ void wmppp_routine(int argc, char **argv) {
 		{ "stop", &stop_action },
 		{ "speed", &speed_action },
 		{ "ifdown", &ifdown_action },
+		{ "stampfile", &stamp_file },
 		{ NULL, NULL }
 	};
 
@@ -411,6 +413,11 @@ void wmppp_routine(int argc, char **argv) {
 	if (STOP_ACTION) stop_action = strdup(STOP_ACTION);
 	if (SPEED_ACTION) speed_action = strdup(SPEED_ACTION);
 	if (IFDOWN_ACTION) ifdown_action = strdup(IFDOWN_ACTION);
+	if (STAMP_FILE_PRE) {
+           sprintf (temp, "%s%s", STAMP_FILE_PRE, active_interface);
+           stamp_file = strdup (temp);
+	}
+
 
 	strcpy(temp, "/etc/wmppprc");
 	parse_rcfile(temp, wmppp_keys);
@@ -483,7 +490,7 @@ void wmppp_routine(int argc, char **argv) {
 				if (!starttime) {
 					starttime = currenttime;
 
-					if (stat(STAMP_FILE, &st) == 0)
+					if (stat(stamp_file, &st) == 0)
 						starttime = st.st_mtime;
 
 					SetOnLED(LED_PPP_POWER);
