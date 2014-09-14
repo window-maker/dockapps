@@ -1,16 +1,16 @@
 LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lXpm -lXext -lX11
-CFLAGS = -O2
+CFLAGS += -O2
 OBJS  = wmppp.o \
 		../wmgeneral/wmgeneral.o \
 		../wmgeneral/misc.o \
 		../wmgeneral/list.o
 
 .c.o:
-	cc -g -c $(CFLAGS) -Wall $< -o $*.o
+	cc -g -c $(CPPFLAGS) $(CFLAGS) -Wall $< -o $*.o
 
 wmppp: $(OBJS)
-	cc -o wmppp $^ -lXext $(LIBDIR) $(LIBS)
+	cc -o wmppp $(LDFLAGS) $^ -lXext $(LIBDIR) $(LIBS)
 
 all:: wmppp getmodemspeed
 
