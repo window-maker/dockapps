@@ -310,10 +310,15 @@ int main(int argc, char *argv[]) {
 					usage();
 					exit(1);
 				}
+				/* following removed to allow experiments with
+				 * new devices, i.e. ippp
+				 */
+#if 0
 				if (strncmp(argv[i+1], "ppp", 3)) {
 					usage();
 					exit(1);
 				}
+#endif
 				active_interface = argv[i+1];
 				i++;
 				break;
