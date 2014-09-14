@@ -14,7 +14,7 @@ the WindowMaker Dock (preferred) or the Clip.
 Now press the rightmouse button on WMPPP's outer edges and
 select "Settings..." from the popup menu that appears.
 
-Enable the 'Start when WindowMaker is started' option, then 
+Enable the 'Start when WindowMaker is started' option, then
 click on the 'OK' button in the Docked Applications Panel.
 
 
@@ -32,7 +32,7 @@ pixel shaped icon on your desktop.
 BTW, FVWM can swallow it too, so we've heard ;-)
 
 
-Dragging WMPPP 
+Dragging WMPPP
 --------------------------------------------------------------
 Be sure to drag WMPPP on it's outer edges, WMPPP is a bit
 picky due to the large gfx pixmap it keeps ;-)
@@ -59,7 +59,7 @@ succesfull connect, after those 60 seconds, the CARRIER/CONNECT
 value will dissapear and the Speed-O-Meter will take it's place.
 
 
-Creating PPP dialup scripts 
+Creating PPP dialup scripts
 --------------------------------------------------------------
 Since we've dropped the graphic configuration GUI,
 you'll have to create some dialup scripts yourself
@@ -101,15 +101,15 @@ You can define them in your ~/.wmppprc like:
 	stop: /home/ppp/wmppp-stop
 	ifdown: /home/ppp/wmppp-restart
 
-Note: The option 'speed:' is to define the location where 
+Note: The option 'speed:' is to define the location where
 'getmodemspeed' resides, getmodemspeed is a little program
-that's responsible for the WMPPP CARRIER/CONNECT display. 
+that's responsible for the WMPPP CARRIER/CONNECT display.
 
 You'll also need two entries in your 'chatfile' i.e.
 
 	REPORT CARRIER
 	REPORT CONNECT
-	
+
 This will make chat log all connects and carriers to
 /etc/ppp/connect-errors, which getmodemspeed needs,
 that is, if you want WMPPP to display your CARRIER
@@ -132,7 +132,7 @@ scripts (we don't, we assure you ;-) ) can launch the appropiate
 RedHat ppp scripts, same applies to Debian and any other other
 distribution which provide a simular non-standard ppp setup
 feature for setting up ppp scripts.
- 
+
 See the documentation that ships with your Linux distribution
 for more info (if needed).
 
@@ -145,7 +145,7 @@ WMPPP will connect just fine when run as root, but if you want
 to run WMPPP as a non-root user, there are a few files and
 programs to make permissions changes to.
 
-WMPPP (actually pppd) needs access to the device file your 
+WMPPP (actually pppd) needs access to the device file your
 modem is on, so if you use COM1, then the modem device file
 you use is /dev/cua0 or /dev/ttyS0 (depending on your Linux
 and kernel version).
@@ -166,4 +166,4 @@ always run as SUID root. Change the owner and SUID bit like:
 
 --------------------------------------------------------------
 Note: If you run a site where users may not fiddle with the
-      PPP scripts, read INSTALL > Info For Site Admins! 
+      PPP scripts, read INSTALL > Info For Site Admins!

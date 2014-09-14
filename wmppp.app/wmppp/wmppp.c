@@ -13,7 +13,7 @@
 			How do I create a not so solid window?
 			How do I open a window?
 			How do I use pixmaps?
-	
+
 	pppstats
 		A program that prints the amount of data that
 		is transferred over a ppp-line.
@@ -32,25 +32,25 @@
 
 	Known Features: (or in non M$ talk, BUGS)
 		* none known so far in this release
-	
+
 	----
 	Thanks
 	----
-	
+
 	CCC (Constructive Code Criticism):
 
 	Marcelo E. Magallon
 		Thanks a LOT! It takes a while to get me convinced... :)
-		
+
 
 	Minor bugs and ideas:
 
 	Marc De Scheemaecker / David Mihm / Chris Soghoian /
 	Alessandro Usseglio Viretta
 
-	and ofcourse numerous ppl who send us bug reports. 
+	and ofcourse numerous ppl who send us bug reports.
 	(numerous? hmm.. todo: rephrase this :) )
-	Make that numberous m8ey :)		
+	Make that numberous m8ey :)
 
 	----
 	Changes:
@@ -280,14 +280,14 @@ int stillonline(char *);
 int main(int argc, char *argv[]) {
 
 	int		i;
-	
+
 
 	/* Parse Command Line */
 
 	ProgName = argv[0];
 	if (strlen(ProgName) >= 5)
 		ProgName += (strlen(ProgName) - 5);
-	
+
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
 
@@ -406,7 +406,7 @@ void wmppp_routine(int argc, char **argv) {
 	if (STOP_ACTION) stop_action = strdup(STOP_ACTION);
 	if (SPEED_ACTION) speed_action = strdup(SPEED_ACTION);
 	if (IFDOWN_ACTION) ifdown_action = strdup(IFDOWN_ACTION);
-	
+
 	strcpy(temp, "/etc/wmppprc");
 	parse_rcfile(temp, wmppp_keys);
 
@@ -469,7 +469,7 @@ void wmppp_routine(int argc, char **argv) {
 		}
 
 		/* On-line detectie! 1x per second */
-	
+
 		if (currenttime != lasttime) {
 			i = 0;
 
@@ -483,10 +483,10 @@ void wmppp_routine(int argc, char **argv) {
 
 					SetOnLED(LED_PPP_POWER);
 					waittime = 0;
-				
+
 					copyXPMArea(28, 95, 25, 11, 5, 48);
 
-					if (speed_action) 
+					if (speed_action)
 						DrawSpeedInd(speed_action);
 
 					speed_ind = currenttime + 60;
@@ -506,7 +506,7 @@ void wmppp_routine(int argc, char **argv) {
 				RedrawWindow();
 			}
 		}
-		
+
 		if (waittime && waittime <= currenttime) {
 			SetOffLED(LED_PPP_POWER);
 			RedrawWindow();
@@ -629,7 +629,7 @@ void wmppp_routine(int argc, char **argv) {
 					}
 				}
 				RedrawWindow();
-					
+
 				but_stat = -1;
 				break;
 			default:
@@ -649,11 +649,11 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 	struct ppp_stats	ppp_cur;
 	static int			ppp_opened = 0;
 
-	
+
 	if (!ppp_opened) {
 		/* Open the ppp device. */
 		memset(&ppp_cur, 0, sizeof(ppp_cur));
-		if ((ppp_h = socket(AF_INET, SOCK_DGRAM, 0)) < 0) 
+		if ((ppp_h = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 			return -1;
 		ppp_opened = 1;
 	}
@@ -709,7 +709,7 @@ void DrawTime(int i, int j) {
 		copyXPMArea(62, TIMER_SRC_Y, 1, 7, 6+6*2+1, TIMER_DES_Y);
 	else
 		copyXPMArea(63, TIMER_SRC_Y, 1, 7, 6+6*2+1, TIMER_DES_Y);
-			
+
 	copyXPMArea(TIMER_SZE_X*((i / k)%10)+1, TIMER_SRC_Y, 5, 7, 6+6*2 + 4, TIMER_DES_Y);
 	k = k /10;
 	copyXPMArea(TIMER_SZE_X*((i / k)%10)+1, TIMER_SRC_Y, 5, 7, 6+6*3 + 4, TIMER_DES_Y);
@@ -740,7 +740,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 
 
 		for (j=0; j<size; j++) {
-		
+
 			if (j < p[0] / pixels_per_byte)
 				copyXPMArea(57+2, 85, 1, 1, k+x_left, y_bottom-j);
 			else if (j < (p[0] + p[1]) / pixels_per_byte)
@@ -782,7 +782,7 @@ void DrawSpeedInd(char *speed_action) {
 	char	temp[128];
 
 	fp = popen(speed_action, "r");
-	
+
 	if (fp) {
 		linespeed = 0;
 
@@ -803,7 +803,7 @@ void DrawSpeedInd(char *speed_action) {
 
 		k -= 5;
 		copyXPMArea(50, 86, 5, 9, k, 48);
-		
+
 		do {
 			PrintLittle(linespeed % 10, &k);
 			linespeed /= 10;
@@ -871,7 +871,7 @@ void get_ppp_stats(struct ppp_stats *cur) {
 
 	strcpy(req.ifr__name, active_interface);
 
-	if (ioctl(ppp_h, SIOCGPPPSTATS, &req) >= 0) 
+	if (ioctl(ppp_h, SIOCGPPPSTATS, &req) >= 0)
 		*cur = req.stats;
 }
 

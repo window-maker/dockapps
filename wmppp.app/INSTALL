@@ -1,9 +1,9 @@
-Installation instructions for WMPPP. 
+Installation instructions for WMPPP.
 
 
 NOTE!
 --------------------------------------------------------------
-Installing this program requires root privileges, ask your 
+Installing this program requires root privileges, ask your
 local system/network administrator kindly if she/he wants
 to install this software for you ;-)
 
@@ -29,28 +29,28 @@ Installation
 	 set up the paths to your ppp start,
 	 stop & restart scripts
 
-7) % wmppp & (try 'wmppp -h &' for help) 
+7) % wmppp & (try 'wmppp -h &' for help)
 
 
 Extra Install Info For Site Administrators!
 --------------------------------------------------------------
 For site administrators who don't want their users messing
 up pppd's configuration files, but do want them to be able
-to make a dialup connection, a sample system.rc file is 
+to make a dialup connection, a sample system.rc file is
 included (system.wmppprc), please take a look at it!
 
-The installation will install standard rc files in $HOME 
+The installation will install standard rc files in $HOME
 and /etc/ WITHOUT the 'force' option!
 
 How it works:
 
-WMPPP first scans /etc/ if there is a wmppprc present. 
- 
+WMPPP first scans /etc/ if there is a wmppprc present.
+
 If true, it will scan if the keyword 'force' is trailing
 a command, for example 'forceleft' instead of 'left'.
 
 If the keywords 'force' are indeed trailing the 'normal'
-commands, all user .wmppprc files will be ignored i.e. 
+commands, all user .wmppprc files will be ignored i.e.
 OVERRIDDEN ;-)
 
 If the 'force' keyword is not found in /etc/wmppprc,
@@ -78,5 +78,5 @@ Note 1: If "make install" fails on your system, please edit
         Make install defaults to /usr/local/bin & /etc/ppp/.
 
 Note 2: Please DO read the HINTS, this file contains some
-        very usefull tips and hints about WMPPP. 
+        very usefull tips and hints about WMPPP.
 

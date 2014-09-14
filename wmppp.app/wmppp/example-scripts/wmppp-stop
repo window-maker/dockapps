@@ -15,4 +15,4 @@ if [ -r /var/run/$DEVICE.pid ]; then
 fi
 
 echo >/dev/console "ERROR: PPP link not active on $DEVICE"
-exit 1 
+exit 1

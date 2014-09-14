@@ -3,7 +3,7 @@ ABORT 'NO CARRIER'
 ABORT 'RING - NO ANSWER'
 REPORT CARRIER
 REPORT CONNECT
-'' ATZ 
+'' ATZ
 OK ATDT
-ogin: 
-word: 
+ogin:
+word:

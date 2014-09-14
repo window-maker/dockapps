@@ -21,7 +21,7 @@ clean::
 	rm wmppp getmodemspeed
 
 install::
-	
+
 	cp -f wmppp /usr/local/bin/
 	chmod 755 /usr/local/bin/wmppp
 	chown root:root /usr/local/bin/wmppp
