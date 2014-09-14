@@ -415,7 +415,7 @@ void wmppp_routine(int argc, char **argv) {
 	strcat(temp, "/.wmppprc");
 	parse_rcfile(temp, wmppp_keys);
 
-	strcpy(temp, "/etc/wmppp.fixed");
+	strcpy(temp, "/etc/wmppprc.fixed");
 	parse_rcfile(temp, wmppp_keys);
 
 	/* Open the display */
