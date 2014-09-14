@@ -16,9 +16,9 @@ all:: wmppp getmodemspeed
 
 clean::
 	for i in $(OBJS) ; do \
-		rm $$i; \
+		rm -f $$i; \
 	done
-	rm wmppp getmodemspeed
+	rm -f wmppp getmodemspeed
 
 install::
 
