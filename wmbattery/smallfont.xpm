@@ -1,0 +1,16 @@
+/* XPM */
+static char * smallfont_xpm[] = {
+"67 7 6 1",
+" 	c #208120812081",
+".	c #2081B2CAAEBA",
+"X	c #000049244103",
+"o	c #18618A288617",
+"O	c #000079E771C6",
+"+	c #104079E779E7",
+" ...   XXXo o...o o...o oXXXo o...o o...o o...o o...o o...o  X    o",
+".   . X   . X   . X   . .   . .   X .   X X   . .   . .   . X X X .",
+".   . X   . X   . X   . .   . .   X .   X X   . .   . .   .  X X  .",
+"oXXXo  XXXo o...o  ...o o...o O...o o...o  XXXo o...o +...o   X   o",
+".   . X   . .   X X   . X   . X   . .   . X   . .   . X   .  X X  .",
+".   . X   . .   X X   . X   . X   . .   . X   . .   . X   . X X X .",
+" ...   XXX. o...o o...o  XXXo o...o o...o  XXXO o...o o...o    X  ."};

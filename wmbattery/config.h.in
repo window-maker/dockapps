@@ -1,0 +1,9 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+/* What system header files can I use? */
+#undef HAVE_GETOPT_H
+#undef HAVE_SYS_FILE_H
+#undef HAVE_SYS_IOCTL_H
+
+#endif

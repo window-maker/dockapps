@@ -1,0 +1,20 @@
+/* XPM */
+static char * battery_medium_xpm[] = {
+"25 13 4 1",
+" 	c #208120812081",
+".	c #FFFFFFFF0000",
+"X	c #000049244103",
+"o	c #2081B2CAAEBA",
+" .....................   ",
+".X                   X.  ",
+".                     .  ",
+".    XXX   XXX   o    .  ",
+". X X   X X   X o o o ...",
+". X X   X X   X  o o  ...",
+".    XXX   XXX    o   ...",
+". X X   X X   X  o o  ...",
+". X X   X X   X o o o ...",
+".    XXX   XXX     o  .  ",
+".                     .  ",
+".X                   X.  ",
+" .....................   "};

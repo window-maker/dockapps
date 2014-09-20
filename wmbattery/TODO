@@ -1,0 +1,11 @@
+* The dial doesn't fill up/drain out very prettily. Add some code to special
+  case things so it looks better.
+* Make it load up the mask from file, not #include it.
+* Allow user-settable colors, like asclock does.
+* Improve the battery lifetime estimation algo.
+* Break the ACPI code out into a proper standalone library (already 2 other
+  programs use it).
+* Make -b 0 display an overall average of the status of all batteries,
+  much like apm does on multi-battery laptops.
+* The simplehal interface is not very good. It polls once per second, 
+  it would be much better if it let HAL notify it about changes instead.

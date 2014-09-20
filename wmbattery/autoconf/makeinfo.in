@@ -1,0 +1,21 @@
+# Info for make, this will be preprocessed by autoconf.
+bindir		= @bindir@
+exec_prefix 	= @exec_prefix@
+icondir		= @datadir@/icons/wmbattery
+man1dir		= @mandir@/man1
+prefix		= @prefix@
+srcdir		= @srcdir@
+
+CC		= @CC@
+CFLAGS		= @CFLAGS@ -Wall -DACPI_APM
+CPPFLAGS	= @CPPFLAGS@ -DICONDIR=\"$(icondir)\"
+INSTALL		= @INSTALL@
+INSTALL_DATA	= @INSTALL_DATA@
+INSTALL_PROGRAM	= @INSTALL_PROGRAM@
+LDFLAGS		= @LDFLAGS@
+LIBS		= @LIBS@
+
+#remove hal support
+#USE_HAL		= 1
+
+USE_UPOWER = 1

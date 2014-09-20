@@ -1,0 +1,17 @@
+/* XPM */
+static char * bigfont_xpm[] = {
+"84 9 5 1",
+" 	c #208120812081",
+".	c #2081B2CAAEBA",
+"X	c #000049244103",
+"o	c #104079E779E7",
+"O	c #18618A288617",
+" ....   XXXXo o....O o....o oXXXXo o....o o....O o....o o....O o....O         XXXX  ",
+".    . X    . X    . X    . .    . .    X .    X X    . .    . .    .  XX    X    X ",
+".    . X    . X    . X    . .    . .    X .    X X    . .    . .    .  XX    X    X ",
+".    . X    . X    . X    . .    . .    X .    X X    . .    . .    .        X    X ",
+"oXXXXo  XXXXo o....o o....o o....o o....o o....o  XXXXo o....o o....o        o....o ",
+".    . X    . .    X X    . X    . X    . .    . X    . .    . X    .        X    X ",
+".    . X    . .    X X    . X    . X    . .    . X    . .    . X    .  XX    X    X ",
+".    . X    . .    X X    . X    . X    . .    . X    . .    . X    .  XX    X    X ",
+" ....   XXXXo o....o o....o  XXXXo o....o o....o  XXXXo o....o o....o         XXXX  "};

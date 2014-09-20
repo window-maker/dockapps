@@ -1,0 +1,110 @@
+.TH WMBATTERY 1x
+.SH NAME
+wmbattery \- dockable battery monitor
+.SH SYNOPSIS
+.B wmbattery
+[options]
+.SH DESCRIPTION
+.PP
+.B wmbattery
+is a battery monitor.  It is used to visually display the system's battery 
+status.
+.PP
+.B wmbattery
+can get battery information using upower, HAL, APM, ACPI, or
+the SPIC controller in some Sony laptops.
+.B wmbattery
+is dockable using WindowMaker and AfterStep window managers; under
+other window managers
+.B wmbattery
+appears as a nicely-sized 64x64 application.
+.PP
+.B wmbattery
+displays the status of your laptop's battery in a small icon.  This
+includes if it is plugged in, if the battery is charging, how many
+minutes of battery life remain, battery life remaining (with both a
+percentage and a graph), and battery status (high - green, low -
+yellow, or critical - red).
+.SH "ELEMENTS OF THE DISPLAY"
+The
+.B wmbattery
+display consists of these elements:
+.TP
+.B dial
+The large dial at the top of the display shows battery life remaining.
+.TP
+.B time display
+The time display, right under and in the middle of the dial, shows how
+many hours and minutes of battery life is estimated to remain at the
+current rate of use.
+.P
+.RS
+If ACPI is used and battery is charging, the time display will instead show
+a countdown (starting with a minus sign) of how many hours and minutes it is
+estimated to take until the battery is fully charged.
+.RE
+.TP
+.B power cord
+The small icon of a power cord plug, in the bottom left, tells if the
+laptop is plugged into wall power. If so, it will be lit.
+.TP
+.B charging indicator
+The lightning bolt icon, to the right of the plug, tells if the
+battery is being charged. If so it will be lit and will connect the
+plug to the battery.
+.TP
+.B battery icon
+The battery icon, to the right of the lighting bolt, shows the
+percentage of battery time. If the battery is removed the icon will be
+dimmed. If the computer is low on power the battery will turn yellow;
+if the computer is critically low on power and about to die because of
+it, it will turn red.
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-w secs
+Pause this many seconds between updates.
+.TP
+.B \-d display
+Use the designated X display.
+.TP
+.B \-g +x+y
+Specify geometry. This specifies position, not size.
+.TP
+.B \-b battnum
+Display the given battery. Only of use with the HAL or ACPI interfaces on
+systems with more than one battery. The default is to display the first
+battery found.
+.TP
+.B \-l percent
+Set the percentage at which the battery is considered to be running low. By
+default, this percentage is determined automaticall, and you shouldn't
+need to set it. If you set this, you should probably also set the \-c
+switch.
+.TP
+.B \-c percent
+Set the percentage at which the battery is considered to be critically low.
+By default, this percentage is determined automatically, and you shouldn't
+need to set it. If you set this, you should probably also set the \-l
+switch.
+.TP
+.B \-e
+wmbattery contains code for estimating the time remaining before discharge,
+and until full charge, and this code is used if no other source of this
+informaton is available. This switch makes wmbattery use its time 
+estimation code even if some other estimate is available.
+.TP
+.B \-s granularity
+Ignore fluctuations less than the specified granularity percent when
+estimating time. (Implies -e)
+.TP
+.B \-a file.au
+Play the specified au file (by sending it to /dev/audio) when the battery
+is low.
+.TP
+.B \-i
+Display as icon.
+.SH AUTHOR
+Joey Hess <joey@kitenet.net>

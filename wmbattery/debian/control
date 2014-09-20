@@ -1,0 +1,24 @@
+Source: wmbattery
+Section: x11
+Priority: extra
+Build-Depends: debhelper (>= 9), libxext-dev, libxpm-dev, autoconf, libapm-dev, dpkg-dev (>= 1.9.0), libxt-dev, libupower-glib-dev
+Maintainer: Debian QA Group <packages@qa.debian.org>
+Standards-Version: 3.9.3
+Vcs-Git: git://git.kitenet.net/wmbattery
+Homepage: http://kitenet.net/~joey/code/wmbattery/
+
+Package: wmbattery
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, upower
+Suggests: wmaker
+Description: display laptop battery info, dockable in WindowMaker
+ wmbattery displays the status of your laptop's battery in a small icon.
+ This includes if it is plugged in, if the battery is charging, how many
+ minutes of battery life remain, and battery status (high - green, low -
+ yellow, or critical - red).
+ .
+ There's nothing in the program that makes it require WindowMaker, except
+ maybe the look. It can be docked in WindowMaker or AfterStep's dock.
+ .
+ wmbattery supports multi-battery machines, and can estimate how long
+ it will take the battery to finish charging or discharging.

@@ -1,0 +1,19 @@
+/* XPM */
+static char *charging[] = {
+/* width height num_colors chars_per_pixel */
+"    15     9        3            1",
+/* colors */
+". c #202020",
+"# c #004941",
+"a c #20b2ae",
+/* pixels */
+"........#a.....",
+".......#aaa#...",
+".......aaa#aa#.",
+"......#aa#..#aa",
+"......aaa......",
+"aa#..#aa#......",
+".#aa#aaa.......",
+"...#aaa#.......",
+"....#a#........"
+};

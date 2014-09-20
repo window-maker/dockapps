@@ -1,0 +1,2 @@
+?package(wmbattery):needs="x11" section="Applications/System/Monitoring" \
+	title="wmbattery" longtitle="wmbattery" command="wmbattery"
