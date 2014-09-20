@@ -528,7 +528,6 @@ void alarmhandler(int sig) {
 	apm_info cur_info;
 	int old_status;
 
-	old_status = cur_info.battery_status;
 #ifdef UPOWER
 	if (use_upower) {
 		if (upower_read(1, &cur_info) != 0)
@@ -555,7 +554,9 @@ void alarmhandler(int sig) {
 		if (sonypi_read(&cur_info) != 0)
 			error("Cannot read sonypi information.");
 	}
-	
+
+	old_status = cur_info.battery_status;
+
 	/* Always calculate remaining lifetime? apm and acpi both use a
 	 * negative number here to indicate error, missing battery, or
 	 * cannot determine time. */
