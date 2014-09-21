@@ -89,11 +89,11 @@ foreach my $dockapp (keys %dockapps) {
 		next;
 	}
 	my $latest_version = (sort by_version keys $dockapps{$dockapp})[-1];
-	if ($r->run("diff", "$dockapp-$latest_version", "HEAD", $dockapp)) {
+	if ($r->run("diff", "$dockapp-$latest_version", "HEAD", "--", $dockapp)) {
 		my $commit = $r->run("log", "-1",
-				  "--pretty=format:%H", $dockapp);
+				  "--pretty=format:%H", "--", $dockapp);
 		my $date = strftime("%Y%m%d", localtime($r->run("log", "-1",
-				  "--pretty=format:%ct", $dockapp)));
+				  "--pretty=format:%ct", "--", $dockapp)));
 #throw out dockapps whose last commit was stripping version names from dirs
 		unless ($commit eq "eea379d83350ced6166099ebc8f41ff4e3fa1f42") {
 			my $ls = $r->run("ls-tree", $commit, $dockapp);
