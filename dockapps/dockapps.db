@@ -105,6 +105,15 @@ url =
 dockapps = 216
 category = System Monitoring
 
+[wmbattery]
+version-2.44+20140921 = 1a22ccc8011761eec1a71da80973a99f5b935aeb
+version-2.44 = f5f804289e0255a167ca5bc90076007d495a578b
+image = wmbattery.gif
+description = "Wmbattery displays the status of your laptop's battery in a small icon. This includes if it is plugged in, if the battery is charging, how many minutes of battery life remain, battery life remaining (with both a percentage and a graph), and battery status (high - green, low - yellow, or critical - red)."
+url = http://joeyh.name/code/wmbattery/
+dockapps = 34
+category = System Monitoring
+
 [wmbiff]
 version-0.4.27+20130408 = f7597c89292d842820b13551c840409cbfba4965
 version-0.4.27 = 0e2f5afd57ca4e5b2f75f5e16c1fd0550d98f210
