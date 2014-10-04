@@ -18,9 +18,7 @@ EXTRA_wmmemload_SOURCES = \
 	mem_openbsd.c \
 	mem_solaris.c
 
-CPPFLAGS = @CPPFLAGS@ @DFLAGS@
-
-INCLUDES = @HEADER_SEARCH_PATH@
+AM_CPPFLAGS = @DFLAGS@ @HEADER_SEARCH_PATH@
 
 wmmemload_LDADD = @LIBRARY_SEARCH_PATH@ @XLIBS@
 
