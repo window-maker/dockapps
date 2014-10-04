@@ -241,6 +241,15 @@ url = http://www.goesgens.de/wmkeys.html
 dockapps = 215
 category = General/Others
 
+[wmmemload]
+version-0.1.6+20141004 = fa76fa1e8e0d8b0e16ad3191dacb0add7fce62ce
+version-0.1.6 = e8847a424a387aad0f2c0519aa4c2b9ac46b45b7
+image = wmmemload-bgreen.thumbnail.png
+description =  "WindowMaker dockapp to monitor memory and swap usage.  wmmemload displays the current memory and swap usage as a percentage value. It is based on wmcpuload and wmmemmon, and as such looks very nice alongside those.  wmmemload is designed to work with the WindowMaker dock, but will work with other window managers as well."
+url = https://web.archive.org/web/20080516180755/http://www.markstaggs.net/wmmemload/
+dockapps =
+category = System Monitoring
+
 [wmmixer]
 version-1.7+20120605 = 725080fd87d71383319a2c8539794e7077738936
 version-1.7 = c6267bcde682914eb84109d046cb76ec51c465ca
