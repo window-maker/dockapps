@@ -1,0 +1,21 @@
+2003 November 3
+  * Fixed problem with buffers/cache on Linux 2.6.*
+
+2002 June 24
+  * Fixed backlight background (submitted by Pete ???)
+
+2002 April 11
+  * Minor clean-up
+
+2002 April 10
+  * version 0.1.2 released.
+  * Fixed missing middle 0 in 100% for swap and memory (found by Callum M. Duncan)
+  * Removed unnecessary icons directory
+  * Removed unnecessary stamp-h
+
+2002 April 09
+  * version 0.1.1 released.
+  * Added doc directory to configure.ac (found by Søren Boll Overgaard)
+
+2002 April 03
+  * version 0.1.0 released. (Initial Release)
