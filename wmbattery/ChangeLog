@@ -1,3 +1,21 @@
+wmbattery (2.45)
+  * Switch from a Debian native package to a non-native package.
+    - Remove debian directory.
+    - Rename debian/changelog to ChangeLog, strip Debian-specific information.
+    - Move copyright information from debian/changelog to header in wmbattery.c.
+  * Escape hypen in manpage.
+  * Move assignment of old_status until after cur_info is initialized to avoid
+    uninitialized variable warning.
+  * Use consistent formatting in source and delete trailing whitespaces.
+  * Add -x option to run a command when battery is critical.  Based on a patch
+    by Cristoph Fritz.  See https://bugs.debian.org/543674.
+  * Add -v option to display version number.
+  * Restore BSD support.  Code that was ripped out of wmbattery for version
+    1.22, which introduced the dependency on libapm but dropped support for the
+    BSDs, has been restored.
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sun, 05 Oct 2014 10:23:34 -0500
+
 wmbattery (2.44)
 
   * Better AC detection.
