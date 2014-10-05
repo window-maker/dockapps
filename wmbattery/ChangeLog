@@ -1,4 +1,4 @@
-wmbattery (2.44) unstable; urgency=medium
+wmbattery (2.44)
 
   * Better AC detection.
   * Support times with upower and acpi (Closes: #740885).
@@ -7,7 +7,7 @@ wmbattery (2.44) unstable; urgency=medium
 
  -- Andrew Shadura <andrewsh@debian.org>  Fri, 18 Jul 2014 01:14:49 +0200
 
-wmbattery (2.43) unstable; urgency=low
+wmbattery (2.43)
 
   * Orphaned the package. It will probably be removed as it does not work with
     current kernels.
@@ -15,7 +15,7 @@ wmbattery (2.43) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Tue, 27 May 2014 16:01:34 -0400
 
-wmbattery (2.42) unstable; urgency=medium
+wmbattery (2.42)
 
   * Stop building with flash-in-the-pan HAL. Instead update acpi
     interface to use /sys/class/power_supply.
@@ -29,13 +29,13 @@ wmbattery (2.42) unstable; urgency=medium
 
  -- Joey Hess <joeyh@debian.org>  Thu, 05 Dec 2013 15:29:41 -0400
 
-wmbattery (2.41) unstable; urgency=low
+wmbattery (2.41)
 
   * Accumulated packaging modernizations. Closes: #666370
 
  -- Joey Hess <joeyh@debian.org>  Fri, 30 Mar 2012 10:20:17 -0400
 
-wmbattery (2.40) unstable; urgency=low
+wmbattery (2.40)
 
   * Add -s option which can be used to ignore fluctuations
     in reported battery charge (as seen on the EeePC) when
@@ -43,7 +43,7 @@ wmbattery (2.40) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sat, 09 May 2009 16:53:10 -0400
 
-wmbattery (2.39) unstable; urgency=low
+wmbattery (2.39)
 
   * Use debhelper v7; rules file minimisation.
   * Depend on hal since /proc/acpi is gone from the default kernels now.
@@ -51,27 +51,27 @@ wmbattery (2.39) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Tue, 22 Jul 2008 00:23:47 -0400
 
-wmbattery (2.38) unstable; urgency=low
+wmbattery (2.38)
 
   * Magic header file reordering to work around the disgusting
     linux-libc-dev/libc headers conflicts (#435700). Closes: #463811
 
  -- Joey Hess <joeyh@debian.org>  Wed, 27 Feb 2008 15:08:53 -0500
 
-wmbattery (2.37) unstable; urgency=low
+wmbattery (2.37)
 
   * Support reconnecting to dbus if it's restarted. (AKA giant dbus-PITA)
 
  -- Joey Hess <joeyh@debian.org>  Wed, 20 Feb 2008 22:44:00 -0500
 
-wmbattery (2.36) unstable; urgency=low
+wmbattery (2.36)
 
   * Support reconnecting to hal if the connection is closed, as happens
     if the hal is restarted.
 
  -- Joey Hess <joeyh@debian.org>  Wed, 20 Feb 2008 22:29:00 -0500
 
-wmbattery (2.35) unstable; urgency=low
+wmbattery (2.35)
 
   * Don't spew error messages if optional hal properties are not available.
   * Only check to see if a battery is charging if hal reports there is AC
@@ -81,7 +81,7 @@ wmbattery (2.35) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sat, 02 Feb 2008 17:28:37 -0500
 
-wmbattery (2.34) unstable; urgency=low
+wmbattery (2.34)
 
   * Bit the bullet, stopped trying to track the kernel's ever changing
     interfaces, and added support for querying battery information from hal.
@@ -93,7 +93,7 @@ wmbattery (2.34) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Fri, 01 Feb 2008 21:36:39 -0500
 
-wmbattery (2.33) unstable; urgency=low
+wmbattery (2.33)
 
   * Correct issue with the statically allocated string returned by
     get_acpi_value that caused it to only look at last full capacity and never
@@ -101,7 +101,7 @@ wmbattery (2.33) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sat, 22 Dec 2007 22:26:38 -0500
 
-wmbattery (2.32) unstable; urgency=low
+wmbattery (2.32)
 
   * Guard some divisions against division by zero. I've never seen that
     happen and can't reproduce it, but see #454766.
@@ -110,14 +110,14 @@ wmbattery (2.32) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Fri, 07 Dec 2007 14:56:41 -0500
 
-wmbattery (2.31) unstable; urgency=low
+wmbattery (2.31)
 
   * Further fix for my strange battery. If the present capacity is larger
     than the maximum capacity, rescan to figure out the new max capacity.
 
  -- Joey Hess <joeyh@debian.org>  Sun, 02 Dec 2007 15:50:29 -0500
 
-wmbattery (2.30) unstable; urgency=low
+wmbattery (2.30)
 
   * My new battery has a design capacity of 7800 mAh and yet its
     last full capacity was 9488, and its currently charged to 8540.
@@ -126,21 +126,21 @@ wmbattery (2.30) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Tue, 23 Oct 2007 22:21:06 -0400
 
-wmbattery (2.29) unstable; urgency=low
+wmbattery (2.29)
 
   * Update to new menu policy.
   * The repository has moved from svn to git.
 
  -- Joey Hess <joeyh@debian.org>  Fri, 19 Oct 2007 21:14:22 -0400
 
-wmbattery (2.28) unstable; urgency=low
+wmbattery (2.28)
 
   * Correct off-by-one in acpi.c
   * Put url to new web page in README.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 04 Jun 2007 16:44:03 -0400
 
-wmbattery (2.27) unstable; urgency=low
+wmbattery (2.27)
 
   * Minor bug fix to acpi code, don't skip over dotfiles.
   * Patch from Vincent Bernat adding support for 2.6.21, which changes
@@ -148,19 +148,19 @@ wmbattery (2.27) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Mon, 14 May 2007 14:23:09 -0400
 
-wmbattery (2.26) unstable; urgency=medium
+wmbattery (2.26)
 
   * Add missing build dep on libxt-dev. Closes: #379247
 
  -- Joey Hess <joeyh@debian.org>  Tue, 25 Jul 2006 22:00:41 -0400
 
-wmbattery (2.25) unstable; urgency=low
+wmbattery (2.25)
 
   * Merge acpi.c changes for more robust AC power status from sleepd 1.3.0.
 
  -- Joey Hess <joeyh@debian.org>  Thu, 30 Mar 2006 14:59:31 -0500
 
-wmbattery (2.24) unstable; urgency=low
+wmbattery (2.24)
 
   * Current policy.
   * Man page section fix.
@@ -170,20 +170,20 @@ wmbattery (2.24) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sun, 18 Dec 2005 17:39:07 -0500
 
-wmbattery (2.23) unstable; urgency=low
+wmbattery (2.23)
 
   * xlibs-dev transition
 
  -- Joey Hess <joeyh@debian.org>  Fri, 16 Dec 2005 14:54:25 -0500
 
-wmbattery (2.22) unstable; urgency=low
+wmbattery (2.22)
 
   * Fix acpi detection, the code to read /proc/acpi/info was not updated
     to the new cd-less code. Closes: #307278
 
  -- Joey Hess <joeyh@debian.org>  Mon,  2 May 2005 18:14:01 -0400
 
-wmbattery (2.21) unstable; urgency=low
+wmbattery (2.21)
 
   * Merge in changes from procmeter3's version of acpi.c, made by Andrew M.
     Bishop, that avoid the ugly chdir to /proc/acpi and add a bit of error
@@ -191,7 +191,7 @@ wmbattery (2.21) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sat, 30 Apr 2005 22:58:44 -0400
 
-wmbattery (2.20) unstable; urgency=low
+wmbattery (2.20)
 
   * Patch from Kris Verbeeck to add a -a option to play an au file
     on low battery.
@@ -201,7 +201,7 @@ wmbattery (2.20) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Wed, 24 Nov 2004 16:20:39 -0500
 
-wmbattery (2.19) unstable; urgency=low
+wmbattery (2.19)
 
   * Use the proper new-style acpi string when looking for ac adaptor status.
     Closes: #220039
@@ -218,14 +218,14 @@ wmbattery (2.19) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Mon, 17 Nov 2003 20:28:56 -0500
 
-wmbattery (2.18) unstable; urgency=low
+wmbattery (2.18)
 
   * Sort devices returned by readdir in acpi, since the order can be random.
     Closes: #204721
 
  -- Joey Hess <joeyh@debian.org>  Wed, 13 Aug 2003 01:45:55 -0400
 
-wmbattery (2.17) unstable; urgency=low
+wmbattery (2.17)
 
   * Make acpi code put -1 in the time remaining field if the "present rate"
     is 0. Closes: #204722
@@ -233,7 +233,7 @@ wmbattery (2.17) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Mon, 11 Aug 2003 17:21:17 -0400
 
-wmbattery (2.16) unstable; urgency=low
+wmbattery (2.16)
 
   * Another patch from Hugo Haas, this time it adds time-till-charged
     estimates for systems that lack them. The estimates are on by default,
@@ -243,7 +243,7 @@ wmbattery (2.16) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Thu,  7 Aug 2003 16:41:37 -0400
 
-wmbattery (2.15) unstable; urgency=low
+wmbattery (2.15)
 
   * Patch from Hugo Haas <hugo@larve.net> to change when the icon is
     refreshed for less latency.
@@ -253,34 +253,34 @@ wmbattery (2.15) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sun,  3 Aug 2003 00:00:09 -0400
 
-wmbattery (2.14) unstable; urgency=low
+wmbattery (2.14)
 
   * Set the cutoff point for old acpi to 20020214 (was 20020208).
     Closes: #202083
 
  -- Joey Hess <joeyh@debian.org>  Sun, 20 Jul 2003 13:44:59 +0200
 
-wmbattery (2.13) unstable; urgency=low
+wmbattery (2.13)
 
   * Added support for ACPI version 20030109 (2.5 kernel), and generally
     support for changing ACPI strings across versions. Closes: #177249
 
  -- Joey Hess <joeyh@debian.org>  Thu,  6 Feb 2003 14:50:21 -0500
 
-wmbattery (2.12) unstable; urgency=low
+wmbattery (2.12)
 
   * Rebuild w/o /usr/doc link.
 
  -- Joey Hess <joeyh@debian.org>  Fri, 15 Nov 2002 15:23:13 -0500
 
-wmbattery (2.11) unstable; urgency=low
+wmbattery (2.11)
 
   * Corrected inverted test to see if ac power is online, that was only called
     on 2 battery systems. Closes: #152356
 
  -- Joey Hess <joeyh@debian.org>  Wed, 10 Jul 2002 16:10:40 -0400
 
-wmbattery (2.10) unstable; urgency=low
+wmbattery (2.10)
 
   * Deal with acpi putting nothing but "Present: no" in the info file for the
     second battery of a thinkpad. This was with kernel 2.4.19-pre10.
@@ -290,7 +290,7 @@ wmbattery (2.10) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Tue, 11 Jun 2002 22:51:45 -0400
 
-wmbattery (2.09) unstable; urgency=low
+wmbattery (2.09)
 
   * Moved makefile stuff out of makeinfo, so it is just definitions.
   * Support DEB_BUILD_OPTIONS.
@@ -298,13 +298,13 @@ wmbattery (2.09) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sat,  1 Jun 2002 16:31:53 -0400
 
-wmbattery (2.08) unstable; urgency=low
+wmbattery (2.08)
 
   * Don't crash if there is a /proc/acpi/ with no status file.
 
  -- Joey Hess <joeyh@debian.org>  Fri, 31 May 2002 21:35:06 -0400
 
-wmbattery (2.07) unstable; urgency=low
+wmbattery (2.07)
 
   * Added symbolic apm info constants to "apm.h", in case they are
     not in the system <apm.h>.
@@ -312,47 +312,47 @@ wmbattery (2.07) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Tue, 23 Apr 2002 11:49:16 -0400
 
-wmbattery (2.06) unstable; urgency=low
+wmbattery (2.06)
 
   * Deal with -1 time left from apm (no estimate).
   * Never dim colon, fixes display bug.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 22 Apr 2002 12:30:35 -0400
 
-wmbattery (2.05) unstable; urgency=low
+wmbattery (2.05)
 
   * (acpi) don't display the rather wacky "- :0" on an almost full battery
 
  -- Joey Hess <joeyh@debian.org>  Tue,  9 Apr 2002 23:19:35 -0400
 
-wmbattery (2.04) unstable; urgency=low
+wmbattery (2.04)
 
   * Work around stupid ACPI output format  bug. Critical battery detection
     now works.
 
  -- Joey Hess <joeyh@debian.org>  Mon,  8 Apr 2002 22:49:43 -0400
 
-wmbattery (2.03) unstable; urgency=low
+wmbattery (2.03)
 
   * Better error reporting.
 
  -- Joey Hess <joeyh@debian.org>  Sun,  7 Apr 2002 22:57:17 -0400
 
-wmbattery (2.02) unstable; urgency=medium
+wmbattery (2.02)
 
   * Improved acpi interface (also used for procmeter3 module now).
   * Fixed segfault on non-ACPI systems.
 
  -- Joey Hess <joeyh@debian.org>  Sun,  7 Apr 2002 17:48:41 -0400
 
-wmbattery (2.01) unstable; urgency=low
+wmbattery (2.01)
 
   * Corrected minus sign in bigfont to proper faux-lcd appearance. Also fixed
     offset slightly.
 
  -- Joey Hess <joeyh@debian.org>  Fri,  5 Apr 2002 23:34:38 -0500
 
-wmbattery (2.00) unstable; urgency=low
+wmbattery (2.00)
 
   * Added ACPI support, including battery change detection, and battery
     charging time countdown timer.
@@ -367,7 +367,7 @@ wmbattery (2.00) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Fri,  5 Apr 2002 12:53:18 -0500
 
-wmbattery (1.23) unstable; urgency=low
+wmbattery (1.23)
 
   * Added support for querying for battery status via the sonypi driver, for
     sony laptops that do not have apm support. This is a stopgap until linux
@@ -375,7 +375,7 @@ wmbattery (1.23) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Thu,  4 Apr 2002 10:25:31 -0500
 
-wmbattery (1.22) unstable; urgency=low
+wmbattery (1.22)
 
   * Converted to use libapm, instead of the hacked up old version of it
     used before. This probably breaks wmbattery on the BSD's, for now. The
@@ -388,32 +388,32 @@ wmbattery (1.22) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Sun, 24 Feb 2002 12:47:53 -0500
 
-wmbattery (1.21) unstable; urgency=low
+wmbattery (1.21)
 
   * Typo, Closes: #125485
 
  -- Joey Hess <joeyh@debian.org>  Mon, 17 Dec 2001 21:41:52 -0500
 
-wmbattery (1.20) unstable; urgency=low
+wmbattery (1.20)
 
   * Still show percent sign when blinking low. Closes: #123183
 
  -- Joey Hess <joeyh@debian.org>  Sun,  9 Dec 2001 22:44:17 -0500
 
-wmbattery (1.19) unstable; urgency=low
+wmbattery (1.19)
 
   * Used two more grey's in the transition between shadow and highlight
     in the dial. Looks a bit better.
 
  -- Joey Hess <joeyh@debian.org>  Wed,  7 Nov 2001 22:35:37 -0500
 
-wmbattery (1.18) unstable; urgency=low
+wmbattery (1.18)
 
   * Autoconf 2.50 demands an absolute --mandir=
 
  -- Joey Hess <joeyh@debian.org>  Thu, 24 May 2001 15:04:23 -0400
 
-wmbattery (1.17) unstable; urgency=low
+wmbattery (1.17)
 
   * Patch from Edward Betts <edward@debian.org> to make the icon redraw
     immediatly when it gets an expose event. The patch also lowers the CPU
@@ -426,109 +426,109 @@ wmbattery (1.17) unstable; urgency=low
 
  -- Joey Hess <joeyh@debian.org>  Thu, 17 May 2001 13:16:55 -0400
 
-wmbattery (1.16) unstable; urgency=low
+wmbattery (1.16)
 
   * Another patch from Kevin, which allows removal of the
     config.{sub,guess} files and does smarter detection.
 
  -- Joey Hess <joeyh@debian.org>  Mon,  5 Mar 2001 19:49:36 -0800
 
-wmbattery (1.15) unstable; urgency=medium
+wmbattery (1.15)
 
   * Fixed icon search path.
 
  -- Joey Hess <joeyh@debian.org>  Tue, 27 Feb 2001 18:00:44 -0800
 
-wmbattery (1.14) unstable; urgency=low
+wmbattery (1.14)
 
   * OpenBSD port by Kevin Christen <christen@ix.netcom.com>
   * Uses autoconf.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 26 Feb 2001 22:06:55 -0800
 
-wmbattery (1.13) unstable; urgency=low
+wmbattery (1.13)
 
   * Added support for using files other than /proc/apm, via a -f switch.
     (See bug #69585)
 
  -- Joey Hess <joeyh@debian.org>  Mon, 21 Aug 2000 11:52:21 -0700
 
-wmbattery (1.12) unstable; urgency=low
+wmbattery (1.12)
 
   * Use /usr/share/icons/wmbattery, not /usr/X11R6/share. Sheesh.
 
  -- Joey Hess <joeyh@debian.org>  Thu,  6 Apr 2000 13:16:52 -0700
 
-wmbattery (1.11) unstable; urgency=low
+wmbattery (1.11)
 
   * Build deps.
 
  -- Joey Hess <joeyh@debian.org>  Sat,  4 Dec 1999 16:56:32 -0800
 
-wmbattery (1.10) unstable; urgency=low
+wmbattery (1.10)
 
   * Removed install-stamp target, which can cause obscure problems.
 
  -- Joey Hess <joeyh@debian.org>  Thu, 30 Sep 1999 13:32:33 -0700
 
-wmbattery (1.9) unstable; urgency=low
+wmbattery (1.9)
 
   * Expanded the man page to detail exactly what all parts of the display
     mean.
 
  -- Joey Hess <joeyh@debian.org>  Mon, 13 Sep 1999 11:37:11 -0700
 
-wmbattery (1.8) unstable; urgency=low
+wmbattery (1.8)
 
   * Integrated with my build system.
 
  -- Joey Hess <joeyh@debian.org>  Sun, 12 Sep 1999 12:47:00 -0700
 
-wmbattery (1.7) unstable; urgency=low
+wmbattery (1.7)
 
   * FHS.
 
  -- Joey Hess <joeyh@debian.org>  Mon,  6 Sep 1999 16:57:13 -0700
 
-wmbattery (1.6) unstable; urgency=low
+wmbattery (1.6)
 
   * FreeBSD support, patch from Motoyuki Kasahara <m-kasahr@sra.co.jp>.
 
  -- Joey Hess <joeyh@debian.org>  Sun,  8 Aug 1999 20:04:10 -0700
 
-wmbattery (1.5) unstable; urgency=low
+wmbattery (1.5)
 
   * Built w/o that ugly bug source known as fakeroot. Now all files are
     owned by root, not me.
 
  -- Joey Hess <joeyh@debian.org>  Sun,  8 Aug 1999 17:35:32 -0700
 
-wmbattery (1.4) unstable; urgency=low
+wmbattery (1.4)
 
   * Let's try again on that patch.
 
  -- Joey Hess <joeyh@debian.org>  Sun,  8 Aug 1999 17:30:18 -0700
 
-wmbattery (1.3) unstable; urgency=low
+wmbattery (1.3)
 
   * Patch from Hugo Haas <hugoh@MIT.EDU> to allow geometry support.
 
  -- Joey Hess <joeyh@debian.org>  Sun,  8 Aug 1999 16:18:44 -0700
 
-wmbattery (1.2) unstable; urgency=low
+wmbattery (1.2)
 
   * Patch from Edwin van Ouwerkerk Moria, may make the charging indicator
     work better on thinkpads.
 
  -- Joey Hess <joeyh@debian.org>  Thu,  1 Jul 1999 09:58:04 -0700
 
-wmbattery (1.1) unstable; urgency=low
+wmbattery (1.1)
 
   * Fixed man page location.
 
  -- Joey Hess <joeyh@debian.org>  Thu,  4 Feb 1999 14:33:58 -0800
 
-wmbattery (1.0) unstable; urgency=low
+wmbattery (1.0)
 
   * First release.
   .
