@@ -68,3 +68,8 @@ static struct image_info_type image_info[] = {
 #define COLON_OFFSET 30
 #define MINUTES_TENS_OFFSET 34
 #define MINUTES_ONES_OFFSET 41
+
+/* Replacement strings used by -x option */
+#define STR_SUB_PERCENT "%percent%"
+#define STR_SUB_MINUTES "%minutes%"
+#define STR_SUB_SECONDS "%seconds%"

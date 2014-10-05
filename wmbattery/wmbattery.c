@@ -39,6 +39,7 @@ int pos[2] = {0, 0};
 char *crit_audio_fn = NULL;
 char *crit_audio;
 int crit_audio_size;
+char *crit_command = NULL;
 
 int battnum = 1;
 #ifdef HAL
@@ -207,6 +208,78 @@ void load_audio() {
 	close(fd);
 }
 
+/* string replacement function by Laird Shaw, in public domain
+ * http://creativeandcritical.net/str-replace-c */
+char *replace_str(const char *str, const char *old, const char *new)
+{
+	char *ret, *r;
+	const char *p, *q;
+	size_t oldlen = strlen(old);
+	size_t count, retlen, newlen = strlen(new);
+
+	if (oldlen != newlen) {
+		for (count = 0, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen)
+			count++;
+		/* this is undefined if p - str > PTRDIFF_MAX */
+		retlen = p - str + strlen(p) + count * (newlen - oldlen);
+	} else
+		retlen = strlen(str);
+
+	if ((ret = malloc(retlen + 1)) == NULL)
+		return NULL;
+
+	for (r = ret, p = str; (q = strstr(p, old)) != NULL; p = q + oldlen) {
+		/* this is undefined if q - p > PTRDIFF_MAX */
+		ptrdiff_t l = q - p;
+		memcpy(r, p, l);
+		r += l;
+		memcpy(r, new, newlen);
+		r += newlen;
+	}
+	strcpy(r, p);
+
+	return ret;
+}
+
+void cmd_crit(const char *cmd, int percentage, int time) {
+	char prc_str[255] = "";
+	char min_str[255] = "";
+	char sec_str[255] = "";
+	char *tmp_a = NULL;
+	char *tmp_b = NULL;
+	char *command = NULL;
+	int ret;
+
+	if (!cmd)
+		return;
+	if (percentage > 100 || percentage < 0)
+		return;
+	if (time > 65535 || time < 0)
+		return;
+
+	sprintf(prc_str, "%i", percentage);
+	sprintf(min_str, "%i", time / 60);
+	sprintf(sec_str, "%i", time % 60);
+
+	tmp_a = replace_str(cmd, STR_SUB_PERCENT, prc_str);
+	if (!tmp_a)
+		return;
+	tmp_b = replace_str(tmp_a, STR_SUB_MINUTES, min_str);
+	if (!tmp_b)
+		return;
+	command = replace_str(tmp_b, STR_SUB_SECONDS, sec_str);
+	if (!command)
+		return;
+
+	ret = system(command);
+	if (ret == -1)
+		error("unable to run command: %s", command);
+
+	free(tmp_a);
+	free(tmp_b);
+	free(command);
+}
+
 /* Returns the display to run on (or NULL for default). */
 char *parse_commandline(int argc, char *argv[]) {
 	int c=0;
@@ -215,7 +288,7 @@ char *parse_commandline(int argc, char *argv[]) {
 	extern char *optarg;
 
   	while (c != -1) {
-  		c=getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:");
+  		c=getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:x:");
 		switch (c) {
 		  case 'h':
 			printf("Usage: wmbattery [options]\n");
@@ -230,6 +303,7 @@ char *parse_commandline(int argc, char *argv[]) {
 			printf("\t-e\t\tuse own time estimates\n");
 			printf("\t-s granularity\tignore fluctuations less than granularity%% (implies -e)\n");
 			printf("\t-a file\t\twhen critical send file to /dev/audio\n");
+			printf("\t-x command\twhen critical execute this command\n");
                		exit(0);
 		 	break;
 		  case 'd':
@@ -271,6 +345,9 @@ char *parse_commandline(int argc, char *argv[]) {
 			break;
 		  case 'a':
 			crit_audio_fn = strdup(optarg);
+			break;
+		  case 'x':
+			crit_command = strdup(optarg);
 			break;
 		}
 	}
@@ -585,6 +662,8 @@ void alarmhandler(int sig) {
 	}
 	else if (cur_info.battery_status == BATTERY_STATUS_CRITICAL) {
 		snd_crit();
+		cmd_crit(crit_command, cur_info.battery_percentage,
+			 cur_info.battery_time);
 	}
 
 	alarm(delay);
