@@ -9,15 +9,16 @@
 #include <libhal.h>
 #include "apm.h"
 
-static DBusConnection *dbus_ctx = NULL;
-static LibHalContext *hal_ctx = NULL;
+static DBusConnection *dbus_ctx;
+static LibHalContext *hal_ctx;
 
 int num_ac_adapters = 0;
 int num_batteries = 0;
 char **ac_adapters = NULL;
 char **batteries = NULL;
 
-int connect_hal (void) {
+int connect_hal(void)
+{
 	DBusError error;
 
 	dbus_error_init(&error);
@@ -28,7 +29,8 @@ int connect_hal (void) {
 		LIBHAL_FREE_DBUS_ERROR(&error);
 		return 0;
 	}
-	if ((hal_ctx = libhal_ctx_new()) == NULL) {
+	hal_ctx = libhal_ctx_new();
+	if (hal_ctx == NULL) {
 		fprintf(stderr, "error: libhal_ctx_new\n");
 		LIBHAL_FREE_DBUS_ERROR(&error);
 		return 0;
@@ -52,11 +54,11 @@ int connect_hal (void) {
 	return 1;
 }
 
-int hal_ready (void) {
+int hal_ready(void)
+{
 	if (hal_ctx && dbus_connection_get_is_connected(dbus_ctx)) {
 		return 1;
-	}
-	else {
+	} else {
 		/* The messy business of reconnecting.
 		 * dbus's design is crap when it comes to reconnecting.
 		 * If dbus is down, can't actually close the connection to hal,
@@ -72,57 +74,56 @@ int hal_ready (void) {
 	}
 }
 
-signed int get_hal_int (const char *udi, const char *key, int optional) {
+signed int get_hal_int(const char *udi, const char *key, int optional)
+{
 	int ret;
 	DBusError error;
 
-	if (! hal_ready()) {
+	if (!hal_ready())
 		return -1;
-	}
 
 	dbus_error_init(&error);
 
 	ret = libhal_device_get_property_int (hal_ctx, udi, key, &error);
 
-	if (! dbus_error_is_set (&error)) {
+	if (!dbus_error_is_set(&error)) {
 		return ret;
-	}
-	else {
-		if (! optional) {
+	} else {
+		if (!optional) {
 			fprintf(stderr, "error: libhal_device_get_property_int: %s: %s\n",
 				 error.name, error.message);
 		}
-		dbus_error_free (&error);
+		dbus_error_free(&error);
 		return -1;
 	}
 }
 
-signed int get_hal_bool (const char *udi, const char *key, int optional) {
+signed int get_hal_bool(const char *udi, const char *key, int optional)
+{
 	int ret;
 	DBusError error;
 
-	if (! hal_ready()) {
+	if (!hal_ready())
 		return -1;
-	}
 
 	dbus_error_init(&error);
 
-	ret = libhal_device_get_property_bool (hal_ctx, udi, key, &error);
+	ret = libhal_device_get_property_bool(hal_ctx, udi, key, &error);
 
-	if (! dbus_error_is_set (&error)) {
+	if (!dbus_error_is_set(&error)) {
 		return ret;
-	}
-	else {
-		if (! optional) {
+	} else {
+		if (!optional) {
 			fprintf(stderr, "error: libhal_device_get_property_bool: %s: %s\n",
 				 error.name, error.message);
 		}
-		dbus_error_free (&error);
+		dbus_error_free(&error);
 		return -1;
 	}
 }
 
-void find_devices (void) {
+void find_devices(void)
+{
 	DBusError error;
 
 	dbus_error_init(&error);
@@ -131,57 +132,55 @@ void find_devices (void) {
 		libhal_free_string_array(ac_adapters);
 	ac_adapters = libhal_find_device_by_capability(hal_ctx, "ac_adapter",
 		&num_ac_adapters, &error);
-	if (dbus_error_is_set (&error)) {
-		fprintf (stderr, "error: %s: %s\n", error.name, error.message);
-		LIBHAL_FREE_DBUS_ERROR (&error);
+	if (dbus_error_is_set(&error)) {
+		fprintf(stderr, "error: %s: %s\n", error.name, error.message);
+		LIBHAL_FREE_DBUS_ERROR(&error);
 	}
 
 	if (batteries)
 		libhal_free_string_array(batteries);
 	batteries = libhal_find_device_by_capability(hal_ctx, "battery",
 		&num_batteries, &error);
-	if (dbus_error_is_set (&error)) {
-		fprintf (stderr, "error: %s: %s\n", error.name, error.message);
-		LIBHAL_FREE_DBUS_ERROR (&error);
+	if (dbus_error_is_set(&error)) {
+		fprintf(stderr, "error: %s: %s\n", error.name, error.message);
+		LIBHAL_FREE_DBUS_ERROR(&error);
 	}
 }
 
-int simplehal_supported (void) {
-	if (! connect_hal()) {
+int simplehal_supported(void)
+{
+	if (!connect_hal()) {
 		return 0;
-	}
-	else {
+	} else {
 		find_devices();
 		return 1;
 	}
 }
 
 /* Fill the passed apm_info struct. */
-int simplehal_read (int battery, apm_info *info) {
+int simplehal_read(int battery, apm_info *info)
+{
 	char *device;
 	int i;
 
 	/* Allow a battery that was not present before to appear. */
-	if (battery > num_batteries) {
+	if (battery > num_batteries)
 		find_devices();
-	}
 
 	info->battery_flags = 0;
 	info->using_minutes = 0;
 
-	info->ac_line_status=0;
-	for (i = 0 ; i < num_ac_adapters && ! info->ac_line_status ; i++) {
+	info->ac_line_status = 0;
+	for (i = 0 ; i < num_ac_adapters && !info->ac_line_status ; i++)
 		info->ac_line_status = (get_hal_bool(ac_adapters[i], "ac_adapter.present", 0) == 1);
-	}
 
 	if (battery > num_batteries) {
 		info->battery_percentage = 0;
 		info->battery_time = 0;
 		info->battery_status = BATTERY_STATUS_ABSENT;
 		return 0;
-	}
-	else {
-		device=batteries[battery-1];
+	} else {
+		device = batteries[battery-1];
 	}
 
 	if (get_hal_bool(device, "battery.present", 0) != 1) {
@@ -199,23 +198,18 @@ int simplehal_read (int battery, apm_info *info) {
 		info->battery_status = BATTERY_STATUS_CHARGING;
 		/* charge_level.warning and charge_level.low are not
 		 * required to be available; this is good enough */
-		if (info->battery_percentage < 1) {
+		if (info->battery_percentage < 1)
 			info->battery_status = BATTERY_STATUS_CRITICAL;
-		}
 		else if (info->battery_percentage < 10) {
 			info->battery_status = BATTERY_STATUS_LOW;
-		}
-	}
-	else if (info->ac_line_status &&
-	         get_hal_bool(device, "battery.rechargeable.is_charging", 0) == 1) {
+	} else if (info->ac_line_status &&
+		 get_hal_bool(device, "battery.rechargeable.is_charging", 0) == 1) {
 		info->battery_status = BATTERY_STATUS_CHARGING;
 		info->battery_flags = info->battery_flags | BATTERY_FLAGS_CHARGING;
-	}
-	else if (info->ac_line_status) {
+	} else if (info->ac_line_status) {
 		/* Must be fully charged. */
 		info->battery_status = BATTERY_STATUS_HIGH;
-	}
-	else {
+	} else {
 		fprintf(stderr, "unknown battery state\n");
 	}
 

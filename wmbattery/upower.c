@@ -28,7 +28,7 @@ static void get_devinfo(gpointer device, gpointer result)
 	guint kind;
 	gint64 time_to_empty;
 	gint64 time_to_full;
-	struct context * ctx = result;
+	struct context *ctx = result;
 
 	g_object_get(G_OBJECT(device), "percentage", &percentage,
 		"online", &online,
@@ -41,11 +41,10 @@ static void get_devinfo(gpointer device, gpointer result)
 		if (ctx->current == ctx->needed) {
 			ctx->percentage = (int)percentage;
 			ctx->state = state;
-			if (time_to_empty) {
+			if (time_to_empty)
 				ctx->time = time_to_empty;
-			} else {
+			else
 				ctx->time = time_to_full;
-			}
 		}
 		ctx->current++;
 	} else if (kind == UP_DEVICE_KIND_LINE_POWER) {
@@ -53,15 +52,15 @@ static void get_devinfo(gpointer device, gpointer result)
 	}
 }
 
-int upower_supported (void) {
-	UpClient * up;
+int upower_supported(void)
+{
+	UpClient *up;
 	up = up_client_new();
 
 	if (!up) {
 		return 0;
-	}
-	else {
-		GPtrArray * devices = up_client_get_devices(up);
+	} else {
+		GPtrArray *devices = up_client_get_devices(up);
 
 		if (!devices) {
 			g_object_unref(up);
@@ -75,15 +74,15 @@ int upower_supported (void) {
 }
 
 /* Fill the passed apm_info struct. */
-int upower_read(int battery, apm_info *info) {
-	UpClient * up;
-	GPtrArray * devices = NULL;
+int upower_read(int battery, apm_info *info)
+{
+	UpClient *up;
+	GPtrArray *devices = NULL;
 
 	up = up_client_new();
 
-	if (!up) {
+	if (!up)
 		return -1;
-	}
 
 	#if !UP_CHECK_VERSION(0, 9, 99)
 	/* Allow a battery that was not present before to appear. */
@@ -92,9 +91,8 @@ int upower_read(int battery, apm_info *info) {
 
 	devices = up_client_get_devices(up);
 
-	if (!devices) {
+	if (!devices)
 		return -1;
-	}
 
 	info->battery_flags = 0;
 	info->using_minutes = 0;
@@ -120,22 +118,17 @@ int upower_read(int battery, apm_info *info) {
 		info->battery_status = BATTERY_STATUS_CHARGING;
 		/* charge_level.warning and charge_level.low are not
 		 * required to be available; this is good enough */
-		if (info->battery_percentage < 1) {
+		if (info->battery_percentage < 1)
 			info->battery_status = BATTERY_STATUS_CRITICAL;
-		}
-		else if (info->battery_percentage < 10) {
+		else if (info->battery_percentage < 10)
 			info->battery_status = BATTERY_STATUS_LOW;
-		}
-	}
-	else if (info->ac_line_status && ctx.state == UP_DEVICE_STATE_CHARGING) {
+	} else if (info->ac_line_status && ctx.state == UP_DEVICE_STATE_CHARGING) {
 		info->battery_status = BATTERY_STATUS_CHARGING;
 		info->battery_flags = info->battery_flags | BATTERY_FLAGS_CHARGING;
-	}
-	else if (info->ac_line_status) {
+	} else if (info->ac_line_status) {
 		/* Must be fully charged. */
 		info->battery_status = BATTERY_STATUS_HIGH;
-	}
-	else {
+	} else {
 		fprintf(stderr, "unknown battery state\n");
 	}
 

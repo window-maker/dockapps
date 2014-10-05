@@ -3,16 +3,16 @@
 typedef struct {
 	Pixmap pixmap;
 	Pixmap mask;
-  	XpmAttributes attributes;
+	XpmAttributes attributes;
 } XpmIcon;
 
 typedef struct image_info_type {
-  	const char* filename;
-  	const int width;
-  	const int height;
-  	const int x;
-  	const int y;
-  	const int charwidth;
+	const char *filename;
+	const int width;
+	const int height;
+	const int x;
+	const int y;
+	const int charwidth;
 } image_info_type;
 
 /* Assign reference numbers to all images that are loaded. */
@@ -38,20 +38,20 @@ typedef struct image_info_type {
  * plus the size of the image, where to draw it on the icon, etc
  */
 static struct image_info_type image_info[] = {
-  {"smallfont",7,67,0,45,6},
-  {"bigfont",9,73,0,23,7},
-  {"battery_high",25,13,33,42,0},
-  {"battery_medium",25,13,33,42,0},
-  {"battery_low",25,13,33,42,0},
-  {"battery_none",25,13,33,42,0},
-  {"battery_blink",25,13,33,42,0},
-  {"unplugged",10,8,6,45,0},
-  {"plugged",10,8,6,45,0},
-  {"nocharging",15,9,17,43,0},
-  {"charging",15,9,17,43,0},
-  {"dial_bright",56,31,4,4,0},
-  {"dial_dim",56,31,4,4,0},
-  {"face",64,64,0,0,0},
+	{"smallfont", 7, 67, 0, 45, 6},
+	{"bigfont", 9, 73, 0, 23, 7},
+	{"battery_high", 25, 13, 33, 42, 0},
+	{"battery_medium", 25, 13, 33, 42, 0},
+	{"battery_low", 25, 13, 33, 42, 0},
+	{"battery_none", 25, 13, 33, 42, 0},
+	{"battery_blink", 25, 13, 33, 42, 0},
+	{"unplugged", 10, 8, 6, 45, 0},
+	{"plugged", 10, 8, 6, 45, 0},
+	{"nocharging", 15, 9, 17, 43, 0},
+	{"charging", 15, 9, 17, 43, 0},
+	{"dial_bright", 56, 31, 4, 4, 0},
+	{"dial_dim", 56, 31, 4, 4, 0},
+	{"face", 64, 64, 0, 0, 0},
 };
 
 #define DIAL_MULTIPLIER 0.56

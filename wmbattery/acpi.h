@@ -4,10 +4,10 @@
 
 /* Define ACPI_THERMAL to make the library support finding info about thermal
  * sources. */
-//#define ACPI_THERMAL 1
+/* #define ACPI_THERMAL 1 */
 
 /* Define ACPI_APM to get the acpi_read function, which is like apm_read. */
-//#define ACPI_APM 1
+/* #define ACPI_APM 1 */
 
 /* The lowest version of ACPI proc files supported. */
 #define ACPI_VERSION 20011018
@@ -15,14 +15,14 @@
 /* The number of acpi items of each class supported. */
 #define ACPI_MAXITEM 8
 
-int acpi_supported (void);
+int acpi_supported(void);
 #ifdef ACPI_APM
-int acpi_read (int battery, apm_info *info);
+int acpi_read(int battery, apm_info *info);
 #endif
-char *get_acpi_file (const char *file);
-int scan_acpi_num (const char *buf, const char *key);
-char *scan_acpi_value (const char *buf, const char *key);
-char *get_acpi_value (const char *file, const char *key);
+char *get_acpi_file(const char *file);
+int scan_acpi_num(const char *buf, const char *key);
+char *scan_acpi_value(const char *buf, const char *key);
+char *get_acpi_value(const char *file, const char *key);
 int get_acpi_batt_capacity(int battery);
 
 extern int acpi_batt_count;
