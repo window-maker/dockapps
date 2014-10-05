@@ -1,3 +1,25 @@
+/* wmbattery - display laptop battery info, dockable in WindowMaker
+ * Copyright (C) 1998-2014 Joey Hess <joey@kitenet.net>
+ * Copyright (C) 2014 Window Maker Developers Team
+ *                      <wmaker-dev@lists.windowmaker.org>
+ *
+ * Portions of code derived from:
+ *   wmapm - Copyright (C) 1998-1999 Chris D. Faulhaber <jedgar@fxp.org>
+ *   wmmon - Copyright (C) 1998 Martijn Pieterse <pieterse@xs4all.nl>
+ *           Copyright (C) 1998 Antoine Nulle <warp@xs4all.nl>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of version 2 of the GNU General Public License
+ * as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. */
+
 #include "config.h"
 #include <stdio.h>
 #include <unistd.h>
