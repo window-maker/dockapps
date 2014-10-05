@@ -334,7 +334,7 @@ main(int argc, char *argv[])
 		/* scan for interface */
 		opt_interface = get_first_wnic();
 		if (opt_interface == NULL) {
-			fprintf(stderr, "No wireless interface found\n"); 
+			fprintf(stderr, "No wireless interface found\n");
 			exit(1);
 		}
 	} else {
@@ -417,11 +417,11 @@ main(int argc, char *argv[])
 			if (speed != NULL) {
 				copyXPMArea(28, 67, 23, 8, 29, 36);
 				if (strlen(speed) == 1)
-					draw_string(speed, 18, 36); 
+					draw_string(speed, 18, 36);
 				if (strlen(speed) == 2)
-					draw_string(speed, 12, 36); 
+					draw_string(speed, 12, 36);
 				if (strlen(speed) == 3)
-					draw_string(speed, 6, 36); 
+					draw_string(speed, 6, 36);
 			}
 
 			/* signal strength */
@@ -456,7 +456,7 @@ main(int argc, char *argv[])
 					draw_string(chn, 6, 44);
 			}
 
-			/* wep */	
+			/* wep */
 			r = get_wep(opt_interface);
 			if (r > 0)
 				copyXPMArea(54, 67, 4, 6, 48, 44);
@@ -464,7 +464,7 @@ main(int argc, char *argv[])
 
 		if (nwid != NULL && i % 2 == 0 && nic_status) {
 			/* reset nwid area */
-			copyXPMArea(70, 50, 54, 9, 5, 50); 
+			copyXPMArea(70, 50, 54, 9, 5, 50);
 			draw_nwid(nwid, opt_scroll);
 		}
 
@@ -619,7 +619,7 @@ draw_signal(const int speed, const int signal)
 		loop = bars;
 	else
 		loop = floor(have);
-	
+
 	for (i = 0, offset = 6; i < loop; i++, offset += 2)
 		copyXPMArea(10, 67, 1, 6, offset, 21);
 }
@@ -654,7 +654,7 @@ scroll_lcd(const int src_x, const int src_y, const int dst_x,
 
 	/* copy scroll frame to destination */
 	frame = len - pos;
-	if (frame >= NWIDLENP) 
+	if (frame >= NWIDLENP)
 		copyXPMArea(pos, src_y, NWIDLENP, 8, dst_x, dst_y);
 	else {
 		copyXPMArea(pos, src_y, frame, 8, dst_x, dst_y);

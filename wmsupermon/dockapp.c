@@ -1,12 +1,12 @@
 /*
  * 2006 - changes by Sergei Golubchik
  *   + set window title, better wm hints
- *   + multi-window support 
+ *   + multi-window support
  */
 
 /*
  * Copyright (c) 1999 Alfredo K. Kojima
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,7 +23,7 @@
  * AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  */
 
 #include "dockapp.h"
@@ -104,7 +104,7 @@ iswmaker(Display *dpy)
 
             XFree(data);
 
-            win = (Window*)PropGetCheckProperty(dpy, DefaultRootWindow(dpy), 
+            win = (Window*)PropGetCheckProperty(dpy, DefaultRootWindow(dpy),
                                                 noticeboard, XA_WINDOW, 32, -1,
                                                 &count);
 
@@ -142,13 +142,13 @@ DAInitialize(char *display, char *name, unsigned width, unsigned height,
 
     d_width = width;
     d_height = height;
-    
+
     progName = argv[0];
 
     if (!DADisplay)
         DADisplay = XOpenDisplay(display);
     if (!DADisplay) {
-        printf("%s: could not open display %s!\n", progName, 
+        printf("%s: could not open display %s!\n", progName,
                XDisplayName(display));
 
         exit(1);
@@ -251,7 +251,7 @@ DAMakePixmapFromData(Window *window, char **data, Pixmap *pixmap, Pixmap *mask,
     xpmat.valuemask = XpmCloseness;
     xpmat.closeness = 40000;
 
-    if (XpmCreatePixmapFromData(DADisplay, *window, data, pixmap, mask, 
+    if (XpmCreatePixmapFromData(DADisplay, *window, data, pixmap, mask,
                                 &xpmat)!=0) {
         return False;
     }
@@ -320,7 +320,7 @@ DAProcessEvent(Window *window, XEvent *event)
 
      case MotionNotify:
         if (d_callbacks.motion) {
-            (*d_callbacks.motion)(window[0], event->xbutton.x, event->xbutton.y);      
+            (*d_callbacks.motion)(window[0], event->xbutton.x, event->xbutton.y);
         }
         break;
 
@@ -366,9 +366,9 @@ DAEventLoop(Window *window)
 
 
 static DAProgramOption defaultOptions[]= {
-    {"-h", "--help", "shows this help text and exit", DONone, False, 
+    {"-h", "--help", "shows this help text and exit", DONone, False,
         {NULL}},
-    {"-v", "--version", "shows program version and exit", DONone, False, 
+    {"-v", "--version", "shows program version and exit", DONone, False,
         {NULL}}
 };
 
@@ -436,7 +436,7 @@ DAParseArguments(int argc, char **argv, DAProgramOption *options,
 
     for (i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-h")==0 || strcmp(argv[i], "--help")==0) {
-            
+
             printHelp(argv[0], programDescription, options, count);
             exit(0);
 
@@ -520,7 +520,7 @@ DAGetColor(char *colorName)
 {
     XColor color;
 
-    if (!XParseColor(DADisplay, 
+    if (!XParseColor(DADisplay,
                      DefaultColormap(DADisplay, DefaultScreen(DADisplay)),
                      colorName, &color)) {
         printf("%s: could not parse color %s\n", progName, colorName);
@@ -537,7 +537,7 @@ DAGetColor(char *colorName)
 }
 
 
-void 
+void
 DASetTimeout(int milliseconds)
 {
     d_timeout = milliseconds;
@@ -563,7 +563,7 @@ DANextEventOrTimeout(XEvent *event, unsigned long millisec)
     FD_ZERO(&rset);
     FD_SET(ConnectionNumber(DADisplay), &rset);
 
-    if (select(ConnectionNumber(DADisplay)+1, &rset, NULL, NULL, 
+    if (select(ConnectionNumber(DADisplay)+1, &rset, NULL, NULL,
                &timeout) > 0) {
         XNextEvent(DADisplay, event);
         return True;

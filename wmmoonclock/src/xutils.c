@@ -1,10 +1,10 @@
 /*
  *   xutils.c - A collection of X-windows utilties for creating WindowMAker
- *		DockApps. 
+ *		DockApps.
  *
  *     This file contains alot of the lower-level X windows routines. Origins with wmppp
  *     (by  Martijn Pieterse (pieterse@xs4all.nl)), but its been hacked up quite a bit
- *     and passed on from one new DockApp to the next. 
+ *     and passed on from one new DockApp to the next.
  *
  *
  *
@@ -27,7 +27,7 @@
  *
  *
  *
- */  
+ */
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -42,7 +42,7 @@
 
 
 /*
- *   X11 Variables 
+ *   X11 Variables
  */
 int		x_fd;
 XSizeHints	mysizehints;
@@ -85,7 +85,7 @@ static int flush_expose(Window w) {
  *   RedrawWindowXY
  */
 void RedrawWindow(void) {
-	
+
     flush_expose(iconwin);
     XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 0,0, wmgen.attributes.width, wmgen.attributes.height, 0, 0);
 
@@ -95,7 +95,7 @@ void RedrawWindow(void) {
 }
 
 void RedrawWindowXY(int x, int y) {
-	
+
     flush_expose(iconwin);
     XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, x,y, wmgen.attributes.width, wmgen.attributes.height, 0, 0);
 
@@ -159,8 +159,8 @@ void initXwindow(int argc, char *argv[]){
 /*
  *   openXwindow
  */
-void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bits, 
-    int pixmask_width, int pixmask_height, char *BackColor, char *LabelColor, 
+void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bits,
+    int pixmask_width, int pixmask_height, char *BackColor, char *LabelColor,
     char *DataColor) {
 
     unsigned int	borderwidth = 1;
@@ -175,9 +175,9 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
     					{"DataColor", NULL, 0}};
 
 
-    
 
-    /* 
+
+    /*
      *  Create Pixmap
      */
     cols[0].pixel		  = getColor(BackColor, 1.0);
@@ -187,9 +187,9 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
     wmgen.attributes.colorsymbols = cols;
     wmgen.attributes.exactColors  = False;
     wmgen.attributes.closeness    = 40000;
-    wmgen.attributes.valuemask    = XpmReturnPixels | XpmReturnExtensions | XpmColorSymbols 
+    wmgen.attributes.valuemask    = XpmReturnPixels | XpmReturnExtensions | XpmColorSymbols
 							| XpmExactColors | XpmCloseness | XpmSize;
-    if (XpmCreatePixmapFromData(display, Root, pixmap_bytes, 
+    if (XpmCreatePixmapFromData(display, Root, pixmap_bytes,
       &(wmgen.pixmap), &(wmgen.mask), &(wmgen.attributes)) != XpmSuccess){
 	fprintf(stderr, "Not enough free colorcells.\n");
 	exit(1);
@@ -198,8 +198,8 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 
 
-    /* 
-     *  Create a window 
+    /*
+     *  Create a window
      */
     mysizehints.flags = USSize | USPosition;
     mysizehints.x = 0;
@@ -213,19 +213,19 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
     mysizehints.width = 64;
     mysizehints.height = 64;
-		
+
 
 
     win = XCreateSimpleWindow(display, Root, mysizehints.x, mysizehints.y,
 				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
-	
+
     iconwin = XCreateSimpleWindow(display, win, mysizehints.x, mysizehints.y,
 				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
 
 
 
-    /* 
-     *  Activate hints 
+    /*
+     *  Activate hints
      */
     XSetWMNormalHints(display, win, &mysizehints);
     classHint.res_name = wname;
@@ -240,11 +240,11 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
      *  effect. I.e. for some you will need to Grab the focus and then return
      *  it after you are done...
      */
-    XSelectInput(display, win, ButtonPressMask | ExposureMask | ButtonReleaseMask 
-		| PointerMotionMask | StructureNotifyMask | EnterWindowMask | LeaveWindowMask 
+    XSelectInput(display, win, ButtonPressMask | ExposureMask | ButtonReleaseMask
+		| PointerMotionMask | StructureNotifyMask | EnterWindowMask | LeaveWindowMask
 						| KeyPressMask | KeyReleaseMask);
-    XSelectInput(display, iconwin, ButtonPressMask | ExposureMask | ButtonReleaseMask 
-		| PointerMotionMask | StructureNotifyMask | EnterWindowMask | LeaveWindowMask 
+    XSelectInput(display, iconwin, ButtonPressMask | ExposureMask | ButtonReleaseMask
+		| PointerMotionMask | StructureNotifyMask | EnterWindowMask | LeaveWindowMask
 						| KeyPressMask | KeyReleaseMask);
 
 
@@ -256,8 +256,8 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
     XSetWMName(display, win, &name);
 
-    /* 
-     *   Create Graphics Context (GC) for drawing 
+    /*
+     *   Create Graphics Context (GC) for drawing
      */
     gcm = GCForeground | GCBackground | GCGraphicsExposures;
     gcv.foreground = fore_pix;

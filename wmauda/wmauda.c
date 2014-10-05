@@ -1,7 +1,7 @@
 /*  wmauda - Dockapp for controlling Audacious
- *  
+ *
  *  Copyright (C) 2006       Michael Stewart <michael@alteredeclipse.org>
- *  
+ *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
@@ -74,15 +74,15 @@ typedef struct
 {
     unsigned char ascii; gint x, y;
 } Charentry;
- 
+
 Charentry chartable[] =
 {
   { '-', 60, 73},  /* put here coordinates of characters */
   { '.', 72, 73},  /* in xmms-dock-master.xpm */
-  { ',', 78, 73}, 
+  { ',', 78, 73},
   { '\\', 84, 73},
-  { '/', 90, 73}, 
-  { '(', 96, 73}, 
+  { '/', 90, 73},
+  { '(', 96, 73},
   { ')', 102, 73},
   { '%', 108, 73},
   { 'Ä', 114, 73},
@@ -98,10 +98,10 @@ Charentry chartable[] =
   { ' ', 66, 73},
 };
 #define NUM_CHARS 19
-                  
-#define VOLSLIDER_X		8 
+
+#define VOLSLIDER_X		8
 #define VOLSLIDER_Y		17
-#define VOLSLIDER_WIDTH		7 
+#define VOLSLIDER_WIDTH		7
 
 
 #define	VOLSLIDER_HEIGHT	40
@@ -116,7 +116,7 @@ Charentry chartable[] =
 #define SCROLLTEXT_X		5
 #define SCROLLTEXT_Y		6
 #define SCROLLTEXT_WIDTH	40
-#define SCROLLTEXT_HEIGHT	9 
+#define SCROLLTEXT_HEIGHT	9
 #define SCROLLTEXT_CHARS	9
 
 gboolean volslider_dragging = FALSE;
@@ -141,7 +141,7 @@ gboolean has_geometry = FALSE, single_click = FALSE, song_title = FALSE;
 char *icon_name = NULL;
 int win_x, win_y;
 
-DBusGProxy *dbus_proxy = NULL;   
+DBusGProxy *dbus_proxy = NULL;
 static DBusGConnection *connection = NULL;
 
 GtkTargetEntry drop_types[] =
@@ -267,9 +267,9 @@ void real_draw_scrolltext(GdkWindow * w)
 	        char *title = audacious_remote_get_playlist_title(dbus_proxy, pl_pos);
 		if (title)
 		{
-		        /* render text */	
+		        /* render text */
 		        gint i = 0, c = 0, pos = 0, dest = 0;
-			
+
 			for (i=0; i<SCROLLTEXT_CHARS; i++)
 			{
 			        gint x = 66, y = 73;
@@ -300,7 +300,7 @@ void real_draw_scrolltext(GdkWindow * w)
 					    break;
 					}
 				}
-				gdk_draw_pixmap(w, dock_gc, pixmap, x, y, 
+				gdk_draw_pixmap(w, dock_gc, pixmap, x, y,
 						dest, SCROLLTEXT_Y, 7, 9);
 
 			}
@@ -511,10 +511,10 @@ static void update_tooltip(void)
 	static int pl_pos = -1;
 	static char *filename;
 	int new_pos;
-	
+
 	if (!tooltips)
 		return;
-	
+
 	new_pos = audacious_remote_get_playlist_pos(dbus_proxy);
 
 	if (new_pos == 0)
@@ -663,17 +663,17 @@ void drag_data_received(GtkWidget *widget, GdkDragContext *context,
 static gboolean dbus_init(void)
 {
 	GError *error = NULL;
-	
+
 	connection = dbus_g_bus_get(DBUS_BUS_SESSION, &error);
 	if (connection == NULL)
 		return FALSE;
-		
+
 	dbus_proxy = dbus_g_proxy_new_for_name(connection, AUDACIOUS_DBUS_SERVICE,
                                                            AUDACIOUS_DBUS_PATH,
                                                            AUDACIOUS_DBUS_INTERFACE);
 	if (dbus_proxy == NULL)
 		return FALSE;
-		
+
 	return TRUE;
 }
 
@@ -694,7 +694,7 @@ void init(void)
 		tooltips = gtk_tooltips_new();
 		gtk_tooltips_set_delay(tooltips, 1000);
 	}
-		
+
 	icon_win = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_app_paintable(icon_win, TRUE);
 	gtk_widget_set_uposition(icon_win, 0, 0);
@@ -781,16 +781,16 @@ void init(void)
 	gdk_window_set_icon(leader, icon_win->window, NULL, NULL);
 	gdk_window_reparent(icon_win->window, leader, 0, 0);
 	gdk_window_show(leader);
-	
+
 	hints.initial_state = WithdrawnState;
 	hints.flags = StateHint | IconWindowHint | IconPositionHint | WindowGroupHint;
 	hints.icon_window = GDK_WINDOW_XWINDOW(icon_win->window);
 	hints.icon_x = 0;
 	hints.icon_y = 0;
 	hints.window_group = GDK_WINDOW_XWINDOW(leader);
-		
+
 	XSetWMHints(GDK_DISPLAY(), GDK_WINDOW_XWINDOW(leader), &hints);
-			
+
 	gtk_widget_show(icon_win);
 	timeout_tag = gtk_timeout_add(100, timeout_func, NULL);
 
@@ -865,7 +865,7 @@ int main(int argc, char **argv)
 	}
 	if (!dbus_init())
 		return 1;
-	
+
 	init();
 	gtk_main();
 	return 0;

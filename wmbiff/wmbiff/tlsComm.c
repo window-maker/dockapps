@@ -137,7 +137,7 @@ static int wait_for_it(int sd, int timeoutseconds)
             // DMA(DEBUG_INFO,
             //    "select %d/%d returned %d descriptor, %d\n",
             //    sd, timeoutseconds, ready_descriptors, FD_ISSET(sd, &readfds));
-            
+
         } while(tv.tv_sec > 0 && (!FD_ISSET(sd, &readfds) || (errno == EINTR && ready_descriptors == -1)));
 
         FD_ZERO(&readfds);
@@ -423,7 +423,7 @@ static int tls_compare_certificates(const gnutls_datum * peercert)
 
 static void
 tls_check_certificate(struct connection_state *scs,
-					  const char *remote_hostname) 
+					  const char *remote_hostname)
 {
 	int ret;
 	unsigned int certstat;

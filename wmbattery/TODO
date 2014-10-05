@@ -7,5 +7,5 @@
   programs use it).
 * Make -b 0 display an overall average of the status of all batteries,
   much like apm does on multi-battery laptops.
-* The simplehal interface is not very good. It polls once per second, 
+* The simplehal interface is not very good. It polls once per second,
   it would be much better if it let HAL notify it about changes instead.

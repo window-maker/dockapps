@@ -61,7 +61,7 @@ button as described below. The default is on.
 .SS Station Options
 .TP
 .BI "-s\fR,\fP\ -station " <ID>
-Station ID for all stations. Equivalent to 
+Station ID for all stations. Equivalent to
 .RI "'-metar-station " <ID> " -avn-station " <ID>
 .RI " -eta-station " <ID> " -mrf-station " <ID> '.
 .TP
@@ -127,12 +127,12 @@ information.
 .RE
 .TP
 .BI "-radar-crop " <string>
-How to crop the radar image. 
+How to crop the radar image.
 .IR X x Y + W + H
 format. See \fBRadar Map\fP for more information.
 .TP
 .BI "-radar-cross " <string>
-Where to draw radar crosshairs. 
+Where to draw radar crosshairs.
 .IR X x Y
 format. See \fBRadar Map\fP for more
 information.
@@ -293,7 +293,7 @@ Be kind, since the display is so small pick the smallest version of the image
 to download.
 .Sh "Weather Warnings"
 Various weather warnings, watches, and statements for the specified zone are
-downloaded from 
+downloaded from
 .UR http://weather.noaa.gov/pub/data/watches_warnings/
 http://weather.noaa.gov/pub/data/watches_warnings/
 .UE

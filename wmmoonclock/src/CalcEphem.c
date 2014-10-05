@@ -38,7 +38,7 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
 
 
 
-    /* 
+    /*
      *  Compute Greenwich Mean Sidereal Time (gmst)
      *  The TU here is number of Julian centuries
      *  since 2000 January 1.5
@@ -47,14 +47,14 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
     TU = (jd(year, month, day, 0.0) - 2451545.0)/36525.0;
     TU2 = TU*TU;
     TU3 = TU2*TU;
-    T0 = (6.0 + 41.0/60.0 + 50.54841/3600.0) + 8640184.812866/3600.0*TU 
+    T0 = (6.0 + 41.0/60.0 + 50.54841/3600.0) + 8640184.812866/3600.0*TU
             + 0.093104/3600.0*TU2 - 6.2e-6/3600.0*TU3;
     T0 = hour24(T0);
     c->gmst = hour24(T0 + UT*1.002737909);
 
 
     /* convert to radians for ease later on */
-    gmst = c->gmst*15.0*M_PI/180.0; 
+    gmst = c->gmst*15.0*M_PI/180.0;
 
     lmst = 24.0*frac( (c->gmst - c->Glon/15.0) / 24.0 );
 
@@ -67,7 +67,7 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
      *
      *   Construct Transformation Matrix from GEI to GSE  systems
      *
-     * 
+     *
      *   First compute:
      *          mean ecliptic longitude of sun at epoch TU (varep)
      *          elciptic longitude of perigee at epoch TU (varpi)
@@ -91,7 +91,7 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
      * centuries since epoch 2000 January 1.5
      */
     TU  = (jd(year, month, day, TDT) - jd(2000, 1, 1, 12.0))/36525.0;
-    epsilon = (23.43929167 - 0.013004166*TU - 1.6666667e-7*TU*TU 
+    epsilon = (23.43929167 - 0.013004166*TU - 1.6666667e-7*TU*TU
                 - 5.0277777778e-7*TU*TU*TU)*RadPerDeg;
     c->epsilon = epsilon;
 
@@ -102,8 +102,8 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
      *          The Mean Anomaly (M)
      *          The True Anomaly (nu)
      *	    The Eccentric Anomaly via Keplers equation (E)
-     *          
-     *          
+     *
+     *
      */
     days  = jd(year, month, day, TDT) - jd(year, month, day, TDT);
     M = angle2pi(2.0*M_PI/365.242191*days + varep - varpi);
@@ -112,14 +112,14 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
     lambnew = angle2pi(nu + varpi);
     c->lambda_sun = lambnew;
 
-	
+
     /*
      *  Compute distance from earth to the sun
      */
     r0 = 1.495985e8;  /* in km */
     earth_sun_distance  = r0*(1-eccen*eccen)/(1.0 + eccen*cos(nu))/6371.2;
     c->earth_sun_dist = earth_sun_distance;
-	
+
 
 
 
@@ -181,12 +181,12 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
     c->MoonAge = (TU - NewMoon(Ta, Tb, Tc))*36525.0;
 
 
-    
+
     /*
      * Compute Earth-Moon distance
      */
     c->EarthMoonDistance = R;
-    
+
 
 
 }

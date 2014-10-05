@@ -245,12 +245,12 @@ bool MixCtl::hasChanged()
 {
   struct mixer_info mixer_info1;
   ioctl(mixfd, SOUND_MIXER_INFO, &mixer_info1);
-     
+
   if (mixer_info1.modify_counter == modify_counter)
     {
       return false;
     }
-  else 
+  else
     {
       modify_counter = mixer_info1.modify_counter;
       return true;

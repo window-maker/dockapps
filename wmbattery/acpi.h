@@ -1,4 +1,4 @@
-/* 
+/*
  * A not-yet-general-purpose ACPI library, by Joey Hess <joey@kitenet.net>
  */
 

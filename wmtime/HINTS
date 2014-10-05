@@ -4,7 +4,7 @@ Generic
 --------------------------------------------------------------
 WMTime supports 4 commandline options:
 
-	-h (help); 
+	-h (help);
 	-v (prints);
 	-d (display);
 	-digital (digital clock);
@@ -22,7 +22,7 @@ command(s) when you click in the clock display area.
 WMtime can realtime 'morph' it's UI from analog <> digital,
 simply left click in either the DAY or DATE gadget ;-)
 
-Be sure to drag WMTime on it's outer edges, WMTime is a bit picky 
+Be sure to drag WMTime on it's outer edges, WMTime is a bit picky
 due to the large gfx pixmap it keeps ;-)
 
 
@@ -41,7 +41,7 @@ Afterstep users put the following in their .steprc
 Note: AfterStep's Wharf has a problem with pixmaps that are
 larger than 60x60 pixels. Please tell the AfterStep authors
 to fix this, this is not our fault, but a Wharf problem!
- 
+
 
 Other WindowManagers
 --------------------------------------------------------------

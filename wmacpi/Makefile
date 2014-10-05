@@ -1,7 +1,7 @@
 # set options.  pick one, acpi or apm.  comment out the other one.  don't
 # uncomment both, bad things will happen :)
 
-OPT	:= -O2 
+OPT	:= -O2
 
 # uncomment this to build the command line acpi tool
 BUILD_CLI = 1
@@ -40,7 +40,7 @@ wmacpi:	$(WMOBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 # for the Debian package, we want to make building the command line tools
-# optional. So, we hide all the necessary stuff here . . . 
+# optional. So, we hide all the necessary stuff here . . .
 ifdef BUILD_CLI
 CLSRC := wmacpi-cli.c libacpi.c
 CLOBJ := $(patsubst %.c,%.o,$(filter %.c,$(CLSRC)))
@@ -56,7 +56,7 @@ endif
 	gcc -MM $(CFLAGS) $< > $@
 
 clean:
-	rm -f TAGS *.o *~ trace *.out *.bb *.bbg 
+	rm -f TAGS *.o *~ trace *.out *.bb *.bbg
 
 clean-all: clean
 	rm -f *.d $(targets)

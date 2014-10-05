@@ -16,7 +16,7 @@ class AMixer;
 class AItem {
   private:
     AMixer *mixer;			// parent mixer
-    std::vector<AChannel *> pbChannels;	// item channels 
+    std::vector<AChannel *> pbChannels;	// item channels
 
     long minPVolume, maxPVolume;	// min/max playback volume
     bool hPVolume;			// has Playback volume

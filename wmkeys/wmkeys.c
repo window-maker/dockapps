@@ -102,7 +102,7 @@ void main(int argc, char *argv[])
   ProgName = argv[0];
   if (strlen(ProgName) >= 6)
     ProgName += (strlen(ProgName) - 6);
-	
+
   read_config();
   wmkeys_routine(argc, argv);
 }
@@ -122,11 +122,11 @@ void wmkeys_routine(int argc, char **argv)
 
   /* add mouse region */
   AddMouseRegion(0, 5, 5, 58, 122);
-  
+
   while (1) {
     waitpid(0, NULL, WNOHANG);
     RedrawWindow();
-		
+
     while (XPending(display)) {
       XNextEvent(display, &Event);
       switch (Event.type) {
@@ -155,7 +155,7 @@ void wmkeys_routine(int argc, char **argv)
 	break;
       }
     }
-    
+
     /* Sleep 0.3 seconds */
     usleep(300000L);
   }

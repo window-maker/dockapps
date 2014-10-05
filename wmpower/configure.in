@@ -105,7 +105,7 @@ AC_PROG_RANLIB
 	AC_CHECK_LIB(pthread, pthread_create, , , )
 # end threads check
 
-AC_CONFIG_FILES([Makefile 
+AC_CONFIG_FILES([Makefile
 	src/Makefile
 	src/dockapp/Makefile
 	src/power_management/Makefile

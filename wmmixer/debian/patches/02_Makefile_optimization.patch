@@ -5,7 +5,7 @@ Last-Update: 2007-10-08
 +++ b/Makefile
 @@ -6,7 +6,14 @@
  mandir      = ${prefix}/share/man
- 
+
  CXX	    = g++
 -CXXFLAGS    = -O -Wall
 +CXXFLAGS    = -Wall -g
@@ -17,5 +17,5 @@ Last-Update: 2007-10-08
 +endif
 +
  EXTRA_LIBS  = -L/usr/X11R6/lib -lX11 -lXpm -lXext
- 
- 
+
+

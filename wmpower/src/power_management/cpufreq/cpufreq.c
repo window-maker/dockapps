@@ -97,7 +97,7 @@ int check_cpufreq_2_6(void)
 		if (!strcmp(entry->d_name, "." )) continue;
 		if (!strcmp(entry->d_name, "..")) continue;
 		if (strncmp(entry->d_name, "cpu", 3)) continue;
-			
+
 		/* let's see wether this particular CPU has CPUfreq support... */
 		filename = StrApp((char**)NULL, SYSFS_CPU_BASE_DIR, "/", entry->d_name, "/cpufreq/", SYSFS_CPUFREQ_TEST, (char*)NULL);
 		fp = fopen(filename, "r");
@@ -133,7 +133,7 @@ int check_cpufreq_2_6(void)
 		free(line);
 	}
 	closedir(dir);
-		
+
 	/* did we get results? */
 	if (available_cpus) return 1;
 
@@ -258,7 +258,7 @@ int set_cpufreq_governor_2_6(char *governor)
 				free(filename);
 				fclose(fp);
 				retval = 0;
-				continue;					
+				continue;
 			}
 			fclose(fp);
 
@@ -323,14 +323,14 @@ int set_cpufreq_governor_2_6(char *governor)
 			size_t  len  = 0;
 			char   *line = NULL;
 			char   *test;
-				
+
 			if (getline(&line, &len, fp) == -1)
 			{
 				fprintf(stderr, "could not read from file %s!\n", filename);
 				free(filename);
 				fclose(fp);
 				retval = 0;
-				continue;					
+				continue;
 			}
 			fclose(fp);
 			test = (char *) calloc(strlen(line)+1,sizeof(char));

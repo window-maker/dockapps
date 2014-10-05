@@ -97,7 +97,7 @@ ParseCommandLineOptions( int argc, char *argv[] )
 
   /* Default values. */
   wmnotify_infos.debug = false;
-  
+
   for( i = 1; i < argc; i++ ) {
     token = argv[i];
     switch( token[0] ) {

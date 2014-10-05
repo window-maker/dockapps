@@ -24,7 +24,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.              *
  *                                                                         *
  ***************************************************************************/
- 
+
  /***************************************************************************
     Many thanks to Jonathan A. Buzzard for his Toshiba(tm) Linux Utilities
                    I could never have done this otherwise

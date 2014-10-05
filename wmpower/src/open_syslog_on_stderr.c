@@ -83,7 +83,7 @@ void open_syslog_on_stderr(void)
 	int        fd;
 
 	filename = (char*) malloc(19*sizeof(char));
-	
+
 	if (!filename)
 	{
 		fprintf(stderr, "wmpower: fatal error: failed allocating memory!\n");
@@ -103,7 +103,7 @@ void open_syslog_on_stderr(void)
 	if (chmod(filename, S_IRUSR|S_IWUSR))
 	{
 		fprintf(stderr, "wmpower: fatal error: cannot chmod() file!\n");
-		abort();		
+		abort();
 	}
 
 	if (!freopen(filename, "w", stderr))
@@ -114,7 +114,7 @@ void open_syslog_on_stderr(void)
 
 	/* close the file descriptor as we have no need for it */
 	close(fd);
-	
+
 	/* spawn our syslog_writer baby */
 	if (pthread_create(&thread, NULL, (void*)(&syslog_writer), filename))
 	{

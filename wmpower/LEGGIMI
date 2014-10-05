@@ -21,7 +21,7 @@ Punti di forza:
   una maggiore autonomia; se avete un portatile
   Toshiba, può anche regolare la luminosità del display;
 - Modalità carica rapida della batteria: potete mantenere le
-  impostazioni del punto precedente finché la batteria non 
+  impostazioni del punto precedente finché la batteria non
   sarà nuovamente al 100%: questo la farà ricaricare molto
   più velocemente (e senza bisogno di spegnere il computer);
 - Optione no-meddling: con questa impostazione, il programma
@@ -40,7 +40,7 @@ Digitate 'wmpower -h' per vedere tutti i parametri disponibili.
 Ovviamente necessita di un server X-Windows attivo per funzionare.
 
 ----------------------------------------------------------------------
-  
+
 Problemi conosciuti:
 Nessuno... questo non significa che non ce ne siano; se incontrate
 un problema, o se vorreste qualche nuuova funzionalità, mandatemi
@@ -52,7 +52,7 @@ Da fare:
 - Dividere il programma in due parti: un demone per gestire il
   risparmio energetico e l'interfaccia per mostrare informazioni.
 - Aggiungere il supporto per file di configurazione... non vogliamo
-  mica digitare tutte quelle opzioni ogni volta, no?  
+  mica digitare tutte quelle opzioni ogni volta, no?
 
 ----------------------------------------------------------------------
 
@@ -60,5 +60,5 @@ Ringraziamenti:
 - Filippo Panessa per il suo 'wmab'... è da qui che ho cominciato.
 - Costantino Pistagna per il suo 'wmacpimon'... da qui ho preso
   inizialmente il supporto ACPI.
-- Jonathan A. Buzzard pre le sue Toshiba(tm) Linux Utilities... 
+- Jonathan A. Buzzard pre le sue Toshiba(tm) Linux Utilities...
   indovinate un po' che cosa ne ho ricavato ;-)

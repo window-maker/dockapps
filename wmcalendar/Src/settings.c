@@ -1,7 +1,7 @@
 #include "settings.h"
 void set_lang(int language){lang = language;}
 void setAppicon(int app){appicon = app;}
-void enter_callback( GtkWidget *widget, GtkWidget *entry ){ 
+void enter_callback( GtkWidget *widget, GtkWidget *entry ){
     strcpy(application, gtk_entry_get_text(GTK_ENTRY(entry)));}
 int getAppicon(){return appicon;}
 int get_start_of_week(){return start_of_week;}
@@ -13,7 +13,7 @@ const char* get_application(){return application;}
 const char* get_icsfile(){return icsfile;}
 
 /*------------------------------------------------------
- *   destroy  
+ *   destroy
  -----------------------------------------------------*/
 void destroy (GtkWidget * widget, gpointer data){
   gtk_main_quit ();
@@ -22,7 +22,7 @@ void destroy (GtkWidget * widget, gpointer data){
 
 
 /*------------------------------------------------------
- *   getSettings  
+ *   getSettings
  -----------------------------------------------------*/
 void getSettings(){
     char buf[15];
@@ -40,14 +40,14 @@ void getSettings(){
 
     for(i = 1; i < 8; i++){
 	timptr->tm_wday = (8-i)%7;
-	strftime(buf, 15, "%A", timptr);	      
+	strftime(buf, 15, "%A", timptr);
 	daystr[i]=malloc(15);
 	strcpy(daystr[i], buf);
     }
     free(timptr);
     if(stream == 0){ /* no rcfile */
 	writeSettings();
-	printf("created %s with default settings:\nICON:evolution\nLANG:default\nAPP:%s\nICS:%s\n\n", 
+	printf("created %s with default settings:\nICON:evolution\nLANG:default\nAPP:%s\nICS:%s\n\n",
 	       rcfile, application, icsfile );
 	return;
     }
@@ -65,18 +65,18 @@ void getSettings(){
 		    strcpy(icsfile, pch);
 		    next = 0;
 		    break;
-		
+
 		case 2:
 		    strcpy(application, pch);
 		    next = 0;
 		    break;
-		
+
 		case 3:
 		    if(!strcmp(pch, "farsi"))
 		       lang = 1;
 		    next = 0;
 		    break;
-		
+
 		case 4:
 		    if(!strcmp(pch, "mozilla"))
 		       appicon = 1;
@@ -86,13 +86,13 @@ void getSettings(){
 		       appicon = 2;
 		    next = 0;
 		    break;
-		
+
 		case 5:
 		    if(!strcmp(pch,WMCALENDAR_VERSION))
 			version = 1;
 		    next = 0;
 		    break;
-		    
+
 		case 6:
 		    start_of_week =  atoi(pch);
 		    next = 0;
@@ -111,7 +111,7 @@ void getSettings(){
 			next = 5;
 		    else if(!strcmp(pch, "STARTOFWEEK"))
 			next = 6;
-		    else 
+		    else
 			next = 0;
 		}
 		pch = strtok (NULL, "=\n");
@@ -124,14 +124,14 @@ void getSettings(){
 	printf("Old rcfile detected!\nCreated new %s with default settings:", rcfile);
 	printf("\nICON:evolution\nLANG:default\nAPP:%s\nICS:%s\n\n", application, icsfile );
     }
-    if(get_debug())printf("settings:\nICON:%d\nLANG:%d\nAPP:%s\nRC:%s\nICS:%s\n\n", 
+    if(get_debug())printf("settings:\nICON:%d\nLANG:%d\nAPP:%s\nRC:%s\nICS:%s\n\n",
 		    getAppicon(), lang, application, rcfile, icsfile );
 }
 
 
 
 /*------------------------------------------------------
- *   writeSettings  
+ *   writeSettings
  -----------------------------------------------------*/
 void writeSettings(){
     char *set = malloc(1024);
@@ -162,7 +162,7 @@ void writeSettings(){
     strcat(set,"\nVERSION=");
     strcat(set,WMCALENDAR_VERSION);
     strcat(set,"\nSTARTOFWEEK=");
-    sprintf(bufint, "%d",start_of_week);  
+    sprintf(bufint, "%d",start_of_week);
     strcat(set, bufint);
     strcat(set,"\n");
     fwrite(set, 1, strlen(set), stream);
@@ -201,7 +201,7 @@ void SettingsLabel(GtkWidget *box1, char* str){
 
 
 /*------------------------------------------------------
- *   openSettings  
+ *   openSettings
  -----------------------------------------------------*/
 void openSettings(){
     GtkWidget *window;
@@ -236,7 +236,7 @@ void openSettings(){
     gtk_container_set_border_width (GTK_CONTAINER (box2), 0);
     gtk_box_pack_start (GTK_BOX (box1), box2, TRUE, TRUE, 3);
     gtk_widget_show (box2);
-    
+
     /* create appicon boxes*/
     button = gtk_radio_button_new_with_label (NULL, "Evolution");
     gtk_signal_connect_object (GTK_OBJECT (button), "clicked",
@@ -272,7 +272,7 @@ void openSettings(){
 
     /* --------------  Applaunch command  -----------------------*/
     SettingsLabel(box1, "Applaunch command");
- 
+
     entry = gtk_entry_new_with_max_length (100);
     gtk_signal_connect(GTK_OBJECT(entry), "changed",
                        GTK_SIGNAL_FUNC(enter_callback),
@@ -323,7 +323,7 @@ void openSettings(){
 	gtk_menu_append(menu, menuitem);
     }
     gtk_menu_set_active(GTK_MENU (menu), 7 - start_of_week);
-    gtk_option_menu_set_menu(GTK_OPTION_MENU(optionmenu),menu);   
+    gtk_option_menu_set_menu(GTK_OPTION_MENU(optionmenu),menu);
     gtk_box_pack_start (GTK_BOX (box1), optionmenu, TRUE, TRUE, 5);
     gtk_widget_show (optionmenu);
 
@@ -337,7 +337,7 @@ void openSettings(){
                                NULL);
     gtk_box_pack_start (GTK_BOX (box1), button, TRUE, TRUE, 2);
     gtk_widget_show (button);
-   
+
     button = gtk_button_new_with_label ("save");
     gtk_signal_connect (GTK_OBJECT (button), "clicked",
                               (GtkSignalFunc) setFirstDay,
@@ -360,14 +360,14 @@ void openSettings(){
 /*------------------------------------------------------
  *   setFirstDay
  -----------------------------------------------------*/
-void setFirstDay(GtkWidget *widget, GtkWidget *optionmenu ){ 
+void setFirstDay(GtkWidget *widget, GtkWidget *optionmenu ){
     gchar *daystring;
     int ii;
     gtk_label_get (GTK_LABEL (GTK_BIN (optionmenu)->child), &daystring);
     for(ii = 1; ii < 8; ii++)
 	if(!strcmp(daystring, daystr[ii]))
 	    start_of_week = ii;
-        
+
     writeSettings();
 }
 
@@ -380,8 +380,8 @@ void changeFilename(){
     static GtkWidget *settings;
 
     settings = gtk_file_selection_new("iCalendar file");
- 
-    gtk_file_selection_set_filename (GTK_FILE_SELECTION(settings), 
+
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(settings),
 				     icsfile);
     /* Connect the ok_button to file_ok_sel function */
     gtk_signal_connect(GTK_OBJECT (GTK_FILE_SELECTION (settings)->ok_button),
@@ -405,6 +405,6 @@ static void file_ok_sel( GtkWidget        *w,
                          GtkFileSelection *fs )
 {
     strcpy(icsfile, gtk_file_selection_get_filename (GTK_FILE_SELECTION (fs)));
-    gtk_widget_destroy((GtkWidget*)fs); 
+    gtk_widget_destroy((GtkWidget*)fs);
     writeSettings();
 }

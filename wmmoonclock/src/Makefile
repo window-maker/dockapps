@@ -21,7 +21,7 @@ OBJS   = wmMoonClock.o CalcEphem.o Moon.o MoonRise.o \
 all:	wmMoonClock.o wmMoonClock
 
 wmMoonClock.o: wmMoonClock_master.xpm wmMoonClock_mask.xbm CalcEphem.h
-wmMoonClock:	$(OBJS) 
+wmMoonClock:	$(OBJS)
 	$(CC) $(CFLAGS) $(SYSTEM) -o wmMoonClock $^ $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:

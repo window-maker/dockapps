@@ -2,23 +2,23 @@ WMMon-1.0b2 - Public BETA release
 --------------------------------------------------------------
 Authors...: Martijn Pieterse (pieterse@xs4all.nl)
        	    Antoine Nulle    (warp@xs4all.nl)
-		
+
 Note......: WMMon has it's own mailbox, as our pop3 accounts
 	    are already way too crowded :)
 	    Please mail bugreports, comments, suggestions,
 	    requests and flames to:
 
 	    dockapps@windowmaker.mezaway.org
-	    
+
 	    The official WMMon support website address:
- 
+
 	    http://windowmaker.mezaway.org
-	    
+
 Credits...: Bobby Mezaway (bobby@mezaway.org) for generously
-	    hosting our website!    				
+	    hosting our website!
 	    Dave Harden (dharden@wisewire.com) for the major
-	    speedup diffs!    
-	    	    
+	    speedup diffs!
+
 
 Description
 --------------------------------------------------------------
@@ -43,7 +43,7 @@ WMMon currently provides:
 There are some 'known' unfinished parts, be sure to read the TODO
 file, but we decided to release it early because of the high
 demand and many requests we got for this one ;)
-	  
+
 WMMon is being developped on DEC Alpha machines running
 Linux/RedHat-5.0, but, WMMon has been intensively tested
 on x86 and 68K Linux machines too ;-)
@@ -59,11 +59,11 @@ BUGS		Things you don't want to know ;-)
 CHANGES 	Description of changes.
 COPYING		GNU General Public License Version 2.
 TODO		Stuff we've planned for future WMMon releases.
-	
+
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please send a 
+If you discover any bugs in this software, please send a
 bugreport to dockapps@windowmaker.mezaway.org and describe
 the problem as detailed as you can.
 
@@ -71,7 +71,7 @@ the problem as detailed as you can.
 Copyright
 --------------------------------------------------------------
 WMMon.app is copyright (c) 1997, 1998 by Martijn Pieterse and
-Antoine Nulle and licensed through the GNU General Public License. 
+Antoine Nulle and licensed through the GNU General Public License.
 Read the COPYING file for the complete GNU license.
 
 

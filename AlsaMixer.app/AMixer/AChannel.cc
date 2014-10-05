@@ -34,7 +34,7 @@ void AChannel::setVolume(long value) {
 
 bool AChannel::isMuted() {
   int val;
-  
+
   snd_mixer_selem_get_playback_switch(aItem->aElem, (SNDCHID_T) id, &val);
 
   return (! (bool) val);

@@ -83,12 +83,12 @@ have set the environment variable WMPAGER to the installation location
 of the wmpager themes, then you may also skip the path to the theme.
 
 Predefined themes: Well, I'm not much of an artist therefore I've only
-included some themes to give you an idea of how a real nice theme 
+included some themes to give you an idea of how a real nice theme
 might be done. Naturally, I use the built-in theme and theme support
 is only there because I have been asked to include it...
 
 Creating your own themes: If you want to create your own theme simply
-take one of the included XPM theme files and modify it to your needs. 
+take one of the included XPM theme files and modify it to your needs.
 If you really want to know, the format of the file is described below.
 
 If you create a theme yourself please send it to me and I'll include it
@@ -100,12 +100,12 @@ The list of predefined themes in this release includes:
 - gray
 - steel
 
-XPM file format: The XPM file has to be at least 102 by 71 pixels in 
-size. The area 0,0 to 50,50 describes the background for the selected 
-workspace, the area 51,0 to 101,50 for unselected work spaces. The 
-area has to include a one-pixel border that is used for all workspace 
-buttons. From 0,51 to 89,60 are the digits used for the selected 
-workspace (each 10x10 pixels, 1-9 from left to right) and from 0,61 to 
+XPM file format: The XPM file has to be at least 102 by 71 pixels in
+size. The area 0,0 to 50,50 describes the background for the selected
+workspace, the area 51,0 to 101,50 for unselected work spaces. The
+area has to include a one-pixel border that is used for all workspace
+buttons. From 0,51 to 89,60 are the digits used for the selected
+workspace (each 10x10 pixels, 1-9 from left to right) and from 0,61 to
 89,70 are the digits for unselected workspaces. The digits may have
 a transparent background.
 
@@ -139,10 +139,10 @@ also supports themes. Check out options '--theme' and '--installdir'.
 
 Release 1.2
 
-As of release 1.2 the wmpager is hosted at sourceforge. Its new 
+As of release 1.2 the wmpager is hosted at sourceforge. Its new
 homepage is located at 'http://wmpager.sourceforge.net/'.
 
-To report a bug please use the sourceforge bugtracker for the wmpager 
+To report a bug please use the sourceforge bugtracker for the wmpager
 located at 'http://sourceforge.net/projects/wmpager/'. Thanks!
 
 In addition to the new location the only thing that has changed is
@@ -164,16 +164,16 @@ LICENSE INFORMATION
 Copyright (c) 2001-2002 Bruno Essmann <essmann@users.sourceforge.net>
 All rights reserved.
 
-Redistribution and use in source and binary forms, with or without 
-modification, are permitted provided that the following conditions 
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
 are met:
 
-1. Redistributions of source code must retain the above copyright 
+1. Redistributions of source code must retain the above copyright
    notice, this list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above 
-   copyright notice, this list of conditions and the following 
-   disclaimer in the documentation and/or other materials provided 
+2. Redistributions in binary form must reproduce the above
+   copyright notice, this list of conditions and the following
+   disclaimer in the documentation and/or other materials provided
    with the distribution.
 
 3. The name of the author may not be used to endorse or promote

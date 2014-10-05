@@ -121,7 +121,7 @@ char *find_acad_proc_file(void)
   char *basedir = "/proc/acpi/ac_adapter/";
   struct dirent *entry;
 
-  dir= opendir(basedir);	
+  dir= opendir(basedir);
   if (!dir) return NULL;
 
   while ((entry= readdir(dir)))
@@ -129,11 +129,11 @@ char *find_acad_proc_file(void)
 		char *result = NULL;
 		char *temp1, *temp2, *temp3;
     if (!strcmp(entry->d_name, "." )) continue;
-    if (!strcmp(entry->d_name, "..")) continue;    
+    if (!strcmp(entry->d_name, "..")) continue;
     temp1 = StrApp((char**)NULL, basedir, entry->d_name, "/state",  (char*)NULL);
 		temp2 = StrApp((char**)NULL, basedir, entry->d_name, "/status", (char*)NULL);
 		temp3 = StrApp((char**)NULL, basedir, entry->d_name, "/stats",  (char*)NULL);
-		
+
 		if      (!access(temp1, R_OK)) {result = temp1; free(temp2); free(temp3);}
 		else if (!access(temp2, R_OK)) {result = temp2; free(temp1); free(temp3);}
 		else if (!access(temp3, R_OK)) {result = temp3; free(temp1); free(temp2);}
@@ -153,7 +153,7 @@ char *find_acad_proc_file(void)
 void read_acad_state (ACADstate *acadstate)
 {
 	static int   searched = 0;
-	static char *file     = NULL;	
+	static char *file     = NULL;
 	static char *where    = NULL;
 	FILE *fp;
 
@@ -174,9 +174,9 @@ void read_acad_state (ACADstate *acadstate)
 		if (!strncmp(buf, "Status:", 7)) where = buf + 26;
 	}
 	if (!where) return;
-	
+
 	if (where[0] == 'n') acadstate->state = 1;
-	if (where[0] == 'f') acadstate->state = 0;	
+	if (where[0] == 'f') acadstate->state = 0;
 }
 
 
@@ -370,14 +370,14 @@ char *find_temperature_proc_file(void)
   char *basedir = "/proc/acpi/thermal_zone/";
   struct dirent *entry;
 
-  dir= opendir(basedir);	
+  dir= opendir(basedir);
   if (!dir) return NULL;
 
   while ((entry= readdir(dir)))
   {
 		char *temp;
     if (!strcmp(entry->d_name, "." )) continue;
-    if (!strcmp(entry->d_name, "..")) continue;    
+    if (!strcmp(entry->d_name, "..")) continue;
     temp = StrApp((char**)NULL, basedir, entry->d_name, "/temperature", (char*)NULL);
 		if (!access(temp, R_OK))
 		{
@@ -436,7 +436,7 @@ int get_fan_info(void)
   {
 		char *temp;
     if (!strcmp(entry->d_name, "." )) continue;
-    if (!strcmp(entry->d_name, "..")) continue;    
+    if (!strcmp(entry->d_name, "..")) continue;
     temp = StrApp((char**)NULL, basedir, "/", entry->d_name, "/state", (char*)NULL);
 		if (!access(temp, R_OK))
 		{

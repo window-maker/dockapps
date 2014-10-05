@@ -51,7 +51,7 @@ double calc_moon(int month, int day, int year, int hm){
     time_t t=time(NULL);
     struct tm *tm;
     double p;
-    
+
     tm=gmtime(&t);
     tm->tm_hour=hm/100;
     tm->tm_min=hm%100;
@@ -60,7 +60,7 @@ double calc_moon(int month, int day, int year, int hm){
     tm->tm_mday=day;
     tm->tm_year=year;
     t=mkgmtime(tm);
-    
+
     /* This next line is the algorithm. */
     p=fpart(((t/86400.0-11323.0)*850.0+5130.5769)/25101.0);
     if(p>.5) return -.5+cos(2*PI*p)/2;
@@ -138,7 +138,7 @@ void copySunMoon(int x, int y, double percent){
             }
         }
     }
-                
+
     XPutImage(display, wmgen.pixmap, NormalGC, pix, 0, 0, 0, 0, pix->width, pix->height);
 
     XDestroyImage(pix);

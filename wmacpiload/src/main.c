@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
     pixmap = dockapp_XCreatePixmap(SIZE, SIZE);
 
     /* Initialize pixmap */
-    if (backlight == LIGHTON) 
+    if (backlight == LIGHTON)
         dockapp_copyarea(backdrop_on, pixmap, 0, 0, SIZE, SIZE, 0, 0);
     else
         dockapp_copyarea(backdrop_off, pixmap, 0, 0, SIZE, SIZE, 0, 0);
@@ -261,9 +261,9 @@ static void update() {
     }
 
     /* all clear */
-    if (backlight == LIGHTON) 
+    if (backlight == LIGHTON)
         dockapp_copyarea(backdrop_on, pixmap, 0, 0, 58, 58, 0, 0);
-    else 
+    else
         dockapp_copyarea(backdrop_off, pixmap, 0, 0, 58, 58, 0, 0);
 
     /* draw digit */
@@ -547,7 +547,7 @@ int acpi_read(AcpiInfos *i) {
          fclose(fd);
 	 if(( ptr = strstr(buf,"charging state:"))) {
 		stat = *(ptr + 25);
-		switch (stat) 
+		switch (stat)
 		{
 		   case 'd':
 		     i->battery_status=1;

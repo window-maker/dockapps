@@ -522,7 +522,7 @@ int calculate_battery_time(int battery_percentage, int ac_on_line)
 	}
 	else
 	{ /* We calculate time left until battery is fully recharged */
-		
+
 		/* How much battery was gained in this time? */
 		int gained_battery = battery_percentage - first_percentage;
 

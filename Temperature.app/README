@@ -11,14 +11,14 @@
 Description
 --------------------------------------------------------------
 Temperature.app is a Window Maker dock application which
-fetches local temperature information every 15 minutes from 
+fetches local temperature information every 15 minutes from
 ftp://weather.noaa.gov and displays it (in Celsius or Fahrenheit).
 
 
 Hints
 --------------------------------------------------------------
 The led:
-	If the led is blinking (green/red), then that means 
+	If the led is blinking (green/red), then that means
 	Temperature.app is trying to fetch weather information.
 	If successful the led will stop blinking and go green.
 	If unsuccessful the led will stop blinking and go red.
@@ -30,20 +30,20 @@ The led:
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please send a 
+If you discover any bugs in this software, please send a
 bugreport to per@fukt.bth.se and describe the problem.
 
 
 Special thanks to
 --------------------------------------------------------------
-Mike Henderson (mghenderson@lanl.gov) - Author of wmWeather 
-(I didn't know about the weather.noaa.gov ftp-site before I 
+Mike Henderson (mghenderson@lanl.gov) - Author of wmWeather
+(I didn't know about the weather.noaa.gov ftp-site before I
 caught sight of his program).
 
 
 Copyright
 --------------------------------------------------------------
-Temperature.app is copyright (c) 2000-2002 by Per Liden and is 
-licensed through the GNU General Public License. Read the 
+Temperature.app is copyright (c) 2000-2002 by Per Liden and is
+licensed through the GNU General Public License. Read the
 COPYING file for the complete license.
 

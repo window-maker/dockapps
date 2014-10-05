@@ -4,7 +4,7 @@
  * Written by Simon Fowler <simon@dreamcraft.com.au>, 2003-06-20.
  * Copyright 2003-06-20 Dreamcraft Pty Ltd.
  *
- * This file is distributed under the GNU General Public License, 
+ * This file is distributed under the GNU General Public License,
  * version 2. Please see the COPYING file for details.
  */
 
@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 		acquire_global_info(globals);
 		usleep(sleep_time);
 	}
-	
+
 	ap = &globals->adapter;
 	if(ap->power == AC) {
 		printf("On AC Power");
@@ -104,8 +104,8 @@ int main(int argc, char *argv[])
 			if(binfo->present && (binfo->charge_state == CHARGE)) {
 				printf("; Battery %s charging", binfo->name);
 				printf(", currently at %2d%%", binfo->percentage);
-				if(binfo->charge_time >= 0) 
-					printf(", %2d:%02d remaining", 
+				if(binfo->charge_time >= 0)
+					printf(", %2d:%02d remaining",
 					       binfo->charge_time/60,
 					       binfo->charge_time%60);
 			}
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 				       binfo->percentage);
 		}
 		if(globals->rtime >= 0)
-			printf("; %d:%02d remaining", globals->rtime/60, 
+			printf("; %d:%02d remaining", globals->rtime/60,
 			       globals->rtime%60);
 		printf("\n");
 	}

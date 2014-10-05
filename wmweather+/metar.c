@@ -109,7 +109,7 @@ void init_metar(void){
         { 's', STRING, &metar_station },
         { 0, 0, 0 }
     };
-    
+
     snprintf(bigbuf, BIGBUF_LEN, "%s.metar.txt", metar_station);
     metar_file=get_pid_filename(bigbuf);
     snprintf(bigbuf, BIGBUF_LEN, "%s.new-metar.txt", metar_station);
@@ -168,7 +168,7 @@ void metar_cleanup(void){
 
 void update_metar(int force){
     time_t t;
-    
+
     t=time(NULL)/60;
     if(!force && metar_time>t) return;
 
@@ -210,7 +210,7 @@ static int parse_metar(char *file){
         bigbuf[len++]=' ';
         bigbuf[len]='\0';
     }
-    
+
     /* Look for something like a METAR coded report */
     ovalue=pcre_exec(station_time, NULL, bigbuf, len, 0, 0, ovector, ovecsize);
     if(ovalue<=0) return 0;
@@ -354,7 +354,7 @@ wind_done:
         i=(c[1]=='\0');
         pcre_free_substring(c);
         if(i) continue;
-        
+
 
         get_substr(1, in);
         get_substr(2, de);
@@ -405,7 +405,7 @@ wind_done:
         pcre_free_substring(ot);
     }}
     if(current.obs==99) current.obs=0;
-    
+
     pcre_free_substring(s); /* Done parsing! Just a few final calculations... */
 
     current.heatindex=heatindex_C(current.temp, current.rh);
@@ -425,7 +425,7 @@ wind_done:
         day=current.date;
         time2=current.time;
         current.time=utc2local((int)current.time, &current.month, &current.date, &y, NULL);
-    
+
         if(latitude!=999 && calcSolarZenith(latitude, longitude, year, mon, day, hm2min(time2))>90)
             current.moon=calc_moon(current.month, current.date, y, current.time);
     }

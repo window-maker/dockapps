@@ -1,5 +1,5 @@
 /*
- * cpu_netbsd - module to get cpu usage, for NetBSD 
+ * cpu_netbsd - module to get cpu usage, for NetBSD
  *
  * This code is based on cpu_openbsd.c
  *

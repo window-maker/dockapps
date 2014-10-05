@@ -45,24 +45,24 @@ XHandler::~XHandler()
     XDestroyWindow(display_default_, window_icon_);
 
   XCloseDisplay(display_default_);
-  
+
   delete[] icon_list_;
 }
 
 
 //--------------------------------------------------------------------
 void XHandler::init(int argc, char** argv, int num_channels)
-{    
+{
   int display_depth;
 
   window_size_=is_astep_ ? ASTEPSIZE : NORMSIZE;
-  
-  if((display_default_ = XOpenDisplay(display_name_))==NULL) 
+
+  if((display_default_ = XOpenDisplay(display_name_))==NULL)
     {
       std::cerr <<  NAME << " : Unable to open X display '" << XDisplayName(display_name_) << "'." << std::endl;
       exit(1);
     }
-  
+
   initWindow(argc, argv);
 
   initColors();
@@ -146,30 +146,30 @@ unsigned long XHandler::mixColor(char *colorname1, int prop1, char *colorname2, 
 }
 
 //--------------------------------------------------------------------
-void XHandler::repaint() 
+void XHandler::repaint()
 {
   flush_expose(window_icon_);
   XCopyArea(display_default_, pixmap_disp, window_icon_, graphics_context_, 0, 0, 64, 64, window_size_/2-32, window_size_/2-32);
   flush_expose(window_main_);
   XCopyArea(display_default_, pixmap_disp, window_main_, graphics_context_, 0, 0, 64, 64, window_size_/2-32, window_size_/2-32);
-  
+
   XEvent xev;
   while(XCheckTypedEvent(display_default_, Expose, &xev));
 }
 
 //--------------------------------------------------------------------
-void XHandler::update(unsigned channel) 
+void XHandler::update(unsigned channel)
 {
-  if(is_wmaker_ || is_ushape_ || is_astep_) 
+  if(is_wmaker_ || is_ushape_ || is_astep_)
     {
       XShapeCombineMask(display_default_, window_icon_, ShapeBounding, window_size_/2-32, window_size_/2-32, pixmap_mask, ShapeSet);
       XShapeCombineMask(display_default_, window_main_, ShapeBounding, window_size_/2-32, window_size_/2-32, pixmap_mask, ShapeSet);
-    } 
-  else 
+    }
+  else
     {
       XCopyArea(display_default_, pixmap_tile, pixmap_disp, graphics_context_, 0, 0, 64, 64, 0, 0);
     }
-  
+
   XSetClipMask(display_default_, graphics_context_, pixmap_mask);
   XCopyArea(display_default_, pixmap_main, pixmap_disp, graphics_context_, 0, 0, 64, 64, 0, 0);
   XSetClipMask(display_default_, graphics_context_, None);
@@ -177,7 +177,7 @@ void XHandler::update(unsigned channel)
 }
 
 //--------------------------------------------------------------------
-void XHandler::drawLeft(unsigned curleft) 
+void XHandler::drawLeft(unsigned curleft)
 {
   XSetForeground(display_default_, graphics_context_, shade_colors_[(curleft*25)/100]);
   for(unsigned i=0;i<25;i++)
@@ -195,7 +195,7 @@ void XHandler::drawLeft(unsigned curleft)
 }
 
 //--------------------------------------------------------------------
-void XHandler::drawRight(unsigned curright) 
+void XHandler::drawRight(unsigned curright)
 {
   for(unsigned i=0;i<25;i++)
     {
@@ -232,7 +232,7 @@ void XHandler::drawMono(unsigned curright)
 
 
 //--------------------------------------------------------------------
-void XHandler::drawBtns(int buttons, bool curshowrec) 
+void XHandler::drawBtns(int buttons, bool curshowrec)
 {
   if(buttons & BTNPREV)
     drawButton(BTN_LEFT_X, BTN_LEFT_Y, BTN_WIDTH, BTN_HEIGHT, (button_state_ & BTNPREV));
@@ -245,7 +245,7 @@ void XHandler::drawBtns(int buttons, bool curshowrec)
 
   if(buttons & BTNREC){
     drawButton(BTN_REC_X, BTN_REC_Y, BTN_WIDTH, BTN_HEIGHT, (button_state_ & BTNREC));
-    
+
     if(!curshowrec)
       XCopyArea(display_default_, pixmap_nrec, pixmap_disp, graphics_context_, 0, 0, 9, 8, 6, 47);
     else
@@ -254,7 +254,7 @@ void XHandler::drawBtns(int buttons, bool curshowrec)
 }
 
 //--------------------------------------------------------------------
-void XHandler::drawButton(int x, int y, int w, int h, bool down) 
+void XHandler::drawButton(int x, int y, int w, int h, bool down)
 {
   if(!down)
     XCopyArea(display_default_, pixmap_main, pixmap_disp, graphics_context_, x, y, w, h, x, y);
@@ -267,14 +267,14 @@ void XHandler::drawButton(int x, int y, int w, int h, bool down)
 }
 
 //--------------------------------------------------------------------
-int XHandler::flush_expose(Window w) 
+int XHandler::flush_expose(Window w)
 {
   XEvent dummy;
   int i=0;
-  
+
   while (XCheckTypedWindowEvent(display_default_, w, Expose, &dummy))
     i++;
-  
+
   return i;
 }
 
@@ -367,13 +367,13 @@ Atom XHandler::getDeleteWin()
 
 
 //--------------------------------------------------------------------
-void XHandler::initIcons(int num) 
+void XHandler::initIcons(int num)
 {
   if(icon_list_)
     delete[] icon_list_;
-  
+
   icon_list_ = new unsigned[num];
-  
+
   icon_list_[0] = 0;
   icon_list_[1] = 7;
   icon_list_[2] = 8;
@@ -397,7 +397,7 @@ void XHandler::initGraphicsContext()
   gcv.graphics_exposures = 0;
   gcv.foreground = fore_pix;
   gcv.background = back_pix;
-  graphics_context_ = XCreateGC(display_default_, window_root_, gcm, &gcv);  
+  graphics_context_ = XCreateGC(display_default_, window_root_, gcm, &gcv);
 }
 
 //--------------------------------------------------------------------
@@ -414,7 +414,7 @@ void XHandler::initPixmaps(int display_depth)
   xpmattr.exactColors  = false;
   xpmattr.closeness    = 40000;
   xpmattr.valuemask    = XpmColorSymbols | XpmExactColors | XpmCloseness;
-  
+
   XpmCreatePixmapFromData(display_default_, window_root_, (char **)wmmixer_xpm, &pixmap_main, &pixmap_mask, &xpmattr);
   XpmCreatePixmapFromData(display_default_, window_root_, (char **)tile_xpm, &pixmap_tile, NULL, &xpmattr);
   XpmCreatePixmapFromData(display_default_, window_root_, (char **)icons_xpm, &pixmap_icon, NULL, &xpmattr);
@@ -443,7 +443,7 @@ void XHandler::initWindow(int argc, char** argv)
   shints.y = 0;
   //  shints.flags  = USSize;
   shints.flags  = 0; // Gordon
-  
+
   bool pos = (XWMGeometry(display_default_, DefaultScreen(display_default_),
 			  position_name_, NULL, 0, &shints, &shints.x, &shints.y,
 			  &shints.width, &shints.height, &dummy)
@@ -466,16 +466,16 @@ void XHandler::initWindow(int argc, char** argv)
 
   window_main_ = XCreateSimpleWindow(display_default_, window_root_, shints.x, shints.y,
 			    shints.width, shints.height, 0, fore_pix, back_pix);
-  
+
   window_icon_ = XCreateSimpleWindow(display_default_, window_root_, shints.x, shints.y,
 				shints.width, shints.height, 0, fore_pix, back_pix);
-  
+
   XSetWMNormalHints(display_default_, window_main_, &shints);
-  
-  
+
+
   wmhints.icon_x = shints.x;
   wmhints.icon_y = shints.y;
-  
+
   if(is_wmaker_ || is_astep_ || pos)
     shints.flags |= USPosition;
 
@@ -484,30 +484,30 @@ void XHandler::initWindow(int argc, char** argv)
       wmhints.initial_state = WithdrawnState;
       wmhints.flags = StateHint | IconWindowHint | IconPositionHint | WindowGroupHint;
       wmhints.icon_window = window_icon_;
-      
+
       wmhints.icon_x = shints.x;
       wmhints.icon_y = shints.y;
       wmhints.window_group = window_main_;
-    } 
-  else 
+    }
+  else
     {
       wmhints.initial_state = NormalState;
       wmhints.flags = WindowGroupHint | StateHint;
     }
-  
+
   classHint.res_name=(char *)NAME;
   classHint.res_class = window_class_;
-  
+
   XSetClassHint(display_default_, window_main_, &classHint);
   XSetClassHint(display_default_, window_icon_, &classHint);
-   
-  
+
+
   if (XStringListToTextProperty(&wname, 1, &name) == 0)
     {
       std::cerr << wname << ": can't allocate window name" << std::endl;
       exit(1);
     }
-  
+
   XSetWMName(display_default_, window_main_, &name);
   XSetWMHints(display_default_, window_main_, &wmhints);
   XSetCommand(display_default_, window_main_, argv, argc);
@@ -518,7 +518,7 @@ void XHandler::initWindow(int argc, char** argv)
 //--------------------------------------------------------------------
 // Initialize main colors and shaded color-array for bars
 void XHandler::initColors()
-{    
+{
   colors_[0] = mixColor(ledcolor_name_, 0,   backcolor_name_, 100);
   colors_[1] = mixColor(ledcolor_name_, 100, backcolor_name_, 0);
   colors_[2] = mixColor(ledcolor_name_, 60,  backcolor_name_, 40);
@@ -533,23 +533,23 @@ void XHandler::initColors()
 
 //--------------------------------------------------------------------
 void XHandler::initMask()
-{    
+{
   XSetClipMask(display_default_, graphics_context_, pixmap_mask);
   XCopyArea(   display_default_, pixmap_main, pixmap_disp, graphics_context_, 0, 0, 64, 64, 0, 0);
   XSetClipMask(display_default_, graphics_context_, None);
   XStoreName(  display_default_, window_main_, NAME);
-  XSetIconName(display_default_, window_main_, NAME); 
+  XSetIconName(display_default_, window_main_, NAME);
 
-  if(is_wmaker_ || is_ushape_ || is_astep_) 
+  if(is_wmaker_ || is_ushape_ || is_astep_)
     {
       XShapeCombineMask(display_default_, window_icon_, ShapeBounding, window_size_/2-32, window_size_/2-32, pixmap_mask, ShapeSet);
       XShapeCombineMask(display_default_, window_main_, ShapeBounding, window_size_/2-32, window_size_/2-32, pixmap_mask, ShapeSet);
-    } 
-  else 
+    }
+  else
     {
       XCopyArea(display_default_, pixmap_tile, pixmap_disp, graphics_context_, 0, 0, 64, 64, 0, 0);
     }
-  
+
   XSelectInput(display_default_, window_main_, ButtonPressMask | ExposureMask | ButtonReleaseMask | PointerMotionMask | StructureNotifyMask);
   XSelectInput(display_default_, window_icon_, ButtonPressMask | ExposureMask | ButtonReleaseMask | PointerMotionMask | StructureNotifyMask);
   XMapWindow(display_default_, window_main_);

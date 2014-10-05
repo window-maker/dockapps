@@ -24,7 +24,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.              *
  *                                                                         *
  ***************************************************************************/
- 
+
  /***************************************************************************
        Many thanks to Soós Péter <sp@osb.hu> and the omke project team
                    I could never have done this otherwise
@@ -97,7 +97,7 @@ int compal_get_fan_status (void)
 {
 	FILE *fp = fopen (COMPAL_PROC_FILE_FAN, "r");
 	char  fan_status[3];
-	
+
 	if (!fp) return PM_Error;
 
 	if (fscanf (fp, "%*s%*s%2s", fan_status) != 1)

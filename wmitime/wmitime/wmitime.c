@@ -95,13 +95,13 @@ int main(int argc, char *argv[]) {
 	int		i;
 
     uconfig_file[0] = 0;
-    
+
 	/* Parse Command Line */
 
 	ProgName = argv[0];
 	if (strlen(ProgName) >= 5)
 		ProgName += (strlen(ProgName) - 5);
-	
+
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
 
@@ -164,13 +164,13 @@ void wmitime_routine(int argc, char **argv)
 //    char config_file[512];
 
     createXBMfromXPM(wmitime_mask_bits, wmitime_master_xpm, wmitime_mask_width, wmitime_mask_height);
-    
+
 	openXwindow(argc, argv, wmitime_master_xpm, wmitime_mask_bits, wmitime_mask_width, wmitime_mask_height);
 
 	AddMouseRegion(0, 5, 6, 58, 16);
 
     // We don't need a config file (yet)...
-    
+
 #if 0
     // Read config file
 
@@ -188,20 +188,20 @@ void wmitime_routine(int argc, char **argv)
         {
             // Fall back to /etc/wminetrc
             sprintf(config_file, "/etc/wmitimerc");
-        
+
             Read_Config_File(config_file);
         }
     }
 #endif
-    
+
     RedrawWindow();
 
     prevtime = time(0) - 1;
-    
+
     while (1)
     {
 		curtime = time(0);
-        
+
         if ( curtime > prevtime)
         {
             prevtime = curtime;
@@ -223,7 +223,7 @@ void wmitime_routine(int argc, char **argv)
             RedrawWindow();
 
         }
-        
+
         // X Events
         while (XPending(display))
         {
@@ -322,11 +322,11 @@ void DrawStdTime(void)
     {
         sprintf(blitstr, "%02i:%02i:%02i", i, clk->tm_min, clk->tm_sec);
     }
-    
+
 
 
     len = strlen(blitstr);
-    
+
     // Set starting co-ordinates...
     xoff = 6;
     yoff = 6;
@@ -344,7 +344,7 @@ void DrawStdTime(void)
             j = blitstr[i] - '0';
             srcx = 68;
             srcy = 23;
-            
+
             while (j)
             {
                 j--;
@@ -372,7 +372,7 @@ void DrawDate(void)
 
 #ifdef fr
 
-    // French date model 
+    // French date model
     sprintf(BlitStr, "%s", monthnames[clk->tm_mon]);
     BlitString( BlitStr, 40, 50);
 
@@ -419,7 +419,7 @@ void DrawInetWheel(void)
     xoff=67;
 
     xoff+=19;
-    
+
     while(i)
     {
         xoff +=19;
@@ -427,7 +427,7 @@ void DrawInetWheel(void)
     }
 
     copyXPMArea(xoff, yoff, 19, 19, 39, 29);
-    
+
 }
 
 
@@ -467,7 +467,7 @@ void DrawStdWheel(void)
     prevhoury=dy;
 
     DrawLine(cx, cy, dx, dy, sx, sy);
-    
+
     // Minute Hand...
 
     DrawLine(cx, cy, prevminx, prevminy, 66, 9); // erase old line
@@ -489,7 +489,7 @@ void DrawStdWheel(void)
     prevminx = dx;
     prevminy = dy;
 
-    
+
     DrawLine(cx, cy, dx, dy, sx, sy);
 }
 
@@ -501,7 +501,7 @@ void DrawLine(int x1, int y1, int x2, int y2, int sourcex, int sourcey)
 
     float xd=0, yd=0;
     float xi, yi;
-    
+
     x = x1;
     y = y1;
 
@@ -568,7 +568,7 @@ void BlitString(char *name, int x, int y)
     for (i=0; name[i]; i++)
     {
 
-        c = toupper(name[i]); 
+        c = toupper(name[i]);
         if (c >= 'A' && c <= 'Z')
         {   // its a letter
 			c -= 'A';
@@ -594,7 +594,7 @@ void BlitNum(int num, int x, int y)
 
     BlitString(buf, newx, y);
 }
-    
+
 
 // ReadConfigSetting
 int ReadConfigString(FILE *fp, char *setting, char *value)
@@ -614,15 +614,15 @@ int ReadConfigString(FILE *fp, char *setting, char *value)
 
     sprintf(str, "%s=", setting);
     slen = strlen(str);
-    
+
     fseek(fp, 0, SEEK_SET);
 
     while ( !feof(fp) )
     {
-        
+
         if (!fgets(buf, 512, fp))
             break;
-        
+
         len = strlen(buf);
 
         // strip linefeed
@@ -638,7 +638,7 @@ int ReadConfigString(FILE *fp, char *setting, char *value)
         if ( strncmp(buf, str, strlen(str)) == 0)
         {
             // found our setting
-            
+
             for(i=0; i!=slen; i++)
             {
                 if ( buf[i] == '=' )
@@ -648,10 +648,10 @@ int ReadConfigString(FILE *fp, char *setting, char *value)
                     return 1;
                 }
             }
-    
+
         }
     }
-    
+
         return 0;
 }
 
@@ -675,7 +675,7 @@ int Read_Config_File( char *filename )
     fp = fopen(filename, "r");
     if (fp)
     {
-        
+
         fclose(fp);
         return 1;
     }
@@ -688,9 +688,9 @@ int Read_Config_File( char *filename )
 
 }
 
-    
-            
-            
+
+
+
 
 
 

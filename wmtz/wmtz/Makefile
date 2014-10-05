@@ -38,7 +38,7 @@ install:: wmtz
 	chown root:root /etc/wmtzrc
 	@echo "wmtz: Installation finished..."
 
-uninstall:: 
+uninstall::
 	rm -i /usr/local/bin/wmtz
 	rm -i /etc/wmtzrc
 	chmod 666 $(HOME)/.wmtzrc

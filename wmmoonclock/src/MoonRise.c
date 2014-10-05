@@ -159,7 +159,7 @@ double SinH(int year, int month, int day, double UT){
      *  Compute Greenwich Mean Sidereal Time (gmst)
      */
     UT = 24.0*frac( UT/24.0 );
-    /* this is for the ephemeris meridian??? 
+    /* this is for the ephemeris meridian???
     gmst = 6.697374558 + 1.0027379093*UT + (8640184.812866+(0.093104-6.2e-6*TU)*TU)*TU/3600.0;
     */
     gmst = UT + 6.697374558 + (8640184.812866+(0.093104-6.2e-6*TU)*TU)*TU/3600.0;

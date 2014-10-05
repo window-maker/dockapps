@@ -21,7 +21,7 @@ BuildRoot:	/var/tmp/%{name}-%{version}-%{release}
 %description
 wmpower is a Window Maker dock application allowing the user to
 graphically see (and set) the power management status of his laptop.
-  
+
 
 %prep
 %setup -q

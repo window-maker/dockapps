@@ -20,7 +20,7 @@ typedef enum {
     BATT,
     PS_ERR,
 } power_state_t;
-    
+
 typedef enum {
     HIGH,
     MED,
@@ -52,7 +52,7 @@ typedef struct {
     char state_file[MAX_NAME];
     /* sysfs capacity mode */
     sysfs_capa_t sysfs_capa_mode;
-    int present; 
+    int present;
     int design_cap;		/* assuming mAh */
     int last_full_cap;
     int design_voltage;		/* in mV */
@@ -68,9 +68,9 @@ typedef struct {
     /* and a flag to indicate that this is valid . . . */
     int valid;
     /* number of times we've gotten bad info on this battery's present rate */
-    int bad_count;		
+    int bad_count;
 } battery_t;
-    
+
 typedef struct {
     char *name;
     char state_file[MAX_NAME];
@@ -96,11 +96,11 @@ typedef struct {
 
 /*
  * Moving percentage to the battery is right, but I think we need a global
- * remaining capacity somewhere, too . . . 
+ * remaining capacity somewhere, too . . .
  */
 
 /*
- * To provide a convenient debugging function . . . 
+ * To provide a convenient debugging function . . .
  *
  * It's a macro because I'm too lazy to deal with varargs.
  */
@@ -125,7 +125,7 @@ typedef struct {
 
 #define pfatal(fmt, arg...)				\
     fprintf(stderr, fmt, ##arg)				\
-	
+
 
 /* Since these /are/ needed here . . . */
 battery_t batteries[MAXBATT];

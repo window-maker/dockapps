@@ -15,7 +15,7 @@ CC = cc
 wmmon: $(OBJS)
 	$(CC) $(LDFLAGS) -o wmmon $^ $(LIBDIR) $(LIBS)
 
-debug: CFLAGS = -g3 
+debug: CFLAGS = -g3
 debug: wmmon
 
 clean::

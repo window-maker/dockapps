@@ -1,8 +1,8 @@
 //
 //  Mixer.app
-// 
+//
 //  Copyright (c) 1998-2002 Per Liden
-// 
+//
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation; either version 2 of the License, or
@@ -15,7 +15,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program; if not, write to the Free Software
-//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, 
+//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307,
 //  USA.
 //
 
@@ -44,7 +44,7 @@ static const char* MixerSources[] = { "Master", "PCM", "CD" };
 
 extern Mixer* app;
 
-void catchBrokenPipe(int sig) 
+void catchBrokenPipe(int sig)
 {
    app->saveVolumeSettings();
    exit(0);
@@ -58,7 +58,7 @@ int percentToPosition(int percent) {
   return ROUND_POS(BUTTON_MIN - (percent * (BUTTON_MIN - BUTTON_MAX)) / 100.0);
 }
 
-Mixer::Mixer(int argc, char** argv) 
+Mixer::Mixer(int argc, char** argv)
 {
    XClassHint classHint;
    XSizeHints sizeHints;
@@ -221,7 +221,7 @@ Mixer::Mixer(int argc, char** argv)
       cerr << APPNAME << ": could not open display " << displayName << endl;
       exit(0);
    }
- 
+
    // Get root window
    mRoot = RootWindow(mDisplay, DefaultScreen(mDisplay));
 
@@ -311,7 +311,7 @@ void Mixer::tryHelp(char* appname)
    cerr << "Try `" << appname << " --help' for more information" << endl;
 }
 
-void Mixer::showHelp() 
+void Mixer::showHelp()
 {
    cerr << APPNAME << " Copyright (c) 1998-2002 by Per Liden (per@fukt.bth.se), Petr Hlavka (xhlavk00@stud.fit.vutbr.cz)" << endl << endl
         << "options:" << endl
@@ -341,7 +341,7 @@ void Mixer::checkArgument(char** argv, int argc, int index)
    }
 }
 
-void Mixer::showErrorLed() 
+void Mixer::showErrorLed()
 {
    Window led;
    Xpm*   image;
@@ -395,7 +395,7 @@ void Mixer::saveVolumeSettings()
       ofstream file(mSettingsFile);
       if (file) {
          // Files in ~/GNUstep/Defaults/ should follow the property list format
-         file << "{" << endl 
+         file << "{" << endl
               << "  Volume1 = " << mVolumePos[0] << ";" << endl
               << "  Volume2 = " << mVolumePos[1] << ";" << endl
               << "  Volume3 = " << mVolumePos[2] << ";" << endl
@@ -407,7 +407,7 @@ void Mixer::saveVolumeSettings()
    }
 }
 
-void Mixer::getVolume() 
+void Mixer::getVolume()
 {
    static int lastVolume[3] = {-1, -1, -1};
    static int lastVolumeMute[3] = {-1, -1, -1};
@@ -449,7 +449,7 @@ void Mixer::getVolume()
    }
 }
 
-void Mixer::setVolume(int button, int volume) 
+void Mixer::setVolume(int button, int volume)
 {
    if (mError) {
       return;
@@ -469,7 +469,7 @@ void Mixer::toggleMute(int button)
   setButtonType(button);
 }
 
-void Mixer::setButtonType(int button) 
+void Mixer::setButtonType(int button)
 {
    Xpm* image;
 
@@ -500,10 +500,10 @@ void Mixer::setButtonPosition(int button, int position) {
    mVolumePos[button] = position;
 }
 
-void Mixer::setButtonPositionRelative(int button, int relativePosition) 
+void Mixer::setButtonPositionRelative(int button, int relativePosition)
 {
    int y;
-    
+
    // Calc new button position
    y = mVolumePos[button] + relativePosition;
 
@@ -512,17 +512,17 @@ void Mixer::setButtonPositionRelative(int button, int relativePosition)
    } else if (y < BUTTON_MAX) {
       y = BUTTON_MAX;
    }
-    
+
    // Set button position and volume
    XMoveWindow(mDisplay, mButton[button], ButtonX[button], y);
 
    mVolumePos[button] = y;
-    
+
    // set volume
    setVolume(button, positionToPercent(y));
 }
 
-void Mixer::run() 
+void Mixer::run()
 {
    XEvent event;
    int    buttonDown = 0;
@@ -532,7 +532,7 @@ void Mixer::run()
    while(1) {
       while(XPending(mDisplay) || buttonDown) {
          XNextEvent(mDisplay, &event);
-	    
+
          switch(event.type) {
          case ButtonPress:
             if (event.xbutton.button == Button4 || event.xbutton.button == Button5) {
@@ -562,13 +562,13 @@ void Mixer::run()
 		 loadVolumeSettings();
 	    }
             break;
-		
+
          case ButtonRelease:
             if (event.xbutton.button == Button1) {
                buttonDown = 0;
             }
             break;
-		
+
          case MotionNotify:
             if (buttonDown) {
                // Find button

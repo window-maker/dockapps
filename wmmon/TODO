@@ -7,7 +7,7 @@ This is a list of things we've already planned for WMMon-1.0:
 	* Lower CPU usage (only in SysInfo mode) CPU and I/O
 	  mode are very low in CPU usage now ;-);
 	* Multiple CPU support;
-	* GUI mode for simultanious CPU/IO/MEM&SWAP realtime 
+	* GUI mode for simultanious CPU/IO/MEM&SWAP realtime
 	  loadbars (like Matt suggested ;-) );
 
 Your feedback! If you have nice suggestions, ideas, whatever,

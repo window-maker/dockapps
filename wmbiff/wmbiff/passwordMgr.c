@@ -1,5 +1,5 @@
-/* passwordMgr.c 
- * Author: Neil Spring 
+/* passwordMgr.c
+ * Author: Neil Spring
  */
 /* this module implements a password cache: the goal is to
    allow multiple wmbiff mailboxes that are otherwise
@@ -56,9 +56,9 @@ typedef struct password_binding_struct {
 
 static password_binding pass_list = NULL;
 
-/* verifies that askpass_fname, if it has no spaces, exists as 
-   a file, is owned by the user or by root, and is not world 
-   writeable.   This is just a sanity check, and is not intended 
+/* verifies that askpass_fname, if it has no spaces, exists as
+   a file, is owned by the user or by root, and is not world
+   writeable.   This is just a sanity check, and is not intended
    to ensure the integrity of the password-asking program. */
 /* would be static, but used in test_wmbiff */
 int permissions_ok(Pop3 pc, const char *askpass_fname)

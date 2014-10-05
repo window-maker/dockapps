@@ -64,7 +64,7 @@ int Get_Fan_Status(void);
 
 
 int toshiba_get_fan_status(int use_toshiba_hardware)
-{	
+{
 	if (use_toshiba_hardware != 2)
 	{
 		FILE *fp = fopen("/proc/acpi/toshiba/fan", "r");
@@ -80,7 +80,7 @@ int toshiba_get_fan_status(int use_toshiba_hardware)
 		}
 		if (!use_toshiba_hardware) return PM_Error;
 	}
-	
+
 	if (Get_Fan_Status()<0x00)
   {
 		fprintf(stderr, "direct access to toshiba hardware failed:\n");
@@ -187,7 +187,7 @@ int acpi_set_lcd_brightness(int brightness)
 		fprintf(fp, "brightness:%d\n", brightness);
 		fclose(fp);
 		fp = fopen("/proc/acpi/toshiba/lcd", "r");
-		fscanf(fp, "%*s%d", &current_brightness);	
+		fscanf(fp, "%*s%d", &current_brightness);
 		fclose(fp);
 		if (brightness == current_brightness)
 			fprintf(stderr, "toshiba_lib: set LCD brightness to %d\n", brightness);

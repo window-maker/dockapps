@@ -46,7 +46,7 @@ static int read_sysfs_file(char *node, char *prop, char *buf, size_t buflen)
 	perr("Could not read %s/%s\n", node, prop);
 	return -3;
     }
-  
+
     buf[ret] = '\0';
 
     return 0;
@@ -61,7 +61,7 @@ static int sysfs_init_batteries(global_t *globals)
     char *names[MAXBATT];
     char ps_type[16];
     int i, j;
-    
+
     /* now enumerate batteries */
     globals->battery_count = 0;
     battdir = opendir("/sys/class/power_supply");
@@ -72,12 +72,12 @@ static int sysfs_init_batteries(global_t *globals)
     while ((batt = readdir(battdir))) {
 	/* there's a serious problem with this code when there's
 	 * more than one battery: the readdir won't return the
-	 * entries in sorted order, so battery one won't 
+	 * entries in sorted order, so battery one won't
 	 * necessarily be the first one returned. So, we need
-	 * to sort them ourselves before adding them to the 
+	 * to sort them ourselves before adding them to the
 	 * batteries array. */
 	name = batt->d_name;
-	
+
 	/* skip ., .. and dotfiles */
 	if (name[0] == '.')
 	    continue;
@@ -96,7 +96,7 @@ static int sysfs_init_batteries(global_t *globals)
     /* A nice quick insertion sort, ala CLR. */
     {
 	char *tmp1, *tmp2;
-	
+
 	for (i = 1; i < globals->battery_count; i++) {
 	    tmp1 = names[i];
 	    j = i - 1;
@@ -107,7 +107,7 @@ static int sysfs_init_batteries(global_t *globals)
 	    }
 	}
     }
-    
+
     for (i = 0; i < globals->battery_count; i++) {
 	snprintf(batteries[i].name, MAX_NAME, "%s", names[i]);
 	pdebug("battery detected at /sys/class/power_supply/%s\n", batteries[i].name);
@@ -141,7 +141,7 @@ static int procfs_init_batteries(global_t *globals)
     char *name;
     char *names[MAXBATT];
     int i, j;
-    
+
     /* now enumerate batteries */
     globals->battery_count = 0;
     battdir = opendir("/proc/acpi/battery");
@@ -152,12 +152,12 @@ static int procfs_init_batteries(global_t *globals)
     while ((batt = readdir(battdir))) {
 	/* there's a serious problem with this code when there's
 	 * more than one battery: the readdir won't return the
-	 * entries in sorted order, so battery one won't 
+	 * entries in sorted order, so battery one won't
 	 * necessarily be the first one returned. So, we need
-	 * to sort them ourselves before adding them to the 
+	 * to sort them ourselves before adding them to the
 	 * batteries array. */
 	name = batt->d_name;
-	
+
 	/* skip . and .. */
 	if (!strncmp(".", name, 1) || !strncmp("..", name, 2))
 	    continue;
@@ -170,7 +170,7 @@ static int procfs_init_batteries(global_t *globals)
     /* A nice quick insertion sort, ala CLR. */
     {
 	char *tmp1, *tmp2;
-	
+
 	for (i = 1; i < globals->battery_count; i++) {
 	    tmp1 = names[i];
 	    j = i - 1;
@@ -181,12 +181,12 @@ static int procfs_init_batteries(global_t *globals)
 	    }
 	}
     }
-    
+
     for (i = 0; i < globals->battery_count; i++) {
 	snprintf(batteries[i].name, MAX_NAME, "%s", names[i]);
-	snprintf(batteries[i].info_file, MAX_NAME, 
+	snprintf(batteries[i].info_file, MAX_NAME,
 		 "/proc/acpi/battery/%s/info", names[i]);
-	snprintf(batteries[i].state_file, MAX_NAME, 
+	snprintf(batteries[i].state_file, MAX_NAME,
 		 "/proc/acpi/battery/%s/state", names[i]);
 	pdebug("battery detected at %s\n", batteries[i].info_file);
 	pinfo("found battery %s\n", names[i]);
@@ -196,7 +196,7 @@ static int procfs_init_batteries(global_t *globals)
     pdebug("%d batteries detected\n", globals->battery_count);
     pinfo("libacpi: found %d batter%s\n", globals->battery_count,
 	    (globals->battery_count == 1) ? "y" : "ies");
-    
+
     return 0;
 }
 
@@ -263,7 +263,7 @@ static int sysfs_init_ac_adapters(global_t *globals)
     /* we'll just use the first adapter we find ... */
     ap->name = strdup(name);
     pinfo("libacpi: found ac adapter %s\n", ap->name);
-    
+
     return 0;
 }
 
@@ -298,7 +298,7 @@ static int procfs_init_ac_adapters(global_t *globals)
     snprintf(ap->state_file, MAX_NAME, "/proc/acpi/ac_adapter/%s/state",
 	     ap->name);
     pinfo("libacpi: found ac adapter %s\n", ap->name);
-    
+
     return 0;
 }
 
@@ -374,7 +374,7 @@ int power_reinit(global_t *globals)
 	    return 1;
 	}
     }
-    
+
     if (!(retval = reinit_batteries(globals)))
 	retval = reinit_ac_adapters(globals);
 
@@ -424,7 +424,7 @@ static power_state_t procfs_get_power_status(global_t *globals)
     char buf[1024];
     char *val;
     adapter_t *ap = &globals->adapter;
-    
+
     if ((file = fopen(ap->state_file, "r")) == NULL) {
 	snprintf(buf, 1024, "Could not open state file %s", ap->state_file);
 	perror(buf);
@@ -531,7 +531,7 @@ static int sysfs_get_battery_info(global_t *globals, int batt_no)
 	    info->charge_state = FULL; /* DISCHARGE ? as per old comment ... */
     }
 
-    /* get current rate of burn 
+    /* get current rate of burn
      * note that if it's on AC, this will report 0 */
     if (read_sysfs_file(info->name, "current_now", buf, sizeof(buf)) < 0)
 	info->present_rate = -1;
@@ -590,7 +590,7 @@ static int procfs_get_battery_info(global_t *globals, int batt_no)
 	perror(NULL);
 	return 0;
     }
-    
+
     /* grab the contents of the file */
     buflen = fread(buf, sizeof(buf), 1, file);
     fclose(file);
@@ -612,13 +612,13 @@ static int procfs_get_battery_info(global_t *globals, int batt_no)
 	info->present = 0;
 	return 0;
     }
-    
+
     /* get design capacity
      * note that all these integer values can also contain the
      * string 'unknown', so we need to check for this. */
     entry = strstr(buf, "design capacity:");
     val = get_value(entry);
-    if (val[0] == 'u') 
+    if (val[0] == 'u')
 	info->design_cap = -1;
     else
 	info->design_cap = strtoul(val, NULL, 10);
@@ -639,13 +639,13 @@ static int procfs_get_battery_info(global_t *globals, int batt_no)
     else
 	info->design_voltage = strtoul(val, NULL, 10);
 
-    
+
     if ((file = fopen(info->state_file, "r")) == NULL) {
 	perr("Could not open %s:", info->state_file );
 	perror(NULL);
 	return 0;
     }
-    
+
     /* grab the file contents */
     memset(buf, 0, sizeof(buf));
     buflen = fread(buf, sizeof(buf), 1, file);
@@ -671,7 +671,7 @@ static int procfs_get_battery_info(global_t *globals, int batt_no)
     /* get charging state */
     entry = strstr(buf, "charging state:");
     val = get_value(entry);
-    if (val[0] == 'u') 
+    if (val[0] == 'u')
 	info->charge_state = CH_ERR;
     else if ((strncmp(val, "discharging", 10)) == 0)
 	info->charge_state = DISCHARGE;
@@ -684,7 +684,7 @@ static int procfs_get_battery_info(global_t *globals, int batt_no)
     else
 	info->charge_state = CHARGE;
 
-    /* get current rate of burn 
+    /* get current rate of burn
      * note that if it's on AC, this will report 0 */
     entry = strstr(buf, "present rate:");
     val = get_value(entry);
@@ -728,12 +728,12 @@ int get_battery_info(global_t *globals, int batt_no)
  * 2003-7-1.
  * In order to make this code more convenient for things other than
  * just plain old wmacpi-ng I'm breaking the basic functionality
- * up into several chunks: collecting and collating info for a 
- * single battery, calculating the global info (such as rtime), and 
+ * up into several chunks: collecting and collating info for a
+ * single battery, calculating the global info (such as rtime), and
  * some stuff to provide a similar interface to now.
  */
 
-/* calculate the percentage remaining, using the values of 
+/* calculate the percentage remaining, using the values of
  * remaining capacity and last full capacity, as outlined in
  * the ACPI spec v2.0a, section 3.9.3. */
 static int calc_remaining_percentage(int batt)
@@ -741,7 +741,7 @@ static int calc_remaining_percentage(int batt)
     float rcap, lfcap;
     battery_t *binfo;
     int retval;
-    
+
     binfo = &batteries[batt];
 
     rcap = (float)binfo->remaining_cap;
@@ -796,8 +796,8 @@ static enum rtime_mode check_rt_mode(global_t *globals)
 }
 
 /* calculate remaining time until the battery is charged.
- * when charging, the battery state file reports the 
- * current being used to charge the battery. We can use 
+ * when charging, the battery state file reports the
+ * current being used to charge the battery. We can use
  * this and the remaining capacity to work out how long
  * until it reaches the last full capacity of the battery.
  * XXX: make sure this is actually portable . . . */
@@ -816,7 +816,7 @@ static int calc_charge_time_rate(int batt)
 	} else {
 	    lfcap = (float)binfo->last_full_cap;
 	    rcap = (float)binfo->remaining_cap;
-	    
+
 	    charge_time = (int)(((lfcap - rcap)/binfo->present_rate) * 60.0);
 	}
     } else
@@ -826,7 +826,7 @@ static int calc_charge_time_rate(int batt)
 }
 
 /* we need to calculate the present rate the same way we do in rt_cap
- * mode, and then use that to estimate charge time. This will 
+ * mode, and then use that to estimate charge time. This will
  * necessarily be even less accurate than it is for remaining time, but
  * it's just as neessary . . . */
 static int calc_charge_time_cap(int batt)
@@ -841,7 +841,7 @@ static int calc_charge_time_cap(int batt)
     float cdiff;
     float current_rate;
     battery_t *binfo = &batteries[batt];
-    
+
     cap_samples[current] = (float) binfo->remaining_cap;
     time_samples[current] = time(NULL);
 
@@ -863,7 +863,7 @@ static int calc_charge_time_cap(int batt)
 	tdiff = time_samples[current] - time_samples[old];
 	current_rate = cdiff/(float)tdiff;
     }
-    if (current_rate == 0) 
+    if (current_rate == 0)
 	rtime = 0;
     else {
 	float cap_left = (float)(binfo->last_full_cap - binfo->remaining_cap);
@@ -900,11 +900,11 @@ void acquire_batt_info(global_t *globals, int batt)
 {
     battery_t *binfo;
     adapter_t *ap = &globals->adapter;
-    
+
     get_battery_info(globals, batt);
-    
+
     binfo = &batteries[batt];
-    
+
     if (!binfo->present) {
 	binfo->percentage = 0;
 	binfo->valid = 0;
@@ -915,21 +915,21 @@ void acquire_batt_info(global_t *globals, int batt)
 
     binfo->percentage = calc_remaining_percentage(batt);
 
-    /* set the battery's capacity state, based (at present) on some 
+    /* set the battery's capacity state, based (at present) on some
      * guesstimated values: more than 75% == HIGH, 25% to 75% MED, and
      * less than 25% is LOW. Less than globals->crit_level is CRIT. */
     if (binfo->percentage == -1)
 	binfo->state = BS_ERR;
     if (binfo->percentage < globals->crit_level)
 	binfo->state = CRIT;
-    else if (binfo->percentage > 75) 
+    else if (binfo->percentage > 75)
 	binfo->state = HIGH;
     else if (binfo->percentage > 25)
 	binfo->state = MED;
-    else 
+    else
 	binfo->state = LOW;
 
-    /* we need to /know/ that we've got a valid state for the 
+    /* we need to /know/ that we've got a valid state for the
      * globals->power value . . . .*/
     ap->power = get_power_status(globals);
 
@@ -939,11 +939,11 @@ void acquire_batt_info(global_t *globals, int batt)
      * that it's now valid . . .*/
     binfo->valid = 1;
 }
-	
+
 void acquire_all_batt_info(global_t *globals)
 {
     int i;
-    
+
     for(i = 0; i < globals->battery_count; i++)
 	acquire_batt_info(globals, i);
 }
@@ -961,7 +961,7 @@ void acquire_all_batt_info(global_t *globals)
  * So, what we need to do is provide a way to use a different method
  * to calculate the time remaining. What seems most sensible is to
  * split out the code to calculate it into a seperate function, and
- * then provide multiple implementations . . . 
+ * then provide multiple implementations . . .
  */
 
 /*
@@ -980,12 +980,12 @@ int calc_time_remaining_rate(global_t *globals)
     static int j = 0;
     static int n = 0;
 
-    /* calculate the time remaining, using the battery's remaining 
-     * capacity and the reported burn rate (3.9.3). 
-     * For added accuracy, we average the value over the last 
+    /* calculate the time remaining, using the battery's remaining
+     * capacity and the reported burn rate (3.9.3).
+     * For added accuracy, we average the value over the last
      * SAMPLES number of calls, or for anything less than this we
      * simply report the raw number. */
-    /* XXX: this needs to correctly handle the case where 
+    /* XXX: this needs to correctly handle the case where
      * any of the values used is unknown (which we flag using
      * -1). */
     for (i = 0; i < globals->battery_count; i++) {
@@ -999,16 +999,16 @@ int calc_time_remaining_rate(global_t *globals)
     j++, sample_count++;
     if (j >= SAMPLES)
 	j = 0;
-    
+
     /* for the first SAMPLES number of calls we calculate the
      * average based on sample_count, then we use SAMPLES to
      * calculate the rolling average. */
-    
+
     /* when this fails, n should be equal to SAMPLES. */
     if (sample_count < SAMPLES)
 	n++;
     for (i = 0, rate = 0; i < n; i++) {
-	/* if any of our samples are invalid, we drop 
+	/* if any of our samples are invalid, we drop
 	 * straight out, and flag our unknown values. */
 	if (rate_samples[i] < 0) {
 	    rate = -1;
@@ -1018,16 +1018,16 @@ int calc_time_remaining_rate(global_t *globals)
 	rate += rate_samples[i];
     }
     rate = rate/(float)n;
-    
+
     if ((rcap < 1) || (rate < 1)) {
 	rtime = 0;
 	goto out;
     }
-    if (rate <= 0) 
+    if (rate <= 0)
 	rate = 1;
     /* time remaining in minutes */
     rtime = (int)((rcap/rate) * 60.0);
-    if(rtime <= 0) 
+    if(rtime <= 0)
 	rtime = 0;
  out:
     pdebug("discharge time rem: %d\n", rtime);
@@ -1044,11 +1044,11 @@ int calc_time_remaining_rate(global_t *globals)
  * precision instruments - mine only report with about 70mAH
  * resolution, so they don't report any changes until the difference
  * is 70mAH. This means that calculating the current rate from the
- * remaining capacity is very choppy . . . 
+ * remaining capacity is very choppy . . .
  *
  * To fix this, we should calculate an average over some number of
  * samples at the old end of the set - this would smooth out the
- * transitions. 
+ * transitions.
  */
 int calc_time_remaining_cap(global_t *globals)
 {
@@ -1091,7 +1091,7 @@ int calc_time_remaining_cap(global_t *globals)
 	tdiff = time_samples[current] - time_samples[old];
 	current_rate = cdiff/tdiff;
     }
-    if (current_rate == 0) 
+    if (current_rate == 0)
 	rtime = 0;
     else
 	rtime = (int)(cap_samples[current]/(current_rate * 60.0));
@@ -1104,7 +1104,7 @@ int calc_time_remaining_cap(global_t *globals)
 
     pdebug("cap discharge time rem: %d\n", rtime);
     return rtime;
-}    
+}
 
 void acquire_global_info(global_t *globals)
 {

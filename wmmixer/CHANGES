@@ -67,7 +67,7 @@ Release 1.2   25 May 2002 Merge Debian patches
 
 
 Release 1.3   26 May 2002 Change the whole thing to actual C++ code.
-                          It is not yet pretty code, but it is a lot 
+                          It is not yet pretty code, but it is a lot
                           better. Still, much work to do.
 
 Release 1.4   08 Jun 2002 Display only one bar for mono channels

@@ -16,7 +16,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef __OpenBSD__ 
+#ifndef __OpenBSD__
 #define IFM_TYPE_MATCH(dt, t) (IFM_TYPE((dt)) == 0 || \
     IFM_TYPE((dt)) == IFM_TYPE((t)))
 #endif

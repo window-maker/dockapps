@@ -4,7 +4,7 @@
  * Nathan Laredo (laredo@broked.net)
  * Minor additions by Wee Liang (wliang@tartarus.uwa.edu.au)
  *
- * Frequencies are given in kHz 
+ * Frequencies are given in kHz
  */
 #define NTSC_AUDIO_CARRIER	4500
 #define PAL_AUDIO_CARRIER_I	6000
@@ -17,7 +17,7 @@
    containing 8 bits frame sync, 5 bits control, 11 bits additional data, and
    704 bits audio data.  The bit rate is reduced by transmitting only 10 bits
    plus parity of each 14 bit sample, the largest sample in a frame determines
-   which 10 bits are transmitted.  The parity bits for audio samples also 
+   which 10 bits are transmitted.  The parity bits for audio samples also
    specify the scaling factor used for that channel during that frame.  The
    companeded audio data is interleaved to reduce the influence of dropouts
    and the whole frame except for sync bits is scrambled for spectrum shaping.
@@ -196,7 +196,7 @@ struct freqlist tvtuner[] = {
 {"18",	{495250,	145250,	144000,	0,	139250,	0,	0,	0,	0,	0,	0}},
 {"19",	{501250,	151250,	150000,	0,	145250,	0,	0,	0,	0,	0,	0}},
 {"20",	{507250,	157250,	156000,	0,	151250,	0,	0,	0,	0,	0,	0}},
- 
+
 {"21",	{513250,	163250,	162000,	0,	157250,	471250,	471250,	0,	0,	0,	471250}},
 {"22",	{519250,	169250,	168000,	0,	165250,	479250,	479250,	0,	0,	0,	479250}},
 {"23",	{525250,	217250,	216000,	0,	223250,	487250,	487250,	0,	0,	0,	487250}},
@@ -246,7 +246,7 @@ struct freqlist tvtuner[] = {
 {"67",	{789250,	481250,	480000,	0,	0,	839250,	839250,	0,	0,	800250,	839250}},
 {"68",	{795250,	487250,	486000,	0,	0,	847250,	847250,	0,	0,	807250,	847250}},
 {"69",	{801250,	493250,	492000,	0,	0,	855250,	855250,	0,	0,	814250,	855250}},
- 
+
 {"70",	{807250,	499250,	498000,	0,	0,	0,	0,	0,	0,	0,	0}},
 {"71",	{813250,	505250,	504000,	0,	0,	0,	0,	0,	0,	0,	0}},
 {"72",	{819250,	511250,	510000,	0,	0,	0,	0,	0,	0,	0,	0}},
@@ -303,7 +303,7 @@ struct freqlist tvtuner[] = {
 {"123",	{     0,	787250,	786000,	0,	0,	0,	0,	0,	0,	0,	0}},
 {"124",	{     0,	793250,	792000,	0,	0,	0,	0,	0,	0,	0,	0}},
 {"125",	{     0,	799250,	798000,	0,	0,	0,	0,	0,	0,	0,	0}},
- 
+
 {"T7",	{     0,	8250,	7000,	0,	0,	0,	0,	0,	0,	0,	0}},
 {"T8",	{     0,	14250,	13000,	0,	0,	0,	0,	0,	0,	0,	0}},
 {"T9",	{     0,	20250,	19000,	0,	0,	0,	0,	0,	0,	0,	0}},

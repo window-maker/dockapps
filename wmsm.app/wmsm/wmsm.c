@@ -138,7 +138,7 @@ static void draw_uptime(int day,int hour,int min,int sec)
 		}
 	    }
 	}
-    } 
+    }
 }
 
 static void draw_enable_point(int dx,int dy)
@@ -306,7 +306,7 @@ static void get_values(int init,int kernelVersion)
 	} else {
 	    draw_disable_point(point_read_x,point_read_y);
 	}
-	
+
 	/* w_io */
 	diff=w_io-last.w_io;
 	if(diff>last.w_diff_max) {
@@ -320,7 +320,7 @@ static void get_values(int init,int kernelVersion)
 	} else {
 	    draw_disable_point(point_write_x,point_write_y);
 	}
-	
+
 	/* mem */
 	if(!mem_total) {
 	    width=0;
@@ -332,7 +332,7 @@ static void get_values(int init,int kernelVersion)
 	    }
 	}
 	draw_scale(width,mem_s_x,mem_s_y);
-	
+
 	/* swap */
 	if(!swap_total) {
 	    width=0;

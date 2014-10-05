@@ -108,19 +108,19 @@ do {						\
 
 /**
  * Test whether element is at end of the list.
- * 
+ *
  * \param list list.
  * \param elem element.
- * 
+ *
  * \return non-zero if element is at end of list, or zero otherwise.
  */
 #define list_at_end(list, elem)	((elem) == (list))
 
 /**
  * Test if a list is empty.
- * 
+ *
  * \param list list.
- * 
+ *
  * \return non-zero if list empty, or zero otherwise.
  */
 #define list_is_empty(list)	((list)->next == (list))
@@ -142,7 +142,7 @@ do {						\
  *
  * Same as #foreach but lets you unlink the current value during a list
  * traversal.  Useful for freeing a list, element by element.
- * 
+ *
  * \param ptr pointer to the current element.
  * \param t temporary pointer.
  * \param list list.

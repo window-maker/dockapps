@@ -51,8 +51,8 @@
 	Thanks,
 
 	JB.
-	
-	
+
+
 2008 March 18 2.2rc3
 	Some fixes for the sysfs interface support, supplied by
 	jblache@debian.org:
@@ -70,7 +70,7 @@
 
 	JB.
 
-	
+
 2008 March 14 2.2rc2
 	Support for the sysfs interface that became mandatory with kernel
 	2.6.24 (patch supplied by jblache@debian.org).
@@ -78,7 +78,7 @@
 	A number of graphics fixes also from jblache@debian.org.
 
 	Removed support for hardware reported critical battery status.
-	
+
 2007 July 14 2.2rc1
 	Major changes to command line handling and to the way we use
 	libdockapp, courtesy of Patrice Dumas. This should hopefully fix
@@ -89,7 +89,7 @@
 	/proc/acpi/info - thanks to Samuel Ortiz.
 
 	Fixed a longstanding issue with redrawing - thanks to Vito
-	Caputo. 
+	Caputo.
 
 	This version changes a number of command line options (little used
 	ones, but they're still incompatible changes) due to the
@@ -98,7 +98,7 @@
 	(thanks to libdockapp grabbing -h, -v and -w for itself). Also,
 	long options are now supported for everything in wmacpi (but not
 	acpi, since it doesn't use libdockapp for command line parsing).
-	
+
 2007 January 10 2.2a1
 	Added a patch from Patrice Dumas to support newer versions of
 	libdockapp.
@@ -107,20 +107,20 @@
 
 2005 February 2 2.1
 	Finalised libdockapp-0.5.0 port - no changes from 2.1rc1.
-	
+
 2005 Jan 5 2.1rc1
 	Typo fix in the manpage.
 
 	Ported to libdockapp-0.5.0 - all this needed was changing the
 	type of the dockapp width and height to unsigned short.
-	
+
 2004 October 24 2.0
 	Upped version number to 2.0.
 
 	Small typo fixes.
 
 	wmacpi 2.0 goes gold . . .
-	
+
 2004 September 28 2.0rc1
 	Added support for switching to capacity mode automatically, on
 	detecting dodgy reports from the battery.
@@ -131,7 +131,7 @@
 	Various cleanups.
 
 	Hopefully last release before the final 2.0.
-	
+
 2004 August 18 1.99r7
 	Implemented the libdockapp port - this seems to close Debian bug
 	#227819, but it hasn't received sufficient testing.
@@ -141,17 +141,17 @@
 	remaining capacity of the battery and notes the time at which it
 	was sampled, and uses a history of samples to estimate the rate of
 	drain on the battery. From there it calculates a value for time
-	remaining. 
+	remaining.
 
-	Also, various cleanups have gone in: 
+	Also, various cleanups have gone in:
 
 	* a reworking of the scrolling code
-	
+
 	* generic battery number support (rather than just
 	using two pixmaps, one for b1 and one for b2)
 
 	* stopped the battery glyph from blinking when running on AC
-	
+
 2004 July 19 1.99r6
 	Fix for Debian bug #250792 - the parser for the acpi files was
 	too stupid to deal with error conditions. I've now added some
@@ -184,7 +184,7 @@
 
 	libdockapp is waiting, but I think that's the only change left
 	without more bug repots . . .
-	
+
 2004 April 15 1.99r4
 	Collected fixes for various small issues.
 
@@ -202,17 +202,17 @@
 	I've left the big changes that are needed (like using libdockapp,
 	in the hope that it'll solve the docking problems) until later, so
 	that I can get these smaller fixes out. Hopefully soon . . .
-	
+
 2004 January 12 1.99r3
 	. . . and a fix for a fix that didn't fix it . . .
-	
+
 2004 January 12 1.99r2
 	Some cleanups and bugfixes found by the wonderful Debian users.
 
 	It's finally in testing!
-	
+
 2003 November 23 1.99
-	Finally claimed the wmacpi name as my own . . . 
+	Finally claimed the wmacpi name as my own . . .
 
 	Renamed wmacpi-ng and acpi-ng, renamed the header files, fixed up
 	the makefile.
@@ -226,7 +226,7 @@
 	This is wmacpi 1.99, so that I can have a release packaged and in
 	Debian before going to 2.0, so that any bugs that are left can be
 	found by all the extra users.
-	
+
 2003 September 26 0.99
 	Fix the last of the old wmacpi code oddities (specifically, the
 	APMInfo struct, which was a completely inappropriate name given we
@@ -237,21 +237,21 @@
 	more feedback and the like, so I'm going to make this version
 	0.99, preliminary to either wmacpi-ng 1.0 or wmacpi 2.0 (depending
 	which direction I go with that).
-	
+
 2003 September 23 0.92
 	Fix a few more bugs, and include an option to allow the user to
 	specify how often to sample the ACPI data - some BIOSes disable
 	all interrupts while reading from the battery, which apparently
 	causes some interactivity issues. I have no idea why reading once
 	every three seconds (which is our default), but there've been some
-	complaints. 
+	complaints.
 
 	Also fixed acpi-ng to properly handle the -a option.
-	
+
 2003 August 6 0.91
 	Fix a problem I'm seeing with docking the app - if the window name
 	is set to "acpi" rather than "apm" it doesn't dock . . .
-	
+
 2003 July 16 0.90
 	Make the time display show '--:--' instead of '00:00' when the
 	time remaining is 0 - I think this is reasonable, since it'll only
@@ -262,7 +262,7 @@
 	don't lose anything. We also get to handle the (sadly, very
 	common) case where the ACPI subsystem doesn't report sane values
 	for the things we depend on.
-	
+
 2003 July 11 0.50a2
 	Make the time display show nothing (as opposed to 00:00) when the
 	time remaining is unknown, as requested by Emma Jane Hogbin.
@@ -283,7 +283,7 @@
 	annoying about.
 
 	Also, added an acpi-ng manpage.
-	
+
 2003 July 11 0.50a1
 	Properly fix the AC adapter issue - it's not much use adding the
 	infrastructure and then forgetting to fix the code that uses it.
@@ -291,14 +291,14 @@
 	Fix the time disiplay so that it doesn't try to display values
 	greater than 99:59, since the display area won't fit anything
 	beyond that.
-	
+
 2003 July 10 0.50a
 	Bugfixes, to handle two problems: the case where something like
 	the present rate or some such is "unknown" (reported initially by
 	Emma Jane Hogbin, and where the AC adapter is called something
 	other than "AC" (reported by Sebastian Henschel). This an 'a'
-	release because I can't test these myself . . . 
-	
+	release because I can't test these myself . . .
+
 2003 July 6 0.50
 	Finally got rid of that annoying button - that space now contains
 	a 'B 1' or 'B 2' (only those two at present, since I'm too lazy to
@@ -307,69 +307,69 @@
 	batteries . . .)
 
 	A few more code cleanups.
-	
+
 2003 July 1 0.19
 	libacpi cleanups and reworking - we now handle the charging
-	battery case properly, it seems. 
+	battery case properly, it seems.
 
 	Also, some attempts to make error printing a bit cleaner; still a
 	long way to go on that, though . . .
-	
+
 2003 June 24 0.15
 	Removed process_plugin_timer(), since it was doing nothing useful
 	at all . . .
-	
+
 2003 June 23 0.14
 	Removed libapm.c - wmacpi-ng is specifically for ACPI, with no APM
-	support. 
-	
+	support.
+
 2003 June 23 0.13
 	Some more code cleanups, designed to move libacpi to more of a
 	library than something built into wmacpi-ng. This is useful with
 	the seperate programs, though at present it's not used much.
-	
+
 2003 June 21 0.12
 	Added a command line tool, acpi-ng to query battery status from
 	the command line.
-	
+
 2003 May 30 0.11
 	Implemented multiple battery support, and averaging of the samples
 	in an attempt to even out the jumpiness of the timer.
-	
+
 2003 May 30 0.10
 	More major code cleanups: in particular the handling of the power
 	panel and the message has been cleaned up so that it's actually
-	sane and clean. 
+	sane and clean.
 
 	Next step from here is to actually implement handling of multiple
 	batteries, so that if there's a fully charge second battery
 	available it reports the correct time remaining (based on the
 	present rate of power consumption and the sum of the two battery's
 	remaining capacities).
-	
+
 2003 May 29 0.3
 	Some major reworking of the internals, to help fix the handling of
-	multiple batteries and such things. 
-	
+	multiple batteries and such things.
+
 2003 May 26 0.2a
 	Code cleanups to fix various problems with corner cases.
-	
+
 2003 May 26 0.2
 	Added support for multiple batteries: I took the simple route of
 	displaying only one battery per instance - to do more I'd need to
 	hack with the display code, and I'm not ready for that yet.
-	
+
 	Added a -m option to specify the battery number to monitor.
-	
+
 2003 May 26 0.1
 	Changed package completely, to support the new ACPI code as of
-	2.4.21-rc2. 
+	2.4.21-rc2.
 
 	Since this code hasn't been touched in more than a year, I figure
 	I might as well have a go at hacking on it . . .
 
 	-- Simon Fowler, <simon@dreamcraft.com.au>
-	
+
 2002 Feb 17 1.34
     Updated ACPI statistics gathering code for the latest ACPI patch from
     Intel. Now uses/checks for subsystem version 20020214+. Redone the version
@@ -439,13 +439,13 @@
 
     	Added support for fucked APM bioses that display stuff wrong. (See
 	README to learn how to enable it. Obviously, it's disabled by default)
-	
+
     	Reorganized apminfo structure and got rid of redundancy.
-	
+
     	Reorganized acquire_apm_info.  All APM data is processed there.
-	
+
     	Fixed display_state to do the Right Thing.
-	
+
     	Fixed red blinking button to actually blink on critical battery, and
     	to stop when it isn't critical anymore.  I don't think it ever worked
 	right in 1.0.

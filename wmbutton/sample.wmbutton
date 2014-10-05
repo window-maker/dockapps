@@ -1,7 +1,7 @@
 # .wmbutton - Configuration file for wmbutton
 # Last Modified 03/21/04
 
-# Buttons are numbered as follows 
+# Buttons are numbered as follows
 # 	Left	1 2 3	Middle	11 12 13	Right	21 22 23
 # 	button	4 5 6	button	14 15 16	button	24 25 26
 #		7 8 9		17 18 19		27 28 29

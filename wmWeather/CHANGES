@@ -18,7 +18,7 @@ Version         Description
 		 		   -tc <color>
 
 		  Added code to properly decode wind speed when in MPS.
-		
+
 		  Fixed bug in beaufort wind speed calcs.
 
 
@@ -39,18 +39,18 @@ Version         Description
 				-wgc <color> for setting the Wind Gust color.
 
 		  Also cleaned up the pixmap to minimize the number of colors used.
-                        
+
                   Changed metric toggle to work with a key press (any key).
-                        
+
                   Added double click support. Now double clicking does the following:
-  
+
                                 Double Mouse Left: pops up the fully decoded METAR file
                                                    in xmessage.
-  
+
                                 Double Mouse Middle: Currently undefined.
-  
+
                                 Double Mouse Right: Forces a new update (i.e. download.)
-  
+
 
 
 
@@ -64,7 +64,7 @@ Version         Description
 
 		  Also added -mps option to display wind speed in units of
 		  meters/second (when in -metric mode).
-		
+
 1.27  		- released March 8, 1999.
 		  fixed bug in speed calculation when wind is gusting.
 
@@ -98,7 +98,7 @@ Version         Description
 		  when Celsius is set. (Really should change the flag to -metric).
 
 1.1		- Released Jan. 25, 1999.
-		  Bug fixes. 
+		  Bug fixes.
 		  Added Degrees F/C support...
 		  Added a bit more info on where to find info on METAR/TAF
 		  system...

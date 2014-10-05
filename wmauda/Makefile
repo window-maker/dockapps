@@ -19,7 +19,7 @@ wmauda:	$(OBJS) $(HEADERS)
 
 all:	wmauda
 
-clean:	
+clean:
 	rm -f *.o wmauda
 
 install: all

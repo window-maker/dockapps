@@ -324,7 +324,7 @@ void new_window(char *name, int width, int height)
     norm_cursor = XCreateFontCursor(display, XC_left_ptr);
     bar_cursor = XCreateFontCursor(display, XC_sb_up_arrow);
     null_cursor = create_null_cursor(display);
-    
+
     XMapWindow(display, win);
 }
 
@@ -370,20 +370,20 @@ void new_osd(int width, int height)
     gcval.graphics_exposures = 0;
 
     /*
-     * -sony-fixed-medium-r-normal--24-170-100-100-c-120-iso8859-1 
+     * -sony-fixed-medium-r-normal--24-170-100-100-c-120-iso8859-1
      * -misc-fixed-medium-r-normal--36-*-75-75-c-*-iso8859-* */
 
     /* try our cool scaled 36pt fixed font */
     fs = XLoadQueryFont(display,
 	    "-misc-fixed-medium-r-normal--36-*-75-75-c-*-iso8859-*");
-    
+
     if (fs == NULL) {
 	/* they don't have it! */
 	/* try our next preferred font (100dpi sony) */
 	fprintf(stderr, "Trying alternate font\n");
 	fs = XLoadQueryFont(display,
 		"-sony-fixed-medium-r-normal--24-*-100-100-c-*-iso8859-*");
-	
+
 	/* they don't have the sony font either */
 	if (fs == NULL) {
 	    fprintf(stderr, "Trying \"fixed\" font\n");
@@ -397,7 +397,7 @@ void new_osd(int width, int height)
 	    }
 	}
     }
-    
+
     gc =
 	XCreateGC(display, osd,
 		  GCForeground | GCBackground | GCGraphicsExposures,
@@ -515,7 +515,7 @@ static void draw_percent(void)
     int volume = (int)(mixer_get_volume() * 100);
 
     copy_xpm_area(0, 87, 18, 9, 41, 22);	/* clear percentage */
-    
+
     if (volume < 100) {
 	if (volume >= 10)
 	    copy_xpm_area((volume / 10) * 6, 67, 6, 9, 47, 22);
@@ -537,7 +537,7 @@ static void draw_knob(float volume)
 
     led_x = KNOB_CENTER_X + LED_POS_RADIUS * cos(bearing);
     led_y = KNOB_CENTER_Y - LED_POS_RADIUS * sin(bearing);
-    
+
     led_topleft_x = (int)(led_x - (LED_WIDTH / 2.0) + 0.5);
     led_topleft_y = (int)(led_y - (LED_HEIGHT / 2.0) + 0.5);
 
@@ -569,7 +569,7 @@ static Cursor create_null_cursor(Display *x_display)
     GC gc;
     XColor dummy_color;
     Cursor cursor;
-    
+
     cursor_mask = XCreatePixmap(x_display, DefaultRootWindow(x_display), 1, 1, 1);
     gcval.function = GXclear;
     gc = XCreateGC(x_display, cursor_mask, GCFunction, &gcval);
@@ -581,7 +581,7 @@ static Cursor create_null_cursor(Display *x_display)
 		&dummy_color, &dummy_color, 0, 0);
     XFreePixmap(x_display, cursor_mask);
     XFreeGC(x_display, gc);
-    
+
     return cursor;
 }
 

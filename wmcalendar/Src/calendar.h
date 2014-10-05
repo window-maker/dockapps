@@ -8,7 +8,7 @@
 time_t  modtime;              /* modified time of icalendar file */
 struct  calobj* calRoot;  /* 1st element in list of calendar obj*/
 int     xr, yr;               /*evil hack for moving dayview window*/
-int     datetype[32][2];      /* hashtable for coloring days.[jdn%32][0] stores color of day jdn, 
+int     datetype[32][2];      /* hashtable for coloring days.[jdn%32][0] stores color of day jdn,
 				 [jdn%32][1] stores jdn. */
 struct calobj{
     struct icaltimetype start;

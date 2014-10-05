@@ -165,7 +165,7 @@ int main (int argc, char *argv[])
   for (i=0; i<device_num; i++)
     stat_dev_initstat(&stat_device[i]);
 
-  
+
   for (i=0; i < wind_num; i++) {
     DAInitialize(displayName, winds[i].name, APP_WIDTH, APP_HEIGHT, argc, argv, winds[i].w);
     DASetCallbacks(winds[i].w, &callbacks);
@@ -346,7 +346,7 @@ static struct { int w,h; } graph_box[]=
   {W_DIAG-2, H_DIAG-2},
   {W_DIAG-2, H_BDIAG-2}
 };
-    
+
 void draw_current_pane(pane_part *pane)
 {
   int i;

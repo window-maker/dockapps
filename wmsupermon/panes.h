@@ -57,7 +57,7 @@ typedef struct
 {
   char       name[WNAME_LEN+1];
   pane_desc *panes;
-  int        num_panes, cur_pane; 
+  int        num_panes, cur_pane;
   Window     w[2]; /* normal and iconic */
   Pixmap     pixmap, mask;
 }

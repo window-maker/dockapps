@@ -1,12 +1,12 @@
 2006-03-07  Jess Mahan <jess@digitalssg.net>
 	* Version 0.6
 	* Strip trailing colon from interface name in wfi->ifname
-	  Jeroen Nijhof <jnijhof@nijhofnet.nl> 
+	  Jeroen Nijhof <jnijhof@nijhofnet.nl>
 	* Added ability to switch between scrolling and non scrolling
 	  interfaces.
 	  Thanks to Jeroen Nijhof <jnijhof@nijhofnet.nl> for ideas.
 	* Mouse1 now switches between scrolling / non-scrolling modes
-	* Added custom color support 
+	* Added custom color support
 	* Added preset color schemes -tc -tn -ts
 	* Updated Man page to reflect changes.
 	* Updated --help contents
@@ -31,7 +31,7 @@
 	* wmwifi will not exit if a card is removed, instead it
 	  displays an error
 
-	  
+
 2003-16-12  Jess Mahan <jess@digitalssg.net>
 
 	* Added "get_max_qual" to get the maximum quality directly from
@@ -39,9 +39,9 @@
 	  would always be 92, which isn't the case. This means that
 	  quality reporting is now accurate.
 
-	  
+
 2003-22-24  Jess Mahan <jess@digitalssg.net>
-	
+
 	* Changes the "look" of the display.
 	* wmwifi now exits if it cannot open the wireless extensions.
 	* Displays link in percentage now, rather than actuall amount.
@@ -54,4 +54,4 @@
 
 	* Created initial (0.1-1) Release (see README)
 	* Created initial (0.1-1) Debian Package
-	
+

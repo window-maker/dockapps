@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libwmgeneral.a
 libwmgeneral_a_SOURCES = misc.c misc.h wmgeneral.c wmgeneral.h
 
-MAINTAINERCLEANFILES = Makefile.in 
+MAINTAINERCLEANFILES = Makefile.in
 
 
 indent:

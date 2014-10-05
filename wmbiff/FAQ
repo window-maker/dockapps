@@ -29,7 +29,7 @@ tracker #706995).
 * WMBiff doesn't work.  How do I submit a bug?
 
 See the Troubleshooting section of the wmbiffrc man
-page.  
+page.
 
 If that doesn't work, run 'wmbiff -debug > wmbiff.log' and
 remove any passwords left in wmbiff.log.  Submit this log
@@ -48,25 +48,25 @@ Some previously requested features can't be done:
  - Count IMAP deleted messages separately (the protocol
     doesn't support it without locking the mailbox).
  - Reset the count of new messages to zero when spawning
-    a mailer (it would just jump back again the next time 
+    a mailer (it would just jump back again the next time
     wmbiff looked).
 
 Previously suggested features that are really hard:
  - Support dock sizes other than 64x64
  - Inverse video on new mail (or do more visually to grab attention)
 
-* I'm about to start writing a patch. How do I make sure it will 
+* I'm about to start writing a patch. How do I make sure it will
 get incorporated in WMBiff?
 
 Start a conversation on wmbiff-devel, and you'll probably
-get some help. 
- 
-Tidbits: 
- Avoid creating new Clients.  
-  - If you want an existing client to do something differently, 
-    find a way to parameterize its behavior. 
+get some help.
+
+Tidbits:
+ Avoid creating new Clients.
+  - If you want an existing client to do something differently,
+    find a way to parameterize its behavior.
   - If you want to use a shell command to get some
-    information, make a recipe for ShellClient (open wmbiff.c 
+    information, make a recipe for ShellClient (open wmbiff.c
     and search for 'gicu').
  If you must create a new client, Avoid Duplicating Code.
  Document your patch.  Add entries as appropriate to:
@@ -76,11 +76,11 @@ Tidbits:
 
 * How do I get the very latest WMBiff from SourceForge CVS?
 
-See http://sourceforge.net/cvs/?group_id=26389, or 
+See http://sourceforge.net/cvs/?group_id=26389, or
 http://sourceforge.net/projects/wmbiff then click on CVS.
- 
-cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/wmbiff login 
-cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/wmbiff co wmbiff 
+
+cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/wmbiff login
+cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/wmbiff co wmbiff
 
 * I added a feature to WMBiff. How do I submit a patch?
 ** If you've modified code from a .tar.gz
@@ -88,7 +88,7 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/wmbiff co wmbiff
   (in the wmbiff-x.x.x/wmbiff directory)
   make indent
   cd ..
-  make distclean 
+  make distclean
   cd ..
   mv wmbiff-x.x.x wmbiff-changed
   tar xvfz wmbiff-x.x.x.tar.gz
@@ -98,24 +98,24 @@ cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/wmbiff co wmbiff
   make indent
   cd ..
   [ optionally 'make distcheck' ]
-  make maintainer-clean 
+  make maintainer-clean
   cvs update -d
   [ resolve any conflicts ]
   cvs diff -u | less     [ make sure the differences are roughly correct ]
   cd ..
   mv wmbiff wmbiff-changed
-  [ now checkout a new copy of wmbiff ] 
+  [ now checkout a new copy of wmbiff ]
   diff --unified --recursive --new-file --exclude CVS wmbiff wmbiff-changed > my-patch
-    
+
 ** Sending the patch
 Submit my-patch as an attachment to mail sent to
 wmbiff-devel. Don't forget to subscribe to the mailing list
 so that we can discuss your patch.  This is roughly the same
 procedure you'll use to submit patches to any code, although
 others may not have the 'make indent' step.
- 
 
-* This FAQ is wrong.  
+
+* This FAQ is wrong.
 
 Send mail to wmbiff-devel@lists.sourceforge.net.
 

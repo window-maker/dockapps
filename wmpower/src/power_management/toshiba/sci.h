@@ -62,14 +62,14 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
@@ -84,7 +84,7 @@ extern "C" {
 #ifndef LINUX_TOSHIBA_H
 #define LINUX_TOSHIBA_H
 #include<linux/toshiba.h>
-#endif 
+#endif
 
 
 /*
@@ -134,7 +134,7 @@ enum {
  * the different states the various modes can be set to
  */
 
-enum {	
+enum {
 	SCI_BOOT            = 0x0000,
 	SCI_RESUME          = 0x0001,
 	SCI_HIBERNATE       = 0x0002,
@@ -189,7 +189,7 @@ enum {
 	SCI_TIME_55         = 0x4000,
 	SCI_TIME_60         = 0x8000
 };
-	
+
 enum {
 	SCI_FD_HD           = 0x0000,
 	SCI_HD_FD           = 0x0001
@@ -274,7 +274,7 @@ enum {
  * macro's to manipulate the time and date data types
  */
 #define SCI_TIME(h,m) ((m & 0x3f)<<1) | ((h & 0x1f)<<7)
-#define SCI_HOUR(t)   (t & 0x7fc0)>>7 
+#define SCI_HOUR(t)   (t & 0x7fc0)>>7
 #define SCI_MINUTE(t) (t & 0x7e)>>1
 #define SCI_TIME_ON(t) (t & 0x01)
 #define SCI_DATE(m,d) ((m & 0xf)<<6) | ((d & 0x1f)<<1)

@@ -46,7 +46,7 @@ dnl AC_CHECK_FUNC(asprintf, , VASPRINTF="vasprintf.c")
 dnl replacing the old USE_POLL define
 AC_CHECK_FUNCS(poll)
 
-dnl for gnutls-common.h, which defines this if missing. 
+dnl for gnutls-common.h, which defines this if missing.
 AC_CHECK_FUNCS(inet_ntop)
 
 dnl declare RETSIGTYPE
@@ -68,12 +68,12 @@ dnl Parameter is minimum version
 dnl TODO: fix so that GCRYPT is tested only if GNUTLS fails; the dependence
 dnl between them makes this turn redundant
 
-AC_ARG_ENABLE(crypto, AC_HELP_STRING([ --disable-crypto ], [ disable gnutls/gcrypt ]), 
-                      [ if test $enableval != yes; then 
+AC_ARG_ENABLE(crypto, AC_HELP_STRING([ --disable-crypto ], [ disable gnutls/gcrypt ]),
+                      [ if test $enableval != yes; then
                         gnutls="disabled"
                         gcrypt="disabled"
                        fi ])
-                      
+
 
 GNUTLS_MAN_STATUS="This copy of WMBiff was not compiled with GNUTLS."
 if test "$gnutls" = "ok"; then
@@ -96,7 +96,7 @@ if test "$gcrypt" = "ok"; then
                          AC_CHECK_HEADERS(gcrypt.h) ],
                          [ echo libgcrypt can be found at ftp://ftp.gnupg.org/pub/gcrypt/alpha/libgcrypt/ ]  )
 else
-        AC_MSG_RESULT(GCRYPT disabled.)                        
+        AC_MSG_RESULT(GCRYPT disabled.)
 fi;
 
 
@@ -106,7 +106,7 @@ AC_SUBST(GCRYPT_MAN_STATUS)
 AC_SUBST(GNUTLS_COMMON_O)
 
 dnl regex stuff.
-AC_CHECK_HEADERS(regex.h) dnl gnuregex.h 
+AC_CHECK_HEADERS(regex.h) dnl gnuregex.h
 dnl no longer needed AC_CHECK_LIB(gnuregex, re_search) dnl BSD.
 
 dnl X11 stuff.
@@ -136,7 +136,7 @@ dnl AC_SUBST(GNOME_LIBS)
 dnl AC_SUBST(GNOME_CFLAGS)
 
 
-dnl see if __attribute__ is supported.  modified from AC_C_INLINE 
+dnl see if __attribute__ is supported.  modified from AC_C_INLINE
 dnl in the autoconf distribution.
 AC_DEFUN([WM_C_ATTRIBUTE],
 [AC_CACHE_CHECK([for __attribute__ support], wm_cv_c_attribute,
@@ -152,7 +152,7 @@ foo_t foo () {return 0; }
 ])
 case $wm_cv_c_attribute in
   yes)AC_DEFINE(HAVE___ATTRIBUTE__, ,
-                [Define if '__attribute__' is supported by the compiler]) 
+                [Define if '__attribute__' is supported by the compiler])
   ;;
 esac
 ])# WM_C_ATTRIBUTE

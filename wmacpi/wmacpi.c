@@ -80,11 +80,11 @@ struct dockapp *dockapp;
 int scroll_reset = DEFAULT_SCROLL_RESET;
 
 /* copy a chunk of pixmap around the app */
-static void copy_xpm_area(int x, int y, int w, int h, int dx, int dy)					
-{										
-    XCopyArea(DADisplay, dockapp->pixmap, dockapp->pixmap,	
-	      DAGC, x, y, w, h, dx, dy);			
-    dockapp->update = 1;							
+static void copy_xpm_area(int x, int y, int w, int h, int dx, int dy)
+{
+    XCopyArea(DADisplay, dockapp->pixmap, dockapp->pixmap,
+	      DAGC, x, y, w, h, dx, dy);
+    dockapp->update = 1;
 }
 
 /* display AC power symbol */
@@ -156,7 +156,7 @@ static void new_window(char *display, char *name, int argc, char **argv)
                  StructureNotifyMask);
 
     /* create the main pixmap . . . */
-    DAMakePixmapFromData(master_xpm, &dockapp->pixmap, &dockapp->mask, 
+    DAMakePixmapFromData(master_xpm, &dockapp->pixmap, &dockapp->mask,
 			 &dockapp->width, &dockapp->height);
     DASetPixmap(dockapp->pixmap);
     DASetShape(dockapp->mask);
@@ -181,7 +181,7 @@ static void new_window(char *display, char *name, int argc, char **argv)
 	hints->max_height = 64;
 	XSetWMNormalHints(dockapp->display, dockapp->win, hints);
 	XFree(hints);
-    } 
+    }
 
     DAShow();
 }
@@ -208,10 +208,10 @@ static void scroll_text(void)
     int tw = dockapp->tw;	/* width of the rendered text */
     int sx, dx, w;
 
-    if (!dockapp->scroll) 
+    if (!dockapp->scroll)
 	return;
 
-    /* 
+    /*
      * Conceptually this is viewing the text through a scrolling
      * window - the window starts out with the end immediately before
      * the text, and stops when the start of the window is immediately
@@ -224,9 +224,9 @@ static void scroll_text(void)
      * text is being copied, until a full window is being copied.
      *
      * As the end of the window moves out past the end of the text, we
-     * want to keep the destination at the beginning of the text area, 
+     * want to keep the destination at the beginning of the text area,
      * but copy a smaller and smaller chunk of the text. Eventually the
-     * start of the window will scroll past the end of the text, at 
+     * start of the window will scroll past the end of the text, at
      * which point we stop doing any work and wait to be reset.
      */
 
@@ -246,7 +246,7 @@ static void scroll_text(void)
 	w = end;
     else if (end > tw)
 	w = 52 - (end - tw);
-	
+
     dx = x + 52 - w;
     if (end > tw)
 	dx = x;
@@ -368,7 +368,7 @@ static void display_time(int minutes)
     hour = minutes / 60;
     /* our display area only fits %2d:%2d, so we need to make sure
      * what we're displaying will fit in those constraints. I don't
-     * think we're likely to see any batteries that do more than 
+     * think we're likely to see any batteries that do more than
      * 100 hours any time soon, so it's fairly safe. */
     if (hour >= 100) {
 	hour = 99;
@@ -392,7 +392,7 @@ static void display_time(int minutes)
     omin = min;
 }
 
-/* 
+/*
  * The reworked state handling stuff.
  */
 
@@ -407,9 +407,9 @@ static void really_blink_power_glyph(void)
 {
     static int counter = 0;
 
-    if (counter == 10) 
+    if (counter == 10)
 	display_power_glyph();
-    else if (counter == 20) 
+    else if (counter == 20)
 	kill_power_glyph();
     else if (counter > 30)
 	counter = 0;
@@ -435,7 +435,7 @@ static void really_blink_battery_glyph(void)
 	counter = 0;
 
     counter += dockapp->period_length;
-}    
+}
 
 static void blink_battery_glyph(void)
 {
@@ -484,7 +484,7 @@ void reset_scroll_speed(void) {
     scroll_reset = DEFAULT_SCROLL_RESET;
 }
 
-/* 
+/*
  * The message that needs to be displayed needs to be decided
  * according to a heirarchy: a message like not present needs to take
  * precedence over a global thing like the current power status, and
@@ -492,11 +492,11 @@ void reset_scroll_speed(void) {
  * the "on battery" message. Likewise, a battery charging message
  * needs to take precedence over the on ac power message. The other
  * question is how much of a precedence local messages should take
- * over global ones . . . 
+ * over global ones . . .
  *
  * So, there are three possible sets of messages: not present, on-line
  * and off-line messages. We need to decide which of those sets is
- * appropriate right now, and then decide within them. 
+ * appropriate right now, and then decide within them.
  */
 enum messages {
     M_NB,	/* no batteries */
@@ -515,7 +515,7 @@ static void set_message(global_t *globals)
     static enum messages state = M_NULL;
     battery_t *binfo = globals->binfo;
     adapter_t *ap = &globals->adapter;
-    
+
     if (globals->battery_count == 0) {
 	if (state != M_NB) {
 	    state = M_NB;
@@ -525,7 +525,7 @@ static void set_message(global_t *globals)
 
 	return;
     }
-    
+
     /* battery not present case */
     if (!binfo->present) {
 	if (state != M_NP) {
@@ -567,7 +567,7 @@ static void set_message(global_t *globals)
 		render_text("on battery");
 	    }
 	}
-    }    
+    }
 }
 
 void set_time_display(global_t *globals)
@@ -598,7 +598,7 @@ void set_batt_id_area(int bno)
     int dy = 32;		/* y coord of the target area */
     int sx = (bno + 1) * 7;	/* source x coord */
     int sy = 76;		/* source y coord */
-    
+
     copy_xpm_area(sx, sy, w, h, dx, dy);
 }
 
@@ -609,7 +609,7 @@ void cli_wmacpi(global_t *globals, int samples)
     int i, j, sleep_time = 0;
     battery_t *binfo;
     adapter_t *ap;
-    
+
     pdebug("samples: %d\n", samples);
     if(samples > 1)
     	sleep_time = 1000000/samples;
@@ -621,7 +621,7 @@ void cli_wmacpi(global_t *globals, int samples)
 	acquire_global_info(globals);
 	usleep(sleep_time);
     }
-    
+
     ap = &globals->adapter;
     if(ap->power == AC) {
 	printf("On AC Power");
@@ -630,8 +630,8 @@ void cli_wmacpi(global_t *globals, int samples)
 	    if(binfo->present && (binfo->charge_state == CHARGE)) {
 		printf("; Battery %s charging", binfo->name);
 		printf(", currently at %2d%%", binfo->percentage);
-		if(binfo->charge_time >= 0) 
-		    printf(", %2d:%02d remaining", 
+		if(binfo->charge_time >= 0)
+		    printf(", %2d:%02d remaining",
 			   binfo->charge_time/60,
 			   binfo->charge_time%60);
 	    }
@@ -646,7 +646,7 @@ void cli_wmacpi(global_t *globals, int samples)
 		       binfo->percentage);
 	}
 	if(globals->rtime >= 0)
-	    printf("; %d:%02d remaining", globals->rtime/60, 
+	    printf("; %d:%02d remaining", globals->rtime/60,
 		   globals->rtime%60);
 	printf("\n");
     }
@@ -686,14 +686,14 @@ int main(int argc, char **argv)
     DAProgramOption options[] = {
      {"-r", "--no-scroll", "disable scrolling message", DONone, False, {NULL}},
      {"-n", "--no-blink", "disable blinking of various UI elements", DONone, False, {NULL}},
-     {"-x", "--cmdline", "run in command line mode",  DONone, False, {NULL}}, 
+     {"-x", "--cmdline", "run in command line mode",  DONone, False, {NULL}},
      {"-f", "--force-capacity-mode", "force the use of capacity mode for calculating time remaining", DONone, False, {NULL}},
      {"-d", "--display", "display or remote display", DOString, False, {&display}},
      {"-c", "--critical", "set critical low alarm at <number> percent\n                               (default: 10 percent)", DONatural, False, {&critical}},
      {"-m", "--battery", "battery number to monitor", DONatural, False, {&battery_no}},
      {"-s", "--sample-rate", "number of times per minute to sample battery information\n                               default 20 (once every three seconds)", DONatural, False, {&samplerate}},
      {"-V", "--verbosity", "Set verbosity", DONatural, False, {&verbosity}},
-     {"-a", "--samples", "number of samples to average over (cli mode only)",  DONatural, False, {&samples}}, 
+     {"-a", "--samples", "number of samples to average over (cli mode only)",  DONatural, False, {&samples}},
     };
 
     dockapp = calloc(1, sizeof(struct dockapp));
@@ -706,8 +706,8 @@ int main(int argc, char **argv)
     globals->crit_level = 10;
     battery_no = 1;
 
-    /* after this many samples, we reinit the battery and AC adapter 
-     * information. 
+    /* after this many samples, we reinit the battery and AC adapter
+     * information.
      * XXX: make these configurable . . . */
     batt_reinit = 100;
     ac_reinit = 1000;
@@ -716,10 +716,10 @@ int main(int argc, char **argv)
      * are available /before/ we can decide if the battery we want to
      * monitor is available. */
     /* parse command-line options */
-    DAParseArguments(argc, argv, options, 10, 
-      "A battery monitor dockapp for ACPI based systems", 
+    DAParseArguments(argc, argv, options, 10,
+      "A battery monitor dockapp for ACPI based systems",
       VERSION);
-		
+
     if (options[0].used)
         dockapp->scroll = 0;
     if (options[1].used)
@@ -730,7 +730,7 @@ int main(int argc, char **argv)
         rt_mode = RT_CAP;
         rt_forced = 1;
     }
-        
+
     if (samplerate == 0) samplerate = 1;
     if (samplerate > 600) samplerate = 600;
 
@@ -801,7 +801,7 @@ int main(int argc, char **argv)
     battery_no--;
 
     /* make new dockapp window */
-    /* Don't even /think/ of asking me why, but if I set the window name to 
+    /* Don't even /think/ of asking me why, but if I set the window name to
      * "acpi", the app refuses to dock properly - it's just plain /weird/.
      * So, wmacpi it is . . . */
     new_window(display, "wmacpi", argc, argv);
@@ -854,9 +854,9 @@ int main(int argc, char **argv)
 		/* what /is/ this crap?
 		 * Turns out that libdockapp adds the WM_DELETE_WINDOW atom to
 		 * the WM_PROTOCOLS property for the window, which means that
-		 * rather than get a simple DestroyNotify message, we get a 
+		 * rather than get a simple DestroyNotify message, we get a
 		 * nice little message from the WM saying "hey, can you delete
-		 * yourself, pretty please?". So, when running as a window 
+		 * yourself, pretty please?". So, when running as a window
 		 * rather than an icon, we're impossible to kill in a friendly
 		 * manner, because we're expecting to die from a DestroyNotify
 		 * and thus blithely ignoring the WM knocking on our window
@@ -877,10 +877,10 @@ int main(int argc, char **argv)
 
 	/* XXX: some laptops have problems with sampling the battery
 	 * regularly - apparently, the BIOS disables interrupts while
-	 * reading from the battery, which is generally on a slow bus 
+	 * reading from the battery, which is generally on a slow bus
 	 * and is a slow device, so you get significant periods without
-	 * interrupts. This causes interactivity to suffer . . . 
-	 * 
+	 * interrupts. This causes interactivity to suffer . . .
+	 *
 	 * So, the workaround/fix for this is to sample at a much
 	 * lower rate than we may update/refresh/expose/whatever. The
 	 * user specifies how many times they want us to sample per
@@ -913,7 +913,7 @@ int main(int argc, char **argv)
 		if (globals->battery_count > 0) {
 		    if (battery_no > globals->battery_count)
 		        battery_no = 0;
-		    
+
 		    binfo = switch_battery(globals, battery_no);
 		}
 	    }
@@ -924,13 +924,13 @@ int main(int argc, char **argv)
 	     * they change - you can hotplug batteries on most laptops these days
 	     * and who knows what kind of shit will be happening soon . . . */
 	    if (batt_count++ >= batt_reinit) {
-		if(reinit_batteries(globals)) 
+		if(reinit_batteries(globals))
 		    pfatal("Oh my god, the batteries are gone!\n");
 		batt_count = 0;
 	    }
 
 	    if (ac_count++ >= ac_reinit) {
-		if(reinit_ac_adapters(globals)) 
+		if(reinit_ac_adapters(globals))
 		    pfatal("What happened to our AC adapters?!?\n");
 		ac_count = 0;
 	    }
@@ -942,15 +942,15 @@ int main(int argc, char **argv)
 	    scroll_count = 0;
 	}
 
-	/* The old code had some kind of weird crap with timers and the like. 
+	/* The old code had some kind of weird crap with timers and the like.
 	 * As far as I can tell, it's meaningless - the time we want to display
-	 * is the time calculated from the remaining capacity, as per the 
+	 * is the time calculated from the remaining capacity, as per the
 	 * ACPI spec. The only thing I'd change is the handling of a charging
-	 * state: my best guess, based on the behaviour I'm seeing with my 
+	 * state: my best guess, based on the behaviour I'm seeing with my
 	 * Lifebook, is that the present rate value when charging is the rate
 	 * at which the batteries are being charged, which would mean I'd just
-	 * need to reverse the rtime calculation to be able to work out how 
-	 * much time remained until the batteries were fully charged . . . 
+	 * need to reverse the rtime calculation to be able to work out how
+	 * much time remained until the batteries were fully charged . . .
 	 * That would be rather useful, though given it would vary rather a lot
 	 * it seems likely that it'd be little more than a rough guesstimate. */
 	set_time_display(globals);
@@ -960,7 +960,7 @@ int main(int argc, char **argv)
 	if (globals->battery_count == 0) {
 	    clear_percentage();
 	    clear_batt_id_area();
-	} else 
+	} else
 	    display_percentage(binfo->percentage);
 
 	scroll_text();

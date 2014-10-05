@@ -2,11 +2,11 @@
  *  Copyright 1998 Jesse B. Off  <joff@iastate.edu>
  *
  *  $Id: drivers.c,v 1.1 1998/10/07 03:42:21 joff Exp joff $
- *  
+ *
  *  This software is released under the GNU Public License agreement.
  *  No warranties, whatever.... you know the usuals.... this is free
  *  software.  if you use it, great... if you wanna make a change to it,
- *  great, but please send me the diff.  
+ *  great, but please send me the diff.
  */
 
 #include<stdlib.h>
@@ -125,9 +125,9 @@ char* available_drivers(void) {
   ind++;
  }
  *(--string) = '\0';
- return ptr; 
-} 
-   
+ return ptr;
+}
+
 
 
 parser_func find_driver(void) {
@@ -145,7 +145,7 @@ parser_func find_driver(void) {
 
 parser_func setup_driver(char * parser_name) {
  int ind = 0;
- if (parser_name == NULL) return find_driver(); 
+ if (parser_name == NULL) return find_driver();
  while(drivers[ind].name != NULL) {
   if(!strcmp(parser_name, drivers[ind].name)) {
     if (drivers[ind].test()) return drivers[ind].function;
@@ -157,15 +157,15 @@ parser_func setup_driver(char * parser_name) {
  fprintf(stderr, "wmnet: no driver %s\n", parser_name);
  exit(18);
 }
-  
+
 
 
 
 #ifdef linux
-/* All the data gathering is done in here. 
+/* All the data gathering is done in here.
  * Return True if no change to tx/rx.
  * Return False if display will need to be updated.
- */	 
+ */
 #ifdef USE_IPFWADM
 int ipfwadm_test(void) {
   if(open("/proc/net/ip_acct", O_RDONLY) == -1) return False;
@@ -195,37 +195,37 @@ int updateStats_ipfwadm(void) {
 				/* accounting in */
 				flag |= ACCOUNT_IN_FOUND;
 				while(buffer[offset++] != ' ');
-				offset += 18; 
-				totalpackets_in = strtoul(&buffer[offset], &ptr, 10);	
+				offset += 18;
+				totalpackets_in = strtoul(&buffer[offset], &ptr, 10);
 				if (totalpackets_in == lastpackets_in) break;
 				totalbytes_in = strtoul(ptr, NULL, 10);
 				diffpackets_in += totalpackets_in - lastpackets_in;
 				diffbytes_in += totalbytes_in - lastbytes_in;
 				lastpackets_in = totalpackets_in;
 				lastbytes_in = totalbytes_in;
-				rx = True; 
+				rx = True;
 				break;
 			case ACCOUNT_OUT_FOUND:
 				/* accounting out */
 				flag |= ACCOUNT_OUT_FOUND;
 				while(buffer[offset++] != ' ');
-				offset += 18; 
-				totalpackets_out = strtoul(&buffer[offset], &ptr, 10);	
+				offset += 18;
+				totalpackets_out = strtoul(&buffer[offset], &ptr, 10);
 				if (totalpackets_out == lastpackets_out) break;
 				totalbytes_out = strtoul(ptr, NULL, 10);
 				diffpackets_out += totalpackets_out - lastpackets_out;
 				diffbytes_out += totalbytes_out - lastbytes_out;
 				lastpackets_out = totalpackets_out;
 				lastbytes_out = totalbytes_out;
-				tx = True; 
+				tx = True;
 				break;
 		}
 		lineno++;
 		offset = 37;
 	}
-	
+
 	if(flag != (ACCOUNT_IN_FOUND|ACCOUNT_OUT_FOUND)) {
-		fprintf(stderr,"wmnet: couldn't find %s accounting rule to monitor in /proc/net/ip_acct\n", 
+		fprintf(stderr,"wmnet: couldn't find %s accounting rule to monitor in /proc/net/ip_acct\n",
 		  (flag == ACCOUNT_IN_FOUND) ? "the TX" : ((flag == ACCOUNT_OUT_FOUND) ? "the RX" : "a single"));
 		exit(4);
 	}
@@ -233,7 +233,7 @@ int updateStats_ipfwadm(void) {
 
 	/* return True if no change to tx/rx
 	 * return False if display will need to be updated
-	 */	 
+	 */
 	return((rx == current_rx) && (tx == current_tx));
 
 }
@@ -271,37 +271,37 @@ int updateStats_ipchains(void) {
 		sscanf(buffer, "%30s %*s - %*d %*d %*d %*d %lu %*d %lu",
 			name, &pack, &bytes);
 
-				
+
 		if(strcmp(name, in_rule_string) == 0) {
 			flag |= ACCOUNT_IN_FOUND;
 
-			totalpackets_in = pack;	
+			totalpackets_in = pack;
 			if (totalpackets_in != lastpackets_in) {
 				totalbytes_in = bytes;
 				diffpackets_in += totalpackets_in - lastpackets_in;
 				diffbytes_in += totalbytes_in - lastbytes_in;
 				lastpackets_in = totalpackets_in;
 				lastbytes_in = totalbytes_in;
-				rx = True; 
+				rx = True;
 			}
-			
+
 		} else if (strcmp(name, out_rule_string) == 0) {
 			flag |= ACCOUNT_OUT_FOUND;
-			
-			totalpackets_out = pack;	
+
+			totalpackets_out = pack;
 			if (totalpackets_out != lastpackets_out) {
 				totalbytes_out = bytes;
 				diffpackets_out += totalpackets_out - lastpackets_out;
 				diffbytes_out += totalbytes_out - lastbytes_out;
 				lastpackets_out = totalpackets_out;
 				lastbytes_out = totalbytes_out;
-				tx = True; 
+				tx = True;
 			}
 		}
 	}
-	
+
 	if(flag != (ACCOUNT_IN_FOUND|ACCOUNT_OUT_FOUND)) {
-		fprintf(stderr,"I couldn't find %s IP chain to monitor in /proc/net/ip_fwchains.\n", 
+		fprintf(stderr,"I couldn't find %s IP chain to monitor in /proc/net/ip_fwchains.\n",
 		  (flag == ACCOUNT_IN_FOUND) ? "the TX" : ((flag == ACCOUNT_OUT_FOUND) ? "the RX" : "a single"));
 		exit(4);
 	}
@@ -309,7 +309,7 @@ int updateStats_ipchains(void) {
 
 	/* return True if no change to tx/rx
 	 * return False if display will need to be updated
-	 */	 
+	 */
 	return((rx == current_rx) && (tx == current_tx));
 
 }
@@ -345,37 +345,37 @@ int updateStats_dev(void) {
                 *ptr = '\0';
 
 		if (!strcmp(name, device)) {
-				
+
 			flag = (ACCOUNT_IN_FOUND|ACCOUNT_OUT_FOUND);
 
-			totalpackets_in = strtoul(&buffer[15], NULL, 10);	
+			totalpackets_in = strtoul(&buffer[15], NULL, 10);
 			if (totalpackets_in != lastpackets_in) {
 				totalbytes_in = strtoul(&buffer[7], NULL, 10);
 				diffpackets_in += totalpackets_in - lastpackets_in;
 				diffbytes_in += totalbytes_in - lastbytes_in;
 				lastpackets_in = totalpackets_in;
 				lastbytes_in = totalbytes_in;
-				rx = True; 
+				rx = True;
 			}
-			
-			
-			totalpackets_out = strtoul(&buffer[74], NULL, 10);	
+
+
+			totalpackets_out = strtoul(&buffer[74], NULL, 10);
 			if (totalpackets_out != lastpackets_out) {
 				totalbytes_out = strtoul(&buffer[66], NULL, 10);
 				diffpackets_out += totalpackets_out - lastpackets_out;
 				diffbytes_out += totalbytes_out - lastbytes_out;
 				lastpackets_out = totalpackets_out;
 				lastbytes_out = totalbytes_out;
-				tx = True; 
+				tx = True;
 			}
 		}
 	}
-	
+
 	fclose(dev);
 
 	/* return True if no change to tx/rx
 	 * return False if display will need to be updated
-	 */	 
+	 */
 	return((rx == current_rx) && (tx == current_tx));
 }
 
@@ -388,7 +388,7 @@ int dev_test(void) {
   fprintf(stderr, "wmnet: using devstats driver to monitor %s\n", device);
   return True;
 }
-   
+
 #endif /* USE_2_1_DEV */
 
 #ifdef USE_LINUX_PPP
@@ -398,8 +398,8 @@ int ppp_test(void) {
   strncpy(ppp_stats_req.ifr__name, device, 15);
   ppp_stats_req.stats_ptr =(caddr_t) &ppp_stats_req.stats;
   fprintf(stderr, "wmnet: using pppstats driver to monitor %s\n", device);
-  return True; 
-  
+  return True;
+
 }
 
 int updateStats_ppp(void) {
@@ -429,11 +429,11 @@ int updateStats_ppp(void) {
 
 	/* return True if no change to tx/rx
 	 * return False if display will need to be updated
-	 */	 
+	 */
   return((rx == current_rx) && (tx == current_tx));
 
 }
- 
+
 
 #endif /* USE_LINUX_PPP */
 
@@ -497,13 +497,13 @@ int kvm_updateStats(void) {
 
 /* return True if no change to tx/rx
  * return False if display will need to be updated
- */	 
+ */
  return((rx == current_rx) && (tx == current_tx));
 }
 
 
 #endif
-  
 
-   
-  
+
+
+

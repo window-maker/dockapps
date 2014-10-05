@@ -29,9 +29,9 @@ int sonypi_read (apm_info *info) {
 	__u8 batflags;
 	__u16 cap, rem;
 	int havebatt = 0;
-	
+
 	info->using_minutes = info->battery_flags = 0;
-	
+
 	if (! sonypi_ioctl(SONYPI_IOCGBATFLAGS, &batflags)) {
 		return 1;
 	}
@@ -57,7 +57,7 @@ int sonypi_read (apm_info *info) {
 		info->battery_percentage = 0;
 		info->battery_status = BATTERY_STATUS_ABSENT;
 	}
-	
+
 	if (havebatt) {
 		info->battery_percentage = 100 * rem / cap;
 		/* Guess at whether the battery is charging. */
@@ -66,9 +66,9 @@ int sonypi_read (apm_info *info) {
 			info->battery_status = BATTERY_STATUS_CHARGING;
 		}
 	}
-	
+
 	/* Sadly, there is no way to estimate this. */
 	info->battery_time = 0;
-	
+
 	return 0;
 }

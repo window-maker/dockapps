@@ -1,6 +1,6 @@
 #! /usr/bin/ruby
 
-# Copyright 2002 Neil Spring <nspring@cs.washington.edu> 
+# Copyright 2002 Neil Spring <nspring@cs.washington.edu>
 # GPL
 # report bugs to wmbiff-devel@lists.sourceforge.net
 # or (preferred) use the debian BTS via 'reportbug'
@@ -26,7 +26,7 @@ Refetch_Interval_Sec = 6 * 60 * 60
 Cachedir = ENV['HOME'] + '/.wmbiff-sdr'
 
 # look for updates from this server.  This script is designed around
-# (and simplified greatly by) using just a single server. 
+# (and simplified greatly by) using just a single server.
 Server = 'security.debian.org'
 
 # extend the Array class with a max method.
@@ -55,7 +55,7 @@ end
 def version_a_gt_b(a, b)
   cmd = "/usr/bin/dpkg --compare-versions %s le %s" % [ a, b ]
   # $stderr.puts cmd
-  return (!Kernel.system(cmd)) 
+  return (!Kernel.system(cmd))
 end
 
 # figure out which lists to check
@@ -67,10 +67,10 @@ end
 # file, the url, the system's cache of the file, and a
 # per-user cache of the file.
 packagelists = Dir.glob("/var/lib/apt/lists/#{Server}*Packages").map { |pkgfile|
-  [ pkgfile.gsub(/.*#{Server}/, '').tr('_','/'), # the url path 
+  [ pkgfile.gsub(/.*#{Server}/, '').tr('_','/'), # the url path
     pkgfile,  # the system cache of the packages file.  probably up-to-date.
     # and finally, a user's cache of the page, if needed.
-    "%s/%s" % [ Cachedir, pkgfile.gsub(/.*#{Server}_/,'') ] 
+    "%s/%s" % [ Cachedir, pkgfile.gsub(/.*#{Server}_/,'') ]
   ]
 }
 
@@ -80,41 +80,41 @@ session = nil
 # update the user's cache if necessary.
 packagelists.each { |urlpath, sc, uc|
   sctime = File.stat(sc).mtime
-  cached_time = 
+  cached_time =
     if(test(?e, uc)) then
-      uctime = File.stat(uc).mtime 
+      uctime = File.stat(uc).mtime
       if ( uctime < sctime ) then
         # we have a user cache, but it is older than the system cache
         File.unlink(uc)  # delete the obsolete user cache.
-        sctime 
+        sctime
       else
         uctime
       end
-    else 
+    else
       # the user cache doesn't exist, but we might have
       # talked to the server recently.
       if(test(?e, uc + '.stamp')) then
-        File.stat(uc + '.stamp').mtime 
+        File.stat(uc + '.stamp').mtime
       else
         sctime
       end
-    end 
+    end
   if(Time.now > cached_time + Refetch_Interval_Sec) then
-    debugmsg "fetching #{urlpath} %s > %s + %d" % [Time.now, cached_time, Refetch_Interval_Sec] 
+    debugmsg "fetching #{urlpath} %s > %s + %d" % [Time.now, cached_time, Refetch_Interval_Sec]
     begin
       if(session == nil) then
         session = Net::HTTP.new(Server)
-        # session.set_pipe($stderr); 
+        # session.set_pipe($stderr);
       end
-      begin 
-        # the warning with ruby1.8 on the following line 
+      begin
+        # the warning with ruby1.8 on the following line
         # has to do with the resp, data bit, which should
-        # eventually be replaced with (copied from the 
+        # eventually be replaced with (copied from the
         # docs with the 1.8 net/http.rb)
         #         response = http.get('/index.html')
         #         puts response.body
-        resp, data = session.get(urlpath, 
-                                 { 'If-Modified-Since' => 
+        resp, data = session.get(urlpath,
+                                 { 'If-Modified-Since' =>
                                    cached_time.strftime( "%a, %d %b %Y %H:%M:%S GMT" ) })
       rescue SocketError => e
         # if the net is down, we'll get this error; avoid printing a stack trace.
@@ -189,9 +189,9 @@ updated = Array.new
 
 # we're done.  output a count in the format expected by wmbiff.
 if(updatedcount > 0) then
-  puts "%d new" % [ updatedcount ] 
+  puts "%d new" % [ updatedcount ]
 else
-  puts "%d old" % [ installed.length ] 
+  puts "%d old" % [ installed.length ]
 end
 
 puts updated.join("\n")

@@ -1,16 +1,16 @@
-/*######################################################################  
-  #                                                                    #  
-  # This file contains some general utility functions for wmSMPmon.    #  
-  #                                                                    #  
-  # All of them were taken from the program 'top' from the procps      #  
-  # suite.                                                             #  
-  # With thanks to the author of top:                                  #  
-  #                      James C. Warner <warnerjc@worldnet.att.net>   #  
-  #                                                                    #  
+/*######################################################################
+  #                                                                    #
+  # This file contains some general utility functions for wmSMPmon.    #
+  #                                                                    #
+  # All of them were taken from the program 'top' from the procps      #
+  # suite.                                                             #
+  # With thanks to the author of top:                                  #
+  #                      James C. Warner <warnerjc@worldnet.att.net>   #
+  #                                                                    #
   # This file is placed under the conditions of the GNU Library        #
   # General Public License, version 2, or any later version.           #
   # See file COPYING for information on distribution conditions.       #
-  #                                                                    #  
+  #                                                                    #
   ######################################################################*/
 
 #include "standards.h"

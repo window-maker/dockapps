@@ -1,12 +1,12 @@
 /*
  *
  *  	wmMoonClock-1.26 (C) 1998, 1999 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *  		- Shows Moon Phase....
- *          
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -20,11 +20,11 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *      Boston, MA 02110-1301 USA
  *
  *      Things TODO:
- *                  - clean up code! 
+ *                  - clean up code!
  *                  - more detailed documentation.
  *                  - reduce size of pixmap! Dont need it in one pixmap.
  *		      Aslo, does the hi-color pixmap really need all those colors?
@@ -34,8 +34,8 @@
  * 		       as costly as the Moon calcs.) Sun posiiton is calculated but not used yet...
  *		    - Next new moons, next full moons, next quarters, etc...
  *		    - Moon names. I.e. Harvest, Blue, etc...
- *                  
- *                 
+ *
+ *
  *
  *      Changes:
  *      Version 1.27 - 	released June 7, 1999.
@@ -47,44 +47,44 @@
  *                     	Now auto-detects 8-bit display and forces the LowColor pixmap to
  *			be used. The -low option still works if you need to conserve colors
  *			even on high-color displays.
- *			
+ *
  *			Added 3 command line options + code to change colors of the data
  *			entries:
- *                  
- *				-bc <Color> to change background color.                  
- *				-lc <Color> to change color of labels and headers.                  
+ *
+ *				-bc <Color> to change background color.
+ *				-lc <Color> to change color of labels and headers.
  *				-dc <Color> to change color of data values.
- *                  
+ *
  *      Version 1.24 - 	released February 9, 1999.
  *                     	Added low color support via the -low command line option.
- *                  
+ *
  *      Version 1.23 - 	released February 4, 1999.
  *                     	cosmetic for AfterStep users. removed spurious black line at RHS edge an mask.
  *
- *	Version 1.22 - 	released January 8, 1999. 
+ *	Version 1.22 - 	released January 8, 1999.
  *
  *		       	+ Changed PI2 to TwoPi in Moon.c -- Linux Pyth. had probs because
  *                        PI2 was defined in <math.h>.
  *
- *	Version 1.21 -  released January 7, 1999. 
- *    
+ *	Version 1.21 -  released January 7, 1999.
+ *
  *                     + minor bug fixes in Makefile and manpage.
  *
- *	Version 1.2 - released January 3, 1999. 
+ *	Version 1.2 - released January 3, 1999.
  *		      Added:
  *
  *			+ Local Time/ Universal Time display.
  *			+ Visible: Yes/No to indicate if Moon is up or not.
  *			+ Frac (percent through orbit -- this is NOT a simple
  *			  conversion of AGE....).
- *			+ Horizon Coords. Altitude is measured up from horizon to 
+ *			+ Horizon Coords. Altitude is measured up from horizon to
  *			  Moon in degrees. Azimuth is in degrees from due south.
- *			
+ *
  *       	      Also shuffled things around a bit...
- *			
  *
  *
- *	Version 1.1 - released December 24, 1998. 
+ *
+ *	Version 1.1 - released December 24, 1998.
  *                    Fixed bug in AGE calculation. It now should be highly accurate.
  *                    Note that AGE is not the same as Phase*29.530589 ...
  *                    I have checked with the Astronomical Almanac and it agrees very
@@ -101,8 +101,8 @@
 
 
 
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -120,8 +120,8 @@
 
 
 
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 1000000L
 #define WMMOONCLOCK_VERSION "1.27"
@@ -137,7 +137,7 @@ void print_usage();
 
 int	ToggleWindow = 0;
 int	nMAX = 1;
-int	Flag = 1; 
+int	Flag = 1;
 double 	Glat, Glon, SinGlat, CosGlat, TimeZone;
 int	UseLowColorPixmap = 0;
 char    LabelColor[30]    = "#a171ff";
@@ -149,8 +149,8 @@ char    BackColor[30]     = "#010101";
 
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
 
@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
 
 
 
-  
+
     /*
      *  Parse any command line arguments.
      */
@@ -180,9 +180,9 @@ int main(int argc, char *argv[]) {
     ParseCMDLine(argc, argv);
     c.Glat = Glat, c.Glon = Glon;
     Glat *= RadPerDeg; SinGlat = sin( Glat ); CosGlat = cos( Glat );
-   
 
-   
+
+
     initXwindow(argc, argv);
     if ((DisplayDepth <= 8)||UseLowColorPixmap)
         openXwindow(argc, argv, wmMoonClock_masterLow, wmMoonClock_mask_bits, wmMoonClock_mask_width, wmMoonClock_mask_height, BackColor, LabelColor, DataColor);
@@ -192,7 +192,7 @@ int main(int argc, char *argv[]) {
 
 
 
-   
+
     /*
      *  Loop until we die
      */
@@ -218,7 +218,7 @@ int main(int argc, char *argv[]) {
 
 	    n = 0;
 
-            CurrentGMTTime = time(CurrentTime); GMTTime = gmtime(&CurrentGMTTime); 
+            CurrentGMTTime = time(CurrentTime); GMTTime = gmtime(&CurrentGMTTime);
 	    UT = GMTTime->tm_hour + GMTTime->tm_min/60.0 + GMTTime->tm_sec/3600.0;
 	    Year = GMTTime->tm_year+1900;
 	    Month = GMTTime->tm_mon+1;
@@ -267,7 +267,7 @@ int main(int argc, char *argv[]) {
 
 
 		/*
-		 *  Paste up LT and UT. 
+		 *  Paste up LT and UT.
 		 */
 		val = LocalHour;
 		H = (int)val; val = (val - H)*60.0;
@@ -294,7 +294,7 @@ int main(int argc, char *argv[]) {
 
 
 		/*
-		 *  Paste up AGE. 
+		 *  Paste up AGE.
 		 */
 		val = c.MoonAge;
 		q = (val < 10.0) ? 5 : 0;
@@ -312,7 +312,7 @@ int main(int argc, char *argv[]) {
 
 
 		/*
-		 *  Paste up Phase (Percent Illuminated). 
+		 *  Paste up Phase (Percent Illuminated).
 		 */
 		val = 0.5*( 1.0 - cos(c.MoonPhase*6.2831853) );
 		val *= 100.0;
@@ -335,7 +335,7 @@ int main(int argc, char *argv[]) {
 
 
 		/*
-		 *  Paste up Frac (Percent of way through current lunar cycle). 
+		 *  Paste up Frac (Percent of way through current lunar cycle).
 		 */
 		val = c.MoonPhase*100.0;
 		A = (int)(val+0.5);
@@ -355,7 +355,7 @@ int main(int argc, char *argv[]) {
 
 
 		/*
-		 *  Paste up Visible Status. 
+		 *  Paste up Visible Status.
 		 */
 		if (c.Visible)
 	            copyXPMArea(6,  327, 13, 6, 46, 51);
@@ -383,8 +383,8 @@ int main(int argc, char *argv[]) {
 		/*
 		 *   Do Yesterday's first
 		 */
-	        MoonRise(Year, Month, DayOfMonth-1, LocalHour, &UTRise, &UTSet); 
-		UTTohhmm(UTRise, &H, &M); 
+	        MoonRise(Year, Month, DayOfMonth-1, LocalHour, &UTRise, &UTSet);
+		UTTohhmm(UTRise, &H, &M);
 		if (H >= 0){
 		    digit = H/10; copyXPMArea(67+digit*5, 353, 5, 7, 7, 19);
 		    digit = H%10; copyXPMArea(67+digit*5, 353, 5, 7, 7+5, 19);
@@ -396,7 +396,7 @@ int main(int argc, char *argv[]) {
 		    copyXPMArea(117, 354, 1, 4, 7+10, 20);
 		    copyXPMArea(57, 355, 5, 1, 7+12, 22); copyXPMArea(57, 355, 5, 1, 7+17, 22);
 		}
-		UTTohhmm(UTSet, &H, &M); 
+		UTTohhmm(UTSet, &H, &M);
 		if (H >= 0){
 		    digit = H/10; copyXPMArea(67+digit*5, 353, 5, 7, 35, 19);
 		    digit = H%10; copyXPMArea(67+digit*5, 353, 5, 7, 35+5, 19);
@@ -414,7 +414,7 @@ int main(int argc, char *argv[]) {
 		 *  Plot up todays Rise/Set times.
 		 */
 	        MoonRise(Year, Month, DayOfMonth,   LocalHour, &UTRise, &UTSet);
-		UTTohhmm(UTRise, &H, &M); 
+		UTTohhmm(UTRise, &H, &M);
 		if (H >= 0){
 		    digit = H/10; copyXPMArea(67+digit*5, 353, 5, 7, 7, 29);
 		    digit = H%10; copyXPMArea(67+digit*5, 353, 5, 7, 7+5, 29);
@@ -426,7 +426,7 @@ int main(int argc, char *argv[]) {
 		    copyXPMArea(117, 354, 1, 4, 7+10, 30);
 		    copyXPMArea(57, 355, 5, 1, 7+12, 32); copyXPMArea(57, 355, 5, 1, 7+17, 32);
 		}
-		UTTohhmm(UTSet, &H, &M); 
+		UTTohhmm(UTSet, &H, &M);
 		if (H >= 0){
 		    digit = H/10; copyXPMArea(67+digit*5, 353, 5, 7, 35, 29);
 		    digit = H%10; copyXPMArea(67+digit*5, 353, 5, 7, 35+5, 29);
@@ -445,7 +445,7 @@ int main(int argc, char *argv[]) {
 		 *  Plot up tomorrow's Rise/Set times.
 		 */
 	        MoonRise(Year, Month, DayOfMonth+1, LocalHour, &UTRise, &UTSet);
-		UTTohhmm(UTRise, &H, &M); 
+		UTTohhmm(UTRise, &H, &M);
 		if (H >= 0){
 		    digit = H/10; copyXPMArea(67+digit*5, 353, 5, 7, 7, 39);
 		    digit = H%10; copyXPMArea(67+digit*5, 353, 5, 7, 7+5, 39);
@@ -457,7 +457,7 @@ int main(int argc, char *argv[]) {
 		    copyXPMArea(117, 354, 1, 4, 7+10, 40);
 		    copyXPMArea(57, 355, 5, 1, 7+12, 42); copyXPMArea(57, 355, 5, 1, 7+17, 42);
 		}
-		UTTohhmm(UTSet, &H, &M); 
+		UTTohhmm(UTSet, &H, &M);
 		if (H >= 0){
 		    digit = H/10; copyXPMArea(67+digit*5, 353, 5, 7, 35, 39);
 		    digit = H%10; copyXPMArea(67+digit*5, 353, 5, 7, 35+5, 39);
@@ -497,7 +497,7 @@ int main(int argc, char *argv[]) {
 		D = (int)val;
 		val = (val-(double)D)*100.0;
 		M = (int)val;
-		
+
 		if (sgn < 0) copyXPMArea(120, 357, 2, 1, 19, 27);
 
 		/* degrees 100's */
@@ -534,7 +534,7 @@ int main(int argc, char *argv[]) {
 		D = (int)val;
 		val = (val-(double)D)*100.0;
 		M = (int)val;
-		
+
 		if (sgn < 0) copyXPMArea(120, 357, 2, 1, 19, 39);
 
 		/* degrees 10's */
@@ -559,7 +559,7 @@ int main(int argc, char *argv[]) {
 
 
 		/*
-		 *  Paste up Earth-Moon Distance (in units of Earth radii). 
+		 *  Paste up Earth-Moon Distance (in units of Earth radii).
 		 */
 		val = c.EarthMoonDistance;
 		A = (int)val;
@@ -598,7 +598,7 @@ int main(int argc, char *argv[]) {
 		RA = (RA-(double)H)*60.0;
 		M = (int)RA; RA = (RA-(double)M)*60.0;
 		S = (int)(RA+0.5);
-		
+
 		/* hours 10's */
 		digit = H/10; copyXPMArea(67+digit*5, 353, 5, 7, 17, 25);
 
@@ -640,7 +640,7 @@ int main(int argc, char *argv[]) {
 		M = (int)DEC;
 		DEC = (DEC-(double)M)*60.0;
 		S = (int)(DEC+0.5);
-		
+
 		if (sgn < 0) copyXPMArea(120, 357, 2, 1, 14, 39);
 
 
@@ -675,7 +675,7 @@ int main(int argc, char *argv[]) {
 
 
 		/*
-		 *  Paste up Earth-Moon Distance (in units of Earth radii). 
+		 *  Paste up Earth-Moon Distance (in units of Earth radii).
 		 */
 		val = c.EarthMoonDistance;
 		A = (int)val;
@@ -689,14 +689,14 @@ int main(int argc, char *argv[]) {
 
 
 
-	    } 
+	    }
 
 
 
 	} else {
 
 	    /*
-	     *  Update the counter. 
+	     *  Update the counter.
 	     */
 	    ++n;
 
@@ -714,7 +714,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -735,9 +735,9 @@ int main(int argc, char *argv[]) {
 
 
 
-	
-	/* 
-	 *  Redraw and wait for next update 
+
+	/*
+	 *  Redraw and wait for next update
 	 */
 	RedrawWindow();
 	timeout.tv_sec = DELAY / 1000000L;
@@ -758,14 +758,14 @@ int main(int argc, char *argv[]) {
 
 
 
-/* 
- *   ParseCMDLine()  
+/*
+ *   ParseCMDLine()
  */
 void ParseCMDLine(int argc, char *argv[]) {
 
     int  i;
     char *eptr;
-  
+
     for (i = 1; i < argc; i++) {
 
         if (!strcmp(argv[i], "-display")){
@@ -836,7 +836,7 @@ void ParseCMDLine(int argc, char *argv[]) {
             }
 
 	} else {
-	    
+
 	    print_usage();
 	    exit(1);
 	}

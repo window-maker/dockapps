@@ -23,10 +23,10 @@ This manual page documents briefly the
 command.
 .PP
 .\" TeX users may be more comfortable with the \fB<whatever>\fP and
-.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
 .\" respectively.
 \fBwmbatteries\fP is a program to monitor status of two batteries and cpu temp using
-ACPI (http://acpi.sf.net). It is a dockapp 
+ACPI (http://acpi.sf.net). It is a dockapp
 that is supported by X window managers such as Window Maker, AfterStep, BlackBox, Fluxbox and
 Enlightenment.
 
@@ -36,22 +36,22 @@ is displayed, until the currently charging battery is complete charged.
 When on AC and the batteries are not charging, 00:00 is displayed.
 Below, current capacity of availible batteries is displayed in percent and in form of bars.
 
-In the bottom half, there are 4 indicators: The left is shown when on AC. 
+In the bottom half, there are 4 indicators: The left is shown when on AC.
 The two battery symbols in the middle are shown when the corresponding
 battery is discharging, and animated if it is charging.
 The animation speed may be set with the -s option.
 On the right there is an indicator which is displayed when the remaining capacity
-of all batteries is less than a certain (default:20) percentage of the 
+of all batteries is less than a certain (default:20) percentage of the
 maximum capacity of all batteries.
 
 The last line may be used to display either CPU temperature or the current power consumption.
-The mode of the last line may be set with the -m option. when -m s is given, the display 
+The mode of the last line may be set with the -m option. when -m s is given, the display
 switches between cpu temperature and power consumption in a certain time (option -ts).
 That line may also be switched manually by rightclicking in the dockapp.
 
 The back-light may be turned on/off by clicking the mouse button 1 (left)
 over the application. If battery status is below a critical level, an
-alarm-mode will alert you by turning on and off back-light. 
+alarm-mode will alert you by turning on and off back-light.
 
 wmbatteries makes use of a config file which may be given via command line
 option ,$HOME/.wmbatteriesrc or /etc/wmbatteries, whichever comes first.
@@ -105,7 +105,7 @@ set command for acpi suspend
 set command for acpi standby
 .TP
 .B \-m,  \-\-mode [t|r|s]
-set mode for the lower row , 
+set mode for the lower row ,
 t=temperature,r=current rate,s=toggle
 .TP
 .B \-ts,  \-\-togglespeed <integer>

@@ -1,4 +1,4 @@
-.TH wmtz 1 "16 April 2001" 
+.TH wmtz 1 "16 April 2001"
 .SH NAME
 WMTZ \- Window Make Time Zone dockapp
 .SH SYNOPSIS
@@ -40,23 +40,23 @@ Print version number.
 .SH CONFIGURATION
 wmtz is configured with a configuration file, usually ~/.wmtzrc. In this
 file several values must be given in order for wmtz to function properly.
-It is recommended to use the configuration file that follows with the 
-distribution and modify it according to your needs. wmtz has five "timeslots" 
+It is recommended to use the configuration file that follows with the
+distribution and modify it according to your needs. wmtz has five "timeslots"
 that can show different times.
 .br
-What must be present in the file is the "time*=<string>" token for every 
-timeslot (1 to 5), followed by the "utdiff*=<integer>" for every timeslot 
-(1 to 5) even if it is to be ignored. "longitude=<longitude in decimal 
+What must be present in the file is the "time*=<string>" token for every
+timeslot (1 to 5), followed by the "utdiff*=<integer>" for every timeslot
+(1 to 5) even if it is to be ignored. "longitude=<longitude in decimal
 degrees>" must also be given in the config file.
 .br
 The options available for "time*=" are the following:
 .TP
 .B ***
 Three (or less) letter designation of timezone. utdiff for this timeslot is
-subtracted from UT to give time in that timezone. 
+subtracted from UT to give time in that timezone.
 .TP
 .B TZONE
-Gives time in timezone described by TZ environment variable string in utdiff. See man page for tzset for a description of the TZ string. 
+Gives time in timezone described by TZ environment variable string in utdiff. See man page for tzset for a description of the TZ string.
 .TP
 .B JDN
 Gives Julian Day Number. The value for utdiff for the timeslot is subtracted
@@ -71,7 +71,7 @@ Gives swatch beats. utdiff for this timeslot is ignored.
 .B DATE
 Gives local date. utdiff for this timeslot is ignored.
 .TP
-.B WDAY 
+.B WDAY
 Gives local weekday. utdiff for this timeslot is ignored.
 .TP
 .B LOCAL
@@ -79,12 +79,12 @@ Gives local time, automatically corrected for summer/winter time. utdiff for
 this timeslot is ignored.
 .SH ENVIRONMENT
 .TP
-.B XEDITOR 
+.B XEDITOR
 Can be used to specify which editor to use when clicking on "Config" in the
 wmtz menu. See also the "-e <Editor>" option above.
 .TP
 .B HOME
-Must be set for wmtz to find the users config file. 
+Must be set for wmtz to find the users config file.
 .PP
 The config file is
 searched for in the following order:

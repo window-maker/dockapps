@@ -18,7 +18,7 @@ LDOPTS = -lX11 -L/usr/X11R6/lib -lXpm -lXext
 BINDIR = /usr/local/bin
 
 BIN =	wmifinfo
-FILES = wmifinfo.o xutils.o 
+FILES = wmifinfo.o xutils.o
 
 ifeq ("$(ENABLE_NWN_SUPPORT)", "y")
 FILES += nwn.o
@@ -27,8 +27,8 @@ endif
 
 all:	$(BIN)
 
-.c.o: 	
-	$(CC) $(COPTS) -c $< 
+.c.o:
+	$(CC) $(COPTS) -c $<
 
 $(BIN):	$(FILES)
 	$(LD) -o $@ $(FILES) $(LDOPTS)
@@ -43,4 +43,4 @@ dist:	clean
 	rm -rf /tmp/wmifinfo-$(VERSION)
 	cd .. && cp -a wmifinfo /tmp/wmifinfo-$(VERSION)
 	cd /tmp && tar --exclude CVS -zcvf wmifinfo-$(VERSION).tgz wmifinfo-$(VERSION)/
-	
+

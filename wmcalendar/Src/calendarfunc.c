@@ -1,4 +1,4 @@
-/* persian calendar functions original code is by Kees Couprie 
+/* persian calendar functions original code is by Kees Couprie
    http://www.geocities.com/couprie/calmath/      */
 
 /* islamic conversion and moonphase calculation is taken from
@@ -7,9 +7,9 @@
  *
  * Copyright (c) 1992 by Waleed A. Muhanna
  *
- * Permission for nonprofit use and redistribution of this software and 
- * its documentation is hereby granted without fee, provided that the 
- * above copyright notice appear in all copies and that both that copyright 
+ * Permission for nonprofit use and redistribution of this software and
+ * its documentation is hereby granted without fee, provided that the
+ * above copyright notice appear in all copies and that both that copyright
  * notice and this permission notice appear in supporting documentation.
  *
  * No representation is made about the suitability of this software for any
@@ -53,17 +53,17 @@ double tmoonphase( long n, int nph)
     jd =  2415020.75933 + 29.53058868*k - 1.178e-4 * t2
 	- 1.55e-7 * t3
 	+ 3.3e-4 * sin (RPD * (166.56 +132.87*t -0.009173*t2));
-    
+
         /* Sun's mean anomaly */
     sa =  RPD * (359.2242 + 29.10535608*k - 3.33e-5 * t2 - 3.47e-6 * t3);
-    
+
     /* Moon's mean anomaly */
     ma =  RPD * (306.0253 + 385.81691806*k + 0.0107306*t2 +1.236e-5 *t3);
-    
+
     /* Moon's argument of latitude */
     tf = RPD * 2.0 * (21.2964 + 390.67050646*k -0.0016528*t2
                       -2.39e-6 * t3);
-    
+
     /* should reduce to interval 0-1.0 before calculating further */
     if (nph==0 || nph==2)
 	/* Corrections for New and Full Moon */
@@ -99,14 +99,14 @@ double tmoonphase( long n, int nph)
     return (jd);
 }
 
-                                                       
+
 double visible(long n,double * rjd)
 {
     double jd;
     float tf;
     long d;
 
-    jd = tmoonphase(n,0);  
+    jd = tmoonphase(n,0);
     *rjd = jd;
     d = jd;
     tf = (jd - d);
@@ -128,22 +128,22 @@ struct icaltimetype jdn_islamic(long jdn)
     /* obtain first approx. of how many new moons since the beginning
        of the year 1900 */
     h = jdn_civil(jdn);
-    k = 0.6 + (h.year + ((int) (h.month - 0.5)) / 12.0 + h.day 
+    k = 0.6 + (h.year + ((int) (h.month - 0.5)) / 12.0 + h.day
 	       / 365.0 - 1900) * 12.3685;
     do{
 	mjd = visible(k--, &rjd);
-    } while (mjd > jdn);  
+    } while (mjd > jdn);
     k++;
     /*first of the month is the following day*/
     hm = k - 1048;
     h.year = 1405 + (hm / 12);
-    
+
     h.month =  (hm % 12) +1;
     if (hm != 0 && h.month <= 0) {
-	h.month += 12; 
+	h.month += 12;
 	h.year--;
     }
-    if (h.year<=0) 
+    if (h.year<=0)
 	h.year--;
     h.day = jdn - mjd + 1;
 
@@ -155,7 +155,7 @@ long islamic_jdn(struct icaltimetype dt)
 {
         double jd, rjd;
         long k;
-       
+
         k = dt.month + dt.year * 12 - NMONTHS; /* # of m since 1/1/1405 */
         jd = visible(k + 1048L, &rjd) + dt.day;
         return jd;
@@ -202,7 +202,7 @@ struct icaltimetype jdn_persian(long jdn)
     ret.day = iDay;
     ret.month = iMonth;
     ret.year = iYear;
-    ret.is_date = 1; 
+    ret.is_date = 1;
     return ret;
 }
 
@@ -248,9 +248,9 @@ struct icaltimetype jdn_civil(long jdn)
     ret.day = iday;
     ret.month = imonth;
     ret.year = iyear;
-    ret.hour = 0; 
-    ret.minute = 0; 
-    ret.second = 0; 
+    ret.hour = 0;
+    ret.minute = 0;
+    ret.second = 0;
     return ret;
 }
 
@@ -279,7 +279,7 @@ struct icaltimetype islamic_civil(struct icaltimetype dt)
 {
     return(jdn_civil(islamic_jdn(dt)));
 }
-   
+
 struct icaltimetype get_civil(struct icaltimetype dt, int calendar){
     if(calendar == 0)
 	return dt;
@@ -351,7 +351,7 @@ int days_in_islamic_month(int month, int year)
     dt.day = 1;
     dt = jdn_islamic(islamic_jdn(dt) - 1);
     return dt.day;
-    
+
 }
 
 int days_in_gregorian_month(int month, int year)
@@ -388,7 +388,7 @@ int moon(struct icaltimetype h)
     k = 1 + (h.year + ((int) (h.month - 0.5)) / 12.0 + h.day / 365.0 - 1900) * 12.3685;
     do {
 	mjd = tmoonphase(k--, 0);
-    } while (mjd > jd);  
+    } while (mjd > jd);
 
     k--;
 

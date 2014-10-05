@@ -64,7 +64,7 @@ cpu_get_usage(cpu_options *opts)
 	    fprintf (stderr, "MAX CPU number that can be running in SMP is %d\n", NR_CPUS - 1);
 	    exit(1);
 	}
-	
+
 	for (i = 0; i <= opts->cpu_number; i++) {
 	    fscanf(fp, "%s %d %d %d %d", cpu_name, &cpu, &nice, &system, &idle);
 	    if (strncmp(cpu_name, "cpu", 3)){

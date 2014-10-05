@@ -53,7 +53,7 @@
  *                     	Now auto-detects 8-bit display and forces the LowColor pixmap to
  *			be used. The -low option still works if you need to conserve colors
  *			even on high-color displays.
- *			
+ *
  *			Added 3 command line options + code to change colors of the data
  *			entries:
  *
@@ -85,9 +85,9 @@
  *			  conversion of AGE....).
  *			+ Horizon Coords. Altitude is measured up from horizon to
  *			  Moon in degrees. Azimuth is in degrees from due south.
- *			
+ *
  *       	      Also shuffled things around a bit...
- *			
+ *
  *
  *
  *	Version 1.1 - released December 24, 1998.

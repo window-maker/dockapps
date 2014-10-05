@@ -30,14 +30,14 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  */
@@ -52,7 +52,7 @@ extern "C" {
 #ifndef LINUX_TOSHIBA_H
 #define LINUX_TOSHIBA_H
 #include<linux/toshiba.h>
-#endif 
+#endif
 
 
 enum {
@@ -106,7 +106,7 @@ enum {
 	HCI_9BIT_TFT        = 0x02,
 	HCI_12BIT_TFT       = 0x03,
 	HCI_18BIT_TFT       = 0x04,
-	HCI_24BIT_TFT       = 0x05	
+	HCI_24BIT_TFT       = 0x05
 };
 
 enum {

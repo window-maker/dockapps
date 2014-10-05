@@ -13,5 +13,5 @@ Version		Description
 		* Fixed potentially fatal (but rare) /0 bug...
                   wheee :)
 
-0.1	  
+0.1
 		* First initial public release.

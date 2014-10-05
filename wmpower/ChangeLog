@@ -22,16 +22,16 @@
 
 	* src/power_management/toshiba/toshiba_lib.c (acpi_set_lcd_brightness),
 	(hardware_set_lcd_brightness),
-	* src/power_management/compal/compal_lib.c (compal_set_lcd_brightness), 
+	* src/power_management/compal/compal_lib.c (compal_set_lcd_brightness),
 	* src/power_management/power_management.h,
-	* src/wmpower.c (main, ParseCMDLine, message): 
+	* src/wmpower.c (main, ParseCMDLine, message):
 	Added new command line arguments to be able to force wmpower to use
 	our values for minimum and maximum brightness.
 
 	* src/power_management/compal/compal_lib.c (compal_get_battery_time):
 	Check wether battery is present instead of segfaulting when we think
 	it is while, in face, it is not.
-	(compal_set_lcd_brightness): 
+	(compal_set_lcd_brightness):
 	Fixed lcd brightness handling.
 
 2005-07-19  Noberasco Michele  <s4t4n@gentoo.org>
@@ -86,7 +86,7 @@
 	(cpufreq_get_governor_2_6),
 	* src/wmpower.c (message, ParseCMDLine),
 	* src/power_management/power_management.c (internal_set_pm_features)
-	(pm_support): 
+	(pm_support):
 	Allow user to choose his own CPUFreq governors when online and offline...
 
 2005-02-04  Noberasco Michele  <s4t4n@gentoo.org>
@@ -123,7 +123,7 @@
 
 	* configure.in,
 	* src/power_management/Makefile.am (AM_CFLAGS),
-	* src/power_management/toshiba/toshiba_lib.c: 
+	* src/power_management/toshiba/toshiba_lib.c:
 	Added fix to make it compile on non x86 hardware...
 	Problem reported by Benjamin Rich <rich@math.fu-berlin.de>
 

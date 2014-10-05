@@ -76,12 +76,12 @@ IMAP4_ReceiveResponse( void )
   int len;
   char *token;
   char *stringp;
-  
+
   /* All interactions transmitted by client and server are in the form of
      lines, that is, strings that end with a CRLF.  The protocol receiver
      of an IMAP4rev1 client or server is either reading a line, or is
      reading a sequence of octets with a known count followed by a line. */
-  
+
  get_packet:
   len = WmnotifyGetResponse( rx_buffer, WMNOTIFY_BUFSIZE );
   if( len < 0 ) {
@@ -118,16 +118,16 @@ IMAP4_ReceiveResponse( void )
     printf( "%s", rx_buffer );
     printf( "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n" );
   }
-      
+
   /* Converting the last CRLF into a LF followed by a NULL termination character. */
   rx_buffer[ len - 2 ] = '\n';
   rx_buffer[ len - 1 ] = '\0';
-  
+
   /* Check the Server Completion Response returned by the IMAP4 server. There are currently
    * three Server Completion Responses codes: success ("OK"), failure ("NO") and protocol error
    * ("BAD"). */
   stringp = rx_buffer;
-  
+
   while( ( token = strsep( &stringp, "\n" ) ) != NULL ) {
 
     /* In case no delimiter was found, the token is  taken  to
@@ -145,14 +145,14 @@ IMAP4_ReceiveResponse( void )
 	goto error;
       }
     }
-    
+
     if( token == NULL ) {
       /* This should never happen. */
       ErrorLocation( __FILE__, __LINE__ );
       fprintf( stderr, "  NULL token returned by strsep().\n" );
       goto error;
     }
-    
+
     if( token[0] == '*' ) {
       /* Untagged response. If there is a space after the SEARCH response, it means
        * at least 1 message is unseen. */
@@ -188,14 +188,14 @@ IMAP4_ReceiveResponse( void )
       }
     }
   } /* while( token ) */
-  
+
   /* Get next part of IMAP4 response. */
   goto get_packet;
-  
+
  end:
   /* No error. */
   return len;
-  
+
  error:
   return -1;
 }
@@ -206,7 +206,7 @@ IMAP4_SendCommand( int argc, char *argv[] )
 {
   int len;
   int i;
-  
+
   /* Adding Transaction Label. */
   tlabel++;
   tx_buffer[0] = 'A';
@@ -233,7 +233,7 @@ IMAP4_SendCommand( int argc, char *argv[] )
   if( len < 0 ) {
     return EXIT_FAILURE;
   }
-  
+
   len = IMAP4_ReceiveResponse();
   if( len < 0 ) {
     return EXIT_FAILURE;
@@ -287,7 +287,7 @@ IMAP4_CheckForNewMail( void )
     new_messages = -1;
     goto imap4_logout;
   }
-  
+
   if( unseen_string_found == true ) {
     new_messages = 1;
   }
@@ -303,7 +303,7 @@ IMAP4_CheckForNewMail( void )
   if( status != EXIT_SUCCESS ) {
     new_messages = -1;
   }
-  
+
  end:
   return new_messages;
 }

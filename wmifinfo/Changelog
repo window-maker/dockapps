@@ -31,7 +31,7 @@
 	  handling were fixed
 
 0.06	Added openBSD support
-	
+
 	- Peter Stromberg <wilfried at openbsd dot org> supplied a patch for
 	  OpenBSD support. I have not tried this myself since I don't have
 	  access to this OS. I will probably split the code into several
@@ -54,4 +54,3 @@
 
 	- the '-i' flag (initial interface) was broken. Thanks to Rod van
 	  Meter.
-	 

@@ -245,7 +245,7 @@ static int Read_Config_File(char *filename, int *loopinterval)
 		return 0;
 	}
 	while (!feof(fp)) {
-		/* skanky: -1 can represent an unparsed line 
+		/* skanky: -1 can represent an unparsed line
 		   or an error */
 		if (ReadLine(fp, setting, value, &mbox_index) == -1)
 			continue;

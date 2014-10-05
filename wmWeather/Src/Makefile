@@ -18,7 +18,7 @@ OBJS   = wmWeather.o \
 all:	wmWeather.o wmWeather
 
 wmWeather.o: wmWeather_master.xpm wmWeather_mask.xbm
-wmWeather:	$(OBJS) 
+wmWeather:	$(OBJS)
 	$(CC) $(CFLAGS) $(SYSTEM) -o wmWeather $^ $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:
@@ -30,5 +30,5 @@ clean:
 install:: wmWeather
 	install -c -s -m 0755 wmWeather $(DESTDIR)/bin
 	install -c    -m 0755 GrabWeather $(DESTDIR)/bin
-	install -c    -m 0644 wmWeather.1 $(DESTDIR)/man/man1 
+	install -c    -m 0644 wmWeather.1 $(DESTDIR)/man/man1
 

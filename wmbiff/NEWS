@@ -20,7 +20,7 @@ Release 0.4.24 - June 22, 2004
     unstable package libgnutls10-dev.
 
 Release 0.4.23 - April 27, 2004
-  * Allow server hostnames in IMAP to be IP addresses 
+  * Allow server hostnames in IMAP to be IP addresses
     (start with a number).
 
 Release 0.4.22 - March 27, 2004
@@ -31,7 +31,7 @@ Release 0.4.21 - February 21, 2004
   * Fix a bug where fetch times out to some IMAP servers.
 
 Release 0.4.20 - January 1, 2004
-  * Add --disable-crypto for source-based distributions 
+  * Add --disable-crypto for source-based distributions
     while libgcrypt is unstable.
   * Sam Izzo's patch for changing the mouse click action
     depending on whether a box has new mail.
@@ -49,37 +49,37 @@ Release 0.4.18 - November 8, 2003
   * Bugfix to OS X keychain use for panther.
 
 Release 0.4.17 - August 31, 2003
-  * On Mac, ask the keychain for passwords if 
+  * On Mac, ask the keychain for passwords if
     askpass = internal:apple:keychain
-  * Bugfix to an infinite loop found in the 
+  * Bugfix to an infinite loop found in the
     TLS interface.
-    
+
 Release 0.4.16 - July 7, 2003
-  * Checks TLS certificates.  See wmbiffrc(5) for 
+  * Checks TLS certificates.  See wmbiffrc(5) for
     details on the certfile option.  Designed to work
     with mutt.
   * Show a busy mouse cursor while talking to remote
-    servers, to show that wmbiff won't be responsive 
+    servers, to show that wmbiff won't be responsive
     to mouse clicks for a little bit.
-  * New buttontwo (middle click) action to complement 
+  * New buttontwo (middle click) action to complement
     action (left mouse click) and fetchcmd (right mouse).
-  * #'s are now only comments in .wmbiffrc at the 
-    beginning of lines or following whitespace, 
+  * #'s are now only comments in .wmbiffrc at the
+    beginning of lines or following whitespace,
     allowing #'s in (most) passwords.
-  * AppleScript examples for driving Apple's Mail 
+  * AppleScript examples for driving Apple's Mail
     application in sample.wmbiffrc
-  * Special mailbox action 'msglst' brings up a 
+  * Special mailbox action 'msglst' brings up a
     transient window showing message headers from IMAP
-    and program output for shell methods.  This is 
-    intended to be faster than starting up a new 
+    and program output for shell methods.  This is
+    intended to be faster than starting up a new
     mail program or re-executing a script.
   * Avoid repetitive error messages when disconnected.
   * Use conventional -geometry option handling.
   * Fix bug in 0.4.15 to re-enable *'s in IMAP passwords.
 
 Release 0.4.15 - Mar 30, 2003
-  * Frobnicate internally stored passwords, partially 
-    obfuscating them in memory.  Not actually more 
+  * Frobnicate internally stored passwords, partially
+    obfuscating them in memory.  Not actually more
     secure, but harder to casually discover a password.
   * Tighten configuration file lines to more quickly
     detect misconfiguration.  Add the -relax option if
@@ -89,13 +89,13 @@ Release 0.4.15 - Mar 30, 2003
 
 Release 0.4.14 - Jan 24, 2003
   * Handle building on systems with both posix and gnu
-    regex in different but conflicting files.  
-  * Restart wmbiff on SIGUSR1.  You may need to use 
+    regex in different but conflicting files.
+  * Restart wmbiff on SIGUSR1.  You may need to use
     'killall -USR1 wmbiff' if it gets stuck.
   * Restart wmbiff on ctrl-shift mouse 1.
 
 Release 0.4.13 - Jan 20, 2003
-  * Fix a file descriptor leak when using 
+  * Fix a file descriptor leak when using
     both Shell and IMAP clients.
   * Portability to Mac OS X, Solaris, and probably BSD
     restored (thanks sourceforge compile farm!) with a
@@ -107,14 +107,14 @@ Release 0.4.12 - Jan 3, 2003
     -geometry handling. (Debian #173813)
 
 Release 0.4.11 - Dec 28, 2002
-  * security.debian.rb script to check for updates on 
+  * security.debian.rb script to check for updates on
     security.debian.org, installed in $prefix/lib/wmbiff/
-    add: path.x=/usr/lib/wmbiff/security.debian.rb to 
+    add: path.x=/usr/lib/wmbiff/security.debian.rb to
     your .wmbiffrc (and install ruby if you haven't already).
   * Internal cleanups to allow long askpass commands.
 
 Release 0.4.10 - Dec 12, 2002
-  * Peter McAlpine's globalnotify feature - elect to play a 
+  * Peter McAlpine's globalnotify feature - elect to play a
     sound on new mail in *any* mailbox without a chorus of
     sounds from every mailbox.
   * -skip-certificate-check option for when your imaps server
@@ -123,17 +123,17 @@ Release 0.4.10 - Dec 12, 2002
 Release 0.4.9 - Dec 1, 2002
   * GNUTLS v0.5.9 or higher required
   * Check TLS certificate hostname against the hostname we're
-    connecting to.  This raises the bar, but does not make 
-    wmbiff's TLS implementation secure against man in the 
+    connecting to.  This raises the bar, but does not make
+    wmbiff's TLS implementation secure against man in the
     middle attacks.
   * WMBiff scales to the number of mailboxes you're
     using. For openbox, this means less wasted space in the
     slit and the possibility of up to 40 mailboxes.  For
     WindowMaker, this means more pretty chrome and less dark
     LED if you have only a couple boxes.  If you prefer the empty
-    cells at the end, place "path.4=<space><space>" in your 
+    cells at the end, place "path.4=<space><space>" in your
     .wmbiffrc.
-    
+
 Release 0.4.8 - Sept 18, 2002
   * GNUTLS v0.5.1-0.5.6, gcrypt v1.1.8 required.
   * Allow spaces in IMAP mailbox paths.  The new syntax is:
@@ -151,7 +151,7 @@ Release 0.4.6 - July 19, 2002
   * GNUTLS v0.4.3, gcrypt v1.17 expected
 
 Release 0.4.4 - June 27, 2002
-  * GNUTLS version 0.4.3 required.  The API has changed, and 
+  * GNUTLS version 0.4.3 required.  The API has changed, and
     wmbiff is no longer compatible with GNUTLS versions prior
     to 0.4.3.  Certificate checking may be slightly more strict.
   * GCRYPT version 1.1.7 is expected as well.
@@ -167,7 +167,7 @@ Release 0.4.3 - June 8, 2002
     will not be completely erased when new mail arrives.
   * Mouse handling fix.
   * Cleanup of internals: handling of default configuration when
-    .wmbiffrc does not exist, vertical position of rows, variable 
+    .wmbiffrc does not exist, vertical position of rows, variable
     names, etc.
   * GNUTLS version 0.3.5 is expected; earlier and later versions
     may be incompatible.
@@ -189,23 +189,23 @@ Release 0.4.0 - May 3, 2002
   * GNUTLS version 0.3.5 is expected; earlier and later versions
     may be incompatible.
   * askpass: Passwords can be left empty for IMAP: ssh-askpass
-    will be used to prompt the user.  See sample.wmbiffrc 
+    will be used to prompt the user.  See sample.wmbiffrc
     and wmbiffrc(5).
   * skinfile: Background pixmaps can be specified in .wmbiffrc.
     This has the effect of "skins."  See wmbiffrc(5).
-    Add "skinfile=wmbiff-master-contrast.xpm" to .wmbiffrc 
+    Add "skinfile=wmbiff-master-contrast.xpm" to .wmbiffrc
     for a more readable wmbiff.
   * finger: Finger client added - finger a user's mailbox to get its
     status.  Requires perl and finger commands. See wmbiffrc(5).
     Thanks to Andelko Horvat.
-  * shell: Improvements to ShellClient - now allows three character 
+  * shell: Improvements to ShellClient - now allows three character
     text to be printed as status.  If "new" is on the output
     line, the text will be in yellow. Thanks to Andelko Horvat.
-  * mbox: Paths can be specified including shell expressions 
-    in `'s.  If requested, this feature can be expanded to other 
+  * mbox: Paths can be specified including shell expressions
+    in `'s.  If requested, this feature can be expanded to other
     clients.  Nested expressions are not supported.
   * Permissions on .wmbiffrc are checked to protect security.
-    Only a warning is printed now.  This will degenerate in 
+    Only a warning is printed now.  This will degenerate in
     later releases for .wmbiffrc's that store passwords.
   * Migrated to automake / autoconf to detect defaults for
     ssh-askpass and prepare for future changes.
@@ -312,26 +312,26 @@ Release 0.2q1 - Fri, 13 Apr 2001 02:47:10 -0400
       * Drop all of the ":" after the pop3 and delimit all values with
         spaces.  This works well, as passwords/user-id's all agree that
         the space is a non-legit value.
-         
+
         Example: assume my password is:  myEmailhasa@init
-         
+
         Old way:
         path.3=pop3:debian4tux:myEmailhasa@init@mail.telocity.com
 
         New way:
         path.3=pop3:debian4tux myEmailhasa@init mail.telcoity.com
-        
+
         Ahh...before you say it.  "Backward compatibility?" You will
         also find in the patch, a NEW function.  So that the OLD and
         NEW way is easily compatible with all ".wmbiffrc" files.
-        
+
         Dev. Comments:
         This was not the cleanest way to implement it, but I had to
         suffice with a clean/quick implementation.  I originally wrote
         one function to handle past and new parsing.  However, I
         thought it would be beneficial to leave them separated, so we
         could eventually drop the old method?
-        
+
         Related Changes:
         The man page will need to be updated (not provided in patch).
         We can weed the "old" style out of the example script as well.
@@ -357,7 +357,7 @@ Release 0.2q1 - Fri, 13 Apr 2001 02:47:10 -0400
   * wmbiff/wmbiff.c:
         -       for (index = 0; index < 4; index++)
         +       for (index = 0; index < 5; index++)
-    
+
         BUG!  Last postion #4 was not correctly being checked.
         Now correctly checks each position.
 
@@ -366,7 +366,7 @@ Release 0.2q - Tue, 20 Mar 2001 05:32:35 +0100
 
   * This release is by Jorge García <Jorge.Garcia@uv.es>.
   * wmbiff/{*.[ch]}: removed unnecesary includes.
-  * wmbiff/wmbiff.c: some cleanups and optimizations. 
+  * wmbiff/wmbiff.c: some cleanups and optimizations.
     + init_biff:
       * show error if user config file does not exists
       * use of userconfig "interval" (wasn't correctly parsed)
@@ -374,12 +374,12 @@ Release 0.2q - Tue, 20 Mar 2001 05:32:35 +0100
       and Blink_Mode local
     + parse_cmd: some changes to make uconfig_file local
     + {BlinkOn, BlinkOff, BlinkToogle}: Removed (merged by do_biff)
-    + {ReadConfigString, ReadConfigInt}: Removed 
+    + {ReadConfigString, ReadConfigInt}: Removed
     + countmail: removed init in header (wasn't used)
     + ReadLine: Created (new parsing code, extracts pairs of setting
       and value)
     + Read_Config_File: now there is only ONE parse not 36!
-  * wmbiff/{IMap4Client.c, Pop3Client.c}: check for correct format line to 
+  * wmbiff/{IMap4Client.c, Pop3Client.c}: check for correct format line to
     avoid "segmentation fault" while parsing.
 
 
@@ -398,7 +398,7 @@ Release 0.2p - Mon, 12 Mar 2001 00:00:00 -0600
   * All your base are belong to us.
   * I'm not maintaining wmBiff; I just submitted a big patch.  Send your
     complaints (or complements) to Yong-iL Joh.
-  
+
 
 Release 0.2o - Mon, 12 Mar 2001 00:00:00 +0900
 
@@ -429,7 +429,7 @@ Release 0.2o - Mon, 12 Mar 2001 00:00:00 +0900
 
 
 Release 0.2n - Tue, 20 Feb 2001 0:00:00 +0900
-  
+
   * This release is by Yong-iL Joh <tolkien@mizi.com>.
   * Nick Clarey <nclarey@3glab.com> sent me a patch.
     that enhances the following:
@@ -445,7 +445,7 @@ Release 0.2m - Mon,  5 Feb 2001 00:00:00 +0900
 
 
 Release 0.2l - Thu, 11 Jan 2001 00:00:00 +0900
-  
+
   * This release is by Yong-iL Joh <tolkien@mizi.com>.
   * Imap4Client.c had a bug when trying to connect to an imap4 server.  Fixed
     it.
@@ -465,10 +465,10 @@ Release 0.2-licq - Sat,  1 Jan 2000 00:00:00 +0000
   * The actual date of this release is unknown, so I picked New Year's Day,
     Y2K. (Dwayne C. Litzenberger)
   * I found it from http://www.licq.org/download.html.
-  
 
-Release 0.2 - Fri, 26 Nov 1999 00:00:00 +0000 
-  
+
+Release 0.2 - Fri, 26 Nov 1999 00:00:00 +0000
+
   * This release is by Gennady Belyakov <gb@ccat.elect.ru>.
   * We don't actually know the time zone of Gennady's changelog entries
     (Dwayne C. Litzenberger).
@@ -480,7 +480,7 @@ Release 0.2 - Fri, 26 Nov 1999 00:00:00 +0000
 
 
 Release 0.1a - Thu, 18 Nov 1999 00:00:00 +0000
-  
+
   * This release is by Gennady Belyakov <gb@ccat.elect.ru>.
   * Some fixes with intialization
 

@@ -15,7 +15,7 @@
 			How do I create a not so solid window?
 			How do I open a window?
 			How do I use pixmaps?
-	
+
 	------------------------------------------------------------
 
 	Author: Martijn Pieterse (pieterse@xs4all.nl)
@@ -37,7 +37,7 @@
 		* Updated version number and some other minor stuff
 	16/05/1998 (Antoine Nulle, warp@xs4all.nl)
 		* Added Locale support, based on original diff supplied
-		  by Alen Salamun (snowman@hal9000.medinet.si)  
+		  by Alen Salamun (snowman@hal9000.medinet.si)
 	04/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Moved the hands one pixel down.
 		* Removed the RedrawWindow out of the main loop
@@ -53,7 +53,7 @@
 	21/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Added digital/analog switching support
 	18/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
-		* Started this project. 
+		* Started this project.
 		* Copied the source from wmmon.
 */
 
@@ -279,7 +279,7 @@ void wmtime_routine(int argc, char **argv) {
 		curtime = time(0);
 
 		waitpid(0, NULL, WNOHANG);
-		
+
 		time_struct = localtime(&curtime);
 
 
@@ -299,7 +299,7 @@ void wmtime_routine(int argc, char **argv) {
 			}
 			RedrawWindow();
 		}
-		
+
 
 		while (XPending(display)) {
 			XNextEvent(display, &Event);
@@ -326,7 +326,7 @@ void wmtime_routine(int argc, char **argv) {
 							DrawTime(time_struct->tm_hour, time_struct->tm_min, time_struct->tm_sec);
 							DrawDate(time_struct->tm_wday, time_struct->tm_mday, time_struct->tm_mon);
 						} else {
-							copyXPMArea(0, 98, 64, 64, 0, 0);	
+							copyXPMArea(0, 98, 64, 64, 0, 0);
 							DrawWijzer(time_struct->tm_hour, time_struct->tm_min, time_struct->tm_sec);
 							DrawDate(time_struct->tm_wday, time_struct->tm_mday, time_struct->tm_mon);
 						}
@@ -411,7 +411,7 @@ void DrawDate(int wkday, int dom, int month) {
 
 	k = 5;
 	for (i=0; i<2; i++) {
-		if (*p < 'A') 
+		if (*p < 'A')
 			copyXPMArea((*p-'0')*6, 64, 6, 9, k, 49);
 		else
 			copyXPMArea((*p-'A')*6, 74, 6, 9, k, 49);
@@ -427,7 +427,7 @@ void DrawDate(int wkday, int dom, int month) {
 	copyXPMArea(61, 64, 4, 9, k, 49);
 	k += 4;
 	for (i=0; i<3; i++) {
-		if (*p < 'A') 
+		if (*p < 'A')
 			copyXPMArea((*p-'0')*6, 64, 6, 9, k, 49);
 		else
 			copyXPMArea((*p-'A')*6, 74, 6, 9, k, 49);
@@ -450,7 +450,7 @@ void DrawWijzer(int hr, int min, int sec) {
 	int			k;
 
 	int			i;
-	
+
 	hr %= 12;
 
 	copyXPMArea(5+64, 5, 54, 40, 5, 5);
@@ -464,7 +464,7 @@ void DrawWijzer(int hr, int min, int sec) {
 
 	// dx, dy is het punt waar we naar toe moeten.
 	// Zoek alle punten die ECHT op de lijn liggen:
-	
+
 	ddx = 1;
 	ddy = 1;
 	if (dx < 0) ddx = -1;
@@ -474,9 +474,9 @@ void DrawWijzer(int hr, int min, int sec) {
 	y = 0;
 
 	if (abs(dx) > abs(dy)) {
-		if (dy != 0) 
+		if (dy != 0)
 			adder = abs(dx) / 2;
-		else 
+		else
 			adder = 0;
 		for (i=0; i<abs(dx); i++) {
 			// laat de kleur afhangen van de adder.
@@ -489,7 +489,7 @@ void DrawWijzer(int hr, int min, int sec) {
 
 			k = 12-k;
 			copyXPMArea(79+k, 67, 1, 1, x + 31, y + 24 + ddy);
-				
+
 
 			x += ddx;
 
@@ -502,7 +502,7 @@ void DrawWijzer(int hr, int min, int sec) {
 	} else {
 		if (dx != 0)
 			adder = abs(dy) / 2;
-		else 
+		else
 			adder = 0;
 		for (i=0; i<abs(dy); i++) {
 			k = 12 - adder / (abs(dy) / 12.0);
@@ -512,7 +512,7 @@ void DrawWijzer(int hr, int min, int sec) {
 
 			k = 12-k;
 			copyXPMArea(79+k, 67, 1, 1, x + 31 + ddx, y + 24);
-				
+
 			y += ddy;
 
 			adder -= abs(dx);
@@ -531,10 +531,10 @@ void DrawWijzer(int hr, int min, int sec) {
 
 	// dx, dy is het punt waar we naar toe moeten.
 	// Zoek alle punten die ECHT op de lijn liggen:
-	
+
 	dx += dx;
 	dy += dy;
-	
+
 	ddx = 1;
 	ddy = 1;
 	if (dx < 0) ddx = -1;
@@ -544,9 +544,9 @@ void DrawWijzer(int hr, int min, int sec) {
 	y = 0;
 
 	if (abs(dx) > abs(dy)) {
-		if (dy != 0) 
+		if (dy != 0)
 			adder = abs(dx) / 2;
-		else 
+		else
 			adder = 0;
 		for (i=0; i<abs(dx); i++) {
 			// laat de kleur afhangen van de adder.
@@ -559,7 +559,7 @@ void DrawWijzer(int hr, int min, int sec) {
 
 			k = 12-k;
 			copyXPMArea(79+k, 67, 1, 1, x + 31, y + 24 + ddy);
-				
+
 
 			x += ddx;
 
@@ -572,7 +572,7 @@ void DrawWijzer(int hr, int min, int sec) {
 	} else {
 		if (dx != 0)
 			adder = abs(dy) / 2;
-		else 
+		else
 			adder = 0;
 		for (i=0; i<abs(dy); i++) {
 			k = 12 - adder / (abs(dy) / 12.0);
@@ -582,7 +582,7 @@ void DrawWijzer(int hr, int min, int sec) {
 
 			k = 12-k;
 			copyXPMArea(79+k, 67, 1, 1, x + 31 + ddx, y + 24);
-				
+
 			y += ddy;
 
 			adder -= abs(dx);
@@ -603,12 +603,12 @@ void DrawWijzer(int hr, int min, int sec) {
 
 	// dx, dy is het punt waar we naar toe moeten.
 	// Zoek alle punten die ECHT op de lijn liggen:
-	
+
 	ddx = 1;
 	ddy = 1;
 	if (dx < 0) ddx = -1;
 	if (dy < 0) ddy = -1;
-	
+
 	if (dx == 0) ddx = 0;
 	if (dy == 0) ddy = 0;
 
@@ -617,9 +617,9 @@ void DrawWijzer(int hr, int min, int sec) {
 
 
 	if (abs(dx) > abs(dy)) {
-		if (dy != 0) 
+		if (dy != 0)
 			adder = abs(dx) / 2;
-		else 
+		else
 			adder = 0;
 		for (i=0; i<abs(dx); i++) {
 			// laat de kleur afhangen van de adder.
@@ -630,7 +630,7 @@ void DrawWijzer(int hr, int min, int sec) {
 
 			k = 12-k;
 			copyXPMArea(79+k, 70, 1, 1, x + 31, y + 24);
-				
+
 
 			x += ddx;
 
@@ -643,7 +643,7 @@ void DrawWijzer(int hr, int min, int sec) {
 	} else {
 		if (dx != 0)
 			adder = abs(dy) / 2;
-		else 
+		else
 			adder = 0;
 		for (i=0; i<abs(dy); i++) {
 			k = 12 - adder / (abs(dy) / 12.0);
@@ -651,7 +651,7 @@ void DrawWijzer(int hr, int min, int sec) {
 
 			k = 12-k;
 			copyXPMArea(79+k, 70, 1, 1, x + 31, y + 24);
-				
+
 			y += ddy;
 
 			adder -= abs(dx);

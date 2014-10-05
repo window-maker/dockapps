@@ -56,7 +56,7 @@
 
 
     #
-    # Parse HTML File. 
+    # Parse HTML File.
     #
     $Temp     = -999.0;
     $Chill    = -999.0;
@@ -82,7 +82,7 @@
 
 
 
-    
+
     #
     #  Isolate the Wind groups out of the coded METAR report.
     #  There may be two groups - the normal one and a variability set.

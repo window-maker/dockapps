@@ -61,14 +61,14 @@ OpenDspDevice( int channels, int srate )
   audio_info_t audio_info;
   const char audio_device[] = "/dev/audio";
 #endif
-  
+
 #if defined (__linux__)
   fd = open( audio_device, O_WRONLY, 0 );
 #elif( defined(sun) && defined(unix) )
   /* Open the audio device - write only, non-blocking */
   fd = open( audio_device, O_WRONLY | O_NONBLOCK );
 #endif
-  
+
   if( fd < 0 ) {
     fprintf( stderr, "%s: open() failed trying to open device '%s':\n", PACKAGE,
 	     audio_device );
@@ -78,7 +78,7 @@ OpenDspDevice( int channels, int srate )
     ErrorLocation( __FILE__, __LINE__ );
     return -1;
   }
-  
+
 #if defined (__linux__)
   stereo = 0;
   status = ioctl( fd, SNDCTL_DSP_STEREO, &stereo );
@@ -87,14 +87,14 @@ OpenDspDevice( int channels, int srate )
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   status = ioctl( fd, SNDCTL_DSP_RESET, 0 );
   if( status > 0 ) {
     fprintf( stderr, "%s: ioctl() failed: %s\n", PACKAGE, strerror( errno ) );
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-	
+
   temp = 16;
   status = ioctl( fd, SOUND_PCM_WRITE_BITS, &temp );
   if( status != 0 ) {
@@ -102,39 +102,39 @@ OpenDspDevice( int channels, int srate )
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   status = ioctl( fd, SOUND_PCM_WRITE_CHANNELS, &channels );
   if( status != 0 ) {
     fprintf( stderr, "%s: ioctl() failed: %s\n", PACKAGE, strerror( errno ) );
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-	
+
   status = ioctl( fd, SOUND_PCM_WRITE_RATE, &srate );
   if( status != 0 ) {
     fprintf( stderr, "%s: ioctl() failed: %s\n", PACKAGE, strerror( errno ) );
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-	
+
   status = ioctl( fd, SNDCTL_DSP_SYNC, 0 );
   if( status != 0 ) {
     fprintf( stderr, "%s: ioctl() failed: %s\n", PACKAGE, strerror( errno ) );
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
 #elif( defined(sun) && defined(unix) )
   /* Retrieve standard values. */
   AUDIO_INITINFO( &audio_info );
-    
+
   audio_info.play.sample_rate = sfinfo.samplerate;
   audio_info.play.channels = sfinfo.channels;
   audio_info.play.precision = 16;
   audio_info.play.encoding = AUDIO_ENCODING_LINEAR;
   audio_info.play.gain = AUDIO_MAX_GAIN;
   audio_info.play.balance = AUDIO_MID_BALANCE;
-  
+
   status = ioctl( audio_fd, AUDIO_SETINFO, &audio_info );
   if( status > 0 ) {
     fprintf( stderr, "%s: ioctl() failed: %s\n", PACKAGE, strerror( errno ) );
@@ -142,7 +142,7 @@ OpenDspDevice( int channels, int srate )
     exit( EXIT_FAILURE );
   }
 #endif
-  
+
   return fd;
 }
 
@@ -174,9 +174,9 @@ PlayAudioFile( char *filename, int volume )
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   sndfile = sf_open( filename, SFM_READ, &sfinfo );
-  
+
   if( sndfile == NULL ) {
     fprintf( stderr, "%s: sf_open() failed trying to open '%s':\n", PACKAGE, filename );
     fprintf( stderr, "  %s\n", sf_strerror(NULL) );
@@ -184,14 +184,14 @@ PlayAudioFile( char *filename, int volume )
     ErrorLocation( __FILE__, __LINE__ );
     return;
   }
-  
+
   if( sfinfo.channels < 1 || sfinfo.channels > 2 ) {
     fprintf( stderr, "%s: Audio file has %d channel(s), but ", PACKAGE, sfinfo.channels );
     fprintf( stderr, "we support only 1 or 2 channels.\n" );
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   audio_fd = OpenDspDevice( sfinfo.channels, sfinfo.samplerate );
   if( audio_fd < 0 ) {
     goto play_audio_file_close_file;
@@ -203,11 +203,11 @@ PlayAudioFile( char *filename, int volume )
 #endif
 
   subformat = sfinfo.format & SF_FORMAT_SUBMASK;
-    
+
   if( subformat == SF_FORMAT_FLOAT || subformat == SF_FORMAT_DOUBLE ) {
     static float flt_buffer[BUFFER_LEN];
     double scale;
-    
+
     status = sf_command( sndfile, SFC_CALC_SIGNAL_MAX, &scale, (int) sizeof(scale) );
     if( status == 0 ) {
       fprintf( stderr, "%s: Warning, sf_command() failed.\n", PACKAGE );
@@ -237,12 +237,12 @@ PlayAudioFile( char *filename, int volume )
 	ErrorLocation( __FILE__, __LINE__ );
 	goto play_audio_file_close_audio;
       }
-      
+
       /* Solaris -- FLOAT samples */
 #elif( defined(sun) && defined(unix) )
       start_count = 0;
       output_count = read_count * sizeof(short);
-      
+
       while( output_count > 0 ) {
 	/* Write as much data as possible */
 	for( m = 0 ; m < readcount ; m++ ) {
@@ -251,7 +251,7 @@ PlayAudioFile( char *filename, int volume )
 	  /* Changing volume */
 	  buffer[m] = buffer[m] * volume / 100;
 	}
-	
+
 	write_count = write( audio_fd, &(buffer[start_count]), output_count );
 	if( write_count > 0 ) {
 	  output_count -= write_count;
@@ -273,27 +273,27 @@ PlayAudioFile( char *filename, int volume )
       for( m = 0 ; m < readcount ; m++ ) {
 	buffer[m] = ( buffer[m] * volume ) / 100;
       }
-      
+
       status = (int) write( audio_fd, buffer, readcount * sizeof(short) );
       if( status == -1 ) {
 	perror( PACKAGE );
 	ErrorLocation( __FILE__, __LINE__ );
 	goto play_audio_file_close_audio;
       }
-    
+
       /* Solaris -- INTEGER samples */
 #elif( defined(sun) && defined(unix) )
       start_count = 0;
       output_count = read_count * sizeof(short);
-      
+
       while( output_count > 0 ) {
 	/* Write as much data as possible */
-	
+
 	/* Changing volume. */
 	for( m = 0 ; m < read_count ; m++ ) {
 	  buffer[m] = ( buffer[m] * volume ) / 100;
 	}
-	
+
 	write_count = write( audio_fd, &(buffer[start_count]), output_count );
 	if( write_count > 0 ) {
 	  output_count -= write_count;
@@ -325,7 +325,7 @@ PlayAudioFile( char *filename, int volume )
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   if( wmnotify_infos.debug ) {
     printf( "%s: PlayAudioFile() Exit\n", PACKAGE );
   }

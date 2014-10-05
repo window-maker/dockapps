@@ -39,7 +39,7 @@ The main changes between this and wmmixer are:
   4 and 5, using it will increase/decrease the volume of the current
   channel.
 
-* Removed all the recsrc code. 
+* Removed all the recsrc code.
 
 * Changed the display arrangement slightly, and replaced the recsrc
   button with a numeric/text display.

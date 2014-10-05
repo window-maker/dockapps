@@ -24,7 +24,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.              *
  *                                                                         *
  ***************************************************************************/
- 
+
  /***************************************************************************
        Many thanks to Soós Péter <sp@osb.hu> and the omke project team
                    I could never have done this otherwise

@@ -1,6 +1,6 @@
 /* tlsComm.h - interface for the thin layer that looks
    sort of like fgets and fprintf, but might read or write
-   to a socket or a TLS association 
+   to a socket or a TLS association
 
    Neil Spring (nspring@cs.washington.edu)
 
@@ -11,7 +11,7 @@
 /* used to drill through per-mailbox debug keys */
 #include "Client.h"
 
-/* opaque reference to the state associated with a 
+/* opaque reference to the state associated with a
    connection: may be just a file handle, or may include
    encryption state */
 struct connection_state;
@@ -28,9 +28,9 @@ struct connection_state *initialize_gnutls(int sd, /*@only@ */ char *name,
 struct connection_state *initialize_unencrypted(int sd,	/*@only@ */
 												char *name, Pop3 pc);
 
-/* store a binding when connect() times out. these should be 
+/* store a binding when connect() times out. these should be
    skipped when trying to check mail so that other mailboxes
-   are checked responsively.  I believe linux defaults to 
+   are checked responsively.  I believe linux defaults to
    around 90 seconds for a failed connect() attempt */
 /* TODO: engineer an eventual retry scheme */
 /*@only@*/

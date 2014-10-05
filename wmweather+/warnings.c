@@ -85,7 +85,7 @@ void init_warnings(void){
         { 'f', STRING, &bigbuf },
         { 0, 0, 0 }
     };
-    
+
     /* Count zones, and find length of longest */
     for(i=0; warning_zones[i]!=NULL; i++){
         j=strlen(warning_zones[i]);
@@ -100,7 +100,7 @@ void init_warnings(void){
     }
     zone_current_warnings=calloc(i, sizeof(*zone_current_warnings));
     if(zone_current_warnings==NULL) die("init_warnings malloc");
-    
+
     /* Allocate filename base */
     e=get_pid_filename("");
     i=strlen(e);

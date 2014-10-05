@@ -6,11 +6,11 @@
 interval=60
 
 # Global askpass -- choose a password acting program
-# that behaves like ssh-askpass.  The default is 
+# that behaves like ssh-askpass.  The default is
 # askpass = /usr/bin/ssh-askpass.
 # askpass is invoked on IMAP entries that have no password
 # below.
-# the commented version below is likely to work on RedHat 
+# the commented version below is likely to work on RedHat
 # systems; wmbiff's default is likely to work on Debian
 # systems with ssh-askpass installed.
 #askpass = /usr/libexec/openssh/x11-ssh-askpass
@@ -39,7 +39,7 @@ askpass = /usr/bin/ssh-askpass -fg cyan -bg black -xrm '*Dialog.title: WMBiff Pa
 #skinfile=wmbiff-master-led.xpm
 # higher contrast for lower-color displays
 #skinfile=wmbiff-master-contrast.xpm
-# make your own derivative and submit it 
+# make your own derivative and submit it
 # to us at wmbiff-devel@lists.sourceforge.net
 
 ### First string ###
@@ -62,7 +62,7 @@ globalnotify=my_play /home/gb/sounds/new_mail_has_arrived.wav
 # Don't want any global notification for this mailbox
 notify.0=true
 
-# Command, which executed on left mouse click on label 
+# Command, which executed on left mouse click on label
 action.0=rxvt -name mutt -e mutt
 
 # Rescan interval; default to global interval

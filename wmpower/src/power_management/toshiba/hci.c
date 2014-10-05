@@ -1,7 +1,7 @@
 /* hci.c -- Hardware Configuration Interface
  *
  * Copyright (c) 1998-2000  Jonathan A. Buzzard (jonathan@buzzard.org.uk)
- *   
+ *
  * $Log: hci.c,v $
  * Revision 1.2  2003/11/06 12:48:08  noberasco
  * Added a new machine id...
@@ -33,16 +33,16 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
- * 
+ *
  */
 
 static const char rcsid[]="$Id: hci.c,v 1.2 2003/11/06 12:48:08 noberasco Exp $";
@@ -148,8 +148,8 @@ int HciGetLCDPanelType(int *resolution, int *type)
 	regs.ebx = HCI_FLAT_PANEL;
 	HciFunction(&regs);
 
-	*resolution = (regs.ecx & 0xff00)>>8;	
-	*type = regs.ecx & 0xff;	
+	*resolution = (regs.ecx & 0xff00)>>8;
+	*type = regs.ecx & 0xff;
 
 	return HCI_SUCCESS;
 }

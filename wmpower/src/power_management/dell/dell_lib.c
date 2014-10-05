@@ -41,7 +41,7 @@ int dell_get_fan_status(void)
 int dell_get_temperature(void)
 {
 	FILE *fp = fopen(PROC_FILE, "r");
-	int result;	
+	int result;
 
 	if (!fp) return PM_Error;
 

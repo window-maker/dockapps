@@ -562,7 +562,7 @@ int readconf(char *file){
     char *c, *d;
     int i, l, flag=1;
     FILE *fp;
-    
+
     if(file==NULL){
         flag=0;
         file=get_filename("conf");
@@ -643,7 +643,7 @@ void sigint(int i){
 int main(int argc, char **argv){
     int i, j;
     char *c;
-    
+
     ProgName = argv[0];
     if((c=strrchr(ProgName, '/'))!=NULL && *(c+1)!='\0'){
         ProgName=c+1;

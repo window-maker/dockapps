@@ -1,8 +1,8 @@
 CC     = gcc
-CFLAGS = -O2 -Wall 
-INCDIR = 
+CFLAGS = -O2 -Wall
+INCDIR =
 DESTDIR= /usr
-LIBDIR = 
+LIBDIR =
 LIBS   = -lXpm -lX11 -lXext
 
 OBJS   = wmMatrix.o matrix.o xutils.o yarandom.o
@@ -14,7 +14,7 @@ all:	wmMatrix
 
 wmMatrix.o:	wmMatrix_master.xpm wmMatrix_mask.xbm
 
-wmMatrix:	$(OBJS) 
+wmMatrix:	$(OBJS)
 	$(CC) $(LDFLAGS) -o wmMatrix $^ $(LIBDIR) $(LIBS)
 
 clean:

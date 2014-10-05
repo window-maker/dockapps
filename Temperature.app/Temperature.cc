@@ -1,8 +1,8 @@
 //
 //  Temperature.app
-// 
+//
 //  Copyright (c) 2000-2002 Per Liden
-// 
+//
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation; either version 2 of the License, or
@@ -15,7 +15,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program; if not, write to the Free Software
-//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, 
+//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307,
 //  USA.
 //
 
@@ -40,12 +40,12 @@
 
 volatile static ChildStatus childStatus;
 
-static void catchBrokenPipe(int sig) 
+static void catchBrokenPipe(int sig)
 {
    exit(0);
 }
 
-static void catchChildExit(int sig) 
+static void catchChildExit(int sig)
 {
    int status;
    waitpid(-1, &status, 0);
@@ -65,7 +65,7 @@ static void catchChildExit(int sig)
    }
 }
 
-Temperature::Temperature(int argc, char** argv) 
+Temperature::Temperature(int argc, char** argv)
 {
    XClassHint classHint;
    XSizeHints sizeHints;
@@ -163,14 +163,14 @@ Temperature::Temperature(int argc, char** argv)
       std::cerr << APPNAME << ": could not open display " << displayName << std::endl;
       exit(0);
    }
- 
+
    // Get root window
    mRoot = RootWindow(mDisplay, DefaultScreen(mDisplay));
 
    // Create windows
    mAppWin = XCreateSimpleWindow(mDisplay, mRoot, 1, 1, 64, 64, 0, 0, 0);
    mIconWin = XCreateSimpleWindow(mDisplay, mAppWin, 0, 0, 64, 64, 0, 0, 0);
-        
+
    // Set classhint
    classHint.res_name =  mInstanceName;
    classHint.res_class = CLASSNAME;
@@ -230,7 +230,7 @@ void Temperature::tryHelp(char* appname)
    std::cerr << std::endl << "Try `" << appname << " --help' for more information" << std::endl;
 }
 
-void Temperature::showHelp() 
+void Temperature::showHelp()
 {
    std::cerr << APPNAME << " Copyright (c) 2000-2002 by Per Liden (per@fukt.bth.se)" << std::endl << std::endl
         << "options:" << std::endl
@@ -241,7 +241,7 @@ void Temperature::showHelp()
         << " -n <name>       set client instance name" << std::endl
         << " -d <disp>       set display" << std::endl
         << " -v              print version and exit" << std::endl
-        << " -h, --help      display this help text and exit" << std::endl 
+        << " -h, --help      display this help text and exit" << std::endl
         << std::endl
         << "You must supply the ICAO Location Indicator (a 4-character string)" << std::endl
         << "of a weather station near you. You can search for a station on" << std::endl
@@ -294,7 +294,7 @@ void Temperature::setTime(char* utcTime)
 {
    char unit[3];
    int hour = 0;
-   int min = 0;   
+   int min = 0;
 
    strncpy(unit, &utcTime[0], 2);
    hour = atoi(unit);
@@ -319,7 +319,7 @@ void Temperature::setTime(char* utcTime)
 
    if (mTime12HourFormat) {
       if (hour >= 0 && hour <= 11) {
-         mTimeAMPM = "AM";         
+         mTimeAMPM = "AM";
       } else {
          mTimeAMPM = "PM";
       }
@@ -350,7 +350,7 @@ bool Temperature::updateTemperture(ifstream& file)
       strncpy(time, start - 5, 4);
       setTime(time);
    }
-   
+
    // Find temperature
    while (!file.eof()) {
       file >> buffer;
@@ -365,7 +365,7 @@ bool Temperature::updateTemperture(ifstream& file)
                sprintf(mTemperature, "%d", (int)rint((atoi(buffer) - 32) / 1.8));
                unit = " °C";
             }
-            
+
             Xpm* image = new Xpm(mDisplay, mRoot, main_xpm);
             if (mShowTime) {
                if (mTime12HourFormat) {
@@ -389,7 +389,7 @@ bool Temperature::updateTemperture(ifstream& file)
    return false;
 }
 
-void Temperature::run() 
+void Temperature::run()
 {
    if (mShowTime) {
       calcTimeDiff();

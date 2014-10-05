@@ -59,7 +59,7 @@ SocketOpen( char *server_name, int port )
   int sock_fd = -1;
   struct hostent *hostinfo;
   struct sockaddr_in serv_addr;
-  
+
   hostinfo = gethostbyname(server_name);
   if( hostinfo == NULL ) {
     herror( PACKAGE );
@@ -74,7 +74,7 @@ SocketOpen( char *server_name, int port )
     ErrorLocation( __FILE__, __LINE__ );
     goto error;
   }
-  
+
   /*---Initialize server address/port struct---*/
   serv_addr.sin_family = AF_INET;
   serv_addr.sin_port = htons(port);
@@ -85,7 +85,7 @@ SocketOpen( char *server_name, int port )
     printf( "  Server IP   = %s\n", inet_ntoa( serv_addr.sin_addr ) );
     printf( "  Server port = %d\n", ntohs(serv_addr.sin_port) );
   }
-  
+
   /* Establishing connection. */
   status = connect( sock_fd, (struct sockaddr *) &(serv_addr), sizeof(serv_addr) );
   if( status < 0 ) {
@@ -93,7 +93,7 @@ SocketOpen( char *server_name, int port )
     ErrorLocation( __FILE__, __LINE__ );
     goto error;
   }
-  
+
  end:
   return sock_fd;
 
@@ -105,7 +105,7 @@ SocketOpen( char *server_name, int port )
       ErrorLocation( __FILE__, __LINE__ );
     }
   }
-  
+
   sock_fd = -1;
   goto end;
 }
@@ -130,7 +130,7 @@ ConnectionEstablish( char *server_name, int port )
       goto error;
     }
   }
-#endif  
+#endif
 
   /* Testing connection. */
   len = WmnotifyGetResponse( rx_buffer, 1024 );
@@ -142,7 +142,7 @@ ConnectionEstablish( char *server_name, int port )
     rx_buffer[len] = 0;
     printf(" Connect response:\n%s\n", rx_buffer );
   }
-  
+
   return EXIT_SUCCESS;
 
  error:
@@ -166,7 +166,7 @@ ConnectionTerminate( void )
     SSL_CTX_free( ssl_infos.ctx ); /* release context */
   }
 #endif
-  
+
   return EXIT_SUCCESS;
 }
 
@@ -183,7 +183,7 @@ WmnotifySendData( char *buffer, int size )
       SSL_get_error( ssl_infos.ssl, len );
       len = -1;
     }
-    
+
     return len;
   }
 #endif /* HAVE_SSL */
@@ -194,12 +194,12 @@ WmnotifySendData( char *buffer, int size )
     len = send( wmnotify_infos.sock_fd, buffer, size, SEND_FLAGS );
   }
   while( ( len < 0 ) && ( errno == EINTR ) );
-  
+
   if( len < 0 ) {
     perror( PACKAGE );
     ErrorLocation( __FILE__, __LINE__ );
   }
-  
+
   return len;
 }
 
@@ -243,11 +243,11 @@ WmnotifyGetResponse( char *buffer, int max_size )
     len = recv( wmnotify_infos.sock_fd, buffer, max_size, RECV_FLAGS );
   }
   while( ( len < 0 ) && ( errno == EINTR ) );
-  
+
   if( len < 0 ) {
     perror( PACKAGE );
     ErrorLocation( __FILE__, __LINE__ );
   }
-  
+
   return len;
 }

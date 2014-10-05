@@ -21,14 +21,14 @@ usage: wmCalClock [-b <Volume>] [-tc <Color>] [-bc <Color>] [-e "Command"] [-S]
         -S              Do not show seconds.
         -24             Show 24-hour time. Default is 12 hour AM/PM Time.
         -g              Show Greenwich time.
-        -s              Show Greenwich Mean Sidereal Time (GMST) in 24-hour format. 
-        -L <Longitude>  Show Local Sidereal Time (LST) in 24-hour format. 
+        -s              Show Greenwich Mean Sidereal Time (GMST) in 24-hour format.
+        -L <Longitude>  Show Local Sidereal Time (LST) in 24-hour format.
                                 Longitude is in degrees (- for West + for East).
         -l              Use a low-color pixmap to conserve colors. On 8-bit displays the
                         low color pixmap will always be used.
         -h              Display help screen.
 
-Example: wmCalClock -b 100 -tc #001100 -bc #7e9e69 
+Example: wmCalClock -b 100 -tc #001100 -bc #7e9e69
 
 
 WindowMaker.
@@ -38,12 +38,12 @@ In WindowMaker simply drag and drop the wmCalClock App on the WindowMaker Dock o
 
 Afterstep.
 ---------
-Afterstep users put the following in their .steprc "Wharf wmCalClock - MaxSwallow 
+Afterstep users put the following in their .steprc "Wharf wmCalClock - MaxSwallow
 "wmCalClock" wmCalClock &". Dont use Afterstep so I have no idea if it works...
 
 Note: AfterStep's Wharf supposedly has a problem with pixmaps that are larger
 than 60x60 pixels. Please tell the AfterStep authors to fix this, this is not
-our fault, but a Wharf problem!  
+our fault, but a Wharf problem!
 
 Other window managers.
 ----------------------

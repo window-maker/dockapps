@@ -3,7 +3,7 @@
    Modified:	Jorge García <Jorge.Garcia@uv.es>
    			 	Rob Funk <rfunk@funknet.net>
    			 	Neil Spring <nspring@cs.washington.edu>
- * 
+ *
  * MBOX checker.
  *
  * Last Updated : $Date: 2004/03/28 00:28:58 $
@@ -99,7 +99,7 @@ static void countMessages(Pop3 pc, const char *mbox_filename)
 	fclose(F);
 }
 
-/* check file status; hold on to file information used 
+/* check file status; hold on to file information used
    to restore access time */
 int
 fileHasChanged(const char *mbox_filename, time_t * atime,

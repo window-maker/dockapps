@@ -50,7 +50,7 @@ static int parse_eta(char *file);
 
 static void reset_eta(void){
     int i;
-    
+
     for(i=0; i<ETA_MAX; i++) reset_forecast(&forecasts[i]);
 }
 
@@ -61,7 +61,7 @@ void init_eta(void){
         { 's', STRING, &eta_station },
         { 0, 0, 0 }
     };
-    
+
     strncpy(bigbuf, eta_station, BIGBUF_LEN-14);
     bigbuf[BIGBUF_LEN-14]='\0';
     for(e=bigbuf; *e!='\0'; e++);
@@ -355,7 +355,7 @@ static int parse_eta(char *file){
         forecasts[m].snow=forecasts[m].snow*forecasts[m].pcp_total/93;
         forecasts[m].frz=forecasts[m].frz*forecasts[m].pcp_total/93;
     }
-    
+
     return 1;
 }
 #undef NEXT

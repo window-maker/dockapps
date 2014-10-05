@@ -99,7 +99,7 @@ addchannel 8
 setmono 90
 
 # RECLEVEL
-addchannel 11      
+addchannel 11
 setmono 0
 
 # OGAIN

@@ -9,11 +9,11 @@ Installation
 --------------------------------------------------------------
 1)  % tar -zxvf wmtime-1.1.tar.gz
 2)  % cd wmtime/wmtime
-3)* xmkmf -a (for *BSD systems needed only!).    
+3)* xmkmf -a (for *BSD systems needed only!).
 4)  % make
 5)  % make install (as root)
 
-6)* WMTime uses month and weekday abbreviations from the 
+6)* WMTime uses month and weekday abbreviations from the
     currently set locale.  If these abbreviations do not
     use Latin alphabet characters, then WMTime defaults to
     US/English.
@@ -22,12 +22,12 @@ Installation
     environment variable, e.g.,
 
     % LANG=es_MX.UTF-8 wmtime
-    
+
 7)* This Imakefile was kindly donated by Pascal Hofstede but
     untested by the authors because we don't have a *BSD box
-    to test and try it out... we're working on generic 
+    to test and try it out... we're working on generic
     Imakefiles though ;-)
-           
+
 Be sure to read the HINTS and TODO files too!
 
 

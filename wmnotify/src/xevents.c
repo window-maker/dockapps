@@ -65,7 +65,7 @@ ProcessXlibEventsInit( void (*single_click_callback)( void ),
 		       void (*double_click_callback)( void ) )
 {
   int status;
-  
+
   /* This must be called before any other XLib functions. */
   status = XInitThreads();
   if( status == 0 ) {
@@ -73,7 +73,7 @@ ProcessXlibEventsInit( void (*single_click_callback)( void ),
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   SingleClickCallback = single_click_callback;
   DoubleClickCallback = double_click_callback;
 }
@@ -87,7 +87,7 @@ ProcessXlibEvents( void )
   bool button1_pressed = false;
   bool check_for_double_click = false;
   XEvent Event;
-  
+
   while( quit == false ) {
     if( ( check_for_double_click != false ) &&
 	( XPending( dockapp.display ) == 0 ) ) {
@@ -96,7 +96,7 @@ ProcessXlibEvents( void )
       if( SingleClickCallback != NULL ) {
 	(*SingleClickCallback)();
       }
-      
+
       check_for_double_click = false;
     }
     /* XNextEvent is a blocking call: it will return only when an event is

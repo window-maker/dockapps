@@ -2,12 +2,12 @@ wmwifi (0.6-1) unstable; urgency=low
 
   * Version 0.6
   * Strip trailing colon from interface name in wfi->ifname
-    Jeroen Nijhof <jnijhof@nijhofnet.nl> 
+    Jeroen Nijhof <jnijhof@nijhofnet.nl>
   * Added ability to switch between scrolling and non scrolling
     interfaces.
     Thanks to Jeroen Nijhof <jnijhof@nijhofnet.nl> for ideas.
   * Mouse1 now switches between scrolling / non-scrolling modes
-  * Added custom color support 
+  * Added custom color support
   * Added preset color schemes -tc -tn -ts
   * Updated Man page to reflect changes.
   * Updated --help contents
@@ -28,7 +28,7 @@ wmwifi (0.5-1) unstable; urgency=low
     view of Link/Level/Noise/Bitrate.
 
  -- Jess Mahan <jess@digitalssg.net>  Fri, 24 Sep 2004 12:45:00 -0800
-  
+
 wmwifi (0.4-1) unstable; urgency=low
 
   * New release
@@ -37,7 +37,7 @@ wmwifi (0.4-1) unstable; urgency=low
 
 wmwifi (0.2-2) unstable; urgency=low
 
-  * New release 
+  * New release
 
  -- Jess Mahan <jess@digitalssg.net>  Mon, 24 Nov 2003 16:29:19 -0800
 

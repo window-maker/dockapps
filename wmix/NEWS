@@ -55,7 +55,7 @@ I will add 2 more signal handlers to switch the current "channel" back and
 forth.
 
 2.02 NEWS:
-Version 2.02 adds mouse wheel support to adjust volume, thanks to the 
+Version 2.02 adds mouse wheel support to adjust volume, thanks to the
 patch from Gilles QUERRET <gilles.querret@free.fr>.  Now instead of
 dragging the knob, you can use your mouse wheel to adjust the current channel
 volume.  Position the cursor anywhere on the dockapp, and move the wheel.

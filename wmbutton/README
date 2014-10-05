@@ -25,7 +25,7 @@ CONTRIBUTORS:
               Ralf Horstmann <ralf.horstmann@gmx.de>
                   Added ability to load pixmaps at startup,
                   without having to re-compile
-              Michael Cohrs <camico@users.sourceforge.net> 
+              Michael Cohrs <camico@users.sourceforge.net>
                   Added Tool Tips, and updated graphics
               Bruno Essmann <essmann@users.sourceforge.net>)
                   Creator of wmpager
@@ -33,28 +33,28 @@ CONTRIBUTORS:
                   original author of wmcp (et al.)
               Thomas Nemeth <tnemeth@multimania.com>
                   contributor to wmcp
-              Casey Harkins <charkins@cs.wisc.edu> 
+              Casey Harkins <charkins@cs.wisc.edu>
                   Bug fix reading config file path - 3/6/99
                   Added button-presses, and other - denoted by *charkins*
               Michael Henderson <mghenderson@lanl.gov>
                   Application ideas, suggestions
-              Ryan ?? <pancake@mindspring.com> 
+              Ryan ?? <pancake@mindspring.com>
                   Modified wmbutton to asbutton.
-                  Note: asbutton is a seperate program, not associated 
+                  Note: asbutton is a seperate program, not associated
                         with wmbutton (just as wmbutton is not associated
                         with wmcp)
               Jon Bruno
                   Web Page Development
-The contributors listed above are not necessarily involved with the 
-development of wmbutton.  I'm listing them here partially as thanks for 
+The contributors listed above are not necessarily involved with the
+development of wmbutton.  I'm listing them here partially as thanks for
 helping out, catching bugs in the code, etc.
 
 INSTALLATION:
 -------------
-	Untar the file: 
+	Untar the file:
 		tar xvzf wmbutton-0.6.1.tar.gz
 
-	CD to source directory:  
+	CD to source directory:
 		cd wmbutton-0.6.1
 
 	Edit background xpm, and buttons.xpm to your preferences
@@ -68,21 +68,21 @@ INSTALLATION:
 
 	Put the executable somewhere in your path:
 		mv wmbutton /usr/local/bin (or anyhere in your path)
-	
+
 	Run it:
 		wmbutton &
 
-	Grab the appicon and move it to the dock. 
+	Grab the appicon and move it to the dock.
 	Change the settings to start with Windowmaker
 
 	Afterstep Wharf 1.6.??:
 	*Wharf wmbutton -Swallow "wmbutton" wmbutton &
 
-    ***Note***: 
-	The appicon has only a two pixel border where you can grab 
+    ***Note***:
+	The appicon has only a two pixel border where you can grab
 	and move it.
 
-	If make doesn't work, you may need to fiddle with the settings in 
+	If make doesn't work, you may need to fiddle with the settings in
 	the Makefile.
 
 	Tested on: (Well, it runs, I don't know if 'Tested' is quite right...)
@@ -94,7 +94,7 @@ INSTALLATION:
 
 USAGE:
 ------
-wmbutton [-g geom] [-d dpy] [-f cfgfile] [-b btnfile] [-F <font>] 
+wmbutton [-g geom] [-d dpy] [-f cfgfile] [-b btnfile] [-F <font>]
 	 [-v] [-s] [-n]
 
  wmbutton Ver 0 Rel 6.1
@@ -121,19 +121,19 @@ Right mouse button:
 
 NOTES:
 ------
-This is a simple application launching tool for use in WindowMaker, and 
-possibly Afterstep.  (Who knows, it should run for other window managers too, 
+This is a simple application launching tool for use in WindowMaker, and
+possibly Afterstep.  (Who knows, it should run for other window managers too,
 by why bother??  It is taken from wmcp, by Ben Cohen, and modified just
-enough to run applications rather than send ALT-[1..9] key sequences to 
+enough to run applications rather than send ALT-[1..9] key sequences to
 WindowMaker.  It has also taken some ideas from asbuttons, and
 included them back into the original.  There may still be some code
-left over from wmcp that is no longer needed, but...  
+left over from wmcp that is no longer needed, but...
 
-The mini-icons must be combined into a single graphic, buttons.xpm.  The 
+The mini-icons must be combined into a single graphic, buttons.xpm.  The
 background border is defined in backdrop.xpm.  Both must be edited in your
 favorite graphics editor (GIMP??), and then recompiled.  wmbuttons uses a
 configuration file (usually ~/.wmbutton) for which applications to launch.
-There is no need to restart wmbuttons when simply changing the configuration, 
+There is no need to restart wmbuttons when simply changing the configuration,
 as wmbutton searches the file whenever a button is pressed.
 
 As of release 0.5, you can also pass in your own pixmap file for the
@@ -160,8 +160,8 @@ CHANGE LOG:
 	General Code clean-up, including export must functions to
 	  seperate C file, to reduce clutter.
 
-0.4	Added Modifications submitted by Casey Harkins. 
-	  Start application on mouse button release, 
+0.4	Added Modifications submitted by Casey Harkins.
+	  Start application on mouse button release,
 	  Only start app if cursor is still on application button
 	  Added 3-D button press look
 	Added new .wmbutton configuration file
@@ -170,7 +170,7 @@ CHANGE LOG:
 	Removed Middle/Right mouse click on button to turn off buttons
 	  after it.
 	Added Middle and Right mouse buttons to run more Applications
-	  (Yes, you can now really run 27 different Apps from a single 
+	  (Yes, you can now really run 27 different Apps from a single
 	  instance of wmbuttons, if you would want too...)
 	Fixed bug for finding config file .wmbutton.
 	  It used to not look in the home directory, but in the
@@ -181,7 +181,7 @@ CHANGE LOG:
 0.2	Added single configuration file, user selectable.
 
 0.1	Origional version.
-	  Shamelessly taken from wmcp 1.2.5, 
+	  Shamelessly taken from wmcp 1.2.5,
 	  by Ben Cohen <buddog@aztec.asu.edu>
 
 TODO:
@@ -191,7 +191,7 @@ Add ability (via config file) to use discrete 16x16 pixel icons for
 Make changing icons and/or background graphics easier.
 Allow for less than 9 icons, 4 would be nicer on the mini-icon size.
 
-BUGS: 
+BUGS:
 -----
 Remember, they're just undocumented FEATURES!!!
 

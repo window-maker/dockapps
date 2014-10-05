@@ -94,7 +94,7 @@ time_t parse_time_string(char *s){
 
     ovalue=pcre_exec(date, NULL, s, strlen(s), 0, 0, ovector, ovecsize);
     if(ovalue<=0) return -1;
-    
+
     if(pcre_get_substring(s, ovector, ovalue, 1, (const char **)&e)<0) return 0;
     tm.tm_mon=atoi(e)-1;
     pcre_free_substring(e);
@@ -171,7 +171,7 @@ static int is_forecast_valid(const struct forecast *a){
 
 static int is_forecast_current(struct forecast *f, time_t now){
     time_t t;
-    
+
     t=forecast_time(f);
     t+=(f->hour<0)?86399:3599;
     return t>now;
@@ -253,7 +253,7 @@ static void locate_current(void){
     long curdiff=0;
     long tmpdiff;
     char target_ID[4];
-    
+
     now=time(NULL);
     if(!changed && current!=NULL && is_forecast_current(current, now)) return;
 
@@ -262,7 +262,7 @@ static void locate_current(void){
     target_hour=current_hour;
     memcpy(target_ID, current_ID, 4);
     set_current(-1);
-    
+
     for(i=0; i<num_forecasts; i++){
         if(!is_forecast_valid(forecasts[i])) continue;
         if(!is_forecast_current(forecasts[i], now)) continue;
@@ -291,7 +291,7 @@ static inline int mod(int i, int n){
 void current_forecast_next(int dir){
     int i;
     time_t now;
-    
+
     if(num_forecasts==0) return;
 
     locate_current();

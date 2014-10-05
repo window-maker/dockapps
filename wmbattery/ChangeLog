@@ -209,7 +209,7 @@ wmbattery (2.19) unstable; urgency=low
     on systems that label a fully charged battery's charging rate as
     unknown and state as charging.
   * Base battery charge calculations for ACPI on design capacity, instead of
-    last full capacity. Some batteries may exceed previous last full on 
+    last full capacity. Some batteries may exceed previous last full on
     their next charging, and this also lets you see when you have a damaged
     battery that is not fully charging.
   * If acpi battery charging state is unknown, but the rate is 0,
@@ -455,7 +455,7 @@ wmbattery (1.13) unstable; urgency=low
 
 wmbattery (1.12) unstable; urgency=low
 
-  * Use /usr/share/icons/wmbattery, not /usr/X11R6/share. Sheesh. 
+  * Use /usr/share/icons/wmbattery, not /usr/X11R6/share. Sheesh.
 
  -- Joey Hess <joeyh@debian.org>  Thu,  6 Apr 2000 13:16:52 -0700
 

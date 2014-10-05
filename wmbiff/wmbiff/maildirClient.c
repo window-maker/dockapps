@@ -2,7 +2,7 @@
 /* Author : Yong-iL Joh ( tolkien@mizi.com )
    Modified : Jorge García ( Jorge.Garcia@uv.es )
    Modified : Dwayne C. Litzenberger ( dlitz@dlitz.net )
- * 
+ *
  * Maildir checker.
  *
  * Last Updated : $Date: 2004/03/28 00:28:58 $

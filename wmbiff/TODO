@@ -6,7 +6,7 @@ these todo items are welcome.
 ** # comments make #'s unsuitable for passwords.
 ** : and @ delimiters make such characters unsuitable for
    passwords.
-** the hierarchical configuration is not exported cleanly, 
+** the hierarchical configuration is not exported cleanly,
    setting a default and then propagating or overriding it
    requires an odd syntax.
 ** elements with spaces are problematic
@@ -14,8 +14,8 @@ these todo items are welcome.
    methods) are cumbersome.
 ** continuation lines would allow richer shell actions without
    external shell scripts.
-* GNUTLS 0.5.9 
-** adds gnutls_set_default_priority, which could clean up 
+* GNUTLS 0.5.9
+** adds gnutls_set_default_priority, which could clean up
    a lot of the code to set priorities for ciphers that
    don't really matter to wmbiff.
 * Font support
@@ -33,7 +33,7 @@ these todo items are welcome.
   Sometimes my IMAP server is slow... well, it's my fault
   that I keep a few thousand messages on it.  The current
   timeout code will cause it to fail prematurely.
-* Generic constructors for mboxes.  
+* Generic constructors for mboxes.
   There's some common code across different Clients;
   this is one piece that could use refactoring.
 * Add more shell "recipes" besides gicu.
@@ -52,7 +52,7 @@ these todo items are welcome.
   but extra complicated, and has a useless default install
   that requires root.  xbuffy's led program seems quite
   good, but depending on another biff program seems odd.
-* Add a failure-expect case in tlsComm. 
+* Add a failure-expect case in tlsComm.
   For example, an IMAP status query has a good response (*
   STATUS) and a bad response (a003 NO STATUS).  As soon as
   one of them is received, we're done.
@@ -71,10 +71,10 @@ these todo items are welcome.
 * Unlikely to get done, unless someone volunteers:
 * KDE/Gnome users: Test with KDE or gnome-panel
   Does Debian bug #108529 apply to wmbiff?  Can wmbiff
-  be swallowed by gnome-panel?  It seems possible.  It 
+  be swallowed by gnome-panel?  It seems possible.  It
   appears to be swallowed by FVWM correctly.
 * Autoconf / Automake Wizards: fix FromCVS.sh
-  How best to deal with libgnutls's macros?  All 
+  How best to deal with libgnutls's macros?  All
   I can do is hack.
 * Paranoid Pop People: Support POP over TLS.
   tlsComm.c should make it easy to provide TLS support
@@ -86,9 +86,9 @@ these todo items are welcome.
   could be integrated.
 * Recursive maildir support
   Aggregation in general is an oft-desired feature.
-* G-Mail support 
+* G-Mail support
   Though the business model of free mail forces screen scrubbing,
-  having someone else write and maintain the interface seems 
+  having someone else write and maintain the interface seems
   like it would significantly improve the utility of gmail.
 
 $Id: TODO,v 1.21 2004/10/31 22:08:42 bluehal Exp $

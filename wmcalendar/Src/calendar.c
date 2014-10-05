@@ -19,11 +19,11 @@ void checkicalversion()
 					      GTK_RESPONSE_NONE,
 					      NULL);
 	label = gtk_label_new (msg);
-	g_signal_connect_swapped (GTK_OBJECT (dialog), 
-				  "response", 
+	g_signal_connect_swapped (GTK_OBJECT (dialog),
+				  "response",
 				  G_CALLBACK (gtk_widget_destroy),
 				  GTK_OBJECT (dialog));
-	gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dialog)->vbox), label);   
+	gtk_container_add (GTK_CONTAINER (GTK_DIALOG(dialog)->vbox), label);
 	gtk_signal_connect (GTK_OBJECT (dialog), "destroy",
                         GTK_SIGNAL_FUNC(gtk_main_quit ),
                         NULL);
@@ -57,7 +57,7 @@ void kill (GtkWidget * widget)
 
 
 /*------------------------------------------------------
- *   calendar  
+ *   calendar
  -----------------------------------------------------*/
 void calendar(){
     int value;
@@ -67,10 +67,10 @@ void calendar(){
     struct stat filestat;
     icalproperty *prop, *reocc;
     icalparser *parser;
-    icalcomponent *c, *d; 
+    icalcomponent *c, *d;
     FILE *stream;
     struct icaltimetype t1, t2;
-    if(get_debug())printf("check for new calendar data\n");    
+    if(get_debug())printf("check for new calendar data\n");
     stream = fopen((const char*)get_icsfile(),"r");
     if(stream == 0)
 	return;
@@ -79,7 +79,7 @@ void calendar(){
 	fclose(stream);
 	return;
     }
-    if(get_debug())printf("read calendar data\n");    
+    if(get_debug())printf("read calendar data\n");
     deleteCalObjs();
     modtime = filestat.st_mtime;
     parser = icalparser_new();
@@ -91,7 +91,7 @@ void calendar(){
 	free(line);
 	if(c != 0){
 	    for(d = icalcomponent_get_first_component(c, ICAL_ANY_COMPONENT);d != 0;
-		d = icalcomponent_get_next_component(c, ICAL_ANY_COMPONENT)){	
+		d = icalcomponent_get_next_component(c, ICAL_ANY_COMPONENT)){
 
 		/* get date */
 		t1 = icalcomponent_get_dtstart(d);
@@ -102,9 +102,9 @@ void calendar(){
 		}
 
 		/* get transparency */
-		prop = icalcomponent_get_first_property(d, ICAL_TRANSP_PROPERTY ); 
-		reocc = icalcomponent_get_first_property(d, ICAL_RRULE_PROPERTY); 
-		if(prop) 
+		prop = icalcomponent_get_first_property(d, ICAL_TRANSP_PROPERTY );
+		reocc = icalcomponent_get_first_property(d, ICAL_RRULE_PROPERTY);
+		if(prop)
 		    transp = icalproperty_get_value_as_string(prop);
 		if(!strcmp(transp, "OPAQUE"))
 		    value = 1;
@@ -115,7 +115,7 @@ void calendar(){
 
 
 		/* get desciption */
-		prop = icalcomponent_get_first_property(d,     ICAL_SUMMARY_PROPERTY); 
+		prop = icalcomponent_get_first_property(d,     ICAL_SUMMARY_PROPERTY);
 		if(prop) {
 		    text = icalproperty_get_value_as_string(prop);
 		    addCalObj(t1, t2, value, text, d);
@@ -125,7 +125,7 @@ void calendar(){
 		icalcomponent_free(d);
 	    }
 	    icalcomponent_free(c);
-	}     
+	}
     } while(line != 0);
     icalparser_free(parser);
     fclose(stream);
@@ -134,7 +134,7 @@ void calendar(){
 
 
 /*------------------------------------------------------
- *   showDay  
+ *   showDay
  -----------------------------------------------------*/
 void showDay(struct icaltimetype dt){
     static GtkWidget *dayView;
@@ -148,9 +148,9 @@ void showDay(struct icaltimetype dt){
     time_t tt = icaltime_as_timet(dt);
     timptr = gmtime(&tt);
     event_box = gtk_event_box_new ();
-    gtk_widget_show (event_box);	
+    gtk_widget_show (event_box);
     event_box2 = gtk_event_box_new ();
-    gtk_widget_show (event_box2);	
+    gtk_widget_show (event_box2);
 
     /* create titlebartext */
     strftime(buf, 26, "%A, %x", timptr);
@@ -170,20 +170,20 @@ void showDay(struct icaltimetype dt){
 
     gtk_table_attach_defaults (GTK_TABLE(table), event_box, 0, 3, 1, 2);
     gtk_table_attach_defaults (GTK_TABLE(table), event_box2, 3, 4, 1, 2);
-   
+
     label1 = gtk_label_new (NULL);
-    gtk_label_set_markup ((GtkLabel*)label1, buf2);   
+    gtk_label_set_markup ((GtkLabel*)label1, buf2);
     gtk_container_add (GTK_CONTAINER (event_box), label1);
-   
+
     gtk_table_set_row_spacing ((GtkTable*)table,0, 1);
     gtk_table_set_row_spacing ((GtkTable*)table,1, 1);
     gtk_widget_show (label1);
     label1 = gtk_label_new (" X ");
     gtk_container_add (GTK_CONTAINER (event_box2), label1);
     gtk_widget_show (label1);
-   
+
     /* fill table with events and draw window if there are any events */
-    if(dayevents(dt, table)){  
+    if(dayevents(dt, table)){
 	gtk_widget_show (dayView);
 
 	gtk_widget_show (table);
@@ -204,7 +204,7 @@ void showDay(struct icaltimetype dt){
 
 
 /*------------------------------------------------------
- *   dayevents  
+ *   dayevents
  -----------------------------------------------------*/
 int dayevents(struct icaltimetype dt, GtkWidget *table){
     static GtkWidget   *label1;
@@ -217,7 +217,7 @@ int dayevents(struct icaltimetype dt, GtkWidget *table){
     char buf[1024];
     struct tm *timptr = NULL;
     time_t tt;
-    
+
     GtkWidget *separator;
     j = 2;
     it = calRoot;
@@ -233,17 +233,17 @@ int dayevents(struct icaltimetype dt, GtkWidget *table){
 		/* create time entry */
 		tt = icaltime_as_timet(t1);
 		timptr = gmtime(&tt);
-		strftime(buftime1, 26, "%X", timptr);	      
+		strftime(buftime1, 26, "%X", timptr);
 		tt = icaltime_as_timet(t2);
 		timptr = gmtime(&tt);
-		strftime(buftime2, 26, "%X", timptr);	      
+		strftime(buftime2, 26, "%X", timptr);
 		sprintf(buf,"%s - %s",buftime1, buftime2);
 		label1 = gtk_label_new (NULL);
-		gtk_label_set_markup ((GtkLabel*)label1, buf);   
+		gtk_label_set_markup ((GtkLabel*)label1, buf);
 		gtk_table_attach_defaults (GTK_TABLE(table), label1, 1, 2, j, j+1);
 		gtk_widget_show (label1);
-	      
-	      
+
+
 		/* create description entry */
 		label1 = gtk_label_new (it->text);
 		gtk_table_attach_defaults (GTK_TABLE(table), label1, 2, 3, j, j+1);
@@ -272,19 +272,19 @@ int dayevents(struct icaltimetype dt, GtkWidget *table){
 		    /* create description with start and enddate */
 		    tt = icaltime_as_timet(t1);
 		    timptr = gmtime(&tt);
-		    strftime(buftime1, 26, "%a, %x", timptr);	      
+		    strftime(buftime1, 26, "%a, %x", timptr);
 		    tt = icaltime_as_timet(t2);
 		    timptr = gmtime(&tt);
-		    strftime(buftime2, 26, "%a, %x", timptr);	      
+		    strftime(buftime2, 26, "%a, %x", timptr);
 		    sprintf(buf, "%s - %s", buftime1, buftime2);
 		}
 		label1 = gtk_label_new (NULL);
-		gtk_label_set_markup ((GtkLabel*)label1, buf);   
-		
+		gtk_label_set_markup ((GtkLabel*)label1, buf);
+
 		gtk_table_attach_defaults (GTK_TABLE(table), label1, 1, 2, j, j+1);
 		gtk_widget_show (label1);
-	      
-		prop = icalcomponent_get_first_property(it->comp, ICAL_LOCATION_PROPERTY); 
+
+		prop = icalcomponent_get_first_property(it->comp, ICAL_LOCATION_PROPERTY);
 		if(prop)
 		    sprintf(buf, "%s\n%s", it->text, icalproperty_get_location(prop));
 		else
@@ -296,7 +296,7 @@ int dayevents(struct icaltimetype dt, GtkWidget *table){
 		j++;
 	    }
 	}
-	it = it->next;	  
+	it = it->next;
     }
     label1 = gtk_label_new (NULL);
     gtk_table_attach_defaults (GTK_TABLE(table), label1, 2, 3, j+1, j+2);
@@ -330,7 +330,7 @@ void deleteCalObjs(){
 /*------------------------------------------------------
  *  addCalObj
  -----------------------------------------------------*/
-void addCalObj(struct icaltimetype start, struct icaltimetype end, 
+void addCalObj(struct icaltimetype start, struct icaltimetype end,
 	       int type, const char *text, icalcomponent * d){
     struct calobj *newobj;
     icalcomponent *newcomp = malloc(sizeof(struct calobj));
@@ -368,15 +368,15 @@ int  getDayType(struct icaltimetype dt){
  -----------------------------------------------------*/
 int isExluded(icalcomponent *comp, struct icaltimetype dt){
     icalproperty *prop;
-    prop = icalcomponent_get_first_property(comp, ICAL_EXDATE_PROPERTY);    
+    prop = icalcomponent_get_first_property(comp, ICAL_EXDATE_PROPERTY);
     while(prop){
-	if(daysEqual(icalproperty_get_exdate(prop), dt)) 
+	if(daysEqual(icalproperty_get_exdate(prop), dt))
 	    return 1;
-	prop = icalcomponent_get_next_property(comp, ICAL_EXDATE_PROPERTY);    
+	prop = icalcomponent_get_next_property(comp, ICAL_EXDATE_PROPERTY);
     }
     return 0;
 }
-   
+
 
 
 /*------------------------------------------------------
@@ -391,11 +391,11 @@ int eventOnDay(struct icaltimetype dt, struct calobj* it)
        || (daysEqual(dt, it->start) && daysEqual(dt, it->end)))
 	return 1;
     rrule = icalcomponent_get_first_property((icalcomponent*)it->comp, ICAL_RRULE_PROPERTY);
-    
+
     if(rrule){
 	if(daysEarlierEqual(dt, it->start)){
 	    ritr = icalrecur_iterator_new( icalproperty_get_rrule(rrule), it->start);
-	    if(ritr)  
+	    if(ritr)
 		next = icalrecur_iterator_next(ritr);
 	    while(daysEarlierEqual(dt, next) && !icaltime_is_null_time(next)){
 		if(daysEqual(dt, next) && !isExluded((icalcomponent*)it->comp, dt))

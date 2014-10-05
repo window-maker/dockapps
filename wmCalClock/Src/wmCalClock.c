@@ -1,11 +1,11 @@
 /*
  *
  *  	wmCalClock-1.25 (C) 1998, 1999 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *  		- Its a Calendar Clock....
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *      Boston, MA 02110-1301 USA
  *
  *
@@ -31,10 +31,10 @@
  *
  *	Version 1.24  -	released March 27, 1999.
  *			Added support for additional fonts for time field;
- *		
+ *
  *				-tekton for Tekton
  *				-arial  for Arial (Helvetica) (this is the same font as usual)
- *				-luggerbug for LuggerBug 
+ *				-luggerbug for LuggerBug
  *				-comicsans for ComicSans
  *				-jazz for JazzPoster
  *
@@ -66,7 +66,7 @@
  *
  *	Version 1.10  - released January 7, 1999.
  *                     	Added support for LowColor Pixmap. (21 colors may still be a
- *		       	bit high, but the poor saps with 8-bit displays can at least run 
+ *		       	bit high, but the poor saps with 8-bit displays can at least run
  *                     	it now.)
  *
  *	Version 1.02  -	released January 7, 1999.
@@ -84,8 +84,8 @@
 
 
 
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -101,8 +101,8 @@
 
 
 
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000L
 #define WMCALCLOCK_VERSION "1.25"
@@ -121,13 +121,13 @@ void print_usage();
 int	xsMonth[12] = { 150, 170, 190, 212, 233, 256, 276, 294, 317, 337, 357, 380 };
 int	xeMonth[12] = { 168, 188, 210, 231, 254, 275, 292, 314, 335, 355, 377, 398 };
 int	xdMonth[12];
-int	yMonth = 80; 
+int	yMonth = 80;
 int	ydMonth = 13;
 
 int	xsDayOfWeek[7] = { 293, 150, 177, 201, 228, 253, 271 };
 int	xeDayOfWeek[7] = { 314, 175, 199, 226, 250, 269, 290 };
 int	xdDayOfWeek[7];
-int	yDayOfWeek = 95; 
+int	yDayOfWeek = 95;
 int	ydDayOfWeek = 13;
 
 /*
@@ -163,7 +163,7 @@ int	ydDayOfMonth = 23;
 
 
 
-/* 
+/*
  *  Luggerbug Font Narrow - 13 pixels high.
  */
 int	xsDigits_Luggerbug13n[11] = { 75, 84, 92, 101, 110, 119, 127, 136, 143, 151, 159 };
@@ -172,7 +172,7 @@ int	xdDigits_Luggerbug13n[11];
 int	yDigits_Luggerbug13n  = 150;
 int	ydDigits_Luggerbug13n = 13;
 
-/* 
+/*
  *  Luggerbug Font - 13 pixels high.
  */
 int	xsDigits_Luggerbug13[11] = { 75, 89, 103, 117, 131, 146, 159, 172, 184, 197, 208 };
@@ -181,7 +181,7 @@ int	xdDigits_Luggerbug13[11];
 int	yDigits_Luggerbug13  = 136;
 int	ydDigits_Luggerbug13 = 13;
 
-/* 
+/*
  *  ComicSans Font - 12 pixels high.
  */
 int	xsDigits_ComicSans12n[11] = { 338, 349, 359, 370, 380, 390, 401, 411, 422, 432, 444 };
@@ -190,7 +190,7 @@ int	xdDigits_ComicSans12n[11];
 int	yDigits_ComicSans12n  = 123;
 int	ydDigits_ComicSans12n = 12;
 
-/* 
+/*
  *  ComicSans Font - 11 pixels high.
  */
 int	xsDigits_ComicSans11[11] = { 338, 353, 366, 380, 392, 407, 420, 434, 448, 461, 471 };
@@ -199,7 +199,7 @@ int	xdDigits_ComicSans11[11];
 int	yDigits_ComicSans11  = 111;
 int	ydDigits_ComicSans11 = 11;
 
-/* 
+/*
  *  JazzPoster Font Narrow  - 12 pixels high.
  */
 int	xsDigits_JazzPoster12n[11] = { 211, 220, 226, 233, 241, 249, 256, 263, 271, 278, 286 };
@@ -208,7 +208,7 @@ int	xdDigits_JazzPoster12n[11];
 int	yDigits_JazzPoster12n  = 122;
 int	ydDigits_JazzPoster12n = 12;
 
-/* 
+/*
  *  JazzPoster Font  - 12 pixels high.
  */
 int	xsDigits_JazzPoster12[11] = { 211, 225, 234, 246, 258, 271, 282, 293, 305, 317, 328 };
@@ -218,7 +218,7 @@ int	yDigits_JazzPoster12  = 109;
 int	ydDigits_JazzPoster12 = 12;
 
 
-/* 
+/*
  *  Tekton Font  - 12 pixels high Narrow (13 pixels high actually).
  */
 int	xsDigits_Tekton12n[11] = { 75, 84, 90, 97, 105, 114, 122, 131, 138, 147, 156 };
@@ -227,7 +227,7 @@ int	xdDigits_Tekton12n[11];
 int	yDigits_Tekton12n  = 122;
 int	ydDigits_Tekton12n = 13;
 
-/* 
+/*
  *  Tekton Font  - 12 pixels high.
  */
 int	xsDigits_Tekton12[11] = { 75, 89, 98, 111, 124, 137, 150, 164, 176, 191, 205  };
@@ -288,8 +288,8 @@ char    BackgroundColor[30]    	= "#181818";
 
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
 
@@ -422,12 +422,12 @@ int main(int argc, char *argv[]) {
 
 
 
-  
-   
 
 
-   
-    
+
+
+
+
     initXwindow(argc, argv);
     if (DisplayDepth <= 8) UseLowColorPixmap = 1;
 
@@ -440,7 +440,7 @@ int main(int argc, char *argv[]) {
 
 
 
-   
+
     /*
      *  Loop until we die
      */
@@ -451,7 +451,7 @@ int main(int argc, char *argv[]) {
 
 
 	/*
-	 *  Only process every 10th cycle of this loop. We run it faster 
+	 *  Only process every 10th cycle of this loop. We run it faster
  	 *  to catch expose events, etc...
 	 *
 	 */
@@ -522,7 +522,7 @@ int main(int argc, char *argv[]) {
 		Flag  = (Hours >= 12) ? 1 : 0;
 		if (Hours == 0)
 		    Hours = 12;
-		else 
+		else
 		    Hours = (Hours > 12) ? Hours-12 : Hours;
 	    }
 
@@ -552,10 +552,10 @@ int main(int argc, char *argv[]) {
 	    copyXPMArea(5, 110, 54, 15, 5, 5);
 
 
-            /* 
+            /*
              *  Draw Hours
              */
-	    
+
 	    /* dont show leading zeros */
 	    if (D[0] > -1){
 	    	digit = D[0];
@@ -567,14 +567,14 @@ int main(int argc, char *argv[]) {
 	    copyXPMArea(xsDigits[digit], yDigits, xdDigits[digit], ydDigits, xoff+extradx, 7+extrady);
 	    xoff += (xdDigits[digit]+1);
 
-            /* 
+            /*
              *  Draw Colon
              */
 	    digit = 10;
 	    copyXPMArea(xsDigits[digit], yDigits, xdDigits[digit], ydDigits, xoff+extradx, 7+extrady);
 	    xoff += (xdDigits[digit]+1);
 
-            /* 
+            /*
              *  Draw Minutes
              */
 	    digit = D[3];
@@ -587,14 +587,14 @@ int main(int argc, char *argv[]) {
 
 	    if (ShowSeconds){
 
-            	/* 
+            	/*
             	 *  Draw Colon
             	 */
 	    	digit = 10;
 	    	copyXPMArea(xsDigits[digit], yDigits, xdDigits[digit], ydDigits, xoff+extradx, 7+extrady);
 	    	xoff += (xdDigits[digit]+1);
 
-            	/* 
+            	/*
             	 *  Draw Seconds
             	 */
 	    	digit = D[6];
@@ -625,7 +625,7 @@ int main(int argc, char *argv[]) {
 	    if (Beep){
 		if ((Mins == 0)&&(Secs == 0)&&(OldSecs != Secs)) XBell(display, Volume);
 		OldSecs = Secs;
-		
+
 	    }
 
 
@@ -642,18 +642,18 @@ int main(int argc, char *argv[]) {
 	        copyXPMArea(5, 70, 54, 35, 5, 24);
 
 
-                /* 
+                /*
                  *  Draw Day of Week and Month
                  */
 		wid = xdDayOfWeek[DayOfWeek] + xdMonth[Month] + 1;
-	        copyXPMArea(xsDayOfWeek[DayOfWeek], yDayOfWeek, xdDayOfWeek[DayOfWeek], 
+	        copyXPMArea(xsDayOfWeek[DayOfWeek], yDayOfWeek, xdDayOfWeek[DayOfWeek],
 						ydMonth, 33-wid/2, 64-24-4-12);
-	        copyXPMArea(xsMonth[Month], yMonth, xdMonth[Month], 
+	        copyXPMArea(xsMonth[Month], yMonth, xdMonth[Month],
 					ydMonth, 33-wid/2+xdDayOfWeek[DayOfWeek]+1, 64-24-4-12);
 
 
 
-	        /* 
+	        /*
 	         *  Draw Day of Month
 	         */
 	        copyXPMArea(xsDayOfMonth[DayOfMonth], yDayOfMonth[DayOfMonth], xdDayOfMonth[DayOfMonth], ydDayOfMonth, 32-xdDayOfMonth2[DayOfMonth]/2, 36);
@@ -670,7 +670,7 @@ int main(int argc, char *argv[]) {
 	} else {
 
 	    /*
-	     *  Update the counter. 
+	     *  Update the counter.
 	     */
 	    ++n;
 
@@ -700,7 +700,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -721,9 +721,9 @@ int main(int argc, char *argv[]) {
 
 
 
-	
-	/* 
-	 *  Redraw and wait for next update 
+
+	/*
+	 *  Redraw and wait for next update
 	 */
 	RedrawWindow();
 	if( HasExecute == 1) {
@@ -748,13 +748,13 @@ int main(int argc, char *argv[]) {
 
 
 
-/* 
- *   ParseCMDLine()  
+/*
+ *   ParseCMDLine()
  */
 void ParseCMDLine(int argc, char *argv[]) {
 
 int  i;
-  
+
     for (i = 1; i < argc; i++) {
 
         if (!strcmp(argv[i], "-display")){
@@ -857,8 +857,8 @@ int  i;
 	}
 
     }
-    
-    if (!ShowSeconds && !UseArial && !UseJazzPoster 
+
+    if (!ShowSeconds && !UseArial && !UseJazzPoster
 	&& !UseComicSans && !UseLuggerbug) UseTekton = 1;
 
 

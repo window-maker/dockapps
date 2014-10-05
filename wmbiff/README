@@ -1,6 +1,6 @@
 
                                   Introducing
-                                       
+
    WMBiff is an WindowMaker docking utility, that displays number of
    total messages count or unread mail messages count in differrent
    mailboxes.
@@ -10,26 +10,26 @@
 
    Green ( cyan? :) ) digits display total number of messages, if there
    are no unread messages in it.
-   
+
    Yellow digits display number of unread messages, with blinking on new
    mail arrival, if any.
-   
+
    At this moment unix-style (mbox), maildir, POP3, APOP and IMAP mailboxes
    are supported. WMBiff also understands Licq's history files.
    WMBiff supports up to 5 mailboxes (but you can start 2 or more
    wmbiff's with differrent configs).
-   
+
    Pressing on a 1st (left) mouse button will execute appropriate mail
    reader (if defined in config file). Right-clicking will exec mail
    fetching program (if any).
-   
+
    It is also possible to execute user-defined command line on new mail
    arrival (for example, play .WAV file).
-   
+
      _________________________________________________________________
-   
+
                           Compiling and Installation
-                                       
+
 Extract the archive:
         tar -xvzf wmbiff-0.x.tar.gz
 
@@ -62,12 +62,12 @@ and specify differrent name of config file.
 (from environment variable MAIL), labeled with word SPOOL, at first
 position. All other positions will be empty.
      _________________________________________________________________
-   
+
    See AUTHORS to see who has contributed to WMBiff.
      _________________________________________________________________
-   
+
    Any suggestions/bug reports please send to our mailing list,
- 
+
     wmbiff-devel@lists.sourceforge.net
 
    Please include the output of 'wmbiff -debug'.
@@ -81,32 +81,32 @@ wmbiff-devel list:
 
     Hello,
     I just found evidence of what I had believed for a long time.
-    
+
     http://www.monkey.org/openbsd/archive/ports/0101/msg00311.html
-    
+
     Gennady Belyakov passed away right after releasing 0.2 and when he
     stopped answering mail :|
-    
+
     I guess we need to update the docs.
-    
+
     Jordi
 
 Here is the message, if that URL becomes unavailable:
 
-    To: ports@openbsd.org 
-    Subject: Re: mail/wmbiff update 
-    From: Vladimir Popov <pva48@mail.ru> 
-    Date: Sat, 27 Jan 2001 09:34:15 +0500 
-    
+    To: ports@openbsd.org
+    Subject: Re: mail/wmbiff update
+    From: Vladimir Popov <pva48@mail.ru>
+    Date: Sat, 27 Jan 2001 09:34:15 +0500
+
     On Fri, Jan 26, 2001 at 01:02:59PM +0000, Christian Weisgerber wrote:
-    > 
+    >
     > The major issue I have with this port is that the master site/home
     > page is unreachable.
-    > 
-    
+    >
+
     Well, wmbiff's author Gennady Belyakov passed away in late November 1999.
     That's why that url isn't any longer valid.
-    
+
     --
     Vladimir
 

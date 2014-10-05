@@ -40,7 +40,7 @@ get_swap_usage(void)
     if ((num_swap = swapctl(SWAP_NSWAP, 0, 0)) == 0)
 	return 0;
 
-    if ((swap_dev = malloc(num_swap * sizeof(*swap_dev))) == NULL) 
+    if ((swap_dev = malloc(num_swap * sizeof(*swap_dev))) == NULL)
 	return 0;
 
     if (swapctl(SWAP_STATS, swap_dev, num_swap) == -1)

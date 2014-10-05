@@ -81,9 +81,9 @@ void print_x509_info(gnutls_session session, const char* hostname)
 
 		if (print_cert) {
 			size_t size;
-			
+
 			size = sizeof(buffer);
-			
+
 			ret = gnutls_x509_crt_export( crt, GNUTLS_X509_FMT_PEM, buffer, &size);
 			if (ret < 0) {
 				fprintf(stderr, "Encoding error: %s\n", gnutls_strerror(ret));
@@ -93,7 +93,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 			fputs( buffer, stdout);
 			fputs( "\n", stdout);
 		}
-		
+
 		if (j==0 && hostname != NULL) { /* Check the hostname of the first certificate
 		             * if it matches the name of the host we
 		             * connected to.
@@ -118,7 +118,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 					str);
 				return;
 			}
-			
+
 			printf("%s", xml_data.data);
 			gnutls_free( xml_data.data);
 #endif
@@ -162,7 +162,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 				printf(" # fingerprint: %s\n", printable);
 			}
 
-			/* Print the version of the X.509 
+			/* Print the version of the X.509
 			 * certificate.
 			 */
 			printf(" # version: #%d\n",
@@ -184,7 +184,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 			ret = gnutls_x509_crt_get_dn(crt, dn, &dn_size);
 			if (ret >= 0)
 				printf(" # Subject's DN: %s\n", dn);
-	
+
 			dn_size = sizeof(dn);
 			ret = gnutls_x509_crt_get_issuer_dn(crt, dn, &dn_size);
 			if (ret >= 0)
@@ -192,7 +192,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 		}
 
 		gnutls_x509_crt_deinit(crt);
-		
+
 		printf("\n");
 
 	}
@@ -217,7 +217,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 	unsigned int cert_list_size = 0;
 	time_t expiret;
 	time_t activet;
-	
+
 	cert_list = gnutls_certificate_get_peers(session, &cert_list_size);
 
 	if (cert_list_size > 0) {
@@ -235,7 +235,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 
 		if (print_cert) {
 			size_t size;
-			
+
 			size = sizeof(buffer);
 
 			ret = gnutls_openpgp_key_export( crt, GNUTLS_OPENPGP_FMT_BASE64, buffer, &size);
@@ -270,7 +270,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 					str);
 				return;
 			}
-			
+
 			printf("%s", xml_data.data);
 			gnutls_free( xml_data.data);
 
@@ -287,7 +287,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 		else
 			printf("Never\n");
 
-		if (gnutls_openpgp_key_get_fingerprint(crt, digest, &digest_size) >= 0) 
+		if (gnutls_openpgp_key_get_fingerprint(crt, digest, &digest_size) >= 0)
 		{
 			print = printable;
 			for (i = 0; i < digest_size; i++) {
@@ -325,7 +325,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 			}
 
 		}
-		
+
 		gnutls_openpgp_key_deinit( crt);
 
 	}
@@ -419,7 +419,7 @@ int print_info(gnutls_session session, const char* hostname)
 		print_cert_info(session, hostname);
 
 		print_cert_vrfy(session);
- 
+
 		/* Check if we have been using ephemeral Diffie Hellman.
 		 */
 		if (kx == GNUTLS_KX_DHE_RSA || kx == GNUTLS_KX_DHE_DSS) {
@@ -660,17 +660,17 @@ void parse_comp(char **comp, int ncomp, int *comp_priority)
 #endif
 
 const char *inet_ntop(int af __attribute__((unused)), const void *src,
-                             char *dst, size_t cnt) 
+                             char *dst, size_t cnt)
 {
 char* ret;
 
 	ret = inet_ntoa( *((struct in_addr*)src));
-	
+
 	if (strlen(ret) > cnt) {
 		return NULL;
 	}
 	strcpy( dst, ret);
-	
+
 	return dst;
 }
 #endif

@@ -1,44 +1,44 @@
 Program derived from WMiNET. See README file for credits.
 
-v0.2: Added configuration option xxx for empty "time slot" 
+v0.2: Added configuration option xxx for empty "time slot"
       on suggestion from "jason".
 
-v0.3: Added configuration option BEATS giving Swatch beats. Patch for this 
+v0.3: Added configuration option BEATS giving Swatch beats. Patch for this
       came from Joris van Gasteren <fuzzy@nala.demon.nl>.
       Added configuration option Y2K giving number of days to 2000.0.
-      
+
 v0.4 Added configuration options DATE for local date and option WDAY for
-     local weekday. Patch for this came from Felipe Gustavo de Almeida 
-     <galmeida@linux.ime.usp.br>. 
+     local weekday. Patch for this came from Felipe Gustavo de Almeida
+     <galmeida@linux.ime.usp.br>.
 
 v0.5 Added configuration options LOCAL for local date and timezone
      label and @ for Swatch beats in float format.
      Fixed a "glitch" in WDAY option and a BUG in DATE (month).
      Changed sprintf's to snprintf's and some code clean-ups.
      Patch for this version came from Felipe Gustavo de Almeida
-     <galmeida@linux.ime.usp.br>. 
+     <galmeida@linux.ime.usp.br>.
 
 v0.6 * Added configuration options LMST for local sidereal time and GMST
-     for sidereal time at Greenwich. You have to enter your longitude in the 
+     for sidereal time at Greenwich. You have to enter your longitude in the
      config file with "longitude=<your longitude in decimal degrees>" for LMST
      to work correctly.
-     * Added a configuration/restart/quit menu. Click once on wmtz to make it 
-     appear. The default editor to edit the config file is xedit. This can be 
+     * Added a configuration/restart/quit menu. Click once on wmtz to make it
+     appear. The default editor to edit the config file is xedit. This can be
      changed by setting the environment variable XEDITOR to your favourite X
      editor or by using the new "-e <editor>" command line option. "Restart"
      rereads the configuration file and "Quit" exits wmtz. "Wmtz" takes
      you back to the time table.
      * Added the "-jd" command line option, which allows conversion between
      Julian day numbers and Gregorian dates via CLI interface.
-     * Removed options BEATS and Y2K since the former is the same as @ without 
+     * Removed options BEATS and Y2K since the former is the same as @ without
      decimals and the latter is history.
      * Added a man-page.
      NOTE: Format of config file have changed and some options have disappeared
      which makes it a good idea to replace old config files with new ones.
 
-v0.7 * Added option TZONE for time zone time with automatic compensation for 
+v0.7 * Added option TZONE for time zone time with automatic compensation for
      daylight savings time. You have to give a correct TZ environment string
      in order for this to work (see: 'man tzset' for a description of the TZ
      environment variable).
      * Added a monochrome bitmap. Activate it with the -m command line option.
-     
+

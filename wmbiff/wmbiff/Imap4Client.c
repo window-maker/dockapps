@@ -158,7 +158,7 @@ struct connection_state *unbind(
 /*@null@*/
 FILE *imap_open(Pop3 pc)
 {
-	static int complained_already;	/* we have to succeed once before 
+	static int complained_already;	/* we have to succeed once before
 									   complaining again about failure */
 	struct connection_state *scs;
 	struct imap_authentication_method *a;
@@ -173,7 +173,7 @@ FILE *imap_open(Pop3 pc)
 		return NULL;
 	}
 
-	/* got this far; we're going to create a connection_state 
+	/* got this far; we're going to create a connection_state
 	   structure, although it might be a blacklist entry */
 	connection_name = malloc(strlen(PCU.serverName) + 20);
 	sprintf(connection_name, "%s:%d", PCU.serverName, PCU.serverPort);
@@ -234,7 +234,7 @@ FILE *imap_open(Pop3 pc)
 		}
 
 		/* we don't need the unencrypted state anymore */
-		/* note that communication_failure will close the 
+		/* note that communication_failure will close the
 		   socket and free via tls_close() */
 		free(scs);				/* fall through will scs = initialize_gnutls(sd); */
 	}
@@ -253,8 +253,8 @@ FILE *imap_open(Pop3 pc)
 
 	/* authenticate; first find out how */
 	/* note that capabilities may have changed since last
-	   time we may have asked, if we called STARTTLS, my 
-	   server will allow plain password login within an 
+	   time we may have asked, if we called STARTTLS, my
+	   server will allow plain password login within an
 	   encrypted session. */
 	tlscomm_printf(scs, "a000 CAPABILITY\r\n");
 	if (tlscomm_expect(scs, "* CAPABILITY", capabilities, BUF_SIZE) == 0) {
@@ -584,7 +584,7 @@ static int authenticate_plaintext( /*@notnull@ */ Pop3 pc,
 {
 	char buf[BUF_SIZE];
 	/* is login prohibited? */
-	/* "An IMAP client which complies with [rfc2525, section 3.2] 
+	/* "An IMAP client which complies with [rfc2525, section 3.2]
 	 *  MUST NOT issue the LOGIN command if this capability is present.
 	 */
 	if (strstr(capabilities, "LOGINDISABLED")) {

@@ -17,7 +17,7 @@
         * Now supports >256 colors
 	11/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Removed a bug from parse_rcfile. You could
-		  not use "start" in a command if a label was 
+		  not use "start" in a command if a label was
 		  also start.
 		* Changed the needed geometry string.
 		  We don't use window size, and don't support
@@ -189,7 +189,7 @@ static void GetXPM(XpmIcon * wmgen_local, const char *pixmap_bytes[])
 
 	/* For the colormap */
 	XGetWindowAttributes(display, Root, &attributes);
-	/* despite the comment, I still don't understand... 
+	/* despite the comment, I still don't understand...
 	   attributes is subsequently unused in this function -ns 11/2002 */
 
 	wmgen_local->attributes.valuemask |=
@@ -598,7 +598,7 @@ void openXwindow(int argc, const char *argv[],
 		   if( specified & YNegative ) {
 		   y = DisplayHeight(display, DefaultScreen(display)) - y - pixmask_height;
 		   }
-		   if( specified & XValue || specified & YValue ) { 
+		   if( specified & XValue || specified & YValue ) {
 		   XMoveWindow(display, win, x, y);
 		   } */
 

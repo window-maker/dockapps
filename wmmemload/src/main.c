@@ -51,7 +51,7 @@ static light    backlight = LIGHTOFF;
 static struct	mem_options mem_opts;
 static unsigned mem_usage = 0;
 static unsigned swap_usage = 0;
-static unsigned alarm_mem = 101;	
+static unsigned alarm_mem = 101;
 static unsigned alarm_swap = 101;
 
 /* prototypes */
@@ -114,7 +114,7 @@ int main(int argc, char **argv)
    pixmap = dockapp_XCreatePixmap(SIZE, SIZE);
 
    /* Initialize pixmap */
-   if(backlight == LIGHTON) 
+   if(backlight == LIGHTON)
       dockapp_copyarea(backdrop_on, pixmap, 0, 0, SIZE, SIZE, 0, 0);
    else
       dockapp_copyarea(backdrop_off, pixmap, 0, 0, SIZE, SIZE, 0, 0);
@@ -157,7 +157,7 @@ static void update(void)
    mem_getusage(&mem_usage, &swap_usage, &mem_opts);
 
    /* alarm mode */
-   if(mem_usage >= alarm_mem || swap_usage >= alarm_swap) 
+   if(mem_usage >= alarm_mem || swap_usage >= alarm_swap)
    {
       if(!in_alarm_mode)
       {
@@ -169,13 +169,13 @@ static void update(void)
          switch_light();
          return;
       }
-   } 
+   }
    else
    {
       if(in_alarm_mode)
       {
          in_alarm_mode = False;
-         if (backlight != pre_backlight) 
+         if (backlight != pre_backlight)
          {
             switch_light();
             return;
@@ -184,9 +184,9 @@ static void update(void)
    }
 
    /* all clear */
-   if (backlight == LIGHTON) 
+   if (backlight == LIGHTON)
       dockapp_copyarea(backdrop_on, pixmap, 0, 0, 58, 58, 0, 0);
-   else 
+   else
       dockapp_copyarea(backdrop_off, pixmap, 0, 0, 58, 58, 0, 0);
 
    /* draw digit */
@@ -276,18 +276,18 @@ static void parse_arguments(int argc, char **argv)
 {
    int i;
    int integer;
-   for (i = 1; i < argc; i++) 
+   for (i = 1; i < argc; i++)
    {
       if (!strcmp(argv[i], "--help") || !strcmp(argv[i], "-h"))
          print_help(argv[0]), exit(0);
       else if (!strcmp(argv[i], "--version") || !strcmp(argv[i], "-v"))
          printf("%s version %s\n", PACKAGE, VERSION), exit(0);
-      else if (!strcmp(argv[i], "--display") || !strcmp(argv[i], "-d")) 
+      else if (!strcmp(argv[i], "--display") || !strcmp(argv[i], "-d"))
       {
          display_name = argv[i + 1];
          i++;
       }
-      else if (!strcmp(argv[i], "--alarm-mem") || !strcmp(argv[i], "-am")) 
+      else if (!strcmp(argv[i], "--alarm-mem") || !strcmp(argv[i], "-am"))
       {
          if (argc == i + 1)
             alarm_mem = 90;
@@ -299,7 +299,7 @@ static void parse_arguments(int argc, char **argv)
          else
             alarm_mem = integer, i++;
       }
-      else if (!strcmp(argv[i], "--alarm-swap") || !strcmp(argv[i], "-as")) 
+      else if (!strcmp(argv[i], "--alarm-swap") || !strcmp(argv[i], "-as"))
       {
          if (argc == i + 1)
             alarm_swap = 50;
@@ -313,12 +313,12 @@ static void parse_arguments(int argc, char **argv)
       }
       else if (!strcmp(argv[i], "--backlight") || !strcmp(argv[i], "-bl"))
          backlight = LIGHTON;
-      else if (!strcmp(argv[i], "--light-color") || !strcmp(argv[i], "-lc")) 
+      else if (!strcmp(argv[i], "--light-color") || !strcmp(argv[i], "-lc"))
       {
          light_color = argv[i + 1];
          i++;
       }
-      else if (!strcmp(argv[i], "--interval") || !strcmp(argv[i], "-i")) 
+      else if (!strcmp(argv[i], "--interval") || !strcmp(argv[i], "-i"))
       {
          if (argc == i + 1)
             fprintf(stderr, "%s: error parsing argument for option %s\n",
@@ -355,7 +355,7 @@ static void parse_arguments(int argc, char **argv)
       }
    }
    if (alarm_mem != 101 && alarm_swap != 101)
-   { 
+   {
       fprintf(stderr,
               "%s: select either '-am, --alarm-mem' or '-as, --alarm-swap'\n",
               argv[0]);

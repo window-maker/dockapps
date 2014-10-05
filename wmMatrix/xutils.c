@@ -1,10 +1,10 @@
 /*
  *   xutils.c - A collection of X-windows utilties for creating WindowMAker
- *		DockApps. 
+ *		DockApps.
  *
  *     This file contains alot of the lower-level X windows routines. Origins with wmppp
  *     (by  Martijn Pieterse (pieterse@xs4all.nl)), but its been hacked up quite a bit
- *     and passed on from one new DockApp to the next. 
+ *     and passed on from one new DockApp to the next.
  *
  *
  *
@@ -42,7 +42,7 @@
 #include "xutils.h"
 
 /*
- *   X11 Variables 
+ *   X11 Variables
  */
 int x_fd;
 XSizeHints mysizehints;
@@ -168,7 +168,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	{"Color9", NULL, 0}
 	};
 
-	/* 
+	/*
 	 *  Create Pixmap
 	 */
 	cols[0].pixel = getColor(BackgroundColor, 1.0000, &red, &grn, &blu);
@@ -192,8 +192,8 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 		exit(1);
 	}
 
-	/* 
-	 *  Create a window 
+	/*
+	 *  Create a window
 	 */
 	mysizehints.flags = USSize | USPosition;
 	mysizehints.x = 0;
@@ -214,8 +214,8 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	iconwin = XCreateSimpleWindow(display, win, mysizehints.x, mysizehints.y,
 								  mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
 
-	/* 
-	 *  Activate hints 
+	/*
+	 *  Activate hints
 	 */
 	XSetWMNormalHints(display, win, &mysizehints);
 	classHint.res_name = wname;
@@ -240,8 +240,8 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 	XSetWMName(display, win, &name);
 
-	/* 
-	 *   Create Graphics Context (GC) for drawing 
+	/*
+	 *   Create Graphics Context (GC) for drawing
 	 */
 	gcm = GCForeground | GCBackground | GCGraphicsExposures;
 	gcv.foreground = fore_pix;
@@ -249,8 +249,8 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	gcv.graphics_exposures = 0;
 	NormalGC = XCreateGC(display, Root, gcm, &gcv);
 
-	/* 
-	 *   Create Graphics Context (GC) for erasing 
+	/*
+	 *   Create Graphics Context (GC) for erasing
 	 */
 	gcm = GCForeground | GCBackground | GCGraphicsExposures;
 	gcv.foreground = back_pix;

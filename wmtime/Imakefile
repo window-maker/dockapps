@@ -1,6 +1,6 @@
 XPMLIB = -lXpm -lm
 DEPLIBS = $(DEPXLIB)
- 
+
 LOCAL_LIBRARIES = $(XPMLIB) $(XLIB)
 
 SRCS = wmtime.c \

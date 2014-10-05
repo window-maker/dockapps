@@ -10,15 +10,15 @@ DESCRIPTION
 
   wmifinfo is a simple applet showing basic network info for all available
   interfaces. It shows IP address, netmask, gateway and MAC address. A bit
-  like ifconfig. 
+  like ifconfig.
 
   Runs on Linux and OpenBSD (for now)
 
   Left-button click moves to the next interface, right-button click calls
-  ifup/ifdown scripts. These can be set with the -u and -d options. The 
+  ifup/ifdown scripts. These can be set with the -u and -d options. The
   '%s' variable is replaced with the interface name.
 
-  example : 
+  example :
 
   $ wmifinfo -i ppp0 -u "/sbin/ifup %s" -d "/sbin/ifdown %s"
 
@@ -93,4 +93,3 @@ COPYRIGHT
   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
-    

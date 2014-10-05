@@ -1,4 +1,4 @@
-/* persian calendar functions original code is by Kees Couprie 
+/* persian calendar functions original code is by Kees Couprie
    http://www.geocities.com/couprie/calmath/      */
 
 /* islamic conversion and moonphase calculation is taken from
@@ -7,9 +7,9 @@
  *
  * Copyright (c) 1992 by Waleed A. Muhanna
  *
- * Permission for nonprofit use and redistribution of this software and 
- * its documentation is hereby granted without fee, provided that the 
- * above copyright notice appear in all copies and that both that copyright 
+ * Permission for nonprofit use and redistribution of this software and
+ * its documentation is hereby granted without fee, provided that the
+ * above copyright notice appear in all copies and that both that copyright
  * notice and this permission notice appear in supporting documentation.
  *
  * No representation is made about the suitability of this software for any
@@ -70,5 +70,5 @@ int daysEarlierEqual(struct icaltimetype d1, struct icaltimetype d2);
 
 int Ceil(float number);
 
-int     datemoon[200][2];   /* hashtable for moonphase.[jdn%32][0] stores moonphase of day jdn, 
+int     datemoon[200][2];   /* hashtable for moonphase.[jdn%32][0] stores moonphase of day jdn,
 			    [jdn%32][1] stores jdn. */

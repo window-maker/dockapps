@@ -6,17 +6,17 @@ release date  : September 09, 2006
 *** DESCRIPTION ***
 *******************
 
-wmckgmail is a very simple program used to monitor the number of unread mails 
-in a gmail inbox. It uses the wget command to get the gmail atom feed and reads 
-the number of new mails from this feed. It is a dockapp that is supported by X 
-window managers such as Window Maker, AfterStep, BlackBox, Fluxbox and 
+wmckgmail is a very simple program used to monitor the number of unread mails
+in a gmail inbox. It uses the wget command to get the gmail atom feed and reads
+the number of new mails from this feed. It is a dockapp that is supported by X
+window managers such as Window Maker, AfterStep, BlackBox, Fluxbox and
 Enlightenment.
 
-This dockapp is quite simple. It contains the gmail M icon and a small counter. 
-When the program is unable to access gmail, the counter shows the "ERR" string 
-and the M icon is greyed. When gmail is accessible and your configuration file 
-contains a valid username/password combo, the counter indicate the number of 
-new mails in the gmail inbox. If there is no unread mails in the gmail inbox, 
+This dockapp is quite simple. It contains the gmail M icon and a small counter.
+When the program is unable to access gmail, the counter shows the "ERR" string
+and the M icon is greyed. When gmail is accessible and your configuration file
+contains a valid username/password combo, the counter indicate the number of
+new mails in the gmail inbox. If there is no unread mails in the gmail inbox,
 the M icon stays greyed. If there is unread mails in the gmail inbox, the M iconthen takes its real colors and the counter indicates the number of unread mails.
 
 ***************
@@ -33,8 +33,8 @@ This program needs a configuration file to work. This file must be found as:
 
     $HOME/.wmckgmail/config
 
-This configuration file contains "<key> <value>" parameters. There is some 
-mandatory parameters that requires to be defined in this file in order to make 
+This configuration file contains "<key> <value>" parameters. There is some
+mandatory parameters that requires to be defined in this file in order to make
 the program work:
 
     uname <gmail username>
@@ -43,14 +43,14 @@ the program work:
     pass <gmail password>
            Set the password of the gmail mailbox to monitor
 
-There is also optional parameters: 
+There is also optional parameters:
 
     pollinterval <seconds between each new mail verification>
-           Used to define the interval between each verification of new incoming mails. If you do 
+           Used to define the interval between each verification of new incoming mails. If you do
            not define this parameter, it will be set to a default value of 300 seconds (5 minutes).
 
     browsercmd1 <command to launch when clicking on the 'big M'>
-           Used to define the command to launch when clicking on the 'big M'. 
+           Used to define the command to launch when clicking on the 'big M'.
            Example configuration line: 'browsercmd1 mozilla -remote "openURL(http://www.gmail.com)"'
 
     browsercmd2 <command to launch when clicking on the 'big M' if 'browsercmd1' failed>
@@ -60,7 +60,7 @@ There is also optional parameters:
 
 -- WARNINGS --
 
-- It is very recommended to set the configuration file permissions to "600" or 
+- It is very recommended to set the configuration file permissions to "600" or
 "400" as your mailbox password is clearly written in this file.
 
 - When defining 'browsercmd1' or 'browsercmd2', verify if the command you launch returns immediately
@@ -71,7 +71,7 @@ to launch the command in background like in the 'browsercmd2' example configurat
 *** THANKS ***
 **************
 
-Thanks to the author of the wmgeneral code, it has been a really good starting 
+Thanks to the author of the wmgeneral code, it has been a really good starting
 base to develop this little application.
 
 **************

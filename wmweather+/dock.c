@@ -324,7 +324,7 @@ void update_dock(){
                     break;
                 }
                 break;
-                
+
               case 4:
                 copyPixmapArea(123, 96, 6, 7, 65, 17);
                 break;
@@ -424,7 +424,7 @@ void DrawDisplay(int force){
     if(current_warnings) font=1;
     if(force || last_font!=font) last_time=-1;
     last_font=font;
-    
+
     switch(current_mode){
       case 0:
         if(last_time==current.last_update) break;
@@ -592,7 +592,7 @@ void DrawDisplay(int force){
         }
         x=GetStringWidth(bigbuf);
         DrawString(60+(64-x)/2, 18, bigbuf, font);
-        
+
         x=GetStringWidth(f->station);
         DrawString(118-x, 28, f->station, font+1);
 

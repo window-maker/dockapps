@@ -4,7 +4,7 @@
    Modified : Jorge García ( Jorge.Garcia@uv.es )
    Modified ; Mark Hurley ( debian4tux@telocity.com )
    Modified : Neil Spring ( nspring@cs.washington.edu )
- * 
+ *
  * Pop3 Email checker.
  *
  * Last Updated : Tue Nov 13 13:45:23 PST 2001
@@ -52,7 +52,7 @@ extern struct connection_state *state_for_pcu(Pop3 pc);
 
 static struct authentication_method {
 	const char *name;
-	/* callback returns the connection state pointer if successful, 
+	/* callback returns the connection state pointer if successful,
 	   NULL if failed */
 	struct connection_state  *(*auth_callback) (Pop3 pc, struct connection_state * scs, char *apop_str);
 } auth_methods[] = {
@@ -169,7 +169,7 @@ int pop3CheckMail( /*@notnull@ */ Pop3 pc)
 		/* it is not an error to receive this according to RFC 1725 */
 		/* no error should be returned */
 		pc->UnreadMsgs = pc->TotalMsgs;
-        // there's also a LIST command... not sure how to make use of it. */ 
+        // there's also a LIST command... not sure how to make use of it. */
 	} else {
 		sscanf(buf, "+OK %d", &read);
 		pc->UnreadMsgs = pc->TotalMsgs - read;
@@ -201,9 +201,9 @@ int pop3Create(Pop3 pc, const char *str)
 	int i;
 	int matchedchars;
 	/* ([^: ]+) user
-	   ([^@]+) or ([^ ]+) password 
-	   ([^: ]+) server 
-	   ([: ][0-9]+)? optional port 
+	   ([^@]+) or ([^ ]+) password
+	   ([^: ]+) server
+	   ([: ][0-9]+)? optional port
 	   ' *' gobbles trailing whitespace before authentication types.
 	   use separate regexes for old and new types to permit
 	   use of '@' in passwords

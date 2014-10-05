@@ -177,13 +177,13 @@ fi
 
 AC_SUBST(LINK_XPM)
 
-test "$xpm_libraries_result" = "" && 
+test "$xpm_libraries_result" = "" &&
   xpm_libraries_result="in default path"
-test "$xpm_includes_result" = "" && 
+test "$xpm_includes_result" = "" &&
   xpm_includes_result="in default path"
-test "$xpm_libraries_result" = "no" && 
+test "$xpm_libraries_result" = "no" &&
   xpm_libraries_result="(none)"
-test "$xpm_includes_result" = "no" && 
+test "$xpm_includes_result" = "no" &&
   xpm_includes_result="(none)"
 AC_MSG_RESULT(
   [libraries $xpm_libraries_result, headers $xpm_includes_result])

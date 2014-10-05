@@ -31,7 +31,7 @@ double	DL0, DL, DD, DGAM, DLS, DF;
 double	L0, L, LS, F, D;
 double	ARG = 0.0, FAC = 0.0;
 int	MAX = 0, i, j;
-double	S; 
+double	S;
 
 
     T2 = T*T;
@@ -66,20 +66,20 @@ double	S;
 
     for (i=1; i<=4; ++i){
         switch (i){
-	    case 1: 
+	    case 1:
 		ARG = L,  MAX = 4, FAC = 1.000002208;
 		break;
-	    case 2: 
+	    case 2:
 		ARG = LS, MAX = 3, FAC = 0.997504612 - 0.002495388*T;
 		break;
-	    case 3: 
+	    case 3:
 		ARG = F,  MAX = 4, FAC = 1.000002708 + 139.978*DGAM;
 		break;
-	    case 4: 
+	    case 4:
 		ARG = D,  MAX = 6, FAC = 1.0;
 		break;
         }
-    
+
         CO[6+0][i] = 1.0, CO[6+1][i] = cos(ARG)*FAC;
         SI[6+0][i] = 0.0, SI[6+1][i] = sin(ARG)*FAC;
         for (j=2; j<=MAX; ++j) addthe(CO[6+j-1][i], SI[6+j-1][i], CO[6+1][i], SI[6+1][i], &CO[6+j][i], &SI[6+j][i]);
@@ -183,7 +183,7 @@ double	S;
     addsol(    9.366,    0.71, 0.0  ,  -0.0112,1, 0,-2,-2);
     addsol(    0.202,    0.02, 0.0  ,   0.0   ,1, 0,-2,-4);
 
-    /* 
+    /*
      *  Solar3
      */
     addsol(    0.415,    0.10, 0.0  ,  0.0013,0, 1, 2, 0);
@@ -378,11 +378,11 @@ double NewMoon(double ax, double bx, double cx){
 
 
 /*
- * MINI_MOON: low precision lunar coordinates (approx. 5'/1')   
- *            T  : time in Julian centuries since J2000        
- *                 ( T=(JD-2451545)/36525 )                   
- *            RA : right ascension (in h; equinox of date)   
- *            DEC: declination (in deg; equinox of date)    
+ * MINI_MOON: low precision lunar coordinates (approx. 5'/1')
+ *            T  : time in Julian centuries since J2000
+ *                 ( T=(JD-2451545)/36525 )
+ *            RA : right ascension (in h; equinox of date)
+ *            DEC: declination (in deg; equinox of date)
  *
  */
 void MiniMoon(double T, double *RA, double *DEC){
@@ -390,7 +390,7 @@ void MiniMoon(double T, double *RA, double *DEC){
     double	L0,L,LS,F,D,H,S,N,DL,CB,L_MOON,B_MOON,V,W,X,Y,Z,RHO;
     double	frac(), cosEPS, sinEPS, P2, ARC;
 
- 
+
     cosEPS = 0.91748;
     sinEPS = 0.39778;
     P2 	= 6.283185307;
@@ -400,32 +400,32 @@ void MiniMoon(double T, double *RA, double *DEC){
     /*
      * mean elements of lunar orbit
      */
-    L0 = frac(0.606433+1336.855225*T); /* mean longitude Moon (in rev) */   
+    L0 = frac(0.606433+1336.855225*T); /* mean longitude Moon (in rev) */
     L  = P2*frac(0.374897+1325.552410*T); /* mean anomaly of the Moon     */
     LS = P2*frac(0.993133+  99.997361*T); /* mean anomaly of the Sun      */
     D  = P2*frac(0.827361+1236.853086*T); /* diff. longitude Moon-Sun     */
     F  = P2*frac(0.259086+1342.227825*T); /* mean argument of latitude    */
-    DL  =  +22640.0*sin(L) - 4586.0*sin(L-2.0*D) + 2370.0*sin(2.0*D) +  769.0*sin(2.0*L) 
+    DL  =  +22640.0*sin(L) - 4586.0*sin(L-2.0*D) + 2370.0*sin(2.0*D) +  769.0*sin(2.0*L)
             -668.0*sin(LS)- 412.0*sin(2.0*F) - 212.0*sin(2.0*L-2.0*D) - 206.0*sin(L+LS-2.0*D)
             +192.0*sin(L+2.0*D) - 165.0*sin(LS-2.0*D) - 125.0*sin(D) - 110.0*sin(L+LS)
             +148.0*sin(L-LS) - 55.0*sin(2.0*F-2.0*D);
-    S  =  F + (DL+412.0*sin(2.0*F)+541.0*sin(LS)) / ARC; 
+    S  =  F + (DL+412.0*sin(2.0*F)+541.0*sin(LS)) / ARC;
     H  =  F-2.0*D;
-    N  =  -526.0*sin(H) + 44.0*sin(L+H) - 31.0*sin(-L+H) - 23.0*sin(LS+H) 
+    N  =  -526.0*sin(H) + 44.0*sin(L+H) - 31.0*sin(-L+H) - 23.0*sin(LS+H)
          + 11.0*sin(-LS+H) -25.0*sin(-2.0*L+F) + 21.0*sin(-L+F);
     L_MOON  =  P2 * frac ( L0 + DL/1296e3 ); /* in rad */
     B_MOON  =  ( 18520.0*sin(S) + N ) / ARC; /* in rad */
 
     /* equatorial coordinates */
     CB = cos(B_MOON);
-    X = CB*cos(L_MOON); 
-    V = CB*sin(L_MOON); 
+    X = CB*cos(L_MOON);
+    V = CB*sin(L_MOON);
     W = sin(B_MOON);
-    Y = cosEPS*V-sinEPS*W; 
-    Z = sinEPS*V+cosEPS*W; 
+    Y = cosEPS*V-sinEPS*W;
+    Z = sinEPS*V+cosEPS*W;
     RHO = sqrt(1.0-Z*Z);
-    *DEC  =  (360.0/P2)*atan2(Z, RHO); 
-    *RA   =  ( 48.0/P2)*atan2(Y, X+RHO); 
+    *DEC  =  (360.0/P2)*atan2(Z, RHO);
+    *RA   =  ( 48.0/P2)*atan2(Y, X+RHO);
     if (*RA<0.0) *RA += 24.0;
 
 

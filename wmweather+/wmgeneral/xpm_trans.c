@@ -13,7 +13,7 @@
 	CHANGES:
     ---
     16/08/2001 (Brad Jorsch, anomie@users.sourceforge.net)
-	* Wrote these routines. 
+	* Wrote these routines.
 
 */
 

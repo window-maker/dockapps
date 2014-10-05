@@ -1,7 +1,7 @@
 /* Author: Benoît Rouits ( brouits@free.fr ) thanks to Neil Spring.
-   from LicqClient by Yong-iL Joh ( tolkien@mizi.com ) 
+   from LicqClient by Yong-iL Joh ( tolkien@mizi.com )
    and Jorge García ( Jorge.Garcia@uv.es )
- * 
+ *
  * generic Shell command support
  *
  * Last Updated : Tue Mar  5 15:23:35 CET 2002
@@ -55,8 +55,8 @@ FILE *kind_popen(const char *command, const char *type)
 }
 
 /* kind_pclose checks the return value from pclose and prints
-   some nice error messages about it.  ordinarily, this would be 
-   a good idea, but wmbiff has a sigchld handler that reaps 
+   some nice error messages about it.  ordinarily, this would be
+   a good idea, but wmbiff has a sigchld handler that reaps
    children immediately (needed when spawning other child processes),
    so no error checking can be done here until that's disabled */
 
@@ -74,7 +74,7 @@ static int kind_pclose( /*@only@ */ FILE * F,
 
 	if (exit_status != 0) {
 		if (exit_status == -1) {
-			/* wmbiff has a sigchld handler already, so wait is likely 
+			/* wmbiff has a sigchld handler already, so wait is likely
 			   to fail */
 			SH_DM(pc, DEBUG_ERROR, "pclose '%s' failed: %s\n",
 				  command, strerror(errno));
@@ -174,7 +174,7 @@ int shellCmdCheck(Pop3 pc)
 	}
 	SH_DM(pc, DEBUG_INFO, "'%s' returned '%s'\n", pc->path, commandOutput);
 
-	/* see if it's numeric; the numeric check is somewhat 
+	/* see if it's numeric; the numeric check is somewhat
 	   useful, as wmbiff renders 4-digit numbers, but not
 	   4-character strings. */
 	if (sscanf(commandOutput, "%d", &(count_status)) == 1) {

@@ -1,4 +1,4 @@
-DEPLIBS = $(DEPXLIB) 
+DEPLIBS = $(DEPXLIB)
 CC = gcc -Wall
 
 #ifdef LinuxArchitecture
@@ -7,12 +7,12 @@ DEFINES = -Dlinux_libc5
 #if LinuxCLibMajorVersion > 5
 DEFINES = -Dlinux_libc6
 #endif
-LOCAL_LIBRARIES = $(XLIB) -lm 
+LOCAL_LIBRARIES = $(XLIB) -lm
 #endif
 
 #if defined (FreeBSDArchitecture) || defined (OpenBSDArchitecture)
 LOCAL_LIBRARIES = $(XLIB) -lm -lkvm
-INSTPGMFLAGS = -s -g kmem -m 2755 
+INSTPGMFLAGS = -s -g kmem -m 2755
 #endif
 
 LINTLIBS = $(LINTXLIB)

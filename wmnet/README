@@ -24,19 +24,19 @@ session to downloadeding something from across the hall at 600 kb/sec.
 
 I tried to keep this is as small and efficient as possible CPU time on my
 K5 PR100 with the default poll time of 25000 microseconds (1 microsecond
-== 1 millionth of a second.)  is less than 20 seconds per 24 hours 
+== 1 millionth of a second.)  is less than 20 seconds per 24 hours
 Which is less than even wmmixer uses for me.
 
 wmnet now uses drivers to get stats.  The existing stat driver from previous
-versions has been moved to the ipfwadm driver.  To get some generic IP 
+versions has been moved to the ipfwadm driver.  To get some generic IP
 accounting rules using ipfwadm:
 
-ipfwadm -A in -i -S 0.0.0.0/0 
+ipfwadm -A in -i -S 0.0.0.0/0
 ipfwadm -A out -i -D 0.0.0.0/0
 
 
 I have also included a couple drivers for Linux 2.1.  You can either use
-ipchains or general device stats received from /proc/net/dev.  If you don't 
+ipchains or general device stats received from /proc/net/dev.  If you don't
 want to fool around with IP chains, use the devstats driver and specify the
 interface to monitor useing the --device option.  To get a generic set of ip
 chains rules for the ipchains driver:
@@ -58,14 +58,14 @@ traffic bandwidth.  However, using this option as a normal user requires
 wmnet to be suid root, which is something many people dispise so it is
 not suid by default.  To make wmnet suid, as root:
 
-chmod u+s /usr/X11R6/bin/wmnet 
+chmod u+s /usr/X11R6/bin/wmnet
 
 Please only do this if you need to.  I did write this program with it
 possibly being suid in mind so I am fairly confident that this can be
 suid without any security concerns. But then again, thats what they all
 say.  Read the code then judge for yourself if need be, I WONT have
 it done automatically for you.  Really the only 'if' is the GNU libc
-getopt_long() function.  
+getopt_long() function.
 
 For those afterstep users out there using wmnet, you may have noticed that
 when wmnet is swallowed, the whole thing is not visible.  This is due to
@@ -83,12 +83,12 @@ http://www.digitalkaos.net/linux/wmnet/
 
 
 
-TO INSTALL from tar.gz: 
-tar xfzv wmnet-1.06.tar.gz 
-cd wmnet-1.06 
-xmkmf 
-make 
-strip wmnet 
+TO INSTALL from tar.gz:
+tar xfzv wmnet-1.06.tar.gz
+cd wmnet-1.06
+xmkmf
+make
+strip wmnet
 make install
 make install.man
 

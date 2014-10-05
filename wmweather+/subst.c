@@ -130,13 +130,13 @@ char *subst(const char *s, struct subst_val *substitutes){
           case INT:
             PRINT(*(signed int *)substitutes[m].val);
             break;
-                  
+
           case UINT:
           case OCTAL:
           case HEX:
             PRINT(*(unsigned int *)substitutes[m].val);
             break;
-            
+
           case FLOAT_E:
           case FLOAT_F:
           case FLOAT_G:

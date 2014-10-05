@@ -53,7 +53,7 @@ CreateIconFromXpmData( char *pixmap_data[] )
 
   dockapp.xpm_icon.attributes.valuemask |=
     ( XpmReturnPixels | XpmReturnExtensions );
-  
+
   /* Using the XPM library to read XPM data from the array in the included XPM
      file. The 'shapemask' Pixmap variable is set to an additional 1-bit deep
      pixmap that can then be used as a shape mask for the XShapeCombineMask()
@@ -94,14 +94,14 @@ GetColor( char *name )
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   res = (bool) XAllocColor( dockapp.display, attributes.colormap, &color );
   if( res == false ) {
     fprintf( stderr, "%s: Can't allocate %s.\n", PACKAGE, name );
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   return color.pixel;
 }
 
@@ -122,13 +122,13 @@ void
 RedrawWindow( void )
 {
   flush_expose( dockapp.iconwin );
-  
+
   (void) XCopyArea( dockapp.display, dockapp.xpm_icon.image, dockapp.iconwin,
 		    dockapp.NormalGC, 0, 0, dockapp.xpm_icon.attributes.width,
 		    dockapp.xpm_icon.attributes.height, 0, 0 );
-  
+
   flush_expose( dockapp.win );
-  
+
   (void) XCopyArea( dockapp.display, dockapp.xpm_icon.image, dockapp.win,
 		    dockapp.NormalGC, 0, 0, dockapp.xpm_icon.attributes.width,
 		    dockapp.xpm_icon.attributes.height, 0, 0 );
@@ -157,7 +157,7 @@ InitDockAppWindow( int argc, char *argv[], char *pixmap_data[],
   int status;
   int gravity = 0; /* Used to store the gravity value returned by XWMGeometry,
 		      but not used. */
-  
+
   /* Opening a connection to the X server. */
   dockapp.display = XOpenDisplay( display_arg );
   if( dockapp.display == NULL ) {
@@ -166,54 +166,54 @@ InitDockAppWindow( int argc, char *argv[], char *pixmap_data[],
     ErrorLocation( __FILE__, __LINE__ );
     exit( EXIT_FAILURE );
   }
-  
+
   dockapp.screen   = DefaultScreen( dockapp.display );
   dockapp.root_win = RootWindow( dockapp.display, dockapp.screen );
   dockapp.d_depth  = DefaultDepth( dockapp.display, dockapp.screen );
-  
+
   /* Create a window to hold the stuff */
   size_hints.flags = USSize | USPosition;
   size_hints.x = 0;
   size_hints.y = 0;
-  
+
   /* Constructing window's geometry information. */
   /* XWMGeometry() returns an 'int', but Xlib documentation doesn't explain
      it's meaning. */
   XWMGeometry( dockapp.display, dockapp.screen, geometry_arg, NULL, BWIDTH,
 	       &size_hints, &size_hints.x, &size_hints.y, &size_hints.width,
 	       &size_hints.height, &gravity );
-  
+
   size_hints.width  = ICON_SIZE;
   size_hints.height = ICON_SIZE;
   dockapp.back_pix = GetColor("white");
   dockapp.fore_pix = GetColor("black");
-  
+
   dockapp.win = XCreateSimpleWindow( dockapp.display, dockapp.root_win,
 				     size_hints.x, size_hints.y,
 				     (unsigned int) size_hints.width,
 				     (unsigned int) size_hints.height,
 				     BWIDTH, dockapp.fore_pix,
 				     dockapp.back_pix );
-  
+
   dockapp.iconwin = XCreateSimpleWindow( dockapp.display, dockapp.win,
 					 size_hints.x, size_hints.y,
 					 (unsigned int) size_hints.width,
 					 (unsigned int) size_hints.height,
 					 BWIDTH, dockapp.fore_pix,
 					 dockapp.back_pix );
-  
+
   /* Configuring Client to Window Manager Communications. */
-  
+
   /* WM_NORMAL_HINTS property: size hints for a window in it's normal state. */
   /* Replaces the size hints for the WM_NORMAL_HINTS property on the specified
      window. */
   XSetWMNormalHints( dockapp.display, dockapp.win, &size_hints );
-  
+
   /* Setting the WM_CLASS property. */
   {
     char *app_name = argv[0];
     XClassHint wm_class;
-    
+
     /* The res_name member contains the application name.
        The res_class member contains the application class. */
     /* The name set in this property may differ from the name set as WM_NAME.
@@ -227,23 +227,23 @@ InitDockAppWindow( int argc, char *argv[], char *pixmap_data[],
     wm_class.res_class = app_name;
     (void) XSetClassHint( dockapp.display, dockapp.win, &wm_class );
   }
-  
+
   /* Setting the WM_NAME property.
      This specifies what should be displayed in the title bar (usually the
      application name). */
   {
     XTextProperty text_prop;
-   
+
     char *app_name = argv[0];
     const int string_count = 1;
-  
+
     status = XStringListToTextProperty( &app_name, string_count, &text_prop );
     if( status == 0 ) {
       fprintf( stderr, "%s: XStringListToTextProperty() failed\n", PACKAGE );
       ErrorLocation( __FILE__, __LINE__ );
       exit( EXIT_FAILURE );
     }
-    
+
     XSetWMName( dockapp.display, dockapp.win, &text_prop );
 
     /* Freing the storage for the value field. */
@@ -264,20 +264,20 @@ InitDockAppWindow( int argc, char *argv[], char *pixmap_data[],
   wm_hints.icon_y = size_hints.y;
   wm_hints.window_group = dockapp.win;
   (void) XSetWMHints( dockapp.display, dockapp.win, &wm_hints );
-  
+
   /* Sets the WM_COMMAND property. This sets the command and arguments used to
      invoke the application. */
   (void) XSetCommand( dockapp.display, dockapp.win, argv, argc );
-  
+
   /* ... */
   (void) XSelectInput( dockapp.display, dockapp.win,
 		       ButtonPressMask | ExposureMask | ButtonReleaseMask |
 		       PointerMotionMask | StructureNotifyMask );
-  
+
   (void) XSelectInput( dockapp.display, dockapp.iconwin,
 		       ButtonPressMask | ExposureMask | ButtonReleaseMask |
 		       PointerMotionMask | StructureNotifyMask );
-  
+
   /* Create GC for drawing */
   gcv.foreground = dockapp.fore_pix;
   gcv.background = dockapp.back_pix;
@@ -285,16 +285,16 @@ InitDockAppWindow( int argc, char *argv[], char *pixmap_data[],
   dockapp.NormalGC = XCreateGC( dockapp.display, dockapp.root_win,
 				GCForeground | GCBackground |
 				GCGraphicsExposures, &gcv );
-  
+
   /* Convert XPM data to XImage */
   CreateIconFromXpmData( pixmap_data );
 
   XShapeCombineMask( dockapp.display, dockapp.win, ShapeBounding, 0, 0,
 		     dockapp.xpm_icon.shapemask, ShapeSet );
-  
+
   XShapeCombineMask( dockapp.display, dockapp.iconwin, ShapeBounding, 0, 0,
 		     dockapp.xpm_icon.shapemask, ShapeSet );
-  
+
   /* Making the new window visible. */
   (void) XMapWindow( dockapp.display, dockapp.win );
 }

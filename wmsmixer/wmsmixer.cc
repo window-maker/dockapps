@@ -96,7 +96,7 @@ unsigned long color[4];
 
 int text_counter = 0;
 
-// Misc custom global variables 
+// Misc custom global variables
 // ----------------------------
 
 // Current state information
@@ -270,7 +270,7 @@ int main(int argc, char **argv)
       }
       else
 	checkVol(false);
-      
+
       if(text_counter) {
 	text_counter--;
 	if(!text_counter) {
@@ -591,7 +591,7 @@ void pressEvent(XButtonEvent *xev)
     mixctl->readVol(channel[curchannel], false);
     mixctl->setLeft(channel[curchannel],
 		    CLAMP(mixctl->readLeft(channel[curchannel]) + inc, 0, 100));
-    mixctl->setRight(channel[curchannel], 
+    mixctl->setRight(channel[curchannel],
 		     CLAMP(mixctl->readRight(channel[curchannel]) + inc, 0, 100));
     mixctl->writeVol(channel[curchannel]);
     checkVol(false);
@@ -691,10 +691,10 @@ void drawText(char *text)
 
   for(int i=0; i<4; i++, p++) {
     p2 = toupper(*p);
-    if(p2 >= 'A' && p2 <= 'Z') { 
+    if(p2 >= 'A' && p2 <= 'Z') {
       XCopyArea(d_display, pm_chars, pm_disp, gc_gc, 6*((int)p2-65), 0, 6, 9, 5+(i*6), 5);
     }
-    else if(p2 >= '0' && p2 <= '9') { 
+    else if(p2 >= '0' && p2 <= '9') {
       XCopyArea(d_display, pm_digits, pm_disp, gc_gc, 6*((int)p2-48), 0, 6, 9, 5+(i*6), 5);
     }
     else {
@@ -711,7 +711,7 @@ void drawVolLevel()
 {
   int digits[4];
 
-  int vol = (mixctl->readLeft(channel[curchannel]) + 
+  int vol = (mixctl->readLeft(channel[curchannel]) +
 	     mixctl->readRight(channel[curchannel])) / 2;
 
   digits[0] = (vol/100) ? 1 : 10;

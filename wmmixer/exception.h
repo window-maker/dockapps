@@ -20,7 +20,7 @@ class Exception
 {
  protected:
   char* error_message_;
-  
+
  public:
   Exception();
   Exception(const Exception&);

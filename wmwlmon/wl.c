@@ -15,7 +15,7 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
- 
+
 /* Ported to FreeBSD by Nathan Lay <nslay@hotmail.com> 4/30/06 */
 
 #include <sys/param.h>
@@ -174,7 +174,7 @@ get_channel(const char *interface)
 	}
 #endif
 	close(s);
-	
+
 	if (ichan == 0) {
 #ifdef __OpenBSD__
 		if (channel.i_channel < 1000)
@@ -198,7 +198,7 @@ get_channel(const char *interface)
 int
 get_signal(const char *interface, const char *network)
 {
-	
+
 #ifdef __OpenBSD__
 	int				i = 0, s, len;
 	struct ieee80211_nodereq_all	na;
@@ -270,7 +270,7 @@ get_signal(const char *interface, const char *network)
 			break;
 	} while (len >= sizeof(struct ieee80211req_scan_result));
 #endif
-	
+
 	return (0);
 }
 
@@ -360,7 +360,7 @@ get_speed(const char *interface)
 		    IFM_SUBTYPE(desc->ifmt_word) == IFM_SUBTYPE(mword))
 			return (translate_speed(desc->ifmt_string));
 	}
-	
+
 	return (NULL);
 }
 
@@ -409,7 +409,7 @@ get_status(const char *interface)
 				sizeof(status));
 			return (status);
 		}
-		
+
 	}
 
 	return (NULL);
@@ -439,7 +439,7 @@ get_nwid(const char *interface)
 #ifdef __FreeBSD__
 	struct ieee80211req	nwid;
 #endif
-	
+
 	if ((s = socket(AF_INET, SOCK_DGRAM, 0)) == -1)
 		return (NULL);
 
@@ -557,7 +557,7 @@ check_nic(const char *interface)
  * translate_speed()
  *	translate the result of media speed to human readable string
  * Return:
- *	<pointer to speed> = success, NULL = no data / error 
+ *	<pointer to speed> = success, NULL = no data / error
  */
 char *
 translate_speed(const char *mode)

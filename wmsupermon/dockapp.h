@@ -1,7 +1,7 @@
 /*
- * 
+ *
  * Copyright (c) 1999 Alfredo K. Kojima
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,14 +18,14 @@
  * AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  */
 
 #ifndef _DOCKAPP_H_
 #define _DOCKAPP_H_
 
 /*
- * This is a simple (trivial) library for writing Window Maker dock 
+ * This is a simple (trivial) library for writing Window Maker dock
  * applications, or dockapps (those that only show up in the dock), easily.
  */
 
@@ -70,7 +70,7 @@ typedef struct {
 
     short type;                        /* type of argument */
 
-    Bool used;                         /* if the argument was passed in the 
+    Bool used;                         /* if the argument was passed in the
                                         cmd line */
     /* the following are only set if the "used" field is True */
     union {                            /* a ptr for the value that was passed
@@ -90,7 +90,7 @@ typedef struct {
  *
  * -h, --help and --version are automatically handled (causing the program
  * to exit)
- * 
+ *
  */
 void DAParseArguments(int argc, char **argv, DAProgramOption *options,
                       int count, char *programDescription,
@@ -111,7 +111,7 @@ void DAParseArguments(int argc, char **argv, DAProgramOption *options,
  *              default value
  *      name - the name of your dockapp, used as the class name for
  *              the WM_CLASS hint. Like WMYAClock
- *      width, height - the size of the dockapp window. 48x48 is the 
+ *      width, height - the size of the dockapp window. 48x48 is the
  *              preferred size
  *      argc, argv - the program arguments. argv[0] will be used as the
  *              instance name for the WM_CLASS hint.
@@ -121,7 +121,7 @@ DAInitialize(char *display, char *name, unsigned width, unsigned height,
              int argc, char **argv, Window *out);
 
 /*
- * DASetShape-  
+ * DASetShape-
  *      Sets the shape mask of the dockapp to the specified one. This is
  * optional. If you pass None as shapeMask, the dockapp will become
  * non-shaped.
@@ -165,7 +165,7 @@ void DAShow(Window *window);
 /*
  * DASetCallbacks-
  *      Register a set of callbacks for events like mouse clicks.
- * 
+ *
  * Only needed if you want to receive some event.
  */
 void DASetCallbacks(Window *window, DACallbacks *callbacks);
@@ -189,7 +189,7 @@ Bool DANextEventOrTimeout(XEvent *event, unsigned long millisec);
  * DAProcessEvent-
  *      Processes an event. Returns True if the event was handled and
  * False otherwise.
- * 
+ *
  * Must be called from your event loop, unless you use DAEventLoop()
  */
 Bool DAProcessEvent(Window *window, XEvent *event);

@@ -1,3 +1,3 @@
 cd wmsm
-make 
+make
 make install (root)

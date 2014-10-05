@@ -27,7 +27,7 @@ LD = gcc
 LDFLAGS = -L/usr/X11R6/lib
 LDFLAGS += -s
 
-LDLIBS = -lXpm -lXext -lX11 
+LDLIBS = -lXpm -lXext -lX11
 
 SOURCES = \
 	dockapp.c \

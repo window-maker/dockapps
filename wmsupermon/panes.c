@@ -205,7 +205,7 @@ int read_config_file(pane_desc panes[], int *pane_num, const int max_pane,
               (*x)->max=1;
             }
           }
-          
+
           cur_part++;
         }
       } else if (!s) continue;

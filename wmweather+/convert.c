@@ -48,7 +48,7 @@
 
 int rh_C(int temp_C, int dewpt_C){
     float f;
-    
+
     if(temp_C==999 || dewpt_C==999) return 999;
 
     f=1782.75*(dewpt_C-temp_C)/((237.7+dewpt_C)*(237.7+temp_C));
@@ -57,7 +57,7 @@ int rh_C(int temp_C, int dewpt_C){
 
 int rh_F(int temp_F, int dewpt_F){
     float f;
-    
+
     if(temp_F==999 || dewpt_F==999) return 999;
 
     f=3208.95*(dewpt_F-temp_F)/((395.86+dewpt_F)*(395.86+temp_F));
@@ -69,8 +69,8 @@ int heatindex_C(int temp_C, int rh){
     if(temp_C==999 || temp_C<21 || rh<0) return 999;
     return heatindex_F(temp_C2F(temp_C), rh);
 #else
-    int temp2, rh2; 
-    
+    int temp2, rh2;
+
     if(temp_C==999 || temp_C<38 || rh<0) return 999;
 
     temp2=temp_C*temp_C;
@@ -239,7 +239,7 @@ time_t mkgmtime(struct tm *tm){
 int utc2local(int hm, int *month, int *day, int *year, int *wday){
     time_t t=time(NULL);
     struct tm *tm;
-    
+
     tm=gmtime(&t);
     tm->tm_hour=hm/100;
     tm->tm_min=hm%100;
@@ -260,7 +260,7 @@ int utc2local(int hm, int *month, int *day, int *year, int *wday){
 int local2utc(int hm, int *month, int *day, int *year, int *wday){
     time_t t=time(NULL);
     struct tm *tm;
-    
+
     tm=localtime(&t);
     tm->tm_hour=hm/100;
     tm->tm_min=hm%100;
@@ -281,7 +281,7 @@ int local2utc(int hm, int *month, int *day, int *year, int *wday){
 void fix_date(int *month, int *day, int *year, int *wday){
     time_t t=time(NULL);
     struct tm *tm;
-    
+
     tm=gmtime(&t);
     if(month!=NULL && *month!=-1) tm->tm_mon=*month-1;
     if(day!=NULL && *day!=-1) tm->tm_mday=*day;
@@ -378,7 +378,7 @@ static double parse_dd_or_dms(char *s, char **e){
         if(!isdigit(*s) && *s!='.') return NAN;
         return strtod(s, e);
     }
-    
+
     if(!isdigit(*s)) return NAN;
     deg=strtol(s, e, 10);
     if(*e==s || *e==NULL || **e!='\'') return deg;

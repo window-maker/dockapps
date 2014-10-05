@@ -71,7 +71,7 @@ void SetAnimation(struct animation *a, int x, int y, int sky, int obs, int vis,
 void DoAnimation(struct animation *a){
     int i;
     int top, h;
-    
+
     /* Turned off? */
     if(!a->active) return;
 

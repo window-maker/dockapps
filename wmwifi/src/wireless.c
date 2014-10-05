@@ -14,7 +14,7 @@
 /*
  * This is my quick and dirty way of accessing the Linux Wireless Extensions
  * from the /proc/net/wireless interface.
- * Open the file, and get the Interface name, link, level, and noise. 
+ * Open the file, and get the Interface name, link, level, and noise.
  * - Jess
  */
 
@@ -109,7 +109,7 @@ int get_wifi_info(struct wifi *wfi)
     fprintf(stdout, "wfi->bitrate  -> %d\n", wfi->bitrate.value);
     fprintf(stdout, "wfi->max_link -> %.f\n", wfi->max_link);
     */
-    
+
 
     close(skfd);
 

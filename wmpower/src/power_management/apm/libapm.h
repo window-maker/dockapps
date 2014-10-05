@@ -24,14 +24,14 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.              *
  *                                                                         *
  ***************************************************************************/
- 
+
  /***************************************************************************
         Originally written by Filippo Panessa for his 'wmab' program
  ***************************************************************************/
 
 #define APMDEV "/proc/apm"
 
-typedef struct 
+typedef struct
 {
     const char driver_version[10];
     int        apm_version_major;

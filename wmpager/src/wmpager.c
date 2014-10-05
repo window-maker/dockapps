@@ -101,7 +101,7 @@ int main (int nArgc, char** szArgv) {
 	int nSizeX= -1, nSizeY= -1;
 	int i;
 	initApplicationName(szArgv[0]);
-	/* we no longer use the WMPAGER environment variable 
+	/* we no longer use the WMPAGER environment variable
 	 * szInstallDir= (char*) getenv(WMPAGER_ENV);
 	 * instead we simply use a default installation directory
 	 */
@@ -305,7 +305,7 @@ void initDisplay (char* szDisplay) {
 	_display= XOpenDisplay(szDisplay);
 	if (_display == NULL) {
 		fprintf(
-			stderr, 
+			stderr,
 			"%s: couldn't open display '%s'.\n",
 			getApplicationName(),
 			(szDisplay == NULL) ? ((char*) getenv("DISPLAY")) : szDisplay
@@ -371,7 +371,7 @@ void initWindow (int nArgc, char** szArgv) {
 	XWMHints* xwmhints;
 	XClassHint* xclasshint;
 	XTextProperty xtApplication;
-	
+
 	if (isVerbose()) {
 		fprintf(stdout, "[%8ld] initializing application window\n", currentTimeMillis());
 	}
@@ -381,33 +381,33 @@ void initWindow (int nArgc, char** szArgv) {
 	_wRoot= RootWindow(display, _nDefaultScreen);
 
 	XSelectInput(display, _wRoot, PropertyChangeMask);
-	
+
 	_pWhite= WhitePixel(display, _nDefaultScreen);
 	_pBlack= BlackPixel(display, _nDefaultScreen);
 
 	xsizehints= XAllocSizeHints();
 	xsizehints->flags= USSize | USPosition;
 	xsizehints->width= xsizehints->height= 64;
-	
+
 	_wMain= XCreateSimpleWindow(display, _wRoot, 0, 0, 64, 64, 5, _pWhite, _pBlack);
 	if (_wMain == 0) {
 		fprintf(stderr, "Cannot create main window.\n");
 		exit(-1);
 	}
-	
+
 	_wIcon= XCreateSimpleWindow(display, _wMain, 0, 0, 64, 64, 5, _pWhite, _pBlack);
 	if (_wIcon == 0) {
 		fprintf(stderr, "Cannot create icon window.\n");
 		exit(-1);
 	}
-	
+
 	xwmhints= XAllocWMHints();
-	xwmhints->flags= WindowGroupHint | IconWindowHint | StateHint;    
+	xwmhints->flags= WindowGroupHint | IconWindowHint | StateHint;
  	xwmhints->icon_window= _wIcon;
 	xwmhints->window_group= _wMain;
 	xwmhints->initial_state= WithdrawnState;
 	XSetWMHints(display, _wMain, xwmhints);
-	
+
 	xclasshint= XAllocClassHint();
 	xclasshint->res_name= APPLICATION;
 	xclasshint->res_class= APPLICATION;
@@ -425,7 +425,7 @@ void initWindow (int nArgc, char** szArgv) {
 	}
 	XSetWMName(display, _wMain, &xtApplication);
 	XFree(xtApplication.value);
-	
+
 	_gcMain= XCreateGC(display, _wMain, 0L, NULL);
 	if (_gcMain == NULL) {
 		fprintf(stderr, "Cannot create graphics context.\n");
@@ -434,9 +434,9 @@ void initWindow (int nArgc, char** szArgv) {
 
 	XSelectInput(display, _wMain, ExposureMask | ButtonPressMask | PointerMotionMask | StructureNotifyMask | LeaveWindowMask);
 	XSelectInput(display, _wIcon, ExposureMask | ButtonPressMask | PointerMotionMask | StructureNotifyMask | LeaveWindowMask);
-	
+
 	XSetCommand(display, _wMain, szArgv, nArgc);
-	
+
 	XMapWindow(display, _wMain);
 }
 
@@ -493,7 +493,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 		getButtonLocation(i, &nButtonX, &nButtonY);
 		XCopyArea(display, pOpaque, pMask, gc, nButtonX, nButtonY, getButtonWidth(), getButtonHeight(), nButtonX, nButtonY);
 	}
-	
+
 	free(mask);
 	XFreePixmap(display, pOpaque);
 	XFreePixmap(display, pTransparent);
@@ -503,7 +503,7 @@ void initWindowMask (char* szInstallDir, char* szButtonTheme) {
 	XShapeCombineMask(display, wIcon, ShapeBounding, 0, 0, pMask, ShapeSet);
 
 	if (isVerbose()) {
-		fprintf(stdout, "[%8ld] initializing button theme '%s'\n", currentTimeMillis(), 
+		fprintf(stdout, "[%8ld] initializing button theme '%s'\n", currentTimeMillis(),
 			szButtonTheme == NULL ? "<built-in>" : szButtonTheme);
 	}
 
@@ -739,7 +739,7 @@ void loop () {
 					if (strcmp(XA_NET_CURRENT_DESKTOP, atom_name) == 0) {
 						setCurrentScreen(-1);
 						if (isVerbose()) {
-							fprintf(stdout, "[%8ld] new current workspace (%d= %s)\n", 
+							fprintf(stdout, "[%8ld] new current workspace (%d= %s)\n",
 								currentTimeMillis(), getCurrentScreen(), getScreenName(getCurrentScreen()));
 						}
 						redrawWindow();
@@ -869,7 +869,7 @@ void initButtons (int nButtons, int nColumns, int nRows) {
 		fprintf(stdout, "[%8ld] - %d workspace buttons\n", currentTimeMillis(), _nButtons);
 		fprintf(stdout, "[%8ld] - button layout %dx%d\n", currentTimeMillis(), _nButtonColumns, _nButtonRows);
 	}
-	
+
 	if (_nButtonColumns == 1) {
 		_nButtonWidth= 51;
 	} else if (_nButtonColumns == 2) {
@@ -962,7 +962,7 @@ void setCurrentScreen (int nCurrentScreen) {
 		int nFormat;
 		unsigned long nItems, nBytesAfter;
 		unsigned char* data;
-		
+
 		XGetWindowProperty(
 			getDisplay(), getRootWindow(), _xaNetCurrentDesktop,
 			0, 8192, False, XA_CARDINAL, &xaType, &nFormat, &nItems, &nBytesAfter, &data
@@ -983,7 +983,7 @@ void initScreens () {
 	int nFormat;
 	unsigned long nItems, nBytesAfter;
 	unsigned char* data;
-	
+
 	if (isVerbose()) {
 		fprintf(stdout, "[%8ld] initializing window maker communication\n", currentTimeMillis());
 	}
@@ -1008,9 +1008,9 @@ void initScreens () {
 	setCurrentScreen(-1);
 	if (_nLastScreen == -1) {
 		fprintf(
-			stderr, 
+			stderr,
 			"%s: couldn't determine current workspace.\n" \
-			"Make sure your WindowMaker has EWMH support enabled!\n", 
+			"Make sure your WindowMaker has EWMH support enabled!\n",
 			getApplicationName()
 		);
 		setCurrentScreen(0);
@@ -1021,7 +1021,7 @@ void initScreens () {
 		for (i= 0; i < getScreenCount(); i++) {
 			fprintf(stdout, "[%8ld] - workspace %d: %s\n", currentTimeMillis(), i, getScreenName(i));
 		}
-		fprintf(stdout, "[%8ld] - current workspace is %d (%s)\n", currentTimeMillis(), 
+		fprintf(stdout, "[%8ld] - current workspace is %d (%s)\n", currentTimeMillis(),
 			getCurrentScreen(), getScreenName(getCurrentScreen()));
 	}
 }

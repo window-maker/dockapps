@@ -49,7 +49,7 @@ static int
 POP3_ReceiveResponse( void )
 {
   int len;
-  
+
   len = WmnotifyGetResponse( rx_buffer, WMNOTIFY_BUFSIZE );
   if( len < 0 ) {
     perror( PACKAGE );
@@ -62,7 +62,7 @@ POP3_ReceiveResponse( void )
   if( wmnotify_infos.debug ) {
     printf( "Response: \"%s\"\n", rx_buffer );
   }
-  
+
   /* No error in recv at this point. Now we parse response from POP3 server. */
 
   /* Check the status indicator returned by the POP3 server.
@@ -72,7 +72,7 @@ POP3_ReceiveResponse( void )
     fprintf( stderr, "%s: Error, POP3 server responded:\n  \"%s\"\n", PACKAGE, rx_buffer );
     len = -1;
   }
-  
+
   return len;
 }
 
@@ -95,7 +95,7 @@ POP3_SendCommand( int argc, char *argv[] )
     tx_buffer[len] = '\0';
     printf( "Command: \"%s\"\n", tx_buffer );
   }
-  
+
   /* Adding termination characters. */
   len += sprintf( tx_buffer + len, POP3_ENDL );
 
@@ -103,12 +103,12 @@ POP3_SendCommand( int argc, char *argv[] )
   if( len < 0 ) {
     return EXIT_FAILURE;
   }
-  
+
   len = POP3_ReceiveResponse();
   if( len < 0 ) {
     return EXIT_FAILURE;
   }
-  
+
   return EXIT_SUCCESS;
 }
 
@@ -122,7 +122,7 @@ POP3_ParseStatCommand( void )
 
   /* STAT command:
    * The positive response consists of "+OK" followed by a single space, the number of messages
-   * in the maildrop, a single space, and the size of the maildrop in octets. */  
+   * in the maildrop, a single space, and the size of the maildrop in octets. */
   token = strtok( rx_buffer, " " );
   token = strtok( NULL, " " );
   if( token != NULL ) {
@@ -133,7 +133,7 @@ POP3_ParseStatCommand( void )
     fprintf( stderr, "%s: Error parsing \"STAT\" response", PACKAGE );
     new_messages = -1;
   }
-  
+
   return new_messages;
 }
 
@@ -178,7 +178,7 @@ POP3_CheckForNewMail( void )
   if( new_messages < 0 ) {
     goto pop3_close_connection;
   }
-  
+
   /* Sending QUIT command. */
   argv[0] = POP3_CMD_QUIT;
   status = POP3_SendCommand( 1, argv );
@@ -186,7 +186,7 @@ POP3_CheckForNewMail( void )
     new_messages = -1;
     goto pop3_close_connection;
   }
-  
+
  pop3_close_connection:
   status = ConnectionTerminate();
   if( status != EXIT_SUCCESS ) {

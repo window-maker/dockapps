@@ -406,14 +406,14 @@ int exists(UNUSED(const char *filename))
 }
 
 
-// void initialize_blacklist(void) { } 
+// void initialize_blacklist(void) { }
 // void tlscomm_printf(UNUSED(int x), UNUSED(const char *f), ...) { }
-// void tlscomm_expect(void) {  } 
-// void tlscomm_close() {  } 
-// int tlscomm_is_blacklisted(UNUSED(const char *x)) {  return 1; } 
-// void initialize_gnutls(void) {  } 
+// void tlscomm_expect(void) {  }
+// void tlscomm_close() {  }
+// int tlscomm_is_blacklisted(UNUSED(const char *x)) {  return 1; }
+// void initialize_gnutls(void) {  }
 // int sock_connect(UNUSED(const char *n), UNUSED(int p)) { return 1; } /* stdout */
-// void initialize_unencrypted(void) {  } 
+// void initialize_unencrypted(void) {  }
 
 int main(UNUSED(int argc), UNUSED(char *argv[]))
 {

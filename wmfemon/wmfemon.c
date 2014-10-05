@@ -16,7 +16,7 @@
  #include <X11/extensions/shape.h>
  #include <X11/xpm.h>
 
- #include <fcntl.h> 
+ #include <fcntl.h>
  #include <sys/ioctl.h>
 
  #include <linux/dvb/frontend.h>
@@ -58,7 +58,7 @@ XWindowAttributes xwattr;
 char a[250];
 XTextItem xti;
 int freq;
-	      
+
 ioctl(fefd, FE_READ_STATUS, &status);
 ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal);
 ioctl(fefd, FE_READ_SNR, &snr);
@@ -121,7 +121,7 @@ XWindowAttributes xwattr;
 char a[250];
 XTextItem xti;
 int freq;
-	      
+
 ioctl(fefd, FE_READ_STATUS, &status);
 ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal);
 ioctl(fefd, FE_READ_SNR, &snr);
@@ -214,13 +214,13 @@ if (!XD) { fprintf(stderr, "Default Display acilamadi.\n"); return 1; }
 W1 = XCreateSimpleWindow(XD, DefaultRootWindow(XD),0, 0, 64, 64, 1, 50, getcolor("yellow"));
 Wicon = XCreateSimpleWindow(XD, W1, 0, 0, 60, 60, 1, 50, getcolor("darkgreen"));
 
-wmhints.initial_state = WithdrawnState;                                     
-wmhints.icon_window = Wicon;                                              
-wmhints.icon_x = 64;                                               
-wmhints.icon_y = 64;                                               
-wmhints.window_group = W1;                                                 
+wmhints.initial_state = WithdrawnState;
+wmhints.icon_window = Wicon;
+wmhints.icon_x = 64;
+wmhints.icon_y = 64;
+wmhints.window_group = W1;
 wmhints.flags = StateHint | IconWindowHint | IconPositionHint | WindowGroupHint;
-XSetWMHints(XD, W1, &wmhints);                                        
+XSetWMHints(XD, W1, &wmhints);
 
 XMapWindow(XD, W1);
 
@@ -254,7 +254,7 @@ if (z < 0) { perror("ERR ioctl FE_GET_INFO:"); close(fefd); return 0;}
 	while (XPending(XD))
 	{
 	XNextEvent(XD, &event);
-	    switch (event.type) 
+	    switch (event.type)
 	    {
 	    case Expose:
 		/* update */
@@ -272,14 +272,14 @@ if (z < 0) { perror("ERR ioctl FE_GET_INFO:"); close(fefd); return 0;}
 #endif
 		break;
 	    case UnmapNotify:
-		fprintf(stderr,"UnmapNotify geldi.\n");	        
+		fprintf(stderr,"UnmapNotify geldi.\n");
 		break;
 	    case DestroyNotify:
 		fprintf(stderr,"DestroyNotify geldi.\n");
 	        XCloseDisplay(XD);
 		exit(0);
 		break;
-            case ClientMessage: 
+            case ClientMessage:
             //Kapat tusu icin amma yarak isler lazim ulan. wmclockmon dockapp.c'den alinti.
 	    //printf("ClientMessage\n");fflush(stdout);
 	        if (event.xclient.data.l[0] == delete_win) {
@@ -306,17 +306,17 @@ if (z < 0) { perror("ERR ioctl FE_GET_INFO:"); close(fefd); return 0;}
 		}
 		break;
 	    }
-	} 
+	}
   if (bekle == 0) xmon(fefd);
   bekle++;
   bekle %= 10; // 10 modulu. W1 1000 ms.
-  if (W2) 
+  if (W2)
   { if (bekle2 == 0) xmon_W2(fefd);
     bekle2++;
     bekle2 %= 3; // 3 modulu. W2 biraz daha hizli gostersin. 300 ms.
   }
 
   usleep(100000L);
-  } //while 
+  } //while
   return 0;
 }

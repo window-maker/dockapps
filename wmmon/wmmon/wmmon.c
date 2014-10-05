@@ -15,7 +15,7 @@
 			How do I create a not so solid window?
 			How do I open a window?
 			How do I use pixmaps?
-	
+
 	------------------------------------------------------------
 
 	Authors: Martijn Pieterse (pieterse@xs4all.nl)
@@ -58,8 +58,8 @@
 	18/05/1998 (Antoine Nulle, warp@xs4all.nl)
 		* MEM/SWAP/UPTIME only updated when visible
 		* Using global file descriptors to reduce file
-		  system overhead, both updates are based on a diff 
-		  supplied by Dave Harden (dharden@wisewire.com) 
+		  system overhead, both updates are based on a diff
+		  supplied by Dave Harden (dharden@wisewire.com)
 	15/05/1998 (Antoine Nulle, warp@xs4all.nl)
 		* Fixed memory overflow in the MEM gaugebar
 		* MEM gauge displays now real used mem
@@ -68,7 +68,7 @@
 		* Added -i & -s kludge for selecting startupmode,
 		  tijno, don't hate me for this :)
 	12/05/1998 (Antoine Nulle, warp@xs4all.nl)
-		* Finetuned master-xpm, tijno don't worry, no 
+		* Finetuned master-xpm, tijno don't worry, no
 		  reprogramming needed this time ;-)
 	07/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Added disk i/o
@@ -214,7 +214,7 @@ typedef struct {
 
 stat_dev stat_device[MAX_STAT_DEVICES];
 
-char *left_action, *right_action, *middle_action; 
+char *left_action, *right_action, *middle_action;
 int nb_cpu, cpu_max;
 
 int getNbCPU(void);
@@ -280,11 +280,11 @@ void wmmon_routine(int argc, char **argv)
 	/* wbk - I don't fully understand this. Probably just a means of providing
 	 * test cases. ifdef'ing to clear compiler warnings. TODO: remove.		*/
 #ifdef LEFT_ACTION
-	if (LEFT_ACTION) 
+	if (LEFT_ACTION)
 	  left_action = strdup(LEFT_ACTION);
 #endif
 #ifdef RIGHT_ACTION
-	if (RIGHT_ACTION) 
+	if (RIGHT_ACTION)
 		right_action = strdup(RIGHT_ACTION);
 #endif
 #ifdef MIDDLE_ACTION
@@ -330,7 +330,7 @@ void wmmon_routine(int argc, char **argv)
 		exit(1);
 	}
 
-	openXwindow(argc, argv, wmmon_master_xpm, wmmon_mask_bits, 
+	openXwindow(argc, argv, wmmon_master_xpm, wmmon_mask_bits,
 		    wmmon_mask_width, wmmon_mask_height);
 
 	/* add mouse region */
@@ -370,10 +370,10 @@ void wmmon_routine(int argc, char **argv)
 
 	/* Draw statistics */
 	if (stat_current == 0) {
-		DrawStats(stat_device[stat_current].his, 
+		DrawStats(stat_device[stat_current].his,
                 HISTORY_ENTRIES-1, 40, 5, 58);
 	} else if (stat_current == 1) {
-		DrawStats_io(stat_device[stat_current].his, 
+		DrawStats_io(stat_device[stat_current].his,
                 HISTORY_ENTRIES, 40, 5, 58);
 	}
 
@@ -393,7 +393,7 @@ void wmmon_routine(int argc, char **argv)
 
 		if (stat_current < 2) {
 			i = stat_current;
-		
+
 			/* Load ding is 45 pixels hoog */
 			copyXPMArea(0, 64, 32, 12, 28, 4);
 
@@ -403,16 +403,16 @@ void wmmon_routine(int argc, char **argv)
 					j = getWidth(stat_device[i].rt_stat, stat_device[i].rt_idle);
 					copyXPMArea(32, 64, j, 6, 28, 4);
 					/* Show max CPU */
-					j = getWidth(stat_device[i].cpu_stat[cpu_max], 
+					j = getWidth(stat_device[i].cpu_stat[cpu_max],
 									stat_device[i].idle_stat[cpu_max]);
 					copyXPMArea(32, 70, j, 6, 28, 10);
 				} else {
 					int cpu;
 					for (cpu = 0; cpu < nb_cpu; cpu++) {
-						j = getWidth(stat_device[i].cpu_stat[cpu], 
+						j = getWidth(stat_device[i].cpu_stat[cpu],
 										stat_device[i].idle_stat[cpu]);
-						copyXPMArea(32, 65, j, 
-									  MAX_CPU / nb_cpu, 28, 
+						copyXPMArea(32, 65, j,
+									  MAX_CPU / nb_cpu, 28,
 									  5 + (MAX_CPU / nb_cpu) * cpu);
 					}
 				}
@@ -495,18 +495,18 @@ void wmmon_routine(int argc, char **argv)
 					sd->his[j-1] = sd->his[j];
 
 				if (i == stat_current) {
-					if (i == 0) 
+					if (i == 0)
 						DrawStats(sd->his, HISTORY_ENTRIES - 1, 40, 5, 58);
-					else if (i == 1) 
+					else if (i == 1)
 						DrawStats_io(sd->his, HISTORY_ENTRIES - 1, 40, 5, 58);
 				}
 				sd->his[HISTORY_ENTRIES-1] = 0;
 				sd->hisaddcnt = 0;
-				
+
 			}
 		}
 		RedrawWindowXY(xpm_X, xpm_Y);
-	
+
 		while (XPending(display)) {
 			XNextEvent(display, &Event);
 			switch (Event.type) {
@@ -784,23 +784,23 @@ void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, lo
 			perror("get_statistics() seek failed\n");
 
 		/* wbk 20120308 These are no longer in /proc/stat. /proc/diskstats
-		 * seems to be the closest replacement. Under modern BSD's, /proc is 
+		 * seems to be the closest replacement. Under modern BSD's, /proc is
 		 * now deprecated, so iostat() might be the answer.
 		 *	      http://www.gossamer-threads.com/lists/linux/kernel/314618
 		 * has good info on this being removed from kernel. Also see
 		 * kernel sources Documentation/iostats.txt
 		 *
-		 * TODO: We will end up with doubled values. We are adding the 
-		 * aggregate to the individual partition, due to device selection 
-		 * logic. Either grab devices' stats with numbers, or without (sda 
-		 * OR sda[1..10]. Could use strstr() return plus offset, but would 
-		 * have to be careful with bounds checking since we're in a 
-		 *  limited buffer. Or just divide by 2 (inefficient). Shouldn't 
+		 * TODO: We will end up with doubled values. We are adding the
+		 * aggregate to the individual partition, due to device selection
+		 * logic. Either grab devices' stats with numbers, or without (sda
+		 * OR sda[1..10]. Could use strstr() return plus offset, but would
+		 * have to be careful with bounds checking since we're in a
+		 *  limited buffer. Or just divide by 2 (inefficient). Shouldn't
 		 * matter for graphing (we care about proportions, not numbers).  */
 		while ((getline(&line, &line_size, fp_diskstats)) > 0) {
 			if (strstr(line, "sd") || strstr(line, "sr")) {
 				p = strtok(line, tokens);
-				/* skip 3 tokens, then use fields from 
+				/* skip 3 tokens, then use fields from
 				`* linux/Documentation/iostats.txt	     */
 				for (i = 1; i <= 6; i++)
 					p = strtok(NULL, tokens);
@@ -835,7 +835,7 @@ unsigned long getWidth(long actif, long idle)
 	if (actif > 0 && j < 2)
 		j = 2;
 
-	if (j > 32) 
+	if (j > 32)
 		j = 32;
 
 	r = (unsigned long) j;
@@ -951,8 +951,8 @@ void DrawStats_io(int *his, int num, int size, int x_left, int y_bottom)
 
 	/* wbk - this should not be static. No need to track the scale, since
 	 * we always calculate it on the fly anyway. This static variable did
-	 * not get re-initialized when we entered this function, so the scale 
-	 * would always grow and never shrink.       
+	 * not get re-initialized when we entered this function, so the scale
+	 * would always grow and never shrink.
 	 */
 	/*static int	global_io_scale = 1;*/
 	int	io_scale = 1;

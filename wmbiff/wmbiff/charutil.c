@@ -248,7 +248,7 @@ void StripComment(char *buf)
 {
 	char *p;
 
-	/* Strip comments at beginning of line, or after whitespace.  
+	/* Strip comments at beginning of line, or after whitespace.
 	   a kludgy way of avoiding problems with #'s in passwords. */
 	if (buf[0] == '#')
 		buf[0] = '\0';

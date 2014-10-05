@@ -3,7 +3,7 @@
 .\"
 .\" @configure_input@
 .\"
-.\" wmbiff.1 and wmbiffrc.5 are copyright 1999-2002 by 
+.\" wmbiff.1 and wmbiffrc.5 are copyright 1999-2002 by
 .\" Jordi Mallach <jordi@debian.org>
 .\"
 .\" This is free documentation, see the latest version of the GNU
@@ -85,11 +85,11 @@ See \fBhttp://gnutls.org/manual/gnutls.html#Priority-Strings\fR for more details
 \fBinterval\fP
 Global interval between mailbox checking. Value is the number of seconds, 5
 is the default.
-.TP 
+.TP
 \fBaskpass\fP
 Program run to ask for IMAP passwords, if left empty in the configuration file.
 The default is @DEFAULT_ASKPASS@.  Can be specified on a per-mailbox basis.
-.TP 
+.TP
 \fBskinfile\fP
 XPM pixmap file to load for the background.  If not a full
 path, wmbiff will search @SKINDIR@, /usr/share/wmbiff,
@@ -112,7 +112,7 @@ are supported:
 .TP
 .I mbox
 This is a local mbox mailbox. After the prefix, you only need to put the
-path to the mailbox wmbiff needs to read.  
+path to the mailbox wmbiff needs to read.
 Local mboxes may be specified using shell commands enclosed
 in back-ticks. (`s.)
 .\"This is also the default.
@@ -127,7 +127,7 @@ mbox:/path/to/mail/debian-devel
 .\" .RS
 .TP
 .I maildir
-This works just like \fImbox\fP above.  
+This works just like \fImbox\fP above.
 .RS
 maildir:[:\fIflags\fP:]/path/to/mail/bugtraq/
 .TP
@@ -135,8 +135,8 @@ maildir:[:\fIflags\fP:]/path/to/mail/bugtraq/
 .TP
 .I F
 Flush directory caches by creating (then deleting) a temporary file
-in each maildir prior to checking.  This hack speeds up checking 
-network-mounted maildirs in cases where directory caching can cause 
+in each maildir prior to checking.  This hack speeds up checking
+network-mounted maildirs in cases where directory caching can cause
 unwanted delays (eg. SFS-mounted maildirs).
 .RE
 .TP
@@ -144,18 +144,18 @@ unwanted delays (eg. SFS-mounted maildirs).
 Using this type, WMBiff will check for mail on a pop3 server using the
 specified username, password, host and an optional port number (defaulting
 to 110).  If your password contains a special character, eg. '@' or ':',
-use the second path format.  See Authentication below for a description of 
-the auth field. 
+use the second path format.  See Authentication below for a description of
+the auth field.
 .RS
 pop3:user:passwd@server[:port] [auth]
 .RE
 .RS
-pop3:user passwd server[ port] [auth] 
+pop3:user passwd server[ port] [auth]
 .RE
 .TP
 .I pop3s
 Exactly like pop3, only uses TLS (SSL) when built with gnutls and defaults
-to port 995. @GNUTLS_MAN_STATUS@ 
+to port 995. @GNUTLS_MAN_STATUS@
 .TP
 .I imap
 These are IMAP4 boxes. As with pop3, WMBiff will report the
@@ -164,11 +164,11 @@ accepts user, optional password, host and optional path to
 mailbox and port number.  See Authentication below for a
 description of the auth field.  The password may be left
 empty: see askpass above for information on password
-prompting.  If your password includes a @, use the 
+prompting.  If your password includes a @, use the
 space delimited form.  If it contains a space or #, use the
-askpass option instead.  The mailbox field may be quoted, 
-e.g., server/"Mail/Eggs and Spam".  Mailboxes in subfolders 
-may be described as /INBOX.subfolder by some servers and 
+askpass option instead.  The mailbox field may be quoted,
+e.g., server/"Mail/Eggs and Spam".  Mailboxes in subfolders
+may be described as /INBOX.subfolder by some servers and
 /Mail/subfolder by others.
 .RS
 imap:user:passwd@server[/mailbox][:port] [auth]
@@ -221,15 +221,15 @@ Command to be executed on new mail arrival in the given mailbox. Accepts
 the special keyword "beep" to use the pc speaker.
 .TP
 \fBaction.n\fP
-Command to be executed on left mouse click on a mailbox label.  
+Command to be executed on left mouse click on a mailbox label.
 Accepts
-the special keyword "msglst" to pop up a window of recent message headers 
+the special keyword "msglst" to pop up a window of recent message headers
 from IMAP or POP3 mailboxes when the left mouse button is held.
 .TP
 \fBbuttontwo.n\fP
 Command to be executed on middle mouse click on a mailbox level.
 Accepts
-the special keyword "msglst" to pop up a window of 
+the special keyword "msglst" to pop up a window of
 recent message headers from IMAP or POP3 mailboxes when the middle mouse button is held.
 .TP
 \fBinterval.n\fP
@@ -245,11 +245,11 @@ in seconds.
 Command to be executed to fetch mail. If not specified, fetching through
 wmbiff is disabled completely.
 Accepts
-the special keyword "msglst" to pop up a window of recent message headers 
+the special keyword "msglst" to pop up a window of recent message headers
 from IMAP and POP3 mailboxes when the right mouse button is held down,
 though not when fetchinterval is nonzero.
 .TP
-\fBdebug.n\fP 
+\fBdebug.n\fP
 Show debugging messages from this mailbox.  Currently
 supported values are "all" and "none".  The \-debug option
 to wmbiff overrides this setting.  Since IMAP uses a single

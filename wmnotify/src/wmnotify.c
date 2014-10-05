@@ -85,7 +85,7 @@ xmalloc( size_t size, const char *filename, int line_number )
   void *value;
 
   value = malloc( size );
-  
+
   if( value == NULL ) {
     perror( PACKAGE );
     ErrorLocation( filename, line_number );
@@ -150,7 +150,7 @@ ExecuteCommand( char *argv[] )
   }
 
   pid = fork(); /* fork a child process. */
-  
+
   if( pid < 0) {
     perror( PACKAGE );
     ErrorLocation( __FILE__, __LINE__ );
@@ -160,7 +160,7 @@ ExecuteCommand( char *argv[] )
     /* When execvp() is successful, it doesn't return; otherwise, it returns
        -1 and sets errno. */
     (void) execvp( argv[0], argv );
-    
+
     msg = strerror( errno );
     fprintf( stderr, "%s: The external mail program couldn't be started.\n",
 	     PACKAGE);
@@ -205,7 +205,7 @@ DoubleClick( void )
   if( wmnotify_infos.mail_client_argv[0] != NULL ) {
     /* Starting external mail client. */
     ExecuteCommand( wmnotify_infos.mail_client_argv );
-    
+
     double_click_notif = true;
 
     /* Sending a signal to awake the TimerThread() thread. This was previously
@@ -247,7 +247,7 @@ CatchChildTerminationSignal( int signal )
     /* Wait for Mail Client child process termination. Child enters zombie
        state: process is dead and most resources are released, but process
        descriptor remains until parent reaps exit status via wait. */
-    
+
     /* The WNOHANG option prevents the call to waitpid from suspending execution
        of the caller. */
     (void) waitpid( 0, NULL, WNOHANG );
@@ -324,7 +324,7 @@ CheckForNewMail( bool manual_check )
   if( ( manual_check == true ) && ( new_messages > 0 ) ) {
     animation_image = MAILBOX_FULL;
   }
-  
+
   return new_messages;
 }
 
@@ -339,7 +339,7 @@ TimerThread( /*@unused@*/ void *arg )
   /* For catching the signal SIGUSR1. This signal is sent by the main program thread when the
    * user is issuing a single-click to manually check for new mails. */
   (void) signal( SIGUSR1, CatchTimerSignal );
-  
+
   /* For catching the signal SIGUSR2. This signal is sent by the main program thread when the
    * user is issuing a double-click to start ther external  mail client. */
   (void) signal( SIGUSR2, CatchTimerSignal );
@@ -351,11 +351,11 @@ TimerThread( /*@unused@*/ void *arg )
     if( ( manual_check == true ) || ( counter == 0 ) ) {
       new_messages = CheckForNewMail( manual_check );
       manual_check = false;
-     
+
       if( wmnotify_infos.debug ) {
 	printf( "%s: new messages = %d.\n", PACKAGE, new_messages );
       }
- 
+
       if( new_messages > 0 ) {
 	/* Checking if audio notification was already produced. */
 	if( animation_running == false ) {
@@ -370,7 +370,7 @@ TimerThread( /*@unused@*/ void *arg )
 	      AudibleBeep();
 	    }
 	  }
-	  
+
 	  animation_running = true;
 	}
 	/* Number of times to execute timer loop before checking again for new mails when the
@@ -381,7 +381,7 @@ TimerThread( /*@unused@*/ void *arg )
 	counter = 30 * 1000000 / NEW_MAIL_ANIMATION_DURATION;
       }
     }
-    
+
     if( ( animation_stop == true ) || ( new_messages <= 0 ) ) {
       if( wmnotify_infos.debug ) {
 	if( animation_stop != false ) {
@@ -400,7 +400,7 @@ TimerThread( /*@unused@*/ void *arg )
      * 0. If sleep() returns because of premature arousal due to delivery of a signal, the
      * return value will be the "unslept" amount (the requested time minus the time actually
      * slept) in seconds. */
-    
+
     if( animation_running == false ) {
       (void) sleep( wmnotify_infos.mail_check_interval );
       counter = 0;
@@ -415,7 +415,7 @@ TimerThread( /*@unused@*/ void *arg )
       printf( "%s: counter = %d\n", PACKAGE, counter );
     }
   } /* end while */
-  
+
   if( wmnotify_infos.debug ) {
     printf( "%s: Error, TimerThread() exited abnormally\n", PACKAGE );
   }
@@ -432,7 +432,7 @@ int
 main( int argc, char *argv[] )
 {
   int status;
-  
+
   /* Initialization */
   ParseCommandLineOptions( argc, argv );
 
@@ -442,7 +442,7 @@ main( int argc, char *argv[] )
   /* For catching the termination signal SIGCHLD when the external mail client
      program is terminated, thus permitting removing zombi processes... */
   (void) signal( SIGCHLD, CatchChildTerminationSignal );
-  
+
   /* Initialize callback function pointers. */
   ProcessXlibEventsInit( SingleClick, DoubleClick );
 
@@ -463,6 +463,6 @@ main( int argc, char *argv[] )
 
   /* This code is never reached for now. */
   fprintf( stderr, "%s: Program exit\n", PACKAGE );
-  
+
   exit( EXIT_SUCCESS );
 }

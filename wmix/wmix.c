@@ -325,7 +325,7 @@ static void button_release_event(XButtonEvent *event)
 
     if (region == 1)
 	set_cursor(HAND_CURSOR);
-    
+
     button_pressed = false;
     slider_pressed = false;
 }
@@ -372,7 +372,7 @@ static void motion_event(XMotionEvent *event)
 			mouse_drag_home_x, mouse_drag_home_y);
 	return;
     }
-    
+
     if (region == 1)
 	set_cursor(HAND_CURSOR);
     else if (region == 2)

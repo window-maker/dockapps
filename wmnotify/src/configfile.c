@@ -54,7 +54,7 @@ CreateDefaultConfigurationFile( char *file )
 {
   int status;
   FILE *fp;
-  
+
   fp = fopen( file, "w" );
   if( fp == NULL ) {
     fprintf( stderr, "%s: Can't create file \"%s\"\n", PACKAGE, file );
@@ -103,7 +103,7 @@ CreateDefaultConfigurationFile( char *file )
   fprintf( stderr, "%s: A default configuration file has been created in your "
 	   "home directory: \"%s\"\n", PACKAGE, file );
   fprintf( stderr, "You must edit it before running %s.\n", PACKAGE );
-  
+
   status = fclose( fp );
   if( status != EXIT_SUCCESS ) {
     fprintf( stderr, "%s: Error closing file \"%s\"\n", PACKAGE, file );
@@ -133,7 +133,7 @@ ParseCommand( char *line, /*@out@*/ char *argv[] )
       exit( EXIT_FAILURE );
     }
   }
-  
+
   *argv = NULL; /* mark the end of argument list */
 }
 
@@ -152,13 +152,13 @@ GetArguments( char *parameter, bool single_argument )
        character '\n'. */
     token = strtok( NULL, delimiter_multiple_arg );
   }
-  
+
   if( token == NULL ) {
     fprintf( stderr, "%s: Missing argument for \"%s\" parameter in "
 	     "configuration file.\n", PACKAGE, parameter );
     exit( EXIT_FAILURE );
   }
-  
+
   return token;
 }
 
@@ -167,13 +167,13 @@ static int
 GetNumber( char *token, char *parameter )
 {
   char temp[32]; /* Check size ??? */
-  
+
   if( sscanf( token, "%[0123456789]", temp ) == 0 ) {
     fprintf( stderr, "%s: Invalid argument for \"%s\" parameter in "
 	     "configuration file.\n", PACKAGE, parameter );
     exit( EXIT_FAILURE );
   }
-  
+
   return atoi( temp );
 }
 
@@ -206,11 +206,11 @@ ParseConfigurationFile( FILE *file )
      the buffer. */
   while( fgets( line, LINE_BUFFER_LEN, file ) != NULL ) {
     token = strtok( line, delimiter_single_arg );
-    
+
     if( ( token == NULL ) || ( token[0] == '#' ) ) {
       continue; /* Next iteration of the while() loop (next line). */
     }
-    
+
     if( STREQ( token, "protocol" ) ) {
       token = GetArguments( "protocol", true );
       if( STREQ( token, "POP3" ) == true ) {
@@ -263,7 +263,7 @@ ParseConfigurationFile( FILE *file )
       token = GetArguments( "port", true );
       wmnotify_infos.port = (u_int16_t) GetNumber( token, "port" );
     }
-    
+
     else if( STREQ( token, "username" ) ) {
       token = GetArguments( "username", true );
       strncpy( wmnotify_infos.username, token, MAX_STR_LEN );
@@ -276,7 +276,7 @@ ParseConfigurationFile( FILE *file )
     }
     else if( STREQ( token, "mailcheckdelay" ) ) {
       int delay; /* delay in minutes. */
-      
+
       token = GetArguments( "mailcheckdelay", true );
       /* GetNumber() will exit if a negative number is entered. */
       delay = GetNumber( token, "mailcheckdelay" );
@@ -324,7 +324,7 @@ ParseConfigurationFile( FILE *file )
 	       token );
       exit( EXIT_FAILURE );
     }
-    
+
     token = strtok( NULL, delimiter_single_arg );
     if( ( token != NULL ) && ( token[0] != '#' ) ) {
       fprintf( stderr, "%s: Garbage at end of line in configuration file: %s\n", PACKAGE,
@@ -348,7 +348,7 @@ ParseConfigurationFile( FILE *file )
   else {
     return; /* success */
   }
-  
+
   /* Failure. */
   fprintf( stderr, "%s: Mandatory parameter \"%s\" missing from configuration "
 	   "file.\n", PACKAGE, err_string );
@@ -365,7 +365,7 @@ ConfigurationFileInit( void )
   FILE *fp;
   int status;
   size_t len;
-  
+
   /* Check if an optional configuration file was specified on the command
      line. */
   if( wmnotify_infos.optional_config_file != NULL ) {
@@ -381,12 +381,12 @@ ConfigurationFileInit( void )
     /* Using the default configuration file. */
     char *home_dir;
     char *default_config_file;
-    
+
     home_dir = getenv("HOME");
     if( home_dir == NULL ) {
       /* We're trying to expand ~/, but HOME isn't set. */
       struct passwd *pw = getpwuid( getuid() );
-      
+
       if( pw != NULL ) {
 	home_dir = pw->pw_dir;
       }
@@ -396,14 +396,14 @@ ConfigurationFileInit( void )
 	exit( EXIT_FAILURE );
       }
     }
-    
+
     /* We add 1 to the length for the terminating character '\0'. */
     len = strlen( home_dir ) + strlen( "/" ) + strlen( default_config_filename )
       + 1;
     default_config_file = xmalloc( len, __FILE__, __LINE__ );
-    
+
     sprintf( default_config_file, "%s/%s", home_dir, default_config_filename );
-  
+
     fp = fopen( default_config_file, "r" );
     if( fp == NULL ) {
       /* If we cannot open the default configuration file, it probably means
@@ -412,12 +412,12 @@ ConfigurationFileInit( void )
       free( default_config_file );
       exit( EXIT_FAILURE );
     }
-    
+
     free( default_config_file );
   }
 
   ParseConfigurationFile( fp );
-  
+
   status = fclose( fp );
   if( status != EXIT_SUCCESS ) {
     fprintf( stderr, "%s: Error closing configuration file.\n", PACKAGE );

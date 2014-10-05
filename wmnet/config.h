@@ -1,12 +1,12 @@
 #if defined (__FreeBSD__) || defined (__OpenBSD__)
 
-/* Our only FreeBSD driver, this goes straight into kernel memory 
+/* Our only FreeBSD driver, this goes straight into kernel memory
  * and reads the raw structures from right underneath the kernel using the
- * kvm library.  This made the code a require a little more thought, but 
- * the end result is a statistics driver thats faster than the linux ones 
+ * kvm library.  This made the code a require a little more thought, but
+ * the end result is a statistics driver thats faster than the linux ones
  * (with the possible exception of the LINUX_PPP driver).  However, none
  * of them really vary by any appreciable amount. You can monitor whole
- * interfaces only with this driver. 
+ * interfaces only with this driver.
  */
 # define USE_KVM
 
@@ -19,7 +19,7 @@
 /* this driver uses a socket ioctl() to get stats from a ppp type interface
  * Define this if you will be using wmnet mostly to watch your ppp stats.
  * The advantage to this driver is that you don't need to mess around with
- * IP accounting rules. 
+ * IP accounting rules.
  */
 #define USE_LINUX_PPP
 
@@ -28,7 +28,7 @@
 
 
 
-/* This driver uses the 2.0 kernel's IP accounting rules to gather data 
+/* This driver uses the 2.0 kernel's IP accounting rules to gather data
  * You set two rules up using the ipfwadm command and wmnet will watch
  * them.  You DO need a 2.0 kernel and IP accounting enabled in your kernel
  */

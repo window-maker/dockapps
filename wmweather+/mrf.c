@@ -49,7 +49,7 @@ static int parse_mrf(char *file);
 
 static void reset_mrf(void){
     int i;
-    
+
     for(i=0; i<MRF_MAX; i++) reset_forecast(&forecasts[i]);
 }
 
@@ -60,7 +60,7 @@ void init_mrf(void){
         { 's', STRING, &mrf_station },
         { 0, 0, 0 }
     };
-    
+
     strncpy(bigbuf, mrf_station, BIGBUF_LEN-14);
     bigbuf[BIGBUF_LEN-14]='\0';
     for(e=bigbuf; *e!='\0'; e++);
@@ -178,7 +178,7 @@ static int parse_mrf(char *file){
         forecasts[m].wday=i;
         forecasts[m].hour=-1;
     }
-    
+
     while(1){
         NEXT(s);
         if(len<=10) break;
@@ -310,7 +310,7 @@ static int parse_mrf(char *file){
         forecasts[m].temp=999;
         forecasts[m].dewpt=999;
     }
-    
+
     return 1;
 }
 #undef NEXT

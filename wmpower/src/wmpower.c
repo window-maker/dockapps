@@ -92,7 +92,7 @@ int main (int argc, char *argv[])
   struct timespec delay;     /* pause between interface updates */
   char Command[CMDLINELEN+3];
   int warned = 0;
-	
+
   delay.tv_sec  = 0;
   delay.tv_nsec = 500000000;
 

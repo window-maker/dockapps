@@ -171,8 +171,8 @@ int main(int argc, char *argv[])
 
 	mywmhints.initial_state = WithdrawnState;
 	mywmhints.icon_window = GDK_WINDOW_XWINDOW(box->window);
-	mywmhints.icon_x = 0; 
-	mywmhints.icon_y = 0; 
+	mywmhints.icon_x = 0;
+	mywmhints.icon_y = 0;
 	mywmhints.window_group = GDK_WINDOW_XWINDOW(window->window);
 	mywmhints.flags = StateHint | IconWindowHint | IconPositionHint | WindowGroupHint;
 
@@ -276,7 +276,7 @@ void create_note(Note *old_note, ColorScheme *scheme)
 	GtkTextBuffer *text_buffer;
 
 	Note *note;
-	
+
 	note = old_note ? old_note : malloc(sizeof(Note));
 
 	if(!old_note) {

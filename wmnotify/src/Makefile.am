@@ -12,4 +12,4 @@ DISTCLEANFILES = .deps/*.P
 MAINTAINERCLEANFILES = Makefile.in
 
 # we want these in the dist tarball
-EXTRA_DIST = 
+EXTRA_DIST =

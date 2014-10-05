@@ -1,8 +1,8 @@
 //
 //  Mixer.app
-// 
+//
 //  Copyright (c) 1998-2002 Per Liden
-// 
+//
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation; either version 2 of the License, or
@@ -15,7 +15,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program; if not, write to the Free Software
-//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, 
+//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307,
 //  USA.
 //
 
@@ -30,7 +30,7 @@
 
 using namespace std;
 
-Xpm::Xpm(Display* display, Window root, char** data) 
+Xpm::Xpm(Display* display, Window root, char** data)
 {
    int error;
 
@@ -67,7 +67,7 @@ Xpm::Xpm(Display* display, Window root, char** data)
    }
 }
 
-Xpm::~Xpm() 
+Xpm::~Xpm()
 {
    if (mImage) {
       XFreePixmap(mDisplay, mImage);
@@ -78,20 +78,20 @@ Xpm::~Xpm()
    }
 }
 
-void Xpm::setWindowPixmap(Window win) 
+void Xpm::setWindowPixmap(Window win)
 {
    XResizeWindow(mDisplay, win, mAttributes.width, mAttributes.height);
    XSetWindowBackgroundPixmap(mDisplay, win, mImage);
 }
 
-void Xpm::setWindowPixmapShaped(Window win) 
+void Xpm::setWindowPixmapShaped(Window win)
 {
    XResizeWindow(mDisplay, win, mAttributes.width, mAttributes.height);
    XSetWindowBackgroundPixmap(mDisplay, win, mImage);
    XShapeCombineMask(mDisplay, win, ShapeBounding, 0, 0, mMask, ShapeSet);
 }
 
-void Xpm::drawString(int x, int y, char* text) 
+void Xpm::drawString(int x, int y, char* text)
 {
    Font      font;
    GC        gc;

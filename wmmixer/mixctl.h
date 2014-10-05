@@ -47,7 +47,7 @@ struct _MixerDevice_{
   int mask;
   int muted;
 };
-  
+
 typedef struct _MixerDevice_ MixerDevice;
 
 //----------------------------------------------------------------------
@@ -69,7 +69,7 @@ class MixCtl
   MixerDevice* mixer_devices_;
 
   void doStatus();
-  
+
  public:
   MixCtl(char *dname) throw(MixerDeviceException);
   virtual ~MixCtl();

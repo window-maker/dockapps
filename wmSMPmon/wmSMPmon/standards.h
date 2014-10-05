@@ -1,16 +1,16 @@
-/*######################################################################  
-  #                                                                    #  
-  # This file contains the definitions of the functions that wmSMPmon  #  
-  # uses to determine CPU load, memory and swap information.           #  
-  # All functions should be implemented by any OS dependent module     #  
-  # that is added to wmSMPmon. See sysinfo-linux.c as an example.      #  
-  #                                                                    #  
-  # (c) 2004 Thomas Ribbrock <emgaron@gmx.net>                         #  
-  #                                                                    #  
+/*######################################################################
+  #                                                                    #
+  # This file contains the definitions of the functions that wmSMPmon  #
+  # uses to determine CPU load, memory and swap information.           #
+  # All functions should be implemented by any OS dependent module     #
+  # that is added to wmSMPmon. See sysinfo-linux.c as an example.      #
+  #                                                                    #
+  # (c) 2004 Thomas Ribbrock <emgaron@gmx.net>                         #
+  #                                                                    #
   # This file is placed under the conditions of the GNU Library        #
   # General Public License, version 2, or any later version.           #
   # See file COPYING for information on distribution conditions.       #
-  #                                                                    #  
+  #                                                                    #
   ######################################################################*/
 
 #ifndef WMSMP_STANDARDS_H

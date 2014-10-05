@@ -23,7 +23,7 @@ extern Bool wmwifi_learn;
 struct wifi {
     char 	ifname[255];
     char 	essid[IW_ESSID_MAX_SIZE + 1];
-    int 	ifnum; 
+    int 	ifnum;
     float 	link;
     int 	level;
     unsigned int 	noise;

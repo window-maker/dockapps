@@ -108,7 +108,7 @@ static void parse_crop(void){
 
 void init_radar(void){
     char *e;
-    
+
     radar=XCreatePixmap(display, wmgen.pixmap, 52, 40, d_depth);
     reset_radar(&radar);
 
@@ -128,11 +128,11 @@ void init_radar(void){
     radar_newfile=get_pid_filename(bigbuf);
 
     radar_update_time=radar_time==0;
-    
+
     parse_crop();
     parse_cross();
     do_radar_cross=0;
-    
+
     /* Delete stale files, if any */
     unlink(radar_file);
     unlink(radar_newfile);
@@ -214,7 +214,7 @@ static int parse_radar(char *file){
             return 0;
         }
     }
-    
+
     if(r->width>52 || r->height>40 || (r->width!=52 && r->height!=40)){
         w=r->width/52;
         h=r->height/40;
@@ -239,7 +239,7 @@ static int parse_radar(char *file){
             return 0;
         }
     }
-    
+
     if(!RConvertImage(rc, r, &radar)){
         RReleaseImage(r);
         warn("parse_radar convert: %s", RMessageForError(RErrorCode));

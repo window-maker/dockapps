@@ -5,8 +5,8 @@ Packaging.: Sebastian Ley(debian) <sebastian.ley@mmweg.rwth-aachen.de>
 
 for copyrights of conversions between calendar formats see:
 calendarfunc.h
-		
-  
+
+
 Description
 -----------
 wmCalendar is a Calendar with a monthly view

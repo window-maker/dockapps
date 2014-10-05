@@ -1,11 +1,11 @@
-/* Generic single linked list to keep various information 
+/* Generic single linked list to keep various information
    Copyright (C) 1993, 1994 Free Software Foundation, Inc.
 
 
 Author: Kresten Krab Thorup
 
 Many modifications by Alfredo K. Kojima
- 
+
 
 This file is part of GNU CC.
 
@@ -38,7 +38,7 @@ Boston, MA 02110-1301 USA.  */
 
 /* Return a cons cell produced from (head . tail) */
 
-INLINE LinkedList* 
+INLINE LinkedList*
 list_cons(void* head, LinkedList* tail)
 {
   LinkedList* cell;
@@ -63,7 +63,7 @@ list_length(LinkedList* list)
   return i;
 }
 
-/* Return the Nth element of LIST, where N count from zero.  If N 
+/* Return the Nth element of LIST, where N count from zero.  If N
    larger than the list length, NULL is returned  */
 
 INLINE void*
@@ -84,7 +84,7 @@ list_nth(int index, LinkedList* list)
 INLINE void
 list_remove_head(LinkedList** list)
 {
-  if (!*list) return;  
+  if (!*list) return;
   if ((*list)->tail)
     {
       LinkedList* tail = (*list)->tail; /* fetch next */
@@ -116,7 +116,7 @@ INLINE LinkedList *
 list_remove_elem(LinkedList* list, void* elem)
 {
     LinkedList *tmp;
-    
+
     if (list) {
 	if (list->head == elem) {
 	    tmp = list->tail;

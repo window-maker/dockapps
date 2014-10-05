@@ -50,7 +50,7 @@ static int parse_avn(char *file);
 
 static void reset_avn(void){
     int i;
-    
+
     for(i=0; i<AVN_MAX; i++) reset_forecast(&forecasts[i]);
 }
 
@@ -61,7 +61,7 @@ void init_avn(void){
         { 's', STRING, &avn_station },
         { 0, 0, 0 }
     };
-    
+
     strncpy(bigbuf, avn_station, BIGBUF_LEN-14);
     bigbuf[BIGBUF_LEN-14]='\0';
     for(e=bigbuf; *e!='\0'; e++);
@@ -363,7 +363,7 @@ static int parse_avn(char *file){
         forecasts[m].snow=forecasts[m].snow*forecasts[m].pcp_total/93;
         forecasts[m].frz=forecasts[m].frz*forecasts[m].pcp_total/93;
     }
-    
+
     return 1;
 }
 #undef NEXT

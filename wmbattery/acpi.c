@@ -1,4 +1,4 @@
-/* 
+/*
  * A not-yet-general-purpose ACPI library, by Joey Hess <joey@kitenet.net>
  */
 
@@ -134,7 +134,7 @@ inline char *scan_acpi_value (const char *buf, const char *key) {
 }
 
 /* Read an ACPI proc file, pull out the requested piece of information, and
- * return it (statically allocated string). Returns NULL on error, This is 
+ * return it (statically allocated string). Returns NULL on error, This is
  * the slow, dumb way, fine for initialization or if only one value is needed
  * from a file, slow if called many times. */
 char *get_acpi_value (const char *file, const char *key) {
@@ -173,7 +173,7 @@ int find_items (char *itemname, char infoarray[ACPI_MAXITEM][128],
 	int num_devices=0;
 	int i;
 	char **devices = malloc(ACPI_MAXITEM * sizeof(char *));
-	
+
 	char pathname[128];
 
 	sprintf(pathname, SYSFS_PATH);
@@ -185,7 +185,7 @@ int find_items (char *itemname, char infoarray[ACPI_MAXITEM][128],
 		char filename[128];
 		char buf[1024];
 
-		if (!strcmp(".", ent->d_name) || 
+		if (!strcmp(".", ent->d_name) ||
 		    !strcmp("..", ent->d_name))
 			continue;
 
@@ -270,10 +270,10 @@ int acpi_supported (void) {
 		return 0;
 	}
 	closedir(dir);
-	
+
 	/* If kernel is 2.6.21 or newer, version is in
 	   /sys/module/acpi/parameters/acpica_version */
-	
+
 	version = get_acpi_file("/sys/module/acpi/parameters/acpica_version");
 	if (version == NULL) {
 		return 0;
@@ -284,13 +284,13 @@ int acpi_supported (void) {
 				version, ACPI_VERSION);
 		return 0;
 	}
-	
+
 	find_batteries();
 	find_ac_adapters();
 #if ACPI_THERMAL
 	find_thermal();
 #endif
-	
+
 	return 1;
 }
 
@@ -299,7 +299,7 @@ int acpi_supported (void) {
  * apm_info struct. */
 int acpi_read (int battery, apm_info *info) {
 	char *buf, *state;
-	
+
 	if (acpi_batt_count == 0) {
 		info->battery_percentage = 0;
 		info->battery_time = 0;
@@ -309,10 +309,10 @@ int acpi_read (int battery, apm_info *info) {
 		info->ac_line_status = 1;
 		return 0;
 	}
-	
+
 	/* Internally it's zero indexed. */
 	battery--;
-	
+
 	buf = get_acpi_file(acpi_batt_info[battery]);
 	if (buf == NULL) {
 		fprintf(stderr, "unable to read %s\n", acpi_batt_info[battery]);
@@ -323,7 +323,7 @@ int acpi_read (int battery, apm_info *info) {
 	info->ac_line_status = 0;
 	info->battery_flags = 0;
 	info->using_minutes = 1;
-	
+
 	/* Work out if the battery is present, and what percentage of full
 	 * it is and how much time is left. */
 	if (strcmp(scan_acpi_value(buf, acpi_labels[label_present]), "1") == 0) {
@@ -340,7 +340,7 @@ int acpi_read (int battery, apm_info *info) {
 				info->battery_time = 0;
 			}
 			else {
-				/* a zero or unknown in the file; time 
+				/* a zero or unknown in the file; time
 				 * unknown so use a negative one to
 				 * indicate this */
 				info->battery_time = -1;
@@ -439,7 +439,7 @@ int acpi_read (int battery, apm_info *info) {
 			info->ac_line_status = on_ac_power();
 		}
 	}
-	
+
 	return 0;
 }
 #endif

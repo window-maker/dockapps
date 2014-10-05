@@ -53,7 +53,7 @@ int diff(char *file1, char *file2){
         len2=fread(s2, sizeof(char), len, fp2);
         if(len1!=len2 || memcmp(s1, s2, len1)){
             fclose(fp1); fclose(fp2); return 1;
-        } 
+        }
     }
     ret=(!feof(fp1) || !feof(fp2));
     fclose(fp1);

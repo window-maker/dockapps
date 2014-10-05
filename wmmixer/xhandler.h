@@ -95,7 +95,7 @@ class XHandler
   Pixmap pixmap_tile;
   Pixmap pixmap_disp;
   Pixmap pixmap_mask;
-  
+
   // Pixmaps - custom
   Pixmap pixmap_icon;
   Pixmap pixmap_nrec;
@@ -103,7 +103,7 @@ class XHandler
   // X-Windows basics - standard
   Atom _XA_GNUSTEP_WM_FUNC;
   Atom deleteWin;
-  
+
 
   unsigned long getColor(char*);
   unsigned long mixColor(char*, int, char*, int);
@@ -128,7 +128,7 @@ class XHandler
   void drawRight(unsigned);
   void drawBtns(int, bool);
   void drawMono(unsigned);
-  
+
   bool isLeftButton(int, int);
   bool isRightButton(int, int);
   bool isMuteButton(int, int);

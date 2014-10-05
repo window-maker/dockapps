@@ -16,7 +16,7 @@ and an optional sound (or beep) is produced.
 \fBwmnotify\fR now supports SSL encryption.
 
 The interface is kept very simple. To manually check for new messages,
-single-click on the mailbox image. To start your favorite email program, 
+single-click on the mailbox image. To start your favorite email program,
 double-click on the mailbox image.
 
 When you double-click on the mailbox image to start your email program,

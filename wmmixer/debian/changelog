@@ -110,7 +110,7 @@ wmmixer (1.5-7) unstable; urgency=low
 wmmixer (1.5-6.1) unstable; urgency=low
 
   * Porter NMU.
-  * Added support for GNU/kFreeBSD (Closes: #332992). 
+  * Added support for GNU/kFreeBSD (Closes: #332992).
 
  -- Aurelien Jarno <aurel32@debian.org>  Sun, 10 Dec 2006 21:45:54 +0100
 
@@ -201,7 +201,7 @@ wmmixer (1.1-3) unstable; urgency=low
 
 wmmixer (1.1-2) unstable; urgency=low
 
-  * Correct Makefile to use C++ compiler instead of C compiler 
+  * Correct Makefile to use C++ compiler instead of C compiler
     (Closes: #141696)
 
  -- Gordon Fraser <gordon@debian.org>  Mon,  8 Apr 2002 09:00:48 +0200

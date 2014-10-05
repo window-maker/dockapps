@@ -1,8 +1,8 @@
 //
 //  Temperature.app
-// 
+//
 //  Copyright (c) 2000-2002 Per Liden
-// 
+//
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation; either version 2 of the License, or
@@ -15,7 +15,7 @@
 //
 //  You should have received a copy of the GNU General Public License
 //  along with this program; if not, write to the Free Software
-//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307, 
+//  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02111-1307,
 //  USA.
 //
 
@@ -28,7 +28,7 @@
 #include "Temperature.h"
 #include "Xpm.h"
 
-Xpm::Xpm(Display* display, Window root, char** data) 
+Xpm::Xpm(Display* display, Window root, char** data)
 {
    int error;
 
@@ -65,7 +65,7 @@ Xpm::Xpm(Display* display, Window root, char** data)
    }
 }
 
-Xpm::~Xpm() 
+Xpm::~Xpm()
 {
    if (mImage) {
       XFreePixmap(mDisplay, mImage);
@@ -76,14 +76,14 @@ Xpm::~Xpm()
    }
 }
 
-void Xpm::setWindowPixmap(Window win) 
+void Xpm::setWindowPixmap(Window win)
 {
    XResizeWindow(mDisplay, win, mAttributes.width, mAttributes.height);
    XSetWindowBackgroundPixmap(mDisplay, win, mImage);
    XClearWindow(mDisplay, win);
 }
 
-void Xpm::setWindowPixmapShaped(Window win) 
+void Xpm::setWindowPixmapShaped(Window win)
 {
    XResizeWindow(mDisplay, win, mAttributes.width, mAttributes.height);
    XSetWindowBackgroundPixmap(mDisplay, win, mImage);
@@ -101,13 +101,13 @@ void Xpm::drawString(int pos, char* font, char* str)
       cerr << APPNAME << ": could not load font '" << font << "'" << endl;
       exit(0);
    }
-   
+
    gcv.foreground = WhitePixel(mDisplay, DefaultScreen(mDisplay));
    gc = XCreateGC(mDisplay, mImage, GCForeground, &gcv);
 
    int strLength = strlen(str);
    int strWidth = XTextWidth(fontStruct, str, strLength);
-   
+
    int x = (64 / 2) - (strWidth / 2);
    XSetFont(mDisplay, gc, fontStruct->fid);
    XDrawString(mDisplay, mImage, gc, x, pos, str, strLength);
@@ -132,7 +132,7 @@ void Xpm::drawComposedString(int pos, char* font1, char* str1, char* font2, char
       cerr << APPNAME << ": could not load font '" << font2 << "'" << endl;
       exit(0);
    }
-   
+
    gcv.foreground = WhitePixel(mDisplay, DefaultScreen(mDisplay));
    gc = XCreateGC(mDisplay, mImage, GCForeground, &gcv);
 
@@ -140,7 +140,7 @@ void Xpm::drawComposedString(int pos, char* font1, char* str1, char* font2, char
    int str1Width = XTextWidth(fontStruct1, str1, str1Length);
    int str2Length = strlen(str2);
    int str2Width = XTextWidth(fontStruct2, str2, str2Length);
-   
+
    int x = (64 / 2) - ((str1Width + str2Width) / 2);
    XSetFont(mDisplay, gc, fontStruct1->fid);
    XDrawString(mDisplay, mImage, gc, x, pos, str1, str1Length);

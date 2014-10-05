@@ -2,7 +2,7 @@
 #define WMGENERAL_H_INCLUDED
 
 /*
- *   Typedefs 
+ *   Typedefs
  */
 typedef struct {
 	Pixmap pixmap;

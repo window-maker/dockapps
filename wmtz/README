@@ -6,7 +6,7 @@ Note......:     Since I'm a very lazy programmer, I ripped
                 most of the code from the excellent WMiNET
 		program. See credits below...
 
-Credits...:     
+Credits...:
                 Patch for local date, local time, weekday and @, and
                 some code clean-ups:
 		  Felipe Gustavo de Almeida  <galmeida@linux.ime.usp.br>
@@ -23,20 +23,20 @@ Credits...:
 		  Mike Kershaw (dragorn@melchior.nerv-un.ml.org),
 		  Andy Roger (roger@roger.samond.ru) &
 		  Ulrik Kjems (uk@imm.dtu.dk)
-                      
+
 
 Description
 --------------------------------------------------------------
 wmtz is a Window Maker dock app derived from the WMiNET
 dock app. It displays the local time from different time zones
 defined in the configuration file. It can also display the
-current Julian Day Number as well as Swatch beats and  
-sidereal time at Greenwich and local sidereal time and 
+current Julian Day Number as well as Swatch beats and
+sidereal time at Greenwich and local sidereal time and
 local time, date and weekday.
 
-This app can be useful (?) for people who have to communicate 
-in realtime with people from different time zones. It allows 
-you to avoid making a fool of yourself by calling someone 
+This app can be useful (?) for people who have to communicate
+in realtime with people from different time zones. It allows
+you to avoid making a fool of yourself by calling someone
 when they are asleep...
 
 Files
@@ -46,11 +46,11 @@ INSTALL		Installation instructions.
 BUGS		Small evil things that live in your computer.
 CHANGES		Description of changes.
 COPYING		GNU General Public License Version 2.
-	
+
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please send a 
+If you discover any bugs in this software, please send a
 bugreport to jlin@algonet.se and describe the
 problem as detailed as you can. Or fix it yourself.
 

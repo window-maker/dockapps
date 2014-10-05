@@ -4,7 +4,7 @@ OSSAUDIO = -lossaudio
 OSSAUDIO =
 #endif
 
-DEPLIBS = $(DEPXLIB) 
+DEPLIBS = $(DEPXLIB)
 LOCAL_LIBRARIES = $(XPMLIB) $(XLIB) $(OSSAUDIO)
 CC = c++ -m32
 LD = c++ -m32 -nostdlib

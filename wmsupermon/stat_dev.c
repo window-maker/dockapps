@@ -110,7 +110,7 @@ void update_stat(stat_dev *st)
 
   f= (st->source[0] == '!') ?
       popen(st->source+1, "r") : fopen(st->source, "r");
-  
+
   if (!f) {
     stat_perror(st, "open");
     return;

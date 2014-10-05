@@ -1,7 +1,7 @@
 /* $Id: charutil.h,v 1.12 2004/04/20 04:55:55 bluehal Exp $ */
 /* Author: Mark Hurley  (debian4tux@telocity.com)
  *
- * Character / string manipulation utilities. 
+ * Character / string manipulation utilities.
  *
  */
 

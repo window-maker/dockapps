@@ -8,7 +8,7 @@ Universal Monitoring Dockapp.
 Can be used to monitor
 
  1. CPU usage
- 2. disk i/o 
+ 2. disk i/o
  3. memory
  4. swap
  5. filesystems - space utilization
@@ -130,7 +130,7 @@ Besides sources, config file defines windows and panes.
   Every window definiftion starts from [[name]], where "name" is the
   window title. Wmsupermon may open many windows, with different
   layouts and values to monitor.
-  
+
   Window definition consists of widgets, which are placed on panes.  A
   pane has four rows, and a widget can take up to all the four,
   depending on the type and options, see below. A pane is thus defined

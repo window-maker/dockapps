@@ -14,12 +14,12 @@ In WindowMaker simply drag and drop the wmCalendar App on the WindowMaker Dock o
 
 Afterstep.
 ---------
-Afterstep users put the following in their .steprc "Wharf wmCalendar - MaxSwallow 
+Afterstep users put the following in their .steprc "Wharf wmCalendar - MaxSwallow
 "wmCalendar" wmCalendar &". Dont use Afterstep so I have no idea if it works...
 
 Note: AfterStep's Wharf supposedly has a problem with pixmaps that are larger
 than 60x60 pixels. Please tell the AfterStep authors to fix this, this is not
-our fault, but a Wharf problem!  
+our fault, but a Wharf problem!
 
 Other window managers.
 ----------------------

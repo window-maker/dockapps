@@ -7,7 +7,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -232,7 +232,7 @@ main(int argc, char *argv[])
 		if (c == -1)
 		break;
 
-		switch(c) 
+		switch(c)
 			{
 				case 0:
 					/*
@@ -268,10 +268,10 @@ main(int argc, char *argv[])
 	}
 
 	/* creat windows */
-	createXBMfromXPM (wmtv_mask_bits, wmtv_master_xpm, 
+	createXBMfromXPM (wmtv_mask_bits, wmtv_master_xpm,
 					wmtv_mask_width, wmtv_mask_height);
 	openXwindow (argc, argv, wmtv_master_xpm, wmtv_mask_bits,
-					wmtv_mask_width, wmtv_mask_height); 
+					wmtv_mask_width, wmtv_mask_height);
 
 	AddMouseRegion (NTFB, 47, 48, 59, 59);		/* On/SetTune/Off Button */
 	AddMouseRegion (SCANLB, 23, 48, 35, 59);    /* Left Preset/Scan Button */
@@ -279,7 +279,7 @@ main(int argc, char *argv[])
 	AddMouseRegion (FULLSB, 5, 5, 59, 44);		/* Toggle FullScreen */
 
 	/* wmtv main loop */
-	while (1) 
+	while (1)
 	{
 		while (XPending(display))
 		{
@@ -306,7 +306,7 @@ main(int argc, char *argv[])
 					i = CheckMouseRegion (Event.xbutton.x, Event.xbutton.y);
 					switch (i) {
 						case NTFB:
-							ButtonDown(NTFB);	
+							ButtonDown(NTFB);
 							t_lc = Event.xbutton.time;
 							but_pressed = TRUE;
 							break;
@@ -314,7 +314,7 @@ main(int argc, char *argv[])
 							ButtonDown(SCANLB);
 							if (ntfb_status == SETUNE) {
 								switch (Event.xbutton.button) {
-									case 1: 
+									case 1:
 										timebutton = 1;
 										while (timebutton == 1)
 										if (isource == TELEVISION)
@@ -326,10 +326,10 @@ main(int argc, char *argv[])
 										break;
 								}
 							}
-							else 
+							else
 									ChanDown();
 							break;
-						case SCANRB: 
+						case SCANRB:
 							ButtonDown(SCANRB);
 							if (ntfb_status == SETUNE) {
 								switch (Event.xbutton.button) {
@@ -345,7 +345,7 @@ main(int argc, char *argv[])
 										break;
 								}
 							}
-							else 
+							else
 									ChanUp();
 							break;
 						case FULLSB:
@@ -374,7 +374,7 @@ main(int argc, char *argv[])
 				case ButtonRelease:
 					i = CheckMouseRegion (Event.xbutton.x, Event.xbutton.y);
 					switch (i) {
-						case NTFB: 
+						case NTFB:
 							ButtonUp(NTFB);
 								if (but_pressed) {
 									if (Event.xbutton.time - t_lc >= 900) {
@@ -390,7 +390,7 @@ main(int argc, char *argv[])
 								else if (ntfb_status == SETON) {
 										if (!btime) {
 										ntfb_status = SETUNE;
-										copyXPMArea(96, 79, 11, 7, 6, 50); 
+										copyXPMArea(96, 79, 11, 7, 6, 50);
 										RedrawWindowXYWH(6, 50, 11, 7);
 										}
 										else if (btime) {
@@ -404,7 +404,7 @@ main(int argc, char *argv[])
 										if (!btime) {
 											offset = (rfreq - ccrfreq);
 											// fprintf(stderr, "wmtv: finetune offset = %ld\n", offset);
-											WriteRCFile(cfile); 
+											WriteRCFile(cfile);
 											ntfb_status = SETON;
 											DrawPresetChan(cchannel);
 										}
@@ -569,13 +569,13 @@ main(int argc, char *argv[])
 					}
 				default:
 					break;
-			} 
+			}
 		XFlush(display);
-		}  
+		}
 	    usleep(50000L);
-	} 
+	}
 	return(0);
-} 
+}
 
 
 /* ButtonDown function */
@@ -669,7 +669,7 @@ TVOn(void)
 	vclip[1].height = 39;
 
 	vwin.clips  = vclip;
-	vwin.clipcount = 2; 
+	vwin.clipcount = 2;
 
 	vchn.channel = tvsource;
 	vaud.audio = tvsource;
@@ -691,9 +691,9 @@ TVOn(void)
 	if (!cnotune) {
 		if (ioctl(tfd, VIDIOCGTUNER, &vtun) < 0)
 			perror("ioctl VIDIOCGTUNER");
-		if (vtun.flags & VIDEO_TUNER_LOW) 
+		if (vtun.flags & VIDEO_TUNER_LOW)
 			st = 16000;
-		else 
+		else
 			st = 16;
 	}
 
@@ -743,7 +743,7 @@ TVOn(void)
 
 	if (ioctl(tfd, VIDIOCSWIN, &vwin) < 0)
 			perror("ioctl VIDIOCSWIN");
-	
+
 	if (ioctl(tfd, VIDIOCCAPTURE, &ccapt) < 0)
 			perror("ioctl VIDIOCCAPTURE");
 }
@@ -755,7 +755,7 @@ TVOff(void)
 {
 	ccapt = 0;
 
-	if (ioctl(tfd, VIDIOCCAPTURE, &ccapt) < 0) 
+	if (ioctl(tfd, VIDIOCCAPTURE, &ccapt) < 0)
 			perror("ioctl VIDIOCCAPTURE");
 
 	vaud.audio  = tvsource;
@@ -763,7 +763,7 @@ TVOff(void)
 	vaud.flags |= VIDEO_AUDIO_MUTE;
 
 	if (vchn.flags & VIDEO_VC_AUDIO) {
-		if (ioctl(tfd, VIDIOCSAUDIO, &vaud) < 0) 
+		if (ioctl(tfd, VIDIOCSAUDIO, &vaud) < 0)
 				perror("ioctl VIDIOCSAUDIO");
 	}
 
@@ -785,7 +785,7 @@ VolumeUp(void)
 				perror("ioctl VIDIOCSAUDIO");
 		}
 	}
-		
+
 }
 
 /* VoumeDown function */
@@ -833,7 +833,7 @@ UnMuteAudio(void)
 
 
 /* ScanUp function */
-void 
+void
 ScanUp(void)
 {
 	rfreq += 2;
@@ -849,7 +849,7 @@ ScanUp(void)
 	if (vtun.signal == 0xFFFF) {
 		timebutton = 0;
 	}
-	
+
 }
 
 
@@ -907,7 +907,7 @@ ChanUp(void)
 				rfreq = ((tvtuner[i].freq[freqnorm] / 1000) * st) + ftune[cchannel];
 				ccrfreq = rfreq - ftune[cchannel];
 		break;
-		}	
+		}
 	}
 
 	DrawPresetChan(cchannel);
@@ -917,12 +917,12 @@ ChanUp(void)
 
 
 /* ChanDown function */
-void 
+void
 ChanDown(void)
 {
 	int i;
-	if (cchannel != 0) 
-	--cchannel;			
+	if (cchannel != 0)
+	--cchannel;
 	for (i=0; i < CHAN_ENTRIES; i++) {
 		if (!strcmp(cname[cchannel], tvtuner[i].name)) {
 				rfreq = ((tvtuner[i].freq[freqnorm] / 1000) * st) + ftune[cchannel];
@@ -977,8 +977,8 @@ DrawPresetChan(int cchannel)
 
 
 /* ParseRCFile function */
-void 
-ParseRCFile(const char *filename, rckeys *keys) 
+void
+ParseRCFile(const char *filename, rckeys *keys)
 {
 	char	*p,*q;
 	char	temp[128];
@@ -1004,17 +1004,17 @@ ParseRCFile(const char *filename, rckeys *keys)
 					*keys[key].var = strdup(p);
 					key = -1;
 				} else key++;
-			} 
+			}
 		}
 		free(q);
-	} 
+	}
 	fclose(fp);
 }
 
 
 /* ParseRCFile2 function */
 void
-ParseRCFile2(const char *filename) 
+ParseRCFile2(const char *filename)
 {
 	int  menu = FALSE;
 	char temp[128];
@@ -1057,7 +1057,7 @@ ParseRCFile2(const char *filename)
 				}
 				wcname[i] = (char *)malloc(sizeof(cname[i])+sizeof(p));
 				wcname[i] = strdup(cname[i]);
-				sprintf(tp, " (%d) ", ftune[i]);	
+				sprintf(tp, " (%d) ", ftune[i]);
 				strcat(wcname[i], tp);
 				i++;
 				tpst = i;
@@ -1160,7 +1160,7 @@ InitConfig(void)
 	strcpy(temp, "/etc/wmtvrc");
 	ParseRCFile(temp, wmtv_keys);
 	ParseRCFile2(temp);
-	
+
 	strncpy(temp, (char *)getenv("HOME"), (sizeof(char)*128));
 	strcat(temp, "/.wmtvrc");
 	ParseRCFile(temp, wmtv_keys);
@@ -1202,7 +1202,7 @@ InitConfig(void)
 	}
 
 	if (!(vcap.type & VID_TYPE_SCALES)) {
-		fprintf(stderr, "%s: video device does not support scalling\n", progname); 
+		fprintf(stderr, "%s: video device does not support scalling\n", progname);
 		exit(1);
 	}
 	if (!(vcap.type & VID_TYPE_CLIPPING)) {
@@ -1229,7 +1229,7 @@ InitConfig(void)
 					cnotune = 0;
 				else
 					cnotune = 1;
-			
+
 				vsource = 1;
 				tvsource = vchn.channel;
 
@@ -1274,7 +1274,7 @@ InitConfig(void)
 				}
 		}
 	}
-		
+
 	for (i=0; i < vcap.audios; i++) {
 		vaud.audio = i;
 		if (ioctl(tfd, VIDIOCGAUDIO, &vaud) < 0) {
@@ -1313,7 +1313,7 @@ GetFrameBuffer(void)
 	if (XF86DGAQueryExtension(display, &evbr, &erbr)) {
 			XF86DGAQueryDirectVideo(display, XDefaultScreen(display), &flr);
 			if (flr & XF86DGADirectPresent) {
-					XF86DGAGetVideoLL(display, XDefaultScreen(display), 
+					XF86DGAGetVideoLL(display, XDefaultScreen(display),
 							(int *) &baseaddr, &bytesperline, &bankr, &memr);
 			}
 	}
@@ -1390,11 +1390,11 @@ DoFullScreen(void)
 	back_pix = WhitePixel(display, DefaultScreen(display));
 	fore_pix = BlackPixel(display, DefaultScreen(display));
 
-	fmwin = XCreateWindow(display, DefaultRootWindow(display), fmsizehints.x, 
-					fmsizehints.y, fmsizehints.width, fmsizehints.height, 
-					borderwidth, CopyFromParent, InputOutput, 
+	fmwin = XCreateWindow(display, DefaultRootWindow(display), fmsizehints.x,
+					fmsizehints.y, fmsizehints.width, fmsizehints.height,
+					borderwidth, CopyFromParent, InputOutput,
 					CopyFromParent, valuemask, &fmWinattr);
-	
+
 
 	XSetWMNormalHints(display, fmwin, &fmsizehints);
 
@@ -1405,9 +1405,9 @@ DoFullScreen(void)
 
 	fmGC = XCreateGC(display, DefaultRootWindow(display), gcm, &gcv);
 
-	XSelectInput(display, fmwin, ButtonPressMask | ExposureMask | 
-					ButtonReleaseMask | PointerMotionMask | 
-					StructureNotifyMask | VisibilityChangeMask | KeyPressMask ); 
+	XSelectInput(display, fmwin, ButtonPressMask | ExposureMask |
+					ButtonReleaseMask | PointerMotionMask |
+					StructureNotifyMask | VisibilityChangeMask | KeyPressMask );
 
 	fmxwmhints.flags = StateHint;
 	fmxwmhints.initial_state = NormalState;
@@ -1432,9 +1432,9 @@ DoFullScreen(void)
 	}
 
 	usleep(50000L);
-	if (!XTranslateCoordinates(display, fmwin, DefaultRootWindow(display), 
-					-fmwinattr.border_width, 
-					-fmwinattr.border_width, 
+	if (!XTranslateCoordinates(display, fmwin, DefaultRootWindow(display),
+					-fmwinattr.border_width,
+					-fmwinattr.border_width,
 					&rx, &ry, &junkwin)) {
 		fprintf(stderr, "wmtv: error translating coordinates for fmwin");
 	}
@@ -1448,7 +1448,7 @@ DoFullScreen(void)
 	if (ioctl(tfd, VIDIOCSWIN, &vswin) < 0) {
 		perror("ioctl VIDIOCSWIN");
 	}
-	
+
 	ccapt = 1;
 	if (ioctl(tfd, VIDIOCCAPTURE, &ccapt) < 0) {
 		perror("ioctl VIDIOCCAPTURE");
@@ -1460,7 +1460,7 @@ DoFullScreen(void)
 		XF86VidModeGetAllModeLines(display, XDefaultScreen(display), &tml, &modelines);
 
 		for (i=0; i < tml; i++) {
-			if ((modelines[i]->hdisplay == fswidth) && 
+			if ((modelines[i]->hdisplay == fswidth) &&
 						(modelines[i]->vdisplay == fsheight)) {
 				fullscreenmode = modelines[i];
 				mode_present = TRUE;
@@ -1475,9 +1475,9 @@ DoFullScreen(void)
 		XRaiseWindow(display, fmwin);
 		if (mode_present) {
 
-			XF86VidModeSwitchToMode(display, XDefaultScreen(display), fullscreenmode); 
+			XF86VidModeSwitchToMode(display, XDefaultScreen(display), fullscreenmode);
 			XF86VidModeSetViewPort(display, XDefaultScreen(display), vswin.x, vswin.y);
-			XGrabPointer(display, fmwin, True, 0, GrabModeAsync, GrabModeAsync, 
+			XGrabPointer(display, fmwin, True, 0, GrabModeAsync, GrabModeAsync,
 						fmwin, None, CurrentTime);
 		}
 	}
@@ -1498,7 +1498,7 @@ RetScreen()
 
 	if (mode_present) {
 		for (i = 0; i < tml; i++) {
-			if ((modelines[i]->hdisplay == Winattr.width) && 
+			if ((modelines[i]->hdisplay == Winattr.width) &&
 							(modelines[i]->vdisplay==Winattr.height))
 				scm = modelines[i];
 		}
@@ -1517,7 +1517,7 @@ RetScreen()
 		scm->privsize = scmode.privsize;
 		scm->private = scmode.private;
 		*/
-	
+
 		XClearWindow(display, fmwin);
 		XFreeGC(display, fmGC);
 		XMapRaised(display, fmwin);

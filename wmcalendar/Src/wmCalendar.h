@@ -1,14 +1,14 @@
 /*
  *
  *  	wmCalendar (c)2003 Matthias Laabs mattlaabs@users.sourceforge.net
- * 
+ *
  *  		A Dockapp Calendar
- * 
+ *
  *
  *
  *      This code is based on:
  *      wmCalClock-1.25 (C) 1998, 1999 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *
  *
  * 	This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *      Boston, MA 02110-1301 USA
  *
  *

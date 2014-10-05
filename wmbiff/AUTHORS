@@ -1,23 +1,23 @@
                                   Copyrights
 
    This program was written by Gennady Belyakov [8]gb@ccat.elect.ru
-   
+
    Exterior appearance was heavily derived from wminet, written by
    Dave Clark (clarkd@skynet.ca),
    Antoine Nulle (warp@xs4all.nl),
    Martijn Pieterse (pieterse@xs4all.nl)
-   
+
    Some code (around mailbox checking, with some modifications) was taken
    from xled, written by
    Jan Schoenepauck (schoenep@uni-wuppertal.de) and
    Joachim Gassen (joachim@fb4-1112.uni-muenster.de)
-   
+
    POP3 checking code was taken from wmpop3 by
    Scott Holden (scotth@thezone.net)
 
    Additional code was taken from xlassie, written by
    Trent Piepho <xyzzy@speakeasy.net>
-   
+
    Many thanks for:
    Angus Mackay (amackay@gusnet.cx)
    Jordi Mallach Pérez (jordi@sindominio.net)

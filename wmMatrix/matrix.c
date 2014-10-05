@@ -5,7 +5,7 @@
  * the above copyright notice appear in all copies and that both that
  * copyright notice and this permission notice appear in supporting
  * documentation.  No representations are made about the suitability of this
- * software for any purpose.  It is provided "as is" without express or 
+ * software for any purpose.  It is provided "as is" without express or
  * implied warranty.
  *
  * Matrix -- simulate the text scrolls from the movie "The Matrix".
@@ -169,8 +169,8 @@ static void feed_matrix(m_state * state)
 
 	int x;
 
-	/* 
-	 *  Update according to current feeders. 
+	/*
+	 *  Update according to current feeders.
 	 */
 	for (x = 0; x < state->grid_width; x++) {
 

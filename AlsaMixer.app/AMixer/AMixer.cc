@@ -115,7 +115,7 @@ bool AMixer::itemOK(unsigned int itemNumber) {
 int AMixer::itemGetVolume(unsigned int itemNumber) {
   if (itemNumber >= MIXER_ITEMS || !mixerItems[itemNumber])
     return (-1);
-  
+
   return ((int) mixerItems[itemNumber]->getVolumePerc());
 }
 
@@ -129,7 +129,7 @@ void AMixer::itemSetVolume(unsigned int itemNumber, unsigned int volume) {
 int AMixer::itemIsMuted(unsigned int itemNumber) {
   if (itemNumber >= MIXER_ITEMS || !mixerItems[itemNumber])
     return (-1);
-  
+
   return ((bool) mixerItems[itemNumber]->isMuted());
 }
 
@@ -193,7 +193,7 @@ int itemCallback(snd_mixer_elem_t *elem, unsigned int mask) {
 char* AMixer::convertIDToCard(const char* cardId) {
   static char card[32] = "";
   int i = snd_card_get_index(cardId);
-  
+
   if (i >= 0 && i < 32)
     std::snprintf(card, 32, "hw:%i", i);
   else

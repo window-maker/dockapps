@@ -51,7 +51,7 @@ int connect_hal (void) {
 
 	return 1;
 }
-	
+
 int hal_ready (void) {
 	if (hal_ctx && dbus_connection_get_is_connected(dbus_ctx)) {
 		return 1;
@@ -83,7 +83,7 @@ signed int get_hal_int (const char *udi, const char *key, int optional) {
 	dbus_error_init(&error);
 
 	ret = libhal_device_get_property_int (hal_ctx, udi, key, &error);
-	
+
 	if (! dbus_error_is_set (&error)) {
 		return ret;
 	}
@@ -100,15 +100,15 @@ signed int get_hal_int (const char *udi, const char *key, int optional) {
 signed int get_hal_bool (const char *udi, const char *key, int optional) {
 	int ret;
 	DBusError error;
-	
+
 	if (! hal_ready()) {
 		return -1;
 	}
-	
+
 	dbus_error_init(&error);
 
 	ret = libhal_device_get_property_bool (hal_ctx, udi, key, &error);
-	
+
 	if (! dbus_error_is_set (&error)) {
 		return ret;
 	}
@@ -190,7 +190,7 @@ int simplehal_read (int battery, apm_info *info) {
 		info->battery_status = BATTERY_STATUS_ABSENT;
 		return 0;
 	}
-	
+
 	/* remaining_time and charge_level.percentage are not a mandatory
 	 * keys, so if not present, -1 will be returned */
 	info->battery_time = get_hal_int(device, "battery.remaining_time", 1);

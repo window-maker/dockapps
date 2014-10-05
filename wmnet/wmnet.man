@@ -67,14 +67,14 @@ of his dorms ethernet based connection to the internet.
 
 .TP
 .B \-l,--logscale
-sets logarithmic scale, which is good for fast connections.  This will 
+sets logarithmic scale, which is good for fast connections.  This will
 allow, for example, the graph still being informative at extremely low
 speeds (telnet), and extremely fast speeds (local FTP) simultaneously
 without the scale constantly being blank or solid at those respective
 extremes.
 .TP
 .B -L,--label=\fILABEL
-prints a given text label on the bottom of the window  
+prints a given text label on the bottom of the window
 .TP
 .B -F,--labelfg=\fICOLOR
 specifies the color for the text of the label
@@ -82,7 +82,7 @@ specifies the color for the text of the label
 .B -B,--labelbg=\fICOLOR
 specifies the color for the background of the label text
 .TP
-.B --withdrawn 
+.B --withdrawn
 .TP
 .B --normalstate
 sets the initial state of wmnet.  WMnet tries to automatically determine which
@@ -99,7 +99,7 @@ executes \fICOMMAND \fPon a single click from button 1 (left mouse button).
 put \fIDEVICE \fPin promiscuous mode to start applying accounting rules to all
 network packets on your network segment.  You either need to be root or
 have the wmnet binary suid root to use this feature.  This option may be
-given more than once on the command line to specify more than one device.  
+given more than once on the command line to specify more than one device.
 .TP
 .B \-d \fIDELAY
 delay time for polling /proc/net/ip_account (in
@@ -107,12 +107,12 @@ microseconds). Defaults to 25000, that is 0.025 seconds, or 40 Hz
 .TP
 .B -D,--driver=\fIDRIVER
 use \fIDRIVER \fP to get the stats we monitor.  Compiled in drivers can be listed
-with the -h switch.  
+with the -h switch.
 .TP
 .B -W,--device=\fIDEVICE
 watch statistics for \fIDEVICE \fP.  This option is only used for certain
 stat drivers, namely: kmem, devstats, and pppstats.  The ipchains and ipfwadm
-stat drivers do not use this parameter. 
+stat drivers do not use this parameter.
 .SH STAT DRIVERS
 wmnet uses different stat drivers to get the stats it needs to monitor your
 network.  Exactly what drivers are available is determined at compile time.  The
@@ -122,7 +122,7 @@ by the --driver option.  The available drivers are \fIpppstats, devstats, ipfwad
 ipchains\fP and \fIkmem\fP.
 .TP
 .B pppstats
-this driver works on Linux 2.0 or Linux 2.1 for ONLY ppp type devices.  
+this driver works on Linux 2.0 or Linux 2.1 for ONLY ppp type devices.
 Specify the \fI--device\fP option for the interface to monitor.  By default it
 uses interface ppp0.  Please note, that if the ppp device is not available or active, wmnet
 will continue to try in the hopes that it is only temporarily offline.
@@ -140,7 +140,7 @@ the first two rules it finds.
 .B ipchains
 this driver will only work in Linux 2.1 kernels with IP chains compiled in.  You'll want to also
 specify the \fI--txrule\fP and \fI--rxrule\fP options and specify the chain names.  By default it
-uses the chains "acctin" and "acctout" 
+uses the chains "acctin" and "acctout"
 There must be at least one rule on the named ipchain, if there is more
 than one rule in the specified chain, it uses the first.  The chain
 must not immediately return to the parent chain, it has to pass through a rule first.

@@ -2,7 +2,7 @@
 /* config.h.in --- xscreensaver, Copyright (c) 1998 Jamie Zawinski.
  *
  *  The best way to set these parameters is by running the included `configure'
- *  script.  That examines your system, and generates `config.h' from 
+ *  script.  That examines your system, and generates `config.h' from
  *  `config.h.in'.
  *
  *  If something goes very wrong, you can edit `config.h' directly, but beware
@@ -29,13 +29,13 @@
 /* #undef HAVE_XHPDISABLERESET */
 
 /*  First, some background: there are three distinct server extensions which
- *  are useful to a screen saver program: they are XIDLE, MIT-SCREEN-SAVER, 
+ *  are useful to a screen saver program: they are XIDLE, MIT-SCREEN-SAVER,
  *  and SCREEN_SAVER.
  *
  *  The XIDLE extension resides in .../contrib/extensions/xidle/ on the X11R5
- *  contrib tape.  This extension lets the client get accurate idle-time 
+ *  contrib tape.  This extension lets the client get accurate idle-time
  *  information from the X server in a potentially more reliable way than by
- *  simply watching for keyboard and mouse activity.  However, the XIDLE 
+ *  simply watching for keyboard and mouse activity.  However, the XIDLE
  *  extension has apparently not been ported to X11R6.
  *
  *  The SCREEN_SAVER extension is found (as far as I know) only in the SGI
@@ -68,7 +68,7 @@
 /*  Define this if you have the XIDLE extension installed. If you have the
  *  XIDLE extension, this is recommended.  (You have this extension if the
  *  file /usr/include/X11/extensions/xidle.h exists.)  Turning on this flag
- *  lets XScreenSaver work better with servers which support this extension; 
+ *  lets XScreenSaver work better with servers which support this extension;
  *  but it will still work with servers which do not suport it, so it's a good
  *  idea to compile in support for it if you can.
  */
@@ -147,7 +147,7 @@
  */
 #define HAVE_GL 1
 
-/*  Define this if you have OpenGL, but it's the MesaGL variant.  (The 
+/*  Define this if you have OpenGL, but it's the MesaGL variant.  (The
     libraries have different names.)  (HAVE_GL should be defined too.)
  */
 /* #undef HAVE_MESA_GL */
@@ -190,13 +190,13 @@
 /* #undef NO_LOCKING */
 
 /*  Define this if you want to use Kerberos authentication to lock/unlock the
- *  screen instead of your local password.  This currently uses Kerberos V4, 
+ *  screen instead of your local password.  This currently uses Kerberos V4,
  *  but a V5 server with V4 compatibility will work.  WARNING: DO NOT USE AFS
- *  string-to-key passwords with this option. This option currently *only* 
+ *  string-to-key passwords with this option. This option currently *only*
  *  works with standard Kerberos des_string_to_key.  If your password is an
- *  AFS password and not a kerberos password, it will not authenticate 
+ *  AFS password and not a kerberos password, it will not authenticate
  *  properly. See the comments in driver/kpasswd.c for more information if you
- *  need it. 
+ *  need it.
  */
 /* #undef HAVE_KERBEROS */
 
@@ -226,8 +226,8 @@
 #define HAVE_SHADOW_PASSWD 1
 
 /*  Define this if your system is Digital or SCO Unix with so-called ``Enhanced
-    Security'', that is, the passwords live in /tcb/files/auth/<x>/<xyz> 
-    instead of in /etc/passwd, and one reads them with getprpwnam() instead 
+    Security'', that is, the passwords live in /tcb/files/auth/<x>/<xyz>
+    instead of in /etc/passwd, and one reads them with getprpwnam() instead
     of getpwnam().
  */
 /* #undef HAVE_ENHANCED_PASSWD */
@@ -238,7 +238,7 @@
  */
 /* #undef HAVE_ADJUNCT_PASSWD */
 
-/*  Define this if you are running HPUX with so-called ``Secure Passwords'' 
+/*  Define this if you are running HPUX with so-called ``Secure Passwords''
     (if you have /usr/include/hpsecurity.h, you probably have this.)  I
     haven't tested this one, let me know if it works.
  */

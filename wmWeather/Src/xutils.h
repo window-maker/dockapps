@@ -4,7 +4,7 @@
 
 
 /*
- *   Typedefs 
+ *   Typedefs
  */
 typedef struct {
 	Pixmap		pixmap;
@@ -21,7 +21,7 @@ typedef struct {
 Display		*display;
 Window          Root;
 Window          iconwin, win;
-int             screen; 
+int             screen;
 int             DisplayDepth;
 
 

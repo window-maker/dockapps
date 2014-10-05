@@ -59,7 +59,7 @@ signed int critical_pct = -1;
 
 void error(const char *fmt, ...) {
 	va_list arglist;
-  
+
 	va_start(arglist, fmt);
 	fprintf(stderr, "Error: ");
 	vfprintf(stderr, fmt, arglist);
@@ -213,7 +213,7 @@ char *parse_commandline(int argc, char *argv[]) {
 	char *ret=NULL;
         char *s;
 	extern char *optarg;
-	
+
   	while (c != -1) {
   		c=getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:");
 		switch (c) {
@@ -323,17 +323,17 @@ void make_window(char *display_name, int argc, char *argv[]) {
 	classhint.res_name = wname;
 	classhint.res_class = wname;
 	XSetClassHint(display, win, &classhint);
-  
+
 	if (! XStringListToTextProperty(&wname, 1, &name))
 		error("Can't allocate window name.");
 
 	XSetWMName(display, win, &name);
-  
+
 	/* Create GC for drawing */
 	gcv.foreground = fore_pix;
 	gcv.background = back_pix;
 	gcv.graphics_exposures = 0;
-	NormalGC = XCreateGC(display, root, 
+	NormalGC = XCreateGC(display, root,
 			     GCForeground | GCBackground | GCGraphicsExposures,
 			     &gcv);
 
@@ -343,15 +343,15 @@ void make_window(char *display_name, int argc, char *argv[]) {
 			  pixmask, ShapeSet);
 	XShapeCombineMask(display, iconwin, ShapeBounding, 0, 0,
 			  pixmask, ShapeSet);
-	
+
 	wmhints.initial_state = initial_state;
 	wmhints.icon_window = iconwin;
 	wmhints.icon_x = sizehints.x;
 	wmhints.icon_y = sizehints.y;
 	wmhints.window_group = win;
-	wmhints.flags = StateHint | IconWindowHint | 
+	wmhints.flags = StateHint | IconWindowHint |
     			IconPositionHint | WindowGroupHint;
-  
+
 	XSetWMHints(display, win, &wmhints);
 	XSetCommand(display, win, argv, argc);
 
@@ -363,7 +363,7 @@ void make_window(char *display_name, int argc, char *argv[]) {
 
 void flush_expose(Window w) {
 	XEvent dummy;
-  
+
 	while (XCheckTypedWindowEvent(display, w, Expose, &dummy));
 }
 
@@ -371,7 +371,7 @@ void redraw_window() {
 	XCopyArea(display, images[FACE], iconwin, NormalGC, 0, 0,
 		  image_info[FACE].width, image_info[FACE].height, 0,0);
 	flush_expose(iconwin);
-	XCopyArea(display, images[FACE], win, NormalGC, 0, 0, 
+	XCopyArea(display, images[FACE], win, NormalGC, 0, 0,
 		  image_info[FACE].width, image_info[FACE].height, 0,0);
 	flush_expose(win);
 }
@@ -388,8 +388,8 @@ void copy_image(int image, int xoffset, int yoffset,
 
 /*
  * Display a letter in one of two fonts, at the specified x position.
- * Note that 10 is passed for special characters `:' or `1' at the 
- * end of the font. 
+ * Note that 10 is passed for special characters `:' or `1' at the
+ * end of the font.
  */
 void draw_letter(int letter, int font, int x) {
 	copy_image(font, image_info[font].charwidth * letter, 0,
@@ -399,7 +399,7 @@ void draw_letter(int letter, int font, int x) {
 
 /* Display an image at its normal location. */
 void draw_image(int image) {
-  	copy_image(image, 0, 0, 
+  	copy_image(image, 0, 0,
 		   image_info[image].width, image_info[image].height,
 		   image_info[image].x, image_info[image].y);
 }
@@ -407,7 +407,7 @@ void draw_image(int image) {
 void recalc_window(apm_info cur_info) {
 	int time_left, hour_left, min_left, digit, x;
 	static int blinked = 0;
-	
+
 	/* Display if it's plugged in. */
       	switch (cur_info.ac_line_status) {
 	  case AC_LINE_STATUS_ON:
@@ -416,7 +416,7 @@ void recalc_window(apm_info cur_info) {
        	  default:
 		draw_image(UNPLUGGED);
 	}
-	
+
       	/* Display the appropriate color battery. */
       	switch (cur_info.battery_status) {
 	  case BATTERY_STATUS_HIGH:
@@ -447,7 +447,7 @@ void recalc_window(apm_info cur_info) {
 
      	/*
        	 * Display the percent left dial. This has the side effect of
-         * clearing the time left field. 
+         * clearing the time left field.
          */
   	x=DIAL_MULTIPLIER * cur_info.battery_percentage;
       	if (x >= 0) {
@@ -463,7 +463,7 @@ void recalc_window(apm_info cur_info) {
 		   image_info[DIAL_DIM].height,
 		   image_info[DIAL_DIM].x + x,
 		   image_info[DIAL_DIM].y);
-  
+
 	/* Show percent remaining */
       	if (cur_info.battery_percentage >= 0) {
         	digit = cur_info.battery_percentage / 10;
@@ -494,7 +494,7 @@ void recalc_window(apm_info cur_info) {
         if (cur_info.using_minutes)
         	time_left = cur_info.battery_time;
         else
-        	time_left = cur_info.battery_time / 60; 
+        	time_left = cur_info.battery_time / 60;
         hour_left = time_left / 60;
         min_left = time_left % 60;
         digit = hour_left / 10;
@@ -505,7 +505,7 @@ void recalc_window(apm_info cur_info) {
         draw_letter(digit,BIGFONT,MINUTES_TENS_OFFSET);
         digit = min_left % 10;
         draw_letter(digit,BIGFONT,MINUTES_ONES_OFFSET);
-      	
+
 	redraw_window();
 }
 
@@ -562,9 +562,9 @@ void alarmhandler(int sig) {
 	 * cannot determine time. */
 	if (always_estimate_remaining || cur_info.battery_time < 0)
 		estimate_timeleft(&cur_info);
-	
+
 	/* Override the battery status? */
-	if ((low_pct > -1 || critical_pct > -1) && 
+	if ((low_pct > -1 || critical_pct > -1) &&
 	    cur_info.ac_line_status != AC_LINE_STATUS_ON) {
 		if (cur_info.battery_percentage <= critical_pct)
 			cur_info.battery_status = BATTERY_STATUS_CRITICAL;
@@ -573,7 +573,7 @@ void alarmhandler(int sig) {
 		else
 			cur_info.battery_status = BATTERY_STATUS_HIGH;
 	}
-	
+
 	/* If APM data changes redraw and wait for next update */
 	/* Always redraw if the status is critical, to make it blink. */
 	if (!apm_change(&cur_info) || cur_info.battery_status == BATTERY_STATUS_CRITICAL)
@@ -638,7 +638,7 @@ int main(int argc, char *argv[]) {
 	else {
 		error("No APM, ACPI, UPOWER, HAL or SPIC support detected.");
 	}
-		
+
 	load_images();
         load_audio();
 

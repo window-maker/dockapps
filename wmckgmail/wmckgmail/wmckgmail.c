@@ -43,12 +43,12 @@ void trace(char *sMsg);
 int  getNewMailsCount(char *sAtomFilePath);
 void getAtomFile(void);
 void initialize(void);
- 
+
 /* -------------------- */
 /* Global variables     */
 /* -------------------- */
 char wmckgmail_mask_bits[64*64]; /* matrix for the XPM */
-int  wmckgmail_mask_width = 64;  
+int  wmckgmail_mask_width = 64;
 int  wmckgmail_mask_height = 64;
 char sWorkDir[1024];   /* to store the directory where wmckgmail works */
 char sHomeDir[1024];   /* to store the home directory of the user */
@@ -79,7 +79,7 @@ int main(int argc, char **argv){
 
   createXBMfromXPM(wmckgmail_mask_bits, wmckgmail, wmckgmail_mask_width, wmckgmail_mask_height);
   openXwindow(argc, argv, wmckgmail, wmckgmail_mask_bits, wmckgmail_mask_width, wmckgmail_mask_height);
-  
+
   /* Define the mouse regions */
   AddMouseRegion(BIG_M_, 16, 9, 46, 31);
 
@@ -96,7 +96,7 @@ int main(int argc, char **argv){
 
   while(1){
     RedrawWindow();
-    
+
     /* Update every iPollInterval seconds */
     if((time(NULL) - lastPoll) >= (time_t) iPollInterval){
       getAtomFile();
@@ -114,7 +114,7 @@ int main(int argc, char **argv){
 
         case DestroyNotify:
           XCloseDisplay(display);
-          exit(0); 
+          exit(0);
 
         case ButtonPress:
           i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
@@ -125,7 +125,7 @@ int main(int argc, char **argv){
         case ButtonRelease:
           i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
           if(but_stat == i && but_stat >= 0){
- 
+
             sprintf(sMsg, "button released! region index is: %i\n", i); trace(sMsg);
 
             switch(but_stat){
@@ -142,7 +142,7 @@ int main(int argc, char **argv){
                       system(sBrowserCmd2);
                     }
                   } else {
-                    trace("Command succed (returned 0)\n"); 
+                    trace("Command succed (returned 0)\n");
                   }
                 } else {
                   trace("No browsercmd1 nor browsercmd2 defined, nothing to do.\n");
@@ -236,7 +236,7 @@ void writeChar(char cTheChar, int iWhichWindow, int iPos){
   if(iLetterIdx < 0 || iLetterIdx > 25){
     return;
   }
-  
+
   /* Let's write this letter at the right place! */
   copyXPMArea((iSrcX + (iLetterIdx * iWidth)), iSrcY, iWidth, iHeight, (iDestX + (iPos * iWidth)), iDestY);
 }
@@ -292,7 +292,7 @@ void writeNum(char cTheNum, int iWhichWindow, int iPos){
   if(iNumberIdx < 0 || iNumberIdx > 9){
     return;
   }
-  
+
   /* Let's write this letter at the right place! */
   copyXPMArea((iSrcX + (iNumberIdx * iWidth)), iSrcY, iWidth, iHeight, (iDestX + (iPos * iWidth)), iDestY);
 }
@@ -361,7 +361,7 @@ int getNewMailsCount(char *sAtomFilePath){
     strncpy(sNewMails, sAtomBufferPtr1 + 11, iLength);
     sNewMails[iLength] = '\0';
     sprintf(sMsg, "New mails count : %s\n", sNewMails); trace(sMsg);
-    
+
     /* for the return value... not really used but who knows the future... :P */
     iNewMails = atoi(sNewMails);
 
@@ -417,7 +417,7 @@ void getAtomFile(void){
     iRcFileExists = 1;
     trace("The .wgetrc file exists, move it temporarily\n");
     sprintf(sBuff, "%s/.wgetrc", sWorkDir);
-    rename(sWgetRcFile, sBuff); 
+    rename(sWgetRcFile, sBuff);
   } else {
     trace("No .wgetrc file found, good thing! :P\n");
   }
@@ -435,15 +435,15 @@ void getAtomFile(void){
 
     /* prepare the WGET call (supress output when not in debugging mode) */
     if(DEBUG){
-      sprintf(sBuff, 
+      sprintf(sBuff,
               "wget --no-check-certificate https://mail.google.com/mail/feed/atom -O %s/atom",
                sWorkDir);
     } else {
-      sprintf(sBuff, 
-              "wget -q --no-check-certificate https://mail.google.com/mail/feed/atom -O %s/atom", 
+      sprintf(sBuff,
+              "wget -q --no-check-certificate https://mail.google.com/mail/feed/atom -O %s/atom",
                sWorkDir);
     }
- 
+
     /* call wget */
     iWgetRC = system(sBuff);
 
@@ -508,7 +508,7 @@ void initialize(void){
   if(fCfgFile == NULL){
     /* config file not found, abort the program */
     sprintf(sMsg, "** ERROR ** Cannot open config file : \"%s\"\n            Program aborted.", sConfigFile);
-    printf("\n%s\n\n", sMsg); 
+    printf("\n%s\n\n", sMsg);
     exit(1);
 
   } else {
@@ -522,8 +522,8 @@ void initialize(void){
       sprintf(sMsg, "  Attribute : %s\n  Value     : %s\n", sAttr, sVal); trace(sMsg);
 
       if(!strcmp(sAttr, "uname")){
-        strcpy(sUname, sVal);  
-        trace("  * Got username!\n"); 
+        strcpy(sUname, sVal);
+        trace("  * Got username!\n");
       } else if(!strcmp(sAttr, "pass")){
         strcpy(sPass, sVal);
         trace("  * Got password!\n");
@@ -531,7 +531,7 @@ void initialize(void){
         trace("  * Got poll interval!\n");
         iPollInterval = atoi(sVal);
         if(iPollInterval < 1 || iPollInterval > 6000) {
-          trace("    - Warning - Value not understood, setting to 60 seconds\n"); 
+          trace("    - Warning - Value not understood, setting to 60 seconds\n");
           iPollInterval = 300;
         } else {
           strcpy(sPollInterval, sVal);
@@ -549,10 +549,10 @@ void initialize(void){
           if((ptr + 1)[0] == '@'){
               /*system("mozilla -remote \"openURL(http://www.gmail.com)\"");*/
             trace("  Found '@' ! let's replace it by http://www.gmail.com\n");
-            strncpy(sBrowserCmd1, (sBuff + (strlen(sAttr) + 1)), 
+            strncpy(sBrowserCmd1, (sBuff + (strlen(sAttr) + 1)),
                                   ((ptr - 1) - (sBuff + strlen(sAttr))));
             sBrowserCmd1[ptr - sBuff] = '\0';
-            sprintf(sBrowserCmd1, "%s%s%s", sBrowserCmd1, "http://www.gmail.com", 
+            sprintf(sBrowserCmd1, "%s%s%s", sBrowserCmd1, "http://www.gmail.com",
                                            sBuff + strlen(sBrowserCmd1) + strlen(sAttr) + 3);
           } else {
             strcpy(sBrowserCmd1, ptr);
@@ -575,10 +575,10 @@ void initialize(void){
           if((ptr + 1)[0] == '@'){
               /*system("mozilla -remote \"openURL(http://www.gmail.com)\"");*/
             trace("  Found '@' ! let's replace it by http://www.gmail.com\n");
-            strncpy(sBrowserCmd2, (sBuff + (strlen(sAttr) + 1)), 
+            strncpy(sBrowserCmd2, (sBuff + (strlen(sAttr) + 1)),
                                   ((ptr - 1) - (sBuff + strlen(sAttr))));
             sBrowserCmd2[ptr - sBuff] = '\0';
-            sprintf(sBrowserCmd2, "%s%s%s", sBrowserCmd2, "http://www.gmail.com", 
+            sprintf(sBrowserCmd2, "%s%s%s", sBrowserCmd2, "http://www.gmail.com",
                                            sBuff + strlen(sBrowserCmd2) + strlen(sAttr) + 3);
           } else {
             strcpy(sBrowserCmd2, ptr);
@@ -593,7 +593,7 @@ void initialize(void){
       }
 
       iGetLineRes = getline(&sBuff, &len, fCfgFile);
-    } 
+    }
     trace("\n");
 
     /* Verify that we got all the required parameters from the config file */

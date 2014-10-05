@@ -1,11 +1,11 @@
 /*
  *
  *  	wmWeather-1.31 (C) 1999 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *  		- Shows Local Weather conditions
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, 
+ * 	Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *      Boston, MA 02110-1301 USA
  *
  *
@@ -29,7 +29,7 @@
  *
  *	      -	Add a GTK popup window to display data in a nicer way. Currently just use
  *		xmessage...
- *              
+ *
  *	      - Add "current conditions" graphic (as background?). I.e. one of those little
  *		cartoons that show clouds or sun with rain or snow, etc. on it...
  *
@@ -47,7 +47,7 @@
  *			Fixed a bug whereby the App would crash when trying to gain input
  *			focus under non-WindowMaker WMs (focus is now grabbed by
  *			`PointerRoot' not `iconwin').
- *			
+ *
  *			Added StationID and `time-of-last-update' labels. To do this I needed
  *			to shrink the fonts down and scrunch them together a bit more.
  *
@@ -75,11 +75,11 @@
  *				-wgc <color> for setting the Wind Gust color.
  *
  *			Also cleaned up the pixmap to minimize the number of colors used.
- *		
- *			Changed metric toggle to work with a key press (any key). 		
- *		
+ *
+ *			Changed metric toggle to work with a key press (any key).
+ *
  *			Added double click support. Now double clicking does the following:
- *				
+ *
  *				Double Mouse Left: pops up the fully decoded METAR file
  *						   in xmessage.
  *
@@ -96,14 +96,14 @@
  *			Since Windchill is not always available, we only show it if its
  *			available. If its not, we paste up DewPoint as default.
  *
- *			Also added -mps option to display wind speed in units of 
+ *			Also added -mps option to display wind speed in units of
  *			meters/second (when in -metric mode).
  *
  *      Version 1.27  - released March 8, 1999.
  *			fixed bug in speed calculation when wind is gusting.
  *
  *      Version 1.26  - released February 24, 1999.
- *			Added -delay option. 
+ *			Added -delay option.
  *
  *      Version 1.25  - released February 16, 1999.
  *			Added Wind speeds on the 'Beaufort scale'
@@ -145,8 +145,8 @@
 
 
 
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -162,8 +162,8 @@
 
 
 
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000L
 #define WMWEATHER_VERSION "1.31"
@@ -203,7 +203,7 @@ int             DblClkDelay;
  * We convert to digits in the sequence `NWSE' so we dont have to put all these
  * combinations into the pixmap.
  */
-static char 	*CompassDirection[] = { "0", "003", "03", "303", "3", "323", "23", "223", 
+static char 	*CompassDirection[] = { "0", "003", "03", "303", "3", "323", "23", "223",
 						"2", "221", "21", "121", "1", "101", "01", "001"};
 
 
@@ -216,8 +216,8 @@ char	StationTimeColor[30]    = "#c5a6ff";
 
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
 
@@ -249,14 +249,14 @@ FILE		*fp;
 
 
 
-	  
+
     /*
      *  Parse any command line arguments.
      */
     ParseCMDLine(argc, argv);
-	   
 
-	   
+
+
     /*
      *  Do the window opening in 2 stages. After the initXwindow() call,
      *  we know what the Depth of the Display is. We can then pick an appropriate
@@ -264,12 +264,12 @@ FILE		*fp;
      *  better on a low-color 8-bit display.
      */
     initXwindow(argc, argv);
-    openXwindow(argc, argv, wmWeather_master, wmWeather_mask_bits, wmWeather_mask_width, 
+    openXwindow(argc, argv, wmWeather_master, wmWeather_mask_bits, wmWeather_mask_width,
 		wmWeather_mask_height, BackColor, LabelColor, WindGustColor, DataColor, StationTimeColor);
 
 
 
-	   
+
     /*
      *  Loop until we die
      */
@@ -290,19 +290,19 @@ FILE		*fp;
 	 *  Keep track of # of seconds
 	 */
 	if (m > 100){
-	
+
 	    m = 0;
 	    ++dt1;
 	    ++dt2;
 	    ++dt3;
-	
+
 	} else {
-	
+
 	    /*
 	     *  Increment counter
 	     */
 	    ++m;
-	
+
 	}
 
 
@@ -338,7 +338,7 @@ FILE		*fp;
 
 
 
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -369,7 +369,7 @@ FILE		*fp;
 
 
 
-	
+
 
 
 	/*
@@ -380,7 +380,7 @@ FILE		*fp;
 	 *  may be Up-To-Date!
 	 */
 	if ((dt2 > 5)||(ForceUpdate)){
-	    
+
 	    dt2 = 0;
 
 	    /*
@@ -410,7 +410,7 @@ FILE		*fp;
 	    DT = UT - LT;
 	    if (DT > 24.0) DT -= 24.0;
 	    if (DT < 0.00) DT += 24.0;
-	    
+
 
 
     	    /*
@@ -477,7 +477,7 @@ FILE		*fp;
 
 
 
-	} 
+	}
 
 
 
@@ -492,7 +492,7 @@ FILE		*fp;
 
 
 	    dt3 = 0;
-	    
+
 
 
 	    /*
@@ -512,7 +512,7 @@ FILE		*fp;
 	    chr = (int)StationID[3] - 65; copyXPMArea(chr*5+2, 128, 5, 6, 7+q, 6); q+= 5;
 
 	    if (UpdateLTHour != 99){
-	    	q = 0; 
+	    	q = 0;
 	    	Tens = (int)(UpdateLTHour);
 	    	copyXPMArea(Tens/10*5+2, 135, 5, 6, 36+q, 6); q+= 5;
 	    	copyXPMArea(Tens%10*5+2, 135, 5, 6, 36+q, 6); q+= 5;
@@ -575,7 +575,7 @@ FILE		*fp;
 		val = DewPoint;
 		copyXPMArea(5, 87, 17, 8, 5, 24);
 	    }
-	    
+
 	    if ((val > -999.0)&&(val < 1000.0)){
 	        sgn = (val < 0.0) ? -1.0 : 1.0;
 	        val *= sgn;
@@ -722,7 +722,7 @@ FILE		*fp;
 		    q += 2;
 	        } else if (Direction > 0.0){
 
-		    /* 
+		    /*
 		     *  In this case, the wind direction is variable with speed < 6 Knots.
 		     *  A numerical direction is not given in these cases. Just write out 'VRB'.
 		     */
@@ -735,7 +735,7 @@ FILE		*fp;
                 if (Metric && Beaufort) {
                     int beau = 0;
                     int spd;
- 
+
                     sgn = (Speed < 0.0) ? -1.0 : 1.0;
                     spd = (int)(sgn * (int)Speed);
                     if (spd >  1) { beau = 1; }
@@ -828,8 +828,8 @@ UpToDate = 0;
 
 
 
-	/* 
-	 *  Wait for next update 
+	/*
+	 *  Wait for next update
 	 */
 	usleep(DELAY);
 
@@ -849,7 +849,7 @@ void ParseCMDLine(int argc, char *argv[]) {
 
     int  i;
     void print_usage();
- 
+
     StationID[0] = '\0';
     PressureUnits = 0;
     MetersPerSecond = 0;
@@ -907,15 +907,15 @@ void ParseCMDLine(int argc, char *argv[]) {
             strcpy(DataColor, argv[++i]);
 
          } else if (!strcmp(argv[i], "-beaufort")){
- 
+
             Beaufort = 1;
 
          } else if (!strcmp(argv[i], "-mps")){
- 
+
             MetersPerSecond = 1;
 
          } else if (!strcmp(argv[i], "-W")){
- 
+
             ShowWindChill = 1;
 
         } else if ((!strcmp(argv[i], "-metric"))||(!strcmp(argv[i], "-m"))){
@@ -936,7 +936,7 @@ void ParseCMDLine(int argc, char *argv[]) {
 
     	    PressureUnits = 3;
 	    PressureConv = 25.4;
- 
+
         } else if ((!strcmp(argv[i], "-station"))||(!strcmp(argv[i], "-s"))){
 
 	    if ((i+1 >= argc)||(argv[i+1][0] == '-')) {
@@ -960,13 +960,13 @@ void ParseCMDLine(int argc, char *argv[]) {
 		print_usage();
 		exit(-1);
 
-	    } 
+	    }
 	    /*
 	     *  Convert Time to seconds
 	     */
 	    UpdateDelay *= 60;
 	    ++i;
-	    
+
         } else {
 
 	    print_usage();
@@ -1089,7 +1089,7 @@ double UT;
 
 
 /*
- *  This routine handles button presses. 
+ *  This routine handles button presses.
  *
  *	- Left Mouse single click toggles Deg F/C for temperatures.
  *	- Some other click event should display the full METAR report -- lots of
@@ -1110,7 +1110,7 @@ void ButtonPressEvent(XButtonEvent *xev){
 	if (GotFirstClick1) GotDoubleClick1 = 1;
 	else GotFirstClick1 = 1;
 
-    } else if ((xev->button == Button2) && (xev->type == ButtonPress)){ 
+    } else if ((xev->button == Button2) && (xev->type == ButtonPress)){
 
 	if (GotFirstClick2) GotDoubleClick2 = 1;
 	else GotFirstClick2 = 1;

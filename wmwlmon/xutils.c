@@ -147,7 +147,7 @@ openXwindow(int argc, char *argv[], char *pixmap_bytes[],
 			    { "Color9", NULL, 0 }
 			};
 
-	/* 
+	/*
 	 *  create pixmap
 	 */
 	cols[0].pixel = getColor(BackgroundColor, 1.0000, &red, &grn, &blu);
@@ -197,8 +197,8 @@ openXwindow(int argc, char *argv[], char *pixmap_bytes[],
 	    mysizehints.y, mysizehints.width, mysizehints.height, borderwidth,
 	    fore_pix, back_pix);
 
-	/* 
-	 * activate hints 
+	/*
+	 * activate hints
 	 */
 	XSetWMNormalHints(display, win, &mysizehints);
 	classHint.res_name = wname;
@@ -220,8 +220,8 @@ openXwindow(int argc, char *argv[], char *pixmap_bytes[],
 
 	XSetWMName(display, win, &name);
 
-	/* 
-	 * create graphics context (gc) for drawing 
+	/*
+	 * create graphics context (gc) for drawing
 	 */
 	gcm = GCForeground | GCBackground | GCGraphicsExposures;
 	gcv.foreground = fore_pix;
@@ -268,7 +268,7 @@ getColor(char *ColorName, float fac, int *red, int *grn, int *blu)
 	Color.green = (unsigned short)(fac*(Color.green-24) + 24);
 	Color.flags = DoRed | DoGreen | DoBlue;
 	XAllocColor(display, Attributes.colormap, &Color);
-    
+
 	*red = Color.red;
 	*grn = Color.green;
 	*blu = Color.blue;
