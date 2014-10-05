@@ -20,7 +20,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include "config.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -34,12 +33,12 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include "wmbattery.h"
 
 #ifdef HAVE_GETOPT_H
 #include <getopt.h>
 #endif
 
-#include "wmbattery.h"
 #include "mask.xbm"
 #include "sonypi.h"
 #include "acpi.h"
@@ -57,6 +56,14 @@ XpmIcon icon;
 Display *display;
 GC NormalGC;
 int pos[2] = {0, 0};
+
+#ifdef HAVE__DEV_APM
+#define APM_STATUS_FILE "/dev/apm"
+#else
+#define APM_STATUS_FILE "/proc/apm"
+#endif
+
+char *apm_status_file = APM_STATUS_FILE;
 
 char *crit_audio_fn = NULL;
 char *crit_audio;
@@ -92,6 +99,55 @@ void error(const char *fmt, ...)
 
 	exit(1);
 }
+
+#if defined (HAVE_MACHINE_APM_BIOS_H) || defined (HAVE_I386_APMVAR_H) /* BSD */
+int apm_read(apm_info *i)
+{
+	int fd;
+#ifdef HAVE_MACHINE_APM_BIOS_H /* FreeBSD */
+	unsigned long request = APMIO_GETINFO;
+	struct apm_info info;
+#else /* NetBSD or OpenBSD */
+	unsigned long request= APM_IOC_GETPOWER;
+	struct apm_power_info info;
+#endif
+
+	if ((fd = open(apm_status_file, O_RDONLY)) == -1) {
+		return 0;
+	}
+	if (ioctl(fd, request, &info) == -1) {
+		return 0;
+	}
+	close(fd);
+
+#ifdef HAVE_MACHINE_APM_BIOS_H /* FreeBSD */
+	i->ac_line_status = info.ai_acline;
+	i->battery_status = info.ai_batt_stat;
+	i->battery_flags = (info.ai_batt_stat == 3) ? 8: 0;
+	i->battery_percentage = info.ai_batt_life;
+	i->battery_time = info.ai_batt_time;
+	i->using_minutes = 0;
+#else /* NetBSD or OpenBSD */
+	i->ac_line_status = info.ac_state;
+	i->battery_status = info.battery_state;
+	i->battery_flags = (info.battery_state == 3) ? 8: 0;
+	i->battery_percentage = info.battery_life;
+	i->battery_time = info.minutes_left;
+	i->using_minutes = 1;
+#endif
+
+	return 1;
+}
+
+int apm_exists(void)
+{
+	apm_info i;
+
+	if (access(apm_status_file, R_OK))
+		return 0;
+	return apm_read(&i);
+}
+#endif
 
 int apm_change(apm_info *cur)
 {

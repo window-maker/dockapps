@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stdint.h>
 
 #include "sonypi.h"
 
@@ -30,8 +31,8 @@ inline int sonypi_ioctl(int ioctlno, void *param)
  * struct. */
 int sonypi_read(apm_info *info)
 {
-	__u8 batflags;
-	__u16 cap, rem;
+	uint8_t batflags;
+	uint16_t cap, rem;
 	int havebatt = 0;
 
 	info->using_minutes = info->battery_flags = 0;

@@ -1,4 +1,16 @@
+#include "config.h"
+
+#ifdef HAVE_MACHINE_APM_BIOS_H /* for FreeBSD */
+#include <machine/apm_bios.h>
+#endif
+
+#ifdef HAVE_I386_APMVAR_H /* for NetBSD and OpenBSD */
+#include <i386/apmvar.h>
+#endif
+
+#ifdef HAVE_APM_H
 #include <apm.h>
+#endif
 
 /* Symbolic constants for apm may be in system apm.h, or may not. */
 #ifndef AC_LINE_STATUS_ON
@@ -25,3 +37,20 @@
 #define BATTERY_TIME_UNKNOWN        (-1)
 #endif /* AC_LINE_STATUS_ON */
 
+#if defined (HAVE_MACHINE_APM_BIOS_H) || defined (HAVE_I386_APMVAR_H) /* BSD */
+typedef struct {
+	const char driver_version[10];
+	int apm_version_major;
+	int apm_version_minor;
+	int apm_flags;
+	int ac_line_status;
+	int battery_status;
+	int battery_flags;
+	int battery_percentage;
+	int battery_time;
+	int using_minutes;
+} apm_info;
+
+int apm_read(apm_info *i);
+int apm_exists(void);
+#endif

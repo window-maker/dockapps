@@ -35,8 +35,6 @@ upower.o: upower.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(shell pkg-config --cflags upower-glib) -c upower.c -o upower.o
 endif
 
-LIBS+=-lapm -lXext -lXpm
-
 wmbattery: $(OBJS)
 	$(CC) -o wmbattery $(LDFLAGS) $(OBJS) $(LIBS)
 
