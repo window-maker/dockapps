@@ -314,7 +314,7 @@ char *parse_commandline(int argc, char *argv[])
 	char *s;
 
 	while (c != -1) {
-		c = getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:x:");
+		c = getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:x:v");
 		switch (c) {
 		case 'h':
 			printf("Usage: wmbattery [options]\n");
@@ -330,6 +330,7 @@ char *parse_commandline(int argc, char *argv[])
 			printf("\t-s granularity\tignore fluctuations less than granularity%% (implies -e)\n");
 			printf("\t-a file\t\twhen critical send file to /dev/audio\n");
 			printf("\t-x command\twhen critical execute this command\n");
+			printf("\t-v\t\tdisplay version number\n");
 			exit(0);
 			break;
 		case 'd':
@@ -373,6 +374,10 @@ char *parse_commandline(int argc, char *argv[])
 			break;
 		case 'x':
 			crit_command = strdup(optarg);
+			break;
+		case 'v':
+			printf("wmbattery "PACKAGE_VERSION"\n");
+			exit(0);
 			break;
 		}
 	}
