@@ -1,5 +1,5 @@
 [AlsaMixer.app]
-version-0.1+20121002 = d23e672fcfdbe439417970aeee2233ee90a6e87f
+version-0.1+20141005 = 912a75a4179fbcd58db423427a48f04d6b2f8254
 version-0.1 = 93d993289ee6535caa04175e17048102cf623247
 image = AlsaMixer.app.png
 description = "AlsaMixer.app is simple mixer application for Linux with ALSA drivers (>= 0.9.x)."
@@ -8,7 +8,7 @@ dockapps = 253
 category = Audio
 
 [Temperature.app]
-version-1.5+20120605 = ef33e1f03eaf8a99e513ebaad79d457e262a7dd4
+version-1.5+20141005 = 611a27a4daa6f6e9a3d440660ea9af52dc258a02
 version-1.5 = 362189a1d01d0cb51df5dcde9c649e3ffc6b1b10
 image = "Temp-app.png,Temperature.gif"
 description = "Temperature.app is a Window Maker applet which fetches local temperature information every 15 minutes from http://weather.noaa.gov and displays it (in Celsius or Fahrenheit)."
@@ -17,7 +17,7 @@ dockapps = 86
 category = General/Others
 
 [wmMatrix]
-version-0.2+20120814 = 9721660644b188e89c8c96a80eea066c018b40b6
+version-0.2+20141005 = b2e8d79b34520d639721ef2638c4590769bc5fef
 version-0.2 = 01a5e13371f4c58f360b60092e4453f6185418b7
 image = wmMatrix.gif
 description = "A DockApp thats runs a slightly modified version of Jamie Zawinski's xmatrix screenhack."
@@ -26,7 +26,7 @@ dockapps = 10
 category = Date/Time
 
 [wmSMPmon]
-version-3.1+20130119 = 3bbe6b43ed4f2a22edd1b29ca65853b60bee279e
+version-3.1+20141005 = b675c2b4573dcb19960bb54d380a84de8c4466f2
 version-3.1 = 573f183185747f9427a0d21b234aba5f1f8bbf41
 image = wmSMPmon-SMP_style1.jpg
 description = "* Current CPU utilization of up to two CPUs
@@ -40,6 +40,7 @@ dockapps = 299
 category = System Monitoring
 
 [wmacpi]
+version-2.2+20141005 = c2e38edf1b41454f31c5b6e5fe30b2951e325535
 version-2.2 = efbb69d77277b35cb7689dc6850f1dc5b40b8be6
 version-2.2rc5 = daa0ba41e07a073d40576e4344d3ddfb555d6282
 version-2.2rc4 = 2d177139b0215d984ee579967f3ffdf1cbec0dc2
@@ -77,7 +78,7 @@ dockapps =
 category = System Monitoring
 
 [wmacpiload]
-version-0.1.2+20140812 = d83cb5da968bd79448fa6af44895335cb7c548a1
+version-0.1.2+20141005 = efee62d203524d7fd20cf70f15ec604b64df05dc
 version-0.1.2 = f2dc21b803c6838a0608e1a82f3fd12846638c56
 image = wmacpiload1.png
 description = "An app for monitoring CPU temp and battery time from ACPI. In the style of wmcpuload and wmapmload"
@@ -86,7 +87,7 @@ dockapps = 168
 category = System Monitoring
 
 [wmauda]
-version-0.8+20120605 = 3317571f822dcbc21408f24975cc19636a2b4752
+version-0.8+20141005 = 5a53b33e8b3145c6408601b94a89481c6ef873af
 version-0.8 = 2faebb5bbb61858c78e1dd9ceefbaaa1f5731307
 image = x1.miff.png
 description = "This is a port of wmxmms to GTK 2.x and Audacious."
@@ -95,7 +96,7 @@ dockapps = 330
 category = Audio
 
 [wmbatteries]
-version-0.1.3+20140812 = b31fc5adea2e29d14d8fad14b272c750e127b5fd
+version-0.1.3+20141005 = 4d3a7aeb4b7f6e9d5d34650d821285ef6d648555
 version-0.1.3 = 46b196e291089ddceeccb3c299be3543499d2665
 image = wmbatteries.gif
 description = "wmbatteries - a dockapp based on wmacpiload.
@@ -106,7 +107,7 @@ dockapps = 216
 category = System Monitoring
 
 [wmbattery]
-version-2.44+20140921 = 1a22ccc8011761eec1a71da80973a99f5b935aeb
+version-2.45 = a1ef96938f522770c6b41e85e6d15c91b13aa189
 version-2.44 = f5f804289e0255a167ca5bc90076007d495a578b
 image = wmbattery.gif
 description = "Wmbattery displays the status of your laptop's battery in a small icon. This includes if it is plugged in, if the battery is charging, how many minutes of battery life remain, battery life remaining (with both a percentage and a graph), and battery status (high - green, low - yellow, or critical - red)."
@@ -115,7 +116,7 @@ dockapps = 34
 category = System Monitoring
 
 [wmbiff]
-version-0.4.27+20130408 = f7597c89292d842820b13551c840409cbfba4965
+version-0.4.27+20141005 = 64a3b49044ba60ae911377ef7b01e72cc0c0432c
 version-0.4.27 = 0e2f5afd57ca4e5b2f75f5e16c1fd0550d98f210
 image = wmbiff.jpg
 description = "WMBiff is an WindowMaker docking utility, that displays the number of read
@@ -132,7 +133,7 @@ dockapps = 97
 category = E-mail
 
 [wmbutton]
-version-0.7.0+20140528 = 843be4abca3d30380a240cea1a3be43f41f0b192
+version-0.7.0+20141005 = ddbfb15e33e7a3637507474e5ab88d69c01fe0d9
 version-0.7.0 = 2de17faf244b2bc992aaaf3e70bbf4c2bcac51a1
 version-0.6.1 = be05f87714287663c8653209031a2f122f6be981
 image = wmbutton5.jpg
@@ -145,7 +146,7 @@ dockapps = 241
 category = General/Others
 
 [wmCalClock]
-version-1.25+20120605 = 285f1c96636986ef5886c3e39420bfe03ad007c7
+version-1.25+20141005 = 50d11cae21a3af47ae11cc4563dbf2705881464b
 version-1.25 = fb4abc9848d55c0cf53c110ec4a5dff3f7585add
 image = wmCalClock4.gif
 description = "A Calendar clock with antialiased text."
@@ -154,7 +155,7 @@ dockapps = 9
 category = Date/Time
 
 [wmcalendar]
-version-0.5.2+20120605 = 3591c47835eb8a1ed1860bebe347cc9daea66fdc
+version-0.5.2+20141005 = 004bfacc7b3b32c3beeff1f1758e0ac48e8d2840
 version-0.5.2 = 4c8450d9d41fa0b8d5ee472d20bc6fa7f0714f7f
 image = wmcalendar.png
 description = "A dockapp calendar with monthly view and interface to iCalendar based calendars like Ximian Evolution or Mozilla calendar."
@@ -163,7 +164,7 @@ dockapps = 171
 category = Date/Time
 
 [wmckgmail]
-version-1.1+20120605 = f6a0fe9ccd98746e9fee04046de904176867458b
+version-1.1+20141005 = 4cd077591088c3b6dfae982ef1875246d10cafdc
 version-1.1 = 0daf87ea4f81433819245f95ed022d7837fb42c8
 image = "wmckgmail-screenshot.jpg,wmckgmail-screenshot2.jpg"
 description = "wmckgmail is a very simple program used to monitor the number of unread mails in a gmail inbox. It uses the wget command to get the gmail atom feed and reads the number of new mails from this feed.
@@ -174,7 +175,7 @@ dockapps = 316
 category = E-mail
 
 [wmcpuload]
-version-1.0.0+20120605 = 7ba60bfea8909fca462926fa3b9a0688f12eb431
+version-1.0.0+20141005 = e16875f5ce0cf99b7148a73e2ccb63dee70799b8
 version-1.0.0 = a870424a90f99b865e87e65f4502e3e1703b2f66
 image = "wmcpuload2.png,wmcpuload3.png"
 description = "A simple program to monitor CPU usage."
@@ -184,6 +185,7 @@ category = System Monitoring
 
 
 [wmfemon]
+version-1+20141005 = 09910c21b23acc488252f31319a35fcf739767f0
 version-1 = d090514af3a5b88f02d3a4ce4598271002961911
 image = wmfemon.png
 description = "WindowMaker DVB frontend monitor dock applet.
@@ -193,7 +195,7 @@ dockapps = 338
 category = System Monitoring
 
 [wmfu]
-version-1.0+20120605 = 0017c6dcc5a5a1e1e7b4a3548bf2ff21b8d108c4
+version-1.0+20141005 = 4e034402892005f0074aa95e3ca2afde5a4ca71b
 version-1.0 = 8c09e77da4a28b1b191a5f2385537898603845d9
 image = wmfu-1.0.png
 description = "wmfu displays all sorts of information about your Linux (laptop) system. It is designed for WindowMaker, but can also be run in other window managers. It does not need external custom libraries, but does need a recent kernel, since it uses ACPI and proc/sys pseudo-filesystems to read system data."
@@ -202,7 +204,7 @@ dockapps = 329
 category = System Monitoring
 
 [wmifinfo]
-version-0.09+20140806 = e01ef6e5ce05e641f9a81550e62be1ab15df96b9
+version-0.09+20141005 = 4ea3303e23a3b6a86f2310796df776a590471bfa
 version-0.09 = 423824aacd6be831dd4152485067e3bd4f76dc60
 version-0.08 = 3a21c4d84d84a5582f4fa59a1115f71e43a0e00f
 version-0.07 = 1656d0324b3a1361e9e753bbf6d5dafd1788e07d
@@ -214,7 +216,7 @@ dockapps = 72
 category = Network
 
 [wmitime]
-version-0.3+20120605 = 0d1670bdd14f730b6428f3424e50fcf5286c839d
+version-0.3+20141005 = 84f5d9248a6b2b1ab48b1849ce72ff7415094a8d
 version-0.3 = bf32df76ae6ae945f02428fff7a9b269c82f32f6
 image = wmitime1.jpg
 description = "WMitime is yet another clock dock app (and quite overglorified at that! :)
@@ -224,6 +226,7 @@ dockapps = 22
 category = Date/Time
 
 [wmix]
+version-3.2+20141005 = c1906c4c38da67d552bdac372d8381c0852210dd
 version-3.2 = c5828a9c18cd6afa3253bb745acf61594517af81
 version-3.1 = d0a93dcba903b8a0c9b3b89a4a0ac17f3998ef5b
 image = "wmix.gif,wmix-3.2.jpg"
@@ -233,7 +236,7 @@ dockapps = 58
 category = Audio
 
 [wmkeys]
-version-0.1+20120605 = 11e8dd9942c954a79f4d8b6eadf975507b5b1cdd
+version-0.1+20141005 = 7651e17c5f5efb79524c2bf45afe4c3f4b8ed9ec
 version-0.1 = 54d1397485d952592104876aab2c72052c8dca4b
 image = wmkeys.png
 description = "wmkeys is a Window Maker and AfterStep dock app which allows you to quickly switch between different X keymaps, for example QWERTY and Dvorak. The source includes QWERTY and Dvorak keymappings. Other keymappings can be made with JWZ's xkeycaps."
@@ -242,7 +245,7 @@ dockapps = 215
 category = General/Others
 
 [wmmemload]
-version-0.1.6+20141004 = fa76fa1e8e0d8b0e16ad3191dacb0add7fce62ce
+version-0.1.6+20141005 = cb7a82a1c86360dc1fc42ce27fc8f7be9065d764
 version-0.1.6 = e8847a424a387aad0f2c0519aa4c2b9ac46b45b7
 image = wmmemload-bgreen.thumbnail.png
 description =  "WindowMaker dockapp to monitor memory and swap usage.  wmmemload displays the current memory and swap usage as a percentage value. It is based on wmcpuload and wmmemmon, and as such looks very nice alongside those.  wmmemload is designed to work with the WindowMaker dock, but will work with other window managers as well."
@@ -251,7 +254,7 @@ dockapps =
 category = System Monitoring
 
 [wmmixer]
-version-1.7+20120605 = 725080fd87d71383319a2c8539794e7077738936
+version-1.7+20141005 = 4260bbd5451d23b79fade509715f2667e76ab242
 version-1.7 = c6267bcde682914eb84109d046cb76ec51c465ca
 version-1.6 = eec923477965ebc1892c86a36a13563b329f1f76
 version-1.5 = ad70c26618a7fd4be53791a2459b6395820f9835
@@ -282,7 +285,7 @@ dockapps = 63
 category = Audio
 
 [wmmon]
-version-1.2b1+20131205 = 74fcb6f945c6425cc6910e2e1cc792c7aae358af
+version-1.2b1+20141005 = 0e4d29de1a3f02d83c6201c08a3e8d5c261c0730
 version-1.2b1 = 1f7dc4736465673ee36dc3fa22cdf4f4aea822c4
 version-1.0b2 = 26794d80270124f3e39a036503b3edc3284c7f74
 image = wmmon.gif
@@ -302,7 +305,7 @@ dockapps =
 category = System Monitoring
 
 [wmmoonclock]
-version-1.28+20120605 = 60679903bc57a50f457450083f2e0025a72535fe
+version-1.28+20141005 = c9ef1bd570e311b280a249da98264be0c30f2dcf
 version-1.28 = 160d876120de6939f1fbacddc88d6a35ba54ddad
 version-1.27 = 9879ecf070b0e63529a1aeeab997be8d32f1b57e
 image = wmMoonClock5.png
@@ -312,7 +315,7 @@ dockapps = 14
 category = General/Others
 
 [wmnet]
-version-1.06+20120605 = af19dbae48ce1bc9cfad2c12b47c7a072f009d12
+version-1.06+20141005 = 4a6a1ccee2c02a982e0c1258b3304dcf02b26d28
 version-1.06 = c71cfb9e9bbd4dbd1c7ca2d79705ab3598734175
 image = wmnet.gif
 description = "WMnet is a little X dock.app network monitor I wrote for Linux. It was originally inspired by that funky program 'tleds' that blinks your keyboard LED's in response to net traffic, but its a lot more entertaining than that nowadays. I wrote this thing with low cpusage, low memory, and efficient use of screen real-estate in mind."
@@ -321,7 +324,7 @@ dockapps = 77
 category = Network
 
 [wmnotify]
-version-1.0.0+20140812 = 40e65f40b4b002b6d571382de3311de4853f19af
+version-1.0.0+20141005 = 724607a1125dae3bc5e38b5de0e5e06404827c36
 version-1.0.0 = 0743fca1413dc10a8dc1ef8acdbd5bd40b896f49
 image = mailbox2.png
 description = "Wmnotify is an E-mail checker for a single POP3 or IMAP4 mailbox, with optional SSL encryption. Notification of new messages is done with a simple graphics animation and/or by playing a sound (WAV or AIFF format)."
@@ -330,7 +333,7 @@ dockapps = 163
 category = E-mail
 
 [wmpager]
-version-1.2+20130401 = 88ece7e51be732e19dd55b8219b0f9824cc32a3a
+version-1.2+20141005 = da2e551279bf135c9abc3ee5c129aecb4f703a14
 version-1.2 = 58d68749341c66e72605a2fb79bb2828212f096f
 image = wmpager.png
 description = "wmpager is a simple pager docklet for the Window Maker.
@@ -347,7 +350,7 @@ dockapps = 109
 category = General/Others
 
 [wmpower]
-version-0.4.3+20120605 = dd1670dcbd90df42fa922ac7439772ff93515a78
+version-0.4.3+20141005 = f2f53df4f006fea8f65219a21b26bd2843ac80c5
 version-0.4.3 = 2b28465480a715e92f98e894813b3214567d3901
 image = wmpower.gif
 description = "wmpower is a Window Maker dock application for linux allowing the user to graphically see (and set) the power management status of his laptop. It supports both APM and ACPI kernels, plus it interfaces directly to toshiba hardware (but should work with every laptop)."
@@ -366,7 +369,7 @@ dockapps = 99
 category = Network
 
 [wmsm.app]
-version-0.2.1+20120605 = d5bff897e040d297805f665faa8e9d5b5feb225e
+version-0.2.1+20141005 = 1411352e23e3886b2341ce4950ab693ad94035a1
 version-0.2.1 = ead2cf748468ac35858450a7ec38f2f560168b5d
 image = wmsm1.png
 description = "WindowMaker System Monitor"
@@ -375,7 +378,7 @@ dockapps = 208
 category = System Monitoring
 
 [wmsmixer]
-version-0.5.1+20120605 = e2d6e777c9c9f0546a0e0cac0a0e34ed6c41230c
+version-0.5.1+20141005 = 55dbee3296181ed4b9c6aef117e28cffe6cd9f8a
 version-0.5.1 = c9fed8ac9d555353b0df7078c534640f4a6da040
 image = ss-wmsmixer2.png
 description = "This is a hack to wmmixer which makes some changes to the display and adds a few new features, most notably scrollwheel support."
@@ -384,7 +387,7 @@ dockapps = 63
 category = Audio
 
 [wmstickynotes]
-version-0.1+20120605 = 1d3205aaaf6773b9ffcae593166c094fbf6edfca
+version-0.1+20141005 = 3023abadb93455b165bcb3815be69630b11efd6d
 version-0.1 = 144b28f85dc3f7fb70547b36ddf7469facb9b3b6
 image =
 description = "This program is a Window Maker style dockapp which allows you to create note windows.  By default, the notes, along with their position, size, and color, are stored in files and will be restored when wmstickynotes is run again."
@@ -393,7 +396,7 @@ dockapps =
 category = General/Others
 
 [wmsupermon]
-version-1.2.2+20120605 = 6359b7d5a83b3d5beee95bb12f37bdfc7a0a0674
+version-1.2.2+20141005 = dd46bda63d1020ce61a09f26ee044d6b030edc8f
 version-1.2.2 = c2fa6a3698bd6f4769ba152b4056ffd3af7fa9db
 image = "wmsupermon1.png,wms122.gif,wmsupermon122.gif"
 description = "Universal Monitoring Dockapp.
@@ -415,7 +418,7 @@ dockapps = 320
 category = System Monitoring
 
 [wmtime]
-version-1.1+20140827 = 38656d1a592dda01e16e76e38466f2ec5620dcef
+version-1.1+20141005 = fbd8c9d4751c5317e2fd02a956b19bcffd9f56a4
 version-1.1 = 41744c0d145f064c961989e2650a279b59e27518
 version-1.0b2 = 0ead761a83788078585342c0728f3d9430baac29
 image = wmtime.png
@@ -437,7 +440,7 @@ dockapps = 324
 category = Date/Time
 
 [wmtv]
-version-0.6.5+20120605 = 2050d548eb5ec89f50c6341df506ad68408b146a
+version-0.6.5+20141005 = 307b96b2e159e69e7a32b410acf804ce2a4763d7
 version-0.6.5 = 0dbb066412c26a633e09baec15570d10f4c7246e
 image = wmtv.png
 description = "Dockable video4linux TV player for WindowMaker"
@@ -446,7 +449,7 @@ dockapps =
 category = General/Others
 
 [wmtz]
-version-0.7+20120605 = 12ebc9ea93b5bd03480d0c288500956fe068473c
+version-0.7+20141005 = 8a94ba44b4d2b22845eb3218123b04395d25ac7f
 version-0.7 = 4746377212cee072e0629d6bff8cb8269c0be96d
 image = wmtz.jpg
 description = "wmtz displays the time in different time zones as defined in it's configuration file. It can also display the current Julian Day Number, sidereal time and swatch beats."
@@ -455,7 +458,7 @@ dockapps = 24
 category = Date/Time
 
 [wmweather+]
-version-2.12+20120605 = a2798e0119087ba99cf8246caabb8595ec9029ff
+version-2.12+20141005 = 4bc8d9727bcb50646c55373d2ab9f1b805b74402
 version-2.12 = 4a09f802559f102ef823acd1b1a0093a55741fc6
 image = "wmweather+.png,wmweather+2.png,wmweather+4.png"
 description = "wmweather+ will download the National Weather Serivce METAR bulletins, ANV and MRF forecasts, and any weather map for display in a WindowMaker dockapp. Think wmweather with a smaller font, forecasts, a weather map, and a sky condition display.
@@ -466,7 +469,7 @@ dockapps = 112
 category = General/Others
 
 [wmWeather]
-version-1.31+20120605 = e1b85b8b14e71fcdedac6869a6fd0594c80f181b
+version-1.31+20141005 = cad4dab5fc946b564269dab4152f34ebf894d0fa
 version-1.31 = 90ec8c522a52067f732d39e7cf8e96476ad89dcb
 image = wmWeather.gif
 description = "Shows local weather conditions."
@@ -475,7 +478,7 @@ dockapps = 17
 category = General/Others
 
 [wmwifi]
-version-0.6+20120605 = e4037a1b1129182ca7ec66e156c6320b249fa253
+version-0.6+20141005 = c2dfdf1c44eb62018f4d098f699a0236ab4cbdf0
 version-0.6 = 93418a2e0d91543577a4522e05eab93463981086
 image = wmwifi-screenshot-0.5.gif
 description = "wmwifi is a wireless network interface monitor dockapp for the Window Maker desktop. It is designed to fit well with dockapps like wmcpuload and wmnetload.
@@ -485,6 +488,7 @@ dockapps = 222
 category = Network
 
 [wmwlmon]
+version-1.0+20141005 = cae568b14db476979f4a1832c7d8dd7a535902ee
 version-1.0 = 60076bdf93f2c47a544fd27596986fac137a9ba8
 image = wmwlmon.png
 description = "wmwlmon is a wmdockapp which shows the state of a wireless network interface. In the title you see the network interface name and a led showing if the interface link is active. As next you see the signal strength from the conntected access point in dB (decibel). The bar shows the signal strength in percents. If the bar is full, it means that you have the full throughput of the bandwidth displayed in Mbps. As next you see the channel number. A red lock shines if WEP is enabled. The last line shows the network id."
