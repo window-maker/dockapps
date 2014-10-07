@@ -110,6 +110,11 @@ openbsd*)
 solaris*)
   OS=solaris
   ;;
+gnu*)
+  OS=gnu
+  ignore_buffers=yes
+  ignore_cached=yes
+  ;;
 *)
   echo ""
   echo "Sorry, ${host_os} is not supported yet"
