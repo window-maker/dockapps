@@ -1,3 +1,21 @@
+2014 October 9
+  * Use sysctl to get memory usage in FreeBSD.
+  * Recognize GNU/kFreeBSD as possible OS during configure.
+  * Fix compiler warnings.
+  * Use consistent formatting in source code.
+  * Update for Linux kernels >= 3.14.
+
+2014 October 7
+  * Fix FTBFS on the Hurd (submitted by Svante Signell).
+
+2014 October 4
+  * Now maintained by Window Maker Developers Team
+	<wmaker-dev@lists.windowmaker.org>
+  * Fix autotools warnings.
+  * Fix errors in the manpage.
+  * Fix version check for kernel 3.0 (submitted by Guillermo Indalecio
+	Fernandez).
+
 2003 November 3
   * Fixed problem with buffers/cache on Linux 2.6.*
 
