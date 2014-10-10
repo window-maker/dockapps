@@ -245,7 +245,7 @@ dockapps = 215
 category = General/Others
 
 [wmmemload]
-version-0.1.6+20141005 = cb7a82a1c86360dc1fc42ce27fc8f7be9065d764
+version-0.1.7 = 0a273497d842b560af0e47b2e4ee04ebfef0890b
 version-0.1.6 = e8847a424a387aad0f2c0519aa4c2b9ac46b45b7
 image = wmmemload-bgreen.thumbnail.png
 description =  "WindowMaker dockapp to monitor memory and swap usage.  wmmemload displays the current memory and swap usage as a percentage value. It is based on wmcpuload and wmmemmon, and as such looks very nice alongside those.  wmmemload is designed to work with the WindowMaker dock, but will work with other window managers as well."
