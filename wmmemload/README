@@ -1,0 +1,30 @@
+__    __ __  __  __  __  ____  __  __  _     ____   ____   ____
+\ \/\/ /|  \/  ||  \/  || ===||  \/  || |__ / () \ / () \ | _) \
+ \_/\_/ |_|\/|_||_|\/|_||____||_|\/|_||____|\____//__/\__\|____/
+
+================================================================================
+
+Homepage: http://windowmaker.org/dockapps/?name=wmmemload
+Git: http://repo.or.cz/dockapps.git
+
+Original Author: Mark Staggs <me@markstaggs.net>
+Currently maintained by: Window Maker Developers Team
+                           <wmaker-dev@lists.windowmaker.org>
+
+================================================================================
+
+wmmemload is a program to monitor memory/swap usages. It is a dockapp
+that is supported by X window managers such as Window Maker, AfterStep,
+BlackBox, and Enlightenment.
+
+The current memory usage is displayed in the top half.  The swap usage
+is in the bottom half. It has an LCD look-alike user interface.  The
+back-light may be turned on/off by clicking the mouse button over the
+appliacation. If the usage hits a certain threshold, an alarm-mode will
+alert you by turning on back-light.
+
+Run `wmmemload --help` or `man wmmemload` for more information.
+
+wmmemload is licensed under the GNU General Public License, version 2, or (at
+your option) any greater version.  See COPYING for the complete text of the
+license.
