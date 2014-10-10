@@ -49,8 +49,8 @@ static unsigned update_interval = 1;
 static light    backlight = LIGHTOFF;
 
 static struct	mem_options mem_opts;
-static unsigned mem_usage = 0;
-static unsigned swap_usage = 0;
+static int mem_usage = 0;
+static int swap_usage = 0;
 static unsigned alarm_mem = 101;
 static unsigned alarm_swap = 101;
 
