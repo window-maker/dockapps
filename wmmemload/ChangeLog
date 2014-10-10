@@ -4,6 +4,7 @@
   * Fix compiler warnings.
   * Use consistent formatting in source code.
   * Update for Linux kernels >= 3.14.
+  * Release version 0.1.7.
 
 2014 October 7
   * Fix FTBFS on the Hurd (submitted by Svante Signell).
