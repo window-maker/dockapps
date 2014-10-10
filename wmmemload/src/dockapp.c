@@ -48,7 +48,6 @@ dockapp_open_window(char *display_specified, char *appname,
 {
     XClassHint	    *classhint;
     XWMHints	    *wmhints;
-    Status	    stat;
     XTextProperty   title;
     XSizeHints	    sizehints;
     Window	    root;
@@ -131,7 +130,7 @@ dockapp_open_window(char *display_specified, char *appname,
     XSetWMNormalHints(display, icon_window, &sizehints);
 
     /* Set WindowTitle for AfterStep Wharf */
-    stat = XStringListToTextProperty(&appname, 1, &title);
+    XStringListToTextProperty(&appname, 1, &title);
     XSetWMName(display, window, &title);
     XSetWMName(display, icon_window, &title);
 
