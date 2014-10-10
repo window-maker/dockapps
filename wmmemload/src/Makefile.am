@@ -14,7 +14,6 @@ wmmemload_SOURCES =   \
 EXTRA_wmmemload_SOURCES = \
 	mem_linux.c \
 	mem_freebsd.c \
-	mem_freebsd_sysctl.c \
 	mem_openbsd.c \
 	mem_solaris.c
 
