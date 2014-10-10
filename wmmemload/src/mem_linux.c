@@ -28,7 +28,11 @@
 #include <sys/utsname.h>
 #include "mem.h"
 
-static int isnewformat; /* for kernel 2.5.1 or later */
+static enum {
+	BEFORE_2_5_1,
+	BETWEEN_2_5_1_AND_3_14,
+	AFTER_3_14
+} format;
 
 #ifdef DEBUG
 #  define INLINE_STATIC static
@@ -47,12 +51,17 @@ void mem_init(void)
 		perror("uname()");
 	sscanf(un.release, "%d.%d.%d", &version, &patchlevel, &sublevel);
 
-	/* new format ? (kernel >= 2.5.1pre?) */
+	/* new format ? (kernel >= 3.14 or 2.5.1pre?) */
 	/* see linux/fs/proc/proc_misc.c */
-	if ((version == 2 && patchlevel >= 5 && sublevel >= 1) ||
+	/* or linux/fs/proc/meminfo.c */
+	if ((version == 3 && patchlevel >= 14) || version > 3)
+		format = AFTER_3_14;
+	else if ((version == 2 && patchlevel >= 5 && sublevel >= 1) ||
 	    (version == 2 && patchlevel >= 6 && sublevel >= 0) ||
 	    version > 2)
-		isnewformat = 1;
+		format = BETWEEN_2_5_1_AND_3_14;
+	else
+		format = BEFORE_2_5_1;
 }
 
 
@@ -104,7 +113,8 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 	buffer[len] = '\0';
 	p = buffer;
 
-	if (!isnewformat) {
+	switch (format) {
+	case (BEFORE_2_5_1):
 		/* skip 3 lines */
 		for (i = 0; i < 3; i++)
 			p = skip_line(p);
@@ -115,7 +125,9 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 		mbuffer = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 		mcached = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 		scached = strtoul(p, &p, 0);
-	} else {
+		break;
+
+	case (BETWEEN_2_5_1_AND_3_14):
 		p = skip_token(p);
 		/* examine each line of file */
 		mtotal  = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
@@ -123,6 +135,18 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 		mbuffer = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 		mcached = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 		scached = strtoul(p, &p, 0);
+		break;
+
+	case (AFTER_3_14):
+		p = skip_token(p);
+		/* examine each line of file */
+		mtotal  = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
+		mfree   = strtoul(p, &p, 0);
+		p = skip_multiple_token(p, 5); /* skip MemAvailable line */
+		mbuffer = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
+		mcached = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
+		scached = strtoul(p, &p, 0);
+		break;
 	}
 
 
