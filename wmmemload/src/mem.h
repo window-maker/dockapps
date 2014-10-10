@@ -7,9 +7,9 @@
  */
 
 struct mem_options {
-    int ignore_buffers;
-    int ignore_cached;
-    int ignore_wired;
+	int ignore_buffers;
+	int ignore_cached;
+	int ignore_wired;
 };
 
 void mem_init(void);
