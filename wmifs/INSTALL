@@ -21,7 +21,7 @@ Requirements
 Installation
 --------------------------------------------------------------
 1)  % tar -zxvf wmifs-1.3b.tar.gz
-2)* % cd wmifs.app/wmifs
+2)  % cd wmifs.app/wmifs
 3)  % make
 4)  % su root
 5)  # make install
@@ -29,10 +29,6 @@ Installation
 	set up the paths to your pppd
 	start, stop & restart scripts
 7)  % wmifs & (or wmifs -h for brief help).
-
-2)* If you're on a libc5 system, copy or move wmifs-libc5.c
-    over wmifs.c (i.e. cp wmifs-libc5.c wmifs.c) and proceed
-    with step 3)
 
 6)* This is optional, WMiFS also works fine without them,
     it's entirely up to you ;-)
