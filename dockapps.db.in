@@ -153,6 +153,17 @@ url = http://zevv.nl/play/code/wmifinfo/
 dockapps = 72
 category = Network
 
+[wmifs]
+image = wmifs.png
+description = "WMiFS is a dockable applet for monitoring all your network interfaces,
+it's designed for Window Maker's dock, but of course, it works with other
+windowmanagers too :)
+
+Oh BTW, WMiFS means 'Window Maker InterFace Statistics';-)"
+url = https://web.archive.org/web/19990224233117/http://windowmaker.mezaway.org/dockapps/wmifs.html
+dockapps =
+category = Network
+
 [wmitime]
 image = wmitime1.jpg
 description = "WMitime is yet another clock dock app (and quite overglorified at that! :)
