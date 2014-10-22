@@ -664,8 +664,14 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 
 	/* Read from /proc/net/dev the stats! */
 	fp = fopen("/proc/net/dev", "r");
-	fgets(temp, BUFFER_SIZE, fp);
-	fgets(temp, BUFFER_SIZE, fp);
+	if (!fgets(temp, BUFFER_SIZE, fp)) {
+		fclose(fp);
+		return -1;
+	}
+	if (!fgets(temp, BUFFER_SIZE, fp)) {
+		fclose(fp);
+		return -1;
+	}
 
 	input = -1;
 	output = -1;
@@ -757,8 +763,14 @@ int checknetdevs(void)
 	fd = fopen("/proc/net/dev", "r");
 	if (fd) {
 		/* Skip the first 2 lines */
-		fgets(temp, BUFFER_SIZE, fd);
-		fgets(temp, BUFFER_SIZE, fd);
+		if (!fgets(temp, BUFFER_SIZE, fd)) {
+			fclose(fd);
+			return -1;
+		}
+		if (!fgets(temp, BUFFER_SIZE, fd)) {
+			fclose(fd);
+			return -1;
+		}
 		while (fgets(temp, BUFFER_SIZE, fd)) {
 			p = strtok(temp, tokens);
 			if (p == NULL) {
