@@ -223,10 +223,10 @@
 #define stats_ptr stats.p.FIXME
 #endif
 
-/* Fill in the hardcoded actions */
-#define LEFT_ACTION (NULL)
-#define MIDDLE_ACTION (NULL)
-#define RIGHT_ACTION (NULL)
+/* Fill in and uncomment the hardcoded actions */
+/* #define LEFT_ACTION (NULL) */
+/* #define MIDDLE_ACTION (NULL) */
+/* #define RIGHT_ACTION (NULL) */
 
 /* Defines voor alle coordinate */
 
@@ -418,12 +418,15 @@ void wmifs_routine(int argc, char **argv)
 		}
 	}
 
-	if (LEFT_ACTION)
-		left_action = strdup(LEFT_ACTION);
-	if (MIDDLE_ACTION)
-		middle_action = strdup(MIDDLE_ACTION);
-	if (RIGHT_ACTION)
-		right_action = strdup(RIGHT_ACTION);
+#ifdef LEFT_ACTION
+	left_action = strdup(LEFT_ACTION);
+#endif
+#ifdef MIDDLE_ACTION
+	middle_action = strdup(MIDDLE_ACTION);
+#endif
+#ifdef RIGHT_ACTION
+	right_action = strdup(RIGHT_ACTION);
+#endif
 
 	/* Scan throught the .rc files */
 	parse_rcfile("/etc/wmifsrc", wmifs_keys);
