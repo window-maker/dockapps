@@ -1,0 +1,12 @@
+TODO list for WMiFS.
+--------------------------------------------------------------
+	* Commandline option for LED colors;
+	* Optional LCD GUI, either compile or runtime;
+	* Make the status LED also display collisions;
+	
+Your feedback! If you have nice suggestions, ideas, whatever,
+that aren't on this list, feel free to mail them to:
+
+	dockapps@windowmaker.mezaway.org
+
+If you don't let us know... how are we suppose to know? ;-)

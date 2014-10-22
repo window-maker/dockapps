@@ -1,0 +1,99 @@
+Installation instructions for WMiFS. 
+
+
+NOTE!
+--------------------------------------------------------------
+Installing this program requires root privileges, ask your 
+local system/network administrator kindly if she/he wants
+to install this software for you ;-)
+
+
+Requirements
+----------------------------------------------------------
+- root access
+
+	To be able to complete the installation you'll need
+	to make changes in the system's /etc directory,
+	the installation copies the GLOBAL config file
+	there, don't worry, nothing will be overwritten ;-)
+
+
+Installation
+--------------------------------------------------------------
+1)  % tar -zxvf wmifs-1.3b.tar.gz
+2)* % cd wmifs.app/wmifs
+3)  % make 
+4)  % su root
+5)  # make install
+6)* # vi ~/.wmifsrc and/or /etc/wmifsrc
+	set up the paths to your pppd
+	start, stop & restart scripts
+7)  % wmifs & (or wmifs -h for brief help).
+
+2)* If you're on a libc5 system, copy or move wmifs-libc5.c
+    over wmifs.c (i.e. cp wmifs-libc5.c wmifs.c) and proceed
+    with step 3)
+
+6)* This is optional, WMiFS also works fine without them,
+    it's entirely up to you ;-)
+
+
+    
+Extra Install Info For Site Administrators!
+--------------------------------------------------------------
+For site administrators who don't want their users messing
+up pppd's configuration files, WMiFS now supports an 
+/etc/wmifsrc.fixed file. 
+
+The installation will install the normal user and global 
+wmifsrc files in $HOME and /etc, NOT the fixed one!
+
+WMiFS scan for 3 files at startup, in the following order:
+
+	1. /etc/wmifsrc
+	2. $HOME/.wmifsrc
+	3. /etc/wmifsrc.fixed
+	
+If no .wmifsrc file is found in the users home directory,
+WMiFS will use the global one (/etc/wmifsrc, if present 
+and valid).
+
+When WMiFS finds a /etc/wmifs.fixed file, all settings
+that WMiFS detected in /etc/wmifsrc and/or $HOME/.wmifsrc
+will be discarted i.e. OVERRIDDEN! 
+
+If you want your users to be able to dialout, but you 
+don't want them to mess around, simply move or copy
+the default /etc/wmifsrc to /etc/wmifsrc.fixed :)
+
+Note: When NO wmifsrc files are found at all, WMiFS will
+work, but quite obvious, WMiFS won't launch any scripts.
+Make sure there are valid and FULL pathnames in the wmifsrc
+file(s) if you want WMiFS to launch your pppd scripts ;-)
+
+
+Usage
+-------------------------------------------------------------
+WMiFS support the following commandline options:
+
+        -h              helpscreen
+        -display        X server display where wmppp should
+                        appear (default = 0:0)
+	-i		interface name, note: 'lo' can ONLY
+			be specified with '-i lo' ;-)
+			(default = default interface as it
+			 appears in /proc/net/route) 
+	-w		draw the statistics graph in waveform
+			like mode, try it! (default = normal)
+        -v              print wmifs version number
+
+
+General Notes
+--------------------------------------------------------------
+Note 1: If "make install" fails on your system, please edit
+        the Makefile to set the paths according to your setup.
+        "make install" defaults to /usr/local/bin, $HOME & /etc.
+
+Note 2: Please DO read the HINTS, this file contains some
+        very usefull tips about WMiFS. 
+
