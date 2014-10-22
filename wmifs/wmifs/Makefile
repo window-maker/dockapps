@@ -43,6 +43,6 @@ install::
 	$(INSTALL_PROGRAM) wmifs $(DESTDIR)$(bindir)
 	$(INSTALL_FILE) sample.wmifsrc $(DESTDIR)$(CONF)/wmifsrc
 	$(INSTALL_FILE) wmifs.1 $(DESTDIR)$(man1dir)
-	@echo "WMiFS-1.4 installation finished..."
+	@echo "WMiFS-1.3beta installation finished..."
 	@echo " "
 	@echo "have fun! ;-)"

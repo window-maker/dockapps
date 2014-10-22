@@ -20,8 +20,8 @@ Requirements
 
 Installation
 --------------------------------------------------------------
-1)  % tar -zxvf wmifs-1.3b.tar.gz
-2)  % cd wmifs.app/wmifs
+1)  % tar -zxvf wmifs-1.4.tar.gz
+2)  % cd dockapps/wmifs
 3)  % make
 4)  % su root
 5)  # make install

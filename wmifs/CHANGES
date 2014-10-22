@@ -1,5 +1,11 @@
 Version         Description
 --------------------------------------------------------------
+1.4     * Released 141022
+
+	* Incorporate patches from Debian.
+
+	* Now maintained by Window Maker Developers Team.
+
 1.3b	* Released 980513
 
 	* Splitted up WMPPP and WMiFS into separate programs.
