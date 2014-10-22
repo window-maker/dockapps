@@ -248,7 +248,6 @@ extern	char **environ;
  /* Global Variables */
 /********************/
 
-char	*ProgName;
 char	*active_interface = NULL;
 int		TimerDivisor=60;
 int		WaveForm=0;
@@ -298,10 +297,6 @@ int main(int argc, char *argv[]) {
 
 	/* Parse Command Line */
 
-	ProgName = argv[0];
-	if (strlen(ProgName) >= 5)
-		ProgName += (strlen(ProgName) - 5);
-	
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
 
@@ -356,7 +351,7 @@ int main(int argc, char *argv[]) {
 typedef struct {
 
 	char	name[8];
-	int		his[55][2];
+	int	his[55][2];
 	long	istatlast;
 	long	ostatlast;
 	
@@ -425,17 +420,19 @@ void wmifs_routine(int argc, char **argv) {
 	if (MIDDLE_ACTION) middle_action = strdup(MIDDLE_ACTION);
 	if (RIGHT_ACTION) right_action = strdup(RIGHT_ACTION);
 
-	/* Scan throught  the .rc files */
-	strcpy(temp, "/etc/wmifsrc");
-	parse_rcfile(temp, wmifs_keys);
+	/* Scan throught the .rc files */
+	parse_rcfile("/etc/wmifsrc", wmifs_keys);
 
 	p = getenv("HOME");
+	if (p == NULL || *p == 0) {
+		fprintf(stderr, "Unknown $HOME directory, please check your environment\n");
+		return;
+	}
 	strcpy(temp, p);
 	strcat(temp, "/.wmifsrc");
 	parse_rcfile(temp, wmifs_keys);
 
-	strcpy(temp, "/etc/wmifsrc.fixed");
-	parse_rcfile(temp, wmifs_keys);
+	parse_rcfile("/etc/wmifsrc.fixed", wmifs_keys);
 
 	openXwindow(argc, argv, wmifs_master_xpm, wmifs_mask_bits, wmifs_mask_width, wmifs_mask_height);
 
@@ -445,12 +442,6 @@ void wmifs_routine(int argc, char **argv) {
 
 	gettimeofday(&tv2, NULL);
 	nexttime = ScrollSpeed;
-
-	for (i=0; i<stat_online; i++) {
-		get_statistics(stat_devices[i].name, &ipacket, &opacket, &istat, &ostat);
-		stat_devices[i].istatlast = istat;
-		stat_devices[i].ostatlast = ostat;
-	}
 
 	DrawActiveIFS(stat_devices[stat_current].name);
 
@@ -487,17 +478,14 @@ void wmifs_routine(int argc, char **argv) {
 			
 			stat_devices[i].istatlast = istat;
 			stat_devices[i].ostatlast = ostat;
-			RedrawWindow();
 		}
+		RedrawWindow();
 		
 		if (curtime >= nexttime) {
 			nexttime=curtime+ScrollSpeed;
 
+			DrawStats(&stat_devices[stat_current].his[0][0], 54, 40, 5, 58);
 			for (i=0; i<stat_online; i++) {
-				if (i == stat_current) {
-
-					DrawStats(&stat_devices[i].his[0][0], 54, 40, 5, 58);
-				}
 				if (stillonline(stat_devices[i].name)) {
 					for (j=1; j<54; j++) {
 						stat_devices[i].his[j-1][0] = stat_devices[i].his[j][0];
@@ -521,9 +509,7 @@ void wmifs_routine(int argc, char **argv) {
 				exit(0);
 				break;
 			case ButtonPress:
-				i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
-
-				but_stat = i;
+				but_stat = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
 				break;
 			case ButtonRelease:
 				i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
@@ -858,7 +844,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 	int		*p;
 	int		p0,p1,p2,p3;
 
-	pixels_per_byte = 1*size;
+	pixels_per_byte = size;
 	p = his;
 	for (j=0; j<num; j++) {
 		if (p[0] + p[1] > pixels_per_byte)
