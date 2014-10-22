@@ -862,9 +862,8 @@ void get_ppp_stats(struct ppp_stats *cur) {
 	sprintf(req.ifr__name, "ppp%d", PPP_UNIT);
 
 	if (ioctl(ppp_h, SIOCGPPPSTATS, &req) < 0) {
-		fprintf(stderr, "heyho!\n");
+/*		fprintf(stderr, "heyho!\n"); */
 	}
-
 	*cur = req.stats;
 }
 
