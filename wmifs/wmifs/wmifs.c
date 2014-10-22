@@ -249,9 +249,9 @@ extern	char **environ;
 /********************/
 
 char	*active_interface = NULL;
-int		TimerDivisor=60;
-int		WaveForm=0;
-int		LockMode=0;
+int		TimerDivisor = 60;
+int		WaveForm = 0;
+int		LockMode = 0;
 int		SampleInt = DEFAULT_SAMPLE_INTERVAL;
 int		ScrollSpeed = CHECK_INTERFACE_INTERVAL;
 
@@ -259,7 +259,7 @@ int		ScrollSpeed = CHECK_INTERFACE_INTERVAL;
  /* PPP variables */
 /*****************/
 
-#define 	PPP_UNIT		0
+#define		PPP_UNIT		0
 int			ppp_h = -1;
 
 #define		PPP_STATS_HIS	54
@@ -290,44 +290,45 @@ void get_ppp_stats(struct ppp_stats *cur);
  /* Main */
 /********/
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
 	int		i;
 
 
 	/* Parse Command Line */
 
-	for (i=1; i<argc; i++) {
+	for (i = 1; i < argc; i++) {
 		char *arg = argv[i];
 
-		if (*arg=='-') {
+		if (*arg == '-') {
 			switch (arg[1]) {
-			case 'd' :
+			case 'd':
 				if (strcmp(arg+1, "display")) {
 					usage();
 					exit(1);
 				}
 				break;
-			case 'i' :
+			case 'i':
 				active_interface = argv[i+1];
 				i++;
 				break;
-			case 'I' :
+			case 'I':
 				SampleInt = atof(argv[i+1]) * 1000;
 				i++;
 				break;
-			case 'l' :
+			case 'l':
 				LockMode = 1;
 				break;
-			case 's' :
+			case 's':
 				ScrollSpeed = atof(argv[i+1]) * 1000;
 				i++;
 				break;
-			case 'v' :
+			case 'v':
 				printversion();
 				exit(0);
 				break;
-			case 'w' :
+			case 'w':
 				WaveForm = 1;
 				break;
 			default:
@@ -368,7 +369,8 @@ int get_statistics(char *, long *, long *, long *, long *);
 int stillonline(char *);
 void DrawActiveIFS(char *);
 
-void wmifs_routine(int argc, char **argv) {
+void wmifs_routine(int argc, char **argv)
+{
 
 	rckeys	wmifs_keys[] = {
 		{ "left", &left_action },
@@ -378,7 +380,7 @@ void wmifs_routine(int argc, char **argv) {
 	};
 
 
-	int			i,j;
+	int			i, j;
 	XEvent		Event;
 	int			but_stat = -1;
 
@@ -394,9 +396,9 @@ void wmifs_routine(int argc, char **argv) {
 	char		temp[BUFFER_SIZE];
 	char		*p;
 
-	for (i=0; i<MAX_STAT_DEVICES; i++) {
+	for (i = 0; i < MAX_STAT_DEVICES; i++) {
 		stat_devices[i].name[0] = 0;
-		for (j=0; j<48; j++) {
+		for (j = 0; j < 48; j++) {
 			stat_devices[i].his[j][0] = 0;
 			stat_devices[i].his[j][1] = 0;
 		}
@@ -407,7 +409,7 @@ void wmifs_routine(int argc, char **argv) {
 	stat_current = 0;
 	if (active_interface) {
 		int isauto = !strcmp(active_interface, "auto");
-		for (i=0; i<stat_online; i++) {
+		for (i = 0; i < stat_online; i++) {
 			if ((isauto && stillonline(stat_devices[i].name)) ||
 			    !strcmp(stat_devices[i].name, active_interface)) {
 				stat_current = i;
@@ -416,9 +418,12 @@ void wmifs_routine(int argc, char **argv) {
 		}
 	}
 
-	if (LEFT_ACTION) left_action = strdup(LEFT_ACTION);
-	if (MIDDLE_ACTION) middle_action = strdup(MIDDLE_ACTION);
-	if (RIGHT_ACTION) right_action = strdup(RIGHT_ACTION);
+	if (LEFT_ACTION)
+		left_action = strdup(LEFT_ACTION);
+	if (MIDDLE_ACTION)
+		middle_action = strdup(MIDDLE_ACTION);
+	if (RIGHT_ACTION)
+		right_action = strdup(RIGHT_ACTION);
 
 	/* Scan throught the .rc files */
 	parse_rcfile("/etc/wmifsrc", wmifs_keys);
@@ -452,18 +457,17 @@ void wmifs_routine(int argc, char **argv) {
 
 		waitpid(0, NULL, WNOHANG);
 
-		for (i=0; i<stat_online; i++) {
+		for (i = 0; i < stat_online; i++) {
 			get_statistics(stat_devices[i].name, &ipacket, &opacket, &istat, &ostat);
 			stat_devices[i].his[53][0] += istat - stat_devices[i].istatlast;
 			stat_devices[i].his[53][1] += ostat - stat_devices[i].ostatlast;
 
 
 			if (i == stat_current) {
-				if (!stillonline(stat_devices[i].name)) {
+				if (!stillonline(stat_devices[i].name))
 					SetErrLED(LED_NET_POWER);
-				} else {
+				else
 					SetOnLED(LED_NET_POWER);
-				}
 
 				if (stat_devices[i].istatlast == istat)
 					SetOffLED(LED_NET_RX);
@@ -482,12 +486,12 @@ void wmifs_routine(int argc, char **argv) {
 		RedrawWindow();
 
 		if (curtime >= nexttime) {
-			nexttime=curtime+ScrollSpeed;
+			nexttime = curtime + ScrollSpeed;
 
 			DrawStats(&stat_devices[stat_current].his[0][0], 54, 40, 5, 58);
-			for (i=0; i<stat_online; i++) {
+			for (i = 0; i < stat_online; i++) {
 				if (stillonline(stat_devices[i].name)) {
-					for (j=1; j<54; j++) {
+					for (j = 1; j < 54; j++) {
 						stat_devices[i].his[j-1][0] = stat_devices[i].his[j][0];
 						stat_devices[i].his[j-1][1] = stat_devices[i].his[j][1];
 					}
@@ -516,19 +520,19 @@ void wmifs_routine(int argc, char **argv) {
 
 				if (but_stat == i && but_stat >= 0) {
 					switch (but_stat) {
-					case 0 :
+					case 0:
 						/* re-read the table */
 						strcpy(temp, stat_devices[stat_current].name);
 						stat_online = checknetdevs();
 						stat_current = 0;
-						for (i=0; i<stat_online; i++) {
-							if (!strcmp(temp, stat_devices[i].name)) {
+						for (i = 0; i < stat_online; i++) {
+							if (!strcmp(temp, stat_devices[i].name))
 								stat_current = i;
-							}
 						}
 
 						stat_current++;
-						if (stat_current == stat_online) stat_current = 0;
+						if (stat_current == stat_online)
+							stat_current = 0;
 
 						DrawActiveIFS(stat_devices[stat_current].name);
 
@@ -567,7 +571,8 @@ void wmifs_routine(int argc, char **argv) {
 |* void DrawActiveIFS(char *)												   *|
 \*******************************************************************************/
 
-void DrawActiveIFS(char *real_name) {
+void DrawActiveIFS(char *real_name)
+{
 
 	/* Cijfers op: 0,65
 	   Letters op: 0,75
@@ -586,20 +591,21 @@ void DrawActiveIFS(char *real_name) {
 	copyXPMArea(5, 84, 30, 10, 5, 5);
 
 
-	strcpy(name,real_name);
+	strcpy(name, real_name);
 	len = strlen(name);
-	if (len > 5)
-	{
-		for (i=len-5; i<len && !(name[i]>='0' && name[i]<='9'); i++)  ;
-		for (; i<=len; i++) /* '=' to get the '\0' character moved too \*/
+	if (len > 5) {
+		for (i = len-5; i < len && !(name[i] >= '0' && name[i] <= '9'); i++)
+			;
+		for (; i <= len; i++) /* '=' to get the '\0' character moved too \*/
 			name[i-(len-5)] = name[i];
 	}
 
 	k = 5;
-	for (i=0; name[i]; i++) {
-		if (i == strlen(name)-1 && strlen(name) <= 4 && name[strlen(name)-1] >= '0' && name[strlen(name)-1] <= '9') {
+	for (i = 0; name[i]; i++) {
+		if (i == strlen(name)-1 && strlen(name) <= 4 && name[strlen(name)-1] >= '0' &&
+		    name[strlen(name)-1] <= '9') {
 			copyXPMArea(61, 64, 4, 9, k, 5);
-			k+=4;
+			k += 4;
 		}
 		c = toupper(name[i]);
 		if (c >= 'A' && c <= 'Z') {
@@ -619,7 +625,8 @@ void DrawActiveIFS(char *real_name) {
 |* get_statistics															   *|
 \*******************************************************************************/
 
-int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
+int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
+{
 
 	FILE				*fp;
 	char				temp[BUFFER_SIZE];
@@ -629,14 +636,15 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 	int					i;
 	int					found;
 	struct ppp_stats	ppp_cur, ppp_old;
-	static int			ppp_opened = 0;
+	static int			ppp_opened;
 
 
 	if (!strncmp(devname, "ppp", 3)) {
 		if (!ppp_opened) {
 			/* Open the ppp device. */
 			memset(&ppp_cur, 0, sizeof(ppp_cur));
-			if ((ppp_h = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+			ppp_h = socket(AF_INET, SOCK_DGRAM, 0);
+			if (ppp_h < 0)
 				return -1;
 			get_ppp_stats(&ppp_cur);
 			ppp_old = ppp_cur;
@@ -667,8 +675,10 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 	p = strtok(temp, tokens);
 	do {
 		if (!(strcmp(p, "packets"))) {
-			if (input == -1) input = i;
-			else output = i;
+			if (input == -1)
+				input = i;
+			else
+				output = i;
 		}
 		i++;
 		p = strtok(NULL, tokens);
@@ -702,7 +712,8 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 |* stillonline																   *|
 \*******************************************************************************/
 
-int stillonline(char *ifs) {
+int stillonline(char *ifs)
+{
 
 	FILE	*fp;
 	char	temp[BUFFER_SIZE];
@@ -726,20 +737,20 @@ int stillonline(char *ifs) {
 |* checknetdevs																   *|
 \*******************************************************************************/
 
-int checknetdevs(void) {
+int checknetdevs(void)
+{
 
 	FILE	*fd;
 	char	temp[BUFFER_SIZE];
 	char	*p;
-	int		i=0,j;
+	int		i = 0, j;
 	int		k;
-	int		devsfound=0;
+	int		devsfound = 0;
 	char	*tokens = " :\t\n";
 	char	foundbuffer[MAX_STAT_DEVICES][8];
 
-	for (i=0; i<MAX_STAT_DEVICES; i++) {
+	for (i = 0; i < MAX_STAT_DEVICES; i++)
 		foundbuffer[i][0] = 0;
-	}
 
 	/* foundbuffer vullen met info uit /proc/net/dev */
 
@@ -750,7 +761,7 @@ int checknetdevs(void) {
 		fgets(temp, BUFFER_SIZE, fd);
 		while (fgets(temp, BUFFER_SIZE, fd)) {
 			p = strtok(temp, tokens);
-			if(p == NULL) {
+			if (p == NULL) {
 					printf("Barfed on: %s", temp);
 					break;
 			}
@@ -774,38 +785,38 @@ int checknetdevs(void) {
 
 	/* Nu foundbuffer naar stat_devices[].name kopieeren */
 
-	for (i=0; i<MAX_STAT_DEVICES; i++) {
+	for (i = 0; i < MAX_STAT_DEVICES; i++) {
 		/* Loop stat_devices na, als die naam niet voorkomt in foundbuffer, kill! */
 
 		if (stat_devices[i].name[0]) {
 			k = 0;
-			for (j=0; j<MAX_STAT_DEVICES; j++) {
+			for (j = 0; j < MAX_STAT_DEVICES; j++) {
 				if (!strcmp(stat_devices[i].name, foundbuffer[j])) {
 					k = 1;
 					foundbuffer[j][0] = 0;
 				}
 			}
-			if (!k) stat_devices[i].name[0] = 0;
+			if (!k)
+				stat_devices[i].name[0] = 0;
 		}
 	}
 
-	for (i=0, j=0; j<MAX_STAT_DEVICES; i++, j++) {
+	for (i = 0, j = 0; j < MAX_STAT_DEVICES; i++, j++) {
 
 		while (!stat_devices[j].name[0] && j < MAX_STAT_DEVICES)
 			j++;
 
-		if (j < MAX_STAT_DEVICES && i != j) {
+		if (j < MAX_STAT_DEVICES && i != j)
 			stat_devices[i] = stat_devices[j];
-		}
 	}
 	i--;
 
-	for (j=0; j<MAX_STAT_DEVICES; j++) {
+	for (j = 0; j < MAX_STAT_DEVICES; j++) {
 		if (foundbuffer[j][0]) {
 
 			strcpy(stat_devices[i].name, foundbuffer[j]);
 
-			for (k=0; k<48; k++) {
+			for (k = 0; k < 48; k++) {
 				stat_devices[i].his[k][0] = 0;
 				stat_devices[i].his[k][1] = 0;
 			}
@@ -815,14 +826,14 @@ int checknetdevs(void) {
 	}
 	if (LockMode && active_interface != NULL) {
 		k = 0;
-		for (j=0; j<i; j++)
+		for (j = 0; j < i; j++)
 			if (!strcmp(stat_devices[j].name, active_interface)) {
 				k = 1;
 				break;
 			}
 		if (!k) {
 			strcpy(stat_devices[i].name, active_interface);
-			for (k=0; k<48; k++) {
+			for (k = 0; k < 48; k++) {
 				stat_devices[i].his[k][0] = 0;
 				stat_devices[i].his[k][1] = 0;
 			}
@@ -837,16 +848,17 @@ int checknetdevs(void) {
 |* DrawStats																   *|
 \*******************************************************************************/
 
-void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
+void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
+{
 
 	int		pixels_per_byte;
-	int		j,k;
+	int		j, k;
 	int		*p;
-	int		p0,p1,p2,p3;
+	int		p0, p1, p2, p3;
 
 	pixels_per_byte = size;
 	p = his;
-	for (j=0; j<num; j++) {
+	for (j = 0; j < num; j++) {
 		if (p[0] + p[1] > pixels_per_byte)
 			pixels_per_byte = p[0] + p[1];
 		p += 2;
@@ -855,7 +867,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 	pixels_per_byte /= size;
 	p = his;
 
-	for (k=0; k<num; k++) {
+	for (k = 0; k < num; k++) {
 		p0 = p[0];
 		p1 = p[1];
 
@@ -863,7 +875,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 		if (WaveForm) {
 			p2 = 0;
 			p3 = 1;
-			for (j=0; j<size; j++) {
+			for (j = 0; j < size; j++) {
 				if (j < p0 / pixels_per_byte)
 					copyXPMArea(100+2, 68, 1, 1, k+x_left, y_bottom-size/2+p2/2);
 				else if (j < (p0 + p1) / pixels_per_byte)
@@ -877,7 +889,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 			}
 			copyXPMArea(100+3, 68, 1, 1, k+x_left, y_bottom-size/2);
 		} else {
-			for (j=0; j<size; j++) {
+			for (j = 0; j < size; j++) {
 				if (j < p0 / pixels_per_byte)
 					copyXPMArea(100+2, 68, 1, 1, k+x_left, y_bottom-j);
 				else if (j < (p0 + p1) / pixels_per_byte)
@@ -894,9 +906,10 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 |* usage																	   *|
 \*******************************************************************************/
 
-void usage(void) {
+void usage(void)
+{
 
-	fprintf(stderr, "\nwmifs - programming: tijno, (de)bugging & design: warpstah, webhosting: bobby \n\n");
+	fprintf(stderr, "\nwmifs - programming: tijno, (de)bugging & design: warpstah, webhosting: bobby\n\n");
 	fprintf(stderr, "usage:\n");
 	fprintf(stderr, "\t-d <display name>\n");
 	fprintf(stderr, "\t-h\tthis help screen\n");
@@ -913,7 +926,8 @@ void usage(void) {
 |* printversion																   *|
 \*******************************************************************************/
 
-void printversion(void) {
+void printversion(void)
+{
 
 	fprintf(stderr, "%s\n", WMIFS_VERSION);
 }
@@ -922,7 +936,8 @@ void printversion(void) {
 |* get_ppp_stats															   *|
 \*******************************************************************************/
 
-void get_ppp_stats(struct ppp_stats *cur) {
+void get_ppp_stats(struct ppp_stats *cur)
+{
 
 	struct ifpppstatsreq    req;
 
@@ -932,9 +947,8 @@ void get_ppp_stats(struct ppp_stats *cur) {
 
 	sprintf(req.ifr__name, "ppp%d", PPP_UNIT);
 
-	if (ioctl(ppp_h, SIOCGPPPSTATS, &req) < 0) {
-/*		fprintf(stderr, "heyho!\n"); */
-	}
+	if (ioctl(ppp_h, SIOCGPPPSTATS, &req) < 0)
+		/* fprintf(stderr, "heyho!\n") */;
 	*cur = req.stats;
 }
 
@@ -963,9 +977,10 @@ void get_ppp_stats(struct ppp_stats *cur) {
 #define LED_SW_Y (14)
 
 /*******************************************************************************\
-|* SetOnLED 																   *|
+|* SetOnLED                                                                                                                                *|
 \*******************************************************************************/
-void SetOnLED(int led) {
+void SetOnLED(int led)
+{
 
 	switch (led) {
 
@@ -982,9 +997,10 @@ void SetOnLED(int led) {
 }
 
 /*******************************************************************************\
-|* SetOffLED																   *|
+|* SetOffLED                                                                                                                               *|
 \*******************************************************************************/
-void SetOffLED(int led) {
+void SetOffLED(int led)
+{
 
 	switch (led) {
 
@@ -1001,9 +1017,10 @@ void SetOffLED(int led) {
 }
 
 /*******************************************************************************\
-|* SetErrLED 																   *|
+|* SetErrLED                                                                                                                               *|
 \*******************************************************************************/
-void SetErrLED(int led) {
+void SetErrLED(int led)
+{
 
 	switch (led) {
 	case LED_NET_POWER:

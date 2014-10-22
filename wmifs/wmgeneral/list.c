@@ -38,132 +38,117 @@ Boston, MA 02111-1307, USA.  */
 
 /* Return a cons cell produced from (head . tail) */
 
-INLINE LinkedList*
-list_cons(void* head, LinkedList* tail)
+INLINE LinkedList *list_cons(void *head, LinkedList *tail)
 {
-  LinkedList* cell;
+	LinkedList *cell;
 
-  cell = (LinkedList*)malloc(sizeof(LinkedList));
-  cell->head = head;
-  cell->tail = tail;
-  return cell;
+	cell = (LinkedList *)malloc(sizeof(LinkedList));
+	cell->head = head;
+	cell->tail = tail;
+	return cell;
 }
 
 /* Return the length of a list, list_length(NULL) returns zero */
 
-INLINE int
-list_length(LinkedList* list)
+INLINE int list_length(LinkedList *list)
 {
-  int i = 0;
-  while(list)
-    {
-      i += 1;
-      list = list->tail;
-    }
-  return i;
+	int i = 0;
+	while (list) {
+		i += 1;
+		list = list->tail;
+	}
+	return i;
 }
 
 /* Return the Nth element of LIST, where N count from zero.  If N
    larger than the list length, NULL is returned  */
 
-INLINE void*
-list_nth(int index, LinkedList* list)
+INLINE void *list_nth(int index, LinkedList *list)
 {
-  while(index-- != 0)
-    {
-      if(list->tail)
-	list = list->tail;
-      else
-	return 0;
-    }
-  return list->head;
+	while (index-- != 0) {
+		if (list->tail)
+			list = list->tail;
+		else
+			return 0;
+	}
+	return list->head;
 }
 
 /* Remove the element at the head by replacing it by its successor */
 
-INLINE void
-list_remove_head(LinkedList** list)
+INLINE void list_remove_head(LinkedList **list)
 {
-  if (!*list) return;
-  if ((*list)->tail)
-    {
-      LinkedList* tail = (*list)->tail; /* fetch next */
-      *(*list) = *tail;		/* copy next to list head */
-      free(tail);			/* free next */
-    }
-  else				/* only one element in list */
-    {
-      free(*list);
-      (*list) = 0;
-    }
+	if (!*list)
+		return;
+	if ((*list)->tail) {
+		LinkedList *tail = (*list)->tail; /* fetch next */
+		*(*list) = *tail;		/* copy next to list head */
+		free(tail);			/* free next */
+	} else {				/* only one element in list */
+		free(*list);
+		(*list) = 0;
+	}
 }
 
 
 /* Remove the element with `car' set to ELEMENT */
 /*
-INLINE void
-list_remove_elem(LinkedList** list, void* elem)
-{
+  INLINE void
+  list_remove_elem(LinkedList** list, void* elem)
+  {
   while (*list)
-    {
-      if ((*list)->head == elem)
-        list_remove_head(list);
-      *list = (*list ? (*list)->tail : NULL);
-    }
-}*/
+  {
+  if ((*list)->head == elem)
+  list_remove_head(list);
+  *list = (*list ? (*list)->tail : NULL);
+  }
+  }*/
 
-INLINE LinkedList *
-list_remove_elem(LinkedList* list, void* elem)
+INLINE LinkedList *list_remove_elem(LinkedList *list, void *elem)
 {
-    LinkedList *tmp;
+	LinkedList *tmp;
 
-    if (list) {
-	if (list->head == elem) {
-	    tmp = list->tail;
-	    free(list);
-	    return tmp;
+	if (list) {
+		if (list->head == elem) {
+			tmp = list->tail;
+			free(list);
+			return tmp;
+		}
+		list->tail = list_remove_elem(list->tail, elem);
+		return list;
 	}
-	list->tail = list_remove_elem(list->tail, elem);
-	return list;
-    }
-    return NULL;
+	return NULL;
 }
 
 
 /* Return element that has ELEM as car */
 
-INLINE LinkedList*
-list_find(LinkedList* list, void* elem)
+INLINE LinkedList *list_find(LinkedList *list, void *elem)
 {
-  while(list)
-    {
-    if (list->head == elem)
-      return list;
-    list = list->tail;
-    }
-  return NULL;
+	while (list) {
+		if (list->head == elem)
+			return list;
+		list = list->tail;
+	}
+	return NULL;
 }
 
 /* Free list (backwards recursive) */
 
-INLINE void
-list_free(LinkedList* list)
+INLINE void list_free(LinkedList *list)
 {
-  if(list)
-    {
-      list_free(list->tail);
-      free(list);
-    }
+	if (list) {
+		list_free(list->tail);
+		free(list);
+	}
 }
 
 /* Map FUNCTION over all elements in LIST */
 
-INLINE void
-list_mapcar(LinkedList* list, void(*function)(void*))
+INLINE void list_mapcar(LinkedList *list, void(*function)(void *))
 {
-  while(list)
-    {
-      (*function)(list->head);
-      list = list->tail;
-    }
+	while (list) {
+		(*function)(list->head);
+		list = list->tail;
+	}
 }

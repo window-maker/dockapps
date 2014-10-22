@@ -36,24 +36,24 @@ Boston, MA 02111-1307, USA.  */
 #endif
 
 typedef struct LinkedList {
-  void *head;
-  struct LinkedList *tail;
+	void *head;
+	struct LinkedList *tail;
 } LinkedList;
 
-INLINE LinkedList* list_cons(void* head, LinkedList* tail);
+INLINE LinkedList *list_cons(void *head, LinkedList *tail);
 
-INLINE int list_length(LinkedList* list);
+INLINE int list_length(LinkedList *list);
 
-INLINE void* list_nth(int index, LinkedList* list);
+INLINE void *list_nth(int index, LinkedList *list);
 
-INLINE void list_remove_head(LinkedList** list);
+INLINE void list_remove_head(LinkedList **list);
 
-INLINE LinkedList *list_remove_elem(LinkedList* list, void* elem);
+INLINE LinkedList *list_remove_elem(LinkedList *list, void *elem);
 
-INLINE void list_mapcar(LinkedList* list, void(*function)(void*));
+INLINE void list_mapcar(LinkedList *list, void(*function)(void *));
 
-INLINE LinkedList*list_find(LinkedList* list, void* elem);
+INLINE LinkedList *list_find(LinkedList *list, void *elem);
 
-INLINE void list_free(LinkedList* list);
+INLINE void list_free(LinkedList *list);
 
 #endif
