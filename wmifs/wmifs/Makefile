@@ -2,6 +2,9 @@
 DESTDIR =
 prefix =/usr/local
 bindir=${prefix}/bin
+datarootdir=${prefix}/share
+mandir=${datarootdir}/man
+man1dir=${mandir}/man1
 CONF=/etc
 
 CC     = gcc
@@ -36,8 +39,10 @@ clean::
 install::
 	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 	$(INSTALL_DIR) $(DESTDIR)$(CONF)
+	$(INSTALL_DIR) $(DESTDIR)$(man1dir)
 	$(INSTALL_PROGRAM) wmifs $(DESTDIR)$(bindir)
 	$(INSTALL_FILE) sample.wmifsrc $(DESTDIR)$(CONF)/wmifsrc
-	@echo "WMiFS-1.3beta installation finished..."
+	$(INSTALL_FILE) wmifs.1 $(DESTDIR)$(man1dir)
+	@echo "WMiFS-1.4 installation finished..."
 	@echo " "
 	@echo "have fun! ;-)"
