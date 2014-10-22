@@ -74,6 +74,11 @@
 	----
 	Changes:
 	---
+	07/21/1999 (Stephen Pitts, smpitts@midsouth.rr.com)
+		* Added new constant: BUFFER_SIZE to determine the size
+		  of the buffer used in fgets() operations. Right now,
+		  its at 512 bytes. Fixed crashing on my system when
+		  one line of /proc/net/dev was longer than 128 bytes
 	04/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Changed the "middle of the waveform" line color
 		* Moved the RedrawWindow out of the main loop. 
@@ -197,6 +202,8 @@
 
 #define WMIFS_VERSION "1.2.1"
 
+/* the size of the buffer read from /proc/net/* */
+#define BUFFER_SIZE 512
   /**********************/
  /* External Variables */
 /**********************/
@@ -340,7 +347,7 @@ void wmifs_routine(int argc, char **argv) {
 
 	long		ipacket, opacket, istat, ostat;
 
-	char		temp[128];
+	char		temp[BUFFER_SIZE];
 	char		*p;
 
 	for (i=0; i<MAX_STAT_DEVICES; i++) {
@@ -562,7 +569,7 @@ void DrawActiveIFS(char *name) {
 int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 
 	FILE				*fp;
-	char				temp[128];
+	char				temp[BUFFER_SIZE];
 	char				*p;
 	char				*tokens = " |:\n";
 	int					input, output;
@@ -596,8 +603,8 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 
 	/* Read from /proc/net/dev the stats! */
 	fp = fopen("/proc/net/dev", "r");
-	fgets(temp, 128, fp);
-	fgets(temp, 128, fp);
+	fgets(temp, BUFFER_SIZE, fp);
+	fgets(temp, BUFFER_SIZE, fp);
 
 	input = -1;
 	output = -1;
@@ -614,7 +621,7 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 		p = strtok(NULL, tokens);
 	} while (input == -1 || output == -1);
 
-	while (fgets(temp, 128, fp)) {
+	while (fgets(temp, BUFFER_SIZE, fp)) {
 		if (strstr(temp, devname)) {
 			found = 0;
 			p = strtok(temp, tokens);
@@ -645,15 +652,16 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 int stillonline(char *ifs) {
 
 	FILE	*fp;
-	char	temp[128];
+	char	temp[BUFFER_SIZE];
 	int		i;
 
 	i = 0;
 	fp = fopen("/proc/net/route", "r");
 	if (fp) {
-		while (fgets(temp, 128, fp)) {
+		while (fgets(temp, BUFFER_SIZE, fp)) {
 			if (strstr(temp, ifs)) {
 				i = 1; /* Line is alive */
+				break;
 			}
 		}
 		fclose(fp);
@@ -668,7 +676,7 @@ int stillonline(char *ifs) {
 int checknetdevs(void) {
 
 	FILE	*fd;
-	char	temp[128];
+	char	temp[BUFFER_SIZE];
 	char	*p;
 	int		i=0,j;
 	int		k;
@@ -685,11 +693,14 @@ int checknetdevs(void) {
 	fd = fopen("/proc/net/dev", "r");
 	if (fd) {
 		/* Skip the first 2 lines */
-		fgets(temp, 128, fd);
-		fgets(temp, 128, fd);
-		while (fgets(temp, 128, fd)) {
+		fgets(temp, BUFFER_SIZE, fd);
+		fgets(temp, BUFFER_SIZE, fd);
+		while (fgets(temp, BUFFER_SIZE, fd)) {
 			p = strtok(temp, tokens);
-			
+			if(p == NULL) {
+					printf("Barfed on: %s", temp);
+					break;
+			}
 			/* Skip dummy code */
 			
 			if (!strncmp(p, "dummy", 5))
