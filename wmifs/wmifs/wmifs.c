@@ -74,6 +74,12 @@
 	----
 	Changes:
 	---
+	01/15/2002 (Matyas Koszik, koszik@debijan.lonyay.edu.hu)
+		* Patch that fixes segfaults on long interface names.
+	08/31/2001 (Davi Leal, davileal@terra.es)
+		* Patch that cuts long interface names, so they look
+		  good in wmifs. For example, "dummy0" gets displayed
+		  as "dumm0", "vmnet10" as "vmn10", etc.
 	06/16/2001 (Jorge García, Jorge.Garcia@uv.es)
 		* Added the LockMode, so wmifs doesn't swap to another
 		  interface if the one requested with "-i" isn't up.
@@ -540,7 +546,7 @@ void wmifs_routine(int argc, char **argv) {
 |* void DrawActiveIFS(char *)												   *|
 \*******************************************************************************/
 
-void DrawActiveIFS(char *name) {
+void DrawActiveIFS(char *real_name) {
 
 	/* Cijfers op: 0,65
 	   Letters op: 0,75
@@ -552,10 +558,21 @@ void DrawActiveIFS(char *name) {
 	int		i;
 	int		c;
 	int		k;
+	int		len;
+	char		name[256];
 
 
 	copyXPMArea(5, 84, 30, 10, 5, 5);
 
+
+	strcpy(name,real_name);
+	len = strlen(name);
+	if (len > 5)
+	{
+		for (i=len-5; i<len && !(name[i]>='0' && name[i]<='9'); i++)  ;
+		for (; i<=len; i++) /* '=' to get the '\0' character moved too \*/
+			name[i-(len-5)] = name[i];
+	}
 
 	k = 5;
 	for (i=0; name[i]; i++) {
