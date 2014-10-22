@@ -2,16 +2,16 @@ WMiFS-1.3b - The public BETA release
 --------------------------------------------------------------
 Authors...: Martijn Pieterse (pieterse@xs4all.nl)
        	    Antoine Nulle    (warp@xs4all.nl)
-		
+
 Note......: WMiFS has it's own mailbox, as our pop3 accounts
 	    are already way too crowded :)
 	    Please mail bugreports, comments, suggestions,
 	    requests and flames to:
 
 	    dockapps@windowmaker.mezaway.org
-	    
+
 	    The official WMiFS support website address:
- 
+
      	    http://windowmaker.mezaway.org
 
 Credits...: Bobby Mezaway (bobby@mezaway.org) for generously
@@ -26,7 +26,7 @@ nice & nifty features like:
 
 	* Autosensing of *ALL* active network interfaces;
 	* Integrated autoscaling (per interface) transfer
-	  statistics, tested upto 100Mbit; 
+	  statistics, tested upto 100Mbit;
 	* Displays a 'normal' xload style graph or our new
 	  'waveform' like load graph;
 	* Realtime cycling through active interfaces by simply
@@ -39,7 +39,7 @@ nice & nifty features like:
 	  buttons which are read from ~/.wmifsrc (optional);
 	* Fixed rc file option, usefull for sites where users
 	  are not allowed to mess with pppd;
-	  
+
 WMiFS is developped on DEC Alpha machines running RedHat-5.0/Linux,
 but, WMiFS has also been intensively tested on x86 and 68K RedHat/
 Linux machines ;-)
@@ -54,11 +54,11 @@ BUGS		Things you don't want to know ;-)
 CHANGES		Description of changes.
 TODO		Things we've already planned for WMiFS.
 COPYING		GNU General Public License Version 2.
-	
+
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please send a 
+If you discover any bugs in this software, please send a
 bugreport to dockapps@windowmaker.mezaway.org and describe
 the problem as detailed as you can.
 
@@ -66,7 +66,7 @@ the problem as detailed as you can.
 Copyright
 --------------------------------------------------------------
 WMiFS.app is copyright (c) 1997, 1998 by Martijn Pieterse and
-Antoine Nulle and licensed through the GNU General Public License. 
+Antoine Nulle and licensed through the GNU General Public License.
 Read the COPYING file for the complete GNU license.
 
 

@@ -1,9 +1,9 @@
-Installation instructions for WMiFS. 
+Installation instructions for WMiFS.
 
 
 NOTE!
 --------------------------------------------------------------
-Installing this program requires root privileges, ask your 
+Installing this program requires root privileges, ask your
 local system/network administrator kindly if she/he wants
 to install this software for you ;-)
 
@@ -22,7 +22,7 @@ Installation
 --------------------------------------------------------------
 1)  % tar -zxvf wmifs-1.3b.tar.gz
 2)* % cd wmifs.app/wmifs
-3)  % make 
+3)  % make
 4)  % su root
 5)  # make install
 6)* # vi ~/.wmifsrc and/or /etc/wmifsrc
@@ -38,14 +38,14 @@ Installation
     it's entirely up to you ;-)
 
 
-    
+
 Extra Install Info For Site Administrators!
 --------------------------------------------------------------
 For site administrators who don't want their users messing
-up pppd's configuration files, WMiFS now supports an 
-/etc/wmifsrc.fixed file. 
+up pppd's configuration files, WMiFS now supports an
+/etc/wmifsrc.fixed file.
 
-The installation will install the normal user and global 
+The installation will install the normal user and global
 wmifsrc files in $HOME and /etc, NOT the fixed one!
 
 WMiFS scan for 3 files at startup, in the following order:
@@ -53,16 +53,16 @@ WMiFS scan for 3 files at startup, in the following order:
 	1. /etc/wmifsrc
 	2. $HOME/.wmifsrc
 	3. /etc/wmifsrc.fixed
-	
+
 If no .wmifsrc file is found in the users home directory,
-WMiFS will use the global one (/etc/wmifsrc, if present 
+WMiFS will use the global one (/etc/wmifsrc, if present
 and valid).
 
 When WMiFS finds a /etc/wmifs.fixed file, all settings
 that WMiFS detected in /etc/wmifsrc and/or $HOME/.wmifsrc
-will be discarted i.e. OVERRIDDEN! 
+will be discarted i.e. OVERRIDDEN!
 
-If you want your users to be able to dialout, but you 
+If you want your users to be able to dialout, but you
 don't want them to mess around, simply move or copy
 the default /etc/wmifsrc to /etc/wmifsrc.fixed :)
 
@@ -82,7 +82,7 @@ WMiFS support the following commandline options:
 	-i		interface name, note: 'lo' can ONLY
 			be specified with '-i lo' ;-)
 			(default = default interface as it
-			 appears in /proc/net/route) 
+			 appears in /proc/net/route)
 	-w		draw the statistics graph in waveform
 			like mode, try it! (default = normal)
         -v              print wmifs version number
@@ -95,5 +95,5 @@ Note 1: If "make install" fails on your system, please edit
         "make install" defaults to /usr/local/bin, $HOME & /etc.
 
 Note 2: Please DO read the HINTS, this file contains some
-        very usefull tips about WMiFS. 
+        very usefull tips about WMiFS.
 

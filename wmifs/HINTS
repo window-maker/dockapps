@@ -16,7 +16,7 @@ Without the -i option (wmifs &) WMiFS automagicly
 grabs the default interface and will display the
 name and statistics of that interface.
 
-You can cycle in realtime through all available 
+You can cycle in realtime through all available
 active interfaces by simply clicking with the left
 mousebutton on the interface name gadget in the
 upperleft corner of WMiFS...
@@ -29,7 +29,7 @@ lo was mainly build in for testing purposes ;-)
 WindowMaker
 --------------------------------------------------------------
 WindowMaker users simply drag and drop the WMiFS dock.app on
-the WindowMaker Dock (preferred) or on the Fiend, and then 
+the WindowMaker Dock (preferred) or on the Fiend, and then
 press the rightmouse button on the outer edges of WMiFS and
 then enable 'Autolaunch' from the Dock/Fiend popup menu.
 
@@ -52,16 +52,16 @@ shaped icon on your desktop.
 p.s. FVWM can swallow it too, so we've heard ;-)
 
 
-Dragging WMiFS 
+Dragging WMiFS
 --------------------------------------------------------------
-Be sure to drag WMIFS on it's outer edges, it's a bit 
+Be sure to drag WMIFS on it's outer edges, it's a bit
 picky due to the large gfx pixmap it keeps ;-)
 
 
 Setting up the WMiFS RC file
 --------------------------------------------------------------
 WMIFS can (optionally) launch your ppp scripts with a simple
-left mouse click on the interface statistics display. 
+left mouse click on the interface statistics display.
 
 You may define your settings in ~/.wmifsrc like:
 
@@ -70,9 +70,9 @@ middle: /home/foobar/MyPPP-disconnect-script
 right: /home/foobar/MyPPP-reconnect-script
 
 Note: If you run a site where users may not fiddle with the
-      PPP scripts, read INSTALL > Info For Site Admins! 
+      PPP scripts, read INSTALL > Info For Site Admins!
 
-      
+
 Creating PPP dialup scripts
 --------------------------------------------------------------
 Because a very good PPP HowTo already exists,
@@ -86,7 +86,7 @@ very easy to create your own PPP scripts ;-)
 Permissions to allow non-root WMPPP connections
 --------------------------------------------------------------
 WMiFS will connect just fine when run as root, but if you want
-to run WMiFS as a non-root user, there are a few files and 
+to run WMiFS as a non-root user, there are a few files and
 programs to make permissions changes to.
 
 WMiFS needs access to the device file your modem is on, so if
@@ -98,7 +98,7 @@ Change the permissions so that it is world read/writable:
 The pppd daemon also makes calls to the kernel which require root
 permissions. The pppd daemon must be owned by root, and then have
 it's set-user-id bit turned on. This way, the pppd daemon will
-always run as SUID root. Change the owner and SUID bit like: 
+always run as SUID root. Change the owner and SUID bit like:
 
         chown root.root pppd
         chmod +s pppd

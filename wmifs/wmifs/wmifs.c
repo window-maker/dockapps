@@ -13,7 +13,7 @@
 			How do I create a not so solid window?
 			How do I open a window?
 			How do I use pixmaps?
-	
+
 	pppstats
 		A program that prints the amount of data that
 		is transferred over a ppp-line.
@@ -36,40 +36,40 @@
 		* only ppp0 will be read
 			use wmifs if you want to read more than one ppp connection
 			not sure about this.
-		* the leds won't be reliable with 
+		* the leds won't be reliable with
 		  more than 1 ppp connection
 		* there is an iconwin, and win variable.
 		  I have no clue why only win shouldn't
 		  be enough. Will check it out later.
 		* The afterstep what seems the shift the
-		  pixmap a bit. Don't know how and why. 
+		  pixmap a bit. Don't know how and why.
 		  It works in the WindowManager.
-	
+
 	Things to do:
 		Split up main()
 
 	----
 	Thanks
 	----
-	
+
 	Most of the ideas, and jumpstarting it:
-	
+
 	#linuxnl, without this irc-channel wmppp would've never seen the light!
 
 	CCC (Constructive Code Criticism):
 
 	Marcelo E. Magallon
 		Thanks a LOT! It takes a while to get me convinced... :)
-		
+
 
 	Minor bugs and ideas:
 
 	Marc De Scheemaecker / David Mihm / Chris Soghoian /
 	Alessandro Usseglio Viretta
 
-	and ofcourse numerous ppl who send us bug reports. 
+	and ofcourse numerous ppl who send us bug reports.
 	(numerous? hmm.. todo: rephrase this :) )
-		
+
 
 	----
 	Changes:
@@ -100,7 +100,7 @@
 		  one line of /proc/net/dev was longer than 128 bytes
 	04/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Changed the "middle of the waveform" line color
-		* Moved the RedrawWindow out of the main loop. 
+		* Moved the RedrawWindow out of the main loop.
 		  Lightens the system load
 	02/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Torn wmppp and wmifs apart.
@@ -293,7 +293,7 @@ void get_ppp_stats(struct ppp_stats *cur);
 int main(int argc, char *argv[]) {
 
 	int		i;
-	
+
 
 	/* Parse Command Line */
 
@@ -354,7 +354,7 @@ typedef struct {
 	int	his[55][2];
 	long	istatlast;
 	long	ostatlast;
-	
+
 } stat_dev;
 
 stat_dev	stat_devices[MAX_STAT_DEVICES];
@@ -415,7 +415,7 @@ void wmifs_routine(int argc, char **argv) {
 			}
 		}
 	}
-	
+
 	if (LEFT_ACTION) left_action = strdup(LEFT_ACTION);
 	if (MIDDLE_ACTION) middle_action = strdup(MIDDLE_ACTION);
 	if (RIGHT_ACTION) right_action = strdup(RIGHT_ACTION);
@@ -447,7 +447,7 @@ void wmifs_routine(int argc, char **argv) {
 
 	while (1) {
 		gettimeofday(&tv, NULL);
-		curtime = (tv.tv_sec - tv2.tv_sec) * 1000 
+		curtime = (tv.tv_sec - tv2.tv_sec) * 1000
 			+ (tv.tv_usec - tv2.tv_usec) / 1000;
 
 		waitpid(0, NULL, WNOHANG);
@@ -469,18 +469,18 @@ void wmifs_routine(int argc, char **argv) {
 					SetOffLED(LED_NET_RX);
 				else
 					SetOnLED(LED_NET_RX);
-			
+
 				if (stat_devices[i].ostatlast == ostat)
 					SetOffLED(LED_NET_TX);
 				else
 					SetOnLED(LED_NET_TX);
 			}
-			
+
 			stat_devices[i].istatlast = istat;
 			stat_devices[i].ostatlast = ostat;
 		}
 		RedrawWindow();
-		
+
 		if (curtime >= nexttime) {
 			nexttime=curtime+ScrollSpeed;
 
@@ -493,11 +493,11 @@ void wmifs_routine(int argc, char **argv) {
 					}
 					stat_devices[i].his[53][0] = 0;
 					stat_devices[i].his[53][1] = 0;
-				}	
+				}
 			}
 			RedrawWindow();
 		}
-	
+
 		while (XPending(display)) {
 			XNextEvent(display, &Event);
 			switch (Event.type) {
@@ -526,12 +526,12 @@ void wmifs_routine(int argc, char **argv) {
 								stat_current = i;
 							}
 						}
-					
+
 						stat_current++;
 						if (stat_current == stat_online) stat_current = 0;
 
 						DrawActiveIFS(stat_devices[stat_current].name);
-	
+
 						DrawStats(&stat_devices[stat_current].his[0][0], 54, 40, 5, 58);
 						break;
 					case 1:
@@ -550,7 +550,7 @@ void wmifs_routine(int argc, char **argv) {
 							break;
 						}
 						break;
-					
+
 					}
 				}
 				but_stat = -1;
@@ -631,12 +631,12 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 	struct ppp_stats	ppp_cur, ppp_old;
 	static int			ppp_opened = 0;
 
-	
+
 	if (!strncmp(devname, "ppp", 3)) {
 		if (!ppp_opened) {
 			/* Open the ppp device. */
 			memset(&ppp_cur, 0, sizeof(ppp_cur));
-			if ((ppp_h = socket(AF_INET, SOCK_DGRAM, 0)) < 0) 
+			if ((ppp_h = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 				return -1;
 			get_ppp_stats(&ppp_cur);
 			ppp_old = ppp_cur;
@@ -755,13 +755,13 @@ int checknetdevs(void) {
 					break;
 			}
 			/* Skip dummy code */
-			
+
 			if (!strncmp(p, "dummy", 5))
 				continue;
 
 			/* If p == "lo", and active_interface (as given on the cmd line) != "lo",
 			   skip it! */
-			   
+
 			if (strcmp(p, "lo") || (active_interface && !strcmp(active_interface, "lo"))) {
 				strcpy(foundbuffer[devsfound], p);
 				devsfound++;
@@ -802,9 +802,9 @@ int checknetdevs(void) {
 
 	for (j=0; j<MAX_STAT_DEVICES; j++) {
 		if (foundbuffer[j][0]) {
-			
+
 			strcpy(stat_devices[i].name, foundbuffer[j]);
-			
+
 			for (k=0; k<48; k++) {
 				stat_devices[i].his[k][0] = 0;
 				stat_devices[i].his[k][1] = 0;
@@ -870,7 +870,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom) {
 					copyXPMArea(100+1, 68, 1, 1, k+x_left, y_bottom-size/2+p2/2);
 				else
 					copyXPMArea(100+0, 68, 1, 1, k+x_left, y_bottom-size/2+p2/2);
-	
+
 				p2 = (p2 + p3);
 				p3 *= -1;
 				p2 *= -1;
@@ -941,11 +941,11 @@ void get_ppp_stats(struct ppp_stats *cur) {
 #define LED_SZE_X (4)
 #define LED_SZE_Y (4)
 
-#define LED_ON_NET_X (87) 
+#define LED_ON_NET_X (87)
 #define LED_ON_NET_Y (66)
-#define LED_OFF_NET_X (93) 
+#define LED_OFF_NET_X (93)
 #define LED_OFF_NET_Y (66)
-#define LED_ERR_NET_X (81) 
+#define LED_ERR_NET_X (81)
 #define LED_ERR_NET_Y (66)
 #define LED_ON_SW_NET_X (49)
 #define LED_ON_SW_NET_Y (85)

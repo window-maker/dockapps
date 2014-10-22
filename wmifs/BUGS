@@ -6,7 +6,7 @@ WMiFS-1.3b
 	* First initial BETA release, WMiFS is now a separate
 	  package, due to the mayor rewrite, there probably
 	  will be some ;-)
-	
+
 
 WMPPP/WMiFS 1.2p1
 --------------------------------------------------------------
@@ -21,26 +21,26 @@ WMPPP/WMiFS 1.2p1
 		 one, but we're looking into this.
 	* WMPPP: ppp0 is still hardcoded (sigh), will be fixed.
 	* WMiFS: SEGV with the dummy interface, we're looking
-		 into this (needs to be ignored like lo). 
+		 into this (needs to be ignored like lo).
 	* WMiFS: Manages to get X CPU usage way to high on
 		 some systems somehow (reported myself) :)
 
 	* Special thanks to Marcelo <mmagallo@efis.ucr.ac.cr>
 	  for providing some real usefull patches for WMPPP,
-	  they will be in the next update for sure!  
+	  they will be in the next update for sure!
 
- 
+
 WMPPP/WMiFS 1.2
 --------------------------------------------------------------
-	
+
 	* The pixmap 'shift' in AfterStep's Wharf seems
 	  not to be our fault, but a bug in Wharf!
- 	
+
 	  Please notify the authors of AfterStep about
 	  this if you like to see this fixed, Wharf can't
 	  handle pixmaps that are larger than 60x60 pixels
 	  very well :(
-	
+
 	* Most code is yet again quite rewritten, but we
 	  think all previous annoyances are gone now ;-)
 
