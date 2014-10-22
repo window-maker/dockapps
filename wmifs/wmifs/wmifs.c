@@ -306,7 +306,7 @@ int main(int argc, char *argv[]) {
 |* wmifs_routine															   *|
 \*******************************************************************************/
 
-#define MAX_STAT_DEVICES 4
+#define MAX_STAT_DEVICES 16
 
 typedef struct {
 
@@ -485,7 +485,7 @@ void wmifs_routine(int argc, char **argv) {
 						stat_online = checknetdevs();
 						stat_current = 0;
 						for (i=0; i<stat_online; i++) {
-							if (!strncmp(temp, stat_devices[i].name, 4)) {
+							if (!strcmp(temp, stat_devices[i].name)) {
 								stat_current = i;
 							}
 						}
@@ -718,6 +718,8 @@ int checknetdevs(void) {
 				strcpy(foundbuffer[devsfound], p);
 				devsfound++;
 			}
+			if (devsfound >= MAX_STAT_DEVICES)
+				break;
 		}
 		fclose(fd);
 	}
@@ -739,7 +741,7 @@ int checknetdevs(void) {
 		}
 	}
 
-	for (i=0, j=0; j<MAX_STAT_DEVICES; i++) {
+	for (i=0, j=0; j<MAX_STAT_DEVICES; i++, j++) {
 
 		while (!stat_devices[j].name[0] && j < MAX_STAT_DEVICES)
 			j++;
@@ -747,8 +749,6 @@ int checknetdevs(void) {
 		if (j < MAX_STAT_DEVICES && i != j) {
 			stat_devices[i] = stat_devices[j];
 		}
-		
-		j++;
 	}
 	i--;
 
