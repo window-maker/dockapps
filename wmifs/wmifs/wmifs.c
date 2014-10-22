@@ -74,6 +74,10 @@
 	----
 	Changes:
 	---
+	02/29/2004 (Tom Marshall, tommy@home.tig-grr.com)
+		* Patch to add a special interface name "auto" for the -i
+		  option. "wmifs -i auto" will automatically select the
+		  first up interface.
 	01/08/2004 (Peter Samuelson, peter@samba-tng.org)
 		* Patch to make make sampling and scrolling intervals
 		  customizable, adds new options -I and -s.
@@ -399,9 +403,13 @@ void wmifs_routine(int argc, char **argv) {
 
 	stat_current = 0;
 	if (active_interface) {
+		int isauto = !strcmp(active_interface, "auto");
 		for (i=0; i<stat_online; i++) {
-			if (!strcmp(stat_devices[i].name, active_interface))
+			if ((isauto && stillonline(stat_devices[i].name)) ||
+			    !strcmp(stat_devices[i].name, active_interface)) {
 				stat_current = i;
+				break;
+			}
 		}
 	}
 	
