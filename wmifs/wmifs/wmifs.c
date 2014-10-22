@@ -215,6 +215,14 @@
  /* Defines */
 /***********/
 
+#ifndef ifr__name
+#define ifr__name ifr_name
+#endif
+
+#ifndef stats_ptr
+#define stats_ptr stats.p.FIXME
+#endif
+
 /* Fill in the hardcoded actions */
 #define LEFT_ACTION (NULL)
 #define MIDDLE_ACTION (NULL)
