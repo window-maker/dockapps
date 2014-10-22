@@ -2,17 +2,17 @@ WMiFS-1.3b - The public BETA release
 --------------------------------------------------------------
 Authors...: Martijn Pieterse (pieterse@xs4all.nl)
        	    Antoine Nulle    (warp@xs4all.nl)
+Currently maintained by the Window Maker Developers Team
+       	    (wmaker-dev@lists.windowmaker.org)
 
-Note......: WMiFS has it's own mailbox, as our pop3 accounts
-	    are already way too crowded :)
-	    Please mail bugreports, comments, suggestions,
+Note......: Please mail bugreports, comments, suggestions,
 	    requests and flames to:
 
-	    dockapps@windowmaker.mezaway.org
+	    wmaker-dev@lists.windowmaker.org
 
 	    The official WMiFS support website address:
 
-     	    http://windowmaker.mezaway.org
+     	    http://windowmaker.org/dockapps/?name=wmifs
 
 Credits...: Bobby Mezaway (bobby@mezaway.org) for generously
 	    hosting our website!
@@ -59,7 +59,7 @@ COPYING		GNU General Public License Version 2.
 Bugs
 --------------------------------------------------------------
 If you discover any bugs in this software, please send a
-bugreport to dockapps@windowmaker.mezaway.org and describe
+bugreport to wmaker-dev@lists.windowmaker.org and describe
 the problem as detailed as you can.
 
 
