@@ -74,6 +74,9 @@
 	----
 	Changes:
 	---
+	05/06/2001 (Jordi Mallach, jordi@sindominio.net)
+		* Integrated many patches, fixing issues with suspended
+		  wmifs.
 	07/21/1999 (Stephen Pitts, smpitts@midsouth.rr.com)
 		* Added new constant: BUFFER_SIZE to determine the size
 		  of the buffer used in fgets() operations. Right now,
@@ -203,7 +206,7 @@
 #define LED_NET_TX			(5)
 #define LED_NET_POWER		(6)
 
-#define WMIFS_VERSION "1.2.1"
+#define WMIFS_VERSION "1.3b1"
 
 /* the size of the buffer read from /proc/net/ */
 #define BUFFER_SIZE 512
