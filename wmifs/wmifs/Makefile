@@ -1,3 +1,10 @@
+
+DESTDIR =
+prefix =/usr/local
+bindir=${prefix}/bin
+CONF=/etc
+
+CC     = gcc
 LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lXpm -lXext -lX11
 OBJS =	wmifs.o \
@@ -5,29 +12,32 @@ OBJS =	wmifs.o \
 		../wmgeneral/misc.o \
 		../wmgeneral/list.o
 
+CFLAGS = -Wall -O2 -g
+
+INSTALL = /usr/bin/install
+INSTALL_DIR     = $(INSTALL) -p -d -o root -g root -m 755
+INSTALL_PROGRAM = $(INSTALL) -p -o root -g root -m 755
+INSTALL_FILE    = $(INSTALL) -p -o root -g root -m 644
 
 .c.o:
-	cc -c -O2 -Wall $< -o $*.o
+	$(CC) -c $(CFLAGS) $< -o $*.o
 
 wmifs: $(OBJS)
-	cc -o wmifs $^ -lXext $(LIBDIR) $(LIBS)
+	$(CC) -o wmifs $^ -lXext $(LIBDIR) $(LIBS)
 
 all:: wmifs
 
 clean::
 	for i in $(OBJS) ; do \
-		rm $$i ; \
+		rm -f $$i ; \
 	done
-	rm wmifs
+	rm -f wmifs
 
 install::
-	cp -f wmifs /usr/local/bin/
-	chmod 755 /usr/local/bin/wmifs
-	chown root:root /usr/local/bin/wmifs
-	cp sample.wmifsrc /etc/wmifsrc
-	chown root:root /etc/wmifsrc
-	chmod 644 /etc/wmifsrc
-	cp -f sample.wmifsrc $(HOME)/.wmifsrc
-	echo "WMiFS-1.3beta installation finished..."
-	echo " "
-	echo "have fun! ;-)"
+	$(INSTALL_DIR) $(DESTDIR)$(bindir)
+	$(INSTALL_DIR) $(DESTDIR)$(CONF)
+	$(INSTALL_PROGRAM) wmifs $(DESTDIR)$(bindir)
+	$(INSTALL_FILE) sample.wmifsrc $(DESTDIR)$(CONF)/wmifsrc
+	@echo "WMiFS-1.3beta installation finished..."
+	@echo " "
+	@echo "have fun! ;-)"
