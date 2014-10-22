@@ -74,6 +74,9 @@
 	----
 	Changes:
 	---
+	06/16/2001 (Jorge García, Jorge.Garcia@uv.es)
+		* Added the LockMode, so wmifs doesn't swap to another
+		  interface if the one requested with "-i" isn't up.
 	05/06/2001 (Jordi Mallach, jordi@sindominio.net)
 		* Integrated many patches, fixing issues with suspended
 		  wmifs.
@@ -224,6 +227,7 @@ char	*ProgName;
 char	*active_interface = NULL;
 int		TimerDivisor=60;
 int		WaveForm=0;
+int		LockMode=0;
 
   /*****************/
  /* PPP variables */
@@ -285,6 +289,9 @@ int main(int argc, char *argv[]) {
 			case 'i' :
 				active_interface = argv[i+1];
 				i++;
+				break;
+			case 'l' :
+				LockMode = 1;
 				break;
 			case 'v' :
 				printversion();
@@ -768,8 +775,23 @@ int checknetdevs(void) {
 			i++;
 		}
 	}
+	if (LockMode && active_interface != NULL) {
+		k = 0;
+		for (j=0; j<i; j++)
+			if (!strcmp(stat_devices[j].name, active_interface)) {
+				k = 1;
+				break;
+			}
+		if (!k) {
+			strcpy(stat_devices[i].name, active_interface);
+			for (k=0; k<48; k++) {
+				stat_devices[i].his[k][0] = 0;
+				stat_devices[i].his[k][1] = 0;
+			}
+			devsfound++;
+		}
 
-
+	}
 	return devsfound;
 }
 
@@ -841,6 +863,7 @@ void usage(void) {
 	fprintf(stderr, "\t-d <display name>\n");
 	fprintf(stderr, "\t-h\tthis help screen\n");
 	fprintf(stderr, "\t-i <interface name>\tdefault (as it appears in /proc/net/route)\n");
+	fprintf(stderr, "\t-l\tstarts in lock mode\n");
 	fprintf(stderr, "\t-v\tprint the version number\n");
 	fprintf(stderr, "\t-w\twaveform load\n");
 	fprintf(stderr, "\n");
