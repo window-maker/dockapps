@@ -185,6 +185,9 @@
 #include "wmifs-master.xpm"
 #include "wmifs-mask.xbm"
 
+/* How often to check for new network interface, in seconds */
+#define CHECK_INTERFACE_INTERVAL 5
+
   /***********/
  /* Defines */
 /***********/
@@ -202,7 +205,7 @@
 
 #define WMIFS_VERSION "1.2.1"
 
-/* the size of the buffer read from /proc/net/* */
+/* the size of the buffer read from /proc/net/ */
 #define BUFFER_SIZE 512
   /**********************/
  /* External Variables */
@@ -254,7 +257,7 @@ void get_ppp_stats(struct ppp_stats *cur);
  /* Main */
 /********/
 
-void main(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
 
 	int		i;
 	
@@ -296,6 +299,7 @@ void main(int argc, char *argv[]) {
 	}
 
 	wmifs_routine(argc, argv);
+	return 0;
 }
 
 /*******************************************************************************\
@@ -341,9 +345,9 @@ void wmifs_routine(int argc, char **argv) {
 	int			stat_online;
 	int			stat_current;
 
-	long		starttime;
-	long		curtime;
-	long		nexttime;
+	time_t		starttime;
+	time_t		curtime;
+	time_t		nexttime;
 
 	long		ipacket, opacket, istat, ostat;
 
@@ -391,7 +395,7 @@ void wmifs_routine(int argc, char **argv) {
 	AddMouseRegion(1, 5, 20, 58, 58);
 
 	starttime = time(0);
-	nexttime = starttime + 5;
+	nexttime = starttime + CHECK_INTERFACE_INTERVAL;
 
 	for (i=0; i<stat_online; i++) {
 		get_statistics(stat_devices[i].name, &ipacket, &opacket, &istat, &ostat);
@@ -435,7 +439,8 @@ void wmifs_routine(int argc, char **argv) {
 		}
 		
 		if (curtime >= nexttime) {
-			nexttime+=5;
+
+      nexttime=curtime+CHECK_INTERFACE_INTERVAL;
 
 			for (i=0; i<stat_online; i++) {
 				if (i == stat_current) {
@@ -517,7 +522,7 @@ void wmifs_routine(int argc, char **argv) {
 			}
 		}
 
-		usleep(50000L);
+		usleep(50000L);             /* 50 milliseconds */
 	}
 }
 
