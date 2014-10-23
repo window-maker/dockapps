@@ -215,6 +215,19 @@ url = http://zevv.nl/play/code/wmifinfo/
 dockapps = 72
 category = Network
 
+[wmifs]
+version-1.4 = 667077ad937a814152f5c1d5b72115654ede9f44
+version-1.3b1 = 4241b86c9b50654e9a47c8271e471e122ece328a
+image = wmifs.png
+description = "WMiFS is a dockable applet for monitoring all your network interfaces,
+it's designed for Window Maker's dock, but of course, it works with other
+windowmanagers too :)
+
+Oh BTW, WMiFS means 'Window Maker InterFace Statistics';-)"
+url = https://web.archive.org/web/19990224233117/http://windowmaker.mezaway.org/dockapps/wmifs.html
+dockapps =
+category = Network
+
 [wmitime]
 version-0.3+20141005 = 84f5d9248a6b2b1ab48b1849ce72ff7415094a8d
 version-0.3 = bf32df76ae6ae945f02428fff7a9b269c82f32f6
