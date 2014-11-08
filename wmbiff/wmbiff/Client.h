@@ -76,7 +76,7 @@ typedef struct _mbox_t {
 		} maildir;
 		struct {
 			char password[BUF_SMALL];
-			char userName[BUF_SMALL];
+			char userName[BUF_BIG];
 			char serverName[BUF_BIG];
 			int serverPort;
 			int localPort;
