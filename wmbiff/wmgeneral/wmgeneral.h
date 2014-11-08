@@ -5,7 +5,7 @@
  /* Defines */
 /***********/
 
-#define MAX_MOUSE_REGION (16)
+#define MAX_MOUSE_REGION (40)
 
   /************/
  /* Typedefs */
