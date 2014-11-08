@@ -7,7 +7,7 @@
 
 # Based on security-update-check.py by Rob Bradford
 
-require 'net/http'
+require 'net/ftp'
 
 #require 'profile'
 
@@ -67,15 +67,12 @@ end
 # file, the url, the system's cache of the file, and a
 # per-user cache of the file.
 packagelists = Dir.glob("/var/lib/apt/lists/#{Server}*Packages").map { |pkgfile|
-  [ pkgfile.gsub(/.*#{Server}/, '').tr('_','/'), # the url path
+  [ '/debian-security' + pkgfile.gsub(/.*#{Server}/, '').tr('_','/').gsub(/Packages/, ''), # the url path
     pkgfile,  # the system cache of the packages file.  probably up-to-date.
     # and finally, a user's cache of the page, if needed.
     "%s/%s" % [ Cachedir, pkgfile.gsub(/.*#{Server}_/,'') ]
   ]
 }
-
-# we'll open a persistent session, but only if we need it.
-session = nil
 
 # update the user's cache if necessary.
 packagelists.each { |urlpath, sc, uc|
@@ -91,31 +88,23 @@ packagelists.each { |urlpath, sc, uc|
         uctime
       end
     else
-      # the user cache doesn't exist, but we might have
-      # talked to the server recently.
-      if(test(?e, uc + '.stamp')) then
-        File.stat(uc + '.stamp').mtime
-      else
-        sctime
-      end
+      sctime
     end
   if(Time.now > cached_time + Refetch_Interval_Sec) then
     debugmsg "fetching #{urlpath} %s > %s + %d" % [Time.now, cached_time, Refetch_Interval_Sec]
     begin
-      if(session == nil) then
-        session = Net::HTTP.new(Server)
-        # session.set_pipe($stderr);
-      end
-      begin
-        # the warning with ruby1.8 on the following line
-        # has to do with the resp, data bit, which should
-        # eventually be replaced with (copied from the
-        # docs with the 1.8 net/http.rb)
-        #         response = http.get('/index.html')
-        #         puts response.body
-        resp, data = session.get(urlpath,
-                                 { 'If-Modified-Since' =>
-                                   cached_time.strftime( "%a, %d %b %Y %H:%M:%S GMT" ) })
+      test(?e, Cachedir) or Dir.mkdir(Cachedir)
+
+      ftp = Net::FTP.new(Server)
+      ftp.login
+      ftp.chdir(urlpath)
+      ftp.getbinaryfile('Packages.gz', uc + '.gz', 1024)
+      ftp.close
+
+      # need to unzip Packages.gz
+      cmd_gunzip = "gzip -df %s" % [ uc + '.gz' ]
+      Kernel.system(cmd_gunzip)
+
       rescue SocketError => e
         # if the net is down, we'll get this error; avoid printing a stack trace.
         puts "XX old"
@@ -127,24 +116,7 @@ packagelists.each { |urlpath, sc, uc|
         puts "XX old"
         exit 1;
       end
-      test(?e, Cachedir) or Dir.mkdir(Cachedir)
-      File.open(uc, 'w') { |o| o.puts data }
-      test(?e, uc + '.stamp') and File.unlink(uc + '.stamp')  # we have a copy, don't need the stamp.
       debugmsg "urlpath updated"
-    rescue Net::ProtoRetriableError => detail
-      head = detail.data
-      if head.code != "304"
-        raise "unexpected error occurred: " + detail
-      end
-      test(?e, Cachedir) or Dir.mkdir(Cachedir)
-      if(test(?e, uc)) then
-        touch(uc)
-      else
-        # we didn't get an update, but we don't have a cached
-        # copy in the user directory.
-        touch(uc + '.stamp')
-      end
-    end
   else
     debugmsg "skipping #{urlpath}"
   end
