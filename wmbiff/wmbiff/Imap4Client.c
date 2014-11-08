@@ -537,7 +537,7 @@ int imap4Create( /*@notnull@ */ Pop3 pc, const char *const str)
 		pc->label[0] = '\0';
 		IMAP_DM(pc, DEBUG_ERROR, "Couldn't parse line %s (%d)\n"
 				"  If this used to work, run wmbiff with the -relax option, and\n"
-				"  send mail to wmbiff-devel@lists.sourceforge.net with the hostname\n"
+				"  send mail to "PACKAGE_BUGREPORT" with the hostname\n"
 				"  of your mail server.\n", unaliased_str, matchedchars);
 		return -1;
 	}
