@@ -116,7 +116,7 @@ dockapps = 34
 category = System Monitoring
 
 [wmbiff]
-version-0.4.27+20141005 = 64a3b49044ba60ae911377ef7b01e72cc0c0432c
+version-0.4.28 = 9727bb7b02ee88966de03c74e9da21b7611ca2a6
 version-0.4.27 = 0e2f5afd57ca4e5b2f75f5e16c1fd0550d98f210
 image = wmbiff.jpg
 description = "WMBiff is an WindowMaker docking utility, that displays the number of read
