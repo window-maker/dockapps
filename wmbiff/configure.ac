@@ -6,7 +6,7 @@ dnl and configure:
 dnl  installation prefix
 dnl  version
 
-AC_INIT(WMBiff, 0.4.27, wmaker-dev@lists.windowmaker.org, wmbiff)
+AC_INIT(WMBiff, 0.4.28, wmaker-dev@lists.windowmaker.org, wmbiff)
 AC_CONFIG_AUX_DIR(autoconf)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADER([config.h])

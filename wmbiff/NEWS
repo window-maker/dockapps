@@ -1,5 +1,8 @@
 Release Notes
 ~~~~~~~~~~~~~
+Release 0.4.28 - November 7, 2014
+  * Lots of bug fixes and code cleanup.
+
 Release 0.4.27 - October 8, 2005
   * GNUTLS 1.2 support
   * Minor bugfixes.
