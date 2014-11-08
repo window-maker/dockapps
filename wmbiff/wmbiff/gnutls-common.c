@@ -34,10 +34,10 @@ static const char *my_ctime(const time_t * tv)
 
 }
 
-void print_x509_info(gnutls_session session, const char* hostname)
+void print_x509_info(gnutls_session_t session, const char* hostname)
 {
-	gnutls_x509_crt crt;
-	const gnutls_datum *cert_list;
+	gnutls_x509_crt_t crt;
+	const gnutls_datum_t *cert_list;
 	unsigned int cert_list_size = 0;
 	int ret;
 	char digest[20];
@@ -107,7 +107,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 
 		if (xml) {
 #ifdef ENABLE_PKI
-			gnutls_datum xml_data;
+			gnutls_datum_t xml_data;
 
 			ret = gnutls_x509_crt_to_xml( crt, &xml_data, 0);
 			if (ret < 0) {
@@ -200,7 +200,7 @@ void print_x509_info(gnutls_session session, const char* hostname)
 
 #ifdef HAVE_LIBOPENCDK
 
-void print_openpgp_info(gnutls_session session, const char* hostname)
+void print_openpgp_info(gnutls_session_t session, const char* hostname)
 {
 
 	char digest[20];
@@ -212,7 +212,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 	char name[256];
 	size_t name_len = sizeof(name);
 	gnutls_openpgp_key crt;
-	const gnutls_datum *cert_list;
+	const gnutls_datum_t *cert_list;
 	unsigned int cert_list_size = 0;
 	time_t expiret;
 	time_t activet;
@@ -259,7 +259,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 		}
 
 		if (xml) {
-			gnutls_datum xml_data;
+			gnutls_datum_t xml_data;
 
 			ret = gnutls_openpgp_key_to_xml( crt, &xml_data, 0);
 			if (ret < 0) {
@@ -332,7 +332,7 @@ void print_openpgp_info(gnutls_session session, const char* hostname)
 
 #endif
 
-void print_cert_vrfy(gnutls_session session)
+void print_cert_vrfy(gnutls_session_t session)
 {
 
 	unsigned int status;
@@ -369,11 +369,11 @@ void print_cert_vrfy(gnutls_session session)
 	}
 }
 
-int print_info(gnutls_session session, const char* hostname)
+int print_info(gnutls_session_t session, const char* hostname)
 {
 	const char *tmp;
-	gnutls_credentials_type cred;
-	gnutls_kx_algorithm kx;
+	gnutls_credentials_type_t cred;
+	gnutls_kx_algorithm_t kx;
 
 
 	/* print the key exchange's algorithm name
@@ -454,7 +454,7 @@ int print_info(gnutls_session session, const char* hostname)
 	return 0;
 }
 
-void print_cert_info(gnutls_session session, const char* hostname)
+void print_cert_info(gnutls_session_t session, const char* hostname)
 {
 
 	printf("- Certificate type: ");

@@ -25,8 +25,8 @@
 
 extern const char str_unknown[];
 
-int print_info( gnutls_session state, const char* hostname);
-void print_cert_info( gnutls_session state, const char* hostname);
+int print_info( gnutls_session_t state, const char* hostname);
+void print_cert_info( gnutls_session_t state, const char* hostname);
 void print_list(void);
 
 void parse_comp( char** comp, int ncomp, int* comp_priority);
