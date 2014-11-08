@@ -539,7 +539,7 @@ tls_check_certificate(struct connection_state *scs,
 	return;
 }
 
-struct connection_state *initialize_gnutls(int sd, char *name, Pop3 pc,
+struct connection_state *initialize_gnutls(intptr_t sd, char *name, Pop3 pc,
 										   const char *remote_hostname)
 {
 	static int gnutls_initialized;

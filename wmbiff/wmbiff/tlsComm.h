@@ -9,6 +9,7 @@
 */
 
 /* used to drill through per-mailbox debug keys */
+#include <stdint.h>
 #include "Client.h"
 
 /* opaque reference to the state associated with a
@@ -19,7 +20,7 @@ struct connection_state;
 /* take a socket descriptor and negotiate a TLS connection
    over it */
 /*@only@*/
-struct connection_state *initialize_gnutls(int sd, /*@only@ */ char *name,
+struct connection_state *initialize_gnutls(intptr_t sd, /*@only@ */ char *name,
 										   Pop3 pc, const char *hostname);
 
 /* take a socket descriptor and bundle it into a connection
