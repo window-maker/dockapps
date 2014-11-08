@@ -24,7 +24,7 @@ different options which can be specified in a user's wmbiffrc.
 .SH OPTIONS
 Each option takes the form
 .IR option[.mbox] " = " value .
-Comments must be preceeded by pound signs (#).
+Comments must be preceded by pound signs (#).
 
 The supported configuration options are:
 
@@ -49,7 +49,7 @@ predefined value from gnults or a custom value. Default value
 is: \fINORMAL\fP.
 
 gnutls predefined values:
-.SP
+.sp
 .RS 8
 \fIPERFORMANCE\fP (gnutls >= 2.2.0)
 .RE
@@ -97,7 +97,7 @@ path, wmbiff will search @SKINDIR@, /usr/share/wmbiff,
 pixmap file.
 .TP
 \fBglobalnotify\fP
-Command to be executed when new mail is recieved in any mailbox. Set
+Command to be executed when new mail is received in any mailbox. Set
 notify.n to override this option for mailbox n.
 .TP
 \fBlabel.n\fP
@@ -237,7 +237,7 @@ Per mailbox check interval. Value is the amount of seconds between
 checkings, default is the global interval.
 .TP
 \fBfetchinterval.n\fP
-Interval between mail auto-fetching. Values accept 0 to disable, -1 for
+Interval between mail auto-fetching. Values accept 0 to disable, \-1 for
 autofetching on new mail arrival, and positive values for a given interval
 in seconds.
 .TP
@@ -299,12 +299,12 @@ sometimes a failed attempt to authenticate can cause later
 failures.  Some servers claim to support cram-md5 but fail:
 telling wmbiff not to try can help.
 
-For other problems, run wmbiff with the -debug option.  See
+For other problems, run wmbiff with the \-debug option.  See
 wmbiff(1) for details.
 
 While editing .wmbiffrc, you may find it useful to restart
 wmbiff using either control-shift mouse button 1, or killall
--USR1 wmbiff.
+\-USR1 wmbiff.
 
 
 .SH FILES

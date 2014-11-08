@@ -13,7 +13,7 @@ WMBiff \- A dockable Mailbox Monitor
 
 .SH SYNOPSIS
 .B wmbiff
-[-display <display name>] [-geometry +XPOS+YPOS] [-c <filename>] [-h] [-v] [-debug] [-fg <foreground-color>] [-bg <background-color>] [-hi <highlight-color>] [-font <X11 font>|default] [-o] [+w]
+[\-display <display name>] [\-geometry +XPOS+YPOS] [\-c <filename>] [\-h] [\-v] [\-debug] [\-fg <foreground-color>] [\-bg <background-color>] [\-hi <highlight-color>] [\-font <X11 font>|default] [\-o] [+w]
 .br
 
 .SH DESCRIPTION
@@ -60,15 +60,15 @@ Use specified configuration file instead of ~/.wmbiffrc.
 Print verbose log of progress.
 .TP
 .B \-fg <color>
-Use specified X11 color for foreground. Implies -font default,
+Use specified X11 color for foreground. Implies \-font default,
 unless overridden.
 .TP
 .B \-bg <color>
-Use specified X11 color for background. Implies -font default,
+Use specified X11 color for background. Implies \-font default,
 unless overridden.
 .TP
 .B \-hi <color>
-Use specified X11 color for new mail counters. Implies -font
+Use specified X11 color for new mail counters. Implies \-font
 default, unless overridden.
 .TP
 .B \-font <font>
@@ -97,7 +97,7 @@ by default).
 Do not use the "withdrawn" state: the wmbiff window will not
 be captured as an icon and placed in the dock, but will
 instead have its own window.  This option starts with a '+'
-for consistency with other software programs: many use '-w'
+for consistency with other software programs: many use '\-w'
 to mean the opposite.
 
 .SH BUGS
@@ -105,7 +105,7 @@ Send bug reports or suggestions to the WMBiff Development
 Mailing List <wmbiff-devel@lists.sourceforge.net>.   Consider
 attaching a transcript of your session, generated using:
 .RS
-wmbiff -debug | tee wmbiff-log
+wmbiff \-debug | tee wmbiff-log
 .RE
 Be sure to remove any instances of your password.
 
