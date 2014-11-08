@@ -58,6 +58,8 @@ static int ipv4_sock_connect(struct in_addr *address, short port)
 		printf("socket() failed.\n");
 		return (-1);
 	};
+       if (fcntl(fd, F_SETFD, FD_CLOEXEC) == -1)
+               perror("fcntl(FD_CLOEXEC)");
 
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = *(u_long *) address;
@@ -122,6 +124,8 @@ int sock_connect(const char *hostname, int port)
 		fd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 		if (fd < 0)
 			continue;
+               if (fcntl(fd, F_SETFD, FD_CLOEXEC) == -1)
+                       perror("fcntl(FD_CLOEXEC)");
 		if (connect(fd, res->ai_addr, res->ai_addrlen) < 0) {
 			close(fd);
 			fd = -1;
