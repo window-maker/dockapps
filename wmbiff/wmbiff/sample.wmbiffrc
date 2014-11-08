@@ -40,7 +40,7 @@ askpass = /usr/bin/ssh-askpass -fg cyan -bg black -xrm '*Dialog.title: WMBiff Pa
 # higher contrast for lower-color displays
 #skinfile=wmbiff-master-contrast.xpm
 # make your own derivative and submit it
-# to us at wmbiff-devel@lists.sourceforge.net
+# to us at wmaker-dev@lists.windowmaker.org.
 
 ### First string ###
 

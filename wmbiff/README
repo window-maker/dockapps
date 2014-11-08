@@ -68,7 +68,7 @@ position. All other positions will be empty.
 
    Any suggestions/bug reports please send to our mailing list,
 
-    wmbiff-devel@lists.sourceforge.net
+    wmaker-dev@lists.windowmaker.org
 
    Please include the output of 'wmbiff -debug'.
 
