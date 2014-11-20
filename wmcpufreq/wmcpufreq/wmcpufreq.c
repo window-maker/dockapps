@@ -86,6 +86,8 @@ int main(int argc, char *argv[])
 		    strcpy(prg,argv[i+1]);
 		  break;
 	       }
+	     printf("only -v and -exe supported \n");
+	     exit(0);
 	  }
      }
    /* get driver name (guess all cpu have the same driver) */
