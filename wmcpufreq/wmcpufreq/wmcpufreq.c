@@ -61,14 +61,17 @@ int main(int argc, char *argv[])
 {
    struct timespec ts,ts1;
    int i,ncpu;
+   int idcpu;
    unsigned long freq[8];
    XEvent event;
    char gov[20];
-   char drv[20],*ptr;
+   char drv[20],*ptr,*endptr;
    char prg[LN_PATH];
    ts.tv_sec=0;
    ts.tv_nsec=DELAY;
    prg[0]=0;
+   idcpu=0;
+
    for(i=0;i<MAX_CPU;i++)
      freq[i]=0;
    if(argc >1)
@@ -86,10 +89,25 @@ int main(int argc, char *argv[])
 		    strcpy(prg,argv[i+1]);
 		  break;
 	       }
-	     printf("only -v and -exe supported \n");
+	     if (!strcmp(argv[i], "-cpuid"))
+	       {
+		 if(strlen(argv[i+1]) < LN_PATH )
+		   idcpu=strtol(argv[i+1],&endptr,0);
+		 printf("cpuid= %d \n",idcpu);		  
+		 break;
+	       }
+	     printf("only -v, -exe, -cpuid supported \n");
 	     exit(0);
 	  }
      }
+
+   /* basic checks */
+   if ( idcpu < 0 )
+     {
+       printf("cpuid < 0 \n");
+       exit(-1);
+     }
+
    /* get driver name (guess all cpu have the same driver) */
    ptr=cpufreq_get_driver(cpu);
    if(!ptr)
@@ -99,36 +117,47 @@ int main(int argc, char *argv[])
      }
    strcpy(drv,ptr);
    cpufreq_put_driver(ptr);
+
+
    /* get number of cpu (0=cpu0, 1=cpu1 ...) */
-   ncpu=3;
-   if( cpufreq_cpu_exists(ncpu) ==0)
+  
+   ncpu=-1;
+
+   for(i=0;i<MAX_CPU;i++)
      {
-	/* 4 cpu at least */
-        printf("4cpu\n");
-	wm_xpm=wmcpufreq_master_3;
-	wm_bits=wmcpufreq_mask_3_bits;
+       if( cpufreq_cpu_exists(idcpu+i) ==0)
+	 {
+	   printf("cpuid %d found\n",idcpu+i);
+	   ncpu=i;
+	 }
      }
-   else if (cpufreq_cpu_exists(ncpu-1) ==0)
-     {
-	printf("3cpu\n");
-	wm_xpm=wmcpufreq_master_3;
-	wm_bits=wmcpufreq_mask_3_bits;
-	ncpu=2;
-     }
-   else if (cpufreq_cpu_exists(ncpu-2) ==0)
-   {
-      printf("2cpu\n");
-      wm_xpm=wmcpufreq_master_xpm_2;
-      wm_bits=wmcpufreq_mask_bits_2;
-      ncpu=1;
+
+   switch ( ncpu ) {
+   case -1:
+     printf("no cpuid found \n");
+     exit(-1);
+   case 0:
+     wm_xpm=wmcpufreq_master_xpm_1;
+     wm_bits=wmcpufreq_mask_bits_1;
+     break;
+   case 1:
+     wm_xpm=wmcpufreq_master_xpm_2;
+     wm_bits=wmcpufreq_mask_bits_2;
+     break;
+   case 2:
+     wm_xpm=wmcpufreq_master_3;
+     wm_bits=wmcpufreq_mask_3_bits;
+     break;
+   case 3:
+     wm_xpm=wmcpufreq_master_3;
+     wm_bits=wmcpufreq_mask_3_bits;
+     break;
+   default:
+     printf("no yet implemented: cpuid %d \n",ncpu);
+     exit(-1);
+     break;
    }
-   else
-   {
-      printf("1cpu\n");
-      wm_xpm=wmcpufreq_master_xpm_1;
-      wm_bits=wmcpufreq_mask_bits_1;
-      ncpu=0;
-   }
+
    /* guess every cpu has the same limits */
    if(cpufreq_get_hardware_limits(cpu, &f_min, &f_max))
      {
@@ -162,7 +191,7 @@ int main(int argc, char *argv[])
 	RedrawWindow();
 	/* get info */
 	for(i=0;i<=ncpu;i++)
-	  freq[i]=cpufreq_get_freq_kernel(i);
+	  freq[i]=cpufreq_get_freq_kernel(i+idcpu);
 	policy=cpufreq_get_policy(cpu);
 	strcpy(gov,policy->governor);
 	max=policy->max;
