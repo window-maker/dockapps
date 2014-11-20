@@ -1,0 +1,56 @@
+wmcpufreq 2.0
+***************
+for single core cpu same behavior as wmcpufreq 1.0
+
+for multi core cpu shows
+           - the frequency in use between the maximum and minimum of cpu0	    
+           - the frequency in use between the maximum and minimum of cpu1
+	   - the active governor in red for cpu0
+
+on amd x2 3800 rev e4 both cpu has the same governor, freuency,
+maximum and minimum freqyency. 
+
+wmcpufreq 3.0 
+***************
+
+
+if 1 cpu wmcpufreq displays  on a windowmaker dock application
+                   - the frequency in use between the maximum and minimum 
+                   - the driver in green
+		   - the active governor in red 
+		   
+if >=2cpu wmcpufreq displays  on a windowmaker dock application
+                  - the frequency in use between the maximum and minimum
+                   - the active governor in red
+
+
+wmcpufreq 2.0 and wmcpufreq 1.0
+USAGE
+-----
+
+wmcpufreq -v	    	print the version
+
+wcpufreq -exe azert	 the string after -exe is the program name
+	      		 to be launched  when clicking on the wmcpufreq icon
+
+
+PREREQUISITES
+-------------
+A running 2.6 kernel witch cpufreq enabled
+libcpufreq
+libcpufreq-dev
+
+
+PREREQUISITES
+-------------
+libgtk2
+libgtk2-dev
+
+
+INSTALLATION
+------------
+
+make
+make install
+
+
