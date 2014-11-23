@@ -174,6 +174,28 @@ url =
 dockapps = 316
 category = E-mail
 
+[wmcliphist]
+version-2.1 = dbb149efcf679d06f0dc87d0bffe61cde0e7183a
+version-2.0 = 07f0a9d1d131db7ff43c10fd570e2b80eceb4450
+image = wmcliphist.gif
+description =  "wmcliphist is a dockable application for Window Maker. It keeps a history of clipboard operations and allows you to put previously copied items back to clipboard for pasting to other applications."
+url = http://linux.nawebu.cz/wmcliphist/
+dockapps =
+category = General/Others
+
+[wmcpufreq]
+version-3.1 = 53d0a8fd93d811a9a3f4a2bfb67133f38930cc85
+version-3.0 = ca477c635903252c7c6e150e21eacc4b2bd015b7
+image = "cp3.png,wmcpufre2.qpng.png,wmcpufreq.png"
+description = "wmcpufreq displays on a windowmaker dock application
+- the frequency in use between the maximum and minimum
+- the driver in green
+- the active governor in red
+Included a tool for setting governor an maximum or minimum frequency."
+url =
+dockapps = 309
+category = System Monitoring
+
 [wmcpuload]
 version-1.0.0+20141005 = e16875f5ce0cf99b7148a73e2ccb63dee70799b8
 version-1.0.0 = a870424a90f99b865e87e65f4502e3e1703b2f66
