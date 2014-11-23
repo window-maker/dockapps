@@ -4,6 +4,8 @@
 
 #include "wmcliphist.h"
 
+#define WMCLIPHIST_VERSION "2.0"
+
 /*
  * print some help
  */
@@ -16,6 +18,7 @@ print_help()
 			"wmcliphist is small dock applet for Window Maker which "
 			"keeps X clipboard history\n\n");
 	fprintf(stderr, "-h         show this help\n"
+			"-v         print version\n"
 			"-n <num>   set number of items to keep (default 10)\n"
 			"-c color   set color for locked items (default is red)\n"
 			"-s <size>  choose wmcliphist icon size:\n"
@@ -163,6 +166,9 @@ main(int argc, char **argv)
 				}
 			} else if (*(arg + 1) == 'd') {
 				dump_only = TRUE;
+			} else if (*(arg + 1) == 'v') {
+				printf("wmcliphist "WMCLIPHIST_VERSION"\n");
+				exit(1);
 			} else {
 				fprintf(stderr, "Invalid option -%c\n", *(arg + 1));
 				print_help();
