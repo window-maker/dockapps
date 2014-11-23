@@ -280,10 +280,6 @@ extern GtkWidget	*button;
 
 /* pixmap */
 extern GtkWidget	*pixmap;
-extern GdkPixmap	*icon;
-extern GdkBitmap	*icon_mask;
-extern GdkBitmap	*mask;
-
 
 /*
  * dock button click response

@@ -3,7 +3,7 @@ INSTALL = install
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 DATADIR = $(PREFIX)/share/wmcliphist
-INCLUDES = `pkg-config --cflags gtk+-2.0 x11`
+INCLUDES = `pkg-config --cflags gtk+-3.0 x11`
 
 # for normal use
 CFLAGS += -Wall -ansi -pedantic $(INCLUDES) -DDATADIR=\"$(DATADIR)\"
@@ -15,7 +15,7 @@ DEBUG =
 #CFLAGS += -Wall -g -ansi $(INCLUDES) -DFNCALL_DEBUG
 #DEBUG = debug.o
 
-LIBS = `pkg-config --libs gtk+-2.0 x11`
+LIBS = `pkg-config --libs gtk+-3.0 x11`
 
 OBJECTS = wmcliphist.o clipboard.o gui.o rcconfig.o history.o hotkeys.o utils.o $(DEBUG)
 TARGET = wmcliphist
@@ -34,9 +34,7 @@ lclint:
 wmcliphist: $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
 
-wmcliphist.o: wmcliphist.c wmcliphist.h \
-	icon/ico_60x60_mask.xbm icon/ico_40x40_mask.xbm \
-	icon/ico_30x30_mask.xbm icon/ico_16x16_mask.xbm
+wmcliphist.o: wmcliphist.c wmcliphist.h
 
 clipboard.o: clipboard.c wmcliphist.h
 

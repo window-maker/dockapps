@@ -4,11 +4,6 @@
 
 #include "wmcliphist.h"
 
-#include "icon/ico_60x60_mask.xbm"
-#include "icon/ico_40x40_mask.xbm"
-#include "icon/ico_30x30_mask.xbm"
-#include "icon/ico_16x16_mask.xbm"
-
 /*
  * print some help
  */
@@ -195,11 +190,6 @@ main(int argc, char **argv)
 		/* create icon_mask */
 		if (icon_size == 60) {
 			/* 60x60 icon */
-			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
-					(gchar *) ico_60x60_mask_bits,
-					ico_60x60_mask_width,
-					ico_60x60_mask_height);
-			/* create icon */
 			if (icon_number == 0) {
 				icon_file = "ico_60x60_gray.png";
 			} else if (icon_number == 1) {
@@ -209,10 +199,6 @@ main(int argc, char **argv)
 			}
 		} else if (icon_size == 40) {
 			/* 40x40 icon */
-			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
-					(gchar *) ico_40x40_mask_bits,
-					ico_40x40_mask_width,
-					ico_40x40_mask_height);
 			/* create icon */
 			if (icon_number == 0) {
 				icon_file = "ico_40x40_gray.png";
@@ -223,10 +209,6 @@ main(int argc, char **argv)
 			}
 		} else if (icon_size == 30) {
 			/* 30x30 icon */
-			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
-					(gchar *) ico_30x30_mask_bits,
-					ico_30x30_mask_width,
-					ico_30x30_mask_height);
 			/* create icon */
 			if (icon_number == 0) {
 				icon_file = "ico_30x30_gray.png";
@@ -237,10 +219,6 @@ main(int argc, char **argv)
 			}
 		} else {
 			/* 16x16 icon */
-			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
-					(gchar *) ico_16x16_mask_bits,
-					ico_16x16_mask_width,
-					ico_16x16_mask_height);
 			/* create icon */
 			icon_file = "ico_16x16.png";
 		}
@@ -365,6 +343,9 @@ main(int argc, char **argv)
 
 
 	if (icon_size) {
+		cairo_region_t *region;
+		cairo_surface_t *surface;
+
 		/* connect signal for menu popup */
 		gtk_widget_add_events(dock_app, GDK_BUTTON_PRESS_MASK);
 		g_signal_connect(G_OBJECT(dock_app),
@@ -372,8 +353,12 @@ main(int argc, char **argv)
                                G_CALLBACK(button_press),
                                G_OBJECT(menu_hist));
 
-		gdk_window_shape_combine_mask(gtk_widget_get_window(main_window), icon_mask, 0, 0);
-		gdk_window_shape_combine_mask(gtk_widget_get_window(dock_app), icon_mask, 0, 0);
+		surface = cairo_image_surface_create_from_png(icon_file);
+		region = gdk_cairo_region_create_from_surface(surface);
+		gdk_window_shape_combine_region(gtk_widget_get_window(dock_app),
+						region, 0, 0);
+
+
 	}
 
 

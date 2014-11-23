@@ -34,10 +34,6 @@ GtkWidget	*button;
 
 /* pixmap */
 GtkWidget	*pixmap;
-GdkPixmap	*icon;
-GdkBitmap	*icon_mask;
-GdkBitmap	*mask;
-
 
 /* ==========================================================================
  *                                                     clipboard history menu
