@@ -1,0 +1,115 @@
+# Set hotkey for history menu popup.
+# you can use combination of modifiers (ctrl, alt, shift) and one
+# character (function keys etc. are not supported now).
+# Default: Ctrl+Alt+V
+
+menukey Ctrl+Alt+V
+
+
+# Set hotkey returning previously captured item back to clipboard. It's
+# useful when you replace your clipboard content with some other (e.g.
+# upon clearing of paste destination) and you want to switch back to it
+# quickly and easily.
+# Default: Ctrl+Alt+C
+
+prev_item_key Ctrl+Alt+C
+
+
+# Set hotkey to perform the first matching exec action on the current
+# clipboard item
+# Default: Ctrl+Alt+E
+
+exec_item_key Ctrl+Alt+E
+
+
+# Should wmcliphist automaticaly take up clipboard content?
+# Default: yes
+
+auto_take_up yes
+
+
+# Set number of items to keep.
+# Default: 10
+
+keep 10
+
+
+# Set color for locked items. Value is color in any X11-supported
+# format, eg. blue, green, #000080, #FF8000
+# Default: red
+
+lcolor red
+
+
+# Set autosave period in seconds.
+# Default: 120
+
+autosave 60
+
+
+# Should wmcliphist ask you before performing action of exec type?
+# Default: no
+
+confirm_exec yes
+
+# Should wmcliphist exec commands immediately when matching item is captured?
+# Default: yes
+
+exec_immediately yes
+
+# Should wmcliphist exec commands on a middle click from the menu?
+# Default: yes
+
+exec_middleclick yes
+
+# Should wmcliphist exec commands from the exec hotkey?
+# Default: yes
+
+exec_hotkey yes
+
+
+# You can define regular expressions driven actions executed when new
+# item is captured. Items can be silently ignored, inserted to submenus
+# or you can execute any command.
+# Action is defined like this:
+#
+# action "pattern" action_type command
+#
+# "pattern" is extended regular expression and it MUST by enclosed with
+#     double quotes (")
+# action_type can be "ignore", "submenu" or "exec" (without quotes).
+#     Actions of type "ignore" and "submenu" are terminating - no more
+#     actions will be executed after them. Action of type "exec" is not
+#     terminating and any matching actions will be executed too. For
+#     example, you can let start browser automaticaly when URL is
+#     captured and then drop this item with "ignore" statement or put it
+#     into special submenu with "submenu" statement.
+# command is either submenu name for actions of type "submenu" or
+#     command to be executed through /bin/sh for actions of type "exec".
+#     Whole rest of line is taken as command so don't enclose it with
+#     quotes.
+#     If action type is "exec", you can include "%s" string in command
+#     and it will be replaced with item content (don't use "%s" more
+#     than once and any other occurrence of '%' character write as
+#     "%%"!!!). 
+#     If action type is "submenu", command can be "-" (without quotes),
+#     which means item will be placed in main menu, not in submenu. It's
+#     usable if you want to use "exec" and then put item into main menu.
+#     In other cases this construction doesn't make sense, because items
+#     are placed into main menu by default.
+
+# show URLs in links browser started in new xterm window...
+action "^http://.*$" exec xterm -e links "%s"
+
+# ... and put it to submenu URL (action of type "ignore" can be used to
+# drop URLs)
+action "^http://.*$" submenu URL
+
+# put email addresses to submenu "Emails"
+action "^[^@]+@([^.]+\.)+[a-zA-Z]{2,}$" submenu Emails
+
+# ignore strings containing spaces or tabs only
+action "^[ \t]+$" ignore
+
+# ignore strings shorter than four characters (mostly selected by mistake)
+action "^.{1,3}$" ignore

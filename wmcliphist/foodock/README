@@ -1,0 +1,71 @@
+DESCRIPTION:
+
+libfoodock is a library for creating Gtk WindowMaker dockable applications.
+
+void gdk_window_set_icon(main_window->window, icon_window->window, NULL, NULL);
+won't do the trick. I suspect it sets up wrong WindowGroupHint.
+
+If you create an application using gdk_window_set_icon it probably will not
+useful under WindowMaker.
+
+INSTALLATION:
+
+make
+sudo make install
+(optional) make example
+(optional) ./example
+(optional) sudo make uninstall
+
+Please notice that make install will copy the library into LIBPATH (see
+Makefile). foodock.h will not be copied but you need this file to develop
+applications using libfoodock.
+
+PROGRAMMING:
+
+libfoodock contains the only function:
+GtkWidget *foo_create_main_icon_window(GtkWidget *mw, unsigned int s,
+                                       int margc, char *margv[])
+
+You *should* do the following:
+
+(1) gtk_init
+(2) w = gtk_window_new
+(3) gtk_widget_realize(w)	! Very important !
+(4) w1 = foo_create_main_icon_window(w, 56, argc, argv);
+(5) gtk_widget_show(w1)
+(6) gtk_main
+
+Comments:
+(2) You should create main application window. Please notice that you will not
+see this window on the screen; it will be hidden. The only purpose of this
+window is to provide window group.
+(3) Because we will do some Xlib lowlevel tricks in
+foo_create_main_icon_window, main window should be realized or 
+GDK_WINDOW_XWINDOW(w->window) will fail.
+(4) w1 now is pointer to gtk event box. You may think about w1 as about
+GTK_CONTAINER which represent docked WindowMaker application. You can put
+anything inside it. "56" is a recommended size of w1 (because standard
+WindowMaker dock item is 64x64... but you can try 64 or 60 r 50 or 20...).
+Please notice that w1 will be realised after foo_create_main_icon_window.
+argc and argv arguments define what WindowMaker will set up after docking as a
+command for launching your application.
+(5) After you put anything you want into w1 you should show w1.
+
+Please see example.c for working example.
+
+AUTHOR:
+
+Alexey Vyskubov, <alexey@pepper.spb.ru>
+
+ACKNOWLEDGEMENTS:
+
+I should thank:
+
+1. Owen Taylor <otaylor@redhat.com>, one of Gtk authors. He answered my request 
+in Gtk mailing list: "Use the function: void gdk_window_set_icon". It allows
+to understand me that there is no way to do dockable application in Gdk/Gtk
+w/o Xlib (because gdk_window_set_icon doesn't help, and Gtk author didn't
+recommend anything else).
+
+2. David Raufeisen <lamer@fortyoz.org>. He answered my request in Gtk mailing
+list with working code. Thanks! An idea to use event box was great.

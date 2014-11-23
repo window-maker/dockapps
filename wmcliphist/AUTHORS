@@ -1,0 +1,13 @@
+Michal Krause wrote wmcliphist
+
+Daniel Richard G. made icon set used from version 0.5
+
+Michael Beattie wrote new exec actions handling (introduced in version 0.6)
+
+Vadim O. Ustiansky wrote patch allowing wmcliphist window of size 1px and
+second patch allowing to confirm actions by keyboard.
+
+Samuli Suominen created patches to make wmcliphist compatble with GTK+ 2.x and
+higher
+
+Alexey Vyskubov wrote foodock library

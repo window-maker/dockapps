@@ -1,0 +1,69 @@
+21/03/2009: v2.0
+- Gentoo patches by Samuli Suominen integrated
+  (http://sources.gentoo.org/viewcvs.py/gentoo-x86/x11-plugins/wmcliphist/files/)
+
+26/06/2005: v1.0
+- confirmation dialogs supports Enter (Yes) and Esc (No) keys (Vadim O.
+  Ustiansky)
+- wmcliphist now can run with almost invisible window (-s 0) which is usable
+  on systems running windows manager without docking capabilities (Vadim O.
+  Ustiansky)
+- some debug messages was removed, minor code tweaking and auto_take_up feature
+  is now DISABLED by default due to problems with some GTK 2.x based
+  applications
+
+24/08/2003: v0.6
+  - exec actions can be performed automatically or on demand by middle mouse
+    button click on menu item or by hot key for last captured item (Michael
+    Beattie)
+  - wmcliphist can automatically take up clipboard content allowing to paste
+    it when application who copied it ended already
+
+23/06/2003: v0.5
+  - brand new icon set made by Daniel Richard G. <skunk@iskunk.org>
+  - icon size (60, 40, 30 or 16 pixels) selectable on command line
+  - minor fixes and enhacements in Makefiles (suggested by Sebastian Ley)
+
+04/06/2003: v0.4
+  - first version containing spec for building RPMs (Daniel Tschan
+    <tschan+rpm@devzone.ch>)
+  - fixed locale and zombie bugs (Victor Cheburkin <vc@iptcom.net>)
+  - wmcliphist now starts without .wmcliphistrc (Sebastian Ley
+    <sebastian.ley@mmweg.rwth-aachen.de>)
+  - permissions of .wmcliphist.data are more secure now (Kresimir Kukulj
+    <madmax@iskon.hr>)
+  - fixed buffer overrun bug in reading history (Simon 'corecode' Schubert
+    <corecode@corecode.ath.cx>)
+  - keyboard navigation in history menu is possible now
+  - icons with antialiasing against dark, mid and light background are now
+    compiled into wmcliphist and it can be choosen on command line (-i)
+  - wmcliphist can optionaly ask before performing of exec action (suggested
+    by Ivica Letunic <Ivica.Letunic@EMBL-Heidelberg.DE>)
+  - added hotkey which returns previously captured item back to clipboard. It
+    can safe some keystrokes or mouse clicks in some situation, escpecially if
+    you need clear destination before pasting to it and selecting of its
+    content replaces your data in the clipboard
+
+02/15/2002: v0.3
+  - code fully reorganized
+  - new configuration file ~/.wmcliphistrc (clipboard history is now stored in
+    ~/.wmcliphist.data)
+  - added hotkey support (pop up menu at mouse cursor position)
+  - added regular expression driven actions (ignore/submenu/exec)
+  - new function Clipboard lock (new selection will not replace currently
+    selected item in clipboard, but it will be stored in history)
+  - new function Clipboard ignore (completely ignore new selections - they
+    will not replace selected item and will not be stored in history)
+  - new function to save history immediately
+  - wmcliphist can autosave history in specified period
+  - new icon
+
+03/24/2001: v0.2
+  - hopefully fixed terrible memory leak
+  - added items locking function (right click on item) and command line option
+    for setting color of locked items
+  - picked item will move to begining
+  - removed dependency on getopt and wordexp
+
+02/23/2001: v0.1
+  - initial release
