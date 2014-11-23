@@ -248,9 +248,7 @@ hotkeys_done();
 
 /* color of locked item */
 extern gchar		locked_color_str[32];
-extern GdkColor		locked_color;
-extern GtkStyle		*style_locked,
-			*style_normal;
+extern GdkRGBA		locked_color;
 extern gint		submenu_count;
 
 /*

@@ -232,8 +232,7 @@ main(int argc, char **argv)
 
 	/* create clipboard history menu */
 	menu_hist = gtk_menu_new();
-	gtk_menu_set_title(GTK_MENU(menu_hist), "Clipboard history");
-	menu_title = gtk_tearoff_menu_item_new();
+	menu_title = gtk_menu_item_new();
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu_hist), menu_title);
 	gtk_widget_show(menu_title);
 	gtk_widget_show(menu_hist);
@@ -279,7 +278,7 @@ main(int argc, char **argv)
 			gtk_menu_item_set_submenu(
 					GTK_MENU_ITEM(action->menu_item),
 					action->submenu);
-			menu_title = gtk_tearoff_menu_item_new();
+			menu_title = gtk_menu_item_new();
 			gtk_menu_shell_append(GTK_MENU_SHELL(action->submenu), menu_title);
 			gtk_widget_show(menu_title);
 			gtk_widget_show(action->menu_item);
@@ -302,7 +301,7 @@ main(int argc, char **argv)
 	}
 
 	/* prepare colors and styles */
-	if (gdk_color_parse(locked_color_str, &locked_color) == 0) {
+	if (gdk_rgba_parse(&locked_color, locked_color_str) == FALSE) {
 		char	msg_str[128];
 
 		sprintf(msg_str, "Invalid color string: '%s'.\n"
@@ -310,13 +309,8 @@ main(int argc, char **argv)
 				locked_color_str);
 		show_message(msg_str, "Warning", "OK", NULL, NULL);
 		strcpy(locked_color_str, DEF_LOCKED_COLOR);
-		gdk_color_parse(locked_color_str, &locked_color);
+		gdk_rgba_parse(&locked_color, locked_color_str);
 	}
-	style_normal = gtk_style_copy(gtk_widget_get_style(menu_hist));
-	style_locked = gtk_style_copy(gtk_widget_get_style(menu_hist));
-	style_locked->fg[GTK_STATE_NORMAL] = locked_color;
-	style_locked->fg[GTK_STATE_PRELIGHT] = locked_color;
-
 
 	/* load previously saved history */
 	if (history_load(dump_only) != 0) {

@@ -4,9 +4,7 @@
 
 /* color of locked item */
 gchar		locked_color_str[32] = DEF_LOCKED_COLOR;
-GdkColor	locked_color;
-GtkStyle	*style_locked,
-		*style_normal;
+GdkRGBA		locked_color;
 
 /* Exec on middle click? */
 int exec_middleclick = 1;
@@ -70,14 +68,16 @@ menu_item_button_released(GtkWidget *widget,
 				return_val(TRUE);
 			}
 
-			gtk_widget_set_style(gtk_bin_get_child(GTK_BIN(data->menu_item)),
-					style_locked);
+			gtk_widget_override_color(
+				gtk_bin_get_child(GTK_BIN(data->menu_item)),
+				GTK_STATE_FLAG_NORMAL, &locked_color);
 			data->locked = 1;
 			locked_count++;
 
 		} else {
-			gtk_widget_set_style(gtk_bin_get_child(GTK_BIN(data->menu_item)),
-					style_normal);
+			gtk_widget_override_color(
+				gtk_bin_get_child(GTK_BIN(data->menu_item)),
+				GTK_STATE_FLAG_NORMAL, NULL);
 			data->locked = 0;
 			locked_count--;
 		}
@@ -213,8 +213,9 @@ menu_item_add(gchar *content, gint locked, GtkWidget *target_menu)
 	hist_item->menu = target_menu;
 
 	if (locked == 1) {
-		gtk_widget_set_style(gtk_bin_get_child(GTK_BIN(hist_item->menu_item)),
-				style_locked);
+		gtk_widget_override_color(
+				gtk_bin_get_child(GTK_BIN(hist_item->menu_item)),
+				GTK_STATE_FLAG_NORMAL, &locked_color);
 		locked_count++;
 	}
 
@@ -403,12 +404,11 @@ show_message(gchar *message, char *title,
 	label = gtk_label_new(message);
 
 	/* create buttons and set signals */
-	button_0 = gtk_button_new_with_label(b0_text);
+	gtk_dialog_add_button(GTK_DIALOG(dialog), b0_text, 0);
+	button_0 = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), 0);
 	g_signal_connect(G_OBJECT(button_0), "clicked",
 			G_CALLBACK(dialog_button_press),
 			GINT_TO_POINTER(0));
-	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
-			button_0);
 	if (!b2_text) {
 		g_signal_connect(G_OBJECT(dialog), "key-press-event",
 				G_CALLBACK(dialog_key_press_yes),
@@ -416,12 +416,11 @@ show_message(gchar *message, char *title,
 	}
 
 	if (b1_text != NULL) {
-		button_1 = gtk_button_new_with_label(b1_text);
+		gtk_dialog_add_button(GTK_DIALOG(dialog), b1_text, 1);
+		button_1 = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), 1);
 		g_signal_connect(G_OBJECT(button_1), "clicked",
 				G_CALLBACK(dialog_button_press),
 				GINT_TO_POINTER(1));
-		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
-				button_1);
 		if (!b2_text) {
 			g_signal_connect(G_OBJECT(dialog), "key-press-event",
 					G_CALLBACK(dialog_key_press_no),
@@ -430,12 +429,11 @@ show_message(gchar *message, char *title,
 	}
 
 	if (b2_text) {
-		button_2 = gtk_button_new_with_label(b2_text);
+		gtk_dialog_add_button(GTK_DIALOG(dialog), b2_text, 2);
+		button_2 = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), 2);
 		g_signal_connect(G_OBJECT(button_2), "clicked",
 				G_CALLBACK(dialog_button_press),
 				GINT_TO_POINTER(2));
-		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
-				button_2);
 	}
 
 	/* add the label, and show everything we've added to the dialog. */
