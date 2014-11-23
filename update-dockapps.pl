@@ -88,7 +88,7 @@ foreach my $dockapp (keys %dockapps) {
 	if (grep {$_ eq $dockapp} keys %alts) {
 		next;
 	}
-	my $latest_version = (sort by_version keys $dockapps{$dockapp})[-1];
+	my $latest_version = (sort by_version keys %{$dockapps{$dockapp}})[-1];
 	if ($r->run("diff", "$dockapp-$latest_version", "HEAD", "--", $dockapp)) {
 		my $commit = $r->run("log", "-1",
 				  "--pretty=format:%H", "--", $dockapp);
@@ -110,7 +110,7 @@ foreach my $dockapp (keys %dockapps) {
 
 foreach my $dockapp (keys %dockapps) {
 	my $versions = "";
-	foreach my $version (reverse sort by_version keys $dockapps{$dockapp}) {
+	foreach my $version (reverse sort by_version keys %{$dockapps{$dockapp}}) {
 		$versions .= "version-$version = " .
 		    $dockapps{$dockapp}{$version} . "\n";
 	}
