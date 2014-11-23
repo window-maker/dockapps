@@ -57,7 +57,7 @@ static void
 wmcliphist_exit(gint code)
 {
 	begin_func("wmcliphist_exit");
-	gtk_exit(code);
+	exit(code);
 	return_void();
 }
 
@@ -195,7 +195,6 @@ main(int argc, char **argv)
 	signal(SIGCHLD, SIG_IGN);
 
 	/* initialize Gtk */
-	gtk_set_locale();
 	gtk_init(&argc, &argv);
 
 
@@ -209,7 +208,7 @@ main(int argc, char **argv)
 		/* create icon_mask */
 		if (icon_size == 60) {
 			/* 60x60 icon */
-			icon_mask = gdk_bitmap_create_from_data(main_window->window,
+			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
 					(gchar *) ico_60x60_mask_bits,
 					ico_60x60_mask_width,
 					ico_60x60_mask_height);
@@ -223,7 +222,7 @@ main(int argc, char **argv)
 			}
 		} else if (icon_size == 40) {
 			/* 40x40 icon */
-			icon_mask = gdk_bitmap_create_from_data(main_window->window,
+			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
 					(gchar *) ico_40x40_mask_bits,
 					ico_40x40_mask_width,
 					ico_40x40_mask_height);
@@ -237,7 +236,7 @@ main(int argc, char **argv)
 			}
 		} else if (icon_size == 30) {
 			/* 30x30 icon */
-			icon_mask = gdk_bitmap_create_from_data(main_window->window,
+			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
 					(gchar *) ico_30x30_mask_bits,
 					ico_30x30_mask_width,
 					ico_30x30_mask_height);
@@ -251,7 +250,7 @@ main(int argc, char **argv)
 			}
 		} else {
 			/* 16x16 icon */
-			icon_mask = gdk_bitmap_create_from_data(main_window->window,
+			icon_mask = gdk_bitmap_create_from_data(gtk_widget_get_window(main_window),
 					(gchar *) ico_16x16_mask_bits,
 					ico_16x16_mask_width,
 					ico_16x16_mask_height);
@@ -259,9 +258,9 @@ main(int argc, char **argv)
 			icon_data = ico_16x16_xpm;
 		}
 
-		icon = gdk_pixmap_create_from_xpm_d(main_window->window,
+		icon = gdk_pixmap_create_from_xpm_d(gtk_widget_get_window(main_window),
 				NULL, NULL, icon_data);
-		pixmap = gtk_pixmap_new(icon, icon_mask);
+		pixmap = gtk_image_new_from_pixmap(icon, icon_mask);
 		gtk_widget_show(pixmap);
 		gtk_container_add(GTK_CONTAINER(dock_app), pixmap);
 	}
@@ -271,7 +270,7 @@ main(int argc, char **argv)
 	menu_hist = gtk_menu_new();
 	gtk_menu_set_title(GTK_MENU(menu_hist), "Clipboard history");
 	menu_title = gtk_tearoff_menu_item_new();
-	gtk_menu_append(GTK_MENU(menu_hist), menu_title);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_hist), menu_title);
 	gtk_widget_show(menu_title);
 	gtk_widget_show(menu_hist);
 
@@ -280,23 +279,23 @@ main(int argc, char **argv)
 	menu_app = gtk_menu_new();
 
 	menu_app_clip_lock = gtk_check_menu_item_new_with_label("Clipboard lock");
-	gtk_menu_append(GTK_MENU(menu_app), menu_app_clip_lock);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_app), menu_app_clip_lock);
 
 	menu_app_clip_ignore = gtk_check_menu_item_new_with_label("Clipboard ignore");
-	gtk_menu_append(GTK_MENU(menu_app), menu_app_clip_ignore);
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_app), menu_app_clip_ignore);
 
 	menu_app_save = gtk_menu_item_new_with_label("Save history");
-	gtk_menu_append(GTK_MENU(menu_app), menu_app_save);
-	gtk_signal_connect(GTK_OBJECT(menu_app_save),
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_app), menu_app_save);
+	g_signal_connect(G_OBJECT(menu_app_save),
 			"activate",
-			GTK_SIGNAL_FUNC(menu_app_item_click),
+			G_CALLBACK(menu_app_item_click),
 			GINT_TO_POINTER(0));
 
 	menu_app_exit = gtk_menu_item_new_with_label("Exit");
-	gtk_menu_append(GTK_MENU(menu_app), menu_app_exit);
-	gtk_signal_connect(GTK_OBJECT(menu_app_exit),
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu_app), menu_app_exit);
+	g_signal_connect(G_OBJECT(menu_app_exit),
 			"activate",
-			GTK_SIGNAL_FUNC(menu_app_item_click),
+			G_CALLBACK(menu_app_item_click),
 			GINT_TO_POINTER(1));
 
 	gtk_widget_show_all(menu_app);
@@ -310,14 +309,14 @@ main(int argc, char **argv)
 				strcmp(action->command, "-") != 0) {
 			action->menu_item = gtk_menu_item_new_with_label(
 					action->command);
-			gtk_menu_append(GTK_MENU(menu_hist),
+			gtk_menu_shell_append(GTK_MENU_SHELL(menu_hist),
 					action->menu_item);
 			action->submenu = gtk_menu_new();
 			gtk_menu_item_set_submenu(
 					GTK_MENU_ITEM(action->menu_item),
 					action->submenu);
 			menu_title = gtk_tearoff_menu_item_new();
-			gtk_menu_append(GTK_MENU(action->submenu), menu_title);
+			gtk_menu_shell_append(GTK_MENU_SHELL(action->submenu), menu_title);
 			gtk_widget_show(menu_title);
 			gtk_widget_show(action->menu_item);
 			gtk_widget_show(action->submenu);
@@ -335,7 +334,7 @@ main(int argc, char **argv)
 
 		separator = gtk_menu_item_new();
 		gtk_widget_show(separator);
-		gtk_menu_insert(GTK_MENU(menu_hist), separator, 1);
+		gtk_menu_shell_insert(GTK_MENU_SHELL(menu_hist), separator, 1);
 	}
 
 	/* prepare colors and styles */
@@ -365,43 +364,44 @@ main(int argc, char **argv)
 					"history will be lost. May I continue?",
 					"Warning", "Yes", "No", NULL) == 1) {
 				rcconfig_free();
-				gtk_exit(1);
+				exit(1);
 			}
 		} else if (errno != E_OPEN) {
 			rcconfig_free();
 			fprintf(stderr, "cannot load history (%d)\n", errno);
-			gtk_exit(1);
+			exit(1);
 		}
 	}
 	if (dump_only) {
 		rcconfig_free();
-		gtk_exit(1);
+		exit(1);
 	}
 
 
 	if (icon_size) {
 		/* connect signal for menu popup */
-		gtk_signal_connect(GTK_OBJECT(dock_app),
-				"event",
-				GTK_SIGNAL_FUNC(button_press),
-				GTK_OBJECT(menu_hist));
+		gtk_widget_add_events(dock_app, GDK_BUTTON_PRESS_MASK);
+		g_signal_connect(G_OBJECT(dock_app),
+                               "event",
+                               G_CALLBACK(button_press),
+                               G_OBJECT(menu_hist));
 
-		gdk_window_shape_combine_mask(main_window->window, icon_mask, 0, 0);
-		gdk_window_shape_combine_mask(dock_app->window, icon_mask, 0, 0);
+		gdk_window_shape_combine_mask(gtk_widget_get_window(main_window), icon_mask, 0, 0);
+		gdk_window_shape_combine_mask(gtk_widget_get_window(dock_app), icon_mask, 0, 0);
 	}
 
 
 	/* run clipboard monitor */
-	gtk_signal_connect(GTK_OBJECT(main_window),
+	g_signal_connect(G_OBJECT(main_window),
 			"selection_received",
-			GTK_SIGNAL_FUNC(my_get_xselection),
+			G_CALLBACK(my_get_xselection),
 			NULL);
-	gtk_timeout_add(250, time_conv_select, NULL);
+	g_timeout_add(250, time_conv_select, NULL);
 
 
 	/* run autosave timer */
 	if (autosave_period > 0)
-		gtk_timeout_add(autosave_period * 1000, history_autosave, NULL);
+		g_timeout_add(autosave_period * 1000, history_autosave, NULL);
 
 
 	/* setup everything for supplying selection to other apps */
@@ -410,14 +410,14 @@ main(int argc, char **argv)
 			GDK_SELECTION_TYPE_STRING,
 			1);
 
-	gtk_signal_connect(GTK_OBJECT(dock_app),
+	g_signal_connect(G_OBJECT(dock_app),
 			"selection_get",
-			GTK_SIGNAL_FUNC(selection_handle),
+			G_CALLBACK(selection_handle),
 			NULL);
 
-	gtk_signal_connect(GTK_OBJECT(dock_app),
+	g_signal_connect(G_OBJECT(dock_app),
 			"destroy",
-			GTK_SIGNAL_FUNC(wmcliphist_exit),
+			G_CALLBACK(wmcliphist_exit),
 			NULL);
 
 

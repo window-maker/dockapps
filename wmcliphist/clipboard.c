@@ -64,7 +64,7 @@ my_get_selection_text(GtkClipboard *clipboard, const gchar *text, gpointer
 	}
 
 	if (g_utf8_collate(text, old_content) != 0 &&
-			!GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)->active) {
+	    !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore))) {
 		/* new data in clipboard */
 		/* store new content for future comparation */
 		content = g_strdup(text);
@@ -83,8 +83,8 @@ my_get_selection_text(GtkClipboard *clipboard, const gchar *text, gpointer
 	}
 
 	/* when clipboard is locked, set selection owener to myself */
-	if (GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)->active ||
-			GTK_CHECK_MENU_ITEM(menu_app_clip_lock)->active) {
+	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)) ||
+	    gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_lock))) {
 		if (gtk_selection_owner_set(dock_app,
 					GDK_SELECTION_PRIMARY,
 					GDK_CURRENT_TIME) == 0)
@@ -118,13 +118,13 @@ my_get_xselection(GtkWidget *window, GdkEvent *event)
 
 	return_val(TRUE);
 
-	length = (size_t) gdk_selection_property_get(window->window,
+	length = (size_t) gdk_selection_property_get(gtk_widget_get_window(window),
 			(guchar **) &content, &atom, &format);
 
 	if (length > 0) {
 		if ((length != old_content_len ||
 				memcmp(content, old_content, length) != 0) &&
-				!GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)->active) {
+		    !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore))) {
 			/* new data in clipboard */
 			/* store new content for future comparation */
 			if (old_content_len > 0)
@@ -140,8 +140,8 @@ my_get_xselection(GtkWidget *window, GdkEvent *event)
 		}
 
 		/* when clipboard is locked, set selection owener to myself */
-		if (GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)->active ||
-				GTK_CHECK_MENU_ITEM(menu_app_clip_lock)->active) {
+		    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)) ||
+			gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_lock))) {
 			if (gtk_selection_owner_set(dock_app,
 						GDK_SELECTION_PRIMARY,
 						GDK_CURRENT_TIME) == 0)

@@ -29,7 +29,7 @@ global_keys_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 
 	if (xevent->type == KeyPress) {
 		if (xevent->xkey.keycode ==
-				XKeysymToKeycode(GDK_DISPLAY(), menukey) &&
+				XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), menukey) &&
 				xevent->xkey.state & menukey_mask) {
 			/* popup history menu */
 			gtk_menu_popup(GTK_MENU(menu_hist),
@@ -39,7 +39,7 @@ global_keys_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 					GDK_CURRENT_TIME);
 			return_val(GDK_FILTER_REMOVE);
 		} else if (xevent->xkey.keycode ==
-				XKeysymToKeycode(GDK_DISPLAY(), prev_item_key)
+				XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), prev_item_key)
 				&& xevent->xkey.state & prev_item_mask) {
 			/* switch first two history items */
 			GList *second;
@@ -55,7 +55,7 @@ global_keys_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 
 			return_val(GDK_FILTER_REMOVE);
 		} else if (xevent->xkey.keycode ==
-				XKeysymToKeycode(GDK_DISPLAY(), exec_item_key) &&
+				XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), exec_item_key) &&
 				xevent->xkey.state & exec_item_mask) {
 			/* exec command on current item */
 			if (exec_hotkey) {
@@ -108,7 +108,7 @@ hotkey_parse(char *hotkey, guint *key, guint *mask)
 		}
 	}
 
-	if ((*key = gdk_keyval_from_name(tmp)) == GDK_VoidSymbol) {
+	if ((*key = gdk_keyval_from_name(tmp)) == GDK_KEY_VoidSymbol) {
 		g_free(tmp);
 		return_val(-1);
 	}
@@ -120,28 +120,28 @@ hotkey_parse(char *hotkey, guint *key, guint *mask)
 
 
 #define grab_key(keysym, basemask) \
-	XGrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XGrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask, GDK_ROOT_WINDOW(), True, GrabModeAsync, \
 			GrabModeAsync); \
-	XGrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XGrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask | LockMask, GDK_ROOT_WINDOW(), True, \
 			GrabModeAsync, GrabModeAsync); \
-	XGrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XGrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask | Mod2Mask, GDK_ROOT_WINDOW(), True, \
 			GrabModeAsync, GrabModeAsync); \
-	XGrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XGrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask | Mod2Mask | LockMask, GDK_ROOT_WINDOW(), \
 			True, GrabModeAsync, GrabModeAsync);
 
 
 #define ungrab_key(keysym, basemask) \
-	XUngrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XUngrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask, GDK_ROOT_WINDOW()); \
-	XUngrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XUngrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask | LockMask, GDK_ROOT_WINDOW()); \
-	XUngrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XUngrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask | Mod2Mask, GDK_ROOT_WINDOW()); \
-	XUngrabKey(GDK_DISPLAY(), XKeysymToKeycode(GDK_DISPLAY(), keysym), \
+	XUngrabKey(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), XKeysymToKeycode(GDK_DISPLAY_XDISPLAY(gdk_display_get_default()), keysym), \
 			basemask | Mod2Mask | LockMask, GDK_ROOT_WINDOW());
 
 
@@ -178,7 +178,7 @@ hotkeys_init()
 		hotkey_parse(DEF_EXEC_ITEM_KEY, &exec_item_key,
 				&exec_item_mask);
 	}
-	gdk_window_add_filter(GDK_ROOT_PARENT(), global_keys_filter, NULL);
+	gdk_window_add_filter(gdk_get_default_root_window(), global_keys_filter, NULL);
 	grab_key(menukey, menukey_mask);
 	grab_key(prev_item_key, prev_item_mask);
 	grab_key(exec_item_key, exec_item_mask);

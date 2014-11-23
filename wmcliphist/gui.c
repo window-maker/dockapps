@@ -74,13 +74,13 @@ menu_item_button_released(GtkWidget *widget,
 				return_val(TRUE);
 			}
 
-			gtk_widget_set_style(GTK_BIN(data->menu_item)->child,
+			gtk_widget_set_style(gtk_bin_get_child(GTK_BIN(data->menu_item)),
 					style_locked);
 			data->locked = 1;
 			locked_count++;
 
 		} else {
-			gtk_widget_set_style(GTK_BIN(data->menu_item)->child,
+			gtk_widget_set_style(gtk_bin_get_child(GTK_BIN(data->menu_item)),
 					style_normal);
 			data->locked = 0;
 			locked_count--;
@@ -217,24 +217,24 @@ menu_item_add(gchar *content, gint locked, GtkWidget *target_menu)
 	hist_item->menu = target_menu;
 
 	if (locked == 1) {
-		gtk_widget_set_style(GTK_BIN(hist_item->menu_item)->child,
+		gtk_widget_set_style(gtk_bin_get_child(GTK_BIN(hist_item->menu_item)),
 				style_locked);
 		locked_count++;
 	}
 
 	/* add to menu */
-	gtk_menu_insert(GTK_MENU(hist_item->menu), hist_item->menu_item, 1);
+	gtk_menu_shell_insert(GTK_MENU_SHELL(hist_item->menu), hist_item->menu_item, 1);
 
 
 	/* connect actions to signals */
-	gtk_signal_connect(GTK_OBJECT(hist_item->menu_item),
+	g_signal_connect(G_OBJECT(hist_item->menu_item),
 			"button-release-event",
-			GTK_SIGNAL_FUNC(menu_item_button_released),
+			G_CALLBACK(menu_item_button_released),
 			(gpointer)hist_item);
 
-	gtk_signal_connect(GTK_OBJECT(hist_item->menu_item),
+	g_signal_connect(G_OBJECT(hist_item->menu_item),
 			"activate",
-			GTK_SIGNAL_FUNC(menu_item_activated),
+			G_CALLBACK(menu_item_activated),
 			(gpointer)hist_item);
 
 	gtk_widget_show(hist_item->menu_item);
@@ -283,7 +283,7 @@ menu_app_item_click(GtkWidget *menuitem, gpointer data)
 			history_free();
 			rcconfig_free();
 
-			gtk_exit(0);
+			exit(0);
 			return_val(TRUE);
 	}
 	return_val(FALSE);
@@ -372,7 +372,7 @@ static gboolean
 dialog_key_press_yes(GtkWidget *button, GdkEventKey *event, gpointer data)
 {
 	begin_func("dialog_key_press_yes");
-	return dialog_handle_key_press_event(event, data, GDK_Return);
+	return dialog_handle_key_press_event(event, data, GDK_KEY_Return);
 }
 
 
@@ -381,7 +381,7 @@ static gboolean
 dialog_key_press_no(GtkWidget *button, GdkEventKey *event, gpointer data)
 {
 	begin_func("dialog_key_press_no");
-	return dialog_handle_key_press_event(event, data, GDK_Escape);
+	return dialog_handle_key_press_event(event, data, GDK_KEY_Escape);
 }
 
 
@@ -408,43 +408,43 @@ show_message(gchar *message, char *title,
 
 	/* create buttons and set signals */
 	button_0 = gtk_button_new_with_label(b0_text);
-	gtk_signal_connect(GTK_OBJECT(button_0), "clicked",
-			GTK_SIGNAL_FUNC(dialog_button_press),
+	g_signal_connect(G_OBJECT(button_0), "clicked",
+			G_CALLBACK(dialog_button_press),
 			GINT_TO_POINTER(0));
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area),
+	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
 			button_0);
 	if (!b2_text) {
-		gtk_signal_connect(GTK_OBJECT(dialog), "key-press-event",
-				GTK_SIGNAL_FUNC(dialog_key_press_yes),
+		g_signal_connect(G_OBJECT(dialog), "key-press-event",
+				G_CALLBACK(dialog_key_press_yes),
 				GINT_TO_POINTER(0));
 	}
 
 	if (b1_text != NULL) {
 		button_1 = gtk_button_new_with_label(b1_text);
-		gtk_signal_connect(GTK_OBJECT(button_1), "clicked",
-				GTK_SIGNAL_FUNC(dialog_button_press),
+		g_signal_connect(G_OBJECT(button_1), "clicked",
+				G_CALLBACK(dialog_button_press),
 				GINT_TO_POINTER(1));
-		gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area),
+		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
 				button_1);
 		if (!b2_text) {
-			gtk_signal_connect(GTK_OBJECT(dialog), "key-press-event",
-					GTK_SIGNAL_FUNC(dialog_key_press_no),
+			g_signal_connect(G_OBJECT(dialog), "key-press-event",
+					G_CALLBACK(dialog_key_press_no),
 					GINT_TO_POINTER(1));
 		}
 	}
 
 	if (b2_text) {
 		button_2 = gtk_button_new_with_label(b2_text);
-		gtk_signal_connect(GTK_OBJECT(button_2), "clicked",
-				GTK_SIGNAL_FUNC(dialog_button_press),
+		g_signal_connect(G_OBJECT(button_2), "clicked",
+				G_CALLBACK(dialog_button_press),
 				GINT_TO_POINTER(2));
-		gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->action_area),
+		gtk_container_add(GTK_CONTAINER(gtk_dialog_get_action_area(GTK_DIALOG(dialog))),
 				button_2);
 	}
 
 	/* add the label, and show everything we've added to the dialog. */
 	gtk_misc_set_padding(&GTK_LABEL(label)->misc, 10, 10);
-	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(dialog)->vbox), label);
+	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), label);
 	gtk_widget_show_all(dialog);
 
 	/* set window title */
