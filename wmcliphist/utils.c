@@ -10,11 +10,11 @@ from_utf8(gchar *string) {
 	GError	*error;
 	gchar	*converted;
 	/* gchar	*error_msg; */
-	gint	error_code;
+	/* gint	error_code; */
 
 	converted = g_locale_from_utf8(string, -1, &bytes_read, &bytes_written,
 			&error);
-	error_code = (error == NULL) ? 0 : error->code;
+	/* error_code = (error == NULL) ? 0 : error->code; */
         /* 
 	 * fprintf(stderr, "from_utf8: %d b read, %d b written, error: %d\n",
 	 * 		bytes_read, bytes_written, error_code);
