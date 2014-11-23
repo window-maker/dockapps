@@ -3,6 +3,7 @@ INSTALL = install
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 DATADIR = $(PREFIX)/share/wmcliphist
+MAN1DIR = $(PREFIX)/share/man/man1
 INCLUDES = `pkg-config --cflags gtk+-3.0 x11`
 
 # for normal use
@@ -57,3 +58,5 @@ install:
 	$(INSTALL) -m 644 $(ICONS) $(DESTDIR)$(DATADIR)
 	$(INSTALL) -d $(DESTDIR)$(BINDIR)
 	$(INSTALL) $(TARGET) $(DESTDIR)$(BINDIR)
+	$(INSTALL) -d $(DESTDIR)$(MAN1DIR)
+	$(INSTALL) -m 644 wmcliphist.1 $(DESTDIR)$(MAN1DIR)

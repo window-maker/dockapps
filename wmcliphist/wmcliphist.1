@@ -1,0 +1,49 @@
+.TH "WMCLIPHIST" "1"
+.SH "NAME"
+wmcliphist \(em provides a history to X11 selections
+.SH "SYNOPSIS"
+.PP
+\fBwmcliphist\fR [\fB-h\fP]  [\fB-n \fInum\fR\fP]  [\fB-c \fIcol\fR\fP]  [\fB-i \fInum\fR\fP]  [\fB-s \fIsize\fR\fP]
+.SH "DESCRIPTION"
+.PP
+This manual page documents briefly the program
+\fBwmcliphist\fR.
+.PP
+This manual page was written for the \fBDebian\fP distribution
+because the original program does not have a manual page.
+.PP
+\fBwmcliphist\fR is a dockable application
+which provides a history for the last few selections made in the
+X11 Window System.
+
+.PP
+Note, that most of \fBwmcliphist\fR's features
+are accessed by installing a configuration file .wmcliphistrc into
+your $HOME. Find a well documented example in /usr/share/doc/wmcliphist.
+
+.SH "OPTIONS"
+.IP "\fB-h\fP         " 10
+Show summary of options.
+.IP "\fB-n num\fP         " 10
+Set the number of items to keep in the history.
+Default is 10.
+.IP "\fB-c col\fP         " 10
+Set the color for locked items. Default is red.
+.IP "\fB-i num\fP         " 10
+Choose wmcliphist icon antialiasing: If you have a
+midtone background provide num=0, for dark backgrounds
+choose num=1 and for light backgrounds num=2.
+
+.IP "\fB-s size\fP         " 10
+Choose wmcliphist icon size, must be one of 16, 30,
+40 or 60 (default).
+
+.SH "AUTHOR"
+.PP
+This manual page was written by Sebastian Ley sebastian.ley@mmweg.rwth-aachen.de for
+the \fBDebian\fP system (but may be used by others).  Permission is
+granted to copy, distribute and/or modify this document under
+the terms of the GNU Free Documentation
+License, Version 1.1 or any later version published by the Free
+Software Foundation; with no Invariant Sections, no Front-Cover
+Texts and no Back-Cover Texts.
