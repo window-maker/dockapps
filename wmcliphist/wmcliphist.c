@@ -5,22 +5,9 @@
 #include "wmcliphist.h"
 
 #include "icon/ico_60x60_mask.xbm"
-#include "icon/ico_60x60_black.xpm"
-#include "icon/ico_60x60_white.xpm"
-#include "icon/ico_60x60_gray.xpm"
-
 #include "icon/ico_40x40_mask.xbm"
-#include "icon/ico_40x40_black.xpm"
-#include "icon/ico_40x40_white.xpm"
-#include "icon/ico_40x40_gray.xpm"
-
 #include "icon/ico_30x30_mask.xbm"
-#include "icon/ico_30x30_black.xpm"
-#include "icon/ico_30x30_white.xpm"
-#include "icon/ico_30x30_gray.xpm"
-
 #include "icon/ico_16x16_mask.xbm"
-#include "icon/ico_16x16.xpm"
 
 /*
  * print some help
@@ -114,10 +101,10 @@ main(int argc, char **argv)
 {
 	gint	i = 1, res;
 	gchar	*arg;
+	gchar   *icon_file;
 	GList	*list_node;
 	int	icon_number = 0;
 	int	icon_size = 60;
-	gchar	**icon_data;
 	gboolean dump_only = FALSE;
 
 #ifdef	FNCALL_DEBUG
@@ -214,11 +201,11 @@ main(int argc, char **argv)
 					ico_60x60_mask_height);
 			/* create icon */
 			if (icon_number == 0) {
-				icon_data = ico_60x60_gray_xpm;
+				icon_file = "ico_60x60_gray.png";
 			} else if (icon_number == 1) {
-				icon_data = ico_60x60_black_xpm;
+				icon_file = "ico_60x60_black.png";
 			} else {
-				icon_data = ico_60x60_white_xpm;
+				icon_file = "ico_60x60_white.png";
 			}
 		} else if (icon_size == 40) {
 			/* 40x40 icon */
@@ -228,11 +215,11 @@ main(int argc, char **argv)
 					ico_40x40_mask_height);
 			/* create icon */
 			if (icon_number == 0) {
-				icon_data = ico_40x40_gray_xpm;
+				icon_file = "ico_40x40_gray.png";
 			} else if (icon_number == 1) {
-				icon_data = ico_40x40_black_xpm;
+				icon_file = "ico_40x40_black.png";
 			} else {
-				icon_data = ico_40x40_white_xpm;
+				icon_file = "ico_40x40_white.png";
 			}
 		} else if (icon_size == 30) {
 			/* 30x30 icon */
@@ -242,11 +229,11 @@ main(int argc, char **argv)
 					ico_30x30_mask_height);
 			/* create icon */
 			if (icon_number == 0) {
-				icon_data = ico_30x30_gray_xpm;
+				icon_file = "ico_30x30_gray.png";
 			} else if (icon_number == 1) {
-				icon_data = ico_30x30_black_xpm;
+				icon_file = "ico_30x30_black.png";
 			} else {
-				icon_data = ico_30x30_white_xpm;
+				icon_file = "ico_30x30_white.png";
 			}
 		} else {
 			/* 16x16 icon */
@@ -255,12 +242,11 @@ main(int argc, char **argv)
 					ico_16x16_mask_width,
 					ico_16x16_mask_height);
 			/* create icon */
-			icon_data = ico_16x16_xpm;
+			icon_file = "ico_16x16.png";
 		}
 
-		icon = gdk_pixmap_create_from_xpm_d(gtk_widget_get_window(main_window),
-				NULL, NULL, icon_data);
-		pixmap = gtk_image_new_from_pixmap(icon, icon_mask);
+		icon_file = g_strconcat(DATADIR"/", icon_file, NULL);
+		pixmap = gtk_image_new_from_file(icon_file);
 		gtk_widget_show(pixmap);
 		gtk_container_add(GTK_CONTAINER(dock_app), pixmap);
 	}

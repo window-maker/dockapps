@@ -1,9 +1,12 @@
-CC ?= gcc
+srcCC ?= gcc
+INSTALL = install
 PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
+DATADIR = $(PREFIX)/share/wmcliphist
 INCLUDES = `pkg-config --cflags gtk+-2.0 x11`
 
 # for normal use
-CFLAGS += -Wall -ansi -pedantic $(INCLUDES)
+CFLAGS += -Wall -ansi -pedantic $(INCLUDES) -DDATADIR=\"$(DATADIR)\"
 DEBUG =
 
 # for debuggind purposes
@@ -16,6 +19,12 @@ LIBS = `pkg-config --libs gtk+-2.0 x11`
 
 OBJECTS = wmcliphist.o clipboard.o gui.o rcconfig.o history.o hotkeys.o utils.o $(DEBUG)
 TARGET = wmcliphist
+ICONS = icon/ico_16x16.png icon/ico_30x30_black.png icon/ico_30x30_gray.png \
+	icon/ico_30x30_white.png icon/ico_40x40_black.png \
+	icon/ico_40x40_gray.png icon/ico_40x40_white.png \
+	icon/ico_60x60_black.png icon/ico_60x60_gray.png \
+	icon/ico_60x60_white.png
+
 
 all: $(TARGET)
 
@@ -26,13 +35,8 @@ wmcliphist: $(OBJECTS)
 	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
 
 wmcliphist.o: wmcliphist.c wmcliphist.h \
-	icon/ico_60x60_black.xpm icon/ico_60x60_gray.xpm \
-	icon/ico_60x60_white.xpm icon/ico_60x60_mask.xbm \
-	icon/ico_40x40_black.xpm icon/ico_40x40_gray.xpm \
-	icon/ico_40x40_white.xpm icon/ico_40x40_mask.xbm \
-	icon/ico_30x30_black.xpm icon/ico_30x30_gray.xpm \
-	icon/ico_30x30_white.xpm icon/ico_30x30_mask.xbm \
-	icon/ico_16x16.xpm icon/ico_16x16_mask.xbm
+	icon/ico_60x60_mask.xbm icon/ico_40x40_mask.xbm \
+	icon/ico_30x30_mask.xbm icon/ico_16x16_mask.xbm
 
 clipboard.o: clipboard.c wmcliphist.h
 
@@ -51,4 +55,7 @@ clean:
 	rm -rf core
 
 install:
-	cp wmcliphist $(PREFIX)/bin
+	$(INSTALL) -d $(DESTDIR)$(DATADIR)
+	$(INSTALL) -m 644 $(ICONS) $(DESTDIR)$(DATADIR)
+	$(INSTALL) -d $(DESTDIR)$(BINDIR)
+	$(INSTALL) $(TARGET) $(DESTDIR)$(BINDIR)
