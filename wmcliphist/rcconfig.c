@@ -178,6 +178,9 @@ rcconfig_get(char *fname)
 					} else if (strcmp(direc_buf, "lcolor") == 0) {
 						state = STATE_VALUE;
 						buf_index = 0;
+					} else if (strcmp(direc_buf, "clipboard") == 0) {
+						state = STATE_VALUE;
+						buf_index = 0;
 					} else if (strcmp(direc_buf, "autosave") == 0) {
 						state = STATE_VALUE;
 						buf_index = 0;
@@ -228,6 +231,11 @@ rcconfig_get(char *fname)
 							== 0) {
 						memset(locked_color_str, 0, 32);
 						strncpy(locked_color_str,
+								expr_buf, 31);
+					} else if (strcmp(direc_buf, "clipboard")
+							== 0) {
+						memset(clipboard_str, 0, 32);
+						strncpy(clipboard_str,
 								expr_buf, 31);
 					} else if (strcmp(direc_buf, "autosave") == 0) {
 						autosave_period =

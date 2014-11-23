@@ -3,7 +3,7 @@
 wmcliphist \(em provides a history to X11 selections
 .SH "SYNOPSIS"
 .PP
-\fBwmcliphist\fR [\fB-h\fP] [\fB-v\fP] [\fB-n \fInum\fR\fP]  [\fB-c \fIcol\fR\fP]  [\fB-i \fInum\fR\fP]  [\fB-s \fIsize\fR\fP]
+\fBwmcliphist\fR [\fB-h\fP]  [\fB-v\fP] [\fB-n \fInum\fR\fP]  [\fB-c \fIcol\fR\fP]  [\fB-i \fInum\fR\fP]  [\fB-s \fIsize\fR\fP] [\fB-b \fIclipboard\fR\fP]
 .SH "DESCRIPTION"
 .PP
 This manual page documents briefly the program
@@ -39,6 +39,10 @@ choose num=1 and for light backgrounds num=2.
 .IP "\fB-s size\fP         " 10
 Choose wmcliphist icon size, must be one of 16, 30,
 40 or 60 (default).
+.IP "\fB-b clipboard\fP         " 10
+Choose clipboard to use, must be one of  PRIMARY (select copies, middle click
+pastes, default), SECONDARY (not used), or CLIPBOARD (Ctrl+C copies,
+Ctrl+V pastes)
 
 .SH "AUTHOR"
 .PP

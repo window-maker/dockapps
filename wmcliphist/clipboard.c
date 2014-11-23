@@ -48,7 +48,7 @@ dump_history_list_fn(char *header)
 }
 
 void
-my_get_selection_text(GtkClipboard *clipboard, const gchar *text, gpointer
+my_get_selection_text(GtkClipboard *cb, const gchar *text, gpointer
 		data)
 {
 	/* previous clipboard content */
@@ -86,7 +86,7 @@ my_get_selection_text(GtkClipboard *clipboard, const gchar *text, gpointer
 	if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)) ||
 	    gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_lock))) {
 		if (gtk_selection_owner_set(dock_app,
-					GDK_SELECTION_PRIMARY,
+					clipboard,
 					GDK_CURRENT_TIME) == 0)
 			selected = NULL;
 	}
@@ -113,7 +113,7 @@ my_get_xselection(GtkWidget *window, GdkEvent *event)
 
 	begin_func("my_get_xselection");
 
-	gtk_clipboard_request_text(gtk_clipboard_get(GDK_SELECTION_PRIMARY),
+	gtk_clipboard_request_text(gtk_clipboard_get(clipboard),
 			my_get_selection_text, NULL);
 
 	return_val(TRUE);
@@ -143,7 +143,7 @@ my_get_xselection(GtkWidget *window, GdkEvent *event)
 		    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)) ||
 			gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_lock))) {
 			if (gtk_selection_owner_set(dock_app,
-						GDK_SELECTION_PRIMARY,
+						clipboard,
 						GDK_CURRENT_TIME) == 0)
 				selected = NULL;
 		}
@@ -163,7 +163,7 @@ time_conv_select()
 	begin_func("time_conv_select");
 
 	gtk_selection_convert(main_window,
-			GDK_SELECTION_PRIMARY,
+			clipboard,
 			GDK_TARGET_STRING,
 			GDK_CURRENT_TIME);
 	return_val(TRUE);

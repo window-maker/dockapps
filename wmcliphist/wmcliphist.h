@@ -28,6 +28,8 @@
 #define	DEF_MENUKEY		"Control+Alt+V"
 #define	DEF_PREV_ITEM_KEY	"Control+Alt+C"
 #define	DEF_EXEC_ITEM_KEY	"Control+Alt+E"
+#define DEF_CLIPBOARD_STR	"PRIMARY"
+#define DEF_CLIPBOARD		GDK_SELECTION_PRIMARY
 #define	MAX_ITEM_LENGTH		40
 
 
@@ -63,6 +65,9 @@ extern HISTORY_ITEM	*selected;
 extern gint		locked_count;
 
 
+/* which clipboard to use */
+extern gchar		clipboard_str[32];
+extern GdkAtom		clipboard;
 
 #ifdef DEBUG
 #define	dump_history_list(header)	dump_history_list_fn(header)

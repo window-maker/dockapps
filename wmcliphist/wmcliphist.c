@@ -32,8 +32,11 @@ print_help()
 			"           1 = for dark background\n"
 			"           2 = for light background\n");
 	fprintf(stderr, "-d         dumps clipboard history to stdout"
-			" in pseudo XML format (no escaping etc.)\n\n");
-
+			" in pseudo XML format (no escaping etc.)\n");
+	fprintf(stderr, "-b <type>  choose clipboard to manage\n"
+			"           PRIMARY   = select copies, middle click pastes (default)\n"
+			"           SECONDARY = not used\n"
+			"           CLIPBOARD = Ctrl+C copies, Ctrl+V pastes\n\n");
 	exit(1);
 	return_void();
 }
@@ -169,6 +172,14 @@ main(int argc, char **argv)
 			} else if (*(arg + 1) == 'v') {
 				printf("wmcliphist "WMCLIPHIST_VERSION"\n");
 				exit(1);
+			} else if (*(arg + 1) == 'b') {
+				i++;
+				if (!argv[i]) {
+					fprintf(stderr, "Missing value of -b\n");
+					print_help();
+				}
+				memset(clipboard_str, 0, 32);
+				strncpy(clipboard_str, argv[i], 31);
 			} else {
 				fprintf(stderr, "Invalid option -%c\n", *(arg + 1));
 				print_help();
@@ -318,6 +329,25 @@ main(int argc, char **argv)
 		gdk_rgba_parse(&locked_color, locked_color_str);
 	}
 
+	/* set clipboard */
+	if (strcmp(clipboard_str, "PRIMARY") == 0) {
+		clipboard = GDK_SELECTION_PRIMARY;
+	} else if (strcmp(clipboard_str, "SECONDARY") == 0) {
+		clipboard = GDK_SELECTION_SECONDARY;
+	} else if (strcmp(clipboard_str, "CLIPBOARD") == 0) {
+		clipboard = GDK_SELECTION_CLIPBOARD;
+	} else {
+		char msg_str[128];
+
+		sprintf(msg_str, "Invalid clipboard string: '%s'.\n"
+			"Falling back to default ("
+			DEF_CLIPBOARD_STR
+			").",
+			clipboard_str);
+		show_message(msg_str, "Warning", "OK", NULL, NULL);
+		clipboard = DEF_CLIPBOARD;
+	}
+
 	/* load previously saved history */
 	if (history_load(dump_only) != 0) {
 		if (errno == E_TOO_MUCH) {
@@ -377,7 +407,7 @@ main(int argc, char **argv)
 
 	/* setup everything for supplying selection to other apps */
 	gtk_selection_add_target(dock_app,
-			GDK_SELECTION_PRIMARY,
+			clipboard,
 			GDK_SELECTION_TYPE_STRING,
 			1);
 

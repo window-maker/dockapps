@@ -51,7 +51,7 @@ process_item(char *content, gint locked, gboolean exec)
 			if (auto_take_up == 1) {
 				selected = hist_item;
 				if (gtk_selection_owner_set(dock_app,
-							GDK_SELECTION_PRIMARY,
+							clipboard,
 							GDK_CURRENT_TIME) == 0) {
 					selected = NULL;
 				}
@@ -71,7 +71,7 @@ process_item(char *content, gint locked, gboolean exec)
 		if (auto_take_up == 1) {
 			selected = hist_item;
 			if (gtk_selection_owner_set(dock_app,
-						GDK_SELECTION_PRIMARY,
+						clipboard,
 						GDK_CURRENT_TIME) == 0) {
 				selected = NULL;
 			}
@@ -99,7 +99,7 @@ move_item_to_begin(HISTORY_ITEM *item) {
 	history_items = g_list_concat(list_node, history_items);
 	selected = item;
 	if (gtk_selection_owner_set(dock_app,
-				GDK_SELECTION_PRIMARY,
+				clipboard,
 				GDK_CURRENT_TIME) == 0)
 		selected = NULL;
 }

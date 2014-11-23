@@ -67,6 +67,11 @@ exec_middleclick yes
 
 exec_hotkey yes
 
+# Which clipboard should wmcliphist manage? PRIMARY (select copies, middle click
+# pastes), SECONDARY (not used), or CLIPBOARD (Ctrl+C copies, Ctrl+V pastes)
+# Default: PRIMARY
+
+clipboard PRIMARY
 
 # You can define regular expressions driven actions executed when new
 # item is captured. Items can be silently ignored, inserted to submenus

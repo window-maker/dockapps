@@ -33,6 +33,10 @@ GtkWidget	*button;
 /* pixmap */
 GtkWidget	*pixmap;
 
+/* which clipboard to use */
+gchar		clipboard_str[32] = DEF_CLIPBOARD_STR;
+GdkAtom		clipboard;
+
 /* ==========================================================================
  *                                                     clipboard history menu
  */
