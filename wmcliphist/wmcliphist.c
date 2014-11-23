@@ -4,7 +4,7 @@
 
 #include "wmcliphist.h"
 
-#define WMCLIPHIST_VERSION "2.0"
+#define WMCLIPHIST_VERSION "2.1"
 
 /*
  * print some help
