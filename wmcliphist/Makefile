@@ -22,8 +22,8 @@ all: $(TARGET)
 lclint:
 	lclint $(INCLUDES) +posixlib *.c >lclint.log
 
-wmcliphist: $(OBJECTS) foodock/foodock.o
-	$(CC) $(LDFLAGS) $(OBJECTS) foodock/foodock.o $(LIBS) -o $@
+wmcliphist: $(OBJECTS)
+	$(CC) $(LDFLAGS) $(OBJECTS) $(LIBS) -o $@
 
 wmcliphist.o: wmcliphist.c wmcliphist.h \
 	icon/ico_60x60_black.xpm icon/ico_60x60_gray.xpm \
@@ -32,8 +32,7 @@ wmcliphist.o: wmcliphist.c wmcliphist.h \
 	icon/ico_40x40_white.xpm icon/ico_40x40_mask.xbm \
 	icon/ico_30x30_black.xpm icon/ico_30x30_gray.xpm \
 	icon/ico_30x30_white.xpm icon/ico_30x30_mask.xbm \
-	icon/ico_16x16.xpm icon/ico_16x16_mask.xbm \
-	foodock/foodock.h
+	icon/ico_16x16.xpm icon/ico_16x16_mask.xbm
 
 clipboard.o: clipboard.c wmcliphist.h
 
@@ -50,7 +49,6 @@ utils.o: utils.c wmcliphist.h
 clean:
 	rm -rf $(OBJECTS) $(TARGET)
 	rm -rf core
-	@(cd foodock && make clean)
 
 install:
 	cp wmcliphist $(PREFIX)/bin

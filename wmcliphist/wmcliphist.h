@@ -20,8 +20,6 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
-#include "foodock/foodock.h"
-
 #include "debug.h"
 
 

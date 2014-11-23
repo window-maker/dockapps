@@ -61,6 +61,50 @@ wmcliphist_exit(gint code)
 	return_void();
 }
 
+/* gtk3 dockapp code based on wmpasman by Brad Jorsch
+ * <anomie@users.sourceforge.net>
+ * http://sourceforge.net/projects/wmpasman */
+
+GtkWidget *foo_create_main_icon_window(GtkWidget *mw, unsigned int s)
+{
+	Display *d;
+	GdkDisplay *display;
+	GtkWidget *foobox;
+	unsigned int dummy3;
+	Window mainwin, iw, p, dummy1, *dummy2, w;
+	XWMHints *wmHints;
+
+	display = gdk_display_get_default();
+	foobox = gtk_window_new(GTK_WINDOW_POPUP);
+
+	gtk_window_set_wmclass(GTK_WINDOW(mw), g_get_prgname(), "DockApp");
+	gtk_widget_set_size_request(foobox, s, s);
+
+	gtk_widget_realize(mw);
+	gtk_widget_realize(foobox);
+
+	d = GDK_DISPLAY_XDISPLAY(display);
+	mainwin = GDK_WINDOW_XID(gtk_widget_get_window(mw));
+	iw = GDK_WINDOW_XID(gtk_widget_get_window(foobox));
+	XQueryTree(d, mainwin, &dummy1, &p, &dummy2, &dummy3);
+	if (dummy2)
+		XFree(dummy2);
+	w = XCreateSimpleWindow(d, p, 0, 0, 1, 1, 0, 0, 0);
+	XReparentWindow(d, mainwin, w, 0, 0);
+	gtk_widget_show(mw);
+	gtk_widget_show(foobox);
+	wmHints = XGetWMHints(d, mainwin);
+	if (!wmHints)
+		wmHints = XAllocWMHints();
+	wmHints->flags |= IconWindowHint;
+	wmHints->icon_window = iw;
+	XSetWMHints(d, mainwin, wmHints);
+	XFree(wmHints);
+	XReparentWindow(d, mainwin, p, 0, 0);
+	XDestroyWindow(d, w);
+
+	return foobox;
+}
 
 /*
  * main func
@@ -157,12 +201,9 @@ main(int argc, char **argv)
 
 	/* create main window */
 	main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	gtk_widget_realize(main_window);
-
 
 	/* creat dock icon */
-	dock_app = foo_create_main_icon_window(main_window,
-			icon_size, argc, argv);
+	dock_app = foo_create_main_icon_window(main_window, icon_size);
 
 	if (icon_size) {
 		/* create icon_mask */
@@ -344,14 +385,6 @@ main(int argc, char **argv)
 				"event",
 				GTK_SIGNAL_FUNC(button_press),
 				GTK_OBJECT(menu_hist));
-
-
-		/* show icon */
-		gtk_widget_show(dock_app);
-		gtk_widget_show(main_window);
-
-		/* Set WMHints - after gtk_widget_show() due to changes in GTK+ 2.4 */
-		foo_set_wmhints(main_window, dock_app, argc, argv);
 
 		gdk_window_shape_combine_mask(main_window->window, icon_mask, 0, 0);
 		gdk_window_shape_combine_mask(dock_app->window, icon_mask, 0, 0);
