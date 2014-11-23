@@ -123,6 +123,17 @@ url =
 dockapps = 316
 category = E-mail
 
+[wmcpufreq]
+image = "cp3.png,wmcpufre2.qpng.png,wmcpufreq.png"
+description = "wmcpufreq displays on a windowmaker dock application
+- the frequency in use between the maximum and minimum
+- the driver in green
+- the active governor in red
+Included a tool for setting governor an maximum or minimum frequency."
+url =
+dockapps = 309
+category = System Monitoring
+
 [wmcpuload]
 image = "wmcpuload2.png,wmcpuload3.png"
 description = "A simple program to monitor CPU usage."
