@@ -1,4 +1,4 @@
-#include <wmcliphist.h>
+#include "wmcliphist.h"
 #include <sys/stat.h>
 
 #define	RC_BUF_SIZE	256

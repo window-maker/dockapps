@@ -2,25 +2,25 @@
  * (c) 2001 Michal Krause <michal@krause.cz>
  */
 
-#include <wmcliphist.h>
+#include "wmcliphist.h"
 
-#include <icon/ico_60x60_mask.xbm>
-#include <icon/ico_60x60_black.xpm>
-#include <icon/ico_60x60_white.xpm>
-#include <icon/ico_60x60_gray.xpm>
+#include "icon/ico_60x60_mask.xbm"
+#include "icon/ico_60x60_black.xpm"
+#include "icon/ico_60x60_white.xpm"
+#include "icon/ico_60x60_gray.xpm"
 
-#include <icon/ico_40x40_mask.xbm>
-#include <icon/ico_40x40_black.xpm>
-#include <icon/ico_40x40_white.xpm>
-#include <icon/ico_40x40_gray.xpm>
+#include "icon/ico_40x40_mask.xbm"
+#include "icon/ico_40x40_black.xpm"
+#include "icon/ico_40x40_white.xpm"
+#include "icon/ico_40x40_gray.xpm"
 
-#include <icon/ico_30x30_mask.xbm>
-#include <icon/ico_30x30_black.xpm>
-#include <icon/ico_30x30_white.xpm>
-#include <icon/ico_30x30_gray.xpm>
+#include "icon/ico_30x30_mask.xbm"
+#include "icon/ico_30x30_black.xpm"
+#include "icon/ico_30x30_white.xpm"
+#include "icon/ico_30x30_gray.xpm"
 
-#include <icon/ico_16x16_mask.xbm>
-#include <icon/ico_16x16.xpm>
+#include "icon/ico_16x16_mask.xbm"
+#include "icon/ico_16x16.xpm"
 
 /*
  * print some help

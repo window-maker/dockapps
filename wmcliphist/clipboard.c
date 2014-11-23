@@ -1,4 +1,4 @@
-#include <wmcliphist.h>
+#include "wmcliphist.h"
 #include <time.h>
 
 /* when true, clipboard will be automatically taken up by wmcliphist */

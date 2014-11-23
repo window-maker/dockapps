@@ -1,6 +1,6 @@
 CC ?= gcc
 PREFIX = /usr/local
-INCLUDES = `pkg-config --cflags gtk+-2.0 x11` -I. -Ifoodock
+INCLUDES = `pkg-config --cflags gtk+-2.0 x11`
 
 # for normal use
 CFLAGS += -Wall -ansi -pedantic $(INCLUDES)

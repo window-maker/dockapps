@@ -1,4 +1,4 @@
-#include <wmcliphist.h>
+#include "wmcliphist.h"
 
 /*
  * converts text in UTF-8 to charset by actual locale

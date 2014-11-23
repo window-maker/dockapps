@@ -1,4 +1,4 @@
-#include <wmcliphist.h>
+#include "wmcliphist.h"
 #include <gdk/gdkkeysyms.h>
 
 
