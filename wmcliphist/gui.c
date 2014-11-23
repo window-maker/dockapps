@@ -55,7 +55,7 @@ menu_item_button_released(GtkWidget *widget,
 	HISTORY_ITEM	*data = user_data;
 
 	begin_func("menu_item_button_released");
-	
+
 	/* button 2 or 3 - exec or (un)lock item respectively */
 	if (bevent->button == 2) {
 		if (exec_middleclick) {
@@ -132,7 +132,7 @@ menu_item_exists(gchar *content, GtkWidget *submenu)
 		}
 		list_node = g_list_previous(list_node);
 	}
-	
+
 	return_val(NULL);
 }
 
@@ -151,7 +151,7 @@ menu_item_add(gchar *content, gint locked, GtkWidget *target_menu)
 	HISTORY_ITEM	*hist_item;
 
 	begin_func("menu_item_add");
-	
+
 	hist_item = menu_item_exists(content, target_menu);
 	if (hist_item != NULL) {
 		dump_history_list("reorder");
@@ -180,7 +180,7 @@ menu_item_add(gchar *content, gint locked, GtkWidget *target_menu)
 		num_items--;
 		dump_history_list("remove oldest");
 	}
-	
+
 	/* prepare menu item name */
 	menu_item_name = g_new0(char, MAX_ITEM_LENGTH * 2 + 1);
 	memset(menu_item_name, 0, MAX_ITEM_LENGTH * 2 + 1);
@@ -221,7 +221,7 @@ menu_item_add(gchar *content, gint locked, GtkWidget *target_menu)
 				style_locked);
 		locked_count++;
 	}
-	
+
 	/* add to menu */
 	gtk_menu_insert(GTK_MENU(hist_item->menu), hist_item->menu_item, 1);
 
@@ -449,11 +449,11 @@ show_message(gchar *message, char *title,
 
 	/* set window title */
 	gtk_window_set_title(GTK_WINDOW(dialog), title);
-	
+
 	loop = g_main_new(FALSE);
 	g_main_run(loop);
 	g_main_destroy(loop);
 	gtk_widget_destroy(dialog);
-	
+
 	return_val(button_pressed);
 }

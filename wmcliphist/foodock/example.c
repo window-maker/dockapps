@@ -17,12 +17,12 @@ int main( int argc, char *argv[] ) {
     GtkWidget *gtkiw;
     GtkWidget *box;
     GtkWidget *button;
-    
+
     gtk_init(&argc, &argv);
 
     gtkiw = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_widget_realize(gtkiw);
-    
+
     box = foo_create_main_icon_window(gtkiw, 56, argc, argv);
 
     button = gtk_button_new_with_label ("FOO");
@@ -34,6 +34,6 @@ int main( int argc, char *argv[] ) {
     gtk_widget_show(gtkiw);
 
     gtk_main ();
-     
+
     return(0);
 }

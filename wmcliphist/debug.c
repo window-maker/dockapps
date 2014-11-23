@@ -37,7 +37,7 @@ debug_init_threads()
 	int	*new_align;
 
 	memset(tabs, 9, 1024);
-	
+
 	if (!(new_align = malloc(sizeof(int))))
 		abort();
 	*new_align = 1;
@@ -77,7 +77,7 @@ fn_begin(char *format, ...)
 #else
 		align = &main_align;
 #endif
-	
+
 	va_start(args, format);
 	vsprintf(msg_buf, format, args);
 	va_end(args);
@@ -124,7 +124,7 @@ fn1()
 	fn2(1);
 	return_val(0);
 }
-	
+
 int
 main()
 {

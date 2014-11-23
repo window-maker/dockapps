@@ -91,7 +91,7 @@ exec_hotkey yes
 #     If action type is "exec", you can include "%s" string in command
 #     and it will be replaced with item content (don't use "%s" more
 #     than once and any other occurrence of '%' character write as
-#     "%%"!!!). 
+#     "%%"!!!).
 #     If action type is "submenu", command can be "-" (without quotes),
 #     which means item will be placed in main menu, not in submenu. It's
 #     usable if you want to use "exec" and then put item into main menu.

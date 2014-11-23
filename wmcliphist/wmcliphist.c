@@ -147,7 +147,7 @@ main(int argc, char **argv)
 		}
 		i++;
 	}
-	
+
 	signal(SIGCHLD, SIG_IGN);
 
 	/* initialize Gtk */
@@ -225,7 +225,7 @@ main(int argc, char **argv)
 		gtk_container_add(GTK_CONTAINER(dock_app), pixmap);
 	}
 
-	
+
 	/* create clipboard history menu */
 	menu_hist = gtk_menu_new();
 	gtk_menu_set_title(GTK_MENU(menu_hist), "Clipboard history");
@@ -349,7 +349,7 @@ main(int argc, char **argv)
 		/* show icon */
 		gtk_widget_show(dock_app);
 		gtk_widget_show(main_window);
- 
+
 		/* Set WMHints - after gtk_widget_show() due to changes in GTK+ 2.4 */
 		foo_set_wmhints(main_window, dock_app, argc, argv);
 
@@ -357,19 +357,19 @@ main(int argc, char **argv)
 		gdk_window_shape_combine_mask(dock_app->window, icon_mask, 0, 0);
 	}
 
-	
+
 	/* run clipboard monitor */
 	gtk_signal_connect(GTK_OBJECT(main_window),
 			"selection_received",
 			GTK_SIGNAL_FUNC(my_get_xselection),
 			NULL);
 	gtk_timeout_add(250, time_conv_select, NULL);
-	
+
 
 	/* run autosave timer */
 	if (autosave_period > 0)
 		gtk_timeout_add(autosave_period * 1000, history_autosave, NULL);
-	
+
 
 	/* setup everything for supplying selection to other apps */
 	gtk_selection_add_target(dock_app,
@@ -389,7 +389,7 @@ main(int argc, char **argv)
 
 
 	hotkeys_init();
-	
+
 	gtk_main();
 
 	return_val(0);

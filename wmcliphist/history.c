@@ -38,7 +38,7 @@ process_item(char *content, gint locked, gboolean exec)
 		if (action->action == ACT_EXEC && exec_immediately == TRUE
 				&& exec == TRUE) {
 			exec_item(content, action);
-		} 
+		}
 		if (action->action == ACT_SUBMENU) {
 			/* test if such item already exists in this menu */
 			processed = TRUE;
@@ -56,7 +56,7 @@ process_item(char *content, gint locked, gboolean exec)
 					selected = NULL;
 				}
 			}
-			
+
 			dump_history_list("added item");
 			break;
 		}
@@ -66,7 +66,7 @@ process_item(char *content, gint locked, gboolean exec)
 
 	if (processed == FALSE) {
 		hist_item = menu_item_add(content, locked, menu_hist);
-		
+
 		/* when auto_take_up is true, set selection owner to myself */
 		if (auto_take_up == 1) {
 			selected = hist_item;
@@ -117,7 +117,7 @@ exec_item(char *content, ACTION *action)
 	gchar	*converted;
 
 	converted = from_utf8(content);
-	
+
 	/* If we're not given an action to perform, find the first matching
 	 * exec action, and perform it */
 	if (!action) {
@@ -254,7 +254,7 @@ history_load(gboolean dump_only)
 	}
 
 	errno = tmp_errno;
-	
+
 	if (errno == 0)
 		return_val(0);
 	else

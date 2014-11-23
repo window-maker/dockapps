@@ -50,7 +50,7 @@ global_keys_filter(GdkXEvent *gdk_xevent, GdkEvent *event, gpointer data)
 			if (second == NULL) {
 				return_val(GDK_FILTER_REMOVE);
 			}
-	
+
 			move_item_to_begin((HISTORY_ITEM *) second->data);
 
 			return_val(GDK_FILTER_REMOVE);
@@ -84,7 +84,7 @@ hotkey_parse(char *hotkey, guint *key, guint *mask)
 	begin_func("hotkey_parse");
 
 	*mask = 0;
-	
+
 	for (i = 0; i < strlen(hotkey); i++) {
 		c = hotkey[i];
 		if (isalpha(c)) {
@@ -112,7 +112,7 @@ hotkey_parse(char *hotkey, guint *key, guint *mask)
 		g_free(tmp);
 		return_val(-1);
 	}
-	
+
 	g_free(tmp);
 	return_val(0);
 }

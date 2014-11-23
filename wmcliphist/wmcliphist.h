@@ -69,7 +69,7 @@ extern gint		locked_count;
 #ifdef DEBUG
 #define	dump_history_list(header)	dump_history_list_fn(header)
 #else
-#define	dump_history_list(header)	
+#define	dump_history_list(header)
 #endif
 
 
@@ -89,7 +89,7 @@ time_conv_select();
  * handles request for selection from other apps
  */
 gint
-selection_handle(GtkWidget *widget, 
+selection_handle(GtkWidget *widget,
 		GtkSelectionData *selection_data,
 		guint info,
 		guint time_stamp,

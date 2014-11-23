@@ -66,7 +66,7 @@ action_append(char *expr_buf, char *action_buf, char *cmd_buf)
 	begin_func("action_append");
 
 	action = g_new0(ACTION, 1);
-	
+
 	if (regcomp(&action->expression, expr_buf,
 				REG_EXTENDED|REG_ICASE|REG_NOSUB) != 0) {
 		g_free(action);
@@ -83,11 +83,11 @@ action_append(char *expr_buf, char *action_buf, char *cmd_buf)
 		g_free(action);
 		return_val(-102);
 	}
-	
+
 	action->command = g_strdup(cmd_buf);
 
 	action_list = g_list_append(action_list, action);
-	
+
 	return_val(0);
 }
 
@@ -296,7 +296,7 @@ rcconfig_get(char *fname)
 					buf_index = 0;
 				} else
 					error = 1;
-				
+
 				break;
 
 			case STATE_ACTION:

@@ -32,7 +32,7 @@ dump_history_list_fn(char *header)
 	GList		*node = history_items;
 	HISTORY_ITEM	*data;
 	gchar		*converted;
-	
+
 	fprintf(stderr, "%s\n", header);
 	while (node) {
 		data = (HISTORY_ITEM *)node->data;
@@ -62,7 +62,7 @@ my_get_selection_text(GtkClipboard *clipboard, const gchar *text, gpointer
 	if (text == NULL) {
 		return_void();
 	}
-	
+
 	if (g_utf8_collate(text, old_content) != 0 &&
 			!GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)->active) {
 		/* new data in clipboard */
@@ -117,7 +117,7 @@ my_get_xselection(GtkWidget *window, GdkEvent *event)
 			my_get_selection_text, NULL);
 
 	return_val(TRUE);
-	
+
 	length = (size_t) gdk_selection_property_get(window->window,
 			(guchar **) &content, &atom, &format);
 
@@ -174,20 +174,20 @@ time_conv_select()
  * handles request for selection from other apps
  */
 gboolean
-selection_handle(GtkWidget *widget, 
+selection_handle(GtkWidget *widget,
 		GtkSelectionData *selection_data,
 		guint info,
 		guint time_stamp,
 		gpointer data)
 {
 	static gchar	*converted = NULL;
-	
+
 	begin_func("selection_handle");
 
 	if (converted != NULL) {
 		g_free(converted);
 	}
-	
+
 	if (selected) {
 		converted = from_utf8(selected->content);
 		gtk_selection_data_set(selection_data,

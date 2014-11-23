@@ -2,10 +2,10 @@
  * File: foodock.h
  *
  * Created: Fri Jan 14 01:14:25 2000
- * 
+ *
  * (c) 2000, Alexey Vyskubov <alexey@pepper.spb.ru>
  *
- * LGPL, see file LICENSE 
+ * LGPL, see file LICENSE
 */
 
 /*
@@ -17,7 +17,7 @@
  * icon window as well as main window before gtk_main().
  *
  * Call foo_set_wmhints() after both windows are shown (gtk_widget_show()).
- * 
+ *
  * Input:
  *	mw		Pointer to main window
  *	s		icon window size (56 is recommended)
@@ -31,7 +31,7 @@ GtkWidget *foo_create_main_icon_window(GtkWidget *main_window,
 /*
  * Set WMHints on the dockapp (icon) window. Needs to be called after
  * the main window is shown, due to changes in GTK+ 2.4.
- * 
+ *
  * Input:
  *	mw		Pointer to main window
  *	dw		Pointer to icon (dockapp) window

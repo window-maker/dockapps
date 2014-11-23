@@ -2,7 +2,7 @@
  * File: foodock.c
  *
  * Created: Fri Jan 14 01:15:24 2000
- * 
+ *
  * (c) 2000, Alexey Vyskubov <alexey@pepper.spb.ru>
  *
  * LGPL, see file LICENSE
@@ -23,7 +23,7 @@
  * icon window as well as main window before gtk_main().
  *
  * Call foo_set_wmhints() after both windows are shown (gtk_widget_show()).
- * 
+ *
  * Input:
  *	mw		Pointer to main window
  *	s		icon window size (56 is recommended)
@@ -48,7 +48,7 @@ GtkWidget *foo_create_main_icon_window(GtkWidget *mw,
 /*
  * Set WMHints on the dockapp (icon) window. Needs to be called after
  * the main window is shown, due to changes in GTK+ 2.4.
- * 
+ *
  * Input:
  *	mw		Pointer to main window
  *	dw		Pointer to icon (dockapp) window
@@ -63,13 +63,13 @@ void foo_set_wmhints(GtkWidget *mw,
 
     xmw = GDK_WINDOW_XWINDOW(mw->window);
 
-    
+
 /* Time for game with Xlib */
     wm_hints = XAllocWMHints();
     wm_hints->window_group = xmw;
     wm_hints->icon_window = GDK_WINDOW_XWINDOW(dw->window);
     wm_hints->icon_x = 0;
-    wm_hints->icon_y = 0; 
+    wm_hints->icon_y = 0;
     wm_hints->initial_state = WithdrawnState;
     wm_hints->flags = StateHint |
 	              IconPositionHint |
@@ -80,6 +80,6 @@ void foo_set_wmhints(GtkWidget *mw,
     XSetWMHints(GDK_DISPLAY(), xmw, wm_hints);
 
     XSetCommand(GDK_DISPLAY(), xmw, margv, margc);
-    
+
     XFree(wm_hints);
 }
