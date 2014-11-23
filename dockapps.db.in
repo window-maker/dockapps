@@ -123,6 +123,13 @@ url =
 dockapps = 316
 category = E-mail
 
+[wmcliphist]
+image = wmcliphist.gif
+description =  "wmcliphist is a dockable application for Window Maker. It keeps a history of clipboard operations and allows you to put previously copied items back to clipboard for pasting to other applications."
+url = http://linux.nawebu.cz/wmcliphist/
+dockapps =
+category = General/Others
+
 [wmcpufreq]
 image = "cp3.png,wmcpufre2.qpng.png,wmcpufreq.png"
 description = "wmcpufreq displays on a windowmaker dock application
