@@ -324,6 +324,7 @@ int power_init(global_t *globals)
     char buf[4096];
     int acpi_ver = 0;
     int retval;
+    size_t buflen;
     unsigned int version_offset = 0;
 
     if (!(acpi = fopen("/sys/module/acpi/parameters/acpica_version", "r"))) {
@@ -336,7 +337,11 @@ int power_init(global_t *globals)
     }
 
     /* okay, now see if we got the right version */
-    fread(buf, 4096, 1, acpi);
+    buflen = fread(buf, 4096, 1, acpi);
+    if (buflen != 4096 && ferror(acpi)) {
+	    pfatal("Could not read file\n");
+	    return 1;
+    }
     acpi_ver = strtol(buf + version_offset, NULL, 10);
     pinfo("ACPI version detected: %d\n", acpi_ver);
     if (acpi_ver < 20020214) {
@@ -431,7 +436,10 @@ static power_state_t procfs_get_power_status(global_t *globals)
 	return PS_ERR;
     }
 
-    fgets(buf, 1024, file);
+    if (!fgets(buf, 1024, file)) {
+	    pfatal("Could not read file\n");
+	    return PS_ERR;
+    }
     fclose(file);
     val = get_value(buf);
     if ((strncmp(val, "on-line", 7)) == 0)
