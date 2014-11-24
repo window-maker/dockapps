@@ -40,7 +40,7 @@ dockapps = 299
 category = System Monitoring
 
 [wmacpi]
-version-2.2+20141005 = c2e38edf1b41454f31c5b6e5fe30b2951e325535
+version-2.3 = d4871ec5b557772614222856ffc6abf00fefc4b0
 version-2.2 = efbb69d77277b35cb7689dc6850f1dc5b40b8be6
 version-2.2rc5 = daa0ba41e07a073d40576e4344d3ddfb555d6282
 version-2.2rc4 = 2d177139b0215d984ee579967f3ffdf1cbec0dc2
