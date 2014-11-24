@@ -1,3 +1,14 @@
+2014 November 23 2.3
+	Remove trailing whitespace.
+
+	Remove deprecated /usr/X11R6/include directory from CFLAGS.
+
+	Merge clean and clean-all targets in Makefile.
+
+	Respect DESTDIR variable in Makefile, e.g., for package creation.
+
+	Fix -Wunused-result and -Wunused-but-set-variable compiler warnings.
+
 2014 August 18 2.2
 	Remove VCS files from source.
 
