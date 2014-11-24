@@ -649,6 +649,10 @@ static int procfs_get_battery_info(global_t *globals, int batt_no)
     /* grab the file contents */
     memset(buf, 0, sizeof(buf));
     buflen = fread(buf, sizeof(buf), 1, file);
+    if (buflen != sizeof(buf) && ferror(file)) {
+	    pfatal("Could not read file\n");
+	    return 1;
+    }
     fclose(file);
 
     /* check to see if there were any errors reported in the file */
