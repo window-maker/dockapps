@@ -57,9 +57,9 @@ endif
 
 clean:
 	rm -f TAGS *.o *~ trace *.out *.bb *.bbg
+	rm -f *.d $(targets)
 
 clean-all: clean
-	rm -f *.d $(targets)
 
 install: $(targets)
 	install -d $(PREFIX)/bin/
