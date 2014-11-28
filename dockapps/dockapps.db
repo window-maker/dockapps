@@ -7,6 +7,15 @@ url =
 dockapps = 253
 category = Audio
 
+[libdockapp]
+version-0.6.4 = d06e8c1ef2fe262d9cd19a86569070d7f6f2e892
+version-0.6.3 = 16b041049fdb98d2770d006680e39302e0ceeb3a
+image = libdockapp.png
+description = "Simple library that eases the creation of Window Maker dock apps. It provides functions that set up a dock app in such a way that they can be properly docked. It also provides some event handlers and makes it very simple to write dockapps."
+url = "https://web.archive.org/web/20070403030810/http://solfertje.student.utwente.nl/~dalroi/libdockapp/"
+dockapps =
+category = Libraries
+
 [Temperature.app]
 version-1.5+20141005 = 611a27a4daa6f6e9a3d440660ea9af52dc258a02
 version-1.5 = 362189a1d01d0cb51df5dcde9c649e3ffc6b1b10
