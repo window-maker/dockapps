@@ -1,0 +1,162 @@
+2014-11-25  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* ChangeLog, NEWS, examples/basic/basic.c, src/dockapp.h:
+	Merge ChangeLog into NEWS (they were largely the same).
+
+2014-11-25  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* examples/basic/basic.c: Add #include
+	<time.h> to basic example.
+
+	Otherwise, we get the following compiler warning
+	basic.c: Infunction ‘main’: basic.c:111:2: warning: implicit
+	declaration of function ‘time’ [-Wimplicit-function-declaration]
+	  srandom(time(NULL));
+	  ^
+
+2014-11-25  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* README, examples/Makefile.am, examples/basic/Imakefile,
+	examples/basic/Makefile, examples/rectangles/Imakefile,
+	examples/rectangles/Makefile: Replace example
+	Imakefiles with Makefiles.  imake is deprecated.
+
+2014-11-25  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* examples/basic/basic.c, examples/rectangles/rectangles.c,
+	src/daargs.c, src/daargs.h, src/dacallback.c, src/dacolor.c,
+	src/daevent.c, src/damain.c, src/dapixmap.c, src/darect.c,
+	src/dashaped.c, src/dautil.c, src/dockapp.h: Use consistent code
+	formatting.
+
+	Used uncrustify to minimize warnings and errors from checkpatch.pl
+	in the Window Maker source tree.
+
+2014-11-25  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* examples/basic/Imakefile, examples/basic/basic.c,
+	examples/rectangles/Imakefile, examples/rectangles/rectangles.c,
+	src/Makefile.am, src/daargs.c, src/daargs.h, src/dacallback.c,
+	src/dacolor.c, src/daevent.c, src/damain.c, src/dapixmap.c,
+	src/darect.c, src/dashaped.c, src/dautil.c, src/dautil.h,
+	src/dockapp.h: Remove CVS cruft.
+
+2014-11-25  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* examples/basic/Imakefile, examples/basic/README,
+	examples/basic/basic.c,	examples/rectangles/Imakefile,
+	examples/rectangles/rectangles.c, fonts/Makefile.am, src/dacallback.c,
+	src/dacolor.c, src/daevent.c, src/damain.c, src/dapixmap.c,
+	src/dashaped.c, src/dockapp.h: Remove trailing whitespace.
+
+2014-11-24  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* INSTALL, Makefile.in,	aclocal.m4, compile, config.guess,
+	config.sub, configure, dockapp.pc, examples/Makefile.in,
+	fonts/Makefile.in, install-sh, ltmain.sh, missing, src/Makefile.in:
+	Remove autotools-generated files.
+
+2014-11-24  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Add version 0.6.3 to repository.
+
+	Obtained from:
+	http://sourceforge.net/projects/files/
+	libdockapp-0.6.3.tar.gz/download
+
+** Changes above this point from git log in dockapps git repository. **
+
+2014-06-06  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* ChangeLog, NEWS: updated Changelog and NEWS files with new version
+
+2014-06-06  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Makefile.am: add xext to dockapp.pc
+
+2014-06-06  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* configure.ac, src/Makefile.am: add xpm to linked libraries
+
+2014-06-06  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* .gitignore, autogen.sh, do_verify.sh: add more autotools-generated
+	files to .gitignore
+
+2014-06-06  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* configure.ac, src/Makefile.am: use pkg-config for linked libraries
+
+2014-05-02  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Makefile.am: added BUGS to distribution tarball
+
+2014-05-02  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* .gitignore: Update .gitignore (add configure.no-verify).
+
+2014-05-01  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* .gitignore, Makefile.am: Add pkg-config dockapp.pc file.
+
+2014-05-01  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* configure.ac: Modernize configure.ac.
+
+2014-05-01  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* .gitignore, Makefile.in, aclocal.m4, compile, config.guess,
+	config.sub, configure, examples/Makefile.in, fonts/Makefile.in,
+	ltmain.sh, missing, src/Makefile.in: Remove autotools-generated
+	files, update .gitignore.
+
+2014-05-01  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* fonts/Makefile.am: Actually added fonts to distribution tarball.
+	Despite the commit message of the previous commit, this was not
+	done.  Now it is.
+
+2014-05-01  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* configure.ac, fonts/Makefile.am, fonts/fonts.alias,
+	fonts/fonts.dir: Various changes to `make install' of fonts.
+	 * Use font-util macros.
+	 * Include fonts in distribution tarball.
+	 * Removed fonts.dir (built by `make install') and fonts.alias (empty
+	   file).
+
+2014-04-30  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* examples/Makefile.am: rewrite examples Makefile.am to ensure they
+	are included in the tarball
+
+2014-04-30  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* INSTALL, Makefile.in, aclocal.m4, compile, config.guess,
+	config.sub, configure, configure.ac, configure.in,
+	examples/Makefile.in, fonts/Makefile.in, install-sh, ltmain.sh,
+	missing, src/Makefile.in: rename configure.in -> configure.ac
+
+2014-04-30  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* .gitignore: added .gitignore
+
+2014-04-30  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* CVS/Entries, CVS/Repository, CVS/Root, autom4te.cache/output.0,
+	autom4te.cache/output.1, autom4te.cache/requests,
+	autom4te.cache/traces.0, autom4te.cache/traces.1,
+	examples/CVS/Entries, examples/CVS/Repository, examples/CVS/Root,
+	examples/basic/CVS/Entries, examples/basic/CVS/Repository,
+	examples/basic/CVS/Root, examples/rectangles/CVS/Entries,
+	examples/rectangles/CVS/Repository, examples/rectangles/CVS/Root,
+	examples/shapes/CVS/Entries, examples/shapes/CVS/Repository,
+	examples/shapes/CVS/Root, fonts/CVS/Entries, fonts/CVS/Repository,
+	fonts/CVS/Root, src/CVS/Entries, src/CVS/Repository, src/CVS/Root:
+	Removed CVS directories
+
+2014-04-24  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Initial commit
+
+** Changes above this point from git log in sourceforge git repository. **
