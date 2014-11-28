@@ -1,3 +1,15 @@
+2014-11-28  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* NEWS, configure.ac: Release version 0.6.4.
+
+2014-11-28  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Makefile.am, NEWS, configure.ac: Update contact information.
+
+2014-11-28  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Add update-changelog target to Makefile to update ChangeLog.
+
 2014-11-25  Doug Torrance <dtorrance@monmouthcollege.edu>
 
 	* ChangeLog, NEWS, examples/basic/basic.c, src/dockapp.h:

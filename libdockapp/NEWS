@@ -7,6 +7,11 @@ This file contains a reverse chronology of changes.
 The contents of this file will apply mostly to developers of dockapps.
 Please read this when you update.
 
+20141128
+	Release of libdockapp 0.6.4.
+	Source code cleanup.
+	Now maintained by Window Maker Developers Team.
+
 20140606
 	Release of libdockapp 0.6.3.
 	Updated autotools input files.
