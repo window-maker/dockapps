@@ -1,7 +1,0 @@
-Name: dockapp
-Description: Window Maker dockapp support
-URL: http://libdockapp.sourceforge.net
-Version: 0.6.3
-Requires: x11 xext xpm
-Libs: -L/usr/local/lib -ldockapp
-Cflags: -I/usr/local/include
