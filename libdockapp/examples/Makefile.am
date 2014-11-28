@@ -1,9 +1,9 @@
 nobase_doc_DATA = README \
-	basic/Imakefile \
+	basic/Makefile \
 	basic/README \
 	basic/ball_red.xpm \
 	basic/basic.c \
-	rectangles/Imakefile \
+	rectangles/Makefile \
 	rectangles/rectangles.c
 
 EXTRA_DIST = $(nobase_doc_DATA)

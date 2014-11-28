@@ -22,11 +22,10 @@ options:
 
 The API is described in dockapp.h
 There are some examples in the examples directory. These aren't build by
-default. You will need imake and xmkmf to compile these.
+default.
 You can compile them like:
 
     cd examples/basic
-    xmkmf -a
     make
 
 Optionally you can "make install" if you really like the example application.
