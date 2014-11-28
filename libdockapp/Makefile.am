@@ -24,3 +24,13 @@ dockapp.pc: Makefile
 	@echo 'Cflags: -I${includedir}' >> $@
 
 EXTRA_DIST = BUGS
+
+update-changelog:
+	@git log `git log -1 --pretty=%h -- ChangeLog`..HEAD \
+		--pretty --numstat --summary | \
+		git2cl | \
+		sed 's/libdockapp: \?//g' | \
+		sed 's/libdockapp\///g' > ChangeLog.new
+	@mv ChangeLog ChangeLog.old
+	@cat ChangeLog.new ChangeLog.old > ChangeLog
+	@rm ChangeLog.new ChangeLog.old
