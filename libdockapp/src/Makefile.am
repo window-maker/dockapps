@@ -1,4 +1,3 @@
-# $Id: Makefile.am,v 1.7 2005/04/08 15:46:33 dalroi Exp $
 
 AUTOMAKE_OPTIONS = no-dependencies
 

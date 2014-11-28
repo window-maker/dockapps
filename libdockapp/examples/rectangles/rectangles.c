@@ -1,5 +1,4 @@
-/* $Id: rectangles.c,v 1.4 2005/05/22 12:30:52 dalroi Exp $
- *
+/*
  * Copyright (c) 2002 Alban G. Hertroys
  *
  * libDockapp example - Usage of action rectangles

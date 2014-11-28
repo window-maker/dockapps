@@ -1,5 +1,4 @@
-/* $Id: basic.c,v 1.10 2003/02/10 12:35:03 dalroi Exp $
- *
+/*
  * Copyright (c) 2002 Alban G. Hertroys
  *
  * Basic example of libDockapp usage

@@ -18,7 +18,6 @@
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * $Id: dautil.h,v 1.4 2005/04/20 18:05:04 dalroi Exp $
  */
 
 void debug(const char *message, ...);
