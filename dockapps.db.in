@@ -5,6 +5,13 @@ url =
 dockapps = 253
 category = Audio
 
+[libdockapp]
+image = libdockapp.png
+description = "Simple library that eases the creation of Window Maker dock apps. It provides functions that set up a dock app in such a way that they can be properly docked. It also provides some event handlers and makes it very simple to write dockapps."
+url = "https://web.archive.org/web/20070403030810/http://solfertje.student.utwente.nl/~dalroi/libdockapp/"
+dockapps =
+category = Libraries
+
 [Temperature.app]
 image = "Temp-app.png,Temperature.gif"
 description = "Temperature.app is a Window Maker applet which fetches local temperature information every 15 minutes from http://weather.noaa.gov and displays it (in Celsius or Fahrenheit)."
