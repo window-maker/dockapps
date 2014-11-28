@@ -1,0 +1,30 @@
+# $Id: Imakefile,v 1.4 2002/10/16 07:19:18 dalroi Exp $
+
+STD_INCLUDES = $(INC_PATH) -I/usr/local/include -I.
+DEPLIBS = $(DEPXLIB) 
+
+LOCAL_LIBRARIES = $(LIB_PATH) -L/usr/local/lib -L/usr/X11R6/lib \
+		    -L../../src/.libs \
+		  -ldockapp -lXpm -lX11
+
+SRCS = basic.c
+OBJS = basic.o
+
+
+XCOMM -----------------------------------------------------------------------
+XCOMM    knowledge about availability of library-functions
+XCOMM -----------------------------------------------------------------------
+
+# Has srandomdev function?
+#	+ FreeBSD 4.6, OpenBSD 3.1, 4.2BSD, MacOS X
+#	- Linux, Solaris, HP UX 11.00
+
+#if defined(FreeBSDArchitecture) || defined(OpenBSDArchitecture) || \
+defined(NetBSDArchitecture) || defined(DarwinArchitecture)
+CFLAGS += -DHAS_SRANDOMDEV
+#endif
+
+CFLAGS += -DSRANDOMFUNC=$(SRANDOM_FUNC)
+
+ComplexProgramTargetNoMan(basic)
+

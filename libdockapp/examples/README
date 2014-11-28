@@ -1,0 +1,43 @@
+About the examples
+------------------
+In this directory you find the example applications for libDockApp. This is a
+work in progress. It is not easy to come up with good examples of how to use
+features without bloating it with "stuff you don't need to know". That's why it
+is far from finished, and that's also why I INVITE YOU TO SUBMIT simple dockapps
+that provide good examples of certain features.
+
+The examples:
+------------
+   basic:
+	This is an example that uses a few simple shapes; a rectangle containing
+	a bouncing ball.
+	It shows how to use the abstracted DAShapedPixmap structs and how to use
+	X Window types for overlaying one shape on top of another (something
+	much easier and more flexible than trying to blend the pixmaps
+	together).
+	It also shows some simple event handling (a timeout event and a window
+	close event).
+
+    rectangles:
+	This example shows how to use "action rectangles". Those are areas that
+	you define callbacks for events on.
+	The example got rather mixed up with X drawing calls, and creating
+	shapes by hand from X regions. I'm thinking about either stripping it of
+	most functionality to make it a proper example of what it tries to show,
+	or to rename it to "tangles".
+	It even uses some deprecated features...
+
+    shapes:
+	NOT IMPLEMENTED YET.
+	And maybe a tad superfluous, as "basic" already show how to use shapes.
+
+Needed examples:
+---------------
+I need examples that show one or more of the following (less is better):
+- Something very basic; just showing how to get started.
+- Command line parameter parsing.
+- Action rectangles; my example isn't very good.
+- How to handle different icon sizes flexibly (I think that could result in some
+  new library functions to be added).
+- Loading pixmaps in runtime.
+

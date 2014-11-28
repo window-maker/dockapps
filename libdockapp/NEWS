@@ -1,0 +1,74 @@
+This file is maintained by dtorrance@monmouthcollege.edu, and available
+from http://libdockapp.sourceforge.net
+
+
+News for dockApp developers.
+----------------------------------
+This file contains a reverse chronology of important additions and API-changes.
+The contents of this file will apply mostly to developers of dockapps.
+Please read this when you update.
+
+20140606
+	Release of libdockapp 0.6.3.
+	Updated autotools input files.
+	Added dockapp.pc file for use with pkg-config.
+
+20050716:
+	Release of libdockapp 0.6.1
+	Fixed parsing multi-character short options.
+
+20050522:
+	Release of libDockapp 0.6.0.
+
+20050420:
+	Added DAError and DAWarning functions.
+
+20050414:
+	Added DAFreeShapedPixmap.
+
+20050408:
+	Added functions to read an XPM file dynamically.
+
+	Added a function to retrieve the program name from the program
+	arguments.
+
+20030210:
+	Added a new global variable DAIcon. The value of this variable is
+	None if the dockapp runs in "windowed mode".
+
+	Added functions DAGetIconWindow() and
+	DASetIconWindow(Window icon_window). The "...Window"-part is because
+	X discerns between icon windows and icon pixmaps.
+
+	DAWindow now always points to the shown window. Normally this is the
+	icon window (DAIcon), but in "windowed mode" this is the leader window
+	(DALeader).
+
+
+20030130:
+	Added WMProtocol for WM_DELETE_WINDOW. Dockapps run in normal window
+	mode will have a proper close-button now.
+
+	Child windows of a dockapp are now mapped as well when calling
+	DAShow().
+
+	Reworked basic example to use a Window instead of drawing and erasing
+	pixmaps by hand. This removes a lot of the complex parts of the
+	example.
+
+
+20030126:
+	The function DAGetDisplay() has been renamed to DAOpenDisplay(). This
+	is unfortunate for backwards compatibility, but it was a bad name for
+	the function, and I needed the name for another function.
+
+	New functions DAGetDisplay(), DAGetWindow(), DAGetLeader(),
+	DAGetDepth(), DAGetVisual(), and their Set... couterparts
+	(DASetDisplay(), etc) were added. These get and set the global
+	DA...-variables (see: dockapp.h), and are mainly for use from within
+	code that is not directly connected to the library (e.g. from within
+	another library).
+
+	A system to match the expected version of libDockApp against the linked
+	version was added, to prevent backward compatibility problems in the
+	future.

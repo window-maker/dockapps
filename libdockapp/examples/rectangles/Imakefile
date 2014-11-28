@@ -1,0 +1,21 @@
+# $Id: Imakefile,v 1.1 2002/10/16 07:19:18 dalroi Exp $
+
+STD_INCLUDES = $(INC_PATH) -I/usr/local/include -I.
+DEPLIBS = $(DEPXLIB) 
+
+LOCAL_LIBRARIES = $(LIB_PATH) -L/usr/local/lib -L/usr/X11R6/lib \
+		    -L../../src/.libs \
+		  -ldockapp -lXpm -lX11
+
+SRCS = rectangles.c
+OBJS = rectangles.o
+
+
+XCOMM -----------------------------------------------------------------------
+XCOMM    knowledge about availability of library-functions
+XCOMM -----------------------------------------------------------------------
+
+CFLAGS += -Wall -ansi -pedantic -ggdb
+
+ComplexProgramTargetNoMan(rectangles)
+

@@ -1,0 +1,5 @@
+20050716:
+    - The standard options -h -v and -w cannot be combined into mixed options
+      like the user specified ones. For example, if there's a user specified
+      option -s and <command> -ws is executed, the -w option gets ignored.
+
