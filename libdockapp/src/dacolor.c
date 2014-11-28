@@ -31,17 +31,17 @@ unsigned long
 DAGetColor(char *colorName)
 {
     XColor color;
-    
+
     if (!XParseColor(DADisplay,
 		DefaultColormap(DADisplay, DefaultScreen(DADisplay)),
 		colorName, &color))
 	DAError("could not parse color %s", colorName);
-    
+
     if (!XAllocColor(DADisplay, DefaultColormap(DADisplay, DefaultScreen(DADisplay)), &color)) {
 	DAWarning("could not allocate color %s. Using black instead", colorName);
 	return BlackPixel(DADisplay, DefaultScreen(DADisplay));
     }
-    
+
     return color.pixel;
 }
 

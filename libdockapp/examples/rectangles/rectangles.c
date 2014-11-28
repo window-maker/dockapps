@@ -33,7 +33,7 @@ struct Colors {
     GC black;		/* background color, idem */
     GC lightGray;	/* Some GC's we'll have to define for colors */
     GC darkGray;
-    GC slider;		/* draw-color when not highlighted, 
+    GC slider;		/* draw-color when not highlighted,
 			 * dark-color when highlighted
 			 */
     GC sliderLight;	/* draw-color when highlighted */
@@ -125,7 +125,7 @@ main(int argc, char **argv)
     /* define what to do if an event occurs in a rectangle */
     DAActionRect *buttonPressRects, *buttonReleaseRects,
 	    *mouseMoveRects, *mouseEnterRects, *mouseLeaveRects;
-    
+
     buttonPressRects = malloc(3 * sizeof(DAActionRect));
     buttonPressRects[0] = setRectAction(btn, btnDown);
     buttonPressRects[1]	= setRectAction(square, squareDown);
@@ -144,7 +144,7 @@ main(int argc, char **argv)
     mouseLeaveRects = malloc(2 * sizeof(DAActionRect));
     mouseLeaveRects[0] = setRectAction(btn, btnLeave);
     mouseLeaveRects[1] = setRectAction(slider, sliderLeave);
-    
+
 
     /* XXX: make action rectangles available outside main()
      * ...libDockapp should be able to do this... (reminder)
@@ -208,7 +208,7 @@ main(int argc, char **argv)
      */
     pointer = XCreateFontCursor(DADisplay, XC_based_arrow_up);
     XDefineCursor(DADisplay, DAWindow, pointer);
-    
+
     /* a square with an image that changes when clicked (A button). */
     createBtn(btn);
 
@@ -258,7 +258,7 @@ setGCs(Drawable d)
 
     /* don't send expose events */
     gcv.graphics_exposures = False;
-    
+
     /* GC for white color */
     gcv.foreground = WhitePixel(DADisplay, DefaultScreen(DADisplay));
     colors->white = XCreateGC(DADisplay, d,
@@ -272,7 +272,7 @@ setGCs(Drawable d)
 #endif
     colors->black = XCreateGC(DADisplay, d,
 	    GCForeground|GCGraphicsExposures, &gcv);
-    
+
     /* GC for light borders */
     gcv.foreground = DAGetColor("lightGray");
     colors->lightGray = XCreateGC(DADisplay, d,
@@ -329,7 +329,7 @@ adjustColor(unsigned long color, signed int adjustment)
     r += adjustment;
     g += adjustment;
     b += adjustment;
-    
+
     if (r > 0xff) r = 0xff;
     if (g > 0xff) g = 0xff;
     if (b > 0xff) b = 0xff;
@@ -337,7 +337,7 @@ adjustColor(unsigned long color, signed int adjustment)
     if (r < 0) r = 0;
     if (g < 0) g = 0;
     if (b < 0) b = 0;
-    
+
     return ((unsigned short)r << 16) +
 	((unsigned short)g << 8) +
 	(unsigned short)b;
@@ -449,7 +449,7 @@ squareDown(int x, int y, DARect rect, void *data)
 
     if (data) {
 	int *tmp = (int*)data;
-	
+
 	button = *tmp;
     } else
 	button = 0;
@@ -490,7 +490,7 @@ sliderMove(int x, int y, DARect rect, void *data)
     sliderPos = (float)(rect.height - y)/(float)rect.height;
     if (sliderPos > 1.0) sliderPos = 1.0;
     if (sliderPos < 0.0) sliderPos = 0.0;
-    
+
     drawSlider(rect);
 }
 
@@ -556,7 +556,7 @@ drawSunkenFrame(DARect rect)
     DASetPixmap(pixmap);
 }
 
-    
+
 void
 createSquare(DARect rect)
 {

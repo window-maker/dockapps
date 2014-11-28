@@ -30,7 +30,7 @@ void
 DASetCallbacks(DACallbacks *callbacks)
 {
     long	mask = 0;
-    
+
     _daContext->callbacks = *callbacks;
 
     if (callbacks->destroy)
@@ -45,7 +45,7 @@ DASetCallbacks(DACallbacks *callbacks)
 	mask |= EnterWindowMask;
     if (callbacks->leave)
 	mask |= LeaveWindowMask;
-    
+
     XSelectInput(DADisplay, DAWindow, mask);
     XFlush(DADisplay);
 }

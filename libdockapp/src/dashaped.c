@@ -17,7 +17,7 @@
  * AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  * $Id: dashaped.c,v 1.11 2008/05/01 09:49:06 dalroi Exp $
  */
 
@@ -57,7 +57,7 @@ DAMakeShapedPixmap()
     dasp->shape	 = DAMakeShape();
     dasp->geometry.width  = _daContext->width;
     dasp->geometry.height = _daContext->height;
-    
+
     setGCs(dasp);
     DASPClear(dasp);
 
@@ -177,7 +177,7 @@ _daMakeShapedPixmap(daShapeSource source, char **data)
 
     if (dasp == NULL)
 	return NULL;
-    
+
     memset(dasp, 0, sizeof(DAShapedPixmap));
 
     if (source == daShapeSourceData)
@@ -189,7 +189,7 @@ _daMakeShapedPixmap(daShapeSource source, char **data)
 
     if (!success)
 	return NULL;
-    
+
     setGCs(dasp);
 
     return dasp;

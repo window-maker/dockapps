@@ -102,7 +102,7 @@ DAProcessEventForWindow(Window window, XEvent *event)
 	default:
 	    return False;
     }
-    
+
     return True;
 }
 
@@ -137,24 +137,24 @@ DANextEventOrTimeout(XEvent *event, unsigned long milliseconds)
 {
     struct timeval	timeout;
     fd_set		rset;
-    
+
     XSync(DADisplay, False);
     if (XPending(DADisplay)) {
 	XNextEvent(DADisplay, event);
 	return True;
     }
-    
+
     timeout.tv_sec = milliseconds / 1000;
     timeout.tv_usec = (milliseconds % 1000) * 1000;
-    
+
     FD_ZERO(&rset);
     FD_SET(ConnectionNumber(DADisplay), &rset);
-    
+
     if (select(ConnectionNumber(DADisplay)+1, &rset, NULL, NULL, &timeout) > 0) {
 	XNextEvent(DADisplay, event);
 	return True;
     }
-    
+
     return False;
 }
 

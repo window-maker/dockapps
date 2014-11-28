@@ -17,7 +17,7 @@
  * AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
  * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
+ *
  * $Id: dockapp.h,v 1.18 2005/07/16 11:49:10 dalroi Exp $
  */
 
@@ -49,7 +49,7 @@
 
 /* !!! DEPRECATED !!!
  * This feature may be removed in the future. Use DAEventCallbacks instead.
- * 
+ *
  * the callbacks for events related to the dockapp window your program wants
  * to handle
  */
@@ -75,10 +75,10 @@ typedef struct {
     char	*shortForm;	/* short form for option, like -w	*/
     char	*longForm;	/* long form for option, like --withdrawn */
     char	*description;	/* description for the option		*/
-    
+
     short	type;		/* type of argument			*/
     Bool	used;		/* if the argument was passed on the cmd-line */
-    
+
     /* the following are only set if the "used" field is True		*/
     union {
 	void	*ptr;		/* a ptr for the value that was passed	*/

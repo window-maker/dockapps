@@ -70,7 +70,7 @@ DAProposeIconSize(unsigned width, unsigned height)
 
     /* Get the nearest allowed icon size if the WM specifies such */
     iconSizes = XAllocIconSize();
-    if (XGetIconSizes(DADisplay, DefaultRootWindow(DADisplay), 
+    if (XGetIconSizes(DADisplay, DefaultRootWindow(DADisplay),
 		&iconSizes, &nrSizes)) {
 	int i;
 	int da = -1;
@@ -80,25 +80,25 @@ DAProposeIconSize(unsigned width, unsigned height)
 	for (i = 0; i < nrSizes; i++)  {
 	    int w1, h1, w, h;
 
-	    if ((max_w < iconSizes[i].max_width) || 
+	    if ((max_w < iconSizes[i].max_width) ||
 		    (max_h < iconSizes[i].max_height)) {
 		max_w = iconSizes[i].max_width;
 		max_h = iconSizes[i].max_height;
 	    }
-	    
-	    if ((min_w > iconSizes[i].min_width) || 
-		    (min_h > iconSizes[i].min_height) || 
+
+	    if ((min_w > iconSizes[i].min_width) ||
+		    (min_h > iconSizes[i].min_height) ||
 		    (min_w == -1)) {
 		min_w = iconSizes[i].min_width;
 		min_h = iconSizes[i].min_height;
 	    }
-	    
+
 	    if ((width  > iconSizes[i].max_width) ||
 		(width  < iconSizes[i].min_width) ||
 		(height > iconSizes[i].max_height) ||
 		(height < iconSizes[i].min_height))
 		continue;
-	    
+
 	    w1 = (iconSizes[i].max_width  - width ) % iconSizes[i].width_inc;
 	    h1 = (iconSizes[i].max_height - height) % iconSizes[i].height_inc;
 	    w = MIN(w1, iconSizes[i].width_inc  - w1);
@@ -181,7 +181,7 @@ DACreateIcon(char *name, unsigned width, unsigned height, int argc, char **argv)
     /* Set WMProtocols */
     WM_DELETE_WINDOW = XInternAtom(DADisplay, "WM_DELETE_WINDOW", True);
     XSetWMProtocols(DADisplay, DALeader, &WM_DELETE_WINDOW, 1);
-    
+
     /* Set Command to start the app so it can be docked properly */
     XSetCommand(DADisplay, DALeader, argv, argc);
 

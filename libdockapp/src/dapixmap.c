@@ -118,11 +118,11 @@ _daMakePixmap(daXpmSource source,
 	unsigned short *width, unsigned short *height)
 {
     XpmAttributes	xpmAttr;
-    
+
     xpmAttr.valuemask = XpmCloseness;
     xpmAttr.closeness = 40000;
-    
-    
+
+
     if (source == daXpmSourceData
 	    && (XpmCreatePixmapFromData(
 		    DADisplay, DAWindow, data, pixmap, mask, &xpmAttr) != 0))
@@ -135,7 +135,7 @@ _daMakePixmap(daXpmSource source,
 
     *width = xpmAttr.width;
     *height = xpmAttr.height;
-    
+
     return True;
 }
 

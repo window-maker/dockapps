@@ -1,7 +1,7 @@
 /* $Id: basic.c,v 1.10 2003/02/10 12:35:03 dalroi Exp $
  *
  * Copyright (c) 2002 Alban G. Hertroys
- * 
+ *
  * Basic example of libDockapp usage
  *
  * This dockapp will draw a rectangle with a
@@ -179,7 +179,7 @@ moveBall()
 	x = 1;
 	dx = -dx + var;
     }
-    
+
     if (y < 1) {
 	y = 1;
 	dy = -dy + var;
@@ -189,7 +189,7 @@ moveBall()
 	x = 46 - ballPix->geometry.width;
 	dx = -dx + var;
     }
-    
+
     if (y + ballPix->geometry.height > 46) {
 	y = 46 - ballPix->geometry.height;
 	dy = -dy + var;
