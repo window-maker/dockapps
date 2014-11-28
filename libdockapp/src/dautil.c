@@ -39,137 +39,137 @@ void _message(const char *label, const char *fmt, va_list args);
 void
 DASetExpectedVersion(unsigned long expectedVersion)
 {
-    DAExpectedVersion = expectedVersion;
+	DAExpectedVersion = expectedVersion;
 
-    if (expectedVersion > DA_VERSION)
-	DAWarning("Version of libdockapp (%u) is older than "
-		"version expected (%u)",
-		DA_VERSION,
-		DAExpectedVersion);
+	if (expectedVersion > DA_VERSION)
+		DAWarning("Version of libdockapp (%u) is older than "
+			  "version expected (%u)",
+			  DA_VERSION,
+			  DAExpectedVersion);
 }
 
 
-Display*
+Display *
 DAGetDisplay(char *d, ...)
 {
-    /* Be backward compatible */
-    if (DAExpectedVersion < 20030126) {
-	va_list ap;
-	int argc;
-	char **argv;
+	/* Be backward compatible */
+	if (DAExpectedVersion < 20030126) {
+		va_list ap;
+		int argc;
+		char **argv;
 
-	va_start(ap, d);
-	argc = va_arg(ap, int);
-	argv = va_arg(ap, char**);
-	va_end(ap);
+		va_start(ap, d);
+		argc = va_arg(ap, int);
+		argv = va_arg(ap, char **);
+		va_end(ap);
 
-	DAOpenDisplay(d, argc, argv);
+		DAOpenDisplay(d, argc, argv);
 
-	DAWarning("Expected version of libdockapp is not set.");
-	DAWarning("Obsolete call to DAGetDisplay().");
+		DAWarning("Expected version of libdockapp is not set.");
+		DAWarning("Obsolete call to DAGetDisplay().");
 
-	return NULL;
-    }
+		return NULL;
+	}
 
-    return DADisplay;
+	return DADisplay;
 }
 
 
 void
 DASetDisplay(Display *display)
 {
-    DADisplay = display;
+	DADisplay = display;
 }
 
 
 Window
 DAGetWindow(void)
 {
-    return DAWindow;
+	return DAWindow;
 }
 
 
 void
 DASetWindow(Window window)
 {
-    DAWindow = window;
+	DAWindow = window;
 }
 
 
 Window
 DAGetLeader(void)
 {
-    return DALeader;
+	return DALeader;
 }
 
 
 void
 DASetLeader(Window leader)
 {
-    DALeader = leader;
+	DALeader = leader;
 }
 
 
 Window
 DAGetIconWindow(void)
 {
-    return DAIcon;
+	return DAIcon;
 }
 
 
 void
 DASetIconWindow(Window icon_win)
 {
-    DAIcon = icon_win;
+	DAIcon = icon_win;
 }
 
 
 int
 DAGetDepth(void)
 {
-    return DADepth;
+	return DADepth;
 }
 
 
 void
 DASetDepth(int depth)
 {
-    DADepth = depth;
+	DADepth = depth;
 }
 
 
-Visual*
+Visual *
 DAGetVisual(void)
 {
-    return DAVisual;
+	return DAVisual;
 }
 
 
 void
 DASetVisual(Visual *visual)
 {
-    DAVisual = visual;
+	DAVisual = visual;
 }
 
 void
 DAWarning(const char *fmt, ...)
 {
-    va_list args;
+	va_list args;
 
-    va_start(args, fmt);
-    _message("Warning", fmt, args);
-    va_end(args);
+	va_start(args, fmt);
+	_message("Warning", fmt, args);
+	va_end(args);
 }
 
 void
 DAError(const char *fmt, ...)
 {
-    va_list args;
+	va_list args;
 
-    va_start(args, fmt);
-    _message("Error", fmt, args);
-    exit(1);
-    va_end(args);
+	va_start(args, fmt);
+	_message("Error", fmt, args);
+	exit(1);
+	va_end(args);
 }
 
 
@@ -180,19 +180,19 @@ DAError(const char *fmt, ...)
 void
 _message(const char *label, const char *fmt, va_list args)
 {
-    char *w_fmt;
+	char *w_fmt;
 
-    if (_daContext->programName != NULL) {
-	/* put default string in front of message, add newline */
-	w_fmt = malloc((strlen(_daContext->programName) + strlen(fmt) +13) * sizeof(char));
-	sprintf(w_fmt, "%s: %s: %s\n", _daContext->programName, label, fmt);
-    } else {
-	w_fmt = malloc((strlen(fmt) +1) * sizeof(char));
-	sprintf(w_fmt, "%s\n", fmt);
-    }
+	if (_daContext->programName != NULL) {
+		/* put default string in front of message, add newline */
+		w_fmt = malloc((strlen(_daContext->programName) + strlen(fmt) + 13) * sizeof(char));
+		sprintf(w_fmt, "%s: %s: %s\n", _daContext->programName, label, fmt);
+	} else {
+		w_fmt = malloc((strlen(fmt) + 1) * sizeof(char));
+		sprintf(w_fmt, "%s\n", fmt);
+	}
 
-    /* print the message */
-    vfprintf(stderr, w_fmt, args);
+	/* print the message */
+	vfprintf(stderr, w_fmt, args);
 }
 
 
@@ -200,10 +200,10 @@ void
 debug(const char *fmt, ...)
 {
 #ifdef DEBUG
-    va_list args;
+	va_list args;
 
-    va_start(args, fmt);
-    _message("debug", fmt, args);
-    va_end(args);
+	va_start(args, fmt);
+	_message("debug", fmt, args);
+	va_end(args);
 #endif
 }

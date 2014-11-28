@@ -26,27 +26,27 @@
 
 void
 DAProcessActionRects(int x, int y, DAActionRect *actionrects, int count,
-	void *data)
+		     void *data)
 {
-    int index = 0;
+	int index = 0;
 
-    if (!actionrects)
-	return;
+	if (!actionrects)
+		return;
 
-    while ( (index < count) &&
-	    ((x < actionrects[index].rect.x) ||
-	     (x > actionrects[index].rect.x + actionrects[index].rect.width) ||
-	     (y < actionrects[index].rect.y) ||
-	     (y > actionrects[index].rect.y + actionrects[index].rect.height)))
-	index++;
+	while ((index < count) &&
+		((x < actionrects[index].rect.x) ||
+		 (x > actionrects[index].rect.x + actionrects[index].rect.width) ||
+		 (y < actionrects[index].rect.y) ||
+		 (y > actionrects[index].rect.y + actionrects[index].rect.height)))
+		index++;
 
-    if (index == count)
-	return;
+	if (index == count)
+		return;
 
-    if (actionrects[index].action)
-	(*actionrects[index].action)(x - actionrects[index].rect.x,
-				     y - actionrects[index].rect.y,
-				     actionrects[index].rect,
-				     data);
+	if (actionrects[index].action)
+		(*actionrects[index].action)(x - actionrects[index].rect.x,
+					     y - actionrects[index].rect.y,
+					     actionrects[index].rect,
+					     data);
 }
 

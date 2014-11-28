@@ -28,30 +28,30 @@ extern struct DAContext *_daContext;
 void
 DASetCallbacks(DACallbacks *callbacks)
 {
-    long	mask = 0;
+	long mask = 0;
 
-    _daContext->callbacks = *callbacks;
+	_daContext->callbacks = *callbacks;
 
-    if (callbacks->destroy)
-	mask |= StructureNotifyMask;
-    if (callbacks->buttonPress)
-	mask |= ButtonPressMask;
-    if (callbacks->buttonRelease)
-	mask |= ButtonReleaseMask;
-    if (callbacks->motion)
-	mask |= PointerMotionMask;
-    if (callbacks->enter)
-	mask |= EnterWindowMask;
-    if (callbacks->leave)
-	mask |= LeaveWindowMask;
+	if (callbacks->destroy)
+		mask |= StructureNotifyMask;
+	if (callbacks->buttonPress)
+		mask |= ButtonPressMask;
+	if (callbacks->buttonRelease)
+		mask |= ButtonReleaseMask;
+	if (callbacks->motion)
+		mask |= PointerMotionMask;
+	if (callbacks->enter)
+		mask |= EnterWindowMask;
+	if (callbacks->leave)
+		mask |= LeaveWindowMask;
 
-    XSelectInput(DADisplay, DAWindow, mask);
-    XFlush(DADisplay);
+	XSelectInput(DADisplay, DAWindow, mask);
+	XFlush(DADisplay);
 }
 
 void
 DASetTimeout(int milliseconds)
 {
-    _daContext->timeOut = milliseconds;
+	_daContext->timeOut = milliseconds;
 }
 

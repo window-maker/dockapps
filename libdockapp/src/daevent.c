@@ -29,131 +29,129 @@
 #include "daargs.h"
 #include "dautil.h"
 
-extern struct DAContext	*_daContext;
-extern Atom		WM_DELETE_WINDOW;
+extern struct DAContext *_daContext;
+extern Atom WM_DELETE_WINDOW;
 
 Bool
 DAProcessEvent(XEvent *event)
 {
-    if (event->xany.window == DAWindow)
-	return DAProcessEventForWindow(DAWindow, event);
-    else if (event->xany.window == DALeader)
-	/* XXX: Is this superfluous now that DAWindow always references the
-	 * dockapp window?
-	 */
-	return DAProcessEventForWindow(DALeader, event);
-    else
-	/* XXX: What about handling events for child windows? */
-	return False;
+	if (event->xany.window == DAWindow)
+		return DAProcessEventForWindow(DAWindow, event);
+	else if (event->xany.window == DALeader)
+		/* XXX: Is this superfluous now that DAWindow always references the
+		 * dockapp window?
+		 */
+		return DAProcessEventForWindow(DALeader, event);
+	else
+		/* XXX: What about handling events for child windows? */
+		return False;
 }
 
 Bool
 DAProcessEventForWindow(Window window, XEvent *event)
 {
-    if (event->xany.window != window)
-	return False;
+	if (event->xany.window != window)
+		return False;
 
-    switch (event->type) {
+	switch (event->type) {
 	case ClientMessage:
-	    if (event->xclient.data.l[0] != WM_DELETE_WINDOW) {
-		break;
-	    }
-	    /* fallthrough */
+		if (event->xclient.data.l[0] != WM_DELETE_WINDOW)
+			break;
+	/* fallthrough */
 	case DestroyNotify:
-	    if (_daContext->callbacks.destroy)
-		(*_daContext->callbacks.destroy)();
+		if (_daContext->callbacks.destroy)
+			(*_daContext->callbacks.destroy)();
 
-	    DAFreeContext();
-	    XCloseDisplay(DADisplay);
+		DAFreeContext();
+		XCloseDisplay(DADisplay);
 #ifdef DEBUG
-	    debug("%s: DestroyNotify\n", _daContext->programName);
+		debug("%s: DestroyNotify\n", _daContext->programName);
 #endif
 
-	    exit(0);
-	    break;
+		exit(0);
+		break;
 	case ButtonPress:
-	    if (_daContext->callbacks.buttonPress)
-		(*_daContext->callbacks.buttonPress)(event->xbutton.button,
-					   event->xbutton.state,
-					   event->xbutton.x,
-					   event->xbutton.y);
-	    break;
+		if (_daContext->callbacks.buttonPress)
+			(*_daContext->callbacks.buttonPress)(event->xbutton.button,
+							     event->xbutton.state,
+							     event->xbutton.x,
+							     event->xbutton.y);
+		break;
 	case ButtonRelease:
-	    if (_daContext->callbacks.buttonRelease)
-		(*_daContext->callbacks.buttonRelease)(event->xbutton.button,
-					     event->xbutton.state,
-					     event->xbutton.x,
-					     event->xbutton.y);
-	    break;
+		if (_daContext->callbacks.buttonRelease)
+			(*_daContext->callbacks.buttonRelease)(event->xbutton.button,
+							       event->xbutton.state,
+							       event->xbutton.x,
+							       event->xbutton.y);
+		break;
 	case MotionNotify:
-	    if (_daContext->callbacks.motion)
-		(*_daContext->callbacks.motion)(event->xmotion.x,
-				      event->xmotion.y);
-	    break;
+		if (_daContext->callbacks.motion)
+			(*_daContext->callbacks.motion)(event->xmotion.x,
+							event->xmotion.y);
+		break;
 	case EnterNotify:
-	    if (_daContext->callbacks.enter)
-		(*_daContext->callbacks.enter)();
-	    break;
+		if (_daContext->callbacks.enter)
+			(*_daContext->callbacks.enter)();
+		break;
 	case LeaveNotify:
-	    if (_daContext->callbacks.leave)
-		(*_daContext->callbacks.leave)();
-	    break;
+		if (_daContext->callbacks.leave)
+			(*_daContext->callbacks.leave)();
+		break;
 	default:
-	    return False;
-    }
+		return False;
+	}
 
-    return True;
+	return True;
 }
 
 void
 DAEventLoop(void)
 {
-    DAEventLoopForWindow(DAWindow);
+	DAEventLoopForWindow(DAWindow);
 }
 
 void
 DAEventLoopForWindow(Window window)
 {
-    XEvent event;
+	XEvent event;
 
-    for (;;) {
-	if (_daContext->timeOut >= 0) {
-	    if (!DANextEventOrTimeout(&event, _daContext->timeOut)) {
-		if (_daContext->callbacks.timeout)
-		    (*_daContext->callbacks.timeout)();
-		continue;
-	    }
+	for (;; ) {
+		if (_daContext->timeOut >= 0) {
+			if (!DANextEventOrTimeout(&event, _daContext->timeOut)) {
+				if (_daContext->callbacks.timeout)
+					(*_daContext->callbacks.timeout)();
+				continue;
+			}
+		} else
+			XNextEvent(DADisplay, &event);
+
+		DAProcessEventForWindow(window, &event);
 	}
-	else
-	    XNextEvent(DADisplay, &event);
-
-	DAProcessEventForWindow(window, &event);
-    }
 }
 
 Bool
 DANextEventOrTimeout(XEvent *event, unsigned long milliseconds)
 {
-    struct timeval	timeout;
-    fd_set		rset;
+	struct timeval timeout;
+	fd_set rset;
 
-    XSync(DADisplay, False);
-    if (XPending(DADisplay)) {
-	XNextEvent(DADisplay, event);
-	return True;
-    }
+	XSync(DADisplay, False);
+	if (XPending(DADisplay)) {
+		XNextEvent(DADisplay, event);
+		return True;
+	}
 
-    timeout.tv_sec = milliseconds / 1000;
-    timeout.tv_usec = (milliseconds % 1000) * 1000;
+	timeout.tv_sec = milliseconds / 1000;
+	timeout.tv_usec = (milliseconds % 1000) * 1000;
 
-    FD_ZERO(&rset);
-    FD_SET(ConnectionNumber(DADisplay), &rset);
+	FD_ZERO(&rset);
+	FD_SET(ConnectionNumber(DADisplay), &rset);
 
-    if (select(ConnectionNumber(DADisplay)+1, &rset, NULL, NULL, &timeout) > 0) {
-	XNextEvent(DADisplay, event);
-	return True;
-    }
+	if (select(ConnectionNumber(DADisplay)+1, &rset, NULL, NULL, &timeout) > 0) {
+		XNextEvent(DADisplay, event);
+		return True;
+	}
 
-    return False;
+	return False;
 }
 

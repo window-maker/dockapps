@@ -32,51 +32,51 @@
 
 /* Local typedef */
 typedef enum {
-    daShapeSourceData,
-    daShapeSourceFile
+	daShapeSourceData,
+	daShapeSourceFile
 } daShapeSource;
 
 /* local functions */
 void setGCs(DAShapedPixmap *dasp);
-DAShapedPixmap* _daMakeShapedPixmap(daShapeSource source, char **data);
+DAShapedPixmap *_daMakeShapedPixmap(daShapeSource source, char **data);
 
 extern struct DAContext *_daContext;
 
 /* Create a new shaped pixmap with width & height of dockapp window */
-DAShapedPixmap*
+DAShapedPixmap *
 DAMakeShapedPixmap()
 {
-    DAShapedPixmap *dasp = malloc(sizeof(DAShapedPixmap));
+	DAShapedPixmap *dasp = malloc(sizeof(DAShapedPixmap));
 
-    if (dasp == NULL)
-	return NULL;
+	if (dasp == NULL)
+		return NULL;
 
-    memset(dasp, 0, sizeof(DAShapedPixmap));
-    dasp->pixmap = DAMakePixmap();
-    dasp->shape	 = DAMakeShape();
-    dasp->geometry.width  = _daContext->width;
-    dasp->geometry.height = _daContext->height;
+	memset(dasp, 0, sizeof(DAShapedPixmap));
+	dasp->pixmap = DAMakePixmap();
+	dasp->shape  = DAMakeShape();
+	dasp->geometry.width  = _daContext->width;
+	dasp->geometry.height = _daContext->height;
 
-    setGCs(dasp);
-    DASPClear(dasp);
+	setGCs(dasp);
+	DASPClear(dasp);
 
-    return dasp;
+	return dasp;
 }
 
 
 /* Create a new shaped pixmap from XPM-data */
-DAShapedPixmap*
+DAShapedPixmap *
 DAMakeShapedPixmapFromData(char **data)
 {
-    return _daMakeShapedPixmap(daShapeSourceData, data);
+	return _daMakeShapedPixmap(daShapeSourceData, data);
 }
 
 
 /* Create a new shaped pixmap from XPM-data */
-DAShapedPixmap*
+DAShapedPixmap *
 DAMakeShapedPixmapFromFile(char *filename)
 {
-    return _daMakeShapedPixmap(daShapeSourceFile, (char**)filename);
+	return _daMakeShapedPixmap(daShapeSourceFile, (char **)filename);
 }
 
 
@@ -84,13 +84,13 @@ DAMakeShapedPixmapFromFile(char *filename)
 void
 DAFreeShapedPixmap(DAShapedPixmap *dasp)
 {
-    assert(dasp);
+	assert(dasp);
 
-    XFreePixmap(DADisplay, dasp->pixmap);
-    XFreePixmap(DADisplay, dasp->shape);
-    XFreeGC(DADisplay, dasp->shapeGC);
+	XFreePixmap(DADisplay, dasp->pixmap);
+	XFreePixmap(DADisplay, dasp->shape);
+	XFreeGC(DADisplay, dasp->shapeGC);
 
-    free(dasp);
+	free(dasp);
 }
 
 /* Copy shape-mask and pixmap-data from an area in one shaped pixmap
@@ -98,10 +98,10 @@ DAFreeShapedPixmap(DAShapedPixmap *dasp)
 void
 DASPCopyArea(DAShapedPixmap *src, DAShapedPixmap *dst, int x1, int y1, int w, int h, int x2, int y2)
 {
-    assert(src != NULL && dst != NULL);
+	assert(src != NULL && dst != NULL);
 
-    XCopyPlane(DADisplay, src->shape, dst->shape, src->shapeGC, x1, y1, w, h, x2, y2, 1);
-    XCopyArea(DADisplay, src->pixmap, dst->pixmap, src->drawGC, x1, y1, w, h, x2, y2);
+	XCopyPlane(DADisplay, src->shape, dst->shape, src->shapeGC, x1, y1, w, h, x2, y2, 1);
+	XCopyArea(DADisplay, src->pixmap, dst->pixmap, src->drawGC, x1, y1, w, h, x2, y2);
 }
 
 
@@ -109,21 +109,21 @@ DASPCopyArea(DAShapedPixmap *src, DAShapedPixmap *dst, int x1, int y1, int w, in
 void
 DASPClear(DAShapedPixmap *dasp)
 {
-    XGCValues gcv;
+	XGCValues gcv;
 
-    assert(dasp != NULL);
+	assert(dasp != NULL);
 
-    gcv.foreground = 0;
-    XChangeGC(DADisplay, dasp->shapeGC, GCForeground, &gcv);
+	gcv.foreground = 0;
+	XChangeGC(DADisplay, dasp->shapeGC, GCForeground, &gcv);
 
-    /* Clear pixmaps */
-    XFillRectangle(DADisplay, dasp->pixmap,
-	    DAClearGC, 0, 0, dasp->geometry.width, dasp->geometry.height);
-    XFillRectangle(DADisplay, dasp->shape,
-	    dasp->shapeGC, 0, 0, dasp->geometry.width, dasp->geometry.height);
+	/* Clear pixmaps */
+	XFillRectangle(DADisplay, dasp->pixmap,
+		       DAClearGC, 0, 0, dasp->geometry.width, dasp->geometry.height);
+	XFillRectangle(DADisplay, dasp->shape,
+		       dasp->shapeGC, 0, 0, dasp->geometry.width, dasp->geometry.height);
 
-    gcv.foreground = 1;
-    XChangeGC(DADisplay, dasp->shapeGC, GCForeground, &gcv);
+	gcv.foreground = 1;
+	XChangeGC(DADisplay, dasp->shapeGC, GCForeground, &gcv);
 }
 
 
@@ -131,66 +131,66 @@ DASPClear(DAShapedPixmap *dasp)
 void
 DASPSetPixmap(DAShapedPixmap *dasp)
 {
-    DASPSetPixmapForWindow(DAWindow, dasp);
+	DASPSetPixmapForWindow(DAWindow, dasp);
 }
 
 void
 DASPSetPixmapForWindow(Window window, DAShapedPixmap *dasp)
 {
-    assert(dasp != NULL);
+	assert(dasp != NULL);
 
-    DASetShapeForWindow(window, dasp->shape);
-    DASetPixmapForWindow(window, dasp->pixmap);
+	DASetShapeForWindow(window, dasp->shape);
+	DASetPixmapForWindow(window, dasp->pixmap);
 }
 
 
 void
 setGCs(DAShapedPixmap *dasp)
 {
-    XGCValues		gcv;
+	XGCValues gcv;
 
-    dasp->drawGC  = DAGC;
-    dasp->clearGC = DAClearGC;
+	dasp->drawGC  = DAGC;
+	dasp->clearGC = DAClearGC;
 
-    /* create GC for bit-plane operations in shapes */
-    gcv.graphics_exposures = False;
-    gcv.foreground = 1;
-    gcv.background = 0;
-    gcv.plane_mask = 1;
+	/* create GC for bit-plane operations in shapes */
+	gcv.graphics_exposures = False;
+	gcv.foreground = 1;
+	gcv.background = 0;
+	gcv.plane_mask = 1;
 
-    dasp->shapeGC = XCreateGC(
-	    DADisplay,
-	    dasp->shape,
-	    GCGraphicsExposures|GCForeground|GCBackground|GCPlaneMask,
-	    &gcv);
+	dasp->shapeGC = XCreateGC(
+		DADisplay,
+		dasp->shape,
+		GCGraphicsExposures|GCForeground|GCBackground|GCPlaneMask,
+		&gcv);
 
 }
 
 
 /* Create a new shaped pixmap using specified method */
-DAShapedPixmap*
+DAShapedPixmap *
 _daMakeShapedPixmap(daShapeSource source, char **data)
 {
-    Bool success;
-    DAShapedPixmap *dasp = malloc(sizeof(DAShapedPixmap));
+	Bool success;
+	DAShapedPixmap *dasp = malloc(sizeof(DAShapedPixmap));
 
-    if (dasp == NULL)
-	return NULL;
+	if (dasp == NULL)
+		return NULL;
 
-    memset(dasp, 0, sizeof(DAShapedPixmap));
+	memset(dasp, 0, sizeof(DAShapedPixmap));
 
-    if (source == daShapeSourceData)
-	success = DAMakePixmapFromData(data, &dasp->pixmap, &dasp->shape,
-	    &dasp->geometry.width, &dasp->geometry.height);
-    else
-	success = DAMakePixmapFromFile((char*)data, &dasp->pixmap, &dasp->shape,
-	    &dasp->geometry.width, &dasp->geometry.height);
+	if (source == daShapeSourceData)
+		success = DAMakePixmapFromData(data, &dasp->pixmap, &dasp->shape,
+					       &dasp->geometry.width, &dasp->geometry.height);
+	else
+		success = DAMakePixmapFromFile((char *)data, &dasp->pixmap, &dasp->shape,
+					       &dasp->geometry.width, &dasp->geometry.height);
 
-    if (!success)
-	return NULL;
+	if (!success)
+		return NULL;
 
-    setGCs(dasp);
+	setGCs(dasp);
 
-    return dasp;
+	return dasp;
 }
 

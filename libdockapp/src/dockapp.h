@@ -22,7 +22,7 @@
 
 #ifndef _DOCKAPP_H_
 #define _DOCKAPP_H_
-#define DA_VERSION	20050716
+#define DA_VERSION      20050716
 
 /*
  * This is a simple (trivial) library for writing Window Maker dock
@@ -53,37 +53,37 @@
  * to handle
  */
 typedef struct {
-    /* the dockapp window was destroyed */
-    void (*destroy)(void);
-    /* button pressed */
-    void (*buttonPress)(int button, int state, int x, int y);
-    /* button released */
-    void (*buttonRelease)(int button, int state, int x, int y);
-    /* pointer motion */
-    void (*motion)(int x, int y);
-    /* pointer entered dockapp window */
-    void (*enter)(void);
-    /* pointer left dockapp window */
-    void (*leave)(void);
-    /* timer expired */
-    void (*timeout)(void);
+	/* the dockapp window was destroyed */
+	void (*destroy)(void);
+	/* button pressed */
+	void (*buttonPress)(int button, int state, int x, int y);
+	/* button released */
+	void (*buttonRelease)(int button, int state, int x, int y);
+	/* pointer motion */
+	void (*motion)(int x, int y);
+	/* pointer entered dockapp window */
+	void (*enter)(void);
+	/* pointer left dockapp window */
+	void (*leave)(void);
+	/* timer expired */
+	void (*timeout)(void);
 } DACallbacks;
 
 
 typedef struct {
-    char	*shortForm;	/* short form for option, like -w	*/
-    char	*longForm;	/* long form for option, like --withdrawn */
-    char	*description;	/* description for the option		*/
+	char        *shortForm; /* short form for option, like -w	*/
+	char        *longForm;  /* long form for option, like --withdrawn */
+	char        *description; /* description for the option		*/
 
-    short	type;		/* type of argument			*/
-    Bool	used;		/* if the argument was passed on the cmd-line */
+	short type;             /* type of argument			*/
+	Bool used;              /* if the argument was passed on the cmd-line */
 
-    /* the following are only set if the "used" field is True		*/
-    union {
-	void	*ptr;		/* a ptr for the value that was passed	*/
-	int	*integer;	/* on the command line			*/
-	char	**string;
-    } value;
+	/* the following are only set if the "used" field is True		*/
+	union {
+		void    *ptr;   /* a ptr for the value that was passed	*/
+		int     *integer; /* on the command line			*/
+		char    **string;
+	} value;
 } DAProgramOption;
 
 
@@ -98,37 +98,37 @@ typedef void DARectCallback(int x, int y, DARect rect, void *data);
  * The action rectangle structure
  */
 typedef struct {
-    DARect		rect;
-    DARectCallback	*action;
+	DARect rect;
+	DARectCallback      *action;
 } DAActionRect;
 
 
 /* option argument types */
 enum {
-    DONone,			/* simple on/off flag			*/
-    DOInteger,			/* an integer number			*/
-    DOString,			/* a string				*/
-    DONatural			/* positive integer number		*/
+	DONone,                 /* simple on/off flag			*/
+	DOInteger,              /* an integer number			*/
+	DOString,               /* a string				*/
+	DONatural               /* positive integer number		*/
 };
 
 
 /* Shaped pixmaps: Shapes in combination with pixmaps */
 typedef struct {
- 	Pixmap		pixmap;
- 	Pixmap		shape;		/* needs a 1-bit plane GC (shapeGC). */
- 	GC		drawGC, clearGC, shapeGC;
- 	DARect		geometry;	/* position and size */
- 	DAActionRect	*triggers;
+	Pixmap pixmap;
+	Pixmap shape;                   /* needs a 1-bit plane GC (shapeGC). */
+	GC drawGC, clearGC, shapeGC;
+	DARect geometry;                /* position and size */
+	DAActionRect    *triggers;
 } DAShapedPixmap;
 
 
 
-extern Display	*DADisplay;
-extern Window	DAWindow, DALeader, DAIcon; /* see [NOTE] */
-extern int	DADepth;
-extern Visual	*DAVisual;
-extern GC	DAGC, DAClearGC;
-extern DARect	DANoRect;
+extern Display  *DADisplay;
+extern Window DAWindow, DALeader, DAIcon;   /* see [NOTE] */
+extern int DADepth;
+extern Visual   *DAVisual;
+extern GC DAGC, DAClearGC;
+extern DARect DANoRect;
 extern unsigned long DAExpectedVersion;
 
 /* [NOTE]
@@ -159,7 +159,7 @@ void DASetExpectedVersion(unsigned long expectedVersion);
  * in windowed mode.
  */
 void DAParseArguments(int argc, char **argv, DAProgramOption *options,
-	int count, char *programDescription, char *versionDescription);
+		      int count, char *programDescription, char *versionDescription);
 
 /*
  * DAInitialize-
@@ -184,12 +184,12 @@ void DAParseArguments(int argc, char **argv, DAProgramOption *options,
  */
 
 void DAInitialize(char *display, char *name, unsigned width, unsigned height,
-	int argc, char **argv);
+		  int argc, char **argv);
 
 void DAOpenDisplay(char *display, int argc, char **argv);
 
 void DACreateIcon(char *name, unsigned width, unsigned height,
-	int argc, char **argv);
+		  int argc, char **argv);
 
 void DAProposeIconSize(unsigned width, unsigned height);
 
@@ -203,11 +203,11 @@ void DAProposeIconSize(unsigned width, unsigned height);
  * only.
  * XXX: Argument list is a kludge.
  */
-Display* DAGetDisplay(char *d, ...);
+Display *DAGetDisplay(char *d, ...);
 void DASetDisplay(Display *display);
 
 /* Get program name (from argv[0]). Returns a reference. */
-char* DAGetProgramName();
+char *DAGetProgramName();
 
 /* Get/Set DAWindow and DALeader values respectively. For use with external code. */
 Window DAGetWindow(void);
@@ -224,7 +224,7 @@ int DAGetDepth(void);
 void DASetDepth(int depth);
 
 /* Get/Set DAVisual; the visual type for the screen. For use with external code. */
-Visual* DAGetVisual(void);
+Visual *DAGetVisual(void);
 void DASetVisual(Visual *visual);
 
 
@@ -237,13 +237,13 @@ void DASetVisual(Visual *visual);
  * This is only needed if you want the dockapp to be shaped.
  */
 #define DASetShape(shapeMask) \
-    (DASetShapeWithOffset((shapeMask), 0, 0))
+	(DASetShapeWithOffset((shapeMask), 0, 0))
 #define DASetShapeForWindow(window, shapeMask) \
-    (DASetShapeWithOffsetForWindow((window), (shapeMask), 0, 0))
+	(DASetShapeWithOffsetForWindow((window), (shapeMask), 0, 0))
 
 void DASetShapeWithOffset(Pixmap shapeMask, int x_ofs, int y_ofs);
 void DASetShapeWithOffsetForWindow(Window window, Pixmap shapeMask,
-	int x_ofs, int y_ofs);
+				   int x_ofs, int y_ofs);
 /*
  * DASetPixmap-
  *	Sets the image pixmap for the dockapp. Once you set the image with it,
@@ -271,7 +271,7 @@ Pixmap DAMakeShape(void);
  *	Returns true on success, false on failure.
  */
 Bool DAMakePixmapFromData(char **data, Pixmap *pixmap, Pixmap *mask,
-	unsigned short *width, unsigned short *height);
+			  unsigned short *width, unsigned short *height);
 
 /*
  * DAMakePixmapFromFile-
@@ -279,50 +279,50 @@ Bool DAMakePixmapFromData(char **data, Pixmap *pixmap, Pixmap *mask,
  *	Returns true on success, false on failure.
  */
 Bool DAMakePixmapFromFile(char *filename, Pixmap *pixmap, Pixmap *mask,
-	unsigned short *width, unsigned short *height);
+			  unsigned short *width, unsigned short *height);
 
 /*
  * DAMakeShapedPixmap-
  *	Creates a shaped pixmap with width & height of dockapp window.
  */
-DAShapedPixmap* DAMakeShapedPixmap();
+DAShapedPixmap *DAMakeShapedPixmap();
 
 /*
  * DAMakeShapedPixmapFromData-
- * 	Creates a shaped pixmap from XPM-data.
- * 	Returns shaped pixmap on success, NULL on failure.
+ *      Creates a shaped pixmap from XPM-data.
+ *      Returns shaped pixmap on success, NULL on failure.
  */
-DAShapedPixmap* DAMakeShapedPixmapFromData(char **data);
+DAShapedPixmap *DAMakeShapedPixmapFromData(char **data);
 
 /*
  * DAMakeShapedPixmapFromFile-
- * 	Creates a shaped pixmap from an XPM file.
- * 	Returns shaped pixmap on success, NULL on failure.
+ *      Creates a shaped pixmap from an XPM file.
+ *      Returns shaped pixmap on success, NULL on failure.
  */
-DAShapedPixmap* DAMakeShapedPixmapFromFile(char *filename);
+DAShapedPixmap *DAMakeShapedPixmapFromFile(char *filename);
 
 /*
  * DAFreeShapedPixmap-
- * 	Free memory reserved for a ShapedPixmap
+ *      Free memory reserved for a ShapedPixmap
  */
 void DAFreeShapedPixmap(DAShapedPixmap *dasp);
 
 /*
  * DASPCopyArea-
- * 	Copies shape-mask and pixmap-data from an area in one shaped pixmap
+ *      Copies shape-mask and pixmap-data from an area in one shaped pixmap
  * into another shaped pixmap.
  */
 void DASPCopyArea(DAShapedPixmap *src, DAShapedPixmap *dst,
-	int x1, int y1, int w, int h, int x2, int y2);
+		  int x1, int y1, int w, int h, int x2, int y2);
 
 /*
  * DASPClear-
- * 	Clears a shaped pixmaps contents.
+ *      Clears a shaped pixmaps contents.
  */
 void DASPClear(DAShapedPixmap *dasp);
 
 /* DASPShow-
- * 	Displays the pixmap in the dockapp-window.
+ *      Displays the pixmap in the dockapp-window.
  */
 void DASPSetPixmap(DAShapedPixmap *dasp);
 void DASPSetPixmapForWindow(Window window, DAShapedPixmap *dasp);
@@ -343,8 +343,8 @@ void DAShow(void);
 
 /*
  * DAShowWindow-
- * 	Display a window. Also displays subwindows if it is the dockapp leader
- * 	window (DALeader).
+ *      Display a window. Also displays subwindows if it is the dockapp leader
+ *      window (DALeader).
  */
 void DAShowWindow(Window window);
 
@@ -391,13 +391,13 @@ void DAEventLoopForWindow(Window window);
 
 /*
  * DAProcessActionRects-
- * 	Processes the current coordinates with one of the functions in
+ *      Processes the current coordinates with one of the functions in
  * the array of action rectangles. Coordinates are converted to relative
  * coordinates in one of the rectangles. The last item in the array of
  * action rectangles must be NULL.
  */
 void DAProcessActionRects(int x, int y, DAActionRect *actionrects,
-	int count, void *data);
+			  int count, void *data);
 
 
 /*

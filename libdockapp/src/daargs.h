@@ -26,22 +26,22 @@
  * Context structure to keep track of globals
  */
 struct DAContext {
-    int		argc;			/* Raw input data */
-    char	**argv;
+	int argc;                       /* Raw input data */
+	char        **argv;
 
-    int		windowed;
-    int		width, height;
-    int		timeOut;
+	int windowed;
+	int width, height;
+	int timeOut;
 
-    DACallbacks	callbacks;
+	DACallbacks callbacks;
 
-    char	*programName;		/* shortcut to argv[0] */
+	char        *programName;       /* shortcut to argv[0] */
 
-    DAProgramOption	**options;	/* Array of option pointers */
-    short		optionCount;
+	DAProgramOption     **options;  /* Array of option pointers */
+	short optionCount;
 };
 
 
-struct DAContext* DAContextInit();
-void DAFreeContext();
+struct DAContext *DAContextInit(void);
+void DAFreeContext(void);
 

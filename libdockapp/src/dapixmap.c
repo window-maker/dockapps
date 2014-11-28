@@ -32,109 +32,109 @@ extern struct DAContext *_daContext;
 
 /* Local typedef */
 typedef enum {
-    daXpmSourceData,
-    daXpmSourceFile
+	daXpmSourceData,
+	daXpmSourceFile
 } daXpmSource;
 
 /* Function prototype */
 Bool _daMakePixmap(daXpmSource source,
-	char **data, Pixmap *pixmap, Pixmap *mask,
-	unsigned short *width, unsigned short *height);
+		   char **data, Pixmap *pixmap, Pixmap *mask,
+		   unsigned short *width, unsigned short *height);
 
 
 
 void
 DASetShapeWithOffset(Pixmap shapeMask, int x_ofs, int y_ofs)
 {
-    DASetShapeWithOffsetForWindow(DAWindow, shapeMask, x_ofs, y_ofs);
+	DASetShapeWithOffsetForWindow(DAWindow, shapeMask, x_ofs, y_ofs);
 }
 
 void
 DASetShapeWithOffsetForWindow(Window window, Pixmap shapeMask,
-	int x_ofs, int y_ofs)
+			      int x_ofs, int y_ofs)
 {
-    XShapeCombineMask(DADisplay, window, ShapeBounding, -x_ofs, -y_ofs,
-	    shapeMask, ShapeSet);
-    XFlush(DADisplay);
+	XShapeCombineMask(DADisplay, window, ShapeBounding, -x_ofs, -y_ofs,
+			  shapeMask, ShapeSet);
+	XFlush(DADisplay);
 }
 
 void
 DASetPixmap(Pixmap pixmap)
 {
-    DASetPixmapForWindow(DAWindow, pixmap);
+	DASetPixmapForWindow(DAWindow, pixmap);
 }
 
 void
 DASetPixmapForWindow(Window window, Pixmap pixmap)
 {
-    XSetWindowBackgroundPixmap(DADisplay, window, pixmap);
-    XClearWindow(DADisplay, window);
-    XFlush(DADisplay);
+	XSetWindowBackgroundPixmap(DADisplay, window, pixmap);
+	XClearWindow(DADisplay, window);
+	XFlush(DADisplay);
 }
 
 Pixmap
 DAMakePixmap(void)
 {
-    return (XCreatePixmap(DADisplay, DAWindow,
-		_daContext->width, _daContext->height,
-		DADepth));
+	return (XCreatePixmap(DADisplay, DAWindow,
+			      _daContext->width, _daContext->height,
+			      DADepth));
 }
 
 Pixmap
 DAMakeShape(void)
 {
-    return (XCreatePixmap(DADisplay, DAWindow,
-		_daContext->width, _daContext->height,
-		1));
+	return (XCreatePixmap(DADisplay, DAWindow,
+			      _daContext->width, _daContext->height,
+			      1));
 }
 
 Bool
 DAMakePixmapFromData(char **data, Pixmap *pixmap, Pixmap *mask,
-	unsigned short *width, unsigned short *height)
+		     unsigned short *width, unsigned short *height)
 {
-    return _daMakePixmap(daXpmSourceData, data,
-	    pixmap, mask,
-	    width, height);
+	return _daMakePixmap(daXpmSourceData, data,
+			     pixmap, mask,
+			     width, height);
 }
 
 Bool
 DAMakePixmapFromFile(char *filename, Pixmap *pixmap, Pixmap *mask,
-	unsigned short *width, unsigned short *height)
+		     unsigned short *width, unsigned short *height)
 {
-    if (access(filename, R_OK) < 0)
-	return False;
+	if (access(filename, R_OK) < 0)
+		return False;
 
-    return _daMakePixmap(daXpmSourceFile, (char**)filename,
-	    pixmap, mask,
-	    width, height);
+	return _daMakePixmap(daXpmSourceFile, (char **)filename,
+			     pixmap, mask,
+			     width, height);
 }
 
 
 
 Bool
 _daMakePixmap(daXpmSource source,
-	char **data, Pixmap *pixmap, Pixmap *mask,
-	unsigned short *width, unsigned short *height)
+	      char **data, Pixmap *pixmap, Pixmap *mask,
+	      unsigned short *width, unsigned short *height)
 {
-    XpmAttributes	xpmAttr;
+	XpmAttributes xpmAttr;
 
-    xpmAttr.valuemask = XpmCloseness;
-    xpmAttr.closeness = 40000;
+	xpmAttr.valuemask = XpmCloseness;
+	xpmAttr.closeness = 40000;
 
 
-    if (source == daXpmSourceData
+	if (source == daXpmSourceData
 	    && (XpmCreatePixmapFromData(
-		    DADisplay, DAWindow, data, pixmap, mask, &xpmAttr) != 0))
-	return False;
+			DADisplay, DAWindow, data, pixmap, mask, &xpmAttr) != 0))
+		return False;
 
-    else if (source == daXpmSourceFile
-    	    && (XpmReadFileToPixmap(
-		    DADisplay, DAWindow, (char*)data, pixmap, mask, &xpmAttr) != 0))
-	return False;
+	else if (source == daXpmSourceFile
+		 && (XpmReadFileToPixmap(
+			     DADisplay, DAWindow, (char *)data, pixmap, mask, &xpmAttr) != 0))
+		return False;
 
-    *width = xpmAttr.width;
-    *height = xpmAttr.height;
+	*width = xpmAttr.width;
+	*height = xpmAttr.height;
 
-    return True;
+	return True;
 }
 
