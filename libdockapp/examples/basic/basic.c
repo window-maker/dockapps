@@ -57,8 +57,8 @@ main(int argc, char **argv)
 		"use libDockapp.\n",
 		"Basic example version 1.1");
 
-	/* Tell libdockapp what version we expect it to be (a date from the
-	 * ChangeLog should do).
+	/* Tell libdockapp what version we expect it to be (a date from
+	 * NEWS should do).
 	 */
 	DASetExpectedVersion(20020126);
 

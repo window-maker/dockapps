@@ -1,10 +1,9 @@
 This file is maintained by dtorrance@monmouthcollege.edu, and available
 from http://libdockapp.sourceforge.net
 
-
-News for dockApp developers.
+News for for all libDockApp users.
 ----------------------------------
-This file contains a reverse chronology of important additions and API-changes.
+This file contains a reverse chronology of changes.
 The contents of this file will apply mostly to developers of dockapps.
 Please read this when you update.
 
@@ -44,10 +43,12 @@ Please read this when you update.
 	icon window (DAIcon), but in "windowed mode" this is the leader window
 	(DALeader).
 
+20030131:
+	Bumped the version of the library to 2.
 
 20030130:
-	Added WMProtocol for WM_DELETE_WINDOW. Dockapps run in normal window
-	mode will have a proper close-button now.
+	Added WMProtocol for WM_DELETE_WINDOW. Dockapps run in "windowed
+	mode" will have a proper close-button now.
 
 	Child windows of a dockapp are now mapped as well when calling
 	DAShow().
@@ -56,19 +57,99 @@ Please read this when you update.
 	pixmaps by hand. This removes a lot of the complex parts of the
 	example.
 
+	Revamped the Changelog. Changedates have become important now that we
+	use them for backward compatibility.
 
 20030126:
-	The function DAGetDisplay() has been renamed to DAOpenDisplay(). This
-	is unfortunate for backwards compatibility, but it was a bad name for
-	the function, and I needed the name for another function.
+	Added expected against actual version matching system. This has the
+	purpose of keeping the library backward compatible, even when the API
+	changes (as happened with DAGetDisplay).
+	Use the function DASetExpectedVersion(<changelog date>) in your dockapp
+	to ensure backward compatibility.
 
-	New functions DAGetDisplay(), DAGetWindow(), DAGetLeader(),
-	DAGetDepth(), DAGetVisual(), and their Set... couterparts
-	(DASetDisplay(), etc) were added. These get and set the global
-	DA...-variables (see: dockapp.h), and are mainly for use from within
-	code that is not directly connected to the library (e.g. from within
-	another library).
+    !!! COMPATIBILITY WARNING !!!
+	Renamed DAGetDisplay() to DAOpenDisplay(). The function opened a
+	display, this name makes more sense and there was a potential namespace
+	conflict (see below).
 
-	A system to match the expected version of libDockApp against the linked
-	version was added, to prevent backward compatibility problems in the
-	future.
+	Added functions:
+		Display*	DAGetDisplay(char *display, ...)
+		Window		DAGetWindow()
+		Window		DAGetLeader()
+		int		DAGetDepth()
+		Visual*		DAGetVisual()
+		DAGetDisplay(Display *display)
+		DAGetWindow(Window window)
+		DAGetLeader(Window leader)
+		DAGetDepth(int depth)
+		DAGetVisual(Visual *visual)
+	These functions just wrap the global variables DADisplay, DAWindow,
+	DALeader, DADepth and DAVisual. The globals are still available, and
+	will probably remain in future releases (The wrappers are for calls
+	from other dynamic objects).
+	If DASetExpectedVersion is before 20030126 (or not set), DAGetDisplay
+	will behave in the old way, opening the display instead of reading out
+	the variable. The NEW version of DAGetDisplay should be called as:
+		Display *d = DAGetDisplay(NULL);
+
+20021220:
+	Added event handling for DestroyNotify, EnterWindow and LeaveWindow.
+
+20021016:
+	Added a more complex example ("rectangles") showing the use of 'action
+	rectangles' and the handling of _all_ recognised event types; this one
+	may need some simplification.
+	Added an example ("shapes") of using the shaped pixmap API. No code
+	yet, just a directory.
+
+20020926:
+	Added programming examples. There are three examples in the make: A
+	relatively simple example ("basic") without event handling and with
+	only basic shape implementation.
+
+20020924:
+	Added a 7-segment display font. This font was donated by Jim Knoble.
+	Thanks Jim (It doesn't get installed, yet. I still need to make a
+	Makefile for this...).
+
+20020922:
+	Added DAShapedPixmap type and functions to work with it. There is an
+	entire API around shaped pixmaps now, keeping pixmap, mask and geometry
+	together. It allows copying areas from both the pixmap and the mask to
+	another shaped pixmap, etc.
+
+	Added new global GC: DAClearGC. If you want to draw parts, you will
+	also want to erase parts.
+
+20020921:
+	Added default colors as X-resources: DockApp*foreground and
+	DockApp*background. These colors are the foreground colors of DAGC and
+	DAClearGC respectively.
+
+20020905:
+	"Inherited" the project from Pascal Hofstee. He stopped maintaining it,
+	and gave his okay when I asked to maintain it. We used to work on this
+	together, I'll continue the effort alone.
+
+	Release of libDockapp 0.4
+
+Since libDockApp 0.2
+--------------------
+	DockApps can now change shape on the fly.
+
+	Motion Events are properly handled now.
+
+	Code review/cleanup
+
+	Added DARect and DAActionRect structures. These allow You to easily
+	specify regions, and functions that should be called when clicked in
+	these regions.
+
+	DAEventLoop now finaly no longer causes Huge CPU-usage.
+
+	Turned out I had to disable the GCGraphicsExposures GC-Values, which
+	were generating huge amounts of "NoExpose" events which were simply
+	discarded anyway.
+
+--
+Before this, libdockapp was maintained and copyright by Alfredo Kojima.

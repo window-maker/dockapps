@@ -143,7 +143,7 @@ extern unsigned long DAExpectedVersion;
 /*
  * Set the version of the library that the dockapp expects.
  * This is a date in the format 'yyyymmdd'. You can find this date
- * in the ChangeLog.
+ * in NEWS.
  */
 void DASetExpectedVersion(unsigned long expectedVersion);
 
