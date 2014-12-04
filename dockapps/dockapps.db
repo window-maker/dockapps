@@ -1,5 +1,5 @@
 [AlsaMixer.app]
-version-0.1+20141005 = 912a75a4179fbcd58db423427a48f04d6b2f8254
+version-0.1+20141204 = 61ac0a5bd4085c04b45c9835e9a4dcd40f63d353
 version-0.1 = 93d993289ee6535caa04175e17048102cf623247
 image = AlsaMixer.app.png
 description = "AlsaMixer.app is simple mixer application for Linux with ALSA drivers (>= 0.9.x)."
