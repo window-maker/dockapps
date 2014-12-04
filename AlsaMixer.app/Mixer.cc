@@ -464,8 +464,8 @@ void Mixer::setVolume(int button, int volume)
 
 void Mixer::toggleMute(int button)
 {
-  mVolumeMute[button] = !mVolumeMute[button];
   aMixer->itemToggleMute(button);
+  mVolumeMute[button] = aMixer->itemIsMuted(button);
   setButtonType(button);
 }
 
