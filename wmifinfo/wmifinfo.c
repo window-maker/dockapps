@@ -656,6 +656,12 @@ void getifnames(void)
 	int pifaces;
 	int i,j;
 	int isnew;
+#ifdef linux
+	FILE *f;
+	char buf[128];
+	char *p1, *p2;
+	int ifcount;
+#endif
 
 	/*
 	 * Copy list of interface names and clean the old list
@@ -666,11 +672,6 @@ void getifnames(void)
 	ifaces = 0;
 
 #ifdef linux
-	FILE *f;
-	char buf[128];
-	char *p1, *p2;
-	int ifcount;
-
 	f = fopen("/proc/net/dev", "r");
 
 	if(f == NULL) {
