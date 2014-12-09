@@ -512,7 +512,8 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 		fseek(froute, 0, 0);
 
 		while(fgets(buf, sizeof(buf), froute)) {
-			sscanf(buf, "%s %x %x", a, &b, &c);
+			sscanf(buf, "%s %x %x", a, (unsigned int *) &b,
+			       (unsigned int *)  &c);
 
 			if((strcmp(a, info->id) == 0) && (b == 0)) {
 				info->gw = c;

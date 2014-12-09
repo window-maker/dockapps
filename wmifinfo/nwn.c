@@ -65,7 +65,7 @@ int nwn_get_link(char *ifname)
 
 			if((inbssid == 1) &&
 			   (strcmp(key, "Quality") == 0)) {
-			   	sscanf(val, "%X", &link);
+			   	sscanf(val, "%X", (unsigned int *) &link);
 			   	link *= 4;
 			   	inbssid = 0;
 			}
