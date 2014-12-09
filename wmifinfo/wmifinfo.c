@@ -49,6 +49,7 @@
 #define MAXIFS 10
 #ifdef linux
 #define DELAY 1000000L
+#define USEC_PER_SEC 1000000L
 #else
 #define DELAY 100000L
 #endif
@@ -269,8 +270,8 @@ int main(int argc, char *argv[])
 		}
 
 #ifdef linux
-		tv.tv_sec = 0;
-		tv.tv_usec = DELAY;
+		tv.tv_sec = DELAY / USEC_PER_SEC;
+		tv.tv_usec = DELAY - (tv.tv_sec * USEC_PER_SEC);
 
 		FD_ZERO(&fds);
 		FD_SET(ConnectionNumber(display), &fds);
