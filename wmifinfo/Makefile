@@ -13,9 +13,12 @@ VERSION=0.09
 
 CC = gcc
 LD = gcc
-COPTS = -Wall -O2 -D'VERSION="$(VERSION)"' -D'NAME="$(NAME)"'
-LDOPTS = -lX11 -L/usr/X11R6/lib -lXpm -lXext
-BINDIR = /usr/local/bin
+INSTALL = install
+CFLAGS = -Wall -O2
+COPTS = -D'VERSION="$(VERSION)"' -D'NAME="$(NAME)"'
+LDOPTS = -lX11 -lXpm -lXext
+PREFIX = /usr/local
+BINDIR = $(PREFIX)/bin
 
 BIN =	wmifinfo
 FILES = wmifinfo.o xutils.o
@@ -28,16 +31,17 @@ endif
 all:	$(BIN)
 
 .c.o:
-	$(CC) $(COPTS) -c $<
+	$(CC) $(COPTS) $(CPPFLAGS) $(CFLAGS) -c $<
 
 $(BIN):	$(FILES)
-	$(LD) -o $@ $(FILES) $(LDOPTS)
+	$(LD) $(LDFLAGS) -o $@ $(FILES) $(LDOPTS)
 
 clean:
 	rm -f *.o $(BIN) core ./.#* *.orig *.rej
 
 install:
-	cp $(BIN) $(BINDIR)
+	$(INSTALL) -d $(DESTDIR)$(BINDIR)
+	$(INSTALL) $(BIN) $(DESTDIR)$(BINDIR)
 
 dist:	clean
 	rm -rf /tmp/wmifinfo-$(VERSION)
