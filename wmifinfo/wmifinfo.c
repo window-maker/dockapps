@@ -58,7 +58,7 @@
 struct ifinfo_t {
 	char id[16];
 	int state;
-	char hw[6];
+	unsigned char hw[6];
 	uint32_t ip;
 	uint32_t nm;
 	uint32_t gw;
@@ -178,13 +178,15 @@ int main(int argc, char *argv[])
 	initXwindow(argc, argv);
 
 	if(mode == MODE_LED) {
-		openXwindow(argc, argv, wmifinfo_led_xpm, wmifinfo_led_bits,
-			wmifinfo_led_width, wmifinfo_led_height, BackColor,
-			LabelColor, WindGustColor, DataColor, StationTimeColor);
+		openXwindow(argc, argv, (char **) wmifinfo_led_xpm,
+			(char*) wmifinfo_led_bits, wmifinfo_led_width,
+			wmifinfo_led_height, BackColor, LabelColor,
+			WindGustColor, DataColor, StationTimeColor);
 	} else {
-		openXwindow(argc, argv, wmifinfo_lcd_xpm, wmifinfo_lcd_bits,
-			wmifinfo_lcd_width, wmifinfo_lcd_height, BackColor,
-			LabelColor, WindGustColor, DataColor, StationTimeColor);
+		openXwindow(argc, argv, (char **) wmifinfo_lcd_xpm,
+			(char*) wmifinfo_lcd_bits, wmifinfo_lcd_width,
+			wmifinfo_lcd_height, BackColor,	LabelColor,
+			WindGustColor, DataColor, StationTimeColor);
 	}
 
 	// Initialize global variables
