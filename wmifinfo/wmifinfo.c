@@ -355,7 +355,10 @@ void exec_cmd(char *cmd)
 
 	pid=fork();
 	if(pid == 0) {
-		system(cmd);
+		if (system(cmd) == -1) {
+			fprintf(stderr, "%s failed\n", cmd);
+			exit(1);
+		}
 		exit(0);
 	}
 
@@ -675,7 +678,6 @@ void getifnames(void)
 		exit(1);
 	}
 
-	fgets(buf, sizeof(buf),f);
 	while(fgets(buf, sizeof(buf), f)) {
 		p1=buf;
 		while(*p1 == ' ') p1++;
