@@ -406,7 +406,6 @@ char *strupper(char *str)
 int getifinfo(char *ifname, struct ifinfo_t *info)
 {
 	struct ifreq ifr;
-	int r;
 	struct sockaddr_in *sa;
 
 #ifdef linux
@@ -510,7 +509,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 		fseek(froute, 0, 0);
 
 		while(fgets(buf, sizeof(buf), froute)) {
-			r = sscanf(buf, "%s %x %x", a, &b, &c);
+			sscanf(buf, "%s %x %x", a, &b, &c);
 
 			if((strcmp(a, info->id) == 0) && (b == 0)) {
 				info->gw = c;
@@ -575,7 +574,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 		fseek(fwireless, 0, 0);
 
 		while(fgets(buf, sizeof(buf), fwireless)) {
-			r = sscanf(buf, "%s %d %d ", a, &b, &c);
+			sscanf(buf, "%s %d %d ", a, &b, &c);
 			if(strchr(a, ':'))  *(strchr(a, ':')) = 0;
 			if(strcmp(a, parent) == 0) {
 				info->sl = c;
@@ -611,7 +610,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 		fseek(fdev, 0, 0);
 
 		while(fgets(buf, sizeof(buf), fdev)) {
-			r = sscanf(buf, "%s %d %d %d %d %d %d %d %d %d", a, &b, &d,&d,&d,&d,&d,&d,&d, &c);
+			sscanf(buf, "%s %d %d %d %d %d %d %d %d %d", a, &b, &d,&d,&d,&d,&d,&d,&d, &c);
 			if(strchr(a, ':'))  *(strchr(a, ':')) = 0;
 			if(strcmp(a, parent) == 0) {
 				info->bytes = b + c;
