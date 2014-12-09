@@ -19,6 +19,7 @@ COPTS = -D'VERSION="$(VERSION)"' -D'NAME="$(NAME)"'
 LDOPTS = -lX11 -lXpm -lXext
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
+MANDIR = $(PREFIX)/share/man
 
 BIN =	wmifinfo
 FILES = wmifinfo.o xutils.o
@@ -42,6 +43,8 @@ clean:
 install:
 	$(INSTALL) -d $(DESTDIR)$(BINDIR)
 	$(INSTALL) $(BIN) $(DESTDIR)$(BINDIR)
+	$(INSTALL) -d $(DESTDIR)$(MANDIR)/man1
+	$(INSTALL) -m 644 wmifinfo.1 $(DESTDIR)$(MANDIR)/man1
 
 dist:	clean
 	rm -rf /tmp/wmifinfo-$(VERSION)

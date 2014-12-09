@@ -1,0 +1,37 @@
+.TH WMIFINFO 1 "June  7, 2002"
+.SH NAME
+wmifinfo \- dockapp for showing basic network info for all available interfaces
+.SH SYNOPSIS
+.B wmifinfo
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+\fBwmifinfo\fP is is a simple applet showing basic network info for all
+available interfaces.
+It shows IP address, netmask, gateway and MAC address. A bit like ifconfig.
+Left-button click moves to the next interface, right-button click calls
+ifup/ifdown scripts.
+Please report bugs if you find any.
+.SH OPTIONS
+A summary of options is included below.
+.TP
+.B \-h
+Show summary of options.
+.TP
+.B \-v
+Show version of program.
+.TP
+.B \-d <cmd>
+Command to exec for iface-down
+.TP
+.B \-i <interface>
+Start with given interface, if available
+.TP
+.B \-l
+LCD display mode
+.TP
+.B \-u
+Command to exec for iface-up
+.br
+.SH AUTHOR
+This manual page was written by S\[/o]ren Boll Overgaard <boll@debian.org>,
+for the Debian GNU/Linux system (but may be used by others).
