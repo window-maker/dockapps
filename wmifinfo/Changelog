@@ -54,3 +54,12 @@
 
 	- the '-i' flag (initial interface) was broken. Thanks to Rod van
 	  Meter.
+
+0.10	Bugfix
+
+	- Add valid timeval. Patch by Julien BLACHE.
+	- Update Makefile.
+	- Fix compiler warnings.
+	- Add manpage from Debian package.
+	- Now maintained by the Window Maker Developers Team
+	  <wmaker-dev@lists.windowmaker.org>.

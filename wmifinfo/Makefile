@@ -9,7 +9,7 @@ ENABLE_NWN_SUPPORT=n
 # Nothing to configure under here
 
 NAME=wmifinfo
-VERSION=0.09
+VERSION=0.10
 
 CC = gcc
 LD = gcc
