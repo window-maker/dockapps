@@ -235,7 +235,7 @@ dockapps = 329
 category = System Monitoring
 
 [wmifinfo]
-version-0.09+20141005 = 4ea3303e23a3b6a86f2310796df776a590471bfa
+version-0.10 = 7186a6794ae8575a7e6f0de5ebe70e8a075a9079
 version-0.09 = 423824aacd6be831dd4152485067e3bd4f76dc60
 version-0.08 = 3a21c4d84d84a5582f4fa59a1115f71e43a0e00f
 version-0.07 = 1656d0324b3a1361e9e753bbf6d5dafd1788e07d
