@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
 			WindGustColor, DataColor, StationTimeColor);
 	}
 
-	// Initialize global variables
+	/* Initialize global variables */
 
 	fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	ifc.ifc_len = sizeof(struct ifreq) * 10;
@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
 				if(ifinfo.nm) drawipaddr(ifinfo.nm, 1);
 				if(ifinfo.gw) drawipaddr(ifinfo.gw, 2);
 
-				// WLAN signal level
+				/* WLAN signal level */
 
 #ifdef linux
 				x = ifinfo.sl/4;
@@ -249,7 +249,7 @@ int main(int argc, char *argv[])
 				if(x>13) x=13;
 				copyXPMArea(4, 82, x*4, 4, 6, 53);
 
-				// LED
+				/* LED */
 
 				x=0;
 				if(exec_busy) {
@@ -442,7 +442,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 
 	strcpy(ifr.ifr_name, ifname);
 
-	// Get status (UP/DOWN)
+	/* Get status (UP/DOWN) */
 
 	if(ioctl(fd, SIOCGIFFLAGS, &ifr) != -1) {
 		sa = (struct sockaddr_in *)&(ifr.ifr_addr);
@@ -451,7 +451,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 		info->state = 0;
 	}
 
-	// Get mac address
+	/* Get mac address */
 
 #ifdef linux
 	if(ioctl(fd, SIOCGIFHWADDR, &ifr) != -1) {
@@ -486,7 +486,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 	}
 #endif
 
-	// Get IP address
+	/* Get IP address */
 
 	if(ioctl(fd, SIOCGIFADDR, &ifr) != -1) {
 		sa = (struct sockaddr_in *)&(ifr.ifr_addr);
@@ -495,7 +495,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 		info->ip = 0;
 	}
 
-	// Get netmask
+	/* Get netmask */
 
 	if(ioctl(fd, SIOCGIFNETMASK, &ifr) != -1) {
 		sa = (struct sockaddr_in *)&(ifr.ifr_addr);
@@ -504,7 +504,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 		info->nm = 0;
 	}
 
-	// Get default gateway if on this interface
+	/* Get default gateway if on this interface */
 
 	info->gw = 0;
 #ifdef linux
@@ -569,7 +569,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 	}
 #endif
 
-	// Get wireless link status if wireless
+	/* Get wireless link status if wireless */
 
 	info->sl = 0;
 #ifdef linux
@@ -606,7 +606,7 @@ int getifinfo(char *ifname, struct ifinfo_t *info)
 	}
 #endif
 
-	// Get Total tx/rx bytes
+	/* Get Total tx/rx bytes */
 
 #ifdef linux
 	if(fdev != NULL) {
