@@ -1,5 +1,5 @@
 bin_PROGRAMS = wmclock
-wmclock_SOURCES = dynlist.c dynlist.h wmclock.c month.xpm weekday.xpm \
+wmclock_SOURCES = dynlist.c dynlist.h wmclock.c \
 	xpm/date.xpm xpm/led.xpm xpm/mask.xbm xpm/mask.xbm
 AM_CFLAGS = $(x11_CFLAGS) $(xpm_CFLAGS) $(xext_CFLAGS)
 LIBS += $(x11_LIBS) $(xpm_LIBS) $(xext_LIBS)
