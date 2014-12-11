@@ -490,7 +490,7 @@ void showYear(void)
    XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
 	     digitXOffset , digitYOffset, LED_NUM_WIDTH, LED_NUM_HEIGHT,
 	     xPos[DIGIT_1_X_POS], yPos[DIGIT_Y_POS]);
-   digitXOffset = LED_NUM_WIDTH * ((year % 100) % 10);
+   digitXOffset = LED_NUM_WIDTH * ((year / 100) % 10);
    XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
 	     digitXOffset , digitYOffset, LED_NUM_WIDTH, LED_NUM_HEIGHT,
 	     xPos[DIGIT_2_X_POS], yPos[DIGIT_Y_POS]);
