@@ -19,7 +19,7 @@ PrintHelp() {
     cat <<EOF
 
   Usage: ${0} [--lang <language>]
-  
+
   Options:
     --lang <language>
         Configure wmclock to use day and month names for the specified

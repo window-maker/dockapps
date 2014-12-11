@@ -4,16 +4,16 @@
 
 2010-12-03 20:28  brucec
 	* Imakefile: Bumped version to 1.0.13, add warning flags.
-	
+
 	* INSTALL: Updated compiler and flags example.
 
-	* wmclock.c, weekday.xpm: Integrated Debian nopolling patch and 
+	* wmclock.c, weekday.xpm: Integrated Debian nopolling patch and
 	FreeBSD's weekday and year patches. Added function prototypes.
 
-	* wmclock.spec.in: Bumped version to 1.0.13, changed ExecPrefix to 
+	* wmclock.spec.in: Bumped version to 1.0.13, changed ExecPrefix to
 	/usr/local since /usr/X11R6 is obsolete.
 
-	* lang.polish: Added Polish language files, contributed by 
+	* lang.polish: Added Polish language files, contributed by
 	oyd11 at softhome.net
 
 	* lang.croatian: Added Croatian language files, contributed by Josip
@@ -30,7 +30,7 @@
 
 2000-03-08 07:59  jmknoble
 
-	* Imakefile: `tar' target was copying CVS directories. 
+	* Imakefile: `tar' target was copying CVS directories.
 	Restructured it a bit to avoid that.
 
 	* Imakefile: `distclean' target could prove troublesome by
@@ -53,7 +53,7 @@
 	stored in CVS.
 
 	* wmclock.c, xpm/mask.xbm: Compiling with gcc -Wall -ansi -pedantic
-	revealed that the mask bitmap should be declared as unsigned char. 
+	revealed that the mask bitmap should be declared as unsigned char.
 	XCreateBitmapFromData() expects char *, though, so we cast the mask
 	bitmap data explicitly.
 

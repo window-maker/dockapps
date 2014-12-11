@@ -31,7 +31,7 @@ wmclock according to the instructions, there are three steps:
   (1) Start wmclock.  The easiest way to accomplish this is to accept
       the defaults for things such as led color, blinking, etc, and
       just start the clock:
-      
+
           wmclock
 
   (2) Drag the resulting wmclock appicon to an empty slot in your dock.
@@ -70,7 +70,7 @@ wmclock and Window Maker:
     Clip is collapsed, you won't be able to see the wmclock appicon,
     even though it's running.  Make sure you uncollapse your Clip and
     look for wmclock there if it doesn't appear on your desktop.
-    
+
   - If your Clip is too close to your dock, you may have difficulty
     docking wmclock, because the Clip may grab the wmclock appicon
     instead.  Try moving your Clip farther away from your dock before
@@ -137,5 +137,5 @@ other dealings in the software.
 
 Your mileage may vary.  Eat your vegetables.
 
--- 
+--
 Bruce Cran <bruce@bluestop.org>

@@ -1,15 +1,15 @@
 /* wmclock.c: a dockable clock applet for Window Maker
  * created 1999-Apr-09 jmk
- * 
+ *
  * by Jim Knoble <jmknoble@pobox.com>
  * Copyright (C) 1999 Jim Knoble
- * 
+ *
  * Significant portions of this software are derived from asclock by
  * Beat Christen <spiff@longstreet.ch>.  Such portions are copyright
  * by Beat Christen and the other authors of asclock.
- * 
+ *
  * Disclaimer:
- * 
+ *
  * The software is provided "as is", without warranty of any kind,
  * express or implied, including but not limited to the warranties of
  * merchantability, fitness for a particular purpose and
@@ -227,7 +227,7 @@ char *version = VERSION;
 void showUsage(void)
 {
    char **cpp;
-   
+
    fprintf(stderr, "Usage:  %s [option [option ...]]\n\n", progName);
    for (cpp = usageText; *cpp; cpp++)
     {
@@ -248,7 +248,7 @@ void showVersion()
 int buildCommand(char *command, char **buf, int *buf_len, int *i)
 {
    int status;
-   
+
    status = append_string_to_buf(buf, buf_len, i, command);
    if (APPEND_FAILURE == status)
     {
@@ -297,26 +297,26 @@ void GetXpms(void)
    char              ledBright[64];
    char              ledDim[64];
    int               status;
-   
+
 #ifdef ONLY_SHAPED_WINDOW
    clock_xpm = mask_xpm;
 #else /* !ONLY_SHAPED_WINDOW */
    clock_xpm = enableShapedWindow ? mask_xpm : clk_xpm;
 #endif /* ONLY_SHAPED_WINDOW */
-   
+
    /* for the colormap */
    XGetWindowAttributes(dpy, rootWindow, &attributes);
-   
+
    /* get user-defined color */
-   if (!XParseColor(dpy, attributes.colormap, ledColor, &color)) 
+   if (!XParseColor(dpy, attributes.colormap, ledColor, &color))
     {
        showError("parse color", ledColor);
     }
-   
+
    sprintf(ledBright, "%c      c #%04X%04X%04X", LED_XPM_BRIGHT_CHAR,
 	   color.red, color.green, color.blue);
    led_xpm[LED_XPM_BRIGHT_LINE_INDEX] = &ledBright[0];
-   
+
    color.red   = makeDimColor(color.red);
    color.green = makeDimColor(color.green);
    color.blue  = makeDimColor(color.blue);
@@ -327,7 +327,7 @@ void GetXpms(void)
    clockBg.attributes.closeness = DEFAULT_XPM_CLOSENESS;
    clockBg.attributes.valuemask |=
       (XpmReturnPixels | XpmReturnExtensions | XpmCloseness);
-   
+
    if (useUserClockXpm)
     {
        status = XpmReadFileToPixmap(dpy, rootWindow, userClockXpm,
@@ -381,7 +381,7 @@ void GetXpms(void)
 				    &months.pixmap, &months.mask,
 				    &months.attributes);
     }
-   else 
+   else
     {
        status = XpmCreatePixmapFromData(dpy, rootWindow, month_xpm,
 					&months.pixmap, &months.mask,
@@ -406,7 +406,7 @@ void GetXpms(void)
    weekdays.attributes.closeness = DEFAULT_XPM_CLOSENESS;
    weekdays.attributes.valuemask |=
       (XpmReturnPixels | XpmReturnExtensions | XpmCloseness);
-   if (useUserWeekdayXpm) 
+   if (useUserWeekdayXpm)
     {
        status = XpmReadFileToPixmap(dpy, rootWindow, userWeekdayXpm,
 				    &weekdays.pixmap, &weekdays.mask,
@@ -429,7 +429,7 @@ int flushExposeEvents(Window w)
 {
    XEvent dummy;
    int    i = 0;
-   
+
    while (XCheckTypedWindowEvent(dpy, w, Expose, &dummy))
     {
        i++;
@@ -453,14 +453,14 @@ Pixel GetColor(const char *colorName)
 {
    XColor            color;
    XWindowAttributes attributes;
-   
+
    XGetWindowAttributes(dpy, rootWindow, &attributes);
    color.pixel = 0;
-   if (!XParseColor(dpy, attributes.colormap, colorName, &color)) 
+   if (!XParseColor(dpy, attributes.colormap, colorName, &color))
     {
        showError("parse color", colorName);
     }
-   else if (!XAllocColor(dpy, attributes.colormap, &color)) 
+   else if (!XAllocColor(dpy, attributes.colormap, &color))
     {
        showError("allocate color", colorName);
     }
@@ -472,9 +472,9 @@ int mytime(void)
 {
    struct timeval  tv;
    struct timezone tz;
-   
+
    gettimeofday(&tv, &tz);
-   
+
    return(tv.tv_sec);
 }
 
@@ -484,9 +484,9 @@ void showYear(void)
    int year;
    int digitXOffset;
    int digitYOffset;
-   
+
    year = localTime->tm_year + 1900;
-   
+
    digitYOffset = LED_NUM_Y_OFFSET;
    digitXOffset = LED_NUM_WIDTH * (year / 1000);
    XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
@@ -512,7 +512,7 @@ void showTime12(void)
    int digitXOffset;
    int digitYOffset;
    int localHour = localTime->tm_hour % 12;
-   
+
    if (0 == localHour)
     {
        localHour = 12;
@@ -531,7 +531,7 @@ void showTime12(void)
 		 PM_X_OFFSET, PM_Y_OFFSET, PM_WIDTH, PM_HEIGHT,
 		 xPos[AMPM_X_POS], yPos[DIGIT_Y_POS] + PM_Y_OFFSET);
     }
-   
+
    digitYOffset = LED_NUM_Y_OFFSET;
    if (localHour > 9)
     {
@@ -559,7 +559,7 @@ void showTime24(void)
 {
    int digitXOffset;
    int digitYOffset;
-   
+
    digitYOffset = LED_NUM_Y_OFFSET;
    digitXOffset = LED_NUM_WIDTH * (localTime->tm_hour / 10);
    XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
@@ -583,17 +583,17 @@ void showTime(void)
 {
    int xOffset;
    int yOffset;
-   
+
    /* Zeit auslesen */
    actualTime = mytime();
    actualMinutes = actualTime / 60;
-   
+
    localTime = localtime(&actualTime);
-   
+
    /* leere clock holen */
    XCopyArea(dpy, clockBg.pixmap, visible.pixmap, normalGC,
 	     0, 0, sizeHints.width, sizeHints.height, 0, 0);
-   
+
    if (enableYearDisplay)
     {
        showYear();
@@ -606,14 +606,14 @@ void showTime(void)
     {
        showTime24();
     }
-   
+
    /* Monat */
    xOffset = MONTH_X_OFFSET;
    yOffset = MONTH_HEIGHT * (localTime->tm_mon);
    XCopyArea(dpy, months.pixmap, visible.pixmap, normalGC,
 	     xOffset, yOffset, MONTH_WIDTH, MONTH_HEIGHT,
 	     xPos[MONTH_X_POS], yPos[MONTH_Y_POS]);
-   
+
    /* Datum */
    yOffset = DATE_Y_OFFSET;
    if (localTime->tm_mday > 9)
@@ -634,14 +634,14 @@ void showTime(void)
 		 xOffset, yOffset, DATE_NUM_WIDTH, DATE_NUM_HEIGHT,
 		 xPos[DATE_CENTER_X_POS], yPos[DATE_Y_POS]);
     }
-   
+
    /* Wochentag */
    xOffset = WEEKDAY_X_OFFSET;
    yOffset = WEEKDAY_HEIGHT * ((localTime->tm_wday + 6) % 7);
    XCopyArea(dpy, weekdays.pixmap, visible.pixmap, normalGC,
 	     xOffset, yOffset, WEEKDAY_WIDTH, WEEKDAY_HEIGHT,
-	     xPos[WEEKDAY_X_POS], yPos[WEEKDAY_Y_POS]); 
-   
+	     xPos[WEEKDAY_X_POS], yPos[WEEKDAY_Y_POS]);
+
    if ((!enableBlinking) && (!enableYearDisplay))
     {
        /* Sekunden Doppelpunkt ein */
@@ -657,7 +657,7 @@ void showTime(void)
 char *extractProgName(char *argv0)
 {
    char *prog_name = NULL;
-   
+
    if (NULL != argv0)
     {
        prog_name = strrchr(argv0, '/');
@@ -677,7 +677,7 @@ char *extractProgName(char *argv0)
 int processArgs(int argc, char **argv)
 {
    int i;
-   
+
    for (i = 1; i < argc; i++)
     {
        if (0 == strcmp(argv[i], "--"))
@@ -826,7 +826,7 @@ int main(int argc, char **argv)
 {
    int           i;
    unsigned int  borderWidth = 0;
-   char          *displayName = NULL; 
+   char          *displayName = NULL;
    XGCValues     gcValues;
    unsigned long gcMask;
    XEvent        event;
@@ -835,11 +835,11 @@ int main(int argc, char **argv)
    Pixmap        shapeMask;
    struct timeval nextEvent;
    unsigned int   blinkCounter = 0;
-   
+
    /* Parse command line options */
    progName = extractProgName(argv[0]);
    processArgs(argc, argv);
-   
+
    /* init led position */
 #ifndef ONLY_SHAPED_WINDOW
    for (i = 0; i < NUM_Y_POSITIONS; i++)
@@ -848,7 +848,7 @@ int main(int argc, char **argv)
     }
    for (i = 0; i < NUM_X_POSITIONS; i++)
     {
-       xPos[i] = enableShapedWindow ? xPosShaped[i] : xPosUnshaped[i]; 
+       xPos[i] = enableShapedWindow ? xPosShaped[i] : xPosUnshaped[i];
     }
 #else /* ONLY_SHAPED_WINDOW */
    for (i = 0; i < NUM_Y_POSITIONS; i++)
@@ -871,23 +871,23 @@ int main(int argc, char **argv)
          xPos[i] += timePos12[i];
        }
     }
-   
+
    /* Open the display */
    dpy = XOpenDisplay(displayName);
-   if (NULL == dpy)  
-    { 
+   if (NULL == dpy)
+    {
        fprintf(stderr, "%s: can't open display %s\n", progName,
 	       XDisplayName(displayName));
-       exit(1); 
+       exit(1);
     }
    screen       = DefaultScreen(dpy);
    rootWindow   = RootWindow(dpy, screen);
    displayDepth = DefaultDepth(dpy, screen);
    xFd          = XConnectionNumber(dpy);
-   
+
    /* Icon Daten nach XImage konvertieren */
    GetXpms();
-   
+
    /* Create a window to hold the banner */
    sizeHints.x = 0;
    sizeHints.y = 0;
@@ -898,16 +898,16 @@ int main(int argc, char **argv)
    sizeHints.base_width  = clockBg.attributes.width;
    sizeHints.base_height = clockBg.attributes.height;
    sizeHints.flags = USSize | USPosition | PMinSize | PMaxSize | PBaseSize;
-   
+
    bgPixel = GetColor("white");
    fgPixel = GetColor("black");
-   
+
    XWMGeometry(dpy, screen, geometry, NULL, borderWidth, &sizeHints,
 	       &sizeHints.x, &sizeHints.y, &sizeHints.width, &sizeHints.height,
 	       &sizeHints.win_gravity);
    sizeHints.width  = clockBg.attributes.width;
    sizeHints.height = clockBg.attributes.height;
-   
+
    win = XCreateSimpleWindow(dpy, rootWindow, sizeHints.x, sizeHints.y,
 			     sizeHints.width, sizeHints.height,
 			     borderWidth, fgPixel, bgPixel);
@@ -920,10 +920,10 @@ int main(int argc, char **argv)
    classHint.res_name = progName;
    classHint.res_class = className;
    XSetClassHint(dpy, win, &classHint);
-   
+
    XSelectInput(dpy, win, OUR_WINDOW_EVENTS);
    XSelectInput(dpy, iconWin, OUR_WINDOW_EVENTS);
-   
+
    if (0 == XStringListToTextProperty(&progName, 1, &wmName))
     {
        fprintf(stderr, "%s: can't allocate window name text property\n",
@@ -931,7 +931,7 @@ int main(int argc, char **argv)
        exit(-1);
     }
    XSetWMName(dpy, win, &wmName);
-  
+
    /* Create a GC for drawing */
    gcMask = GCForeground | GCBackground | GCGraphicsExposures;
    gcValues.foreground = fgPixel;
@@ -947,7 +947,7 @@ int main(int argc, char **argv)
        XShapeCombineMask(dpy, iconWin, ShapeBounding, 0, 0, shapeMask,
 			 ShapeSet);
     }
-  
+
    wmHints.initial_state = WithdrawnState;
    wmHints.icon_window = iconWin;
    wmHints.icon_x = sizeHints.x;
@@ -982,7 +982,7 @@ int main(int argc, char **argv)
 	       fprintf(stderr, "%s: cleaning up zombies (time %ld)\n",
 		       progName, actualTime);
 #endif /* DEBUG */
-	       if (NULL != commandToExec) 
+	       if (NULL != commandToExec)
 		{
 		   waitpid(0, NULL, WNOHANG);
 		}
@@ -1036,7 +1036,7 @@ int main(int argc, char **argv)
 	       if (NULL != commandToExec)
 		{
 		   pid_t fork_pid;
-		   
+
 		   if ((NULL == commandBuf) &&
 		       (!buildCommand(commandToExec, &commandBuf,
 				      &commandLength, &commandIndex)))
@@ -1078,9 +1078,9 @@ int main(int argc, char **argv)
 	       XFreePixmap(dpy, visible.pixmap);
 #endif /* ONLY_SHAPED_WINDOW */
 	       XCloseDisplay(dpy);
-	       exit(0); 
+	       exit(0);
 	     default:
-	       break;      
+	       break;
 	    }
 	}
        XFlush(dpy);

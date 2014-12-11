@@ -3,14 +3,14 @@ VERSION		= 1.0.14
 DATE		= 2010-Dec-22
 
 DEFINES		= -DVERSION=\"$(VERSION)\"
-CFLAGS         += -Wall -pedantic -Wshadow -Wmissing-prototypes -Wcast-align 
-CFLAGS         += -Wcast-qual -Wchar-subscripts -Wpointer-arith 
+CFLAGS         += -Wall -pedantic -Wshadow -Wmissing-prototypes -Wcast-align
+CFLAGS         += -Wcast-qual -Wchar-subscripts -Wpointer-arith
 CFLAGS         += -Wredundant-decls -Wstrict-prototypes
 
-XPMLIB		= -L$(PREFIX)/lib/X11 -lXpm   
-DEPLIBS		= $(DEPXLIB) 
+XPMLIB		= -L$(PREFIX)/lib/X11 -lXpm
+DEPLIBS		= $(DEPXLIB)
 
-LOCAL_LIBRARIES	= $(XPMLIB) $(XLIB)  
+LOCAL_LIBRARIES	= $(XPMLIB) $(XLIB)
 
 LINTLIBS	= $(LINTXLIB)
 

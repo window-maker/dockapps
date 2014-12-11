@@ -11,47 +11,47 @@ System.
 
   (1) Run the `configure' script to configure the language support that
       is built into wmclock.  For example:
-      
+
           ./configure --lang english
 
       For a list of the available languages, use:
-      
+
           ./configure --help
 
       The configure script also creates a Makefile out of the Imakefile
       using xmkmf.
 
   (2) Compile:
-  
+
           make
 
       You may specify the C compiler to use and additional command-line
       options for the C compiler using the `CC' and `CDEBUGFLAGS'
       variables, respectively.  For example:
-      
+
           make CC=clang CDEBUGFLAGS='-O4 -march=pentium2'
 
 
   (3) Test wmclock:
-  
+
           ./wmclock
 
       (If it appears to work as expected, *don't dock it*.  Wait until
       after you've installed it).
 
   (4) Install:
-  
+
           su
           make install
 	  make install.man
 
       Optionally, install all the month and weekday pixmaps for use
       with the `-monthxpm' and `-weekdayxpm' options:
-      
+
           make install.share
 
   (5) You're done.  See the README file accompanying this one for
       instructions on installing wmclock into Window Maker's dock.
 
--- 
+--
 Bruce Cran <bruce@bluestop.org>
