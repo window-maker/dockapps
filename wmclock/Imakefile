@@ -1,0 +1,87 @@
+NAME		= wmclock
+VERSION		= 1.0.14
+DATE		= 2010-Dec-22
+
+DEFINES		= -DVERSION=\"$(VERSION)\"
+CFLAGS         += -Wall -pedantic -Wshadow -Wmissing-prototypes -Wcast-align 
+CFLAGS         += -Wcast-qual -Wchar-subscripts -Wpointer-arith 
+CFLAGS         += -Wredundant-decls -Wstrict-prototypes
+
+XPMLIB		= -L$(PREFIX)/lib/X11 -lXpm   
+DEPLIBS		= $(DEPXLIB) 
+
+LOCAL_LIBRARIES	= $(XPMLIB) $(XLIB)  
+
+LINTLIBS	= $(LINTXLIB)
+
+SHAREDIR	= $(PREFIX)/share/$(NAME)
+
+IMAKEFILE	= Imakefile
+MAKEFILE	= Makefile
+
+CHANGELOG	= ChangeLog
+
+SPEC_SRC	= $(NAME).spec.in
+SPEC_OBJ	= $(NAME).spec
+SPECS		= $(SPEC_SRC) $(SPEC_OBJ)
+
+EXTRA_FILES	= \@@\
+ $(SPECS) \@@\
+ $(IMAKEFILE) \@@\
+ $(CHANGELOG) \@@\
+ COPYING \@@\
+ INSTALL \@@\
+ README \@@\
+ configure
+
+MANSRC		= wmclock.man.in
+MANOBJ		= wmclock.man
+
+SYMLINKS	= month.xpm weekday.xpm
+
+HDRS		= dynlist.h
+SRCS		= dynlist.c wmclock.c
+OBJS		= dynlist.o wmclock.o
+
+TARDIR		= $(NAME)-$(VERSION)
+TARBALL		= $(TARDIR).tar.gz
+
+ComplexProgramTarget($(NAME))
+
+depend::
+	cat $(MANSRC) |sed \@@\
+		-e 's/@VERSION@/$(VERSION)/g' \@@\
+		-e 's/@DATE@/$(DATE)/g' \@@\
+		>$(MANOBJ)
+
+.PHONY: depends tar
+
+spec: $(SPEC_OBJ)
+
+$(SPEC_OBJ): $(SPEC_SRC) $(IMAKEFILE)
+	cat $(SPEC_SRC) |sed -e 's/@VERSION@/$(VERSION)/g' >$@
+
+install.share::
+	@if [ -d $(DESTDIR)$(SHAREDIR) ]; then set +x; \@@\
+	else (set -x; $(MKDIRHIER) $(DESTDIR)$(SHAREDIR)); fi
+	@set -x; \@@\
+	for i in lang.*; do \@@\
+		$(MKDIRHIER) $(DESTDIR)$(SHAREDIR)/$${i}; \@@\
+		$(INSTALL) $(INSTALLFLAGS) $(INSTDATFLAGS) ./$${i}//**/* \@@\
+			$(DESTDIR)$(SHAREDIR)/$${i}/; \@@\
+	done
+
+tar: $(TARBALL)
+
+$(TARBALL): $(EXTRA_FILES) $(EXTRA_DIRS) $(MANSRC) $(HDRS) $(SRCS)
+	$(RM) -r $(TARDIR)
+	$(MKDIRHIER) $(TARDIR)
+	$(CP) -p $(EXTRA_FILES) $(MANSRC) $(HDRS) $(SRCS) $(TARDIR)/
+	-for i in $(EXTRA_DIRS); do \@@\
+	  $(MKDIRHIER) $(TARDIR)/$${i}; \@@\
+	  $(CP) -p $${i}//**/* $(TARDIR)/$${i}/; \@@\
+	done >/dev/null 2>&1
+	chmod -Rc ug+rwX,o+rX,o-w $(TARDIR)
+	tar -cvf - $(TARDIR) |gzip -9 >$(TARBALL)
+	$(RM) -r $(TARDIR)
+

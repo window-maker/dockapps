@@ -1,0 +1,25 @@
+/* XPM */
+static char *date_xpm[] = {
+/* width height num_colors chars_per_pixel */
+"    95    13        4            1",
+/* colors */
+". c #000000",
+"# c #555555",
+"a c #aaaaaa",
+"b c #ffffff",
+/* pixels */
+"bbbb..bbbbbba..abbbb....abbbbbbb..bbbb......bbbbba...bbb......bbba..abbbbb...abbbbb....bbbbbbbb",
+"bbb#..bbbbb.....abb..bb..abbbbba..bbba.....bbbba...bbbb.......bba.bb.abbb..a...bbb..aa..bbbbbbb",
+"bb....bbbb..bba..bb.bbbb..bbbba...bbba.bbbbbbba..bbbbbb.bbba.abb..bb..bba.abb..abb.abba.bbbbbbb",
+"bbbb..bbbb.bbbb..bbbbbba.abbbb....bbb..bbbbbbb..bbbbbbbbbbb..bbb..bb..bb..bbbb..ba.bbbb.abbb.bb",
+"bbbb..bbbbbbbbb..bbbbba..bbbba.b..bbb....abbba..bbbbbbbbbba.abbba..b.abb..bbbb..b..bbbb..bbb.bb",
+"bbbb..bbbbbbbbb..bbbb...bbbba.ab..bbbaaa...bb......abbbbbb..bbbbb....bbb..bbbb..b..bbbb..bbbbbb",
+"bbbb..bbbbbbbba.abbbb....bbb..bb..bbbbbbb..ab..bbb..abbbbb.abbbbb....bbba..bbb..b..bbbb..bbbbbb",
+"bbbb..bbbbbbbb..bbbbbbb..aba.bbb..bbbbbbbb..b..bbbb..bbbba.bbbbb..b...bbb.......b..bbbb..bbbbbb",
+"bbbb..bbbbbbb..bbbbbbbbb..b.aaaa..abbbbbbb..b..bbbb..bbbb..bbbba.abb..abbba.a..ab..bbbb..bbbbbb",
+"bbbb..bbbbbb..bbbbbbbbbb..b........bbbbbbb..b..bbbb..bbbb.abbbb..bbbb..bbbbba..bba.bbbb.abbb.bb",
+"bbbb..bbbbb..bbbabbbbbba.abbbbbb..bbbabbba.ab..abbb.abbba.bbbbba.bbbb.abbbba..abbb.abba.bbbb.bb",
+"bbba..abbba.aaaa.bb.aba..bbbbbbb..bbb.aaa..bbb...a..bbbb..bbbbbb..aa..bbba...bbbbb..aa..bbbbbbb",
+"bb......bb.......bb....abbbbbbbb..bbb....abbbbb....bbbbb..bbbbbbba..abbb...abbbbbbb....bbbbbbbb"
+};
+

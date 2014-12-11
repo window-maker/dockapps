@@ -1,0 +1,232 @@
+.\" wmclock.man: manual page for wmclock -*- nroff -*-
+.\" created 1999-Apr-09 jmk
+.\" 
+.\" by Jim Knoble <jmknoble@pobox.com>
+.\" Copyright (C) 1999 Jim Knoble
+.\" Based on asclock.man by Dan Weeks.
+.\" 
+.\" Disclaimer:
+.\" 
+.\" The software is provided "as is", without warranty of any kind,
+.\" express or implied, including but not limited to the warranties of
+.\" merchantability, fitness for a particular purpose and
+.\" noninfringement. In no event shall the author(s) be liable for any
+.\" claim, damages or other liability, whether in an action of
+.\" contract, tort or otherwise, arising from, out of or in connection
+.\" with the software or the use or other dealings in the software.
+.\"
+.de TQ
+.br
+.ns
+.TP \\$1
+..
+.\" ----------------------------------------------------------------
+.TH wmclock 1x "2010-Dec-22" "Version 1.0.14"
+.\" ----------------------------------------------------------------
+.SH NAME
+.PP
+.BR wmclock :
+a dockable clock for the Window Maker window manager
+.\" ----------------------------------------------------------------
+.SH SYNOPSIS
+.HP
+\fBwmclock\fP [{\-12|\-24|\-year}] [\-noblink] [\-version] [\-exe \fIprogram\fP]
+[\-led \fIcolor\fP] [\-monthxpm \fIfilename\fP] [\-weekdayxpm
+\fIfilename\fP]
+.\" ----------------------------------------------------------------
+.SH DESCRIPTION
+.PP
+.B Wmclock
+is an applet which displays the date and time in a dockable tile in the
+same style as the clock from the NEXTSTEP(tm) operating system.
+.B Wmclock
+is specially designed for the Window Maker window manager, by Alfredo
+Kojima, and features multiple language support, twenty-four-hour and
+twelve-hour (am/pm) time display, and, optionally, can run a
+user-specified program on a mouse click.
+.B Wmclock
+is derived from
+.BR asclock ,
+a similar clock for the AfterStep window manager.
+.\" ----------------------------------------------------------------
+.SH OPTIONS
+.TP
+\fB\-12\fR or \fB\-24\fR
+Display the time in either twelve-hour format (with am/pm) or
+twenty-four-hour format.  Defaults to twenty-four-hour display.
+.TP
+\fB\-year\fR
+Display the current year in the LED display instead of the time.
+.TP
+\fB\-noblink\fR
+The separator between the hours and minutes in the time display blinks
+by default.  This option turns off the blinking and displays a steadily
+lit separator instead.
+.TP
+\fB\-version\fB
+Displays the version of Wmclock.
+.TP
+\fB\-exe\fR \fIcommand\fR
+Run
+.I command
+in the background when a mouse button is pressed over
+.BR wmclock .
+See below for details.
+.TP
+\fB\-led\fR \fIcolor\fR
+Use
+.I color
+as the foreground color of the LED display.
+.I Color
+may be either a named color from the rgb.txt database (for example,
+`red' or `chartreuse') or a numeric color specification in any of the usual
+X11 formats (for example, `#ff0000' or `rgb:7f/ff/00').  See the
+.BR X (1)
+man page for more information.
+.TP
+\fB\-monthxpm\fR \fIfilename\fR
+Get month abbreviations from
+.IR filename ,
+which is expected to be in the XPM format.  See below for details.
+.TP
+\fB\-weekdayxpm\fR \fIfilename\fR
+Get weekday abbreviations from
+.IR filename ,
+which is expected to be in the XPM format.  See below for details.
+.\" ----------------------------------------------------------------
+.SH INVOCATION AND EXAMPLES
+.PP
+The simplest way to start
+.B wmclock
+is:
+.PP
+.RS
+.TQ
+wmclock
+.RE
+.PP
+.B Wmclock
+displays in its own appicon, which you can place in Window Maker's dock
+by holding down the [Alt] or [Meta] key and dragging
+.B wmclock
+to the dock with the primary mouse button (usually the left one).
+.PP
+For a more complicated example:
+.PP
+.RS
+.TQ
+wmclock \-12 \-led gold \-exe /usr/GNUstep/Apps/WPrefs.app/WPrefs
+.RE
+.PP
+This displays 12-hour time in an amber-colored LED display, and starts
+Window Maker's preferences utility when you click on
+.BR wmclock .
+.\" ----------------------------------------------------------------
+.SH DETAILS
+.SS Running Commands
+.PP
+When you use
+.B wmclock
+with the 
+.B \-exe
+option,
+.B wmclock
+will run the command you specify whenever you press a mouse button
+while the mouse cursor is over
+.BR wmclock .
+.B Wmclock
+uses the
+.BR system (3)
+function from the C library (and ultimately 
+.BR /bin/sh )
+to run the command; hence, the command must be in Bourne-shell syntax.
+.SS Using Alternate Month and Weekday Abbreviations
+.PP
+You can use the
+.B \-monthxpm
+and
+.B \-weekdayxpm
+options to convince
+.B wmclock
+to display month and day-of-week abbreviations in a language besides
+the one it was compiled with, or to display them in a language that
+.B wmclock
+does not yet support.  The files you specify must be in the XPM format,
+and they must follow the same strict size and placement as the month
+and weekday XPMs that come in the
+.B wmclock
+source package.  Each weekday abbreviation must be 21 pixels wide and 6
+pixels high; each month abbreviation must be 22 pixels wide and 6
+pixels high.  The month abbreviations must be arranged vertically,
+beginning with January at the top and continuing down to December at
+the bottom.  The weekday abbreviations must also be arranged
+vertically, beginning with Monday at the top and continuing to Sunday
+at the bottom.
+.SS Obsolete Options
+.PP
+In order to maintain command-line compatibility (mostly) with
+.BR asclock ,
+.B wmclock
+accepts a few options on the command line without complaining, even
+though they don't have any effect.  The options which
+.B wmclock
+accepts in this manner are
+.B \-shape
+and
+.BR \-iconic .
+Some dockable versions of
+.B asclock
+required one or both of these options to become properly dockable.
+However, Since
+.B wmclock
+is designed for Window Maker's dock, it already displays in a shaped
+window in its own dockable appicon.
+.\" ----------------------------------------------------------------
+.SH BUGS
+.PP
+.B Wmclock
+shouldn't run a command on a single click; should use a double click
+instead.
+.PP
+.B Wmclock
+should use Alfredo Kojima's libdockapp library instead of inventing its
+own wheel.
+.\" ----------------------------------------------------------------
+.SH SEE ALSO
+.PP
+X(1), asclock(1x), wmaker(1x), system(3)
+.\" ----------------------------------------------------------------
+.SH COPYRIGHT AND LICENSE
+.PP
+Copyright (C) 1999 by Jim Knoble <jmknoble@pobox.com>.  Significant
+portions of
+.B wmclock
+are directly derived from
+.B asclock
+by Beat Christen, who, along with
+.BR asclock 's
+other authors, owns the copyright to those portions of
+.BR wmclock .
+.PP
+.B Wmclock
+is licensed under the GNU General Public License, version 2, or (at
+your option) any later version.  See <http://www.gnu.org/> for more
+information.
+.SH AUTHORS
+.TQ
+Jim Knoble <jmknoble@pobox.com>
+.TQ
+Beat Christen <spiff@longstreet.ch>, author of \fBasclock\fI
+.\" ----------------------------------------------------------------
+.SH DISCLAIMER
+.PP
+The software is provided ``as is'', without warranty of any kind,
+express or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose and noninfringement.
+In no event shall the author(s) be liable for any claim, damages or
+other liability, whether in an action of contract, tort or otherwise,
+arising from, out of or in connection with the software or the use or
+other dealings in the software.
+.PP
+Your mileage may vary.  Eat your vegetables.
+

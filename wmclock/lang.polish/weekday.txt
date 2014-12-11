@@ -1,0 +1,7 @@
+niedziela        (sunday)
+poniedziałek
+wtorek
+środa
+czwartek
+piątek
+sobota

@@ -1,0 +1,114 @@
+2010-12-22 11:53  brucec
+	* Updated documentation to show new maintainer.
+	* Simplified Imakefile.
+
+2010-12-03 20:28  brucec
+	* Imakefile: Bumped version to 1.0.13, add warning flags.
+	
+	* INSTALL: Updated compiler and flags example.
+
+	* wmclock.c, weekday.xpm: Integrated Debian nopolling patch and 
+	FreeBSD's weekday and year patches. Added function prototypes.
+
+	* wmclock.spec.in: Bumped version to 1.0.13, changed ExecPrefix to 
+	/usr/local since /usr/X11R6 is obsolete.
+
+	* lang.polish: Added Polish language files, contributed by 
+	oyd11 at softhome.net
+
+	* lang.croatian: Added Croatian language files, contributed by Josip
+	Deanovic <djosip at croadria.com>
+
+2000-04-13 07:49  jmknoble
+
+	* wmclock.spec.in: Add ChangeLog to %%doc directory.
+
+	* Imakefile: Bump version to 1.0.12.2.	Release.
+
+	* Imakefile: Generate changelog from CVS comments with 'make
+	changelog'.  Add generated changelog to distribution tarball.
+
+2000-03-08 07:59  jmknoble
+
+	* Imakefile: `tar' target was copying CVS directories. 
+	Restructured it a bit to avoid that.
+
+	* Imakefile: `distclean' target could prove troublesome by
+	destroying irreproducible work.
+
+	* wmclock.spec.in: Oops.  Missed an obsolete %%{ReleaseNum} macro.
+
+2000-03-08 07:35  jmknoble
+
+	* Imakefile, wmclock.spec.in: Added template from which to generate
+	spec file (wmclock.spec.in).  Added targets in Imakefile to handle
+	generating the spec file.  Revised `tar' target to rebuild on
+	sourcefile change.  Added distclean target.  Removed symlinks from
+	tarball.  Updated version to 1.0.12.1.
+
+	* .cvsignore: Added .cvsignore file for convenience of the
+	developer.
+
+	* Makefile: Makefile is automagically generated; it shouldn't be
+	stored in CVS.
+
+	* wmclock.c, xpm/mask.xbm: Compiling with gcc -Wall -ansi -pedantic
+	revealed that the mask bitmap should be declared as unsigned char. 
+	XCreateBitmapFromData() expects char *, though, so we cast the mask
+	bitmap data explicitly.
+
+	* dynlist.c, dynlist.h: Fixed possible memory leak.
+
+2000-03-08 06:56  jmknoble
+
+	* COPYING, INSTALL, Imakefile, Makefile, README, configure,
+	dynlist.c, dynlist.h, wmclock.c, wmclock.man.in,
+	asclock-orig/INSTALL, asclock-orig/Imakefile, asclock-orig/README,
+	asclock-orig/asclock.c, asclock-orig/asclock.man,
+	asclock-orig/configure, asclock-orig/mask.xpm,
+	lang.breton/month.xpm, lang.breton/weekday.xpm,
+	lang.czech/month.xpm, lang.czech/weekday.xpm,
+	lang.danish/month.xpm, lang.danish/weekday.xpm,
+	lang.dutch/month.xpm, lang.dutch/weekday.xpm,
+	lang.english/month.xpm, lang.english/weekday.xpm,
+	lang.french/month.xpm, lang.french/weekday.xpm,
+	lang.french2/month.xpm, lang.french2/weekday.xpm,
+	lang.german/month.xpm, lang.german/weekday.xpm,
+	lang.hungarian/month.xpm, lang.hungarian/weekday.xpm,
+	lang.indonesian/month.xpm, lang.indonesian/weekday.xpm,
+	lang.italian/month.xpm, lang.italian/weekday.xpm,
+	lang.norwegian/month.xpm, lang.norwegian/weekday.xpm,
+	lang.portuguese/month.xpm, lang.portuguese/weekday.xpm,
+	lang.russian/month.xpm, lang.russian/weekday.xpm,
+	lang.slovene/month.xpm, lang.slovene/weekday.xpm,
+	lang.spanish/month.xpm, lang.spanish/weekday.xpm,
+	lang.swedish/month.xpm, lang.swedish/weekday.xpm,
+	lang.ukrainian/month.xpm, lang.ukrainian/weekday.xpm, xpm/date.xpm,
+	xpm/led.xpm, xpm/mask.xbm, xpm/mask.xpm: Begin CVS revision control
+
+	* COPYING, INSTALL, Imakefile, Makefile, README, configure,
+	dynlist.c, dynlist.h, wmclock.c, wmclock.man.in,
+	asclock-orig/INSTALL, asclock-orig/Imakefile, asclock-orig/README,
+	asclock-orig/asclock.c, asclock-orig/asclock.man,
+	asclock-orig/configure, asclock-orig/mask.xpm,
+	lang.breton/month.xpm, lang.breton/weekday.xpm,
+	lang.czech/month.xpm, lang.czech/weekday.xpm,
+	lang.danish/month.xpm, lang.danish/weekday.xpm,
+	lang.dutch/month.xpm, lang.dutch/weekday.xpm,
+	lang.english/month.xpm, lang.english/weekday.xpm,
+	lang.french/month.xpm, lang.french/weekday.xpm,
+	lang.french2/month.xpm, lang.french2/weekday.xpm,
+	lang.german/month.xpm, lang.german/weekday.xpm,
+	lang.hungarian/month.xpm, lang.hungarian/weekday.xpm,
+	lang.indonesian/month.xpm, lang.indonesian/weekday.xpm,
+	lang.italian/month.xpm, lang.italian/weekday.xpm,
+	lang.norwegian/month.xpm, lang.norwegian/weekday.xpm,
+	lang.portuguese/month.xpm, lang.portuguese/weekday.xpm,
+	lang.russian/month.xpm, lang.russian/weekday.xpm,
+	lang.slovene/month.xpm, lang.slovene/weekday.xpm,
+	lang.spanish/month.xpm, lang.spanish/weekday.xpm,
+	lang.swedish/month.xpm, lang.swedish/weekday.xpm,
+	lang.ukrainian/month.xpm, lang.ukrainian/weekday.xpm, xpm/date.xpm,
+	xpm/led.xpm, xpm/mask.xbm, xpm/mask.xpm: branches:  1.1.1; Initial
+	revision
+

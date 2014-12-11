@@ -1,0 +1,141 @@
+# README:  notes about wmclock
+# created 1999-Apr-10 jmk
+
+_______________________
+|O|  About wmclock  |X|
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Wmclock is an applet which displays the date and time in a dockable
+tile in the same style as the clock from the NEXTSTEP(tm) operating
+system.  Wmclock is specially designed for the Window Maker window
+manager, by Alfredo Kojima, and features multiple language support,
+twenty-four-hour and twelve-hour (am/pm) time display, and, optionally,
+can run a user-specified program on a mouse click.  Wmclock is derived
+from asclock, a similar clock for the AfterStep window manager.
+
+____________________________
+|O|  Installing wmclock  |X|
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Please see the INSTALL file accompanying the wmclock source for
+instructions on installing wmclock.
+
+_________________________
+|O|  Getting Started  |X|
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Wmclock is designed especially for Window Maker; hence, putting wmclock
+into your Window Maker dock is quick and easy.  After you've installed
+wmclock according to the instructions, there are three steps:
+
+  (1) Start wmclock.  The easiest way to accomplish this is to accept
+      the defaults for things such as led color, blinking, etc, and
+      just start the clock:
+      
+          wmclock
+
+  (2) Drag the resulting wmclock appicon to an empty slot in your dock.
+      You can do this in one of two fashions:
+
+      (a) Position the mouse pointer over a portion of the appicon tile
+          that is not covered by wmclock's LED display or calendar
+          display.  Press the primary mouse button (usually the left
+          one) and drag to the dock.  This requires a little bit of
+          precision in aiming the mouse, but requires no keyboard
+          action.
+
+      (b) Hold down the [Alt] or [Meta] key (whichever one you have
+          configured Window Maker to use), position the mouse pointer
+          over any part of the wmlock appicon, press the primary mouse
+          button (usually the left one), and drag to the dock. This
+          method requires less precision, but requires you to press and
+          hold a key while dragging.
+
+  (3) Set wmclock to launch when Window Maker starts.  Press the menu
+      mouse button (usually the right one) on the portion of the docked
+      wmclock tile that is not covered by wmclock's LED display or
+      calendar display to bring up the dock icon menu, and choose
+      `Settings...'.  In the resulting dialog, check the box labelled
+      `Start when Window Maker is started' and press `OK'.  That's it!
+
+_________________________
+|O|  Troubleshooting  |X|
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As with any dockable applet, there are a few possible `gotchas' with
+wmclock and Window Maker:
+
+  - If you have the Clip set to `AutoAttract Icons', the wmclock
+    appicon will appear in the Clip instead of on the desktop.  If your
+    Clip is collapsed, you won't be able to see the wmclock appicon,
+    even though it's running.  Make sure you uncollapse your Clip and
+    look for wmclock there if it doesn't appear on your desktop.
+    
+  - If your Clip is too close to your dock, you may have difficulty
+    docking wmclock, because the Clip may grab the wmclock appicon
+    instead.  Try moving your Clip farther away from your dock before
+    docking wmclock.
+
+_________________________________________________
+|O|  Differences Between asclock and wmclock  |X|
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Wmclock is derived from asclock version 1.0.12 by Beat Christen.
+The major differences between asclock and wmclock are:
+
+  (1) Asclock is designed for use with the AfterStep window manager.
+      To use asclock with Window Maker, a patch is required.  Wmclock
+      is better behaved with Window Maker and requires no patch or
+      special command-line options; it `just works'.
+
+  (2) Wmclock corrects a few of asclock's aesthetic defects.  Most
+      notably, the `off-by-one-pixel' defect at the lefthand side of
+      the LED display is corrected.
+
+  (3) Asclock use a simple system() call to execute the command
+      specified using the `-exe' command-line option; this method could
+      create lots of unwanted zombie processes.  Wmclock cleans up its
+      chiled processes every so often to eliminate the zombies.
+
+      Also, if no command was specified when asclock was started, it
+      would output a message warning that no command was specified each
+      time you click the mouse on asclock window area.  Wmclock does not
+      output that message; if no command was specified, wmclock simply
+      does nothing when you click on it.
+
+Other minor differences include:
+
+  (1) The `-shape' and `-iconic' command-line options are no longer
+      needed with wmclock.  Wmclock recognizes them for backwards
+      compatibility with asclock, but they have no effect.
+
+  (2) Asclock contained an arbitrary limitation on the length of the
+      command (approximately 50 characters) that you could specify with
+      the `-exe' option.  Wmclock removes that arbitrary limitation and
+      cleans up the code significantly in the process.
+
+_______________________________________________________
+|O|  Authors, Copyright, License, Disclaimer, etc.  |X|
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Wmclock is Copyright (C) 1999 by Jim Knoble <jmknoble@pobox.com>.
+Significant portions of wmclock are directly derived from asclock by
+Beat Christen <spiff@longstreet.ch>, who, along with asclock's other
+authors, owns the copyright to those portions of wmclock.
+
+Wmclock is licensed under the GNU General Public License, version 2, or
+(at your option) any later version.  See <http://www.gnu.org/> for more
+information.
+
+The software is provided ``as is'', without warranty of any kind,
+express or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose and noninfringement.
+In no event shall the author(s) be liable for any claim, damages or
+other liability, whether in an action of contract, tort or otherwise,
+arising from, out of or in connection with the software or the use or
+other dealings in the software.
+
+Your mileage may vary.  Eat your vegetables.
+
+-- 
+Bruce Cran <bruce@bluestop.org>
