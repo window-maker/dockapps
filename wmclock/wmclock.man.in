@@ -24,9 +24,7 @@
 .TH wmclock 1x "@DATE@" "Version @VERSION@"
 .\" ----------------------------------------------------------------
 .SH NAME
-.PP
-.BR wmclock :
-a dockable clock for the Window Maker window manager
+wmclock \- A dockable clock for the Window Maker window manager
 .\" ----------------------------------------------------------------
 .SH SYNOPSIS
 .HP
