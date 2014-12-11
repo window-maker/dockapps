@@ -146,6 +146,7 @@ int enableShapedWindow = 1;	/* default value is noshape */
 int enableBlinking = 1;		/* default is blinking */
 int startIconified = 0;		/* default is not iconified */
 int enableYearDisplay = 0;	/* default is to show time, not year */
+int blinkInterval = 2;          /* default is a 2-second blink cycle */
 
 int timePos12[NUM_TIME_POSITIONS]  = { 5, 14, 24, 28, 37 };
 int timePos24[NUM_TIME_POSITIONS]  = { 4,  8, 17, 22, 31 };
@@ -207,6 +208,7 @@ char *usageText[] = {
 "    -24                     show 24-hour time",
 "    -year                   show year instead of time",
 "    -noblink                don't blink",
+"    -interval <seconds>     set blink interval",
 "    -exe <command>          start <command> on mouse click",
 "    -led <color>            use <color> as color of led",
 #ifndef ONLY_SHAPED_WINDOW
@@ -799,6 +801,16 @@ int processArgs(int argc, char **argv)
 	{
 	   showUsage();
 	}
+       else if ((0 == strcmp(argv[i], "-interval")) ||
+		(0 == strcmp(argv[i], "--interval")))
+	{
+	   if (++i >= argc)
+	    {
+	       showUsage();
+	    }
+	   blinkInterval = atoi(argv[i]);
+	}
+
        else
 	{
 	   fprintf(stderr, "%s: unrecognized option `%s'\n",
@@ -822,6 +834,7 @@ int main(int argc, char **argv)
    XClassHint    classHint;
    Pixmap        shapeMask;
    struct timeval nextEvent;
+   unsigned int   blinkCounter = 0;
    
    /* Parse command line options */
    progName = extractProgName(argv[0]);
@@ -962,26 +975,6 @@ int main(int argc, char **argv)
 		  redrawWindow(&visible);
 		}
 	    }
-	  if (enableBlinking && (!enableYearDisplay))
-	    {  
-	       if (actualTime % 2)
-		{
-		   /* Sekunden Doppelpunkt ein */
-		   XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
-			     COLON_X_OFFSET, COLON_Y_OFFSET,
-			     COLON_WIDTH, COLON_HEIGHT,
-			     xPos[COLON_X_POS], yPos[COLON_Y_POS]);
-		}
-	       else
-		{
-		   /* Sekunden Doppelpunkt aus */
-		   XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
-			     BLANK_X_OFFSET, BLANK_Y_OFFSET,
-			     COLON_WIDTH, COLON_HEIGHT,
-			     xPos[COLON_X_POS], yPos[COLON_Y_POS]);
-		}
-	       redrawWindow(&visible);
-	    }
 	   if (0 == (actualTime % 2))
 	    {
 	       /* Clean up zombie processes */
@@ -995,7 +988,38 @@ int main(int argc, char **argv)
 		}
 	    }
 	}
-       
+       if (enableBlinking && (!enableYearDisplay))
+        {
+            blinkCounter++;
+#ifdef SYSV
+            if (blinkCounter >= 20*blinkInterval)
+#else
+            if (blinkCounter >= 2*blinkInterval)
+#endif
+                blinkCounter = 0;
+            if (blinkCounter == 0)
+	     {
+                /* Sekunden Doppelpunkt ein */
+		XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
+			  COLON_X_OFFSET, COLON_Y_OFFSET,
+			  COLON_WIDTH, COLON_HEIGHT,
+			  xPos[COLON_X_POS], yPos[COLON_Y_POS]);
+	     }
+#ifdef SYSV
+	    if (blinkCounter == 10*blinkInterval)
+#else
+	    if (blinkCounter == blinkInterval)
+#endif
+	     {
+		    /* Sekunden Doppelpunkt aus */
+		    XCopyArea(dpy, led.pixmap, visible.pixmap, normalGC,
+			      BLANK_X_OFFSET, BLANK_Y_OFFSET,
+			      COLON_WIDTH, COLON_HEIGHT,
+			      xPos[COLON_X_POS], yPos[COLON_Y_POS]);
+	     }
+	    redrawWindow(&visible);
+        }
+
        /* read a packet */
        while (XPending(dpy))
 	{
@@ -1075,7 +1099,10 @@ int main(int argc, char **argv)
 	 {
 	   gettimeofday(&nextEvent,NULL);
 	   nextEvent.tv_sec = 0;
-	   nextEvent.tv_usec = 1000000-nextEvent.tv_usec;
+	   if (nextEvent.tv_usec < 500000)
+		   nextEvent.tv_usec = 500000-nextEvent.tv_usec;
+	   else
+		   nextEvent.tv_usec = 1000000-nextEvent.tv_usec;
 	 }
        else
 	 {

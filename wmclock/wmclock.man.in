@@ -61,6 +61,11 @@ The separator between the hours and minutes in the time display blinks
 by default.  This option turns off the blinking and displays a steadily
 lit separator instead.
 .TP
+\fB\-interval\fI n\fR
+Set the blink cycle to
+.I n
+seconds.  The default is 2 (1 second on, 1 second off).
+.TP
 \fB\-version\fB
 Displays the version of Wmclock.
 .TP
