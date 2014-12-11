@@ -849,7 +849,14 @@ int main(int argc, char **argv)
 #endif /* !ONLY_SHAPED_WINDOW */
    for (i = 0; i < NUM_TIME_POSITIONS; i++)
     {
-       xPos[i] += enable12HourClock ? timePos24[i] : timePos12[i];
+      if (enable12HourClock && (!enableYearDisplay))
+       {
+         xPos[i] += timePos24[i];
+       }
+      else
+       {
+         xPos[i] += timePos12[i];
+       }
     }
    
    /* Open the display */
