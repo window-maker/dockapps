@@ -160,6 +160,21 @@ beginning with January at the top and continuing down to December at
 the bottom.  The weekday abbreviations must also be arranged
 vertically, beginning with Monday at the top and continuing to Sunday
 at the bottom.
+.PP
+You can find XPM files for a variety of languages in:
+.PP
+.RS
+.BR /usr/share/wmclock/
+.RE
+.PP
+For example, to have a French display, you could use the following
+command line:
+.PP
+.RS
+.TQ
+wmclock \-monthxpm /usr/share/wmclock/lang.french/month.xpm \-weekdayxpm /usr/share/wmclock/lang.french/weekday.xpm
+.RE
+.PP
 .SS Obsolete Options
 .PP
 In order to maintain command-line compatibility (mostly) with
