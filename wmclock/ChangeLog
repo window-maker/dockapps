@@ -1,3 +1,84 @@
+2014-12-11  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Bump to version 1.0.15.
+
+	* INSTALL, README, configure.ac:  Update documentation.
+	In particular, document installation changes after switch to
+	autotools and change maintainer to Window Maker Developers.
+
+	* Makefile.am, configure.ac, wmclock.1.in, wmclock.man.in:
+	Update manpage.
+
+	Changes include:
+	- Rename to wmclock.1.
+	- Use @prefix@ instead of /usr for the location of the language xpm
+	files.
+	- Hardcode date instead of picking it up from a variable in the
+	Makefile.
+
+	* Makefile.am, configure.ac, month.xpm,	weekday.xpm:
+	Choose language with ./configure.
+
+	This is a feature that was present in the pre-autotools configure
+	script.  Note a syntax change:
+	./configure --lang foo
+	is now
+	./configure --with-lang=foo
+	Also remove the .xpm files in the root directory, as they are
+	created during configuration.
+
+2014-12-10  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* Imakefile, Makefile.am, configure, configure.ac:  Switch build
+	system from deprecated imake to autotools.
+
+2014-12-10  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+	* ChangeLog, INSTALL, Imakefile, README, configure, dynlist.c,
+	dynlist.h, wmclock.c, wmclock.man.in:  Remove trailing whitespace.
+
+	* wmclock.spec.in:  Remove wmclock.spec.in; not	needed upstream.
+
+	* wmclock.man:  Remove generated file wmclock.man.
+
+	* wmclock.c, wmclock.man.in:  Add -interval option.
+
+	From the Debian patch:
+
+	http://sources.debian.net/src/1.0.14-6/debian/patches/add_interval_option.patch/
+	For more information, see:
+	https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=228986
+
+	* wmclock.c:  Show correct year when -year is given.
+
+	From the Debian patch:
+
+	http://sources.debian.net/src/1.0.14-6/debian/patches/correct_year.patch/
+	For more information, see:
+	https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=723887
+
+	* wmclock.c:  Fix display when both -12 and -year are given.
+
+	Patch by Vino Fernando Crescini <jcrescin@cit.uws.edu.au>:
+	http://sources.debian.net/src/1.0.14-6/debian/patches/fix_12_year_display.patch/
+	For more information, see:
+	https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=228985
+
+	* wmclock.man.in:  Add section to manpage about	usage of translated
+	XPM files.
+
+	Adapted from the Debian patch by Sandro Tosi <matrixhasu@gmail.com>:
+	http://sources.debian.net/src/1.0.14-6/debian/patches/manpage_xpm_notes.patch/
+
+	* wmclock.man.in:  Fix first line of manpage.
+
+	Patch by Sandro Tosi <matrixhasu@gmail.com> from Debian package:
+	http://sources.debian.net/src/1.0.14-6/debian/patches/manpage_fixes.patch/
+
+	*  Add version 1.0.14 to dockapps repository.
+
+	Obtained from: http://www.bluestop.org/wmclock-1.0.14.tar.gz
+
 2010-12-22 11:53  brucec
 	* Updated documentation to show new maintainer.
 	* Simplified Imakefile.
