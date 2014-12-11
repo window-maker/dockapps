@@ -21,7 +21,7 @@
 .TP \\$1
 ..
 .\" ----------------------------------------------------------------
-.TH wmclock 1x "@DATE@" "Version @VERSION@"
+.TH wmclock 1 "2014-Dec-11" "Version @VERSION@"
 .\" ----------------------------------------------------------------
 .SH NAME
 wmclock \- A dockable clock for the Window Maker window manager
@@ -169,7 +169,7 @@ at the bottom.
 You can find XPM files for a variety of languages in:
 .PP
 .RS
-.BR /usr/share/wmclock/
+.BR "@prefix@/share/wmclock"
 .RE
 .PP
 For example, to have a French display, you could use the following
@@ -177,7 +177,7 @@ command line:
 .PP
 .RS
 .TQ
-wmclock \-monthxpm /usr/share/wmclock/lang.french/month.xpm \-weekdayxpm /usr/share/wmclock/lang.french/weekday.xpm
+wmclock \-monthxpm @prefix@/share/wmclock/lang.french/month.xpm \-weekdayxpm @prefix@/share/wmclock/lang.french/weekday.xpm
 .RE
 .PP
 .SS Obsolete Options

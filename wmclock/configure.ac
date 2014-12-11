@@ -25,5 +25,5 @@ ln -s "./${LangDir}/weekday.xpm" .
 PKG_CHECK_MODULES([x11], [x11])
 PKG_CHECK_MODULES([xpm], [xpm])
 PKG_CHECK_MODULES([xext], [xext])
-AC_CONFIG_FILES([Makefile wmclock.man])
+AC_CONFIG_FILES([Makefile wmclock.1])
 AC_OUTPUT
