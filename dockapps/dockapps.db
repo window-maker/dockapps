@@ -192,6 +192,15 @@ url = http://linux.nawebu.cz/wmcliphist/
 dockapps =
 category = General/Others
 
+[wmclock]
+version-1.0.15 = f09894b79e650686e1511db67e1e75ca4ed4eb93
+version-1.0.14 = 52e35fed8d8b18d3af00b5ec8add20ebd62cb181
+image = wmclock.png
+description = "wmclock is an applet which displays the date and time in a dockable tile in the same style as the clock from the NEXTSTEP(tm) operating system. wmclock is specially designed for the Window Maker window manager, by Alfredo Kojima, and features multiple language support, twenty-four-hour and twelve-hour (am/pm) time display, and, optionally, can run a user-specified program on a mouse click. wmclock is derived from ASClock (now called ASClock classic), a similar clock for the AfterStep window manager."
+url = http://www.bluestop.org/wmclock/
+dockapps = 202
+category = Date/Time
+
 [wmcpufreq]
 version-3.1 = 53d0a8fd93d811a9a3f4a2bfb67133f38930cc85
 version-3.0 = ca477c635903252c7c6e150e21eacc4b2bd015b7
