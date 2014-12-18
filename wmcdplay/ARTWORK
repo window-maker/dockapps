@@ -73,7 +73,7 @@ led.xpm
    This file must begin with these 2 lines (character perfect):
 
 /* XPM */
-static char * led_xpm[] = {
+static const char * led_xpm[] = {
 
 ledsym.xpm
 ----------
@@ -86,7 +86,7 @@ ledsym.xpm
    This file must begin with these 2 lines (character perfect):
 
 /* XPM */
-static char * ledsym_xpm[] = {
+static const char * ledsym_xpm[] = {
 
 ledtsel.xpm
 -----------
@@ -100,7 +100,7 @@ ledtsel.xpm
    This file must begin with these 2 lines (character perfect):
 
 /* XPM */
-static char * ledtsel_xpm[] = {
+static const char * ledtsel_xpm[] = {
 
 symbols.xpm
 -----------
@@ -113,7 +113,7 @@ symbols.xpm
    This file must begin with these 2 lines (character perfect):
 
 /* XPM */
-static char * symbols_xpm[] = {
+static const char * symbols_xpm[] = {
    
 cdplayer.xpm
 ------------
@@ -129,7 +129,7 @@ cdplayer.xpm
    This file must begin with these 2 lines (character perfect):
 
 /* XPM */
-static char * cdplayer_xpm[] = {
+static const char * cdplayer_xpm[] = {
 
 
 THE DATA FILE - artwork.dat

@@ -1,5 +1,5 @@
 /* XPM */
-static char * symbols_xpm[] = {
+static const char * symbols_xpm[] = {
 "131 11 18 1",
 " 	c None",
 ".	c #DF7DDF7DDF7D",

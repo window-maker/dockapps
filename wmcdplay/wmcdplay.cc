@@ -146,7 +146,7 @@ void readArrayInt(char *buf, int *array, int n);
 void readArrayBool(char *buf, bool *array, int n);
 
 // Procedures and functions - artwork specials
-void createPixmap(char **data, char *buf, Pixmap *image, Pixmap *mask, int *width, int *height);
+void createPixmap(const char **data, char *buf, Pixmap *image, Pixmap *mask, int *width, int *height);
 void setBtnList(int *bset);
 bool inPolygon(int *points, int px, int py);
 
@@ -320,8 +320,8 @@ void freeXWin(){
 void createWin(Window *win, int x, int y){
    XClassHint classHint;
    *win=XCreateSimpleWindow(d_display, w_root, x, y, winsize, winsize, 0, 0, 0);
-   classHint.res_name=NAME;
-   classHint.res_class=CLASS;
+   classHint.res_name=const_cast<char *>(NAME);
+   classHint.res_class=const_cast<char *>(CLASS);
    XSetClassHint(d_display, *win, &classHint);
 }
 
@@ -649,7 +649,7 @@ bool readArtwork(char *artfilen){
       if(!done){
 
          int keynum=0;
-         char *keystr[]={ "int art_nbtns=",
+         const char *keystr[]={ "int art_nbtns=",
                           "bool art_hidebtns=",
                           "bool art_showled[4]=",
                           "int art_ledpos[4][2]=",
@@ -697,24 +697,24 @@ bool readArtwork(char *artfilen){
                *strchr(buf, '\n')='\0';
 
                int w,h;
-               if(strncmp(buf, "static char * cdplayer_xpm", strlen("static char * cdplayer_xpm"))==0)
+               if(strncmp(buf, "static const char * cdplayer_xpm", strlen("static const char * cdplayer_xpm"))==0)
                   createPixmap(NULL, block, &pm_cd, &pm_cdmask, NULL, NULL);
-               if(strncmp(buf, "static char * symbols_xpm", strlen("static char * symbols_xpm"))==0){
+               if(strncmp(buf, "static const char * symbols_xpm", strlen("static const char * symbols_xpm"))==0){
                   createPixmap(NULL, block, &pm_sym, &pm_symmask, &w, &h);
                   art_symsize[0]=(w+1)/11-1;
                   art_symsize[1]=h;
                }
-               if(strncmp(buf, "static char * led_xpm", strlen("static char * led_xpm"))==0){
+               if(strncmp(buf, "static const char * led_xpm", strlen("static const char * led_xpm"))==0){
                   createPixmap(NULL, block, &pm_led, NULL, &w, &h);
                   art_ledsize[0]=(w+1)/strlen(chrset)-1;
                   art_ledsize[1]=h;
                }
-               if(strncmp(buf, "static char * ledsym_xpm", strlen("static char * ledsym_xpm"))==0){
+               if(strncmp(buf, "static const char * ledsym_xpm", strlen("static const char * ledsym_xpm"))==0){
                   createPixmap(NULL, block, &pm_sled, NULL, &w, &h);
                   art_ledsize[2]=(w+1)/6-1;
                   art_ledsize[3]=h;
                }
-               if(strncmp(buf, "static char * ledtsel_xpm", strlen("static char * ledtsel_xpm"))==0){
+               if(strncmp(buf, "static const char * ledtsel_xpm", strlen("static const char * ledtsel_xpm"))==0){
                   createPixmap(NULL, block, &pm_tled, NULL, &w, &h);
                   art_ledsize[4]=(w+1)/5-1;
                   art_ledsize[5]=h;
@@ -771,19 +771,21 @@ void readArrayBool(char *buf, bool *array, int n){
    }
 }
 
-void createPixmap(char **data, char *buf, Pixmap *image, Pixmap *mask, int *width, int *height){
+void createPixmap(const char **data, char *buf, Pixmap *image, Pixmap *mask, int *width, int *height){
    XpmAttributes xpmattr;
-   XpmColorSymbol xpmcsym[4]={{"back_color",     NULL, color[0]},
-                              {"led_color_high", NULL, color[1]},
-                              {"led_color_med",  NULL, color[2]},
-                              {"led_color_low",  NULL, color[3]}};
+   XpmColorSymbol xpmcsym[4]={
+      {const_cast<char *>("back_color"),     NULL, color[0]},
+      {const_cast<char *>("led_color_high"), NULL, color[1]},
+      {const_cast<char *>("led_color_med"),  NULL, color[2]},
+      {const_cast<char *>("led_color_low"),  NULL, color[3]}};
    xpmattr.numsymbols=4;
    xpmattr.colorsymbols=xpmcsym;
    xpmattr.exactColors=false;
    xpmattr.closeness=40000;
    xpmattr.valuemask=XpmColorSymbols | XpmExactColors | XpmCloseness | XpmSize;
    if(data!=NULL)
-      XpmCreatePixmapFromData(d_display, w_root, data, image, mask, &xpmattr);
+      XpmCreatePixmapFromData(d_display, w_root, const_cast<char **>(data),
+                              image, mask, &xpmattr);
    else
       XpmCreatePixmapFromBuffer(d_display, w_root, buf, image, mask, &xpmattr);
    if(width!=NULL)

@@ -1,5 +1,5 @@
 /* XPM */
-static char * cdplayer_xpm[] = {
+static const char * cdplayer_xpm[] = {
 "64 64 5 1",
 " 	c None",
 "0	c #414141",

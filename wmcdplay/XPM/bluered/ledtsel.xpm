@@ -1,5 +1,5 @@
 /* XPM */
-static char * ledtsel_xpm[]={
+static const char * ledtsel_xpm[]={
 "29 11 2 1",
 "      c #000000",
 "0     c #00ff00 s led_color_high",
