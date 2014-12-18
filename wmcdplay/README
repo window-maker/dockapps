@@ -31,14 +31,10 @@ http://www.geocities.com/SiliconValley/Vista/2471/
 INSTALLING:
 ===========
 
-xmkmf
+autoreconf -i
+./configure
 make
-strip wmcdplay
 make install
-
-mkdir /usr/X11R6/lib/X11/wmcdplay
-cp XPM/*.art /usr/X11R6/lib/X11/wmcdplay
-
 
 TRACK SELECTION:
 ================
