@@ -15,3 +15,5 @@ XPM/%.art:
 
 XPM/standard.art: XPM/@defaultart@.art
 	cd XPM && ln -s @defaultart@.art standard.art
+
+man_MANS = wmcdplay.1
