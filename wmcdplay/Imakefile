@@ -1,8 +1,0 @@
-DEPLIBS = $(DEPXLIB) 
-
-LOCAL_LIBRARIES = $(XPMLIB) $(XLIB)
-
-SRCS = wmcdplay.cc
-OBJS = wmcdplay.o
-
-ComplexProgramTarget(wmcdplay)
