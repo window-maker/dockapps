@@ -20,7 +20,6 @@
 #define CLASS       "WMCDPlay"
 
 // User defines - custom
-#define SYSARTDIR   "/usr/X11R6/lib/X11/wmcdplay/"
 #define CDDEV       "/dev/cdrom"
 #define BACKCOLOR   "#282828"
 #define LEDCOLOR    "green"
