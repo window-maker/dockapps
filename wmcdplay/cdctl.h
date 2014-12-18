@@ -1,5 +1,4 @@
 // cdctl.h - CDCtl class provides easy control of cd audio functions
-// 05/09/98  Release 1.0 Beta1
 // Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
 // This software comes with ABSOLUTELY NO WARRANTY
 // This software is free software, and you are welcome to redistribute it
