@@ -485,7 +485,7 @@ void checkStatus(bool forced){
             drawText(art_ledpos[1][0], art_ledpos[1][1], trackstr);
       }
       if(mode==ssPlaying || mode==ssPaused || mode==ssStopped){
-         int remain;
+         int remain = 0;
          if(tdisplay==0)
             remain=cdctl->getTrackLen(cdctl->getStatusTrack())-pos;
          if(tdisplay==1)
