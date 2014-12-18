@@ -35,7 +35,11 @@
 #include <unistd.h>
 
 // Includes - custom
+#if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
+#include "cdctl_freebsd.h"
+#else
 #include "cdctl.h"
+#endif
 
 // X-Windows includes - standard
 #include <X11/X.h>
