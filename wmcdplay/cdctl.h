@@ -30,7 +30,12 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#ifdef __linux__
 #include <linux/cdrom.h>
+#endif
+#ifdef __GNU__
+#include <sys/cdrom.h>
+#endif
 
 // CD status values
 #define ssData     0
