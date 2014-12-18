@@ -644,7 +644,10 @@ bool readArtwork(char *artfilen){
    char buf[256];
    bool done=false;
    while(!done){
-      fgets(buf, 250, artfile);
+      if (fgets(buf, 250, artfile) == NULL) {
+         fprintf(stderr,"%s : Error reading artwork file.\n", NAME);
+         return false;
+      }
       done=(feof(artfile)!=0);
       if(!done){
 
@@ -734,7 +737,10 @@ char *readBlock(FILE *dfile){
    long bytes=0;
    char *block=NULL;
    do{
-      fgets(buf, 250, dfile);
+      if (fgets(buf, 250, dfile) == NULL) {
+         fprintf(stderr,"%s : Error reading artwork file.\n", NAME);
+         return NULL;
+      }
       int buflen=strlen(buf);
       block=(char *)realloc(block, sizeof(char)*(bytes+buflen+1));
       strcpy(block+bytes, buf);
