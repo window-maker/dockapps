@@ -1,3 +1,0 @@
-#!/bin/sh
-echo "Making all artwork files"
-find ./* -type d -exec ./makeart {} \;

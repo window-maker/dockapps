@@ -247,10 +247,10 @@ Where are they?
 ARTWORK FILES
 =============
 
-All the above files should be placed in an appropriately named directory in wmcdplay/XPM/
-and the script wmcdplay/XPM/makeall should be executed.
-You should end up with a new .art file in wmcdplay/XPM/
-You should be able to load wmcdplay with this artwork using the "-f artwork_file" command
-line argument
-You should also be able to make your new artwork the compile-time default by changing the
-symbolic link wmcdplay/XPM/standard.art point to it, and recompiling
+All the above files should be placed in an appropriately named directory and the
+"makeart" script (installed by default in /usr/local/share/wmcdplay) should be
+executed in the parent directory.  You should end up with a new .art file.  You
+should be able to load wmcdplay with this artwork using the "-f artwork_file"
+command line argument.
+You should also be able to make your new artwork the compile-time default by
+using the "--with-art" option to the "configure" script.
