@@ -1,0 +1,212 @@
+wmcdplay - A cd player designed for WindowMaker
+05/09/98  Release 1.0 Beta1
+Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
+This software comes with ABSOLUTELY NO WARRANTY
+This software is free software, and you are welcome to redistribute it
+under certain conditions
+See the COPYING file for details.
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+THE AUTHOR:
+===========
+
+Sam Hawker
+shawkie@geocities.com
+http://www.geocities.com/SiliconValley/Vista/2471/
+
+
+INSTALLING:
+===========
+
+xmkmf
+make
+strip wmcdplay
+make install
+
+mkdir /usr/X11R6/lib/X11/wmcdplay
+cp XPM/*.art /usr/X11R6/lib/X11/wmcdplay
+
+
+TRACK SELECTION:
+================
+
+Release 0.6 introduced track selection.
+
+Actually, track selection is a slightly more logical version of the random/repeat
+functions found in Creative Labs' SB16 software suite for win95.
+
+The major change is that the previous releases just played from current position
+to the end of the cd.
+Now we play a single track, and when you set the track selection mode, you just
+tell the cd player what to do at the end of the track. Here are the options:
+0    None     - just stop
+1    Next     - play next (audio) track (stop if end of cd)
+2    Repeat   - play this track again
+3    RepeatCD - play next (audio) track (start from first track if end of cd)
+4    Random   - select an audio track at random and play it
+
+The led display symbols for the modes are now part of the artwork file.
+The mode defaults to Next, but can be changed with the "-t track_selection" command
+line argument, or by clicking on the track selection mode led display.
+
+The main consequence of this approach is that when using Random, you will
+probably here a track twice before every track on the cd has been played once.
+(Most cd players have a playlist listing all tracks in a randomized order)
+Also, wmcdplay will always begin with track 1.
+Furthermore, the Next and Prev buttons will always move through track numbers on the
+cd (rather than, for instance, selecting random tracks).
+
+
+AFTERSTEP USERS:
+================
+(thanks to tygris@erols.com)
+
+This release includes in a new command line option (actually, its "-a"
+and artwork files are now loaded with "-f artwork_file").
+The effect this has is to enable shape support (it implies "-s"), and
+to reduce the size of the window to 56x56 pixels.
+The "-position position" option has also been added, so you can push
+wmcdplay off the edge of the screen while it gets swallowed.
+To put wmmount in your Wharf, add the following line in the appropriate
+part of your .steprc
+
+*Wharf wmmount nil MaxSwallow "wmmount" wmmount -a -position -0-0 &
+
+It is also possible (by editing and recompiling the afterstep sources),
+to make Wharf handle the new 56x56 pixel window properly - yes, I add
+an option to use a 56x56 pixel window, even though the AfterStep Wharf
+really wants 55x57 pixel ones.
+
+I am told (by tygris@erols.com):
+
+"Locate Wharf.c (or is it Wharf.cc?)  Should be in
+AfterStep-1.0/modules/Wharf.  Locate this:
+
+            if (Buttons[button].maxsize) {
+              Buttons[button].icons[0].w = 55;
+              Buttons[button].icons[0].h = 57;
+            }
+
+and change the 55 and 57 to 56's.  Save and compile."
+
+
+BUILD PROBLEMS:
+===============
+
+You may have trouble linking wmmount with the compiler supplied on some
+recent distributions (eg. Debian 2.0 & RedHat 5.1).
+It can be made to build by adding the following line to the top of the
+Imakefile, before executing xmkmf:
+
+CC = c++
+
+I am not sure of the effect this has on memory usage, etc.
+
+
+RELEASE HISTORY:
+================
+
+Release 0.1    22/01/98    Poor window repaint technique.
+                           Incorrect display if paused on startup.
+                           Does not show Tray Open if opened by button on drive,
+                              (I think this can only be done if the drive is empty).
+
+Release 0.2    23/01/98    Improved window repaints.
+                           Correct display even if paused on startup.
+                           Improved interface on 'other' window managers.
+
+Release 0.3    07/02/98    Handles multisession CD properly.
+                           Now free's ALL pixmaps on exit (i hope).
+                           And GCs :-).
+                           Major re-write and interface alterations.
+                           Option for led display color.
+                           Smaller and better written.
+
+Release 0.4    12/02/98    Highly customizable user interface. You chose:
+                              Basic pixmap,
+                              How many buttons,
+                              Size, shape, position of buttons (polygons),
+                              Actions for each button in each state:
+                                 (Stop, Stop Data, Play, Pause, Ejected),
+                              Led and symbol pixmaps,
+                              Position of displays.
+
+Release 0.5    24/02/98    Fixed bug relating to manual window positioning.
+                           Fixed error in grey.art.
+
+Release 0.6    04/03/98    Rewritten cdctl engine.
+                           Some more changes to artwork:
+                              Different states,
+                              Different actions.
+                           Random/Repeat track selection.
+
+                           Reduced CPU load (thanks to aseltine@cd.umass.edu),
+                           It wasn't high on my K6 233MHz box :-).
+
+Release 0.7    12/03/98    Better track selection.
+                           Command line option to set track selection mode.
+                           Yet more changes to artwork:
+                              Hiding of do-NOTHING buttons now optional,
+                              Symbols can be drawn onto non-solid background.
+                           New name (wmcdplay).
+                           Now works on 8bpp displays with full colormaps.
+                              (thanks to devernay@istar.fr on the mailing-list)
+
+Release 0.8    07/05/98    Now GPL.
+                           Added "-v volume" command line argument.
+                           Added "-b back_color" command line argument,
+                              ("-b darkslategrey -l cyan" gives a nice backlit look).
+                           Reduced cpu load.
+                           Relative or absolute time display,
+                              (click time display to switch).
+                           More changes to artwork:
+                              Led pixmaps now part of artwork,
+                              Symbolic color names can now be used in all pixmaps:
+                                 led_color_high,
+                                 led_color_med,
+                                 led_color_low,
+                                 color_back.
+                              All pixmaps now use standard names:
+                                 cdplayer.xpm = cdplayer_xpm,
+                                 symbols.xpm  = symbols_xpm,
+                                 led.xpm      = led_xpm,
+                                 ledsym.xpm   = ledsym_xpm,
+                                 ledtsel.xpm  = ledtsel_xpm.
+                              Entries specifying symbol dimensions no longer needed,
+                              "symbols.xpm" now includes a symbol for NOTHING,
+                              New piece of artwork, "newstyle.art",
+                              New directory structure and scripts.
+                           Track selection should be more reliable now.
+
+Release 1.0    05/09/98    Added some error checking.
+Beta1                      "-a artwork_file" is now "-f artwork_file", sorry ;-).
+                           Added "-a" command line argument for AfterStep users.
+                           Added "-position position" command line argument.
+                           Command line arguments, "-a", "-w" and "-s" are now toggle,
+                             so if you enable one at compile-time, you can override
+                             it at run-time.
+                           Track selection actually works now??
+                              (anyone notice a recurring theme here??)
+                           Seperate update interval for when drive is empty.
+                              (thanks to .....)
+                           Fixed problem with (some?) SCSI devices refusing to
+                              give LBA values. Thanks to the linux ide-scsi-emulator.
+                           Now looks in some known directories for artwork files as
+                              a last resort.
+                           Improved artwork loading (it was very brain-dead).
+                           Formatting changes in artwork files (ARTWORK documentation
+                              is now up-to-date).

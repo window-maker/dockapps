@@ -1,0 +1,256 @@
+wmcdplay - A cd player designed for WindowMaker
+05/09/98  Release 1.0 Beta1
+Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>
+This software comes with ABSOLUTELY NO WARRANTY
+This software is free software, and you are welcome to redistribute it
+under certain conditions
+See the README file for a more complete notice.
+
+
+ARTWORK
+=======
+
+The artwork mechanism allows you to customise the appearance (and more) of
+wmcdplay at run-time, by loading an artwork file with the "-f artwork_file"
+command line argument - yes, THIS IS A CHANGE!!!!! IT USED TO BE "-a"
+                             ----------------------------------------
+
+This file trys to explain how to create artwork files. Please feel free to send
+me comments or improved versions.
+
+
+BASICS
+======
+
+wmcdplay can be in any one of 6 states:
+   Data     0
+   Stopped  1
+   Playing  2
+   Paused   3
+   NoCD     4
+   TrayOpen 5
+
+wmcdplay buttons can perform any of 10 actions, and the action can
+depend on the current state of wmcdplay:
+   NOTHING 0
+   Stop    1
+   Play    2
+   Pause   3
+   Resume  4
+   Prev    5
+   Next    6
+   Rewd    7
+   FFwd    8
+   Eject   9
+   Close   10
+
+
+PIXMAPS
+=======
+
+The following symbolic color names may be used in any pixmaps:
+   led_color_high
+   led_color_med
+   led_color_low
+   color_back
+and should be used appropriately to ensure that the led and background
+colors can be set at runtime with the "-l led_color" and "-back_color"
+command line arguments
+
+led.xpm
+-------
+   This pixmap is used by wmcdplay to draw the digits of the time and
+   track displays
+   It represents the string of characters: "00112233445566778899  DDAATTNNOOCC--PPEE:;_"
+   "00" means the character "0" but states that it is double width (eg 7+1 pixels wide)
+   ":" means the character ":" which is only single width (eg 3+1 pixels wide)
+   ";" means an unlit ":" single width character
+   "_" means a single width "-" character
+   The digit size used does not matter, but ensure that 1 pixel spaces are left between
+   digits and that (double width + 1 space) = 2 * (single width + 1 space)
+   eg.                            ( 7 + 1 ) = 2 * ( 3 + 1 )
+   Transparency is _NOT_ interpreted
+   This file must begin with these 2 lines (character perfect):
+
+/* XPM */
+static char * led_xpm[] = {
+
+ledsym.xpm
+----------
+   This pixmap is used by wmcdplay to draw the symbols illustrating the current status
+   It should contain symbols for the following (in sequence):
+      Data, Stopped, Playing, Paused, NoCD, TrayOpen
+   The symbol size used does not matter, but ensure that 1 pixel spaces are left between
+   symbols
+   Transparency is _NOT_ interpreted
+   This file must begin with these 2 lines (character perfect):
+
+/* XPM */
+static char * ledsym_xpm[] = {
+
+ledtsel.xpm
+-----------
+   This pixmap is used by wmcdplay to draw the symbols illustrating the current track
+   selection mode
+   It should contain symbols for the following (in sequence):
+      None, Next, Repeat, RepeatCD, Random
+   The symbol size used does not matter, but ensure that 1 pixel spaces are left between
+   symbols
+   Transparency is _NOT_ interpreted
+   This file must begin with these 2 lines (character perfect):
+
+/* XPM */
+static char * ledtsel_xpm[] = {
+
+symbols.xpm
+-----------
+   This pixmap contains the symbols to be drawn onto the buttons
+   It should contain symbols for the following (in sequence):
+      NOTHING, Stop, Play, Pause, Resume, Prev, Next, Rewd, FFwd, Eject, Close
+   The symbol size used does not matter, but ensure that 1 pixel spaces are left between
+   symbols
+   Transparency _IS_ interpreted
+   This file must begin with these 2 lines (character perfect):
+
+/* XPM */
+static char * symbols_xpm[] = {
+   
+cdplayer.xpm
+------------
+   This pixmap provides the basic background for wmcdplay
+   It _must_ be 64x64 pixels
+   It should provide solid areas (the size and color of which will depend on the
+   led.xpm, ledsym.xpm and ledtsel.xpm files used), for any required displays to
+   be drawn onto
+   These areas are usually bordered in some way
+   It can also be used to provide solid areas which can form buttons
+   (Although the button symbols can themselves form the buttons)
+   Transparency _IS_ interpreted
+   This file must begin with these 2 lines (character perfect):
+
+/* XPM */
+static char * cdplayer_xpm[] = {
+
+
+THE DATA FILE - artwork.dat
+===========================
+
+So far, all we have in our artwork file is a set of pixmaps. But we also
+need a data file (artwork.dat), to answer the following questions:
+
+   How many buttons are there?
+   Where exactly is each button?
+   What does each button do?
+   Should do-NOTHING buttons be hidden?
+   Which led displays are there?
+   Where are they?
+
+The formats of entries in this file must follow the examples given quite closely.
+Basically, anything before an '=' must appear exactly as shown and at the
+beginning of the line (not indented as here). Also, all entries must be on a single
+line unless shown otherwise here.
+Comments and blank lines are, however, perfectly legal (between entries).
+
+How many buttons?
+-----------------
+   eg.
+
+   int art_nbtns=5;
+
+Where exactly is each button?
+-----------------------------
+   Buttons must be shaped as convex polygons, so you give the position
+   (and shape) of each as a list of coordinates of its verticies.
+   The polygon defined by these points is used to interpret mouse clicks,
+   and also (optionally) to hide do-NOTHING buttons.
+
+   Also, tell wmcdplay where on the button to put the symbol. This is in the
+   form of the co-ordinates of the top-left corner of the symbol, relative
+   to the top-left corner of wmcdplay.
+   A single entry, defines all buttons.
+
+   eg.
+
+   int art_btns[]={ 8  , 38 , 5  , 5  , 27 , 7  , 27 , 20 , 40 , 7  , 54 , 5  , 54 ,
+                    19 , 26 , 5  , 6  , 22 , 28 , 22 , 28 , 39 , 22 , 39 , 6  , 24 ,
+                    19 , 50 , 5  , 6  , 57 , 21 , 42 , 28 , 42 , 28 , 59 , 6  , 59 ,
+                    35 , 26 , 5  , 31 , 22 , 52 , 22 , 52 , 24 , 37 , 39 , 31 , 39 ,
+                    51 , 31 , 5  , 42 , 36 , 56 , 22 , 59 , 22 , 59 , 39 , 42 , 39 };
+
+   Each line defines 1 button:
+   symbol_x , symbol_y , num_vertices , x1 , y1 , x2 , y2 , x3 , y3 , x4 , y4 , x5 , y5
+
+   Different buttons may have different numbers of vertices, so different numbers of fields.
+   The button must be a _convex_ polygon, and the vertices must be given in sequence, going
+   _clockwise_ around the button.
+
+What does each button do?
+-------------------------
+   This is answered with a set of integer actions (see list given earlier) for each button,
+   for each state (see list given earlier):
+
+   wmcdplay state:     0   1   2   3   4   5
+
+                       D   S   P   P   N   T
+                       A   T   L   A   O   R
+                       T   O   A   U       A
+                       A   P   Y   S   C   Y
+                           P   I   E   D    
+                       T   E   N   D       O
+                       R   D   G           P
+                       K                   E
+                                           N
+
+   eg.
+
+   int art_actions[]={ 0 , 2 , 3 , 4 , 0 , 0  ,
+                       5 , 5 , 5 , 0 , 0 , 0  ,
+                       6 , 6 , 6 , 0 , 0 , 0  ,
+                       0 , 0 , 1 , 1 , 0 , 0  ,
+                       9 , 9 , 9 , 9 , 9 , 10 };
+
+Should do-NOTHING buttons be hidden?
+------------------------------------
+   This can be set so that whenever a button has NOTHING assigned to it, it is hidden
+   (using the region defined by style_btns). Otherwise it is left and the symbol
+   representing NOTHING is drawn onto it.
+
+   eg.
+
+   bool art_hidebtns=false;
+
+Which led displays are there?
+-----------------------------
+
+   eg.
+
+   bool style_leds[4]={ true, true, false, false};
+
+   That's basically:
+   show_time=true , show_track=true , show_status=false , show_trksel=false
+
+Where are they?
+---------------
+   eg.
+
+   int art_ledpos[3][2]={ 8 , 7 , 37 , 45 , 0 , 0 , 0 , 0 };
+
+   That's basically:
+   time_x=8 , time_y=7 , track_x=37 , track_y=45 , status_x=0 , status_y=0 , trksel_x=0 , trksel_y=0
+
+   These are the co-ordinates of the top-left corner of each display
+   relative to the top-left corner of wmcdplay.
+   You should enter valid integers even for displays which you have
+   chosen not to use.
+
+
+ARTWORK FILES
+=============
+
+All the above files should be placed in an appropriately named directory in wmcdplay/XPM/
+and the script wmcdplay/XPM/makeall should be executed.
+You should end up with a new .art file in wmcdplay/XPM/
+You should be able to load wmcdplay with this artwork using the "-f artwork_file" command
+line argument
+You should also be able to make your new artwork the compile-time default by changing the
+symbolic link wmcdplay/XPM/standard.art point to it, and recompiling

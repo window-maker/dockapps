@@ -1,0 +1,8 @@
+#!/bin/sh
+echo "Making artwork file $1.art from directory $1"
+cat $1/artwork.dat >$1.art
+cat $1/cdplayer.xpm >>$1.art
+cat $1/symbols.xpm >>$1.art
+cat $1/led.xpm >>$1.art
+cat $1/ledsym.xpm >>$1.art
+cat $1/ledtsel.xpm >>$1.art
