@@ -121,6 +121,13 @@ url = "http://wmcalendar.sourceforge.net/"
 dockapps = 171
 category = Date/Time
 
+[wmcdplay]
+image = "wmcdplay1.gif,wmcdplay2.gif,wmcdplay3.gif,wmcdplay4.gif"
+description = "A dock applet for playing CDs.  Artwork files allow you to customize the look-and-feel of wmcdplay."
+url = "http://web.archive.org/web/20000604201402/http://www.geocities.com/SiliconValley/Vista/2471/wmcdplay.html"
+dockapps =
+category = Audio
+
 [wmckgmail]
 image = "wmckgmail-screenshot.jpg,wmckgmail-screenshot2.jpg"
 description = "wmckgmail is a very simple program used to monitor the number of unread mails in a gmail inbox. It uses the wget command to get the gmail atom feed and reads the number of new mails from this feed.
