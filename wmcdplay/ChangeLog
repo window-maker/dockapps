@@ -91,3 +91,13 @@ Beta1                      "-a artwork_file" is now "-f artwork_file", sorry ;-)
                            Improved artwork loading (it was very brain-dead).
                            Formatting changes in artwork files (ARTWORK documentation
                               is now up-to-date).
+
+Release 1.1    18/12/14    Add -i option so users can specify cd polling
+                              interval.
+                           Fix compiler warnings.
+                           Add FreeBSD and Hurd support.
+                           Switch build system to autotools.
+                           Install art script.
+                           Add manpage from Debian.
+                           Now maintained by Window Maker Developers Team
+                              <wmaker-dev@lists.windowmaker.org>.

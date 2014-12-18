@@ -1,4 +1,4 @@
-AC_INIT([wmcdplay], [1.0beta1])
+AC_INIT([wmcdplay], [1.1], [wmaker-dev@lists.windowmaker.org])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CXX
