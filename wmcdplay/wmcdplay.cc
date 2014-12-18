@@ -224,7 +224,7 @@ int main(int argc, char **argv)
                 pressEvent(&xev.xbutton);
              break;
              case ClientMessage:
-                if(xev.xclient.data.l[0]==deleteWin)
+                if((Atom) xev.xclient.data.l[0]==deleteWin)
                    done=true;
              break;
             }
@@ -607,7 +607,7 @@ void update(){
 
 void drawText(int x, int y, char *text){
    int drawx=x;
-   for(int i=0;i<strlen(text);i++){
+   for(size_t i=0;i<strlen(text);i++){
       char *chrptr=strchr(chrset,text[i]);
       if(chrptr!=NULL){
          int chrindex=chrptr-chrset;
