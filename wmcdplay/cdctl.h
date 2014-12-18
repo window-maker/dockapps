@@ -85,7 +85,7 @@ public:
       tracksel=tsRandom;
       tskOurPlay=false;
 
-      if(cdfdopen=(cdfd=open(device,O_RDONLY | O_NONBLOCK))!=-1){
+      if((cdfdopen = (cdfd = open(device,O_RDONLY | O_NONBLOCK))) != -1) {
          status_state=ssNoCD;
          status_track=0;
          status_pos=0;
