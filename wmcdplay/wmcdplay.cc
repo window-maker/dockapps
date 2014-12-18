@@ -632,7 +632,7 @@ bool readArtwork(char *artfilen){
          sprintf(artfilenbuf, "%s%s", SYSARTDIR, artfilen);
          artfile=fopen(artfilenbuf, "r");
          if(artfile==NULL){
-            fprintf(stderr,"%s : Tried to find artwork file, but failed.\n", NAME, artfilen);
+            fprintf(stderr,"%s : Tried to find artwork file, but failed.\n", NAME);
             return false;
          }
       }
