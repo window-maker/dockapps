@@ -172,6 +172,15 @@ url = "http://wmcalendar.sourceforge.net/"
 dockapps = 171
 category = Date/Time
 
+[wmcdplay]
+version-1.1 = c39c8d60a5a7613267bd2f275c1eeaff9251e12f
+version-1.0beta1 = 69deb773a5083ee760daf8bb68afc75f6c89dc4e
+image = "wmcdplay1.gif,wmcdplay2.gif,wmcdplay3.gif,wmcdplay4.gif"
+description = "A dock applet for playing CDs.  Artwork files allow you to customize the look-and-feel of wmcdplay."
+url = "http://web.archive.org/web/20000604201402/http://www.geocities.com/SiliconValley/Vista/2471/wmcdplay.html"
+dockapps =
+category = Audio
+
 [wmckgmail]
 version-1.1+20141005 = 4cd077591088c3b6dfae982ef1875246d10cafdc
 version-1.1 = 0daf87ea4f81433819245f95ed022d7837fb42c8
