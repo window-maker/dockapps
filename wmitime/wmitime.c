@@ -53,7 +53,6 @@ extern	char **environ;
 
 char	*ProgName;
 
-char uconfig_file[256];
 char locale[256];
 
 time_t		curtime;
@@ -74,9 +73,6 @@ void BlitString(char *name, int x, int y);
 void BlitNum(int num, int x, int y);
 void wmitime_routine(int, char **);
 int PortWatch( short port );
-int ReadConfigInt(FILE *fp, char *setting, int *value);
-int ReadConfigString(FILE *fp, char *setting, char *value);
-int Read_Config_File( char *filename );
 void DrawInetTime(void);
 void DrawStdTime(void);
 void DrawDate(void);
@@ -88,7 +84,6 @@ int main(int argc, char *argv[]) {
 
 	int		i;
 
-    uconfig_file[0] = 0;
     locale[0] = 0;
 
 	/* Parse Command Line */
@@ -118,13 +113,6 @@ int main(int argc, char *argv[]) {
 				printversion();
 				exit(0);
 				break;
-            case 'c' :
-                if (argc > (i+1))
-                {
-                    strcpy(uconfig_file, argv[i+1]);
-                    i++;
-                }
-                break;
             case '1' :
                 if (arg[2] == '2')
                 {
@@ -168,38 +156,11 @@ void wmitime_routine(int argc, char **argv)
 	int			but_stat = -1;
 
 
-    /* char config_file[512]; */
-
     createXBMfromXPM(wmitime_mask_bits, wmitime_master_xpm, wmitime_mask_width, wmitime_mask_height);
 
 	openXwindow(argc, argv, wmitime_master_xpm, wmitime_mask_bits, wmitime_mask_width, wmitime_mask_height);
 
 	AddMouseRegion(0, 5, 6, 58, 16);
-
-    /* We don't need a config file (yet)... */
-
-#if 0
-    /* Read config file */
-
-    if (uconfig_file[0] != 0)
-    {
-        /* user-specified config file */
-        fprintf(stderr, "Using user-specified config file '%s'.\n", uconfig_file);
-        Read_Config_File(uconfig_file);
-    }
-    else
-    {
-        sprintf(config_file, "%s/.wmitimerc", getenv("HOME"));
-
-        if (!Read_Config_File(config_file))
-        {
-            /* Fall back to /etc/wminetrc */
-            sprintf(config_file, "/etc/wmitimerc");
-
-            Read_Config_File(config_file);
-        }
-    }
-#endif
 
     RedrawWindow();
 
@@ -611,105 +572,6 @@ void BlitNum(int num, int x, int y)
     BlitString(buf, newx, y);
 }
 
-
-/* ReadConfigSetting */
-int ReadConfigString(FILE *fp, char *setting, char *value)
-{
-    char str[1024];
-    char buf[1024];
-    int i;
-    int len;
-    int slen;
-    char *p=NULL;
-
-
-    if (!fp)
-    {
-        return 0;
-    }
-
-    sprintf(str, "%s=", setting);
-    slen = strlen(str);
-
-    fseek(fp, 0, SEEK_SET);
-
-    while ( !feof(fp) )
-    {
-
-        if (!fgets(buf, 512, fp))
-            break;
-
-        len = strlen(buf);
-
-        /* strip linefeed */
-        for (i=0; i!=len; i++)
-        {
-            if (buf[i] == '\n')
-            {
-                buf[i] = 0;
-            }
-        }
-
-        /* printf("Scanning '%s'...\n", buf); */
-        if ( strncmp(buf, str, strlen(str)) == 0)
-        {
-            /* found our setting */
-
-            for(i=0; i!=slen; i++)
-            {
-                if ( buf[i] == '=' )
-                {
-                    p=buf+i+1;
-                    strcpy(value, p);
-                    return 1;
-                }
-            }
-
-        }
-    }
-
-        return 0;
-}
-
-int ReadConfigInt(FILE *fp, char *setting, int *value)
-{
-    char buf[1024];
-
-    if (ReadConfigString(fp, setting, (char *) &buf))
-    {
-        *value = atoi(buf);
-        return 1;
-    }
-
-    return 0;
-}
-
-int Read_Config_File( char *filename )
-{
-    FILE *fp;
-
-    fp = fopen(filename, "r");
-    if (fp)
-    {
-
-        fclose(fp);
-        return 1;
-    }
-    else
-    {
-        perror("Read_Config_File");
-        fprintf(stderr, "Unable to open %s, no settings read.\n", filename);
-        return 0;
-    }
-
-}
-
-
-
-
-
-
-
 /*******************************************************************************\
 |* usage																	   *|
 \*******************************************************************************/
@@ -721,7 +583,6 @@ void usage(void)
     fprintf(stderr, "    -12                       12-hour mode\n");
 	fprintf(stderr, "    -display <display name>\n");
 	fprintf(stderr, "    -geometry +XPOS+YPOS      initial window position\n");
-    /* fprintf(stderr, "    -c <filename>             use specified config file\n"); */
 	fprintf(stderr, "    -l <locale>               specify locale\n");
     fprintf(stderr, "    -h                        this help screen\n");
 	fprintf(stderr, "    -v                        print the version number\n");
