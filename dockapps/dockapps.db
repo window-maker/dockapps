@@ -278,7 +278,7 @@ dockapps =
 category = Network
 
 [wmitime]
-version-0.3+20141005 = 84f5d9248a6b2b1ab48b1849ce72ff7415094a8d
+version-0.4 = 49fa1f6a55e22ad45f2121273e1631c62e642c6d
 version-0.3 = bf32df76ae6ae945f02428fff7a9b269c82f32f6
 image = wmitime1.jpg
 description = "WMitime is yet another clock dock app (and quite overglorified at that! :)
