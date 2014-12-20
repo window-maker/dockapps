@@ -16,6 +16,9 @@
 #include <unistd.h>
 #include <ctype.h>
 #include <math.h>
+#include <locale.h>
+#include <langinfo.h>
+#include <iconv.h>
 
 #include <sys/wait.h>
 #include <sys/stat.h>
@@ -30,16 +33,6 @@
 
 #include "wmgeneral/wmgeneral.h"
 #include "wmgeneral/misc.h"
-
-#ifdef fr_FR
-#define fr
-#endif
-
-#ifdef fr
-#include "french.h"
-#else
-#include "language.h"
-#endif
 
 #include "wmitime-master.xpm"
 char wmitime_mask_bits[64*64];
@@ -61,6 +54,7 @@ extern	char **environ;
 char	*ProgName;
 
 char uconfig_file[256];
+char locale[256];
 
 time_t		curtime;
 time_t		prevtime;
@@ -95,6 +89,7 @@ int main(int argc, char *argv[]) {
 	int		i;
 
     uconfig_file[0] = 0;
+    locale[0] = 0;
 
 	/* Parse Command Line */
 
@@ -137,6 +132,13 @@ int main(int argc, char *argv[]) {
                     TwelveHour = 1;
                 }
                 break;
+            case 'l' :
+                if (argc > (i+1))
+                {
+                    strcpy(locale, argv[i+1]);
+                    i++;
+                }
+                break;
             default:
 				usage();
 				exit(0);
@@ -144,6 +146,11 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
+
+	if (setlocale(LC_ALL, locale) == NULL)
+	    fprintf(stderr,
+		    "warning: locale '%s' not recognized; defaulting to '%s'.",
+		    locale, setlocale(LC_ALL, NULL));
 
 	wmitime_routine(argc, argv);
 
@@ -365,28 +372,37 @@ void DrawStdTime(void)
 
 void DrawDate(void)
 {
-    char BlitStr[20];
+    char OrigBlitStr[20], BlitStr[20];
+    char *inbuf, *outbuf;
+    size_t inbytesleft, outbytesleft;
+    iconv_t cd;
 
-    sprintf(BlitStr, "%s", daynames[clk->tm_wday]);
+    cd = iconv_open("ASCII//TRANSLIT", nl_langinfo(CODESET));
+
+    inbuf = OrigBlitStr;
+    outbuf = BlitStr;
+    inbytesleft = sizeof OrigBlitStr;
+    outbytesleft = sizeof BlitStr;
+
+    sprintf(OrigBlitStr, "%s", nl_langinfo(ABDAY_1 + clk->tm_wday));
+    iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
+    BlitStr[2] = 0;
     BlitString( BlitStr, 6, 50);
 
-#ifdef fr
+    inbuf = OrigBlitStr;
+    outbuf = BlitStr;
+    inbytesleft = sizeof OrigBlitStr;
+    outbytesleft = sizeof BlitStr;
 
-    // French date model
-    sprintf(BlitStr, "%s", monthnames[clk->tm_mon]);
+    sprintf(OrigBlitStr, "%s", nl_langinfo(ABMON_1 + clk->tm_mon));
+    iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
+    BlitStr[3] = 0;
     BlitString( BlitStr, 40, 50);
 
-    sprintf(BlitStr, "%02i", clk->tm_mday);
-    BlitString( BlitStr, 25, 50);
-#else
-
-    sprintf(BlitStr, "%s", monthnames[clk->tm_mon]);
-    BlitString( BlitStr, 25, 50);
+    iconv_close(cd);
 
     sprintf(BlitStr, "%02i", clk->tm_mday);
-    BlitString( BlitStr, 45, 50);
-
-#endif
+    BlitString( BlitStr, 25, 50);
 }
 
 void DrawInetWheel(void)
@@ -706,6 +722,7 @@ void usage(void)
 	fprintf(stderr, "    -display <display name>\n");
 	fprintf(stderr, "    -geometry +XPOS+YPOS      initial window position\n");
 //    fprintf(stderr, "    -c <filename>             use specified config file\n");
+	fprintf(stderr, "    -l <locale>               specify locale\n");
     fprintf(stderr, "    -h                        this help screen\n");
 	fprintf(stderr, "    -v                        print the version number\n");
     fprintf(stderr, "\n");

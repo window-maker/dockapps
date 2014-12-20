@@ -1,4 +1,3 @@
-#LANG = fr
 LIBS   = -lXpm -lXext -lX11 -lm
 CFLAGS = -O2 -Wall
 OBJS =	wmitime.o \
@@ -10,7 +9,7 @@ PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 
 .c.o:
-	$(CC) $(CPPFLAGS) $(CFLAGS) -D$(LANG) -c $< -o $*.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
 wmitime: $(OBJS)
 	$(CC) $(LDFLAGS) -o wmitime $^ $(LIBS)
