@@ -7,6 +7,7 @@ OBJS =	wmitime.o \
 INSTALL = install
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
+MANDIR = $(PREFIX)/share/man/man1
 
 .c.o:
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
@@ -26,4 +27,6 @@ clean::
 install:: wmitime
 	$(INSTALL) -d $(DESTDIR)$(BINDIR)
 	$(INSTALL) wmitime $(DESTDIR)$(BINDIR)
+	$(INSTALL) -d $(DESTDIR)$(MANDIR)
+	$(INSTALL) -m 644 wmitime.1 $(DESTDIR)$(MANDIR)
 	@echo "wmitime Installation finished..."
