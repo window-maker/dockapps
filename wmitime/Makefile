@@ -1,9 +1,6 @@
 LIBS   = -lXpm -lXext -lX11 -lm
 CFLAGS = -O2 -Wall
-OBJS =	wmitime.o \
-		wmgeneral/wmgeneral.o \
-		wmgeneral/misc.o \
-		wmgeneral/list.o
+OBJS = wmitime.o wmgeneral/wmgeneral.o
 INSTALL = install
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin

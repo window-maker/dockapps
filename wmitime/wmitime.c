@@ -32,7 +32,6 @@
 #include <X11/extensions/shape.h>
 
 #include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
 
 #include "wmitime-master.xpm"
 char wmitime_mask_bits[64*64];
