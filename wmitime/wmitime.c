@@ -128,7 +128,7 @@ int main(int argc, char *argv[]) {
             case '1' :
                 if (arg[2] == '2')
                 {
-                    // Twelve-hour mode
+                    /* Twelve-hour mode */
                     TwelveHour = 1;
                 }
                 break;
@@ -168,7 +168,7 @@ void wmitime_routine(int argc, char **argv)
 	int			but_stat = -1;
 
 
-//    char config_file[512];
+    /* char config_file[512]; */
 
     createXBMfromXPM(wmitime_mask_bits, wmitime_master_xpm, wmitime_mask_width, wmitime_mask_height);
 
@@ -176,14 +176,14 @@ void wmitime_routine(int argc, char **argv)
 
 	AddMouseRegion(0, 5, 6, 58, 16);
 
-    // We don't need a config file (yet)...
+    /* We don't need a config file (yet)... */
 
 #if 0
-    // Read config file
+    /* Read config file */
 
     if (uconfig_file[0] != 0)
     {
-        // user-specified config file
+        /* user-specified config file */
         fprintf(stderr, "Using user-specified config file '%s'.\n", uconfig_file);
         Read_Config_File(uconfig_file);
     }
@@ -193,7 +193,7 @@ void wmitime_routine(int argc, char **argv)
 
         if (!Read_Config_File(config_file))
         {
-            // Fall back to /etc/wminetrc
+            /* Fall back to /etc/wminetrc */
             sprintf(config_file, "/etc/wmitimerc");
 
             Read_Config_File(config_file);
@@ -215,7 +215,7 @@ void wmitime_routine(int argc, char **argv)
 
             clk = localtime(&curtime);
 
-            // Update display
+            /* Update display */
 
             DrawInetTime();
 
@@ -231,7 +231,7 @@ void wmitime_routine(int argc, char **argv)
 
         }
 
-        // X Events
+        /* X Events */
         while (XPending(display))
         {
 			XNextEvent(display, &Event);
@@ -272,7 +272,7 @@ void wmitime_routine(int argc, char **argv)
 					}
 				}
 				but_stat = -1;
-//				RedrawWindow();
+				/* RedrawWindow(); */
 				break;
 			}
 		}
@@ -286,7 +286,7 @@ void DrawInetTime(void)
 {
     int iTime;
 
-    // Compute Inet Time
+    /* Compute Inet Time */
     iTime=(clk->tm_hour*3600+clk->tm_min*60+clk->tm_sec);
     iTime=iTime+((timezone-1)+3600);
     if (clk->tm_isdst)
@@ -299,7 +299,7 @@ void DrawInetTime(void)
         if (iTime < 0)
             iTime+=1000;
 
-    // Blit it
+    /* Blit it */
 
     BlitNum(iTime, 38, 18);
 
@@ -334,11 +334,11 @@ void DrawStdTime(void)
 
     len = strlen(blitstr);
 
-    // Set starting co-ordinates...
+    /* Set starting co-ordinates... */
     xoff = 6;
     yoff = 6;
 
-    // Blit it.
+    /* Blit it. */
     for( i=0;  i<len; i++)
     {
         if (blitstr[i] == ':')
@@ -412,7 +412,7 @@ void DrawInetWheel(void)
     int xoff=0, yoff=0;
     int iTime;
 
-    // Calculate Wheel Position...
+    /* Calculate Wheel Position... */
     iTime=(clk->tm_hour*3600+clk->tm_min*60+clk->tm_sec);
     iTime=iTime+((timezone-1)+3600);
     if (clk->tm_isdst)
@@ -429,7 +429,7 @@ void DrawInetWheel(void)
 
     WheelPos = floor( (iTime *8) / 10);
 
-    // Draw the Wheel...
+    /* Draw the Wheel... */
     i=WheelPos;
     yoff=35;
     xoff=67;
@@ -449,8 +449,8 @@ void DrawInetWheel(void)
 
 void DrawStdWheel(void)
 {
-    //19x33 = center
-    //radius of 14
+    /* 19x33 = center
+     * radius of 14 */
 
     int sx, sy;
     int cx, cy;
@@ -464,9 +464,9 @@ void DrawStdWheel(void)
     sx = 2;
     sy = 97;
 
-    // Hour Hand...
+    /* Hour Hand... */
 
-    DrawLine(cx, cy, prevhourx, prevhoury, 66, 9); // erase old line
+    DrawLine(cx, cy, prevhourx, prevhoury, 66, 9); /* erase old line */
 
     hr = (clk->tm_hour % 12);
 
@@ -484,9 +484,9 @@ void DrawStdWheel(void)
 
     DrawLine(cx, cy, dx, dy, sx, sy);
 
-    // Minute Hand...
+    /* Minute Hand... */
 
-    DrawLine(cx, cy, prevminx, prevminy, 66, 9); // erase old line
+    DrawLine(cx, cy, prevminx, prevminy, 66, 9); /* erase old line */
 
     cx=19;
     cy=33;
@@ -573,7 +573,7 @@ void DrawLine(int x1, int y1, int x2, int y2, int sourcex, int sourcey)
 
 
 
-// Blits a string at given co-ordinates
+/* Blits a string at given co-ordinates */
 void BlitString(char *name, int x, int y)
 {
     int		i;
@@ -586,13 +586,13 @@ void BlitString(char *name, int x, int y)
 
         c = toupper(name[i]);
         if (c >= 'A' && c <= 'Z')
-        {   // its a letter
+        {  /* its a letter */
 			c -= 'A';
 			copyXPMArea(c * 6, 74, 6, 8, k, y);
 			k += 6;
         }
         else
-        {   // its a number or symbol
+        {   /* its a number or symbol */
 			c -= '0';
 			copyXPMArea(c * 6, 64, 6, 8, k, y);
 			k += 6;
@@ -612,7 +612,7 @@ void BlitNum(int num, int x, int y)
 }
 
 
-// ReadConfigSetting
+/* ReadConfigSetting */
 int ReadConfigString(FILE *fp, char *setting, char *value)
 {
     char str[1024];
@@ -641,7 +641,7 @@ int ReadConfigString(FILE *fp, char *setting, char *value)
 
         len = strlen(buf);
 
-        // strip linefeed
+        /* strip linefeed */
         for (i=0; i!=len; i++)
         {
             if (buf[i] == '\n')
@@ -650,10 +650,10 @@ int ReadConfigString(FILE *fp, char *setting, char *value)
             }
         }
 
-        //printf("Scanning '%s'...\n", buf);
+        /* printf("Scanning '%s'...\n", buf); */
         if ( strncmp(buf, str, strlen(str)) == 0)
         {
-            // found our setting
+            /* found our setting */
 
             for(i=0; i!=slen; i++)
             {
@@ -721,7 +721,7 @@ void usage(void)
     fprintf(stderr, "    -12                       12-hour mode\n");
 	fprintf(stderr, "    -display <display name>\n");
 	fprintf(stderr, "    -geometry +XPOS+YPOS      initial window position\n");
-//    fprintf(stderr, "    -c <filename>             use specified config file\n");
+    /* fprintf(stderr, "    -c <filename>             use specified config file\n"); */
 	fprintf(stderr, "    -l <locale>               specify locale\n");
     fprintf(stderr, "    -h                        this help screen\n");
 	fprintf(stderr, "    -v                        print the version number\n");
