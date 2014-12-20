@@ -578,7 +578,8 @@ void BlitNum(int num, int x, int y)
 
 void usage(void)
 {
-    fprintf(stderr, "\nWMiTIME - illusion <clarkd@skynet.ca>  http://www.neotokyo.org/illusion\n\n");
+    fprintf(stderr, "\nWMiTIME - Window Maker Developers Team <wmaker-dev@lists.windowmaker.org>\n");
+    fprintf(stderr, "          original author: Dave Clark <clarkd@skynet.ca>\n\n");
 	fprintf(stderr, "usage:\n");
     fprintf(stderr, "    -12                       12-hour mode\n");
 	fprintf(stderr, "    -display <display name>\n");

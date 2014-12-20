@@ -1,8 +1,8 @@
 wmitime 0.2 beta Public Release
 --------------------------------------------------------------
 Author...:	Dave Clark (clarkd@skynet.ca)
-
-Homepage :      http://www.neotokyo.org
+Maintainers :   Window Maker Developers Team <wmaker-dev@lists.windowmaker.org>
+Homepage :      http://windowmaker.org/dockapps/?name=wmitime
 
 Description
 --------------------------------------------------------------
@@ -41,7 +41,7 @@ COPYING		GNU General Public License Version 2.
 Bugs
 --------------------------------------------------------------
 If you discover any bugs in this software, please send a
-bugreport to clarkd@skynet.ca and describe the
+bugreport to wmaker-dev@lists.windowmaker.org and describe the
 problem as detailed! as you can.
 
 
