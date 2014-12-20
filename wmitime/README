@@ -20,7 +20,6 @@ Let me know what you think of it. ;)
 
 Installing
 --------------------------------------------------------------
-cd wmitime
 make
 make install
 

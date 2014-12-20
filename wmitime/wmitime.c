@@ -28,8 +28,8 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
-#include "../wmgeneral/wmgeneral.h"
-#include "../wmgeneral/misc.h"
+#include "wmgeneral/wmgeneral.h"
+#include "wmgeneral/misc.h"
 
 #ifdef fr_FR
 #define fr
