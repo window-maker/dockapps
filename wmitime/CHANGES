@@ -1,5 +1,41 @@
 Version		Description
 --------------------------------------------------------------
+0.4		* Update GPL text and Free Software Foundation address.
+		* Remove trailing whitespace.
+		* Allow -display option with no argument.  Previously, if a user
+		  ran wmitime with the -display option and no argument, a
+		  segmentation fault would occur. Print a warning instead.
+		  (Patch from Debian to fix bug #716466.)
+		* Update Makefile.  In particular,
+		  - Remove reference to deprecated X11R6 directory.
+		  - Replace FLAGS variable with CFLAGS, CPPFLAGS, and LDFLAGS.
+		  - Honor CC, PREFIX, and DESTDIR variables.
+		  - Use INSTALL instead of cp for installation.
+		  - Remove redundant -lXext flag.
+		  - Move contents of wmitime directory to top directory to ease
+		    the building process.
+		* Improve locale support.  Previously, wmitime only had support
+		  for English, French, and (in Debian only) Hungarian.	In
+		  addition, the choice was made at compile time.
+		  Add run-time support for any language using the Latin
+		  alphabet.  The locale is determined by the user's environment
+		  or may be specified on the command line with the "-l" option.
+		  Note that users whose environment specifies a non-Latin locale
+		  may wish to use, e.g., "-l C", as otherwise no date will
+		  appear.
+		  Note that, for simplicity, the month and day are now displayed
+		  as "01 JAN" as opposed to "JAN 01".  (Previously, the former
+		  format was used for English and the latter for French.)
+		* Remove C++ style comments.
+		* Remove references to config file in source; nonexistent
+		  feature.
+		* Update contact information.  wmitime is now maintained by the
+		  Window Maker Developers Team
+		  <wmaker-dev@lists.windowmaker.org>.
+		* Add manpage and desktop file, both adapted from Debian.
+		* Remove wmitime-master-led.xpm; unused duplicate file.
+		* Do not include or compile unused wmgeneral files.
+
 0.3		* fixed inet time calculation error (oops :) )
  		  (thanks to Martijn van de Streek <tweakr@tap.xs4all.nl>
 		* Added french support
