@@ -109,7 +109,7 @@
        
 
 	<p> Another recommended step is to install a few dockapps like wmvolman, wmmixer and wmsystemtray which allow one to
-	easily mount external media on /media among other things. Visit <a href="http://dockapps.windowmaker.org"> dockapps</a>
+	easily mount external media on /media among other things. Visit <a href="http://windowmaker.org/dockapps">dockapps</a>
 	for many more choices.</p>
 
 	<br><br><br>

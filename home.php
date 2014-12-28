@@ -28,7 +28,7 @@
 
           <p>Window Maker has a stable user interface since many years and comes with a powerful GUI configuration editor called
           WPrefs, which removes the need to edit text-based config files by hand. It supports running <a href=
-          "http://dockapps.windowmaker.org">dockapps</a> which make everyday tasks such as monitoring system performance and
+          "http://windowmaker.org/dockapps">dockapps</a> which make everyday tasks such as monitoring system performance and
           battery usage, mounting devices or connecting to the internet very easy. Please see the <a href=
           "features.php">features</a> section for more specifics on what Window Maker can do, and how it compares with other
           popular window managers.</p>
