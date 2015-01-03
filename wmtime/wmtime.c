@@ -92,7 +92,7 @@ const char* default_left_action = NULL;
 const char* default_middle_action = NULL;
 const char* default_right_action = NULL;
 
-#define WMTIME_VERSION "1.1"
+#define WMTIME_VERSION "1.2"
 
   /********************/
  /* Global Variables */

@@ -3,6 +3,21 @@ WMTime changes.
 Version         Description
 --------------------------------------------------------------
 
+1.2		- Released 150103
+		- Remove unused variables.
+		- Use rm -f in make clean.
+		- Update FSF address.
+		- Update GPLv2 from
+		  http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+		- Update README contact information; remove trailing
+		  whitespaces.
+		- Remove trailing whitespace.
+		- Remove unnecessary Imakefile.
+		- Move source files to top directory.
+		- Update Makefile.
+		- Add -l option to specify locale.
+		- Remove unnecessary references to current version number.
+
 1.1		- Released 131013
 		- Incorporated many patches from Debian, including
 		  + Added manual page
