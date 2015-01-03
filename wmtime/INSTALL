@@ -16,10 +16,10 @@ Installation
     use Latin alphabet characters, then WMTime defaults to
     US/English.
 
-    You may change this behavior by setting the LANG
-    environment variable, e.g.,
+    You may change this behavior by using the '-l' command line
+    option, e.g.,
 
-    % LANG=es_MX.UTF-8 wmtime
+    % wmtime -l es_MX.utf8
 
 Be sure to read the HINTS and TODO files too!
 

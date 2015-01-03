@@ -114,6 +114,9 @@ int main(int argc, char *argv[]) {
 
 	int		i;
 	char    *name = argv[0];
+	char locale[256];
+
+	locale[0] = 0;
 
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
@@ -146,6 +149,12 @@ int main(int argc, char *argv[]) {
 			case 'v' :
 				printversion();
 				return 0;
+			case 'l':
+				if (argc > i+1) {
+					strcpy(locale, argv[i+1]);
+					i++;
+				}
+				break;
 			default:
 				usage(name);
 				return 1;
@@ -153,8 +162,11 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	if (setlocale(LC_ALL, "") != NULL)
-		get_lang();
+	if (setlocale(LC_ALL, locale) == NULL)
+		fprintf(stderr,
+			"warning: locale '%s' not recognized; defaulting to '%s'.",
+			locale, setlocale(LC_ALL, NULL));
+	get_lang();
 
 	wmtime_routine(argc, argv);
 	return 0;
@@ -675,6 +687,7 @@ void usage(char *name) {
 	printf("  -display DISPLAY     contact the DISPLAY X server\n");
 	printf("  -geometry GEOMETRY   position the clock at GEOMETRY\n");
 	printf("  -n, -noseconds       disables the second hand\n");
+	printf("  -l LOCALE            set locale to LOCALE\n");
 	printf("  -h                   display this help and exit\n");
 	printf("  -v                   output version information and exit\n");
 }
