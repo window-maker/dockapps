@@ -92,7 +92,7 @@ const char* default_left_action = NULL;
 const char* default_middle_action = NULL;
 const char* default_right_action = NULL;
 
-#define WMMON_VERSION "1.1"
+#define WMTIME_VERSION "1.1"
 
   /********************/
  /* Global Variables */
@@ -697,7 +697,7 @@ void usage(char *name) {
 \*******************************************************************************/
 
 void printversion(void) {
-	printf("WMTime version %s\n", WMMON_VERSION);
+	printf("WMTime version %s\n", WMTIME_VERSION);
 }
 
 /* vim: sw=4 ts=4 columns=82
