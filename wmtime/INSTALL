@@ -8,11 +8,10 @@ Nothing particular, but a computer might come in handy doh ;-)
 Installation
 --------------------------------------------------------------
 1)  % tar -zxvf wmtime-1.1.tar.gz
-2)  % cd wmtime/wmtime
-3)  % make
-4)  % make install (as root)
+2)  % make
+3)  % make install (as root)
 
-5)* WMTime uses month and weekday abbreviations from the
+4)* WMTime uses month and weekday abbreviations from the
     currently set locale.  If these abbreviations do not
     use Latin alphabet characters, then WMTime defaults to
     US/English.
