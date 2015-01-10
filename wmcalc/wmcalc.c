@@ -106,7 +106,6 @@ int main( int argc, char **argv ) {
   XComposeStatus compose;
   char buffer[20];
   int bufsize = 20;
-  int chcnt = 0;
   
 
   strcpy(configfile, getenv("HOME"));  // Added to wmbutton by Casey Harkin, 3/6/99
@@ -303,7 +302,7 @@ int main( int argc, char **argv ) {
       //      ksym = XLookupKeysym(&(report.xkey), report.xkey.state);
       /* KeywithMask - this allows Left, middle, and right button functions 
 	 to be implemented via keyboard */
-      chcnt = XLookupString(&(report.xkey), buffer, bufsize, &ksym, &compose);
+      XLookupString(&(report.xkey), buffer, bufsize, &ksym, &compose);
       if (Verbose) printf("Keysym is: 0x%x\n", (int) ksym);
       KeywithMask = whichKey(ksym);
       ExecFunc( KeywithMask );

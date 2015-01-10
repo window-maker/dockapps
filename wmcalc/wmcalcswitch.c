@@ -479,12 +479,9 @@ int read_config(void) {
   int i = 0;
   int err_code = OKAY;
   char *line   = NULL;
-  char *sepstr = NULL;
   char  sep_ch = '\t';
   char *cfg_var_ptr = NULL;
 
-
-  sepstr = &sep_ch;
 
   if ((fp = fopen(configfile, "r")) == NULL) {    // Can't find config file
     strcpy(configfile, CONFIGGLOBAL);             // ...so try to open global config
