@@ -38,7 +38,7 @@
  ****************************************************************/
 
 #include "wmcalc_x.h"
-#include <XKBlib.h>
+#include <X11/XKBlib.h>
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
