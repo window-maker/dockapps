@@ -10,11 +10,11 @@ MANDIR = $(PREFIX)/share/man/man1
 CONF   = /etc
 INSTALL = /usr/bin/install
 INSTALL_DIR	= $(INSTALL) -d
-INSTALL_PROGRAM = $(INSTALL) -p -o root -g root -m 755
-INSTALL_FILE    = $(INSTALL) -p -o root -g root -m 644
+INSTALL_PROGRAM = $(INSTALL)
+INSTALL_FILE    = $(INSTALL) -m 644
 
 .c.o:
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
+	$(CC) -DCONF=\"$(CONF)\" $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS)

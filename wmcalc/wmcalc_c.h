@@ -17,7 +17,7 @@
 #define CALC_CMD_SIZE 128
 #define CONFFILENAME  "/.wmcalc"
 #define CONFTEMPFILE  "/tmp/wmcalc.tmp"
-#define CONFIGGLOBAL  "/etc/wmcalc.conf"
+#define CONFIGGLOBAL  CONF"/wmcalc.conf"
 #define VER           0
 #define REL           3
 
