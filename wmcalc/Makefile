@@ -1,29 +1,32 @@
-INCLUDES =-I/usr/X11R6/include/X11 -I/usr/local/include
-LIBINC =-L/usr/X11R6/lib
 LIBS = -lX11 -lXpm -lXext -lm
-
+CC = gcc
 TARGET = wmcalc
 OBJECTS = wmcalc.o readln.o wmcalcswitch.o wmcalcfunc.o
+CFLAGS = -O2 -Wall
 DESTDIR =
 PREFIX = /usr/local
-BINDIR = ${PREFIX}/bin
-MANDIR = ${PREFIX}/share/man/man1
+BINDIR = $(PREFIX)/bin
+MANDIR = $(PREFIX)/share/man/man1
 CONF   = /etc
 INSTALL = /usr/bin/install
+INSTALL_DIR	= $(INSTALL) -d
 INSTALL_PROGRAM = $(INSTALL) -p -o root -g root -m 755
 INSTALL_FILE    = $(INSTALL) -p -o root -g root -m 644
 
 .c.o:
-	gcc -O2 -c -Wall ${INCLUDES} ${FLAGS} $< -o $*.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
-${TARGET}: ${OBJECTS}
-	gcc -O2 -o ${TARGET} ${OBJECTS} ${LIBINC} ${LIBS}
+$(TARGET): $(OBJECTS)
+	$(CC) $(LDFLAGS) -o $(TARGET) $(OBJECTS) $(LIBS)
 
 clean::
-	for i in ${OBJECTS}; do if [ -e $$i ] ; then rm $$i; fi; done 
-	if [ -e ${TARGET} ] ; then rm ${TARGET}; fi
+	for i in $(OBJECTS); do if [ -e $$i ] ; then rm $$i; fi; done
+	if [ -e $(TARGET) ] ; then rm $(TARGET); fi
 
 install::
-	${INSTALL_PROGRAM} wmcalc ${DESTDIR}${BINDIR}
-	${INSTALL_FILE} wmcalc.conf ${DESTDIR}${CONF}
-	${INSTALL_FILE} wmcalc.1 ${DESTDIR}${MANDIR}
+	$(INSTALL_DIR) $(DESTDIR)$(BINDIR)
+	$(INSTALL_PROGRAM) wmcalc $(DESTDIR)$(BINDIR)
+	$(INSTALL_DIR) $(DESTDIR)$(CONF)
+	$(INSTALL_FILE) wmcalc.conf $(DESTDIR)$(CONF)
+	$(INSTALL_DIR) $(DESTDIR)$(MANDIR)/man1
+	$(INSTALL_FILE) wmcalc.1 $(DESTDIR)$(MANDIR)
