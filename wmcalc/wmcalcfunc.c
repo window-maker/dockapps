@@ -521,5 +521,6 @@ void startcalc(void) {
   if (Verbose) 
     fprintf(stderr, "Starting external calculator %s\n", SysCalcCmd);
 
-  system(SysCalcCmd);
+  if (system(SysCalcCmd) == -1)
+    fprintf(stderr, "%s returned an error.\n", SysCalcCmd);
 } /*****  End of function startcalc *****************************/
