@@ -50,9 +50,9 @@
 #include "wmcalc_g.h"
 #include "wmcalc_f.h"
 
-#include "backdrop.xpm"           // background graphic
-#include "calcbuttons.xpm"        // graphic of buttons
-#include "charmap.xpm"            // pixmap of characters
+#include "backdrop.xpm"           /* background graphic */
+#include "calcbuttons.xpm"        /* graphic of buttons */
+#include "charmap.xpm"            /* pixmap of characters */
 #include "mask.xbm"
 
 /* Global Variables */
@@ -108,10 +108,10 @@ int main( int argc, char **argv ) {
   int bufsize = 20;
 
 
-  strcpy(configfile, getenv("HOME"));  // Added to wmbutton by Casey Harkin, 3/6/99
-  strcat(configfile, CONFFILENAME);    // Fixed Bug - didn't look in home directory
-                                       // but startup directory
-  strcat(tempfile, CONFTEMPFILE);      // Setup name for temp file
+  strcpy(configfile, getenv("HOME"));  /* Added to wmbutton by Casey Harkin, 3/6/99 */
+  strcat(configfile, CONFFILENAME);    /* Fixed Bug - didn't look in home directory */
+                                       /* but startup directory */
+  strcat(tempfile, CONFTEMPFILE);      /* Setup name for temp file */
 
   /* Clear the Calculator Display */
   for(i=0; i<DISPSIZE; i++) DispString[i] = ' ';
@@ -121,28 +121,28 @@ int main( int argc, char **argv ) {
   for ( i=1; i < argc; i++ ) {
     if ( *argv[i] == '-' ) {
       switch ( *(argv[i]+1) ) {
-      case 'v':                        // Turn on Verbose (debugging) Mode
+      case 'v':                        /* Turn on Verbose (debugging) Mode */
 	Verbose = 1;
 	break;
-      case 'g':                        // Set Geometry Options
+      case 'g':                        /* Set Geometry Options */
 	if ( ++i >= argc ) show_usage();
 	sscanf(argv[i], "%s", Geometry_str);
 	if ( Verbose ) printf("Geometry is: %s\n", Geometry_str);
 	break;
-      case 'd':                        // Set display
+      case 'd':                        /* Set display */
 	if ( ++i >= argc ) show_usage();
 	sscanf(argv[i], "%s", Display_str);
 	if ( Verbose ) printf("Display is: %s\n", Display_str);
 	break;
-      case 'h':                        // Show Help Message
+      case 'h':                        /* Show Help Message */
 	show_usage();
 	break;
-      case 'f':                        // use config file <filename>
+      case 'f':                        /* use config file <filename> */
 	if ( ++i >= argc ) show_usage();
 	sscanf(argv[i], "%s", configfile);
 	if ( Verbose ) printf("Using Config File: %s\n", configfile);
 	break;
-      default:                         // other, unknown, parameters
+      default:                         /* other, unknown, parameters */
 	show_usage();
 	break;
       }
@@ -292,14 +292,14 @@ int main( int argc, char **argv ) {
       break;
     case ConfigureNotify:
       if ( Verbose ) printf("Event: ConfigureNotify\n");
-      //      redraw();
+      /*      redraw(); */
       break;
 
     case KeyPress:
       if (Verbose) printf("Event: Key state: 0x%x  Key: 0x%x\n",
 			  report.xkey.state, report.xkey.keycode);
 
-      //      ksym = XLookupKeysym(&(report.xkey), report.xkey.state);
+      /*      ksym = XLookupKeysym(&(report.xkey), report.xkey.state); */
       /* KeywithMask - this allows Left, middle, and right button functions
 	 to be implemented via keyboard */
       XLookupString(&(report.xkey), buffer, bufsize, &ksym, &compose);
@@ -315,7 +315,7 @@ int main( int argc, char **argv ) {
 	N = whichButton(report.xbutton.x, report.xbutton.y );
 	if ( (N >= 0) && (N <= NUM_BUTTONS) ) {
 	  button_pressed = N + LMASK;
-	  //	  redraw();
+	  /*	  redraw(); */
 	}
 	if ( Verbose )
 	  printf("Button 1:x=%d y=%d N=%d\n",
@@ -326,7 +326,7 @@ int main( int argc, char **argv ) {
 	  N = whichButton(report.xbutton.x, report.xbutton.y );
 	  if ( (N >= 0) && (N <= NUM_BUTTONS) ) {
 	    button_pressed = N + MMASK;
-	    //	    redraw();
+	    /*	    redraw(); */
 	  }
 	  if ( Verbose )
 	    printf("Button 2:x=%d y=%d N=%d\n",
@@ -337,7 +337,7 @@ int main( int argc, char **argv ) {
 	N = whichButton(report.xbutton.x, report.xbutton.y );
 	if ( (N >= 0) && (N <= NUM_BUTTONS) ) {
 	  button_pressed = N + RMASK;
-	  //	  redraw();
+	  /*	  redraw(); */
 	}
 	if ( Verbose )
 	  printf("Button 3:x=%d y=%d N=%d\n",
@@ -429,7 +429,7 @@ void redraw() {
   flush_expose( iconwin );
   XCopyArea(display, visible.pixmap, iconwin, gc, 0, 0,
 	    visible.attributes.width, visible.attributes.height, 0, 0 );
-  //  if ( Verbose ) printf("In Redraw()\n");
+  /*  if ( Verbose ) printf("In Redraw()\n"); */
   displaystr();
 }  /***** End of function redraw() ********************************/
 
@@ -697,44 +697,44 @@ int flush_expose(Window w) {
 void defineButtonRegions(void) {
   int ndx = 0;   /* button index */
 
-  button_region[0].x = 1;      // Define display region button
+  button_region[0].x = 1;      /* Define display region button */
   button_region[0].i = 62;
   button_region[0].y = 6;
   button_region[0].j = 17;
 
-  for (ndx =  1; ndx <= 5; ndx++) {  // Define y coord's for top row
+  for (ndx =  1; ndx <= 5; ndx++) {  /* Define y coord's for top row */
     button_region[ndx].y = 20;
     button_region[ndx].j = 29;
   }
-  for (ndx =  6; ndx <= 10; ndx++) {  // Define y coord's for 2nd row
+  for (ndx =  6; ndx <= 10; ndx++) {  /* Define y coord's for 2nd row */
     button_region[ndx].y = 30;
     button_region[ndx].j = 39;
   }
-  for (ndx = 11; ndx <= 15; ndx++) {  // Define y coord's for 3rd row
+  for (ndx = 11; ndx <= 15; ndx++) {  /* Define y coord's for 3rd row */
     button_region[ndx].y = 40;
     button_region[ndx].j = 49;
   }
-  for (ndx = 16; ndx <= 20; ndx++) {  // Define y coord's for bottom row
+  for (ndx = 16; ndx <= 20; ndx++) {  /* Define y coord's for bottom row */
     button_region[ndx].y = 50;
     button_region[ndx].j = 59;
   }
-  for (ndx = 1; ndx <= 16; ndx+=5) {  // Define x coord's for Left column
+  for (ndx = 1; ndx <= 16; ndx+=5) {  /* Define x coord's for Left column */
     button_region[ndx].x = 5;
     button_region[ndx].i = 16;
   }
-  for (ndx = 2; ndx <= 17; ndx+=5) {  // Define x coord's for 2nd Left column
+  for (ndx = 2; ndx <= 17; ndx+=5) {  /* Define x coord's for 2nd Left column */
     button_region[ndx].x = 17;
     button_region[ndx].i = 26;
   }
-  for (ndx = 3; ndx <= 18; ndx+=5) {  // Define x coord's for middle column
+  for (ndx = 3; ndx <= 18; ndx+=5) {  /* Define x coord's for middle column */
     button_region[ndx].x = 27;
     button_region[ndx].i = 36;
   }
-  for (ndx = 4; ndx <= 19; ndx+=5) {  // Define x coord's for 2nd right column
+  for (ndx = 4; ndx <= 19; ndx+=5) {  /* Define x coord's for 2nd right column */
     button_region[ndx].x = 37;
     button_region[ndx].i = 46;
   }
-  for (ndx = 5; ndx <= 20; ndx+=5) {  // Define x coord's for 2nd right column
+  for (ndx = 5; ndx <= 20; ndx+=5) {  /* Define x coord's for 2nd right column */
     button_region[ndx].x = 47;
     button_region[ndx].i = 57;
   }

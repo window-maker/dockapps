@@ -22,15 +22,15 @@
 #include "wmcalc_x.h"
 #include "wmcalc_t.h"
 
-void ExecFunc(int val);     // function to run app N as found in conf file
+void ExecFunc(int val);     /* function to run app N as found in conf file */
 void redraw(void);
 void getPixmaps(void);
-int  whichButton(int x, int y);  // determine which button has been pressed
-int  whichKey(KeySym keysym);    // determine which key has been pressed
+int  whichButton(int x, int y);  /* determine which button has been pressed */
+int  whichKey(KeySym keysym);    /* determine which key has been pressed */
 int  flush_expose(Window w);
-void show_usage(void);           // show usage message to stderr
-char *readln(FILE *fp);          // read line from file, return pointer to it
-void defineButtonRegions(void);  // Define boundaries for each button
+void show_usage(void);           /* show usage message to stderr */
+char *readln(FILE *fp);          /* read line from file, return pointer to it */
+void defineButtonRegions(void);  /* Define boundaries for each button */
 void displaystr(void);
 void displaychar(char ch, int location);
 ButtonArea getboundaries(char ch);
@@ -58,23 +58,23 @@ void recallmem(int mem_loc);
 
 /* Future functions yet to be implemented */
 
-//void scinotation(void);
-//void clearmem(void);
-//void userdef201(void);
-//void userdef205(void);
-//void userdef206(void);
-//void userdef210(void);
-//void userdef211(void);
-//void userdef215(void);
-//void userdef218(void);
-//void userdef220(void);
-//void userdef301(void);
-//void userdef305(void);
-//void userdef306(void);
-//void userdef310(void);
-//void userdef315(void);
-//void userdef318(void);
-//void userdef320(void);
+/*void scinotation(void); */
+/*void clearmem(void); */
+/*void userdef201(void); */
+/*void userdef205(void); */
+/*void userdef206(void); */
+/*void userdef210(void); */
+/*void userdef211(void); */
+/*void userdef215(void); */
+/*void userdef218(void); */
+/*void userdef220(void); */
+/*void userdef301(void); */
+/*void userdef305(void); */
+/*void userdef306(void); */
+/*void userdef310(void); */
+/*void userdef315(void); */
+/*void userdef318(void); */
+/*void userdef320(void); */
 
 
 #endif

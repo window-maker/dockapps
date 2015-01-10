@@ -25,8 +25,8 @@
 #define MMASK         200
 #define RMASK         300
 
-#define CALCDONE      20        // Anything >= 10 should work
-#define DISPSIZE      10        // Number of characters in display
+#define CALCDONE      20        /* Anything >= 10 should work */
+#define DISPSIZE      10        /* Number of characters in display */
 #define NUM_BUTTONS   21
 #define NUM_MEM_CELLS 10
 

@@ -80,7 +80,7 @@ void ExecFunc( int val ) {
     multnums();
     break;
   case 111:
-    // scinotation();
+    /* scinotation(); */
     startcalc();
     break;
   case 112:
@@ -115,7 +115,7 @@ void ExecFunc( int val ) {
     break;
   case 201:
     sqrtnum();
-    //    userdef201();
+    /*    userdef201(); */
     break;
   case 202:
     recallmem(7);
@@ -128,11 +128,11 @@ void ExecFunc( int val ) {
     break;
   case 205:
     divnums();
-    //    userdef205();
+    /*    userdef205(); */
     break;
   case 206:
     sqrnum();
-    //    userdef206();
+    /*    userdef206(); */
     break;
   case 207:
     recallmem(4);
@@ -145,7 +145,7 @@ void ExecFunc( int val ) {
     break;
   case 210:
     multnums();
-    //    userdef210();
+    /*    userdef210(); */
     break;
   case 211:
     startcalc();
@@ -161,7 +161,7 @@ void ExecFunc( int val ) {
     break;
   case 215:
     subtnums();
-    //    userdef215();
+    /*    userdef215(); */
     break;
   case 216:
     chgsignnum();
@@ -170,21 +170,21 @@ void ExecFunc( int val ) {
     recallmem(0);
     break;
   case 218:
-    //    userdef218();
+    /*    userdef218(); */
     break;
   case 219:
     equalfunc();
     break;
   case 220:
     addnums();
-    //    userdef220();
+    /*    userdef220(); */
     break;
   case 300:
     clearnum();
     break;
   case 301:
     sqrtnum();
-    //    userdef301();
+    /*    userdef301(); */
     break;
   case 302:
     stormem(7);
@@ -197,11 +197,11 @@ void ExecFunc( int val ) {
     break;
   case 305:
     divnums();
-    //    userdef305();
+    /*    userdef305(); */
     break;
   case 306:
     sqrnum();
-    //    userdef306();
+    /*    userdef306(); */
     break;
   case 307:
     stormem(4);
@@ -214,7 +214,7 @@ void ExecFunc( int val ) {
     break;
   case 310:
     multnums();
-    //    userdef310();
+    /*    userdef310(); */
     break;
   case 311:
     startcalc();
@@ -230,7 +230,7 @@ void ExecFunc( int val ) {
     break;
   case 315:
     subtnums();
-    //    userdef315();
+    /*    userdef315(); */
     break;
   case 316:
     chgsignnum();
@@ -239,14 +239,14 @@ void ExecFunc( int val ) {
     stormem(0);
     break;
   case 318:
-    //    userdef318();
+    /*    userdef318(); */
     break;
   case 319:
     equalfunc();
     break;
   case 320:
     addnums();
-    //    userdef320();
+    /*    userdef320(); */
     break;
   } /* End of switch statement */
 
@@ -398,35 +398,35 @@ int write_config(void) {
   char movefilecmd[2 * CONFIGFILEMAX + 10];  /* make sure enough room in string */
 
   /* Open current Config file */
-  if ((fp = fopen(configfile, "r")) == NULL) {  // Can't find config file
+  if ((fp = fopen(configfile, "r")) == NULL) {  /* Can't find config file */
     printf("%s: Cannot create configuration file\n", configfile);
     return(ERR_FILE_NOT_FOUND);
   }
 
   /* We cannot write to the global config-file... */
   if(!strcmp(configfile, CONFIGGLOBAL)) {
-    strcpy(configfile, getenv("HOME"));  // Added to wmbutton by Gordon Fraser, 9/21/01
+    strcpy(configfile, getenv("HOME"));  /* Added to wmbutton by Gordon Fraser, 9/21/01 */
     strcat(configfile, CONFFILENAME);
   }
 
   /* Open Temporary File */
-  if ((fptmp = fopen(tempfile, "w")) == NULL) {  // Can't open file in /tmp
+  if ((fptmp = fopen(tempfile, "w")) == NULL) {  /* Can't open file in /tmp */
     fprintf(stderr, "%s: Temporary File Open Failed\n", tempfile);
     strcpy(tempfile, getenv("HOME"));
     strcat(tempfile, "wmcalc.tmp");
-    if ((fptmp = fopen(tempfile, "w")) == NULL) {  // Can't open file in HOME
+    if ((fptmp = fopen(tempfile, "w")) == NULL) {  /* Can't open file in HOME */
       fprintf(stderr, "%s: Temporary File Open Failed\n", tempfile);
       return(ERR_TMP_FILE_FAILED);
     }
   }
 
-  while ((line = readln(fp)) != NULL) {    // Read Lines in config file
+  while ((line = readln(fp)) != NULL) {    /* Read Lines in config file */
     if (Verbose)  printf("line:%s", line);
 
     if ((strncmp(line, CfgVarList[MEM_LABEL_0],
 		 strlen(CfgVarList[MEM_LABEL_0]) - 1) == 0)) {
-      // -1 to generalize to all Mem? strings
-      // If we've found a memory entry
+      /* -1 to generalize to all Mem? strings */
+      /* If we've found a memory entry */
       mem_ndx = atoi(line+strlen(CfgVarList[MEM_LABEL_0])-1);
       if ((mem_ndx >= 0) && (mem_ndx <= (NUM_MEM_CELLS - 1))) {
 	fprintf(fptmp,  "%s\t%f\n", CfgVarList[mem_ndx],
@@ -483,23 +483,23 @@ int read_config(void) {
   char *cfg_var_ptr = NULL;
 
 
-  if ((fp = fopen(configfile, "r")) == NULL) {    // Can't find config file
-    strcpy(configfile, CONFIGGLOBAL);             // ...so try to open global config
-    if ((fp = fopen(configfile, "r")) == NULL) {  // Can't find global config file
+  if ((fp = fopen(configfile, "r")) == NULL) {    /* Can't find config file */
+    strcpy(configfile, CONFIGGLOBAL);             /* ...so try to open global config */
+    if ((fp = fopen(configfile, "r")) == NULL) {  /* Can't find global config file */
       fprintf(stderr, "%s: Configuration File not found\n", configfile);
       return(ERR_FILE_NOT_FOUND);
     } else {
-      write_config();                             // if global config opened, save in homedir
+      write_config();                             /* if global config opened, save in homedir */
     }
   }
   else {
     if (Verbose) printf("%s: Found Configuration File\n", configfile);
   }
 
-  do {                               // Read Lines in config file
+  do {                               /* Read Lines in config file */
     line = readln(fp);
     if (Verbose) printf("Line Read:%s\n", line);
-    if (line == NULL) break;         // if end of file, quit
+    if (line == NULL) break;         /* if end of file, quit */
     if ( (line[0] != '#') && (line[0] != '\n')) { /* Ignore comments and
 						     blanks */
       if (strchr(line, sep_ch) != NULL) {  /* The line has a tab, so let's
@@ -517,7 +517,7 @@ int read_config(void) {
 
 	  /* Point to the 'tab' character, to read the value */
 	  cfg_var_ptr = strchr(line, sep_ch);
-	  cfg_var_ptr++;  // ++ to avoid tab character itself
+	  cfg_var_ptr++;  /* ++ to avoid tab character itself */
 
 	  /* Now set the appropriate variable */
 	  switch(i) {
