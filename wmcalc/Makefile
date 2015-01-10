@@ -7,7 +7,7 @@ OBJECTS = wmcalc.o readln.o wmcalcswitch.o wmcalcfunc.o
 DESTDIR =
 PREFIX = /usr/local
 BINDIR = ${PREFIX}/bin
-MANDIR = ${PREFIX}/share/man
+MANDIR = ${PREFIX}/share/man/man1
 CONF   = /etc
 INSTALL = /usr/bin/install
 INSTALL_PROGRAM = $(INSTALL) -p -o root -g root -m 755
@@ -26,3 +26,4 @@ clean::
 install::
 	${INSTALL_PROGRAM} wmcalc ${DESTDIR}${BINDIR}
 	${INSTALL_FILE} wmcalc.conf ${DESTDIR}${CONF}
+	${INSTALL_FILE} wmcalc.1 ${DESTDIR}${MANDIR}
