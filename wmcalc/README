@@ -1,9 +1,9 @@
-wmcalc Ver. 0 Rel 4
+wmcalc
 -------------------------------------------------------------
    Code is loosely based on wmppp, wmload, wmtime, wmcp, and asbutton
    Original Author: Edward H. Flora <ehflora@access1.net>
-   Current Maintainer: Gordon Fraser <gordon@debian.org>
-   Ver 0 Rel 4    May 25, 2002
+   Current Maintainer: Window Maker Developers Team
+                       <wmaker-dev@lists.windowmaker.org>
 
 DESCRIPTION:
 ------------
@@ -36,20 +36,14 @@ bugs in the code, etc.
 
 INSTALLATION:
 -------------
-	Untar the file:
-		tar xvzf wmcalc-0.3.tar.gz
-
-	CD to source directory:
-		cd wmcalc-0.3
-
 	Compile it:
 	 	make clean; make
 
-	Copy the config file:
-		cp .wmcalc ~
+	As root, install it:
+		make install
 
-	Put the executable somewhere in your path:
-		mv wmcalc /usr/local/bin (or anyhere in your path)
+	Optionally, copy the config file:
+		cp wmcalc.conf ~/.wmcalc
 
 	Run it:
 		wmcalc &
@@ -141,6 +135,9 @@ The background border is defined in backdrop.xpm.
 
 CHANGE LOG:
 -----------
+0.4     Added global config file
+	Maintained by Gordon Fraser <gordon@debian.org>
+
 0.3     Added "Locked" memory capabilities via config file
         General Code clean-up
 	Keyboard Support - may not be platform independent
