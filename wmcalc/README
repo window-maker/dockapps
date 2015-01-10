@@ -135,6 +135,22 @@ The background border is defined in backdrop.xpm.
 
 CHANGE LOG:
 -----------
+0.5	Add manpage from Debian.
+	Update Makefile.
+	Switch #include <XKBlib.h> to #include <X11/XKBlib.h>.
+	Fix -Wunused-but-set-variable compiler warnings.
+	Fix -Warray-bounds compiler warning.
+	Fix -Wunused-result compiler warning.
+	Remove trailing whitespace.
+	Remove redundant .wmcalc*; essentially the same as wmcalc.conf.
+	Update COPYING from http://www.gnu.org/licenses/gpl-2.0.txt.
+	Update README.
+	Allow installation without root access.
+	Fix -Woverflow compiler warnings.
+	Remove C++ style comments.
+	Maintained by Window Maker Developers Team
+		<wmaker-dev@lists.windowmaker.org>
+
 0.4     Added global config file
 	Maintained by Gordon Fraser <gordon@debian.org>
 
