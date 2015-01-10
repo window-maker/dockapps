@@ -204,7 +204,7 @@ int main( int argc, char **argv ) {
 
   if ( ( pixmask = XCreateBitmapFromData(display,
 					 win,
-					 mask_bits,
+					 (char *)mask_bits,
 					 mask_width,
 					 mask_height) )  == 0 ) {
     error_handler(ERR_X_CREATE_BITMAP, NULL);
