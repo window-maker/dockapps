@@ -114,8 +114,8 @@ int main( int argc, char **argv ) {
   strcat(tempfile, CONFTEMPFILE);      // Setup name for temp file
 
   /* Clear the Calculator Display */
-  for(i=0; i<11; i++) DispString[i] = ' ';
-  DispString[11] = '\0';
+  for(i=0; i<DISPSIZE; i++) DispString[i] = ' ';
+  DispString[DISPSIZE] = '\0';
 
   /* Parse Command Line Arguments */  
   for ( i=1; i < argc; i++ ) {
