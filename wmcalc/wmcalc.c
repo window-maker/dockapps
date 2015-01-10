@@ -4,28 +4,28 @@
  *  Date:     January 17, 2001
  *  Author:   Edward H. Flora <ehflora@access1.net>
  *
- *  This file is a part of the wmcalc application.  As such, this 
- *  file is licensed under the GNU General Public License, version 2.  
- *  A copy of this license may be found in the file COPYING that should 
- *  have been distributed with this file.  If not, please refer to 
+ *  This file is a part of the wmcalc application.  As such, this
+ *  file is licensed under the GNU General Public License, version 2.
+ *  A copy of this license may be found in the file COPYING that should
+ *  have been distributed with this file.  If not, please refer to
  *  http://www.gnu.org/copyleft/gpl.html for details.
  *
  ****************************************************************
     Description:
      This file contains the main program code for the wmcalc
-     application.  Wmcalc is a dockapp designed for the WindowMaker or 
+     application.  Wmcalc is a dockapp designed for the WindowMaker or
      Afterstep window managers (although it should run well in most
      others.)  wmcalc is a four-function (and more) calculator that
      has a small enough footprint that you may leave it open on your
      desktop at all times, for convenient use.
-   
- 
+
+
     Change History:
      Date       Modification
      01/17/01   Updated to use XLookupString
      12/10/00   Revised includes, extracting X libs to wmcalc_x.h
      11/09/00   Added "locked" memory capabilities
-     11/08/00   Added Code to Support Keyboard / focus 
+     11/08/00   Added Code to Support Keyboard / focus
      10/29/00   Implemented memory use, configuration files, and a
                 quickstart button for a larger calculator.  Also
 		abstracted some of the macros, global vars, function
@@ -34,7 +34,7 @@
      02/10/00   Added keyboard event code, without success
      12/21/99   Original product release, version 0.1
      11/26/99   Original file creation
-     
+
  ****************************************************************/
 
 #include "wmcalc_x.h"
@@ -69,7 +69,7 @@ char OpFlag = ' ';             /* Operation requested */
 int ExpFlag = 0;               /* Flag if in scientific notation */
 int DecFlag = 0;               /* Flag if a decimal is in display */
 int ImgFlag = 0;               /* Flag if a number is imaginary */
-int StrCnt = 0;                
+int StrCnt = 0;
 double RegisterA = 0.0;        /* Main working register, displayed */
 double RegisterB = 0.0;        /* Second register to add to, etc */
 char DispString[DISPSIZE+1];   /* Pointer to string of display */
@@ -84,7 +84,7 @@ char *app_name = "wmcalc";     /* Name of app, for window management */
       This is the main Program control function for wmcalc.  It
       contains all the X11 windows function calls, as well as other
       general operations.
-      
+
     Change History:
     Date       Modification
     01/17/01   Updated to use XLookupString to get KeySym
@@ -94,7 +94,7 @@ char *app_name = "wmcalc";     /* Name of app, for window management */
  ****************************************************************/
 int main( int argc, char **argv ) {
   XEvent report;
-  XGCValues xgcValues;	
+  XGCValues xgcValues;
   XTextProperty app_name_atom;
   int err_code = OKAY;
   int dummy = 0;
@@ -106,7 +106,7 @@ int main( int argc, char **argv ) {
   XComposeStatus compose;
   char buffer[20];
   int bufsize = 20;
-  
+
 
   strcpy(configfile, getenv("HOME"));  // Added to wmbutton by Casey Harkin, 3/6/99
   strcat(configfile, CONFFILENAME);    // Fixed Bug - didn't look in home directory
@@ -117,7 +117,7 @@ int main( int argc, char **argv ) {
   for(i=0; i<DISPSIZE; i++) DispString[i] = ' ';
   DispString[DISPSIZE] = '\0';
 
-  /* Parse Command Line Arguments */  
+  /* Parse Command Line Arguments */
   for ( i=1; i < argc; i++ ) {
     if ( *argv[i] == '-' ) {
       switch ( *(argv[i]+1) ) {
@@ -129,7 +129,7 @@ int main( int argc, char **argv ) {
 	sscanf(argv[i], "%s", Geometry_str);
 	if ( Verbose ) printf("Geometry is: %s\n", Geometry_str);
 	break;
-      case 'd':                        // Set display 
+      case 'd':                        // Set display
 	if ( ++i >= argc ) show_usage();
 	sscanf(argv[i], "%s", Display_str);
 	if ( Verbose ) printf("Display is: %s\n", Display_str);
@@ -148,35 +148,35 @@ int main( int argc, char **argv ) {
       }
     }
   } /* End of loop to process command line options */
-    
+
   /* Open display on requested X server */
   if ( (display = XOpenDisplay(Display_str)) == NULL ) {
     error_handler(ERR_X_DISPLAY, Display_str);
   }
-  
+
   screen  = DefaultScreen(display);
   rootwin = RootWindow(display,screen);
   depth   = DefaultDepth(display, screen);
-  
-  bg_pixel = WhitePixel(display, screen ); 
-  fg_pixel = BlackPixel(display, screen ); 
-  
+
+  bg_pixel = WhitePixel(display, screen );
+  fg_pixel = BlackPixel(display, screen );
+
   xsizehints.flags  = USSize | USPosition;
   xsizehints.width  = APP_WIDTH;
   xsizehints.height = APP_HEIGHT;
-  
+
   /* Parse Geometry string and fill in sizehints fields */
-  XWMGeometry(display, screen, 
-	      Geometry_str, 
-	      NULL, 	
-	      border, 
+  XWMGeometry(display, screen,
+	      Geometry_str,
+	      NULL,
+	      border,
 	      &xsizehints,
-	      &xsizehints.x, 
+	      &xsizehints.x,
 	      &xsizehints.y,
 	      &xsizehints.width,
-	      &xsizehints.height, 
+	      &xsizehints.height,
 	      &dummy);
-  
+
   if ( (win = XCreateSimpleWindow(display,
 				  rootwin,
 				  xsizehints.x,
@@ -187,7 +187,7 @@ int main( int argc, char **argv ) {
 				  fg_pixel, bg_pixel) ) == 0 ) {
     error_handler(ERR_X_CREATE_WINDOW, NULL);
   }
-  
+
   if ( (iconwin = XCreateSimpleWindow(display,
 				      win,
 				      xsizehints.x,
@@ -202,14 +202,14 @@ int main( int argc, char **argv ) {
   /* Set up shaped windows */
   /*Gives the appicon a border so you can grab and move it. */
 
-  if ( ( pixmask = XCreateBitmapFromData(display, 
+  if ( ( pixmask = XCreateBitmapFromData(display,
 					 win,
 					 mask_bits,
 					 mask_width,
 					 mask_height) )  == 0 ) {
     error_handler(ERR_X_CREATE_BITMAP, NULL);
   }
-  
+
   XShapeCombineMask(display, win, ShapeBounding, 0, 0, pixmask, ShapeSet );
   XShapeCombineMask(display, iconwin, ShapeBounding, 0, 0, pixmask, ShapeSet);
 
@@ -219,10 +219,10 @@ int main( int argc, char **argv ) {
   /* Interclient Communication stuff */
   /* Appicons don't work with out this stuff */
   xwmhints = XAllocWMHints();
-  xwmhints->flags = WindowGroupHint | IconWindowHint | StateHint;	
+  xwmhints->flags = WindowGroupHint | IconWindowHint | StateHint;
   xwmhints->icon_window = iconwin;
   xwmhints->window_group = win;
-  xwmhints->initial_state = WithdrawnState;  
+  xwmhints->initial_state = WithdrawnState;
   XSetWMHints( display, win, xwmhints );
 
   xclasshint.res_name  = app_name;
@@ -230,15 +230,15 @@ int main( int argc, char **argv ) {
   XSetClassHint( display, win, &xclasshint );
 
   XSetWMNormalHints( display, win, &xsizehints );
-  
+
   /* Tell window manager what the title bar name is. We never see */
   /* this anyways in the WithdrawnState      */
   if ( XStringListToTextProperty(&app_name, 1, &app_name_atom) == 0 ) {
     error_handler(ERR_SETUP_WINDOW_NAME, app_name);
   }
   XSetWMName( display, win, &app_name_atom );
-  
-  /* Create Graphic Context */	
+
+  /* Create Graphic Context */
   if (( gc = XCreateGC(display, win,(GCForeground | GCBackground), &xgcValues))
        == NULL ) {
     error_handler(ERR_CREATE_GC, NULL);
@@ -246,18 +246,8 @@ int main( int argc, char **argv ) {
 
   /* XEvent Masks. We want both windows to process X events */
   XSelectInput(display, win,
-	       ExposureMask | 
-	       ButtonPressMask | 
-	       ButtonReleaseMask |	/* added ButtonReleaseMask *charkins*/
-	       PointerMotionMask |
-	       FocusChangeMask |
-	       LeaveWindowMask |
-	       KeyPressMask |           /* Try this to get keyboard working */
-	       StructureNotifyMask |
-	       EnterWindowMask );  
-  XSelectInput(display, iconwin,
-	       ExposureMask | 
-	       ButtonPressMask | 
+	       ExposureMask |
+	       ButtonPressMask |
 	       ButtonReleaseMask |	/* added ButtonReleaseMask *charkins*/
 	       PointerMotionMask |
 	       FocusChangeMask |
@@ -265,9 +255,19 @@ int main( int argc, char **argv ) {
 	       KeyPressMask |           /* Try this to get keyboard working */
 	       StructureNotifyMask |
 	       EnterWindowMask );
-  
+  XSelectInput(display, iconwin,
+	       ExposureMask |
+	       ButtonPressMask |
+	       ButtonReleaseMask |	/* added ButtonReleaseMask *charkins*/
+	       PointerMotionMask |
+	       FocusChangeMask |
+	       LeaveWindowMask |
+	       KeyPressMask |           /* Try this to get keyboard working */
+	       StructureNotifyMask |
+	       EnterWindowMask );
+
   /* Store the 'state' of the application for restarting */
-  XSetCommand( display, win, argv, argc );	
+  XSetCommand( display, win, argv, argc );
 
   /* Window won't ever show up until it is mapped.. then drawn after a 	*/
   /* ConfigureNotify */
@@ -284,23 +284,23 @@ int main( int argc, char **argv ) {
     XNextEvent(display, &report );
     switch (report.type) {
     case Expose:
-      if (report.xexpose.count != 0) {	
+      if (report.xexpose.count != 0) {
 	break;
       }
-      if ( Verbose ) printf("Event: Expose\n");	
+      if ( Verbose ) printf("Event: Expose\n");
       redraw();
-      break;      
+      break;
     case ConfigureNotify:
-      if ( Verbose ) printf("Event: ConfigureNotify\n");	
+      if ( Verbose ) printf("Event: ConfigureNotify\n");
       //      redraw();
       break;
 
     case KeyPress:
-      if (Verbose) printf("Event: Key state: 0x%x  Key: 0x%x\n", 
+      if (Verbose) printf("Event: Key state: 0x%x  Key: 0x%x\n",
 			  report.xkey.state, report.xkey.keycode);
 
       //      ksym = XLookupKeysym(&(report.xkey), report.xkey.state);
-      /* KeywithMask - this allows Left, middle, and right button functions 
+      /* KeywithMask - this allows Left, middle, and right button functions
 	 to be implemented via keyboard */
       XLookupString(&(report.xkey), buffer, bufsize, &ksym, &compose);
       if (Verbose) printf("Keysym is: 0x%x\n", (int) ksym);
@@ -308,7 +308,7 @@ int main( int argc, char **argv ) {
       ExecFunc( KeywithMask );
       redraw();
       break;
-      
+
     case ButtonPress:	/* draw button pressed, don't launch *charkins*/
       switch (report.xbutton.button) {
       case Button1:
@@ -317,9 +317,9 @@ int main( int argc, char **argv ) {
 	  button_pressed = N + LMASK;
 	  //	  redraw();
 	}
-	if ( Verbose ) 
-	  printf("Button 1:x=%d y=%d N=%d\n", 
-		 report.xbutton.x, report.xbutton.y, N+LMASK);	
+	if ( Verbose )
+	  printf("Button 1:x=%d y=%d N=%d\n",
+		 report.xbutton.x, report.xbutton.y, N+LMASK);
 	break;
       case Button2:
 	if (mmouse) {
@@ -328,8 +328,8 @@ int main( int argc, char **argv ) {
 	    button_pressed = N + MMASK;
 	    //	    redraw();
 	  }
-	  if ( Verbose ) 
-	    printf("Button 2:x=%d y=%d N=%d\n", 
+	  if ( Verbose )
+	    printf("Button 2:x=%d y=%d N=%d\n",
 		   report.xbutton.x, report.xbutton.y, N+MMASK);
 	}
 	break;
@@ -339,8 +339,8 @@ int main( int argc, char **argv ) {
 	  button_pressed = N + RMASK;
 	  //	  redraw();
 	}
-	if ( Verbose ) 
-	  printf("Button 3:x=%d y=%d N=%d\n", 
+	if ( Verbose )
+	  printf("Button 3:x=%d y=%d N=%d\n",
 		 report.xbutton.x, report.xbutton.y, N+RMASK);
 	break;
       }
@@ -353,9 +353,9 @@ int main( int argc, char **argv ) {
 	  ExecFunc(N + LMASK);
 	button_pressed=-1;
 	redraw();
-	if ( Verbose ) 
-	  printf("Button 1:x=%d y=%d N=%d\n", 
-		 report.xbutton.x, report.xbutton.y, N+LMASK);	
+	if ( Verbose )
+	  printf("Button 1:x=%d y=%d N=%d\n",
+		 report.xbutton.x, report.xbutton.y, N+LMASK);
 	break;
       case Button2:
 	if (mmouse) {
@@ -364,8 +364,8 @@ int main( int argc, char **argv ) {
 	    ExecFunc( N + MMASK);
 	  button_pressed=-1;
        	  redraw();
-	  if ( Verbose ) 
-	    printf("Button 2:x=%d y=%d N=%d\n", 
+	  if ( Verbose )
+	    printf("Button 2:x=%d y=%d N=%d\n",
 		   report.xbutton.x, report.xbutton.y, N+MMASK);
 	}
 	break;
@@ -375,8 +375,8 @@ int main( int argc, char **argv ) {
 	  ExecFunc( N + RMASK);
 	button_pressed=-1;
       	redraw();
-	if ( Verbose ) 
-	  printf("Button 3:x=%d y=%d N=%d\n", 
+	if ( Verbose )
+	  printf("Button 3:x=%d y=%d N=%d\n",
 		 report.xbutton.x, report.xbutton.y, N+RMASK);
 	break;
       }
@@ -389,11 +389,11 @@ int main( int argc, char **argv ) {
       XCloseDisplay(display);
       exit(OKAY);
       break;
-    case EnterNotify: 
-    case LeaveNotify: 
+    case EnterNotify:
+    case LeaveNotify:
       XSetInputFocus(display, PointerRoot, RevertToParent, CurrentTime);
       if (Verbose) printf("Focus Change\n");
-      break; 
+      break;
     }
   }
   return (OKAY);
@@ -403,9 +403,9 @@ int main( int argc, char **argv ) {
  *  Function:     redraw
  ****************************************************************
     Description:
-     This function maintains the appearance of the application 
+     This function maintains the appearance of the application
      by copying the "visible" pixmap to the two windows (the withdrawn
-     main window, and the icon window which is the main windows's icon 
+     main window, and the icon window which is the main windows's icon
      image).
 
     Change History:
@@ -415,21 +415,21 @@ int main( int argc, char **argv ) {
 void redraw() {
 
   XCopyArea(display, template.pixmap, visible.pixmap, gc, 0, 0,
-	    template.attributes.width, template.attributes.height, 0, 0 ); 
+	    template.attributes.width, template.attributes.height, 0, 0 );
 
   defineButtonRegions();
 
   /* Copy button to icon */
-  XCopyArea(display, buttons.pixmap, visible.pixmap, gc, 
+  XCopyArea(display, buttons.pixmap, visible.pixmap, gc,
 	    1, 1, 53, 40, 6, 20);
 
-  flush_expose( win ); 
+  flush_expose( win );
   XCopyArea(display, visible.pixmap, win, gc, 0, 0,
-	    visible.attributes.width, visible.attributes.height, 0, 0 ); 
-  flush_expose( iconwin ); 
+	    visible.attributes.width, visible.attributes.height, 0, 0 );
+  flush_expose( iconwin );
   XCopyArea(display, visible.pixmap, iconwin, gc, 0, 0,
 	    visible.attributes.width, visible.attributes.height, 0, 0 );
-  //  if ( Verbose ) printf("In Redraw()\n");	
+  //  if ( Verbose ) printf("In Redraw()\n");
   displaystr();
 }  /***** End of function redraw() ********************************/
 
@@ -439,10 +439,10 @@ void redraw() {
     Description:
      Return the button at the x,y coordinates. The button need not
      be visible ( drawn ). Return -1 if no button match.
-      
+
     Change History:
     Date       Modification
-    11/1/00    Function Header Updated 
+    11/1/00    Function Header Updated
  ****************************************************************/
 int whichButton( int x, int y ) {
   int index;
@@ -468,7 +468,7 @@ int whichButton( int x, int y ) {
     Change History:
     Date       Modification
     01/17/01   Updated to take a KeySym, rather than a KeyCode
-    11/09/00   Original Function creation   
+    11/09/00   Original Function creation
  ****************************************************************/
 int whichKey (KeySym keysym) {
   extern int      Verbose;
@@ -612,7 +612,7 @@ int whichKey (KeySym keysym) {
  ****************************************************************
     Description:
      Load XPM data into X Pixmaps.
-  
+
      * Pixmap 'template' contains the untouched window backdrop image.
      * Pixmap 'visible' is the template pixmap with buttons drawn on it.
             -- what is seen by the user.
@@ -630,31 +630,31 @@ void getPixmaps() {
   visible.attributes.valuemask  |= (XpmReturnPixels | XpmReturnExtensions);
   buttons.attributes.valuemask  |= (XpmReturnPixels | XpmReturnExtensions);
   charmap.attributes.valuemask  |= (XpmReturnPixels | XpmReturnExtensions);
-  
+
   /* Template Pixmap. Never Drawn To. */
   if ( XpmCreatePixmapFromData(	display, rootwin, backdrop_xpm,
-				&template.pixmap, &template.mask, 
+				&template.pixmap, &template.mask,
 				&template.attributes) != XpmSuccess ) {
     error_handler(ERR_CREATE_PIXMAP, "template");
   }
 
   /* Visible Pixmap. Copied from template Pixmap and then drawn to. */
   if ( XpmCreatePixmapFromData(	display, rootwin, backdrop_xpm,
-				&visible.pixmap, &visible.mask, 
+				&visible.pixmap, &visible.mask,
 				&visible.attributes) != XpmSuccess ) {
     error_handler(ERR_CREATE_PIXMAP, "visible");
   }
-  
+
   /* Button Pixmap.  */
   if ( XpmCreatePixmapFromData(	display, rootwin, calcbuttons_xpm,
-				&buttons.pixmap, &buttons.mask, 
+				&buttons.pixmap, &buttons.mask,
 				&buttons.attributes) != XpmSuccess ) {
     error_handler(ERR_CREATE_PIXMAP, "buttons");
   }
 
   /* Character Map Pixmap.  */
   if ( XpmCreatePixmapFromData(	display, rootwin, charmap_xpm,
-				&charmap.pixmap, &charmap.mask, 
+				&charmap.pixmap, &charmap.mask,
 				&charmap.attributes) != XpmSuccess ) {
     error_handler(ERR_CREATE_PIXMAP, "charmap");
   }
@@ -664,7 +664,7 @@ void getPixmaps() {
  *  Function:     flush_expose
  ****************************************************************
     Description:
-      This function is a hold-over from previous programs (wmcp).  
+      This function is a hold-over from previous programs (wmcp).
       The use of this function is not well understood.
 
     Change History:
@@ -674,7 +674,7 @@ void getPixmaps() {
 int flush_expose(Window w) {
   XEvent      dummy;
   int         i=0;
-  
+
   while (XCheckTypedWindowEvent(display, w, Expose, &dummy)) i++;
   return(i);
 } /***** End of function flush_expose() *************************/
@@ -684,10 +684,10 @@ int flush_expose(Window w) {
  ****************************************************************
     Description:
      This function defines the start and end x and y coordinates for
-     the various buttons used in wmcalc.  
+     the various buttons used in wmcalc.
 
-     There should be a better way to do this, as right now, changing 
-     the pixmap calcbuttons.xpm may require the modification of these 
+     There should be a better way to do this, as right now, changing
+     the pixmap calcbuttons.xpm may require the modification of these
      magic numbers.
 
     Change History:
@@ -745,7 +745,7 @@ void defineButtonRegions(void) {
  ****************************************************************
     Description:
       This function displays individual characters to the "display".
-      This function should only be called from displaystr().  
+      This function should only be called from displaystr().
 
     Change History:
     Date       Modification
@@ -761,26 +761,26 @@ void displaychar(char ch, int location) {
 				    containing the character to
 				    display */
 
-  locaty = 6;                    				    
+  locaty = 6;
   locatx = 2 + location * 6;
 
   /* If the character is a memory display character, use the memory
      location display region.  Valid Characters are:
      '_'  -  No data in Memory Location
      '='  -  Value in Memory Location, Not Locked
-     '#'  -  Constant in Memory Location, Locked 
+     '#'  -  Constant in Memory Location, Locked
   */
-  if ((ch == '=') || (ch == '_') || ch == '#') {   
-    locaty = 15;   
+  if ((ch == '=') || (ch == '_') || ch == '#') {
+    locaty = 15;
   }
 
-  XCopyArea(display, charmap.pixmap, win, gc, 
-	    dispchar.x, dispchar.y, 
-	    dispchar.i-dispchar.x, dispchar.j-dispchar.y, 
+  XCopyArea(display, charmap.pixmap, win, gc,
+	    dispchar.x, dispchar.y,
+	    dispchar.i-dispchar.x, dispchar.j-dispchar.y,
 	    locatx, locaty);
-  XCopyArea(display, charmap.pixmap, iconwin, gc, 
-	    dispchar.x, dispchar.y, 
-	    dispchar.i-dispchar.x, dispchar.j-dispchar.y, 
+  XCopyArea(display, charmap.pixmap, iconwin, gc,
+	    dispchar.x, dispchar.y,
+	    dispchar.i-dispchar.x, dispchar.j-dispchar.y,
 	    locatx, locaty);
 
 }  /***** End of Function displaychar() **************************/
@@ -789,7 +789,7 @@ void displaychar(char ch, int location) {
  *  Function:     displaystr
  ****************************************************************
     Description:
- 
+
     Change History:
     Date       Modification
     11/09/00   Added Capabilities for "Locked" memories
@@ -813,7 +813,7 @@ void displaystr(void) {
   for (i = 0; i < NUM_MEM_CELLS; i++) {
     if (MemArray[i] == 0.0)
       displaychar('_', i);    /* Value NOT stored here */
-    else if (MemLock[i] == 0) 
+    else if (MemLock[i] == 0)
       displaychar('=', i);    /* Value IS stored here */
     else
       displaychar('#', i);    /* Constant IS stored here */
@@ -826,7 +826,7 @@ void displaystr(void) {
  *  Function:     show_usage
  ****************************************************************
     Description:
-      This function prints a brief usage message to stdout, 
+      This function prints a brief usage message to stdout,
       and exits.
 
     Change History:
@@ -842,7 +842,7 @@ void show_usage(void) {
 	 app_name);
   printf("\n");
   printf("-g  <geometry>   Window Geometry - ie: 64x64+10+10\n");
-  printf("-d  <display>    Display -  ie: 127.0.0.1:0.0\n"); 
+  printf("-d  <display>    Display -  ie: 127.0.0.1:0.0\n");
   printf("-f  <filename>   Name of Config file - ie: /home/user/.wmcalc\n");
   printf("-v               Verbose Mode. \n");
   printf("-h               Help. This message.\n");
@@ -865,8 +865,8 @@ void error_handler (int err_code, char *err_string) {
   extern char tempfile[];
 
   if (err_code == OKAY) {
-    /* This case should never happen.  
-       If it does, somebody screwed up (probably me), 
+    /* This case should never happen.
+       If it does, somebody screwed up (probably me),
        but don't kill the program!! */
     return;
   }
@@ -878,9 +878,9 @@ void error_handler (int err_code, char *err_string) {
       break;
     case ERR_TMP_FILE_FAILED:
       fprintf(stderr, "Could not open temporary file %s\n", tempfile);
-      break;      
-    case ERR_X_CREATE_WINDOW:    
-      fprintf(stderr, "Could not create simple window\n");	
+      break;
+    case ERR_X_CREATE_WINDOW:
+      fprintf(stderr, "Could not create simple window\n");
       break;
     case ERR_X_CREATE_BITMAP:
       fprintf(stderr, "Could not create bitmap from data\n");

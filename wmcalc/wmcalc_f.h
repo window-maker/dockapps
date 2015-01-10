@@ -10,7 +10,7 @@
  *  Date       Modification
  *  01/17/01   Updated whichKey() function to take a KeySym
  *  11/09/00   Removed function clrmem() as this was merged into clrallmem()
- *             Also add function whichKey, in wmcalc.c to handle Keyboard 
+ *             Also add function whichKey, in wmcalc.c to handle Keyboard
  *             events
  *  10/25/00   Original file creation, extracted from wmcalc.h
  */
@@ -23,7 +23,7 @@
 #include "wmcalc_t.h"
 
 void ExecFunc(int val);     // function to run app N as found in conf file
-void redraw(void);                 
+void redraw(void);
 void getPixmaps(void);
 int  whichButton(int x, int y);  // determine which button has been pressed
 int  whichKey(KeySym keysym);    // determine which key has been pressed

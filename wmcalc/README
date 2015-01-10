@@ -9,10 +9,10 @@ DESCRIPTION:
 ------------
 wmcalc is a program designed to act as a simple four-function
 calculator.  It is different from other calculator programs, however
-in that it is designed to take up very little desktop space.  As such, 
-it can be left running on the desktop at all times.  It is intended to 
-placed in the WindowMaker dock, or in Wharf under Afterstep, though it 
-should run as well under any window manager.  
+in that it is designed to take up very little desktop space.  As such,
+it can be left running on the desktop at all times.  It is intended to
+placed in the WindowMaker dock, or in Wharf under Afterstep, though it
+should run as well under any window manager.
 
 LICENSING:
 ----------
@@ -24,7 +24,7 @@ CONTRIBUTORS:
 -------------
 Co-Developers:
 	      Rick Stuart     <stuart@xnet.com>
-	      Philippe Trbich <philippe.trbich@free.fr> 
+	      Philippe Trbich <philippe.trbich@free.fr>
 Original Web Page Designs:
               Jon Bruno <bruno@ksu.edu>
 Thanks to:
@@ -36,35 +36,35 @@ bugs in the code, etc.
 
 INSTALLATION:
 -------------
-	Untar the file: 
+	Untar the file:
 		tar xvzf wmcalc-0.3.tar.gz
 
-	CD to source directory:  
+	CD to source directory:
 		cd wmcalc-0.3
 
 	Compile it:
 	 	make clean; make
 
-	Copy the config file:  
+	Copy the config file:
 		cp .wmcalc ~
 
 	Put the executable somewhere in your path:
 		mv wmcalc /usr/local/bin (or anyhere in your path)
-	
+
 	Run it:
 		wmcalc &
 
-	Grab the appicon and move it to the dock. 
+	Grab the appicon and move it to the dock.
 	Change the settings to start with Windowmaker
 
 	Afterstep Wharf 1.6.??: (I don't use Afterstep anymore, so...)
 	*Wharf wmcalc -Swallow "wmcalc" wmcalc &
 
-    ***Note***: 
-	The appicon only has a two pixel border where you can grab 
+    ***Note***:
+	The appicon only has a two pixel border where you can grab
 	and move it.  It is easiest to grab along the bottom edge.
 
-	If make doesn't work, you may need to fiddle with the settings in 
+	If make doesn't work, you may need to fiddle with the settings in
 	the Makefile.
 
 	Tested on: (Well, it runs, I don't know if 'Tested' is quite right...)
@@ -77,23 +77,23 @@ usage: wmcalc [-g geometry] [-d dpy] [-v] [-f configfilename] [-h]
 
 -g  <geometry>   Window Geometry - ie: 64x64+10+10
 -d  <display>    Display -  ie: 127.0.0.1:0.0
--v               Verbose Mode. 
+-v               Verbose Mode.
 -h               Help. This message.
--f  <filename>   Full path to configuration file to use.  
+-f  <filename>   Full path to configuration file to use.
 
 Buttons are defined as:
  ____________________
-|       x00          | 	       where: x = 1 for Left Mouse Button   
+|       x00          | 	       where: x = 1 for Left Mouse Button
 | 0 1 2 3 4 5 6 7 8 9|                x = 2 for Middle Mouse Button
 |--------------------|		      x = 3 for Right Mouse Button
-|x01 x02 x03 x04 x05 |                
+|x01 x02 x03 x04 x05 |
 |x06 x07 x08 x09 x10 |	       Note: the numbers 0..9 are the indicators
 |x11 x12 x13 x14 x15 |               for memory cells 0..9 respectively
 |x16 x17 x18 x19 x20 |
  --------------------
 
 Button Functions:
-	100	Reinitialize the calculator, and both Registers 
+	100	Reinitialize the calculator, and both Registers
 		(Clear All)
 	200	Clear all the memory registers (0..10)
 	300     Clear the current number being entered only
@@ -106,18 +106,18 @@ Button Functions:
 	3yy	Store Displayed number in memory location [0-9]
 			if yy = 2,3,4, 7,8,9, 12,13,14, 17
 		otherwise, can run a user-defined function (not implemented)
-	1xx	Hopefully the other functions are obvious from their 
+	1xx	Hopefully the other functions are obvious from their
 	        button graphics.
 
 
 NOTES:
 ------
-I am sure that there are better ways to do some of the things that are 
+I am sure that there are better ways to do some of the things that are
 done in wmcalc.  In fact, wmcalc is basically a series of hacks, but appears
 to be stable...
 
 The configuration file (.wmcalc) is written by wmcalc whenever the user
-requests to store a number to memory.  As a part of this process, a file 
+requests to store a number to memory.  As a part of this process, a file
 is written to /tmp.  If /tmp is not accessible, it tries in the user's home
 directory, as defined by the environment variable HOME.  This file is
 erased as soon as it is written over the main configuration file.
@@ -125,16 +125,16 @@ erased as soon as it is written over the main configuration file.
 Changes made to the configuration file (other than memory stores) will not
 take effect until the next time wmcalc is started.
 
-Although one can only "Clear" all unlocked memory locations, one may clear the 
+Although one can only "Clear" all unlocked memory locations, one may clear the
 display and then "store" a '0' in the memory location, providing the
 ability to clear individual cells.
 
 The fonts are stored in charmap.xpm.  This file may be edited to
-change colors or fonts, but the app must be recompiled for the changes 
+change colors or fonts, but the app must be recompiled for the changes
 to take effect.  The buttons are located in calcbuttons.xpm.  This
 file may be edited, though the borders should stay where they are
 unless you want to change the button regions that are hard coded.
-The background border is defined in backdrop.xpm.  
+The background border is defined in backdrop.xpm.
 
 "C code.  C code run.  Run, code, run.
 			PLEASE!?!?!?!?!?!?"
@@ -158,9 +158,9 @@ CHANGE LOG:
 	functional calculator, but just tested the display.  It was more
 	of a proof of concept.
 
-TODO: 
+TODO:
 -----
-These are partially a dream list.  I don't know when they'll get done, 
+These are partially a dream list.  I don't know when they'll get done,
 as I'm pretty busy at work.  Anyone want to tackle these??
 
 * Re-implement the register/display design to allow full double precision.
@@ -174,19 +174,19 @@ as I'm pretty busy at work.  Anyone want to tackle these??
   that one can intentionally write data to.  (This could grow to a pipe to
   plotting programs, etc, though this is a bit extreme...)
 
-RPN: 
+RPN:
   I have no intention at this time to add in an RPN format, as I
   personally do not like it.  It should be noted that I have NOT used it
   extensively, and I've heard that I would like it.  But, until then...
 
-BUGS: 
+BUGS:
 -----
 Remember, they're just undocumented FEATURES!!!
 
 * The display can lose the last digit of a three character exponential
   notation number.
 
-* Due to an implementation fault, at every step of calculations, precision 
+* Due to an implementation fault, at every step of calculations, precision
   is lost, as the number is only as accurate at that displayed.
 
 * Order of operations: 1 + 2 * 5 = 15, not 11, as it should.
@@ -194,8 +194,8 @@ Remember, they're just undocumented FEATURES!!!
 * Changing sign when the display is blank results in "-0".  Further entry
   yields "-05...," but this does not affect calculations.
 
-* Changes to the configuration file do not take effect until wmcalc is 
-  restarted.  (Note that file is written whenever a "store memory 
+* Changes to the configuration file do not take effect until wmcalc is
+  restarted.  (Note that file is written whenever a "store memory
   location" is requested)
 
 Probably many more.  Send comments (preferably with fixes) to
@@ -204,9 +204,9 @@ I will happily include your name in the documentation for the program
 if you send me a bug report and the correction.  This can be in the
 form of a patch file, or ASCII text to exchange, or an equivalent.
 Note, this program is written in C.  Not C++.  I'm not a computer
-science person, I don't do objects.  Therefore, bug fixes that convert 
+science person, I don't do objects.  Therefore, bug fixes that convert
 this to C++ don't count, since I would no longer be able to support
-the program.  Of course, you can modify the code and release a new 
-application.  
+the program.  Of course, you can modify the code and release a new
+application.
 
 Thanks, and Good Luck.

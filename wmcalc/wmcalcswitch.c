@@ -4,16 +4,16 @@
  *  Date:     November 1, 2000
  *  Author:   Edward H. Flora <ehflora@access1.net>
  *
- *  This file is a part of the wmcalc application.  As such, this 
- *  file is licensed under the GNU General Public License, version 2.  
- *  A copy of this license may be found in the file COPYING that should 
- *  have been distributed with this file.  If not, please refer to 
+ *  This file is a part of the wmcalc application.  As such, this
+ *  file is licensed under the GNU General Public License, version 2.
+ *  A copy of this license may be found in the file COPYING that should
+ *  have been distributed with this file.  If not, please refer to
  *  http://www.gnu.org/copyleft/gpl.html for details.
  *
  ****************************************************************
     Description:
-      This file contains system level functions, such as read/write of 
-      the config file, character map boundaries, etc. 
+      This file contains system level functions, such as read/write of
+      the config file, character map boundaries, etc.
 
     Change History:
     Date       Modification
@@ -256,8 +256,8 @@ void ExecFunc( int val ) {
  *  Function:     getboundaries
  ****************************************************************
     Description:
-      This function returns the x,y boundaries for each character 
-      that is to be displayed on the display.  
+      This function returns the x,y boundaries for each character
+      that is to be displayed on the display.
 
       There must be a better way to do this, as by changing the file
       charmap.xpm, one may have to adjust these constants.
@@ -379,7 +379,7 @@ ButtonArea getboundaries(char ch) {
       This function updates the configuration file as memory locations
       are updated in the program.  It re-writes the entire file, but
       should ignore all lines that do not start with "Mem".
-      
+
     Change History:
     Date       Modification
     11/01/00   Function Header updated
@@ -406,7 +406,7 @@ int write_config(void) {
   /* We cannot write to the global config-file... */
   if(!strcmp(configfile, CONFIGGLOBAL)) {
     strcpy(configfile, getenv("HOME"));  // Added to wmbutton by Gordon Fraser, 9/21/01
-    strcat(configfile, CONFFILENAME);    
+    strcat(configfile, CONFFILENAME);
   }
 
   /* Open Temporary File */
@@ -423,7 +423,7 @@ int write_config(void) {
   while ((line = readln(fp)) != NULL) {    // Read Lines in config file
     if (Verbose)  printf("line:%s", line);
 
-    if ((strncmp(line, CfgVarList[MEM_LABEL_0], 
+    if ((strncmp(line, CfgVarList[MEM_LABEL_0],
 		 strlen(CfgVarList[MEM_LABEL_0]) - 1) == 0)) {
       // -1 to generalize to all Mem? strings
       // If we've found a memory entry
@@ -445,9 +445,9 @@ int write_config(void) {
 
   /* Copy temp file over original */
   /* Note:  If changing command, make sure to adjust size of string above!! */
-  sprintf(movefilecmd, "mv -f %s %s\n", tempfile, configfile); 
+  sprintf(movefilecmd, "mv -f %s %s\n", tempfile, configfile);
   err_code = system(movefilecmd);
-  
+
   if(Verbose) printf("New config file written.\n");
 
   return(err_code);
@@ -461,7 +461,7 @@ int write_config(void) {
      This function reads the configuration file on program startup,
      and sets the appropriate configuration options.
      (By default, this is ~/.wmcalc, or a user set value)
-    
+
     Change History:
     Date       Modification
     11/01/00   Function header updated.
@@ -500,10 +500,10 @@ int read_config(void) {
     line = readln(fp);
     if (Verbose) printf("Line Read:%s\n", line);
     if (line == NULL) break;         // if end of file, quit
-    if ( (line[0] != '#') && (line[0] != '\n')) { /* Ignore comments and 
+    if ( (line[0] != '#') && (line[0] != '\n')) { /* Ignore comments and
 						     blanks */
       if (strchr(line, sep_ch) != NULL) {  /* The line has a tab, so let's
-					      see if the variable is 
+					      see if the variable is
 					      understood */
 	i = 0;
 	/* Loop while we haven't found the variable */
@@ -514,7 +514,7 @@ int read_config(void) {
 	/* If we've found the variable, let's set the appropriate value */
 	if (i <= MAX_LABEL) {
 	  if (Verbose) printf("Variable %s found\n", CfgVarList[i]);
-	  
+
 	  /* Point to the 'tab' character, to read the value */
 	  cfg_var_ptr = strchr(line, sep_ch);
 	  cfg_var_ptr++;  // ++ to avoid tab character itself
@@ -535,7 +535,7 @@ int read_config(void) {
 	    MemLock[i] = 0;
 	    /* Set Memory Element */
 	    MemArray[i] = atof(cfg_var_ptr);
-	    if (Verbose) 
+	    if (Verbose)
 	      printf("Assign Memory Element %d to %f\n", i, MemArray[i]);
 	    break;
 
@@ -553,18 +553,18 @@ int read_config(void) {
 	    MemLock[i - MEM_LOCK_0] = 1;
 	    /* Set Memory Element */
 	    MemArray[i - MEM_LOCK_0] = atof(cfg_var_ptr);
-	    if (Verbose) 
+	    if (Verbose)
 	      printf("Assign Memory Element %d to %f\n", i -
 		     MEM_LOCK_0, MemArray[i - MEM_LOCK_0]);
 	    break;
 
 	  case IMAG_LABEL:
-	    /* Get the character that the user wishes to use to 
+	    /* Get the character that the user wishes to use to
 	       represent sqrt(-1) (i or j) */
 	    if ((cfg_var_ptr[0] == 'i') || cfg_var_ptr[0] == 'j') {
 	      ImagChar = cfg_var_ptr[0];
 	    }
-	    if (Verbose) 
+	    if (Verbose)
 	      printf("Use character '%c' to represent sqrt(-1)\n", ImagChar);
 	    break;
 

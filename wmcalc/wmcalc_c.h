@@ -3,7 +3,7 @@
  *  Version:  0.2
  *
  *  Description:
- *  This file contains the constants settings for the wmcalc program, 
+ *  This file contains the constants settings for the wmcalc program,
  *  except for the error constants, which are contained in the file wmcalc_err.h
  *
  *  Change History:

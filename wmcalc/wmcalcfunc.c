@@ -3,21 +3,21 @@
  *  Version:  0.21
  *  Author:   Edward H. Flora <ehflora@access1.net>
  *
- *  This file is a part of the wmcalc application.  As such, this 
- *  file is licensed under the GNU General Public License, version 2.  
- *  A copy of this license may be found in the file COPYING that should 
- *  have been distributed with this file.  If not, please refer to 
+ *  This file is a part of the wmcalc application.  As such, this
+ *  file is licensed under the GNU General Public License, version 2.
+ *  A copy of this license may be found in the file COPYING that should
+ *  have been distributed with this file.  If not, please refer to
  *  http://www.gnu.org/copyleft/gpl.html for details.
  *
  ****************************************************************
     Description:
-      This file contains the code for the actual calculator functions, 
+      This file contains the code for the actual calculator functions,
       such as a add, subt, clear, etc.
 
     Change History:
     Date       Modification
     11/03/00   File Header added
- 
+
  ****************************************************************/
 
 /***** Includes *************************************************/
@@ -70,7 +70,7 @@ void clearcalc(void) {
  ****************************************************************
     Description:
      Clears the current number being entered.
- 
+
     Change History:
     Date       Modification
     11/03/00   Updated function header
@@ -101,7 +101,7 @@ void clearnum(void) {
  ****************************************************************
     Description:
       Add characters to the number being entered.
- 
+
     Change History:
     Date       Modification
     11/03/00   Updated function header
@@ -119,7 +119,7 @@ void charkey(char ch) {
 
   if (StrCnt < DISPSIZE) {
     if (ch == '.') {
-      if (DecFlag == 0) { 
+      if (DecFlag == 0) {
 	for (i = 1; i < DISPSIZE; i++)
 	  DispString[i-1] = DispString[i];
 	DecFlag = 1;
@@ -160,7 +160,7 @@ void charkey(char ch) {
  ****************************************************************
     Description:
      Change the sign of the number currently being entered
- 
+
     Change History:
     Date       Modification
     11/03/00   Updated Function header
@@ -250,7 +250,7 @@ void sqrtnum(void) {
       Add the number in Registers A to Register B.
     Change History:
     Date       Modification
-    11/03/00   Updated Function header 
+    11/03/00   Updated Function header
  ****************************************************************/
 void addnums(void) {
   extern int Verbose;
@@ -363,10 +363,10 @@ void divnums(void) {
 } /* End of Function divnums() ********************************/
 
 /****************************************************************
- *  Function:     
+ *  Function:
  ****************************************************************
     Description:
-      Calculate result of entered calculation. 
+      Calculate result of entered calculation.
     Change History:
     Date       Modification
     11/04/00   Updated Function Header
@@ -439,8 +439,8 @@ void clrallmem(void) {
  *  Function:     stormem
  ****************************************************************
     Description:
-      Store value to memory cell #N   
- 
+      Store value to memory cell #N
+
     Change History:
     Date       Modification
     11/04/00   Updated function header
@@ -461,11 +461,11 @@ void stormem(int mem_loc) {
     write_config();
   }
   else {
-    if (Verbose) printf("Memory location %d Locked at %f\n", 
+    if (Verbose) printf("Memory location %d Locked at %f\n",
 			mem_loc, MemArray[mem_loc]);
   }
 
-  if (Verbose) { 
+  if (Verbose) {
     for (i = 0; i < NUM_MEM_CELLS; i++)
       printf(" %f  ", MemArray[i]);
     printf("\n");
@@ -478,7 +478,7 @@ void stormem(int mem_loc) {
  *  Function:     recallmem
  ****************************************************************
     Description:
-      Store value to memory cell #N 
+      Store value to memory cell #N
     Change History:
     Date       Modification
     11/04/00   Updated function header
@@ -497,7 +497,7 @@ void recallmem(int mem_loc) {
 
   sprintf(DispString, "%10.5g", RegisterA);
 
-  if (Verbose) { 
+  if (Verbose) {
     for (i = 0; i < NUM_MEM_CELLS; i++)
       printf(" %f  ", MemArray[i]);
     printf("\n");
@@ -509,7 +509,7 @@ void recallmem(int mem_loc) {
  *  Function:     startcalc
  ****************************************************************
     Description:
-      Change the sign of the number currently being entered 
+      Change the sign of the number currently being entered
     Change History:
     Date       Modification
     11/04/00   Updated function header
@@ -518,7 +518,7 @@ void startcalc(void) {
   extern int Verbose;
   extern char SysCalcCmd[];
 
-  if (Verbose) 
+  if (Verbose)
     fprintf(stderr, "Starting external calculator %s\n", SysCalcCmd);
 
   if (system(SysCalcCmd) == -1)

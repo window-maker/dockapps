@@ -30,7 +30,7 @@ Pixel bg_pixel, fg_pixel;
 XSizeHints xsizehints;
 XWMHints   *xwmhints;
 XClassHint xclasshint;
-char configfile[CONFIGFILEMAX]; 
+char configfile[CONFIGFILEMAX];
 char tempfile[CONFIGFILEMAX];
 
 Pixmap pixmask;
