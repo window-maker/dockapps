@@ -1,0 +1,35 @@
+# wmcalc Configuration File
+# Last Manual Update: 10/29/00
+
+# General Notes: 
+# * There must be a tab character '\t' between the variable name and
+#   the value, not a series of spaces.
+# * wmcalc is case sensitive when reading these variables.  Examine the 
+#   wmcalc_g.h file for currently defined variables.
+
+#Calculator Memory Locations 
+#Note: These must all exist, though they may be in any order
+Mem0	0.000000
+Mem1	0.000000
+MEM2	2.718282
+MEM3	3.1415926535
+Mem4	0.000000
+Mem5	0.000000
+Mem6	0.000000
+Mem7	0.000000
+Mem8	0.000000
+Mem9	0.000000
+
+# The CalcStart variable is intended to allow the user to start a larger
+# calculator for more complicated needs.  Everything after the tab '\t' 
+# character is sent unmodified in a system() call, so anything you can type
+# at the command prompt may be put here.
+#CalcStart	xterm -T "Basic Calculator" -e bc &
+#CalcStart	xterm -T "gnuplot" -sb -sl 500 -e gnuplot &
+CalcStart	xcalc &
+
+# The ImagChar variable allows the user to choose between 'i' and 'j' to 
+# represent the sqrt(-1).  (Electrical Engineers (such as myself) use 'j' 
+# rather than 'i.')
+#ImagChar	i
+ImagChar	j
