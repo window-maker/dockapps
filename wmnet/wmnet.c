@@ -295,7 +295,7 @@ void setup_wmnet(int argc, char **argv) {
                                        "  -n, --normalstate        start up in normal, shaped state\n"
 				       "  -t, --txcolor=COLOR      color for tx\n"
 				       "  -r, --rxcolor=COLOR      color for rx\n"
-				       "  -x, --maxrate=BYTES      max transfer rate for graph scale (default 6000)\n"
+				       "  -x, --maxrate=BYTES      max transfer rate for graph scale (default 120000)\n"
                                        "  -p, --promisc=DEVICE     put DEVICE into promiscuous mode to apply\n"
                                        "                           accounting rules to all network packets\n"
                                        "  -u, --unpromisc=DEVICE   turn off promiscuous mode on DEVICE\n"
@@ -303,7 +303,7 @@ void setup_wmnet(int argc, char **argv) {
 				       "  -l, --logscale           use a logarithmic scale (great for ethernet\n"
                                        "                           connections with -x 10000000)\n"
 				       "  -d DELAY                 delay time for polling statistics\n"
-                                       "                           in microseconds  (default 25000)\n"
+                                       "                           in microseconds  (default 100000)\n"
 				       "\n");
 				printf("Compiled in drivers: [%s]\n\n", available_drivers());
                                 printf("Report bugs to joff@iastate.edu\n");

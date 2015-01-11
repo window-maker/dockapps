@@ -78,7 +78,7 @@ struct timeval timenow, timelast;
 unsigned long long int totalbytes_in, totalbytes_out, lastbytes_in, lastbytes_out;
 unsigned long long int totalpackets_in, totalpackets_out, lastpackets_in, lastpackets_out;
 unsigned int diffbytes_in, diffbytes_out;
-unsigned int delayTime = 25000, displayDelay = 55000, maxRate = 6000;
+unsigned int delayTime = 100000, displayDelay = 55000, maxRate = 120000;
 unsigned int out_rule = 2, in_rule = 1, graphbox_height = 44;  /* number of rule in /proc/net/ip_acct to use */
 char *in_rule_string = NULL, *out_rule_string = NULL, *device=NULL;
 Bool current_tx = False, current_rx = False, rx, tx, logscale = False;
