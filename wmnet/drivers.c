@@ -316,36 +316,25 @@ int updateStats_ipchains(void) {
 
 int updateStats_dev(void) {
 	FILE *dev;
-        char *ptr;
-	unsigned int flag = 0;
-	static char interface[16];
 	rx = False;
 	tx = False;
 
-
-	if ((dev = fopen("/proc/net/dev", "r")) == NULL) {
-		fprintf(stderr, "/proc/net/dev does not exist?\n"
-				"Perhaps we are not running Linux?\n");
+	dev = fopen("/proc/net/dev", "r");
+	if (!dev) {
+		fprintf(stderr, "/proc/net/dev does not exist\n");
 		exit(4);
 	}
+
         /* the first two lines we can skip */
         fgets(buffer, 256, dev);
         fgets(buffer, 256, dev);
 
-	/* IP Chain Rules for Linux kernel 2_1.x */
-	while(flag != (ACCOUNT_IN_FOUND|ACCOUNT_OUT_FOUND) && fgets(buffer, 256, dev)) {
+	while(fgets(buffer, 256, dev)) {
 
-		sscanf(buffer, "%16s %llu %llu %*d %*d %*d %*d %*d %*d %llu %llu %*d %*d %*d %*d %*d %*d",
-		       interface, &totalbytes_in, &totalpackets_in, &totalbytes_out, &totalpackets_out);
+		if (strcmp(buffer, device) > 0){
 
-		/* strip trailing colon */
-		ptr = interface;
-		while(*ptr != ':') ptr++;
-		*ptr = '\0';
-
-		if (!strcmp(interface, device)) {
-
-			flag = (ACCOUNT_IN_FOUND|ACCOUNT_OUT_FOUND);
+			sscanf(buffer, "%*s %llu %llu %*d %*d %*d %*d %*d %*d %llu %llu %*d %*d %*d %*d %*d %*d",
+			       &totalbytes_in, &totalpackets_in, &totalbytes_out, &totalpackets_out);
 
 			if (totalpackets_in != lastpackets_in) {
 				diffbytes_in += totalbytes_in - lastbytes_in;
@@ -360,6 +349,8 @@ int updateStats_dev(void) {
 				lastbytes_out = totalbytes_out;
 				tx = True;
 			}
+
+			break;
 		}
 	}
 
