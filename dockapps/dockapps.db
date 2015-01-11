@@ -390,7 +390,7 @@ dockapps = 14
 category = General/Others
 
 [wmnet]
-version-1.06+20141005 = 4a6a1ccee2c02a982e0c1258b3304dcf02b26d28
+version-1.06+20150111 = c70d3fcb8cff5d407fd3a732e1342c779aee8678
 version-1.06 = c71cfb9e9bbd4dbd1c7ca2d79705ab3598734175
 image = wmnet.gif
 description = "WMnet is a little X dock.app network monitor I wrote for Linux. It was originally inspired by that funky program 'tleds' that blinks your keyboard LED's in response to net traffic, but its a lot more entertaining than that nowadays. I wrote this thing with low cpusage, low memory, and efficient use of screen real-estate in mind."
