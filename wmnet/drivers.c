@@ -59,9 +59,9 @@ static struct ifpppstatsreq ppp_stats_req;
 
 extern char buffer[256];
 extern char *in_rule_string, *out_rule_string, *device;
-extern unsigned long totalbytes_in, totalbytes_out, lastbytes_in, lastbytes_out;
-extern unsigned long totalpackets_in, totalpackets_out, lastpackets_in, lastpackets_out;
-extern unsigned int diffpackets_in, diffpackets_out, diffbytes_in, diffbytes_out;
+extern unsigned long long int totalbytes_in, totalbytes_out, lastbytes_in, lastbytes_out;
+extern unsigned long long int totalpackets_in, totalpackets_out, lastpackets_in, lastpackets_out;
+extern unsigned int diffbytes_in, diffbytes_out;
 extern unsigned int out_rule, in_rule;  /* number of rule in /proc/net/ip_acct to use */
 extern Bool current_tx, current_rx, rx, tx;
 
@@ -199,7 +199,6 @@ int updateStats_ipfwadm(void) {
 				totalpackets_in = strtoul(&buffer[offset], &ptr, 10);
 				if (totalpackets_in == lastpackets_in) break;
 				totalbytes_in = strtoul(ptr, NULL, 10);
-				diffpackets_in += totalpackets_in - lastpackets_in;
 				diffbytes_in += totalbytes_in - lastbytes_in;
 				lastpackets_in = totalpackets_in;
 				lastbytes_in = totalbytes_in;
@@ -213,7 +212,6 @@ int updateStats_ipfwadm(void) {
 				totalpackets_out = strtoul(&buffer[offset], &ptr, 10);
 				if (totalpackets_out == lastpackets_out) break;
 				totalbytes_out = strtoul(ptr, NULL, 10);
-				diffpackets_out += totalpackets_out - lastpackets_out;
 				diffbytes_out += totalbytes_out - lastbytes_out;
 				lastpackets_out = totalpackets_out;
 				lastbytes_out = totalbytes_out;
@@ -278,7 +276,6 @@ int updateStats_ipchains(void) {
 			totalpackets_in = pack;
 			if (totalpackets_in != lastpackets_in) {
 				totalbytes_in = bytes;
-				diffpackets_in += totalpackets_in - lastpackets_in;
 				diffbytes_in += totalbytes_in - lastbytes_in;
 				lastpackets_in = totalpackets_in;
 				lastbytes_in = totalbytes_in;
@@ -291,7 +288,6 @@ int updateStats_ipchains(void) {
 			totalpackets_out = pack;
 			if (totalpackets_out != lastpackets_out) {
 				totalbytes_out = bytes;
-				diffpackets_out += totalpackets_out - lastpackets_out;
 				diffbytes_out += totalbytes_out - lastbytes_out;
 				lastpackets_out = totalpackets_out;
 				lastbytes_out = totalbytes_out;
@@ -322,7 +318,7 @@ int updateStats_dev(void) {
 	FILE *dev;
         char *ptr;
 	unsigned int flag = 0;
-	char *name;
+	static char interface[16];
 	rx = False;
 	tx = False;
 
@@ -338,31 +334,27 @@ int updateStats_dev(void) {
 
 	/* IP Chain Rules for Linux kernel 2_1.x */
 	while(flag != (ACCOUNT_IN_FOUND|ACCOUNT_OUT_FOUND) && fgets(buffer, 256, dev)) {
-		ptr = buffer;
-		while(*ptr == ' ') ptr++;
-		name = ptr;
-                while(*ptr != ':') ptr++;
-                *ptr = '\0';
 
-		if (!strcmp(name, device)) {
+		sscanf(buffer, "%16s %llu %llu %*d %*d %*d %*d %*d %*d %llu %llu %*d %*d %*d %*d %*d %*d",
+		       interface, &totalbytes_in, &totalpackets_in, &totalbytes_out, &totalpackets_out);
+
+		/* strip trailing colon */
+		ptr = interface;
+		while(*ptr != ':') ptr++;
+		*ptr = '\0';
+
+		if (!strcmp(interface, device)) {
 
 			flag = (ACCOUNT_IN_FOUND|ACCOUNT_OUT_FOUND);
 
-			totalpackets_in = strtoul(&buffer[15], NULL, 10);
 			if (totalpackets_in != lastpackets_in) {
-				totalbytes_in = strtoul(&buffer[7], NULL, 10);
-				diffpackets_in += totalpackets_in - lastpackets_in;
 				diffbytes_in += totalbytes_in - lastbytes_in;
 				lastpackets_in = totalpackets_in;
 				lastbytes_in = totalbytes_in;
 				rx = True;
 			}
 
-
-			totalpackets_out = strtoul(&buffer[74], NULL, 10);
 			if (totalpackets_out != lastpackets_out) {
-				totalbytes_out = strtoul(&buffer[66], NULL, 10);
-				diffpackets_out += totalpackets_out - lastpackets_out;
 				diffbytes_out += totalbytes_out - lastbytes_out;
 				lastpackets_out = totalpackets_out;
 				lastbytes_out = totalbytes_out;
@@ -409,7 +401,6 @@ int updateStats_ppp(void) {
         totalpackets_in = ppp_stats_req.stats.p.ppp_ipackets;
         if (totalpackets_in != lastpackets_in) {
                 totalbytes_in = ppp_stats_req.stats.p.ppp_ibytes;
-                diffpackets_in += totalpackets_in - lastpackets_in;
                 diffbytes_in += totalbytes_in - lastbytes_in;
                 lastpackets_in = totalpackets_in;
                 lastbytes_in = totalbytes_in;
@@ -420,7 +411,6 @@ int updateStats_ppp(void) {
         totalpackets_out = ppp_stats_req.stats.p.ppp_opackets;
         if (totalpackets_out != lastpackets_out) {
                 totalbytes_out =ppp_stats_req.stats.p.ppp_obytes;
-                diffpackets_out += totalpackets_out - lastpackets_out;
                 diffbytes_out += totalbytes_out - lastbytes_out;
                 lastpackets_out = totalpackets_out;
                 lastbytes_out = totalbytes_out;
