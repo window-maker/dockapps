@@ -116,6 +116,7 @@ dockapps = 216
 category = System Monitoring
 
 [wmbattery]
+version-2.46 = 6eaba7b5eb1ecf697f4e76b1cd33283b70a30194
 version-2.45 = a1ef96938f522770c6b41e85e6d15c91b13aa189
 version-2.44 = f5f804289e0255a167ca5bc90076007d495a578b
 image = wmbattery.gif
