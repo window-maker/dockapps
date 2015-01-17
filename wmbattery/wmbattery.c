@@ -148,6 +148,16 @@ int apm_exists(void)
 	return apm_read(&i);
 }
 #endif
+#if !defined(HAVE_APM_H)
+int apm_read(apm_info *i)
+{
+	return -1;
+}
+int apm_exists(void)
+{
+	return -1;
+}
+#endif
 
 int apm_change(apm_info *cur)
 {

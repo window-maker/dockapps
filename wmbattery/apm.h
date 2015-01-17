@@ -37,7 +37,7 @@
 #define BATTERY_TIME_UNKNOWN        (-1)
 #endif /* AC_LINE_STATUS_ON */
 
-#if defined (HAVE_MACHINE_APM_BIOS_H) || defined (HAVE_I386_APMVAR_H) /* BSD */
+#if !defined(HAVE_APM_H)
 typedef struct {
 	const char driver_version[10];
 	int apm_version_major;
