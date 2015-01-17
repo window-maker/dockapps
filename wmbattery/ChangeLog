@@ -1,3 +1,12 @@
+wmbattery (2.46)
+  * Make it possible to work without libapm as libapm and apm.h are not
+    necessarily available on Linux.
+  * Update upower support.  Reuse dbus connection and set delay to actually
+    refresh values.
+  * Thanks to Ludwig Nussel <ludwig.nussel@suse.de> for patches.
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Sat, 17 Jan 2015 08:37:05 -0600
+
 wmbattery (2.45)
   * Switch from a Debian native package to a non-native package.
     - Remove debian directory.
