@@ -9,7 +9,7 @@
 #include <upower.h>
 #include "apm.h"
 
-int num_batteries = 0;
+static UpClient * up;
 
 struct context {
 	int current;
@@ -54,7 +54,6 @@ static void get_devinfo(gpointer device, gpointer result)
 
 int upower_supported(void)
 {
-	UpClient *up;
 	up = up_client_new();
 
 	if (!up) {
@@ -63,11 +62,9 @@ int upower_supported(void)
 		GPtrArray *devices = up_client_get_devices(up);
 
 		if (!devices) {
-			g_object_unref(up);
 			return 0;
 		} else {
 			g_ptr_array_unref(devices);
-			g_object_unref(up);
 			return 1;
 		}
 	}
@@ -76,7 +73,6 @@ int upower_supported(void)
 /* Fill the passed apm_info struct. */
 int upower_read(int battery, apm_info *info)
 {
-	UpClient *up;
 	GPtrArray *devices = NULL;
 
 	up = up_client_new();
@@ -139,6 +135,5 @@ int upower_read(int battery, apm_info *info)
 	}
 
 	g_ptr_array_free(devices, TRUE);
-	g_object_unref(up);
 	return 0;
 }
