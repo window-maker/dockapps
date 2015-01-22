@@ -1,6 +1,6 @@
 dnl Hey emacs -*- mode: m4 -*- thanks
 dnl Process this file with autoconf to create a configure script
-AC_INIT([wmfsm], [0.34])
+AC_INIT([wmfsm], [0.34], [wmaker-dev@lists.windowmaker.org])
 AC_CONFIG_SRCDIR([wmfsm/wmfsm.c])
 AM_INIT_AUTOMAKE
 AC_CANONICAL_HOST
