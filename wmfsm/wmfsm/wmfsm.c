@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include <X11/X.h>
 #include <X11/xpm.h>
@@ -77,7 +78,6 @@
 #else
 # define STATFS(a,b) statfs(a,b)	/* Maybe configure got messed up */
 #endif
-
 
 /*
   #if defined IRIX64
@@ -228,7 +228,7 @@ main(int argc, char *argv[])
 
 		if (numberfs > 4) {
 			for (i = 0, dy = 0; i < numberfs; i++) {
-				for (j = 0, dx = 0; j < LENMP && j < strlen(mp[i]); j++) {
+				for (j = 0, dx = 0; j < LENMP && (unsigned int)j < strlen(mp[i]); j++) {
 					k = j + (strlen(mp[i]) > LENMP ? strlen(mp[i]) - LENMP : 0);
 					c = (int) mp[i][k];
 					switch (c) {
@@ -284,7 +284,7 @@ main(int argc, char *argv[])
 		}
 		else {		/*one fs in two lines */
 			for (i = 0, dy = 0; i < numberfs; i++) {
-				for (j = 0, dx = 0; j < 10 && j < strlen(mp[i]); j++) {
+				for (j = 0, dx = 0; j < 10 && (unsigned int)j < strlen(mp[i]); j++) {
 					c = (int) mp[i][j + (strlen(mp[i]) > 10 ? strlen(mp[i]) - 10 : 0)];
 					switch (c) {
 					case '/':
@@ -337,7 +337,7 @@ main(int argc, char *argv[])
 			}
 		}
 		if (numberfs < 9) {
-			for (j = 0, dx = 0, dy = 47; j < 10 && j < strlen(hostname); j++) {
+			for (j = 0, dx = 0, dy = 47; j < 10 && (unsigned int)j < strlen(hostname); j++) {
 				c = (int) hostname[j];
 				switch (c) {
 				case '/':
@@ -394,7 +394,7 @@ void
 ParseCMDLine(int argc, char *argv[])
 {
 
-	int c, option_index, arg;
+	int c, option_index;
 	static struct option long_options[] = {
 		{"fire", no_argument, 0, 'f'},
 		{"normal", no_argument, 0, 'n'},
@@ -453,6 +453,7 @@ print_usage()
 void
 pressEvent(XButtonEvent * xev)
 {
+	(void)xev;
 	ForceUpdate = 1;
 	return;
 }
@@ -460,6 +461,14 @@ pressEvent(XButtonEvent * xev)
 void
 readFileSystems()
 {
+	/* Wipe mp[] */
+	int i;
+	for (i = 0; i < 100; i++)
+	    if (mp[i]) {
+		free(mp[i]);
+		mp[i]=0;
+	    }
+
 	/* Look for the goods between #if defined(__OpenBSD__) -- tschroed */
 #if defined(__OpenBSD__) || defined(__FreeBSD__)
 #define MAXMOUNT	32
@@ -517,6 +526,7 @@ readFileSystems()
 			   1
 #endif
 			) {
+			if (mp[numberfs]) free(mp[numberfs]);
 			mp[numberfs++] = strdup(mountPoint);
 		}
 	}
@@ -532,7 +542,7 @@ excludeFileSystems()
 	char confFileName[255];
 	char workString[255];
 	int i, j, exnumberfs = 0;
-	int start = 0, excluded, finalnumberfs = 0;
+	int excluded, finalnumberfs = 0;
 	char *mount_points[100];
 	FILE *confFile;
 	int include = -1;
@@ -569,11 +579,11 @@ excludeFileSystems()
 	}
 	else {
 		numberfs = numberfs > 9 ? 9 : numberfs;
-		return;
+		goto CLEANUP;
 	}
 	if (!exnumberfs) {
 		numberfs = numberfs > 9 ? 9 : numberfs;
-		return;
+		goto CLEANUP;
 	}
 	excluded = 0;
 	for (i = 0; i < numberfs; i++) {
@@ -584,13 +594,22 @@ excludeFileSystems()
 				included = 1;
 			}
 		}
-		if ((!excluded && !include) || (included && include))
-			mp[finalnumberfs++] = strdup(mp[i]);
+		if ((!excluded && !include) || (included && include)) {
+			if (finalnumberfs == i) {
+				finalnumberfs++;
+			} else {
+		    if (mp[finalnumberfs]) free(mp[finalnumberfs]);
+		    mp[finalnumberfs++] = strdup(mp[i]);
+		}
+		}
 		included = excluded = 0;
 	}
-	for (j = 0; j < exnumberfs; j++)
-		free(mount_points[j]);
-	for (j = finalnumberfs; j < numberfs; j++)
-		free(mp[j]);
 	numberfs = finalnumberfs > 9 ? 9 : finalnumberfs;
+
+CLEANUP:
+	for (j = 0; j < exnumberfs; j++)
+	    if (mount_points[j]) {
+		free(mount_points[j]);
+		mount_points[j]=0;
+	    }
 }
