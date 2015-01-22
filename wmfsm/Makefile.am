@@ -1,4 +1,4 @@
 
 SUBDIRS = wmgeneral wmfsm
-EXTRA_DIST = ChangeLog.old 
+EXTRA_DIST = ChangeLog.old
 

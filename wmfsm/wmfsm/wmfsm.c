@@ -1,11 +1,11 @@
 /*
  *
  *  	wmfsm-0.33 (C) 1999 Stefan Eilemann (Stefan.Eilemann@dlr.de)
- * 
+ *
  *  		- Shows file system usage ala mfsm
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -19,12 +19,12 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  *      Boston, MA  02111-1307, USA
  *
  *
  *
- *      Changes: #include "../ChangeLog" 
+ *      Changes: #include "../ChangeLog"
  *
  */
 
@@ -32,8 +32,8 @@
 
 
 
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -83,21 +83,21 @@
   #if defined IRIX64
   # include <sys/types.h>
   # define STATFS(a,b) statfs(a,b,sizeof(struct statfs),0)
-  #elif defined linux 
+  #elif defined linux
   # define STATFS(a,b) statfs(a,b)
   #elif  defined(SunOS)
   # define STATFS(a,b) statfs(a,b,sizeof(struct statfs),0)
   #elif defined(__OpenBSD__) || defined(__FreeBSD__)
   # define STATFS(a,b) statfs(a,b)
   # include <sys/param.h>
-  #endif		
+  #endif
 */
 
 #define _GNU_SOURCE
 #include <getopt.h>
-/* 
+/*
  *  Delay between refreshes (in microseconds), uses the 10*DELAY_10
- *   coz irix has max of 100000L :(. 
+ *   coz irix has max of 100000L :(.
  */
 #define DELAY_10 99999L
 #define WMFSM_VERSION "0.33"
@@ -151,8 +151,8 @@ int ypos[] = { 4, 4, 4, 4, 4, 4,
 };
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int
 main(int argc, char *argv[])
@@ -191,7 +191,7 @@ main(int argc, char *argv[])
 		readFileSystems ();
 		usleep (100);
 
-		/* 
+		/*
 		 *   Process any pending X events.
 		 */
 		while (XPending(display)) {
@@ -374,8 +374,8 @@ main(int argc, char *argv[])
 		}
 
 		RedrawWindow();
-		/* 
-		 *  Wait for next update 
+		/*
+		 *  Wait for next update
 		 */
 		i = 0;
 		while (i < 10) {

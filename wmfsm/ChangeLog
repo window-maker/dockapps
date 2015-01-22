@@ -64,10 +64,10 @@
 
     As per user request, I added an [include] section to the ~/.wmfsmrc file
     so that you can explicitly include filesystems rather than just
-    excluding them.  
-    
+    excluding them.
+
     Also made a new SGML manpage because *roff sucks.
-    
+
 
     new files:
      ChangeLog.old wmfsm/wmfsm.sgml
@@ -84,7 +84,7 @@
       wmfsm--dev--0.3--base-0
 
     wmfsm is a fairly complete program, but it's still nice to have some
-    version control.  
+    version control.
 
     new files:
      ./AUTHORS ./COPYING ./ChangeLog ./INSTALL ./Makefile.am

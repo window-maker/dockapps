@@ -20,24 +20,24 @@ AC_MSG_CHECKING([to see if we can use X])
 AC_TRY_LINK([#include <X11/Xlib.h>],,AC_MSG_RESULT([yes]),AC_MSG_RESULT([no]); exit 1)
 
 dnl Checks how to call statfs
-AC_MSG_CHECKING([how to call statfs]) 
+AC_MSG_CHECKING([how to call statfs])
 AC_TRY_COMPILE([#include <sys/vfs.h>
 #include <sys/param.h>
 #include <sys/mount.h>
 ],
-[struct statfs a; statfs("/", &a);], 
-[AC_MSG_RESULT([2 arguments]) 
+[struct statfs a; statfs("/", &a);],
+[AC_MSG_RESULT([2 arguments])
 AC_DEFINE(
 	STATFS_2_ARGUMENTS, 1,
 	[Define if statfs takes two arguments (like linux)])
-ac_statfs_args=2], 
+ac_statfs_args=2],
 
 AC_TRY_COMPILE([
 #include <sys/types.h>
 #include <sys/statfs.h>
 ],
 [struct statfs a; statfs("/", &a, sizeof(struct statfs), 0);],
-[AC_MSG_RESULT([4 arguments]) 
+[AC_MSG_RESULT([4 arguments])
 AC_DEFINE(
 	STATFS_4_ARGUMENTS, 1,
 	[Define if statfs takes four arguments (like SunOS)])

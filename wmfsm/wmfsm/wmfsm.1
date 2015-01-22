@@ -1,46 +1,46 @@
-.TH "WMFSM" "1" 
-.SH "NAME" 
-wmfsm \(em shows the amount of disk space available 
-.SH "SYNOPSIS" 
-.PP 
-\fBwmfsm\fP [\fB\-\-normal, \-n  \fP]  [\fB\-\-fire, \-f \fP]  [\fB\-\-blink, \-b \fP]  [\fB\-\-noblink \fP]  [\fB\-display \fP]  [\fB\-d, \-\-delay \fP]  [\fB\-h, \-\-help \fP]  
-.SH "DESCRIPTION" 
-.PP 
-\fBwmfsm\fP is a WindowMaker dock 
-application that shows the amount of disk space available on mounted 
-file systems with colored bars. 
-.SH "OPTIONS" 
-.PP 
-This program follows the usual GNU command line syntax, 
-with long options starting with two dashes (`\-').  A summary of 
-options is included below.  
- 
-.IP "\fB\-h\fP, \fB\-\-help\fP         " 10 
-Show summary of options. 
-.IP "\fB\-v\fP, \fB\-\-version\fP         " 10 
-Show version of program. 
-.IP "\fB\-n\fP, \fB\-\-normal\fP 	" 10 
-Show the entire bars in the same color. 
-.IP "\fB\-f\fP, \fB\-\-fire\fP 	" 10 
-Render the bars as gradients.  You may switch between 
-the normal and fire modes by mouse clicks anywhere on 
-wmfsm. 
-.IP "\fB\-b\fP, \fB\-\-blink\fP 	" 10 
-Blink the bars if the filesystem is 95% full. 
-.IP "\fB\-\-noblink\fP 	" 10 
-Do not blink if the filesystem is 95% full. 
-.IP "\fB\-display\fP 	" 10 
-Draw on the specified display. 
-.IP "\fB\-d\fP, \fB\-\-delay\fP 	" 10 
-Wait the specified number of milliseconds to redraw 
-the window. 
-.SH "FILES" 
-.PP 
-You may exclude filesystems from being show by wmfsm 
-by listing them in the ~/.wmfsmrc file.  It should have as its 
-first line either [include] or [exclude]. 
-The next lines are filesystems that are either explicitly included 
-or excluded respectively. 
+.TH "WMFSM" "1"
+.SH "NAME"
+wmfsm \(em shows the amount of disk space available
+.SH "SYNOPSIS"
+.PP
+\fBwmfsm\fP [\fB\-\-normal, \-n  \fP]  [\fB\-\-fire, \-f \fP]  [\fB\-\-blink, \-b \fP]  [\fB\-\-noblink \fP]  [\fB\-display \fP]  [\fB\-d, \-\-delay \fP]  [\fB\-h, \-\-help \fP]
+.SH "DESCRIPTION"
+.PP
+\fBwmfsm\fP is a WindowMaker dock
+application that shows the amount of disk space available on mounted
+file systems with colored bars.
+.SH "OPTIONS"
+.PP
+This program follows the usual GNU command line syntax,
+with long options starting with two dashes (`\-').  A summary of
+options is included below.
+
+.IP "\fB\-h\fP, \fB\-\-help\fP         " 10
+Show summary of options.
+.IP "\fB\-v\fP, \fB\-\-version\fP         " 10
+Show version of program.
+.IP "\fB\-n\fP, \fB\-\-normal\fP 	" 10
+Show the entire bars in the same color.
+.IP "\fB\-f\fP, \fB\-\-fire\fP 	" 10
+Render the bars as gradients.  You may switch between
+the normal and fire modes by mouse clicks anywhere on
+wmfsm.
+.IP "\fB\-b\fP, \fB\-\-blink\fP 	" 10
+Blink the bars if the filesystem is 95% full.
+.IP "\fB\-\-noblink\fP 	" 10
+Do not blink if the filesystem is 95% full.
+.IP "\fB\-display\fP 	" 10
+Draw on the specified display.
+.IP "\fB\-d\fP, \fB\-\-delay\fP 	" 10
+Wait the specified number of milliseconds to redraw
+the window.
+.SH "FILES"
+.PP
+You may exclude filesystems from being show by wmfsm
+by listing them in the ~/.wmfsmrc file.  It should have as its
+first line either [include] or [exclude].
+The next lines are filesystems that are either explicitly included
+or excluded respectively.
 
 Note: the format of the  ~/.wmfsmrc file is very strict. Make sure
 there are no whitespaces at the beginning or at the end of lines.
@@ -56,10 +56,10 @@ No comments (#) are allowed. Here is an example:
 .br
 /cdrom
 
-.SH "SEE ALSO" 
-.PP 
-X (1x), wmaker (1), df (1). 
-.SH "AUTHOR" 
-.PP 
-This manual page was written by Chris Gray 
-<cgray4@po-box.mcgill.ca>. 
+.SH "SEE ALSO"
+.PP
+X (1x), wmaker (1), df (1).
+.SH "AUTHOR"
+.PP
+This manual page was written by Chris Gray
+<cgray4@po-box.mcgill.ca>.
