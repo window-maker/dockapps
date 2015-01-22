@@ -1,4 +1,9 @@
 [exclude]
-/home/cdserver
-/Backup_User
-/Backup_System
+/dev/pts
+/dev/shm
+/sys
+/proc/bus/usb
+/proc/sys/fs/binfmt_misc
+/cdrom
+/var/autofs/net
+/var/autofs/misc
