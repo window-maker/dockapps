@@ -512,9 +512,11 @@ readFileSystems()
 	while (!feof(fp) && numberfs < 100) {
 #if defined(SunOS)
 		/* only five entries per row in /etc/mnttab */
-		fscanf(fp, "%s %s %s %s %s\n", dummy, mountPoint, fstype, options, dummy);
+		if (fscanf(fp, "%s %s %s %s %s\n", dummy, mountPoint, fstype, options, dummy) < 5)
+			fprintf(stderr, "%s:/etc/mnttab not in expected format\n", myName);
 #else
-		fscanf(fp, "%s %s %s %s %s %s\n", dummy, mountPoint, fstype, options, dummy, dummy);
+		if (fscanf(fp, "%s %s %s %s %s %s\n", dummy, mountPoint, fstype, options, dummy, dummy) < 6)
+			fprintf(stderr, "%s:/etc/mtab not in expected format\n", myName);
 #endif
 
 		if (
