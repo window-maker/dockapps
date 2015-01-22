@@ -1,4 +1,7 @@
 Installation:
-copy your preferred .xpm to wmfsm_master.xpm
-Hack the Makefile, compile the stuff.
+autoreconf -i
+./configure
+(or ./configure --with-xpm=foo, where foo is your preferred .xpm)
+make
+make install (as root)
 Edit sample.wmfsmrc and copy it to ~/.wmfsmrc
