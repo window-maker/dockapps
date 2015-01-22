@@ -57,5 +57,24 @@ AC_CHECK_FUNCS(gethostname strcspn strdup strspn strstr statfs)
 AC_CHECK_FUNCS(getopt_long, have_getopt=true)
 AM_CONDITIONAL(GETOPT, test x$have_getopt = xtrue)
 
+dnl Set default XPM
+define([xpmlist], esyscmd([find wmfsm/ -name 'wmfsm_master_*.xpm' -exec basename {} .xpm \;| sed 's/wmfsm_master_//']))
+AC_ARG_WITH([xpm],
+	AS_HELP_STRING([--with-xpm],
+	[Configure wmfsm to use specified xpm file for appearance. Defaults to
+	'highcolor'. Choices are: ]
+	xpmlist),
+	[],
+        [with_xpm=highcolor])
+
+xpm="wmfsm/wmfsm_master_${with_xpm}.xpm"
+if test ! -e "${xpm}"; then
+   AC_MSG_ERROR([Cannot find xpm file '${xpm}'.])
+fi
+
+echo "configuring for ${with_xpm} appearance..."
+rm -f wmfsm/wmfsm_master.xpm
+ln -sr ${xpm} wmfsm/wmfsm_master.xpm
+
 AC_OUTPUT(Makefile wmfsm/Makefile wmgeneral/Makefile)
 
