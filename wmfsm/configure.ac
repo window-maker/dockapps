@@ -1,10 +1,11 @@
 dnl Hey emacs -*- mode: m4 -*- thanks
 dnl Process this file with autoconf to create a configure script
-AC_INIT(wmfsm/wmfsm.c)
+AC_INIT([wmfsm], [0.34])
+AC_CONFIG_SRCDIR([wmfsm/wmfsm.c])
+AM_INIT_AUTOMAKE
 AC_CANONICAL_HOST
 AM_CONFIG_HEADER(config.h)
 
-AM_INIT_AUTOMAKE(wmfsm, 0.34)
 AM_SANITY_CHECK
 AC_PROG_CC
 AC_PROG_INSTALL
@@ -26,7 +27,9 @@ AC_TRY_COMPILE([#include <sys/vfs.h>
 ],
 [struct statfs a; statfs("/", &a);], 
 [AC_MSG_RESULT([2 arguments]) 
-AC_DEFINE(STATFS_2_ARGUMENTS)
+AC_DEFINE(
+	STATFS_2_ARGUMENTS, 1,
+	[Define if statfs takes two arguments (like linux)])
 ac_statfs_args=2], 
 
 AC_TRY_COMPILE([
@@ -35,7 +38,9 @@ AC_TRY_COMPILE([
 ],
 [struct statfs a; statfs("/", &a, sizeof(struct statfs), 0);],
 [AC_MSG_RESULT([4 arguments]) 
-AC_DEFINE(STATFS_4_ARGUMENTS)
+AC_DEFINE(
+	STATFS_4_ARGUMENTS, 1,
+	[Define if statfs takes four arguments (like SunOS)])
 ],
 AC_MSG_RESULT([Can not determine])))
 
