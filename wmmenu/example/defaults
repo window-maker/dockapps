@@ -1,0 +1,26 @@
+# wmmenu configuration file
+# put it in ~/.wmmenu/
+#
+# xpmpath PATH1:PATH2:...
+# xpmpath PATH3
+# xpmpath PATH4
+# ...
+#
+# tile FILE.XPM
+#  or
+# tile /SOME/PATH/TO/FILE.XPM
+#  or
+# tile !SOME-COMMAND WITH ARG
+#
+# highlight FILE.XPM
+#  or
+# highlight /SOME/PATH/TO/FILE.XPM
+#
+# highlight_behind ANYTHING_NOT_EMPTY
+#
+# hide_timeout 1
+
+xpmpath	/usr/local/share/WindowMaker/Icons
+xpmpath /usr/local/share/pixmaps
+tile	tile2.xpm
+tile	!echo tile2.xpm

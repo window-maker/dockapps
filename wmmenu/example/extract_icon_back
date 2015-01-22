@@ -1,0 +1,61 @@
+#!/usr/bin/awk -f
+# Usage:
+#   extract_icon_back [<default pixmap name>]
+# Description:
+#   Uses WindowMaker's getstyle command to extract the icon pixmap from
+#   preferences, and print it.
+#   If the name returned by getstyle is not absolute, the right pixmap path
+#   is supposed to be declared in wmmenu's defaults file.
+#   If no pixmap is found in WindowMaker's preferences (f.e.  in case of
+#   pixmap-less gradient), the string provided as command line argument is
+#   used instead (and is possibly empty or unspecified).
+# NB:  This script expects a POSIX / X/Open compatible AWK.  Be aware that
+# some GNU awk versions do not fulfill this requirement.
+
+BEGIN	{
+    if (1 in ARGV) {
+	Name=ARGV[1]
+	delete ARGV[1]
+    }
+    ARGC=0
+
+    Command="getstyle"
+    IconBackLine=""
+
+    # Search first line marked "IconBack"
+    while (Ok = ((Command | getline) == 1)) {
+	if ($1 == "IconBack") {
+	    IconBackLine=$0
+	    break
+	}
+    }
+    ReturnDefaultIfNot(Ok)
+
+    # Accumulate while not closed
+    while (IconBackLine !~ /\);$/) {
+	Ok = ((Command | getline) == 1)
+	if (! Ok) break
+	IconBackLine=IconBackLine $0
+    }
+    ReturnDefaultIfNot(Ok)
+
+    # finished
+    close(Command)
+
+    # analyze what we have: split on '= (' and ', "' or ', '
+    FS="(, ([\"]?))|(= \()"
+    $0=IconBackLine
+    TextureType=$2
+    if(TextureType == "spixmap" || TextureType ~ /^t[hvd]gradient$/) {
+	Name=$3
+	sub(/[""]$/,"",Name)
+    }
+    print Name
+}
+
+function ReturnDefaultIfNot(ok) {
+    if (! ok) {
+	print Name
+	exit 0
+    }
+}
