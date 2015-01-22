@@ -1,0 +1,34 @@
+2001-01-19  Chris Gray  <cgray@tribsoft.com>
+
+	* configure.in: Did a lot of work so that maintenance should be
+	easier in the future.  Things are totally done with
+	automake/autoconf now.  The goal is to remove all of the OS
+	dependent ifdefs and change them to depend on the actual feature
+	of the OS that we are testing for.
+
+2001-01-13  Chris Gray  <cgray@tribsoft.com>
+
+	* debian/wmfsm.1: Changed the man page to reflect the new
+	options.  I should probably distribute this man page in such a way
+	that non-Debian users can install it easily.
+
+	* wmfsm/wmfsm.c: Added getopt support, and a new option, --delay.
+	The delay should be 10 * number in microseconds which seems a bit
+	unintuitive to me.  I'll probably change that.
+
+2001-01-09  Chris Gray  <cgray@tribsoft.com>
+
+	* wmfsm/wmfsm.c: Added FreeBSD patches from Steven Enderle
+	<panic@subphase.de>.  Also, it looks like I am taking this project
+	over.  Hopefully I can do some good!
+
+0.30    24/08/1999  OpenBSD support, it hopefully works...
+                    Blinking on a filesystem that is 95 percent full
+0.30    04/06/1999  use fstat() instead of system("df")
+                    Exclusion of directories via ~/.wmfsmrc
+                    uses less colors (54), other colorschemes are included
+0.27    26/03/1999  mouse toggable fire/normal mode
+                    bug fixes
+                    Solaris 2.6/7 support
+0.26    06/03/1999  added fire mode for bars
+0.25	05/03/1999	first release

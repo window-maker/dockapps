@@ -1,0 +1,4 @@
+Installation:
+copy your preferred .xpm to wmfsm_master.xpm
+Hack the Makefile, compile the stuff.
+Edit sample.wmfsmrc and copy it to ~/.wmfsmrc
