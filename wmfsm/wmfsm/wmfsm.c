@@ -509,7 +509,7 @@ readFileSystems()
 #if defined IRIX64 || defined(SunOS)
 			   strcmp(fstype, "hwgfs") && strcmp(fstype, "autofs") && strcmp(fstype, "proc") && strcmp(fstype, "fd") && !strstr(options, "ignore")
 #elif defined linux
-			   strcmp(fstype, "proc") && strcmp(fstype, "shm")
+			   strcmp(fstype, "proc") && strcmp(fstype, "tmpfs") && strcmp(fstype, "devfs") && strcmp(fstype, "ramfs") && strcmp(fstype, "sysfs") && strcmp(fstype, "devpts") && strcmp(fstype, "usbfs")
 #else
 			   1
 #endif
