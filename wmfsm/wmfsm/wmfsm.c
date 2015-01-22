@@ -125,6 +125,7 @@ int blinkper = 95;
 char dummy[4096];
 char *myName;
 int delay = DELAY_10;
+char appearance[256] = "";
 
 int xpos[] = { 66, 71, 76, 81, 86, 91,	/* A B C D E F */
 	66, 71, 76, 81, 86, 91,	/* G H I J K L */
@@ -162,8 +163,10 @@ main(int argc, char *argv[])
 	int dx, dy;
 	char hostname[100];
 	int i, j, k;
+	int xpm_free = 0;
 	int c, on[9] = { 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 	struct statfs buffer;
+	char **pixmap;
 
 	/*
 	 *  Parse any command line arguments.
@@ -171,9 +174,21 @@ main(int argc, char *argv[])
 	myName = strdup(argv[0]);
 	ParseCMDLine(argc, argv);
 
+	if (appearance[0] == 0) {
+		pixmap = wmfsm_master_xpm;
+	} else {
+		if (XpmReadFileToData(appearance, &pixmap) != XpmSuccess) {
+			fprintf(stderr, "warning: could not read appearance file; using default.\n");
+			pixmap = wmfsm_master_xpm;
+		} else {
+			xpm_free = 1;
+		}
+	}
 
-	openXwindow(argc, argv, wmfsm_master_xpm, wmfsm_mask_bits, wmfsm_mask_width, wmfsm_mask_height);
+	openXwindow(argc, argv, pixmap, wmfsm_mask_bits, wmfsm_mask_width, wmfsm_mask_height);
 
+	if (xpm_free)
+		XpmFree(pixmap);
 
 #ifndef SVR4
 	if (gethostname(hostname, 100) != 0) {
@@ -401,15 +416,19 @@ ParseCMDLine(int argc, char *argv[])
 		{"blink", no_argument, &blink, 1},
 		{"noblink", no_argument, &blink, 0},
 		{"delay", required_argument, 0, 'd'},
+		{"appearance", required_argument, 0, 'a'},
 		{"help", no_argument, 0, 'h'},
 		{0, 0, 0, 0}
 	};
 	while (1) {
-		c = getopt_long(argc, argv, "bd:fhn", long_options, &option_index);
+		c = getopt_long(argc, argv, "a:bd:fhn", long_options, &option_index);
 		if (c == -1)
 			break;
 		switch (c) {
 		case 0:	/* If blink or noblink was toggled */
+			break;
+		case 'a':
+			strcpy(appearance, optarg);
 			break;
 		case 'b':
 			blink = 1;
@@ -447,6 +466,7 @@ print_usage()
 	printf("\t--[no]blink\t\tBlinks if a filesystem is 95 percent full.\n");
 	printf("\t-display <Display>\tUse alternate X display.\n");
 	printf("\t--delay <number>, -d\tUse a delay that is not the default.\n");
+	printf("\t--appearance <file>, -a\tSelect an appearance file.\n");
 	printf("\t-h\t\t\tDisplay help screen.\n");
 }
 
