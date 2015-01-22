@@ -189,6 +189,13 @@ url =
 dockapps = 338
 category = System Monitoring
 
+[wmfsm]
+image = wmfsm.png
+description = "Nice graphical 'df', showing you to what degree the mounted filesystems are used."
+url = "https://web.archive.org/web/20050202220830/http://www.cs.ubc.ca/~cmg/"
+dockapps = 100
+category = System Monitoring
+
 [wmfu]
 image = wmfu-1.0.png
 description = "wmfu displays all sorts of information about your Linux (laptop) system. It is designed for WindowMaker, but can also be run in other window managers. It does not need external custom libraries, but does need a recent kernel, since it uses ACPI and proc/sys pseudo-filesystems to read system data."
