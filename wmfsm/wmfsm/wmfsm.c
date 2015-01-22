@@ -1,6 +1,6 @@
 /*
  *
- *  	wmfsm-0.33 (C) 1999 Stefan Eilemann (Stefan.Eilemann@dlr.de)
+ *  	wmfsm (C) 1999 Stefan Eilemann (Stefan.Eilemann@dlr.de)
  *
  *  		- Shows file system usage ala mfsm
  *
@@ -100,7 +100,6 @@
  *   coz irix has max of 100000L :(.
  */
 #define DELAY_10 99999L
-#define WMFSM_VERSION "0.33"
 #define LENMP 5			/*max 10, number char for mountpoint */
 
 /*modes for drawing*/
@@ -418,10 +417,11 @@ ParseCMDLine(int argc, char *argv[])
 		{"delay", required_argument, 0, 'd'},
 		{"appearance", required_argument, 0, 'a'},
 		{"help", no_argument, 0, 'h'},
+		{"version", no_argument, 0, 'v'},
 		{0, 0, 0, 0}
 	};
 	while (1) {
-		c = getopt_long(argc, argv, "a:bd:fhn", long_options, &option_index);
+		c = getopt_long(argc, argv, "a:bd:fhnv", long_options, &option_index);
 		if (c == -1)
 			break;
 		switch (c) {
@@ -445,6 +445,9 @@ ParseCMDLine(int argc, char *argv[])
 		case 'n':
 			mode = NORMAL;
 			break;
+		case 'v':
+			printf("wmfsm version: %s\n", PACKAGE_VERSION);
+			exit(0);
 		case '?':
 			break;
 		default:
@@ -459,10 +462,9 @@ void
 print_usage()
 {
 
-	printf("\nwmfsm version: %s\n", WMFSM_VERSION);
-	printf("\nusage: wmfsm \n");
+	printf("usage: wmfsm \n");
 	printf("\t--normal, -n\t\tDraw bars in normal mode.\n");
-	printf("\t--fire, -f\t\t\tDraw bars in fire mode.\n");
+	printf("\t--fire, -f\t\tDraw bars in fire mode.\n");
 	printf("\t--[no]blink\t\tBlinks if a filesystem is 95 percent full.\n");
 	printf("\t-display <Display>\tUse alternate X display.\n");
 	printf("\t--delay <number>, -d\tUse a delay that is not the default.\n");
