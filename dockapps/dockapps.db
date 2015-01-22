@@ -257,6 +257,15 @@ url =
 dockapps = 338
 category = System Monitoring
 
+[wmfsm]
+version-0.35 = 9bd29e4b921c53d9d1c70eb164dbd858f4580ecb
+version-0.34 = fa3a329d866128a901ae468944ab6b5a46b3bee7
+image = wmfsm.png
+description = "Nice graphical 'df', showing you to what degree the mounted filesystems are used."
+url = "https://web.archive.org/web/20050202220830/http://www.cs.ubc.ca/~cmg/"
+dockapps = 100
+category = System Monitoring
+
 [wmfu]
 version-1.0+20141005 = 4e034402892005f0074aa95e3ca2afde5a4ca71b
 version-1.0 = 8c09e77da4a28b1b191a5f2385537898603845d9
