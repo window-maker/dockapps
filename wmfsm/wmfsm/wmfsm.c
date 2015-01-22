@@ -170,7 +170,6 @@ main(int argc, char *argv[])
 	 */
 	myName = strdup(argv[0]);
 	ParseCMDLine(argc, argv);
-	readFileSystems();
 
 
 	openXwindow(argc, argv, wmfsm_master_xpm, wmfsm_mask_bits, wmfsm_mask_width, wmfsm_mask_height);
@@ -188,6 +187,10 @@ main(int argc, char *argv[])
 	}
 #endif
 	while (1) {
+
+		readFileSystems ();
+		usleep (100);
+
 		/* 
 		 *   Process any pending X events.
 		 */
@@ -518,6 +521,8 @@ readFileSystems()
 		}
 	}
 #endif /* __OpenBSD__ || __FreeBSD__ */
+
+	fclose (fp);
 	excludeFileSystems();
 }
 
