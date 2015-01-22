@@ -1,64 +1,9 @@
-.\" This -*- nroff -*- file has been generated from
-.\" DocBook SGML with docbook-to-man on Debian GNU/Linux.
-...\"
-...\"	transcript compatibility for postscript use.
-...\"
-...\"	synopsis:  .P! <file.ps>
-...\"
-.de P!
-\\&.
-.fl			\" force out current output buffer
-\\!%PB
-\\!/showpage{}def
-...\" the following is from Ken Flowers -- it prevents dictionary overflows
-\\!/tempdict 200 dict def tempdict begin
-.fl			\" prolog
-.sy cat \\$1\" bring in postscript file
-...\" the following line matches the tempdict above
-\\!end % tempdict %
-\\!PE
-\\!.
-.sp \\$2u	\" move below the image
-..
-.de pF
-.ie     \\*(f1 .ds f1 \\n(.f
-.el .ie \\*(f2 .ds f2 \\n(.f
-.el .ie \\*(f3 .ds f3 \\n(.f
-.el .ie \\*(f4 .ds f4 \\n(.f
-.el .tm ? font overflow
-.ft \\$1
-..
-.de fP
-.ie     !\\*(f4 \{\
-.	ft \\*(f4
-.	ds f4\"
-'	br \}
-.el .ie !\\*(f3 \{\
-.	ft \\*(f3
-.	ds f3\"
-'	br \}
-.el .ie !\\*(f2 \{\
-.	ft \\*(f2
-.	ds f2\"
-'	br \}
-.el .ie !\\*(f1 \{\
-.	ft \\*(f1
-.	ds f1\"
-'	br \}
-.el .tm ? font underflow
-..
-.ds f1\"
-.ds f2\"
-.ds f3\"
-.ds f4\"
-'\" t 
-.ta 8n 16n 24n 32n 40n 48n 56n 64n 72n  
 .TH "WMFSM" "1" 
 .SH "NAME" 
 wmfsm \(em shows the amount of disk space available 
 .SH "SYNOPSIS" 
 .PP 
-\fBwmfsm\fP [\fB--normal, -n  \fP]  [\fB--fire, -f \fP]  [\fB--blink, -b \fP]  [\fB--noblink \fP]  [\fB-display \fP]  [\fB-d, --delay \fP]  [\fB-h, --help \fP]  
+\fBwmfsm\fP [\fB\-\-normal, \-n  \fP]  [\fB\-\-fire, \-f \fP]  [\fB\-\-blink, \-b \fP]  [\fB\-\-noblink \fP]  [\fB\-display \fP]  [\fB\-d, \-\-delay \fP]  [\fB\-h, \-\-help \fP]  
 .SH "DESCRIPTION" 
 .PP 
 \fBwmfsm\fP is a WindowMaker dock 
@@ -67,26 +12,26 @@ file systems with colored bars.
 .SH "OPTIONS" 
 .PP 
 This program follows the usual GNU command line syntax, 
-with long options starting with two dashes (`-').  A summary of 
+with long options starting with two dashes (`\-').  A summary of 
 options is included below.  
  
-.IP "\fB-h\fP \fB--help\fP         " 10 
+.IP "\fB\-h\fP, \fB\-\-help\fP         " 10 
 Show summary of options. 
-.IP "\fB-v\fP \fB--version\fP         " 10 
+.IP "\fB\-v\fP, \fB\-\-version\fP         " 10 
 Show version of program. 
-.IP "\fB-n\fP \fB--normal\fP 	" 10 
+.IP "\fB\-n\fP, \fB\-\-normal\fP 	" 10 
 Show the entire bars in the same color. 
-.IP "\fB-f\fP \fB--fire\fP 	" 10 
+.IP "\fB\-f\fP, \fB\-\-fire\fP 	" 10 
 Render the bars as gradients.  You may switch between 
 the normal and fire modes by mouse clicks anywhere on 
 wmfsm. 
-.IP "\fB-b\fP \fB--blink\fP 	" 10 
+.IP "\fB\-b\fP, \fB\-\-blink\fP 	" 10 
 Blink the bars if the filesystem is 95% full. 
-.IP "\fB--noblink\fP 	" 10 
+.IP "\fB\-\-noblink\fP 	" 10 
 Do not blink if the filesystem is 95% full. 
-.IP "\fB-display\fP 	" 10 
+.IP "\fB\-display\fP 	" 10 
 Draw on the specified display. 
-.IP "\fB-d\fP \fB--delay\fP 	" 10 
+.IP "\fB\-d\fP, \fB\-\-delay\fP 	" 10 
 Wait the specified number of milliseconds to redraw 
 the window. 
 .SH "FILES" 
@@ -96,6 +41,21 @@ by listing them in the ~/.wmfsmrc file.  It should have as its
 first line either [include] or [exclude]. 
 The next lines are filesystems that are either explicitly included 
 or excluded respectively. 
+
+Note: the format of the  ~/.wmfsmrc file is very strict. Make sure
+there are no whitespaces at the beginning or at the end of lines.
+No comments (#) are allowed. Here is an example:
+
+[exclude]
+.br
+/proc
+.br
+/dev/pts
+.br
+/floppy
+.br
+/cdrom
+
 .SH "SEE ALSO" 
 .PP 
 X (1x), wmaker (1), df (1). 
@@ -103,4 +63,3 @@ X (1x), wmaker (1), df (1).
 .PP 
 This manual page was written by Chris Gray 
 <cgray4@po-box.mcgill.ca>. 
-...\" created by instant / docbook-to-man, Fri 12 Jul 2002, 22:38 
