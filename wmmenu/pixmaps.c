@@ -2,7 +2,7 @@
 #include <assert.h>
 
 #ifdef WITH_GDKPIXBUF
-#include <gdk-pixbuf/gdk-pixbuf-xlib.h>
+#include <gdk-pixbuf-xlib/gdk-pixbuf-xlib.h>
 #endif
 #include <dockapp.h>
 
@@ -28,6 +28,7 @@ extern void Pixmaps_FindLoad (const char * name,
     GdkPixbuf * pix ;
     int width, height ;
     void (* problem) (const char *, ...) ;
+    GError *gerror = NULL;
 
     if (mustInitGdkPixbuf)
     {
@@ -59,7 +60,7 @@ extern void Pixmaps_FindLoad (const char * name,
         UseDefault () ;
     }
     else
-    if ((pix = gdk_pixbuf_new_from_file (path)) == NULL)
+    if ((pix = gdk_pixbuf_new_from_file (path, &gerror)) == NULL)
     {
         problem ("can't load image \"%s\"", path) ;
         UseDefault () ;
@@ -111,6 +112,13 @@ extern void Pixmaps_FindLoad (const char * name,
 We have to reimplement a few trivial gdk functions here to avoid linking with
 it !
 */
+
+typedef struct {
+    guint32 pixel;
+    guint16 red;
+    guint16 green;
+    guint16 blue;
+} GdkColor;
 
 extern gint gdk_screen_width (void)
 {
