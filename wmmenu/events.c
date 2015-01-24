@@ -31,6 +31,7 @@ Reparent and Destroy events are catched with StructureNotifyMask.
 #include "menu.h"
 #include "xobjects.h"
 #include "pixmaps.h"
+#include "error.h"
 
 static bool BarShown = false ;
 static bool HideBarDelayed = false ;
@@ -134,7 +135,11 @@ static void InvokeBar (int x, int y)
 
         if (entry < Menu_GetNbEntries ())
         {
-            system (Menu_GetEntryCommand (entry)) ;
+            const char *command;
+
+            command = Menu_GetEntryCommand (entry);
+            if (system (command) == -1)
+                warn("'%s' returned an error\n", command);
         }
     }
 
