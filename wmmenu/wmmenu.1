@@ -1,64 +1,64 @@
 .TH "wmmenu" "1" "1.1" "Fabien COUTANT" "WMaker dockapp"
 .SH "NAME"
-.LP 
+.LP
 wmmenu \- A WindowMaker dockapp to launch programs with a popup pixmap menu
 .SH "SYNTAX"
-.LP 
+.LP
 wmmenu [\fI<options>\fR] \fB\-m\fP \fI<MENUNAME>\fR
-.br 
+.br
 wmmenu \fB\-v\fP
-.br 
+.br
 wmmenu \fB\-h\fP
 .SH "DESCRIPTION"
-.LP 
+.LP
 This is a "dock application" for Windowmaker, that provides a button bar to
 launch applications from.
-.LP 
+.LP
 The bar opens automatically when either the mouse enters the button or you
 click on it (this is configurable).
-.LP 
+.LP
 Multiple instances of the program can run at the same time:  each one provides
 a menu that it reads from a separate file, so you can have as many different
 menus as you want (you can also display the same menu more than once if you
 want; dunno what it's useful for...).
-.LP 
+.LP
 NOTE: options can take place before or after "\-m", as long as each option is
 correctly paired with its corresponding argument (when it has one).
 .SH "OPTIONS"
-.LP 
-.TP 
+.LP
+.TP
 \fB\-h\fR
 print a help message listing known options.
-.TP 
+.TP
 \fB\-v\fR
 print version information
-.TP 
+.TP
 \fB\-g\fR \fIW\fP\fBx\fR\fIH\fP
 force width and height of tile
-.TP 
+.TP
 \fB\-l\fR \fIXPMFILE\fP
 set filename of the pixmap used to highlight icon under cursor
-.TP 
+.TP
 \fB\-t\fR \fIXPMFILE\fP
 set filename of the pixmap used as button bar background.
 XPMFILE may also be '!COMMAND' to execute COMMAND and get the pixmap name to use
 from its output.
-.TP 
+.TP
 \fB\-O click\fR
 bar is only triggered by clicks on the tile, not moves
-.TP 
+.TP
 \fB\-O noautoscale\fR
 disable automatic pixmap scaling to tile size
-.TP 
+.TP
 \fB\-O behind\fR
 draw highlight pixmap behind icon, not above
-.TP 
+.TP
 \fB\-O hide=\fIN\fR
 set bar hiding timeout in ms.  See hide_timeout description in Defaults.
-.TP 
+.TP
 \fB\-r\fR \fIROWS\fP
 set number of menu rows (default one)
-.LP 
+.LP
 Please note, that \fB\-l\fR, \fB\-t\fR and \fB\-O behind\fR options
 can also be specified with another syntax in the \fBdefaults\fR file
 (described hereafter).
@@ -67,62 +67,62 @@ This is a configuration file that defines things common to all instances
 of wmmenu.
 It is located in "~/.wmmenu/defaults".
 
-.LP 
+.LP
 The syntax is as follows:
-.LP 
+.LP
 # comment or empty lines are ignored
-.LP 
+.LP
 xpmpath PATH1:PATH2:...
-.br 
+.br
 xpmpath PATH3
-.br 
+.br
 xpmpath PATH4
-.br 
+.br
 ...
-.br 
+.br
 # defines in which path to search for pixmaps
-.LP 
+.LP
 tile FILE.XPM
-.br 
+.br
  or
-.br 
+.br
 tile /SOME/PATH/TO/FILE.XPM
-.br 
+.br
 # defines pixmap used as background tile in menu bar
-.br 
+.br
  or
-.br 
+.br
 tile !some_command with arguments
-.br 
+.br
 # defines the command to call to get the pixmap name to be
 # used: the name is read from its standard output.
 # If the name read is empty, the internal default is used
 # instead.
-.LP 
+.LP
 highlight FILE.XPM
-.br 
+.br
  or
-.br 
+.br
 highlight /SOME/PATH/TO/FILE.XPM
-.br 
+.br
 # defines pixmap used to highlight item under cursor
-.LP 
+.LP
 highlight_behind[ ANYTHING_NOT_EMPTY]
-.br 
+.br
 # (don't forget the separating space)
-.br 
+.br
 # request to draw highlight pixmap BEHIND icon,
-.br 
+.br
 # no more in front.
-.br 
+.br
 # To be used if your pixmap is designed to cover most
-.br 
+.br
 # of tile's surface
-.LP 
+.LP
 hide_timeout MS
-.br 
+.br
 # set the delay, in ms, necessary for the bar to close
-.br 
+.br
 # after the cursor has left wmmenu.  1 by default.
 .SH "MENU FILES"
 Those files each define a menu of their own.
@@ -130,18 +130,18 @@ Each menu file is located in "~/.wmmenu/\fI<MENUNAME>\fR";
 The name of the file determines the name you must use on command\-line
 to call it.
 
-.LP 
+.LP
 The syntax is the following:
-.LP 
+.LP
 # comment and blank lines are ignored
-.TP 
+.TP
 "MENUICON.XPM"	menu title
 There is exactly one such line in each menu file,
 and is the first significant line encountered.
 It describes the menu name, which may be used by your window manager, and
 the pixmap that is shown to trigger the menu.
 The pixmap is specified using the same rules as the next item (read on).
-.TP 
+.TP
 "ICON.XPM"	command arguments &
 \fIICON.XPM\fR is an image filename or path.
 It can be an absolute path (begins with "/"),
@@ -151,46 +151,46 @@ or a simple file name (searched through all defined xpmpath elements).
 If you compiled wmmenu with gdk\-pixbuf support, the image can be any format
 supported by this library (GIF, PNG, TIFF, JPEG, etc...);
 Otherwise only XPM is supported.
-.br 
+.br
 \fIcommand\fR and \fIarguments\fR are run with the system(3) library call,
 hence:
 1/ you can use any shell tricks you want, and
 2/ wmmenu waits for command completion, so for X11 programs you have to add
 "\fB&\fR" at the end.
 .SH "FILES"
-.LP 
-\fI~/.wmmenu/<MENUNAME>\fP 
-.br 
-\fI~/.wmmenu/defaults\fP 
+.LP
+\fI~/.wmmenu/<MENUNAME>\fP
+.br
+\fI~/.wmmenu/defaults\fP
 .SH "ENVIRONMENT VARIABLES"
-.LP 
-.TP 
+.LP
+.TP
 \fBHOME\fP
 Specifies the home directory
 .SH "EXAMPLES"
-.LP 
+.LP
 I personally use the following command line:
-.LP 
+.LP
 wmmenu \-m apps \-r 3
 .SH "BUGS"
-.LP 
+.LP
 If wmmenu was not compiled with gdk\-pixbuf support,
 application icons larger than tile overlap over icons next to them.
 With gdk\-pixbuf support turned on, images in this case are
 automatically scaled down to fit to tile
 (unless "\-O noautoscale" was specified).
-.LP 
+.LP
 There is some flicker when the mouse goes from the dockapp to the
 menu bar.  On fast displays this is not always apparent.
-.LP 
+.LP
 No editor is provided, to edit menu files.
 However, editing by hand is not so difficult, and
 menu files are automatically reloaded each time you save them.
 You only have to restart wmmenu, if you change any setting in
 the \fBdefaults\fR file.
 .SH "AUTHORS"
-.LP 
+.LP
 Fabien COUTANT <fcoutant@freesurf.fr>
 .SH "SEE ALSO"
-.LP 
+.LP
 rox\-menu, wmaker

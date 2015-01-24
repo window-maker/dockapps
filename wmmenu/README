@@ -49,7 +49,7 @@ diff -ru libdockapp-0.4.0.orig/src/damain.c libdockapp-0.4.0/src/damain.c
 -    classHint->res_class = "DockApp";
 +    classHint->res_class = name;
      classHint->res_name = name;
-     
+
      XSetClassHint(DADisplay, DALeader, classHint);
 ========================================================================
 
@@ -244,7 +244,7 @@ STATUS
 
 	When using the gdk-pixbuf enabled version, pixmaps larger than tile
 	(either the tile pixmap itself, or the size specified on command
-	line) are automatically scaled to fit within the requested size. 
+	line) are automatically scaled to fit within the requested size.
 	This affects the dock icon, tile, highlight and application icons.
 	If you like pixmaps overriding each other (gasp!), this can be
 	disabled with "-O noautoscale".

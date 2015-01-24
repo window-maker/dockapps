@@ -215,7 +215,7 @@ extern void ButtonBar_Unhighlight (void)
     int x, y, h ;
 
     if (HighlightImage == 0 || OldPos < 0) return ;
-    
+
     h = Menu_GetNbRows () ;
     x = (OldPos / h) * TileXSize ;
     y = (OldPos % h) * TileYSize ;
