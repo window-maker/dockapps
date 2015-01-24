@@ -16,7 +16,7 @@
 static char * ReadAll (FILE * f, int offset)
 {
     char buf [10*1024] ;
-    int iRead, nRead ;
+    size_t iRead, nRead ;
     char * ret ;
 
     clearerr (f) ;
