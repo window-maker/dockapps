@@ -97,7 +97,7 @@ extern void Pixmaps_FindLoad (const char * name,
 
 	scaled = gdk_pixbuf_scale_simple (pix,
 	    width, height, GDK_INTERP_HYPER) ;
-	gdk_pixbuf_unref (pix) ;
+	g_object_unref (pix) ;
 	pix = scaled ;
     }
 
@@ -105,7 +105,7 @@ extern void Pixmaps_FindLoad (const char * name,
     if (hP != NULL) *hP = height ;
     gdk_pixbuf_xlib_render_pixmap_and_mask (pix, imageP, maskP, 128) ;
     /* don't forget to free now we've done pixmaps */
-    gdk_pixbuf_unref (pix) ;
+    g_object_unref (pix) ;
 }
 
 /*

@@ -11,7 +11,7 @@ ifdef GDKPIXBUF2
 PIXBUF_CFG = pkg-config gdk-pixbuf-xlib-2.0
 PIXBUF_DEF = -DWITH_GDKPIXBUF
 PIXBUF_INC := $(shell $(PIXBUF_CFG) --cflags)
-PIXBUF_LIB := -rdynamic -L$(shell $(PIXBUF_CFG) --variable=prefix)/lib -lgdk_pixbuf_xlib-2.0 -lgdk_pixbuf-2.0
+PIXBUF_LIB := -rdynamic -L$(shell $(PIXBUF_CFG) --variable=prefix)/lib -lgdk_pixbuf_xlib-2.0 -lgdk_pixbuf-2.0 -lgobject-2.0
 endif
 
 CC = gcc #-g
