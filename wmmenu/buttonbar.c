@@ -130,6 +130,8 @@ extern void ButtonBar_SetPositionFromDockApp (int dockx, int docky,
     int xMid, scrWidth, h, scrHeight ;
     int x, y ;
 
+    (void) dockh;
+
     /* compute y */
     scrHeight = DisplayHeight (DADisplay, DefaultScreen (DADisplay)) ;
     y = docky ;

@@ -148,6 +148,10 @@ static void InvokeBar (int x, int y)
 
 static void PressApp (int button, int state, int x, int y)
 {
+    (void) button;
+    (void) state;
+    (void) x;
+    (void) y;
     if (BarShown) LeaveBar () ;
     else EnterApp () ;
 }
