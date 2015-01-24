@@ -44,7 +44,7 @@ if ($name) {
 		$dockapps[$name]["category"] .
 		"</a><br/>\n";
 	if ($dockapps[$name]["url"])
-		echo "<b>Website</b>: <a href=\"" . $dockapps[$name]["url"] .
+		echo "<b>Original Website</b>: <a href=\"" . $dockapps[$name]["url"] .
 			"\">" . $dockapps[$name]["url"] . "</a><br/>\n";
 	echo "<b>Description:</b> " . nl2br($dockapps[$name]["description"]) .
 		"<br/>\n";
