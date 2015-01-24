@@ -18,7 +18,8 @@ extern int main (int argc, char ** argv)
 
     DAParseArguments (Options_Argc, Options_Argv, NULL, 0,
         "wmmenu", VERSION) ;
-    DAInitialize (NULL, (char*)Menu_GetTitle (), 48, 48, argc, argv) ;
+    DAOpenDisplay (NULL, argc, argv) ;
+    DACreateIcon((char*)Menu_GetTitle (), 48, 48, argc, argv);
 
     Pixmaps_LoadMenu () ;
     Pixmaps_LoadTile () ;
