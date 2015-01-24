@@ -338,6 +338,17 @@ url = https://web.archive.org/web/20080516180755/http://www.markstaggs.net/wmmem
 dockapps =
 category = System Monitoring
 
+[wmmenu]
+version-1.3 = bcf2ec75002fa74c6dc3ba03dd825ecd3bbbf65b
+version-1.2 = 632db993895433cdbe25f501538bc77076eada85
+image = wmmenu.png
+description = "Provide a popup menu of icons for WindowMaker like in AfterStep, as a dockable application. It is not as powerful as there is only one menu level, but I think it is sufficient, since you can make multiple separate menus.
+
+The program can be run more than once at the same time, which allows as much different menus, each one described in a separate file. The description simply consists in a suite of lines containing the pixmap name and the shell command to run, with the first line giving the dock image and the menu's title (will be used later). The menu automatically pops up to the right or left depending on the on-screen position."
+url = https://web.archive.org/web/20110720231607/http://www.fcoutant.freesurf.fr/wmmenu.html
+dockapps =
+category = General/Others
+
 [wmmixer]
 version-1.7+20141005 = 4260bbd5451d23b79fade509715f2667e76ab242
 version-1.7 = c6267bcde682914eb84109d046cb76ec51c465ca
