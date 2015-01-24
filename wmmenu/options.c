@@ -48,24 +48,21 @@ char * Options_Argv [MAXOPTIONS] ;
 
 static void Usage (void)
 {
-    printf (
-"Usage: wmmenu [<options>...][-- <dockoptions>...]\n"
-"Normal options:\n"
-"-m MENUNAME    set the name of the menu file to load from ~/.wmmenu\n"
-"-g WxH         force width and height of tile\n"
-"-l XPMFILE     set the pixmap used to highlight icon under cursor\n"
-"-t XPMFILE     set the pixmap used as button bar background\n"
-"-O click       bar is only triggered by clicks on the tile, not moves\n"
-"-O noautoscale disable automatic pixmap scaling to tile size\n"
-"-O behind      draw highlight pixmap behind icon, not above\n"
-"-O hide=N      set bar hiding timeout to N ms (default one)\n"
-"-r ROWS        set number of menu rows (default one)\n"
-"-v             print version information\n"
-"-h             print this help message\n"
-"Note:\n"
-"  -t, -l and '-O behind' can also be specified with the defaults file.\n"
-""
-    ) ;
+    printf("Usage: wmmenu [<options>...][-- <dockoptions>...]\n");
+    printf("Normal options:\n");
+    printf("-m MENUNAME    set the name of the menu file to load from ~/.wmmenu\n");
+    printf("-g WxH         force width and height of tile\n");
+    printf("-l XPMFILE     set the pixmap used to highlight icon under cursor\n");
+    printf("-t XPMFILE     set the pixmap used as button bar background\n");
+    printf("-O click       bar is only triggered by clicks on the tile, not moves\n");
+    printf("-O noautoscale disable automatic pixmap scaling to tile size\n");
+    printf("-O behind      draw highlight pixmap behind icon, not above\n");
+    printf("-O hide=N      set bar hiding timeout to N ms (default one)\n");
+    printf("-r ROWS        set number of menu rows (default one)\n");
+    printf("-v             print version information\n");
+    printf("-h             print this help message\n");
+    printf("Note:\n");
+    printf("  -t, -l and '-O behind' can also be specified with the defaults file.\n");
 }
 
 static void SetGeometry (const char * val)
