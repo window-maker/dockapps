@@ -7,6 +7,6 @@
 #define ADDVER " (XPM only)"
 #endif
 
-#define VERSION ("1.2" ADDVER)
+#define VERSION ("1.3" ADDVER)
 
 #endif /* version_h_ */

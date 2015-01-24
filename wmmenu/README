@@ -183,6 +183,58 @@ balloon.
 STATUS
 ------
 
+1.3	2015/01/24
+
+	Now maintained by the Window Maker Developers Team
+	<wmaker-dev@lists.windowmaker.org>.
+
+	Remove trailing whitespace.
+
+	Update COPYING from http://www.gnu.org/licenses/gpl-2.0.txt.
+
+	Fix -Wsign-compare compiler warning.  Use size_t instead of int since
+	comparing with sizeof.
+
+	Fix -Wunused-value compiler warnings
+
+	Fix -Woverlength-strings compiler warning.  Instead of printing one
+	giant string for the help text, we print each line individually.
+
+	Fix -Wdeprecated-declarations compiler warnings.  The function
+	gdk_pixbuf_unref is deprecated.  We replace it with g_object_unref.
+	This requires linking against gobject-2.0.
+
+	Fix -Wunused-result compiler warning.  Print a warning message if
+	system() fails.
+
+	Replace deprecated DAInitialize() from libdockapp.  Patch from
+	Gentoo [1].
+
+	Update to compile with modern GDK-PixBuf.  In particular,
+	- We need to link against gdk_pixbuf-2.0 in addition to
+	  gdk_pixbuf_xlib-2.0.
+	- The header gdk-pixbuf-xlib.h has been moved to the gdk-pixbuf-xlib
+	  directory.
+	- The function gdk_pixbuf_new_from_file now requires two arguments.
+	- We need to define GdkColor ourselves since we don't include gdk.h.
+	Inspired by a patch by Nerijus Baliunas [2].
+
+	Update Makefile.  In particular,
+	- Remove option to compile with deprecated GDK-PixBuf 1.0.
+	- Remove *ROOT variables; libdockapp should be in the default include
+	  search path and X11R6 directories are deprecated.
+	- Remove /opt/gtk2/bin from PIXBUF_CFG; pkg-config is likely elsewhere.
+	- Remove CPPFLAGS from CFLAGS and INCDIRS and DEFINES from CFLAGS; we
+	  don't want these to disappear if user defines different flags.
+	Inspired in part by similar patches in Gentoo [3] and by Nerijus
+	Baliunas [2].
+
+	[1] http://mirrors.telepoint.bg/gentoo-portage/x11-plugins/wmmenu/files/
+	    wmmenu-1.2-support-libdockapp-0.5.0.patch
+	[2] http://lists.windowmaker.org/dev/msg07994.html
+	[3] http://mirrors.telepoint.bg/gentoo-portage/x11-plugins/wmmenu/files/
+            wmmenu-1.2-Makefile.patch
+
 1.2	2002/05/04
 
 	(Thanks to Daniel Déchelotte for many bug fixes, patches and
