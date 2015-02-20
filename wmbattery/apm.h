@@ -8,7 +8,7 @@
 #include <i386/apmvar.h>
 #endif
 
-#ifdef HAVE_APM_H
+#ifdef HAVE_LIBAPM
 #include <apm.h>
 #endif
 
@@ -37,7 +37,7 @@
 #define BATTERY_TIME_UNKNOWN        (-1)
 #endif /* AC_LINE_STATUS_ON */
 
-#if !defined(HAVE_APM_H)
+#if !defined(HAVE_LIBAPM)
 typedef struct {
 	const char driver_version[10];
 	int apm_version_major;

@@ -34,7 +34,6 @@ AC_HEADER_STDC
 AC_CHECK_HEADERS(X11/xpm.h)
 AC_CHECK_HEADERS(X11/extensions/shape.h)
 AC_CHECK_HEADERS(getopt.h)
-AC_CHECK_HEADERS(apm.h)
 dnl FreeBSD needs apm_bios.h
 AC_CHECK_HEADERS(machine/apm_bios.h)
 dnl NetBSD and OpenBSD need apmvar.h

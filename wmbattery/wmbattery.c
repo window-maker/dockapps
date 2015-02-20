@@ -148,7 +148,7 @@ int apm_exists(void)
 	return apm_read(&i);
 }
 #endif
-#if !defined(HAVE_APM_H)
+#if !defined(HAVE_LIBAPM)
 int apm_read(apm_info *i)
 {
 	return -1;
