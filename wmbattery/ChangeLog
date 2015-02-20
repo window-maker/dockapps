@@ -1,3 +1,16 @@
+wmbattery (2.47)
+  * Avoid redefinition of apm_read/apm_exists in *BSD.
+    The two functions are defined if the BSD-specific apm headers are found and
+    if libapm is not found.  Both of these conditions will be true on BSD
+    systems, so we use #elif instead of the separate #if statements.
+  * Use AC_CHECK_LIB instead of AC_CHECK_HEADERS to check for libapm.
+    If autoconf finds an apm.h other than the one belonging to libapm, we get
+    builds errors like the ones reported by Haroldo Gambini Santos in [1].
+
+    [1] http://lists.windowmaker.org/dev/msg07937.html
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Thu, 19 Feb 2015 23:26:34 -0600
+
 wmbattery (2.46)
   * Make it possible to work without libapm as libapm and apm.h are not
     necessarily available on Linux.
