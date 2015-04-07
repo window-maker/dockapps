@@ -1,3 +1,39 @@
+VERSION: 0.9.5
+RELEASE DATE: 7 April 2015
+	-Now maintained by the Window Maker Developers Team
+	-Replace deprecated Imakefile with Makefile.  Update INSTALL to reflect
+	 changes.
+	-Add missing headers.  Fixes "incompatible implicit declaration of
+	 built-in function" warnings.
+	-Add missing format arguments to fprintf().  Fixes "format not a string
+	 literal and no format arguments [-Wformat-security]" warnings.
+	-Add more missing headers. Fixes -Wimplicit-function-declaration
+	 warnings.
+	-Pass XCreateBitmapFromData a pointer to char as expected.  Previously,
+	 a pointer to an unsigned char was passed, causing a "pointer targets
+	 differ in signedness [-Wpointer-sign]" warning.
+	-Add manpage from Debian.  Slightly modified from [1].  Also modify
+	 Makefile to install manpage.
+	-Split ChangeLog off from README.  Also remove redundant INSTALL
+	 section.
+	-Incorporate changes from asload-0.9.3.  Obtained from [2].
+	-Incorporate changes from asload-0.9.4.  Obtained from [3].
+	-Remove trailing whitespace.
+	-Include sys/wait.h.  Needed to fix "implicit declaration of function
+	 ‘waitpid’" warning introduced after merging asload-0.9.4.
+	-Remove ">/dev/console" from default command to execute on click.
+	 Otherwise, user may receive "permission denied" errors.
+	-Check if Execute string is empty by testing first character.  Fixes
+	 "the address of ‘Execute’ will always evaluate as ‘true’ [-Waddress]"
+	 warning.
+	-Cast data from client message event to Atom for comparison.  Fixes
+	 -Wsign-compare compiler warning.
+	-Replace deprecated usleep with nanosleep.
+
+	[1] http://manned.org/wmload/a214d0b5/src
+	[2] http://tigr.net/afterstep/download/asload/asload-0.9.3.tar.gz
+	[3] http://tigr.net/afterstep/download/asload/asload-0.9.4.tar.gz
+
 VERSION: 0.9.4
 RELEASE DATE: 09 March 2000 by albert@tigr.net
 
