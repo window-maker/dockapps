@@ -1,0 +1,17 @@
+/* installation directory is the combination of $(DESTDIR)  and $(BINDIR)*/
+DESTDIR = /usr/local
+BINDIR = /bin
+
+XPMLIB = -L/usr/lib/X11 -lXpm -lm  
+DEPLIBS = $(DEPXLIB) 
+
+LOCAL_LIBRARIES = $(XPMLIB) $(XLIB)  
+
+LINTLIBS = $(LINTXLIB)
+
+EXTRA_DEFINES = -Debug         /* CFLAGS = -Debug */
+
+SRCS = wmload.c
+OBJS = wmload.o
+
+ComplexProgramTarget(wmload)

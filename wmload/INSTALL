@@ -1,0 +1,8 @@
+1. Check the Imakefile to see if all the LIBS are ok for your system.
+   ALSO, check DESTDIR and BINDIR; as they are now, a `make install'
+   will put the wmload binary in /usr/local/bin.
+2. `xmkmf'
+3. `make'
+4. `make install'
+5. Enjoy!!!! (;-)
+
