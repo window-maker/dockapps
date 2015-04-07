@@ -58,7 +58,7 @@ Window iconwin, win;       /* My home is my window */
 char *ProgName;
 char *Geometry;
 char *LedColor = "LightSeaGreen";
-char Execute[] = "echo no program has been specified >/dev/console";
+char Execute[] = "echo no program has been specified";
 char *ERR_colorcells = "not enough free color cells\n";
 char *ampers = " &";
 
