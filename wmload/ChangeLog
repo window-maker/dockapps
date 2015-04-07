@@ -1,0 +1,73 @@
+VERSION: 0.9.2
+RELEASE DATE: 17 July 1997
+
+	-Minor cosmetic changes.
+	 The graph zone is now perfectly square, 54x54.
+	 <I didn't like it's odd width! (;-)>
+
+	-All values dealing with pixmap size have been
+	 adjusted to accomodate the new `look'.
+
+VERSION: 0.9.1
+RELEASE DATE: 8 July 1997
+
+	-Uses correct ordering of PROC data.
+
+	-Increases the differentiation between tones,
+	 just a smidgion.
+
+	-Catches a "Once In A Blue Moon" condition.
+	   Under various circumstances rounding error
+	   results in a pixel count of 55 or 53.
+	   To prevent the 55 count from writing one
+	   pixel into the edge of the frame, wmload
+	   now catches these occurrences and corrects
+	   for them.
+
+VERSION: 0.9.0
+RELEASE DATE: 6 July 1997
+
+	-Fixed the grayscale problem that occurred
+	 whenever the "-shape" argument was used.
+
+	-Implemented the "-led" argument...
+	 ...the last release had the argument,
+	 however it wasn't implemented...
+	 ...ie: it did nothing.
+	 Called without the "-led" argument, wmload
+	 uses it's default color "LightSeaGreen"
+	 [which is the same as the asclock readout].
+	 Called with the argument, it uses the
+	 named color. If the default color is
+	 unavailable, or the named color is invalid,
+	 wmload simply uses the 3 green tones
+	 found in the "back.xpm" pixmap.
+
+	-Added a "-ver" argument...
+	 When used, it prints the current version
+	 on stdout. If it is called alone with no
+	 other arguments, wmload exits after
+	 printing its' version. Called with other
+	 arguments... wmload prints its' version
+	 and continues as normal.
+
+	-Trapped bad arguments that don't start
+	 with "-".
+
+	-Cleaned up the code a bit.
+
+	-Removed unnecessary files from the
+	 distribution. <kept README's though>
+
+
+VERSION: ?
+RELEASE DATE: ?
+	-adapted from asload by Nic Bernstein
+	 added withdrawn option, added WM hints.
+	 changed trace color
+
+
+VERSION: asload 0.1
+RELEASE DATE: 30th November 1996
+	- by Beat Christen, bchriste@iiic.ethz.ch
+	- First Version for Linux /proc
