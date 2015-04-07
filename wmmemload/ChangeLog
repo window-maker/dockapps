@@ -1,3 +1,13 @@
+2015 April 7
+  * Use sysctl for swap usage information in FreeBSD.
+    Use sysctl instead of kvm_getswapinfo() to read the swap usage information
+    in FreeBSD.  This removes the need for a dependency on libkvm and for a
+    setgid binary.
+    Based on the Debian patch [1].
+  * Release version 0.1.8.
+
+    [1] https://sources.debian.net/src/wmmemload/0.1.7-2/debian/patches/sysctl_swap.patch/
+
 2014 October 9
   * Use sysctl to get memory usage in FreeBSD.
   * Recognize GNU/kFreeBSD as possible OS during configure.

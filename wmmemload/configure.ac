@@ -2,7 +2,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 
 dnl AC_INIT(src/main.c)
-AC_INIT(wmmemload, 0.1.7, wmaker-dev@lists.windowmaker.org)
+AC_INIT(wmmemload, 0.1.8, wmaker-dev@lists.windowmaker.org)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
