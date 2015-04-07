@@ -243,6 +243,13 @@ url = http://www.goesgens.de/wmkeys.html
 dockapps = 215
 category = General/Others
 
+[wmload]
+image = wmload.gif
+description = "WMLoad is a dockable CPU meter."
+url =
+dockapps =
+category = System Monitoring
+
 [wmmemload]
 image = wmmemload-bgreen.thumbnail.png
 description =  "WindowMaker dockapp to monitor memory and swap usage.  wmmemload displays the current memory and swap usage as a percentage value. It is based on wmcpuload and wmmemmon, and as such looks very nice alongside those.  wmmemload is designed to work with the WindowMaker dock, but will work with other window managers as well."
