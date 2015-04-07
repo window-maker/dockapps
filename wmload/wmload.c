@@ -32,7 +32,7 @@ int ONLYSHAPE=0; /* default value is noshape */
 int updatespeed = 4;
 static char *help_message[] = {
 "where options include:",
-"    -u <secs>               updatespeed",            
+"    -u <secs>               updatespeed",
 "    -exe <program>          program to start on click",
 "    -led <color>            color of the led",
 "    -position [+|-]x[+|-]y  position of wmload",
@@ -98,7 +98,7 @@ void usage()
 /*
  * Copied from ascpu - albert@tigr.net - 09 Mar 2000
  *
- * This function executes an external command while 
+ * This function executes an external command while
  * checking whether we should drop the privileges.
  *
  * Since we might need privileges later we fork and
@@ -127,19 +127,19 @@ void ExecuteExternal()
 	}
 	pid = fork();
 	if ( pid == -1 ) {
-		printf("asload : fork() failed (%s), command not executed", 
+		printf("asload : fork() failed (%s), command not executed",
 				strerror(errno));
 		return;
 	}
 	if ( pid != 0 ) {
 		/* parent process simply waits for the child and continues */
 		if ( waitpid(pid, 0, 0) == -1 ) {
-			printf("asload : waitpid() for child failed (%s)", 
+			printf("asload : waitpid() for child failed (%s)",
 				strerror(errno));
 		}
 		return;
 	}
-	/* 
+	/*
 	 * child process drops the privileges
 	 * executes the command and dies
 	 */
@@ -155,7 +155,7 @@ int main(int argc,char *argv[])
 {
   int i;
   unsigned int borderwidth ;
-  char *display_name = NULL; 
+  char *display_name = NULL;
   char *wname = "wmload";
   XGCValues gcv;
   unsigned long gcm;
@@ -217,12 +217,12 @@ int main(int argc,char *argv[])
   }
 
   /* Open the display */
-  if (!(dpy = XOpenDisplay(display_name)))  
-    { 
-      fprintf(stderr,"wmload: can't open display %s\n", 
-	      XDisplayName(display_name)); 
-      exit (1); 
-    } 
+  if (!(dpy = XOpenDisplay(display_name)))
+    {
+      fprintf(stderr,"wmload: can't open display %s\n",
+	      XDisplayName(display_name));
+      exit (1);
+    }
 
   screen= DefaultScreen(dpy);
   Root = RootWindow(dpy, screen);
@@ -232,7 +232,7 @@ int main(int argc,char *argv[])
 
   /* Convert XPM Data to XImage */
   GetXPM();
-  
+
   /* Create a window to hold the banner */
   mysizehints.flags= USSize|USPosition;
   mysizehints.x = 0;
@@ -242,7 +242,7 @@ int main(int argc,char *argv[])
   fore_pix = GetColor("black");
 
   XWMGeometry(dpy, screen, Geometry, NULL, (borderwidth =1), &mysizehints,
-	      &mysizehints.x,&mysizehints.y,&mysizehints.width,&mysizehints.height, &i); 
+	      &mysizehints.x,&mysizehints.y,&mysizehints.width,&mysizehints.height, &i);
 
   mysizehints.width = wmload.attributes.width;
   mysizehints.height= wmload.attributes.height;
@@ -263,19 +263,19 @@ int main(int argc,char *argv[])
   XSelectInput(dpy,win,MW_EVENTS);
   XSelectInput(dpy,iconwin,MW_EVENTS);
   XSetCommand(dpy,win,argv,argc);
-  
+
   if (XStringListToTextProperty(&wname, 1, &name) ==0) {
     fprintf(stderr, "wmload: can't allocate window name\n");
     exit(-1);
   }
   XSetWMName(dpy, win, &name);
-  
+
   /* Create a GC for drawing */
   gcm = GCForeground|GCBackground|GCGraphicsExposures;
   gcv.foreground = fore_pix;
   gcv.background = back_pix;
   gcv.graphics_exposures = FALSE;
-  NormalGC = XCreateGC(dpy, Root, gcm, &gcv);  
+  NormalGC = XCreateGC(dpy, Root, gcm, &gcv);
 
   if (ONLYSHAPE) { /* try to make shaped window here */
     pixmask = XCreateBitmapFromData(dpy, win, (char *)mask2_bits, mask2_width,
@@ -283,14 +283,14 @@ int main(int argc,char *argv[])
     XShapeCombineMask(dpy, win, ShapeBounding, 0, 0, pixmask, ShapeSet);
     XShapeCombineMask(dpy, iconwin, ShapeBounding, 0, 0, pixmask, ShapeSet);
   }
-  
+
   mywmhints.icon_window = iconwin;
   mywmhints.icon_x = mysizehints.x;
   mywmhints.icon_y = mysizehints.y;
   mywmhints.window_group = win;
   mywmhints.flags = StateHint | IconWindowHint | IconPositionHint
       | WindowGroupHint;
-  XSetWMHints(dpy, win, &mywmhints); 
+  XSetWMHints(dpy, win, &mywmhints);
   XSetWMProtocols (dpy, win, &_XA_WM_DELETE_WINDOW, 1);
 
   XMapWindow(dpy,win);
@@ -302,13 +302,13 @@ int main(int argc,char *argv[])
       if (actualtime != time(0))
 	{
 	  actualtime = time(0);
-	  
+
 	  if(actualtime % updatespeed == 0)
 	    InsertLoad();
 
 	  RedrawWindow(&visible);
 	}
-      
+
       /* read a packet */
       while (XPending(dpy))
 	{
@@ -331,10 +331,10 @@ int main(int argc,char *argv[])
 	      XDestroyWindow(dpy, iconwin);
               XDestroyWindow(dpy, win);
               XCloseDisplay(dpy);
-	      exit(0); 
+	      exit(0);
 	      break ;
 	    default:
-	      break;      
+	      break;
 	    }
 	}
       XFlush(dpy);
@@ -370,7 +370,7 @@ void GetXPM(void)
   XGetWindowAttributes(dpy,Root,&attributes);
 
   /* get user-defined color or validate the default */
-  if (!XParseColor (dpy, attributes.colormap, LedColor, &col)) 
+  if (!XParseColor (dpy, attributes.colormap, LedColor, &col))
     {
       nocolor("parse",LedColor);
     }
@@ -398,15 +398,15 @@ void GetXPM(void)
       sprintf(tempc3, "Q c #%.2x%.2x%.2x", (int)colr, (int)colg, (int)colb);
       back_xpm[45] = tempc3;
     }
-     
+
   wmload.attributes.valuemask |= (XpmReturnPixels | XpmReturnExtensions);
-  ret = XpmCreatePixmapFromData(dpy, Root, alt_xpm, &wmload.pixmap, 
+  ret = XpmCreatePixmapFromData(dpy, Root, alt_xpm, &wmload.pixmap,
 				&wmload.mask, &wmload.attributes);
   if(ret != XpmSuccess)
     {fprintf(stderr, "%s\n", ERR_colorcells);exit(1);}
 
   visible.attributes.valuemask |= (XpmReturnPixels | XpmReturnExtensions);
-  ret = XpmCreatePixmapFromData(dpy, Root, back_xpm, &visible.pixmap, 
+  ret = XpmCreatePixmapFromData(dpy, Root, back_xpm, &visible.pixmap,
 				&visible.mask, &visible.attributes);
   if(ret != XpmSuccess)
     {fprintf(stderr, "%s\n", ERR_colorcells);exit(1);}
@@ -419,7 +419,7 @@ int flush_expose (Window w)
 {
   XEvent dummy;
   int i=0;
-  
+
   while (XCheckTypedWindowEvent (dpy, w, Expose, &dummy))i++;
   return i;
 }
@@ -445,11 +445,11 @@ Pixel GetColor(char *name)
 
   XGetWindowAttributes(dpy,Root,&attributes);
   color.pixel = 0;
-   if (!XParseColor (dpy, attributes.colormap, name, &color)) 
+   if (!XParseColor (dpy, attributes.colormap, name, &color))
      {
        nocolor("parse",name);
      }
-   else if(!XAllocColor (dpy, attributes.colormap, &color)) 
+   else if(!XAllocColor (dpy, attributes.colormap, &color))
      {
        nocolor("alloc",name);
      }
@@ -469,7 +469,7 @@ void InitLoad()
 
   /* Remove the 4 base colors from visible */
   XCopyArea(dpy, visible.pixmap, visible.pixmap, NormalGC,
-	    Shape(9),Shape(6),3,52, Shape(6), Shape(6));  
+	    Shape(9),Shape(6),3,52, Shape(6), Shape(6));
 }
 
 static char *
@@ -481,7 +481,7 @@ skip_token(const char *p)
 }
 
 void GetLoad(int Maximum, int *usr, int *nice, int *sys, int *free)
-{ 
+{
   char buffer[100];/*[4096+1];*/
   int fd, len;
   int total;
@@ -491,7 +491,7 @@ void GetLoad(int Maximum, int *usr, int *nice, int *sys, int *free)
   len = read(fd, buffer, sizeof(buffer)-1);
   close(fd);
   buffer[len] = '\0';
-  
+
   p = skip_token(buffer);		/* "cpu" */
 
   cp_time[0] = strtoul(p, &p, 0);	/* user   */
@@ -558,5 +558,5 @@ void InsertLoad()
     /* Free Time */
     if(FreeTime > 0)
       XCopyArea(dpy, wmload.pixmap, visible.pixmap, NormalGC,
-		Shape(9), Shape(6), 1, FreeTime, Shape(57), Shape(6)); 
+		Shape(9), Shape(6), 1, FreeTime, Shape(57), Shape(6));
 }
