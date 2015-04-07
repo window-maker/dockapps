@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <errno.h>
+#include <sys/wait.h>
 
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
