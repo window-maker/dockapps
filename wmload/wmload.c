@@ -325,7 +325,7 @@ int main(int argc,char *argv[])
 	      break;
 	    case ClientMessage:
     	      if ((Event.xclient.format != 32) ||
-		  (Event.xclient.data.l[0] != _XA_WM_DELETE_WINDOW))
+		  ((Atom)Event.xclient.data.l[0] != _XA_WM_DELETE_WINDOW))
 		break;
 	    case DestroyNotify:
 	      XFreeGC(dpy, NormalGC);
