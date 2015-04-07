@@ -218,7 +218,7 @@ int main(int argc,char *argv[])
   NormalGC = XCreateGC(dpy, Root, gcm, &gcv);  
 
   if (ONLYSHAPE) { /* try to make shaped window here */
-    pixmask = XCreateBitmapFromData(dpy, win, mask2_bits, mask2_width, 
+    pixmask = XCreateBitmapFromData(dpy, win, (char *)mask2_bits, mask2_width,
 				    mask2_height);
     XShapeCombineMask(dpy, win, ShapeBounding, 0, 0, pixmask, ShapeSet);
     XShapeCombineMask(dpy, iconwin, ShapeBounding, 0, 0, pixmask, ShapeSet);
