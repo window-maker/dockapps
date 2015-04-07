@@ -1,3 +1,5 @@
+#define _POSIX_C_SOURCE 199309L
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -342,7 +344,13 @@ int main(int argc,char *argv[])
 #ifdef SYSV
       poll((struct poll *) 0, (size_t) 0, 50);
 #else
-      usleep(50000L);			/* 5/100 sec */
+      {
+        struct timespec ts;
+
+        ts.tv_sec = 0;
+        ts.tv_nsec = 50000000L;        /* 5/100 sec */
+        nanosleep(&ts, NULL);
+      }
 #endif
     }
   return 0;
