@@ -335,13 +335,13 @@ void GetXPM(void)
   ret = XpmCreatePixmapFromData(dpy, Root, alt_xpm, &wmload.pixmap, 
 				&wmload.mask, &wmload.attributes);
   if(ret != XpmSuccess)
-    {fprintf(stderr, ERR_colorcells);exit(1);}
+    {fprintf(stderr, "%s\n", ERR_colorcells);exit(1);}
 
   visible.attributes.valuemask |= (XpmReturnPixels | XpmReturnExtensions);
   ret = XpmCreatePixmapFromData(dpy, Root, back_xpm, &visible.pixmap, 
 				&visible.mask, &visible.attributes);
   if(ret != XpmSuccess)
-    {fprintf(stderr, ERR_colorcells);exit(1);}
+    {fprintf(stderr, "%s\n", ERR_colorcells);exit(1);}
 
 }
 
