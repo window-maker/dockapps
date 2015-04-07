@@ -1,0 +1,51 @@
+.TH WMLOAD 1 "September 1999"
+.SH NAME
+wmload \- graphically display the kernel/system statistics
+.SH SYNOPSIS
+.B wmload
+[ \-u <secs> ] [ \-e <program> ] [ \-l <color> ]
+[ \-p [+|\-]x [+|\-]y ] [ \-s ] [ \-i ] [ \-w ] [ \-v ]
+.SH DESCRIPTION
+\fBwmload\fP displays a graphical representation of the kernel/system
+statistics on a 64x64 miniwindow. There are three shades in the window:
+the light one, which corresponds to \fIuser\fP statistics, second is
+the \fInice time\fP statistics, and the darkest one is \fIsystem\fP
+statistics.
+.SH OPTIONS
+.TP
+.I \-u <secs>
+updatespeed
+.TP
+.I \-e <program>
+program to start on click
+.TP
+.I \-p [+|\-]x[+|\-]y
+position of wmload
+.TP
+.I \-s
+without groundplate
+.TP
+.I \-i
+start up as icon
+.TP
+.I \-w
+start up withdrawn
+.TP
+.I \-v
+output version
+.SH FILES
+.TP
+.I /proc/stat
+kernel/system statistics and other information
+.SH AUTHORS
+.B wmload
+was written by Ryan Land <rand@bc1.com>, based on asload by Beat Christen
+<bchriste@iiic.ethz.ch>.
+.sp
+This manpage was written by Marcelo Magallon <mmagallo@debian.org>.
+.SH "SEE ALSO"
+.BR ps (1),
+.BR tload (1),
+.BR top (1),
+.BR uptime (5),
+.BR w (1).
