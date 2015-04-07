@@ -11,38 +11,18 @@
 #endif
 
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
 #include "mem.h"
 
-#include <kvm.h>
-#include <fcntl.h>
+#include <vm/vm_param.h>
 #include <sys/errno.h>
 #include <sys/sysctl.h>
 #include <time.h>
 
-static kvm_t *kvm_data;
-
 /* initialize function */
 void mem_init(void)
 {
-	kvm_data = kvm_open(NULL, NULL, NULL, O_RDONLY, "kvm_open");
-
-	if (kvm_data == NULL) {
-		fprintf(stderr, "can't open kernel virtual memory");
-		exit(1);
-	}
-
-	/* drop setgid & setuid (the latter should not be there really) */
-	seteuid(getuid());
-	setegid(getgid());
-
-	if (geteuid() != getuid() || getegid() != getgid()) {
-		fprintf(stderr, "unable to drop privileges");
-		exit(1);
-	}
-
 	return;
 }
 
@@ -53,12 +33,12 @@ static void getsysctl(const char *name, void *ptr, size_t len)
 	size_t nlen = len;
 
 	if (sysctlbyname(name, ptr, &nlen, NULL, 0) == -1) {
-		fprintf(stderr, "top: sysctl(%s...) failed: %s\n", name,
+		fprintf(stderr, "sysctl(%s...) failed: %s\n", name,
 			strerror(errno));
 		exit(1);
 	}
 	if (nlen != len) {
-		fprintf(stderr, "top: sysctl(%s...) expected %lu, got %lu\n",
+		fprintf(stderr, "sysctl(%s...) expected %lu, got %lu\n",
 			name, (unsigned long)len, (unsigned long)nlen);
 		exit(1);
 	}
@@ -101,17 +81,30 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 	if (swap_firsttime ||
 	    (((new_swappgsin > swappgsin) || (new_swappgsout > swappgsout))
 	     && cur_time > last_time_swap + 1)) {
+		int mib[2], n;
+		size_t mibsize, size;
+		struct xswdev xsw;
 
-		struct kvm_swap swap;
-		int n;
+		mibsize = sizeof(mib) / sizeof(mib[0]);
+		if (sysctlnametomib("vm.swap_info", mib, &mibsize) == -1) {
+			fprintf(stderr, "sysctlnametomib() failed: %s\n", strerror(errno));
+			exit(1);
+		}
 
 		swapmax = 0;
 		swapused = 0;
 
-		n = kvm_getswapinfo(kvm_data, &swap, 1, 0);
-		if (n >= 0 && swap.ksw_total != 0) {
-			swapmax = swap.ksw_total;
-			swapused = swap.ksw_used;
+		for (n = 0; ; n++) {
+			mib[mibsize] = n;
+			size = sizeof(xsw);
+			if (sysctl(mib, mibsize + 1, &xsw, &size, NULL, 0) == -1) {
+				if (errno == ENOENT)
+					break;
+				fprintf(stderr, "sysctl() failed: %s\n", strerror(errno));
+				exit(1);
+			}
+			swapmax += xsw.xsw_nblks;
+			swapused += xsw.xsw_used;
 		}
 
 		swap_firsttime = 0;
