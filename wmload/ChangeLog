@@ -1,3 +1,10 @@
+VERSION: 0.9.4
+RELEASE DATE: 09 March 2000 by albert@tigr.net
+
+	Fixed the security bug. The program now forks
+	and the child drops privileges before executing
+	an external command.
+
 VERSION: 0.9.3
 RELEASE DATE: 03 March 2000 (sashav@sprintmail.com)
        -added range check for values. It seems that on 2.3 kernels

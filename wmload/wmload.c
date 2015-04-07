@@ -1,8 +1,10 @@
-#include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <errno.h>
+
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
@@ -17,7 +19,7 @@
 
 #define major_VER 0
 #define minor_VER 9
-#define patch_VER 3
+#define patch_VER 4
 #define MW_EVENTS   (ExposureMask | ButtonPressMask | StructureNotifyMask)
 #define FALSE 0
 #define Shape(num) (ONLYSHAPE ? num-5 : num)
@@ -93,6 +95,62 @@ void usage()
   exit(1);
 }
 
+/*
+ * Copied from ascpu - albert@tigr.net - 09 Mar 2000
+ *
+ * This function executes an external command while 
+ * checking whether we should drop the privileges.
+ *
+ * Since we might need privileges later we fork and
+ * then drop privileges in one of the instances which
+ * will then execute the command and die.
+ *
+ * This fixes the security hole for FreeBSD and AIX
+ * where this program needs privileges to access
+ * the system information.
+ */
+void ExecuteExternal()
+{
+	uid_t ruid, euid;
+	int pid;
+#ifdef DEBUG
+	printf("asload: system(%s)\n",Execute);
+#endif
+	if( ! Execute ) {
+		return;
+	}
+	ruid = getuid();
+	euid = geteuid();
+	if ( ruid == euid ) {
+		system( Execute );
+		return;
+	}
+	pid = fork();
+	if ( pid == -1 ) {
+		printf("asload : fork() failed (%s), command not executed", 
+				strerror(errno));
+		return;
+	}
+	if ( pid != 0 ) {
+		/* parent process simply waits for the child and continues */
+		if ( waitpid(pid, 0, 0) == -1 ) {
+			printf("asload : waitpid() for child failed (%s)", 
+				strerror(errno));
+		}
+		return;
+	}
+	/* 
+	 * child process drops the privileges
+	 * executes the command and dies
+	 */
+	if ( setuid(ruid) ) {
+		printf("asload : setuid failed (%s), command not executed",
+				strerror(errno));
+		exit(127);
+	}
+	system( Execute );
+	exit(0);
+}
 int main(int argc,char *argv[])
 {
   int i;
@@ -262,7 +320,7 @@ int main(int argc,char *argv[])
 		RedrawWindow(&visible);
 	      break;
 	    case ButtonPress:
-	      system(Execute);
+	      ExecuteExternal();
 	      break;
 	    case ClientMessage:
     	      if ((Event.xclient.format != 32) ||
