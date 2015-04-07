@@ -117,7 +117,7 @@ void ExecuteExternal()
 #ifdef DEBUG
 	printf("asload: system(%s)\n",Execute);
 #endif
-	if( ! Execute ) {
+	if( Execute[0] == '\0' ) {
 		return;
 	}
 	ruid = getuid();
