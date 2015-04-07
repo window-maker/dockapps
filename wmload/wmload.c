@@ -17,7 +17,7 @@
 
 #define major_VER 0
 #define minor_VER 9
-#define patch_VER 2
+#define patch_VER 3
 #define MW_EVENTS   (ExposureMask | ButtonPressMask | StructureNotifyMask)
 #define FALSE 0
 #define Shape(num) (ONLYSHAPE ? num-5 : num)
@@ -105,6 +105,7 @@ int main(int argc,char *argv[])
   XTextProperty name;
   XClassHint classHint;
   Pixmap pixmask;
+  Atom _XA_WM_DELETE_WINDOW 	= None;
   Geometry = "";
   mywmhints.initial_state = NormalState;
 
@@ -169,7 +170,8 @@ int main(int argc,char *argv[])
   Root = RootWindow(dpy, screen);
   d_depth = DefaultDepth(dpy, screen);
   x_fd = XConnectionNumber(dpy);
-  
+  _XA_WM_DELETE_WINDOW = XInternAtom (dpy, "WM_DELETE_WINDOW", False);
+
   /* Convert XPM Data to XImage */
   GetXPM();
   
@@ -231,6 +233,7 @@ int main(int argc,char *argv[])
   mywmhints.flags = StateHint | IconWindowHint | IconPositionHint
       | WindowGroupHint;
   XSetWMHints(dpy, win, &mywmhints); 
+  XSetWMProtocols (dpy, win, &_XA_WM_DELETE_WINDOW, 1);
 
   XMapWindow(dpy,win);
   InitLoad();
@@ -261,12 +264,17 @@ int main(int argc,char *argv[])
 	    case ButtonPress:
 	      system(Execute);
 	      break;
+	    case ClientMessage:
+    	      if ((Event.xclient.format != 32) ||
+		  (Event.xclient.data.l[0] != _XA_WM_DELETE_WINDOW))
+		break;
 	    case DestroyNotify:
-              XFreeGC(dpy, NormalGC);
-              XDestroyWindow(dpy, win);
+	      XFreeGC(dpy, NormalGC);
 	      XDestroyWindow(dpy, iconwin);
+              XDestroyWindow(dpy, win);
               XCloseDisplay(dpy);
 	      exit(0); 
+	      break ;
 	    default:
 	      break;      
 	    }
@@ -433,10 +441,11 @@ void GetLoad(int Maximum, int *usr, int *nice, int *sys, int *free)
   cp_time[2] = strtoul(p, &p, 0);	/* system */
   cp_time[3] = strtoul(p, &p, 0);	/* idle   */
 
-  *usr  = cp_time[0] - last[0];
-  *nice = cp_time[1] - last[1];
-  *sys  = cp_time[2] - last[2];
-  *free = cp_time[3] - last[3];
+  if( (*usr  = cp_time[0] - last[0]) < 0 ) *usr = 0 ;
+  if( (*nice = cp_time[1] - last[1]) < 0 ) *nice = 0 ;
+  if( (*sys  = cp_time[2] - last[2]) < 0 ) *sys = 0 ;
+  if( (*free = cp_time[3] - last[3]) < 0 ) *free = 0 ;
+
   total = *usr + *nice + *sys + *free;
 
   last[0] = cp_time[0];

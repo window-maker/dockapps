@@ -1,3 +1,10 @@
+VERSION: 0.9.3
+RELEASE DATE: 03 March 2000 (sashav@sprintmail.com)
+       -added range check for values. It seems that on 2.3 kernels
+        time can go backwards :)
+       -Destroying Icon window prior to main window to avoid shutdown
+        time errors
+
 VERSION: 0.9.2
 RELEASE DATE: 17 July 1997
 
