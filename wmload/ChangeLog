@@ -1,3 +1,9 @@
+VERSION: 0.9.6
+RELEASE DATE: 15 April 2015
+	-Clarify copyright information.
+	 Add copyright header to wmload.c and COPYING file, obtained from
+	 https://www.gnu.org/licenses/gpl-2.0.txt.
+
 VERSION: 0.9.5
 RELEASE DATE: 7 April 2015
 	-Now maintained by the Window Maker Developers Team
