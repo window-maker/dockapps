@@ -55,7 +55,7 @@ int screen;
 XpmIcon icon;
 Display *display;
 GC NormalGC;
-int pos[2] = {0, 0};
+char *user_geom = NULL;
 
 #ifdef HAVE__DEV_APM
 #define APM_STATUS_FILE "/dev/apm"
@@ -376,7 +376,6 @@ char *parse_commandline(int argc, char *argv[])
 {
 	int c = 0;
 	char *ret = NULL;
-	char *s;
 
 	while (c != -1) {
 		c = getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:x:v");
@@ -385,7 +384,7 @@ char *parse_commandline(int argc, char *argv[])
 			printf("Usage: wmbattery [options]\n");
 			printf("\t-d <display>\tselects target display\n");
 			printf("\t-h\t\tdisplay this help\n");
-			printf("\t-g +x+y\t\tposition of the window\n");
+			printf("\t-g {+-}x{+-}y\tposition of the window\n");
 			printf("\t-i start\n");
 			printf("\t-b num\t\tnumber of battery to display\n");
 			printf("\t-w secs\t\tseconds between updates\n");
@@ -402,15 +401,7 @@ char *parse_commandline(int argc, char *argv[])
 			ret = strdup(optarg);
 			break;
 		case 'g':
-			s = strtok(optarg, "+");
-			if (s) {
-				pos[0] = atoi(s);
-				s = strtok(NULL, "+");
-				if (s)
-					pos[1] = atoi(s);
-				else
-					pos[0] = 0;
-			}
+			user_geom = strdup(optarg);
 			break;
 		case 'i':
 			initial_state = IconicState;
@@ -474,14 +465,12 @@ void make_window(char *display_name, int argc, char *argv[])
 	sizehints.flags = USSize | USPosition;
 	sizehints.x = 0;
 	sizehints.y = 0;
-	XWMGeometry(display, screen, "", NULL, borderwidth,
+	XWMGeometry(display, screen, user_geom, NULL, borderwidth,
 		    &sizehints, &sizehints.x, &sizehints.y,
 		    &sizehints.width, &sizehints.height, &dummy);
 
 	sizehints.width = 64;
 	sizehints.height = 64;
-	sizehints.x = pos[0];
-	sizehints.y = pos[1];
 	back_pix = WhitePixel(display, screen);
 	fore_pix = BlackPixel(display, screen);
 	win = XCreateSimpleWindow(display, root, sizehints.x, sizehints.y,
