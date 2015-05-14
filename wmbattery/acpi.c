@@ -188,8 +188,10 @@ int find_items(char *itemname, char infoarray[ACPI_MAXITEM][128],
 	sprintf(pathname, SYSFS_PATH);
 
 	dir = opendir(pathname);
-	if (dir == NULL)
+	if (dir == NULL) {
+		free(devices);
 		return 0;
+	}
 	while ((ent = readdir(dir))) {
 		char filename[128];
 		char buf[1024];
@@ -224,9 +226,9 @@ int find_items(char *itemname, char infoarray[ACPI_MAXITEM][128],
 			acpi_labels[label_info]);
 		snprintf(statusarray[i], sizeof(statusarray[i]), SYSFS_PATH "/%s/%s", devices[i],
 			acpi_labels[label_status]);
-		free(devices[i]);
 	}
 
+	free(devices);
 	return num_devices;
 }
 
