@@ -11,11 +11,11 @@ distclean: clean
 install: all
 	$(INSTALL) -d $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir) $(DESTDIR)$(icondir)
 	$(INSTALL_PROGRAM) wmbattery $(DESTDIR)$(bindir)
-	$(INSTALL_DATA) $(srcdir)/wmbattery.1x $(DESTDIR)$(man1dir)/wmbattery.1x
+	$(INSTALL_DATA) $(srcdir)/wmbattery.1 $(DESTDIR)$(man1dir)/wmbattery.1
 	$(INSTALL_DATA) $(srcdir)/*.xpm $(DESTDIR)$(icondir)
 
 uninstall:
-	rm -rf $(bindir)/wmbattery $(man1dir)/wmbattery.1x $(icondir)
+	rm -rf $(bindir)/wmbattery $(man1dir)/wmbattery.1 $(icondir)
 
 OBJS=wmbattery.o acpi.o sonypi.o
 
