@@ -385,7 +385,7 @@ char *parse_commandline(int argc, char *argv[])
 			printf("\t-d <display>\tselects target display\n");
 			printf("\t-h\t\tdisplay this help\n");
 			printf("\t-g {+-}x{+-}y\tposition of the window\n");
-			printf("\t-i start\n");
+			printf("\t-i\t\tdisplay as icon\n");
 			printf("\t-b num\t\tnumber of battery to display\n");
 			printf("\t-w secs\t\tseconds between updates\n");
 			printf("\t-l percent\tlow percentage\n");
