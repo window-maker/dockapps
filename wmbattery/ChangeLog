@@ -1,3 +1,33 @@
+wmbattery (2.48)
+  * Escape hyphen in manpage. Fixes hyphen-used-as-minus-sign Lintian warning
+    in the Debian package.  Patch from [1].
+  * Change manpage section from deprecated 1x to 1.
+  * Makefile - use autoheader too instead, configure complains about:
+      config.status: error: cannot find input file: `config.h.in'
+    Patch by Christoph Fritz.
+  * upower - don't exit after suspend/hibernation wakup Immediately after
+    suspend/hibernation wakup cycle, up_client_get_devices() can fail:
+      libupower-glib-WARNING **: up_client_get_devices failed: Timeout was
+      reached
+    Since we do not interpret the UPower signals, just don't exit wmbattery
+    after first up_client_get_devices() failure.
+    Patch by Christoph Fritz.
+  * Expand -g option to allow positions relative to right or bottom. Use '-'
+    instead of '+', e.g., `wmbattery -g -0+0` will place wmbattery in the upper
+    right hand corner of the screen.
+    Thanks to Christoph Fritz for the feature request.
+  * Improve help text for -i option.
+  * Add -n option to disable dial graphic.
+    Thanks to Christoph Fritz for the feature request.
+  * Fix typos. Ran `codespell -w`.
+  * Properly free malloced memory. Fixes memory leak found by cppcheck.
+  * Remove unnecessary brace. Fixes "Invalid number of character ({) when these
+    macros are defined" errors given by cppcheck.
+
+  [1] https://sources.debian.net/src/wmbattery/2.47-1/debian/patches/escape_manpage_hyphens.patch/
+
+ -- Doug Torrance <dtorrance@monmouthcollege.edu>  Wed, 13 May 2015 23:31:47 -0500
+
 wmbattery (2.47)
   * Avoid redefinition of apm_read/apm_exists in *BSD.
     The two functions are defined if the BSD-specific apm headers are found and
