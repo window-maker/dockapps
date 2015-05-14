@@ -34,7 +34,7 @@ typedef struct image_info_type {
 #define NUM_IMAGES 14
 
 /*
- * An array of the filenames of all images to load (minus .xpm extention),
+ * An array of the filenames of all images to load (minus .xpm extension),
  * plus the size of the image, where to draw it on the icon, etc
  */
 static struct image_info_type image_info[] = {

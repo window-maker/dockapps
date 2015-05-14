@@ -456,7 +456,7 @@ wmbattery (1.18)
 wmbattery (1.17)
 
   * Patch from Edward Betts <edward@debian.org> to make the icon redraw
-    immediatly when it gets an expose event. The patch also lowers the CPU
+    immediately when it gets an expose event. The patch also lowers the CPU
     time used as the icon is not needlessly redrawn every second. Thanks
     Edward! Closes: #97779
   * Battery blink fixup. (I seem to have inexplicably lost the changelog
@@ -577,7 +577,7 @@ wmbattery (1.0)
   * Drew new faceplate and graphics.
   * Converted manpage to refer to new program name.
   * Reorganized source tree.
-  * Split single xpm up into lots of small xpms, loaded seperately.
+  * Split single xpm up into lots of small xpms, loaded separately.
   * Cleaned up Makefile.
   * Removed README, TODO, INSTALL, etc; I'll write my own.
   * Parse command line with getopt.
