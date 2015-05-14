@@ -9,6 +9,8 @@
 #include <upower.h>
 #include "apm.h"
 
+#define MAX_RETRIES 3
+
 static UpClient * up;
 
 struct context {
@@ -74,6 +76,7 @@ int upower_supported(void)
 int upower_read(int battery, apm_info *info)
 {
 	GPtrArray *devices = NULL;
+	static int retries = 0;
 
 	up = up_client_new();
 
@@ -87,9 +90,15 @@ int upower_read(int battery, apm_info *info)
 
 	devices = up_client_get_devices(up);
 
-	if (!devices)
-		return -1;
+	if (!devices) {
+		retries++;
+		if (retries < MAX_RETRIES)
+			return 0; /* fine immediately after hibernation */
+		else
+			return -1;
+	}
 
+	retries = 0;
 	info->battery_flags = 0;
 	info->using_minutes = 0;
 
