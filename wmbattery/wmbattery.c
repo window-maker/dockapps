@@ -40,6 +40,7 @@
 #endif
 
 #include "mask.xbm"
+#include "mask_nodial.xbm"
 #include "sonypi.h"
 #include "acpi.h"
 #ifdef HAL
@@ -83,6 +84,7 @@ int delay = 0;
 int always_estimate_remaining = 0;
 int granularity_estimate_remaining = 1;
 int initial_state = WithdrawnState;
+int use_dial = 1;
 
 signed int low_pct = -1;
 signed int critical_pct = -1;
@@ -378,7 +380,7 @@ char *parse_commandline(int argc, char *argv[])
 	char *ret = NULL;
 
 	while (c != -1) {
-		c = getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:x:v");
+		c = getopt(argc, argv, "hd:g:if:b:w:c:l:es:a:x:vn");
 		switch (c) {
 		case 'h':
 			printf("Usage: wmbattery [options]\n");
@@ -394,6 +396,7 @@ char *parse_commandline(int argc, char *argv[])
 			printf("\t-s granularity\tignore fluctuations less than granularity%% (implies -e)\n");
 			printf("\t-a file\t\twhen critical send file to /dev/audio\n");
 			printf("\t-x command\twhen critical execute this command\n");
+			printf("\t-n\t\tdisable dial graphic\n");
 			printf("\t-v\t\tdisplay version number\n");
 			exit(0);
 			break;
@@ -434,6 +437,9 @@ char *parse_commandline(int argc, char *argv[])
 		case 'v':
 			printf("wmbattery "PACKAGE_VERSION"\n");
 			exit(0);
+			break;
+		case 'n':
+			use_dial = 0;
 			break;
 		}
 	}
@@ -500,8 +506,12 @@ void make_window(char *display_name, int argc, char *argv[])
 			     GCForeground | GCBackground | GCGraphicsExposures,
 			     &gcv);
 
-	pixmask = XCreateBitmapFromData(display, win, mask_bits,
+	if (use_dial)
+		pixmask = XCreateBitmapFromData(display, win, mask_bits,
 					mask_width, mask_height);
+	else
+		pixmask = XCreateBitmapFromData(display, win, mask_nodial_bits,
+					mask_nodial_width, mask_nodial_height);
 	XShapeCombineMask(display, win, ShapeBounding, 0, 0,
 			  pixmask, ShapeSet);
 	XShapeCombineMask(display, iconwin, ShapeBounding, 0, 0,
