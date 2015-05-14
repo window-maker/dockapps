@@ -200,7 +200,7 @@ int simplehal_read(int battery, apm_info *info)
 		 * required to be available; this is good enough */
 		if (info->battery_percentage < 1)
 			info->battery_status = BATTERY_STATUS_CRITICAL;
-		else if (info->battery_percentage < 10) {
+		else if (info->battery_percentage < 10)
 			info->battery_status = BATTERY_STATUS_LOW;
 	} else if (info->ac_line_status &&
 		 get_hal_bool(device, "battery.rechargeable.is_charging", 0) == 1) {
