@@ -566,17 +566,6 @@ url = https://web.archive.org/web/20091027110712/http://geocities.com/jl1n/wmtz/
 dockapps = 24
 category = Date/Time
 
-[wmweather+]
-version-2.12+20141005 = 4bc8d9727bcb50646c55373d2ab9f1b805b74402
-version-2.12 = 4a09f802559f102ef823acd1b1a0093a55741fc6
-image = "wmweather+.png,wmweather+2.png,wmweather+4.png"
-description = "wmweather+ will download the National Weather Serivce METAR bulletins, ANV and MRF forecasts, and any weather map for display in a WindowMaker dockapp. Think wmweather with a smaller font, forecasts, a weather map, and a sky condition display.
-
-Please see the sourceforge page for the latest version."
-url = https://sourceforge.net/projects/wmweatherplus/
-dockapps = 112
-category = General/Others
-
 [wmWeather]
 version-1.31+20141005 = cad4dab5fc946b564269dab4152f34ebf894d0fa
 version-1.31 = 90ec8c522a52067f732d39e7cf8e96476ad89dcb
