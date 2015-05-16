@@ -1,6 +1,0 @@
-#! /bin/sh
-
-aclocal-1.10 -I m4 \
-&& autoheader \
-&& automake-1.10 --gnu --add-missing \
-&& autoconf
