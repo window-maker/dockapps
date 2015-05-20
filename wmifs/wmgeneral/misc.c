@@ -162,5 +162,6 @@ execCommand(char *command)
 		execvp(argv[0], args);
 		exit(10);
 	}
+	free(argv);
 	return pid;
 }
