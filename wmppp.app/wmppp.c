@@ -422,6 +422,11 @@ void wmppp_routine(int argc, char **argv) {
 	parse_rcfile(temp, wmppp_keys);
 
 	p = getenv("HOME");
+	if (p == NULL) {
+		fprintf(stderr,
+			"error: HOME environment variable not defined\n");
+		exit(EXIT_FAILURE);
+	}
 	strcpy(temp, p);
 	strcat(temp, "/.wmppprc");
 	parse_rcfile(temp, wmppp_keys);
