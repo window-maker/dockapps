@@ -269,7 +269,7 @@ void ButtonDown(int);
 
 void wmppp_routine(int, char **);
 
-int get_statistics(char *, long *, long *, long *, long *);
+int get_statistics(long *, long *, long *, long *);
 void get_ppp_stats(struct ppp_stats *cur);
 int stillonline(char *);
 
@@ -406,7 +406,7 @@ void wmppp_routine(int argc, char **argv) {
 
 	/* Initialize some stuff */
 
-	get_statistics(active_interface, &ppp_rl, &ppp_sl, &ppp_orbytes, &ppp_osbytes);
+	get_statistics(&ppp_rl, &ppp_sl, &ppp_orbytes, &ppp_osbytes);
 
 	/* Scan through ~/.wmifsrc for the mouse button actions. */
 	#ifdef START_ACTION
@@ -552,7 +552,7 @@ void wmppp_routine(int argc, char **argv) {
 			DrawTime(i, currenttime % 2);
 			/* We are online, so we can check for send/recv packets */
 
-			get_statistics(active_interface, &ppp_recv, &ppp_send, &ppp_rbytes, &ppp_sbytes);
+			get_statistics(&ppp_recv, &ppp_send, &ppp_rbytes, &ppp_sbytes);
 
 			if (ppp_send != ppp_sl) SetOnLED(LED_PPP_TX);
 			else 					SetOffLED(LED_PPP_TX);
@@ -667,7 +667,7 @@ void wmppp_routine(int argc, char **argv) {
 |* get_statistics															   *|
 \*******************************************************************************/
 
-int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
+int get_statistics(long *ip, long *op, long *is, long *os) {
 
 	struct ppp_stats	ppp_cur;
 	static int			ppp_opened = 0;
