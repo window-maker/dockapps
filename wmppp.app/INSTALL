@@ -21,15 +21,14 @@ Requirements
 Installation
 --------------------------------------------------------------
 1) % tar -zxvf wmppp-1.x.x-tar.gz
-2) % cd wmppp.app/
-3) % make all
-4) % su root
-5) # make install
-6) # vi ~/.wmppprc
+2) % make all
+3) % su root
+4) # make install
+5) # vi ~/.wmppprc
 	 set up the paths to your ppp start,
 	 stop & restart scripts
 
-7) % wmppp & (try 'wmppp -h &' for help)
+6) % wmppp & (try 'wmppp -h &' for help)
 
 
 Extra Install Info For Site Administrators!

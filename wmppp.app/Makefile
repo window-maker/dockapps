@@ -2,9 +2,9 @@ LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lXpm -lXext -lX11
 CFLAGS += -O2
 OBJS  = wmppp.o \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
+		wmgeneral/wmgeneral.o \
+		wmgeneral/misc.o \
+		wmgeneral/list.o
 
 .c.o:
 	cc -g -c $(CPPFLAGS) $(CFLAGS) -Wall $< -o $*.o
