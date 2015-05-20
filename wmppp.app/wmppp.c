@@ -161,6 +161,7 @@
 #include <sys/socket.h>                /* for SOCK_DGRAM */
 #include <linux/ppp_defs.h>            /* for ppp_stats, pppstat */
 #include <net/if_ppp.h>                /* for ifpppstatsreq, etc */
+#include <signal.h>                    /* for signal */
 #include <stdio.h>                     /* for fprintf, stderr, NULL, etc */
 #include <stdlib.h>                    /* for exit, atoi, getenv, etc */
 #include <string.h>                    /* for strcpy, memset, strcmp, etc */
@@ -261,6 +262,7 @@ void ButtonDown(int);
 int get_statistics(long *, long *, long *, long *);
 void get_ppp_stats(struct ppp_stats *cur);
 int stillonline(char *);
+void reread(int);
 
 char	*start_action = NULL;
 char	*stop_action = NULL;
@@ -351,11 +353,13 @@ int parse_cmdline(int argc, char *argv[]) {
 	return 0;
 }
 
-  /********/
- /* Main */
-/********/
+  /**********/
+ /* reread */
+/**********/
 
-int main(int argc, char **argv) {
+void reread(int signal) {
+	char			*p;
+	char			temp[128];
 
 	rckeys wmppp_keys[] = {
 		{ "start", &start_action },
@@ -365,6 +369,30 @@ int main(int argc, char **argv) {
 		{ "stampfile", &stamp_file },
 		{ NULL, NULL }
 	};
+
+	strcpy(temp, "/etc/wmppprc");
+	parse_rcfile(temp, wmppp_keys);
+
+	p = getenv("HOME");
+	if (p == NULL) {
+		fprintf(stderr,
+			"error: HOME environment variable not defined\n");
+		exit(EXIT_FAILURE);
+	}
+	strcpy(temp, p);
+	strcat(temp, "/.wmppprc");
+	parse_rcfile(temp, wmppp_keys);
+
+	strcpy(temp, "/etc/wmppprc.fixed");
+	parse_rcfile(temp, wmppp_keys);
+
+}
+
+  /********/
+ /* Main */
+/********/
+
+int main(int argc, char **argv) {
 
 	int			j;
 
@@ -389,7 +417,6 @@ int main(int argc, char **argv) {
 
 	XEvent			Event;
 
-	char			*p;
 	char			temp[128];
 
 	int				speed_ind=60;
@@ -416,24 +443,9 @@ int main(int argc, char **argv) {
            stamp_file = strdup (temp);
 	#endif
 
-
-	strcpy(temp, "/etc/wmppprc");
-	parse_rcfile(temp, wmppp_keys);
-
-	p = getenv("HOME");
-	if (p == NULL) {
-		fprintf(stderr,
-			"error: HOME environment variable not defined\n");
-		exit(EXIT_FAILURE);
-	}
-	strcpy(temp, p);
-	strcat(temp, "/.wmppprc");
-	parse_rcfile(temp, wmppp_keys);
-
-	strcpy(temp, "/etc/wmppprc.fixed");
-	parse_rcfile(temp, wmppp_keys);
-
+	reread(0);
 	parse_cmdline(argc, argv);
+	signal(SIGHUP, reread);
 
 	/* Open the display */
 
@@ -636,6 +648,8 @@ int main(int argc, char **argv) {
 					switch (i) {
 					case 0:
 						if (!starttime) {
+							/* Reread the rcfiles. */
+							reread(0);
 							copyXPMArea(28, 95, 25, 11, 5, 48);
 							DrawTime(0, 1);
 							if (start_action)
