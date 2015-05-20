@@ -258,23 +258,23 @@ void SetOffLED(int);
 void ButtonUp(int);
 void ButtonDown(int);
 
-void wmppp_routine(int, char **);
-
 int get_statistics(long *, long *, long *, long *);
 void get_ppp_stats(struct ppp_stats *cur);
 int stillonline(char *);
 
+char	*start_action = NULL;
+char	*stop_action = NULL;
+char	*speed_action = NULL;
+char	*ifdown_action = NULL;
+char    *stamp_file = NULL;
 
-  /********/
- /* Main */
-/********/
+  /**********************/
+ /* Parse Command Line */
+/**********************/
 
-int main(int argc, char *argv[]) {
+int parse_cmdline(int argc, char *argv[]) {
 
 	int		i;
-
-
-	/* Parse Command Line */
 
 	ProgName = argv[0];
 	if (strlen(ProgName) >= 5)
@@ -298,21 +298,28 @@ int main(int argc, char *argv[]) {
 				}
 				break;
 			case 'i' :
-				if (!argv[i+1]) {
+				if (!strcmp(arg+1, "i"))
+					active_interface = argv[++i];
+				else if (!strcmp(arg+1, "ifdown"))
+					ifdown_action = argv[++i];
+				else {
 					usage();
 					exit(1);
 				}
-				/* following removed to allow experiments with
-				 * new devices, i.e. ippp
-				 */
-#if 0
-				if (strncmp(argv[i+1], "ppp", 3)) {
+				break;
+			case 's' :
+				if (!strcmp(arg+1, "speed"))
+					speed_action = argv[++i];
+				else if (!strcmp(arg+1, "start"))
+					start_action = argv[++i];
+				else if (!strcmp(arg+1, "stop"))
+					stop_action = argv[++i];
+				else if (!strcmp(arg+1, "stampfile"))
+					stamp_file = argv[++i];
+				else {
 					usage();
 					exit(1);
 				}
-#endif
-				active_interface = argv[i+1];
-				i++;
 				break;
 			case 't' :
 				TimerDivisor = 1;
@@ -341,22 +348,14 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	wmppp_routine(argc, argv);
-
 	return 0;
 }
 
-  /*****************/
- /* wmppp_routine */
-/*****************/
+  /********/
+ /* Main */
+/********/
 
-char	*start_action = NULL;
-char	*stop_action = NULL;
-char	*speed_action = NULL;
-char	*ifdown_action = NULL;
-char    *stamp_file = NULL;
-
-void wmppp_routine(int argc, char **argv) {
+int main(int argc, char **argv) {
 
 	rckeys wmppp_keys[] = {
 		{ "start", &start_action },
@@ -433,6 +432,8 @@ void wmppp_routine(int argc, char **argv) {
 
 	strcpy(temp, "/etc/wmppprc.fixed");
 	parse_rcfile(temp, wmppp_keys);
+
+	parse_cmdline(argc, argv);
 
 	/* Open the display */
 
@@ -664,6 +665,7 @@ void wmppp_routine(int argc, char **argv) {
 		ts.tv_nsec = 50000000L;
 		nanosleep(&ts, NULL);
 	}
+	return 0;
 }
 
 /*******************************************************************************\
@@ -881,9 +883,15 @@ void usage(void) {
 	fprintf(stderr, "-display <display name>\n");
 	fprintf(stderr, "-geometry +XPOS+YPOS         initial window position\n");
 	fprintf(stderr, "-h                           this help screen\n");
-	fprintf(stderr, "-i <device>                  (ppp0, ppp1, etc) EXPERIMENTAL! Please send bugreports!\n");
+	fprintf(stderr, "-i <device>                  (ppp0, ppp1, etc) EXPERIMENTAL! Please send\n");
+	fprintf(stderr, "                             bugreports!\n");
 	fprintf(stderr, "-t                           set the on-line timer to MM:SS instead of HH:MM\n");
 	fprintf(stderr, "-u <update rate>             (1..10), default 5 seconds\n");
+	fprintf(stderr, "-speed <cmd>                 command to report connection speed\n");
+	fprintf(stderr, "-start <cmd>                 command to connect\n");
+	fprintf(stderr, "-stop  <cmd>                 command to disconnect\n");
+	fprintf(stderr, "-ifdown <cmd>                command to redial\n");
+	fprintf(stderr, "-stampfile <path>            file used to calculate uptime\n");
 	fprintf(stderr, "-v                           print the version number\n");
 	fprintf(stderr, "\n");
 }

@@ -5,16 +5,7 @@
 wmppp \- Graphically monitor the average PPP load
 .P
 .SH SYNOPSIS
-.B wmppp
-.RB [\| \-display
-.IR <display\ name> \|]
-.RB [\| \-t \|]
-.RB [\| \-u
-.IR <update\ rate> \|]
-.RB [\| \-i
-.IR <device> \|]
-.RB [\| \-h \|]
-.RB [\| \-v \|]
+.B wmppp [OPTIONS]
 .SH DESCRIPTION
 \fBwmppp.app\fP displays a dynamic representation of the load on the
 PPP line on a 64x64 miniwindow. It also starts and stops the
@@ -24,6 +15,9 @@ traffic on the interface is also monitored.
 .TP
 .B \-display <display\ name>
 name of display to use
+.TP
+.B \-geometry +XPOS+YPOS
+initial window position
 .TP
 .B \-t
 sets the on-line timer to display MM:SS instead of the default HH:MM.
@@ -37,6 +31,21 @@ choose the net device (ppp1, ippp0, etc.) to monitor.  (Note that this
 feature is EXPERIMENTAL and should be used with caution.  Bug reports
 are welcomed.)
 .TP
+.B \-speed <cmd>
+command to report connection speed
+.TP
+.B \-start <cmd>
+command to connect
+.TP
+.B \-stop <cmd>
+command to disconnect
+.TP
+.B \-ifdown <cmd>
+command to redial
+.TP
+.B \-stampfile <path>
+file used to calculate uptime
+.TP
 .B \-h
 displays a command line summary
 .TP
@@ -44,7 +53,8 @@ displays a command line summary
 displays the version number.
 .SH CONFIGURATION
 The configuration file (see below) may contain any of the following
-key-value pairs. The format is \fIkey: value\fP.
+key-value pairs. The format is \fIkey: value\fP.  Note that these values will be
+overwritten by the corresponding command line options.
 .TP
 .I start
 The program that starts the connection
