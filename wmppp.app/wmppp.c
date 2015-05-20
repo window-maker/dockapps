@@ -625,7 +625,7 @@ void wmppp_routine(int argc, char **argv) {
 				break;
 			case ButtonRelease:
 				i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
-				// Button but_stat omhoogdoen!
+				/* Button but_stat omhoogdoen! */
 				switch (but_stat) {
 				case 0:
 					ButtonUp(BUT_V);
