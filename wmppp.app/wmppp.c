@@ -375,13 +375,12 @@ void wmppp_routine(int argc, char **argv) {
 		{ NULL, NULL }
 	};
 
-	int				i,j;
+	int			j;
 
 	int				but_stat;
 
 	long			starttime;
 	long			currenttime;
-	long			lasttime;
 	long			waittime;
 	long			ppptime;
 	int				hour,minute;
@@ -450,6 +449,9 @@ void wmppp_routine(int argc, char **argv) {
 
 /* wmppp main loop */
 	while (1) {
+		int i;
+		long lasttime;
+
 		lasttime = currenttime;
 		currenttime = time(0);
 		/* Check if any child has left the playground */
@@ -688,12 +690,12 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os) {
 int stillonline(char *ifs) {
 
 	FILE	*fp;
-	char	temp[128];
 	int		i;
 
 	i = 0;
 	fp = fopen("/proc/net/route", "r");
 	if (fp) {
+		char temp[128];
 		while (fgets(temp, 128, fp)) {
 			if (strstr(temp, ifs)) {
 				i = 1; /* Line is alive */
@@ -793,14 +795,16 @@ void PrintLittle(int i, int *k) {
 
 void DrawSpeedInd(char *speed_action) {
 
-	int		linespeed, i, k;
+	int	k;
 	FILE	*fp;
-	char	*p;
-	char	temp[128];
 
 	fp = popen(speed_action, "r");
 
 	if (fp) {
+		char *p;
+		char temp[128];
+		int i, linespeed;
+
 		linespeed = 0;
 
 		while (fgets(temp, 128, fp))
