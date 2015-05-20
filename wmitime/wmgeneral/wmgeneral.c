@@ -1,22 +1,36 @@
 /*
-	Best viewed with vim5, using ts=4
-
 	wmgeneral was taken from wmppp.
 
 	It has a lot of routines which most of the wm* programs use.
 
 	------------------------------------------------------------
 
-	Author: Martijn Pieterse (pieterse@xs4all.nl)
+	Copyright (C) 1998 Martijn Pieterse (pieterse@xs4all.nl)
+
+	This program is free software; you can redistribute it and/or
+	modify it under the terms of the GNU General Public License
+	as published by the Free Software Foundation; either version 2
+	of the License, or (at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+	02110-1301, USA.
 
 	---
 	CHANGES:
 	---
 	10/10/2003 (Simon Law, sfllaw@debian.org)
-		* changed the parse_rcfile function to use getline instead of fgets.
-    14/09/1998 (Dave Clark, clarkd@skyia.com)
-        * Updated createXBMfromXPM routine
-        * Now supports >256 colors
+		* changed the parse_rcfile function to use getline instead of
+		  fgets.
+	14/09/1998 (Dave Clark, clarkd@skyia.com)
+		* Updated createXBMfromXPM routine
+		* Now supports >256 colors
 	11/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Removed a bug from parse_rcfile. You could
 		  not use "start" in a command if a label was
@@ -32,7 +46,8 @@
 		* Added createXBMfromXPM routine
 		* Saves a lot of work with changing xpm's.
 	02/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
-		* changed the read_rc_file to parse_rcfile, as suggested by Marcelo E. Magallon
+		* changed the read_rc_file to parse_rcfile, as suggested by
+		  Marcelo E. Magallon
 		* debugged the parse_rc file.
 	30/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Ripped similar code from all the wm* programs,
