@@ -38,7 +38,7 @@ Boston, MA 02110-1301 USA.  */
 
 /* Return a cons cell produced from (head . tail) */
 
-INLINE LinkedList *list_cons(void *head, LinkedList *tail)
+LinkedList *list_cons(void *head, LinkedList *tail)
 {
 	LinkedList *cell;
 
@@ -50,7 +50,7 @@ INLINE LinkedList *list_cons(void *head, LinkedList *tail)
 
 /* Return the length of a list, list_length(NULL) returns zero */
 
-INLINE int list_length(LinkedList *list)
+int list_length(LinkedList *list)
 {
 	int i = 0;
 	while (list) {
@@ -63,7 +63,7 @@ INLINE int list_length(LinkedList *list)
 /* Return the Nth element of LIST, where N count from zero.  If N
    larger than the list length, NULL is returned  */
 
-INLINE void *list_nth(int index, LinkedList *list)
+void *list_nth(int index, LinkedList *list)
 {
 	while (index-- != 0) {
 		if (list->tail)
@@ -76,7 +76,7 @@ INLINE void *list_nth(int index, LinkedList *list)
 
 /* Remove the element at the head by replacing it by its successor */
 
-INLINE void list_remove_head(LinkedList **list)
+void list_remove_head(LinkedList **list)
 {
 	if (!*list)
 		return;
@@ -93,7 +93,7 @@ INLINE void list_remove_head(LinkedList **list)
 
 /* Remove the element with `car' set to ELEMENT */
 /*
-  INLINE void
+  void
   list_remove_elem(LinkedList** list, void* elem)
   {
   while (*list)
@@ -104,7 +104,7 @@ INLINE void list_remove_head(LinkedList **list)
   }
   }*/
 
-INLINE LinkedList *list_remove_elem(LinkedList *list, void *elem)
+LinkedList *list_remove_elem(LinkedList *list, void *elem)
 {
 	LinkedList *tmp;
 
@@ -123,7 +123,7 @@ INLINE LinkedList *list_remove_elem(LinkedList *list, void *elem)
 
 /* Return element that has ELEM as car */
 
-INLINE LinkedList *list_find(LinkedList *list, void *elem)
+LinkedList *list_find(LinkedList *list, void *elem)
 {
 	while (list) {
 		if (list->head == elem)
@@ -135,7 +135,7 @@ INLINE LinkedList *list_find(LinkedList *list, void *elem)
 
 /* Free list (backwards recursive) */
 
-INLINE void list_free(LinkedList *list)
+void list_free(LinkedList *list)
 {
 	if (list) {
 		list_free(list->tail);
@@ -145,7 +145,7 @@ INLINE void list_free(LinkedList *list)
 
 /* Map FUNCTION over all elements in LIST */
 
-INLINE void list_mapcar(LinkedList *list, void(*function)(void *))
+void list_mapcar(LinkedList *list, void(*function)(void *))
 {
 	while (list) {
 		(*function)(list->head);
