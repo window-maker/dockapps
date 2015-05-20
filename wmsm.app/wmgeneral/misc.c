@@ -21,6 +21,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "list.h"
 #include "misc.h"
 
@@ -63,6 +64,10 @@ next_token(char *word, char **next)
     int state, ctype;
 
     t = ret = malloc(strlen(word)+1);
+    if (ret == NULL) {
+	    fprintf(stderr, "Insufficient memory.\n");
+	    exit(EXIT_FAILURE);
+    }
     ptr = word;
 
     state = 0;

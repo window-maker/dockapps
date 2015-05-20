@@ -16,11 +16,12 @@
  *
  *  You should have received a copy of the GNU General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "list.h"
 #include "misc.h"
 
@@ -63,6 +64,10 @@ next_token(char *word, char **next)
     int state, ctype;
 
     t = ret = malloc(strlen(word)+1);
+    if (ret == NULL) {
+	    fprintf(stderr, "Insufficient memory.\n");
+	    exit(EXIT_FAILURE);
+    }
     ptr = word;
 
     state = 0;
