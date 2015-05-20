@@ -460,6 +460,7 @@ void wmppp_routine(int argc, char **argv) {
 	while (1) {
 		int i;
 		long lasttime;
+		struct timespec ts;
 
 		lasttime = currenttime;
 		currenttime = time(0);
@@ -602,7 +603,9 @@ void wmppp_routine(int argc, char **argv) {
 					i = waitpid(0, &status, WNOHANG);
 					if (i == stop_child) stop_child = 0;
 					if (i == start_child) start_child = 0;
-					usleep(50000l);
+					ts.tv_sec = 0;
+					ts.tv_nsec = 50000000L;
+					nanosleep(&ts, NULL);
 				}
 				exit(0);
 				break;
@@ -659,7 +662,9 @@ void wmppp_routine(int argc, char **argv) {
 				break;
 			}
 		}
-		usleep(50000L);
+		ts.tv_sec = 0;
+		ts.tv_nsec = 50000000L;
+		nanosleep(&ts, NULL);
 	}
 }
 
