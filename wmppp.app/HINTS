@@ -56,7 +56,7 @@ WMPPP supports the following commandline options:
 Note: When you start up WMPPP and make a connection to your ISP,
 it will first display the CARRIER or CONNECT for 60 seconds on a
 succesfull connect, after those 60 seconds, the CARRIER/CONNECT
-value will dissapear and the Speed-O-Meter will take it's place.
+value will disappear and the Speed-O-Meter will take it's place.
 
 
 Creating PPP dialup scripts
@@ -117,7 +117,7 @@ or CONNECT resp.
 
 Also make sure that you use a recent ppp package (2.3.3),
 because older chat versions (chat is part of the ppp package)
-doesn't provide sufficent logging features, and because
+doesn't provide sufficient logging features, and because
 the older ppp versions have (major) security holes...
 
 p.s. All major _recent_ Linux distributions like Debian,
@@ -128,7 +128,7 @@ Linux Distribution ppp script info
 --------------------------------------------------------------
 
 RedHat users who use ControlPanel for example to set up ppp
-scripts (we don't, we assure you ;-) ) can launch the appropiate
+scripts (we don't, we assure you ;-) ) can launch the appropriate
 RedHat ppp scripts, same applies to Debian and any other other
 distribution which provide a simular non-standard ppp setup
 feature for setting up ppp scripts.

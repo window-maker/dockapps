@@ -31,7 +31,7 @@ you some nice additional features too...
   		  where users are not allowed to mess with pppd;
 		* Several commandline options (try '-h' for help);
 
-WMPPP is being developped on DEC Alpha machines running Linux
+WMPPP is being developed on DEC Alpha machines running Linux
 (RedHat-5.0 and RedHat-5.1), but WMPPP is also intensively
 tested on x86 and m68k Linux machines...
 
