@@ -141,12 +141,10 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 					p += strlen(keys[key].label);
 					p += strspn(p, tokens);
 					if ((i = strcspn(p, "#\n"))) p[i] = '\0';
-					free(*keys[key].var);
 					*keys[key].var = strdup(p);
 					key = -1;
 				} else key++;
 			}
-			free(q);
 		}
 		fclose(fp);
 	}
@@ -178,7 +176,6 @@ void parse_rcfile2(const char *filename, rckeys2 *keys) {
 					p += strlen(keys[key].label);
 					p += strspn(p, tokens);
 					if ((i = strcspn(p, "#\n"))) p[i] = 0;
-					free(*keys[key].var);
 					*keys[key].var = strdup(p);
 					key = -1;
 				} else key++;
@@ -186,7 +183,6 @@ void parse_rcfile2(const char *filename, rckeys2 *keys) {
 		}
 		fclose(fp);
 	}
-	free(family);
 }
 
 
