@@ -270,6 +270,12 @@ char	*speed_action = NULL;
 char	*ifdown_action = NULL;
 char    *stamp_file = NULL;
 
+char	*start_action_cmdline = NULL;
+char	*stop_action_cmdline = NULL;
+char	*speed_action_cmdline = NULL;
+char	*ifdown_action_cmdline = NULL;
+char	*stamp_file_cmdline = NULL;
+
   /**********************/
  /* Parse Command Line */
 /**********************/
@@ -303,7 +309,7 @@ int parse_cmdline(int argc, char *argv[]) {
 				if (!strcmp(arg+1, "i"))
 					active_interface = argv[++i];
 				else if (!strcmp(arg+1, "ifdown"))
-					ifdown_action = argv[++i];
+					ifdown_action_cmdline = argv[++i];
 				else {
 					usage();
 					exit(1);
@@ -311,13 +317,13 @@ int parse_cmdline(int argc, char *argv[]) {
 				break;
 			case 's' :
 				if (!strcmp(arg+1, "speed"))
-					speed_action = argv[++i];
+					speed_action_cmdline = argv[++i];
 				else if (!strcmp(arg+1, "start"))
-					start_action = argv[++i];
+					start_action_cmdline = argv[++i];
 				else if (!strcmp(arg+1, "stop"))
-					stop_action = argv[++i];
+					stop_action_cmdline = argv[++i];
 				else if (!strcmp(arg+1, "stampfile"))
-					stamp_file = argv[++i];
+					stamp_file_cmdline = argv[++i];
 				else {
 					usage();
 					exit(1);
@@ -385,6 +391,18 @@ void reread(int signal) {
 
 	strcpy(temp, "/etc/wmppprc.fixed");
 	parse_rcfile(temp, wmppp_keys);
+
+	/* command line options take precedence */
+	if (start_action_cmdline)
+		strcpy(start_action, start_action_cmdline);
+	if (stop_action_cmdline)
+		strcpy(stop_action, stop_action_cmdline);
+	if (speed_action_cmdline)
+		strcpy(speed_action, speed_action_cmdline);
+	if (ifdown_action_cmdline)
+		strcpy(ifdown_action, ifdown_action_cmdline);
+	if (stamp_file_cmdline)
+		strcpy(stamp_file, stamp_file_cmdline);
 
 }
 
