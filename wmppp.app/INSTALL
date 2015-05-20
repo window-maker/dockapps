@@ -38,8 +38,9 @@ up pppd's configuration files, but do want them to be able
 to make a dialup connection, a sample system.rc file is
 included (system.wmppprc), please take a look at it!
 
-The installation will install standard rc files in $HOME
-and /etc/ WITHOUT the 'force' option!
+The installation will install a standard rc file in /etc
+WITHOUT the 'force' option!  You can also create one in
+$HOME (~/.wmpprc).
 
 How it works:
 
@@ -75,6 +76,8 @@ General Notes
 Note 1: If "make install" fails on your system, please edit
         the Makefile to set the paths according to your setup.
         Make install defaults to /usr/local/bin & /etc/ppp/.
+	You may also change these directories using the various
+	variables, e.g., make PREFIX=/usr.
 
 Note 2: Please DO read the HINTS, this file contains some
         very useful tips and hints about WMPPP.
