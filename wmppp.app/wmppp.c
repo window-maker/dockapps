@@ -637,7 +637,8 @@ void wmppp_routine(int argc, char **argv) {
 						if (!starttime) {
 							copyXPMArea(28, 95, 25, 11, 5, 48);
 							DrawTime(0, 1);
-							start_child = execCommand(start_action);
+							if (start_action)
+								start_child = execCommand(start_action);
 							SetWaitLED(LED_PPP_POWER);
 							waittime = ORANGE_LED_TIMEOUT + currenttime;
 						}
@@ -645,7 +646,8 @@ void wmppp_routine(int argc, char **argv) {
 						break;
 					case 1:
 						if (stop_child == 0) {
-							stop_child = execCommand(stop_action);
+							if (stop_action)
+								stop_child = execCommand(stop_action);
 						}
 						break;
 					}
