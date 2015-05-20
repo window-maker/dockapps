@@ -1,6 +1,10 @@
 #ifndef WMGENERAL_H_INCLUDED
 #define WMGENERAL_H_INCLUDED
 
+#include <X11/X.h>                      /* for Pixmap */
+#include <X11/Xlib.h>                   /* for Display */
+#include <X11/xpm.h>                    /* for XpmAttributes */
+
   /***********/
  /* Defines */
 /***********/
@@ -11,20 +15,20 @@
  /* Typedefs */
 /************/
 
-typedef struct _rckeys rckeys;
-
 struct _rckeys {
 	const char	*label;
 	char		**var;
 };
 
-typedef struct _rckeys2 rckeys2;
+typedef struct _rckeys rckeys;
 
 struct _rckeys2 {
 	const char	*family;
 	const char	*label;
 	char		**var;
 };
+
+typedef struct _rckeys2 rckeys2;
 
 typedef struct {
 	Pixmap			pixmap;

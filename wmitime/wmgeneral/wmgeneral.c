@@ -40,18 +40,16 @@
 
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <ctype.h>
-#include <stdarg.h>
-
-#include <X11/Xlib.h>
-#include <X11/xpm.h>
-#include <X11/extensions/shape.h>
-
 #include "wmgeneral.h"
+#include <X11/Xlib.h>                   /* for XCopyArea, etc */
+#include <X11/Xutil.h>                  /* for XSizeHints, XWMHints, etc */
+#include <X11/extensions/shape.h>       /* for XShapeCombineMask */
+#include <X11/extensions/shapeconst.h>  /* for ShapeBounding, ShapeSet */
+#include <X11/xpm.h>                    /* for XpmAttributes, Pixel, etc */
+#include <stddef.h>                     /* for size_t */
+#include <stdio.h>                      /* for fprintf, stderr, NULL, etc */
+#include <stdlib.h>                     /* for exit, free */
+#include <string.h>                     /* for strcmp, strdup, strcspn, etc */
 
   /*****************/
  /* X11 Variables */
