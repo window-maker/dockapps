@@ -904,7 +904,7 @@ void get_ppp_stats(struct ppp_stats *cur) {
 
 	memset(&req, 0, sizeof(req));
 
-	req.stats_ptr = (caddr_t) &req.stats;
+	req.stats_ptr = (void*) &req.stats;
 
 	strcpy(req.ifr__name, active_interface);
 
