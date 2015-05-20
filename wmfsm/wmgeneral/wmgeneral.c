@@ -12,8 +12,22 @@
 	---
 	CHANGES:
 	---
+	11/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Removed a bug from parse_rcfile. You could
+		  not use "start" in a command if a label was
+		  also start.
+		* Changed the needed geometry string.
+		  We don't use window size, and don't support
+		  negative positions.
+	03/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Added parse_rcfile2
+	02/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Added -geometry support (untested)
+	28/08/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Added createXBMfromXPM routine
+		* Saves a lot of work with changing xpm's.
 	02/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
-		* changed the read_rc_file to parse_rcfile, as suggester by Marcelo E. Magallon
+		* changed the read_rc_file to parse_rcfile, as suggested by Marcelo E. Magallon
 		* debugged the parse_rc file.
 	30/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Ripped similar code from all the wm* programs,
@@ -63,7 +77,6 @@ typedef struct {
 	int		right;
 } MOUSE_REGION;
 
-#define MAX_MOUSE_REGION (8)
 MOUSE_REGION	mouse_region[MAX_MOUSE_REGION];
 
   /***********************/
@@ -77,16 +90,52 @@ void AddMouseRegion(int, int, int, int, int);
 int CheckMouseRegion(int, int);
 
 /*******************************************************************************\
-|* read_rc_file																   *|
+|* parse_rcfile																   *|
 \*******************************************************************************/
 
 void parse_rcfile(const char *filename, rckeys *keys) {
+
+	char	*p,*q;
+	char	temp[128];
+	char	*tokens = " :\t\n";
+	FILE	*fp;
+	int		i,key;
+
+	fp = fopen(filename, "r");
+	if (fp) {
+		while (fgets(temp, 128, fp)) {
+			key = 0;
+			q = strdup(temp);
+			q = strtok(q, tokens);
+			while (key >= 0 && keys[key].label) {
+				if ((!strcmp(q, keys[key].label))) {
+					p = strstr(temp, keys[key].label);
+					p += strlen(keys[key].label);
+					p += strspn(p, tokens);
+					if ((i = strcspn(p, "#\n"))) p[i] = 0;
+					free(*keys[key].var);
+					*keys[key].var = strdup(p);
+					key = -1;
+				} else key++;
+			}
+			free(q);
+		}
+		fclose(fp);
+	}
+}
+
+/*******************************************************************************\
+|* parse_rcfile2															   *|
+\*******************************************************************************/
+
+void parse_rcfile2(const char *filename, rckeys2 *keys) {
 
 	char	*p;
 	char	temp[128];
 	char	*tokens = " :\t\n";
 	FILE	*fp;
 	int		i,key;
+	char	*family = NULL;
 
 	fp = fopen(filename, "r");
 	if (fp) {
@@ -105,6 +154,7 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 		}
 		fclose(fp);
 	}
+	free(family);
 }
 
 
@@ -233,6 +283,40 @@ int CheckMouseRegion(int x, int y) {
 }
 
 /*******************************************************************************\
+|* createXBMfromXPM															   *|
+\*******************************************************************************/
+void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
+
+	int		i,j;
+	int		width, height, numcol;
+	char	zero;
+	unsigned char	bwrite;
+	int		bcount;
+
+
+	sscanf(*xpm, "%d %d %d", &width, &height, &numcol);
+
+	zero = xpm[1][0];
+	for (i=numcol+1; i < numcol+sy+1; i++) {
+		bcount = 0;
+		bwrite = 0;
+		for (j=0; j<sx; j++) {
+			bwrite >>= 1;
+			if (xpm[i][j] != zero) {
+				bwrite += 128;
+			}
+			bcount++;
+			if (bcount == 8) {
+				*xbm = bwrite;
+				xbm++;
+				bcount = 0;
+				bwrite = 0;
+			}
+		}
+	}
+}
+
+/*******************************************************************************\
 |* copyXPMArea																   *|
 \*******************************************************************************/
 
@@ -276,13 +360,20 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XGCValues		gcv;
 	unsigned long	gcm;
 
+	char			*geometry = NULL;
 
 	int				dummy=0;
-	int				i;
+	int				i, wx, wy;
 
 	for (i=1; argv[i]; i++) {
-		if (!strcmp(argv[i], "-display"))
+		if (!strcmp(argv[i], "-display")) {
 			display_name = argv[i+1];
+			i++;
+		}
+		if (!strcmp(argv[i], "-geometry")) {
+			geometry = argv[i+1];
+			i++;
+		}
 	}
 
 	if (!(display = XOpenDisplay(display_name))) {
@@ -363,4 +454,11 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XSetCommand(display, win, argv, argc);
 	XMapWindow(display, win);
 
+	if (geometry) {
+		if (sscanf(geometry, "+%d+%d", &wx, &wy) != 2) {
+			fprintf(stderr, "Bad geometry string.\n");
+			exit(1);
+		}
+		XMoveWindow(display, win, wx, wy);
+	}
 }

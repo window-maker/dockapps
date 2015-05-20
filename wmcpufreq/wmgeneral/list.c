@@ -1,11 +1,11 @@
-/* Generic single linked list to keep various information 
+/* Generic single linked list to keep various information
    Copyright (C) 1993, 1994 Free Software Foundation, Inc.
 
 
 Author: Kresten Krab Thorup
 
 Many modifications by Alfredo K. Kojima
- 
+
 
 This file is part of GNU CC.
 
@@ -21,8 +21,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with GNU CC; see the file COPYING.  If not, write to
-the Free Software Foundation, 59 Temple Place - Suite 330,
-Boston, MA 02111-1307, USA.  */
+the Free Software Foundation, 51 Franklin Street, Fifth Floor,
+Boston, MA 02110-1301 USA.  */
 
 /* As a special exception, if you link this library with files compiled with
    GCC to produce an executable, this does not cause the resulting executable
@@ -63,7 +63,7 @@ list_length(LinkedList* list)
   return i;
 }
 
-/* Return the Nth element of LIST, where N count from zero.  If N 
+/* Return the Nth element of LIST, where N count from zero.  If N
    larger than the list length, NULL is returned  */
 
 void*
@@ -84,7 +84,7 @@ list_nth(int index, LinkedList* list)
 void
 list_remove_head(LinkedList** list)
 {
-  if (!*list) return;  
+  if (!*list) return;
   if ((*list)->tail)
     {
       LinkedList* tail = (*list)->tail; /* fetch next */
@@ -116,7 +116,7 @@ LinkedList *
 list_remove_elem(LinkedList* list, void* elem)
 {
     LinkedList *tmp;
-    
+
     if (list) {
 	if (list->head == elem) {
 	    tmp = list->tail;
