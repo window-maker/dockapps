@@ -187,10 +187,11 @@
  /* Defines */
 /***********/
 
-#define START_ACTION (NULL)
-#define STOP_ACTION (NULL)
-#define SPEED_ACTION (NULL)
-#define IFDOWN_ACTION (NULL)
+/* Fill in and uncomment the hardcoded actions. */
+/* #define START_ACTION (NULL) */
+/* #define STOP_ACTION (NULL) */
+/* #define SPEED_ACTION (NULL) */
+/* #define IFDOWN_ACTION (NULL) */
 
 #define STAMP_FILE_PRE "/var/run/wmppp."
 
@@ -408,14 +409,22 @@ void wmppp_routine(int argc, char **argv) {
 	get_statistics(active_interface, &ppp_rl, &ppp_sl, &ppp_orbytes, &ppp_osbytes);
 
 	/* Scan through ~/.wmifsrc for the mouse button actions. */
-	if (START_ACTION) start_action = strdup(START_ACTION);
-	if (STOP_ACTION) stop_action = strdup(STOP_ACTION);
-	if (SPEED_ACTION) speed_action = strdup(SPEED_ACTION);
-	if (IFDOWN_ACTION) ifdown_action = strdup(IFDOWN_ACTION);
-	if (STAMP_FILE_PRE) {
+	#ifdef START_ACTION
+	    start_action = strdup(START_ACTION);
+	#endif
+	#ifdef STOP_ACTION
+	    stop_action = strdup(STOP_ACTION);
+	#endif
+	#ifdef SPEED_ACTION
+	    speed_action = strdup(SPEED_ACTION);
+	#endif
+	#ifdef IFDOWN_ACTION
+	    ifdown_action = strdup(IFDOWN_ACTION);
+	#endif
+	#ifdef STAMP_FILE_PRE
            sprintf (temp, "%s%s", STAMP_FILE_PRE, active_interface);
            stamp_file = strdup (temp);
-	}
+	#endif
 
 
 	strcpy(temp, "/etc/wmppprc");
