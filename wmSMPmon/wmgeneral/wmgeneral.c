@@ -92,9 +92,9 @@ void RedrawWindow(void);
 void AddMouseRegion(int, int, int, int, int);
 int CheckMouseRegion(int, int);
 
-/*****************************************************************************\
-|* parse_rcfile         						     *|
-\*****************************************************************************/
+/*******************************************************************************\
+|* parse_rcfile																   *|
+\*******************************************************************************/
 
 void parse_rcfile(const char *filename, rckeys *keys) {
 
@@ -127,9 +127,9 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 	}
 }
 
-/***************************************************************************\
-|* parse_rcfile2							   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* parse_rcfile2															   *|
+\*******************************************************************************/
 
 void parse_rcfile2(const char *filename, rckeys2 *keys) {
 
@@ -161,9 +161,9 @@ void parse_rcfile2(const char *filename, rckeys2 *keys) {
 }
 
 
-/***************************************************************************\
-|* GetXPM								   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* GetXPM																	   *|
+\*******************************************************************************/
 
 static void GetXPM(XpmIcon *wmgen, char *pixmap_bytes[]) {
 
@@ -184,9 +184,9 @@ static void GetXPM(XpmIcon *wmgen, char *pixmap_bytes[]) {
 	}
 }
 
-/***************************************************************************\
-|* GetColor								   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* GetColor																	   *|
+\*******************************************************************************/
 
 static Pixel GetColor(char *name) {
 
@@ -204,9 +204,9 @@ static Pixel GetColor(char *name) {
 	return color.pixel;
 }
 
-/***************************************************************************\
-|* flush_expose								   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* flush_expose																   *|
+\*******************************************************************************/
 
 static int flush_expose(Window w) {
 
@@ -219,9 +219,9 @@ static int flush_expose(Window w) {
 	return i;
 }
 
-/***************************************************************************\
-|* RedrawWindow								   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* RedrawWindow																   *|
+\*******************************************************************************/
 
 void RedrawWindow(void) {
 
@@ -233,9 +233,9 @@ void RedrawWindow(void) {
 				0,0, wmgen.attributes.width, wmgen.attributes.height, 0,0);
 }
 
-/***************************************************************************\
-|* RedrawWindowXY							   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* RedrawWindowXY															   *|
+\*******************************************************************************/
 
 void RedrawWindowXY(int x, int y) {
 
@@ -247,9 +247,9 @@ void RedrawWindowXY(int x, int y) {
 				x,y, wmgen.attributes.width, wmgen.attributes.height, 0,0);
 }
 
-/***************************************************************************\
-|* AddMouseRegion							   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* AddMouseRegion															   *|
+\*******************************************************************************/
 
 void AddMouseRegion(int index, int left, int top, int right, int bottom) {
 
@@ -262,9 +262,9 @@ void AddMouseRegion(int index, int left, int top, int right, int bottom) {
 	}
 }
 
-/***************************************************************************\
-|* CheckMouseRegion							   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* CheckMouseRegion															   *|
+\*******************************************************************************/
 
 int CheckMouseRegion(int x, int y) {
 
@@ -285,38 +285,41 @@ int CheckMouseRegion(int x, int y) {
 	return (i-1);
 }
 
-/***************************************************************************\
-|* createXBMfromXPM							   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* createXBMfromXPM															   *|
+\*******************************************************************************/
 void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
 
 	int		i,j,k;
 	int		width, height, numcol, depth;
-	int		zero = 0;
+    int 	zero=0;
 	unsigned char	bwrite;
-	int		bcount;
-	int		curpixel;
+    int		bcount;
+    int     curpixel;
 
 	sscanf(*xpm, "%d %d %d %d", &width, &height, &numcol, &depth);
 
-	for (k = 0; k != depth; k++) {
-		zero <<=8;
-		zero |= xpm[1][k];
-	}
 
-	for (i = numcol + 1; i < numcol + sy + 1; i++) {
+    for (k=0; k!=depth; k++)
+    {
+        zero <<=8;
+        zero |= xpm[1][k];
+    }
+
+	for (i=numcol+1; i < numcol+sy+1; i++) {
 		bcount = 0;
 		bwrite = 0;
-		for (j = 0; j < sx * depth; j += depth) {
-			bwrite >>= 1;
+		for (j=0; j<sx*depth; j+=depth) {
+            bwrite >>= 1;
 
-			curpixel=0;
-			for (k = 0; k != depth; k++) {
-				curpixel <<=8;
-				curpixel |= xpm[i][j+k];
-			}
+            curpixel=0;
+            for (k=0; k!=depth; k++)
+            {
+                curpixel <<=8;
+                curpixel |= xpm[i][j+k];
+            }
 
-			if (curpixel != zero) {
+            if ( curpixel != zero ) {
 				bwrite += 128;
 			}
 			bcount++;
@@ -330,69 +333,56 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
 	}
 }
 
-/***************************************************************************\
-|* copyXPMArea								   *|
-|*                                                                         *|
-|* copies pixel area from master XPM to application window                 *|
-|*                                                                         *|
-|* x,y:   first corner of area to be copied from master XPM                *|
-|* sx,sy: second corner of area to be copied from master XPM               *|
-|* dx,dy: first corner of target area                                      *|
-\***************************************************************************/
+/*******************************************************************************\
+|* copyXPMArea																   *|
+\*******************************************************************************/
 
-void copyXPMArea(int x, int y, int sx, int sy, int dx, int dy)
-{
-	XCopyArea(display, wmgen.pixmap, wmgen.pixmap, NormalGC,
-	    x, y, sx, sy, dx, dy);
+void copyXPMArea(int x, int y, int sx, int sy, int dx, int dy) {
+
+	XCopyArea(display, wmgen.pixmap, wmgen.pixmap, NormalGC, x, y, sx, sy, dx, dy);
+
 }
 
-/***************************************************************************\
-|* copyXBMArea								   *|
-|*                                                                         *|
-|* copies pixel area from XBM to master XPM?!?!?                           *|
-|*                                                                         *|
-|* x,y:   first corner of area to be copied from XBM                       *|
-|* sx,sy: width and height of area to be copied from XBM                   *|
-|* dx,dy: first corner of target area                                      *|
-\***************************************************************************/
+/*******************************************************************************\
+|* copyXBMArea																   *|
+\*******************************************************************************/
 
-void copyXBMArea(int x, int y, int sx, int sy, int dx, int dy)
-{
-	XCopyArea(display, wmgen.mask, wmgen.pixmap, NormalGC,
-	    x, y, sx, sy, dx, dy);
+void copyXBMArea(int x, int y, int sx, int sy, int dx, int dy) {
+
+	XCopyArea(display, wmgen.mask, wmgen.pixmap, NormalGC, x, y, sx, sy, dx, dy);
 }
 
 
-/***************************************************************************\
-|* setMaskXY								   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* setMaskXY																   *|
+\*******************************************************************************/
 
-void setMaskXY(int x, int y)
-{
-	XShapeCombineMask(display, win, ShapeBounding, x, y, pixmask, ShapeSet);
-	XShapeCombineMask(display, iconwin, ShapeBounding, x, y, pixmask, ShapeSet);
+void setMaskXY(int x, int y) {
+
+	 XShapeCombineMask(display, win, ShapeBounding, x, y, pixmask, ShapeSet);
+	 XShapeCombineMask(display, iconwin, ShapeBounding, x, y, pixmask, ShapeSet);
 }
 
-/***************************************************************************\
-|* openXwindow								   *|
-\***************************************************************************/
+/*******************************************************************************\
+|* openXwindow																   *|
+\*******************************************************************************/
 void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bits, int pixmask_width, int pixmask_height) {
 
 	unsigned int	borderwidth = 1;
-	XClassHint	classHint;
-	char		*display_name = NULL;
-	char		*wname = argv[0];
+	XClassHint		classHint;
+	char			*display_name = NULL;
+	char			*wname = argv[0];
 	XTextProperty	name;
 
-	XGCValues	gcv;
+	XGCValues		gcv;
 	unsigned long	gcm;
 
-	char		*geometry = NULL;
+	char			*geometry = NULL;
 
-	int		dummy=0;
-	int		i, wx, wy;
+	int				dummy=0;
+	int				i, wx, wy;
 
-	for (i = 1; argv[i]; i++) {
+	for (i=1; argv[i]; i++) {
 		if (!strcmp(argv[i], "-display")) {
 			display_name = argv[i+1];
 			i++;
@@ -405,7 +395,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 	if (!(display = XOpenDisplay(display_name))) {
 		fprintf(stderr, "%s: can't open display %s\n",
-		    wname, XDisplayName(display_name));
+						wname, XDisplayName(display_name));
 		exit(1);
 	}
 	screen  = DefaultScreen(display);
@@ -425,19 +415,16 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	fore_pix = GetColor("black");
 
 	XWMGeometry(display, screen, Geometry, NULL, borderwidth, &mysizehints,
-	    &mysizehints.x, &mysizehints.y, &mysizehints.width,
-	    &mysizehints.height, &dummy);
+				&mysizehints.x, &mysizehints.y,&mysizehints.width,&mysizehints.height, &dummy);
 
 	mysizehints.width = 64;
 	mysizehints.height = 64;
 
 	win = XCreateSimpleWindow(display, Root, mysizehints.x, mysizehints.y,
-	    mysizehints.width, mysizehints.height, borderwidth,
-	    fore_pix, back_pix);
+				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
 
-	iconwin = XCreateSimpleWindow(display, win,
-	    mysizehints.x, mysizehints.y, mysizehints.width, mysizehints.height,
-	    borderwidth, fore_pix, back_pix);
+	iconwin = XCreateSimpleWindow(display, win, mysizehints.x, mysizehints.y,
+				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
 
 	/* Activate hints */
 	XSetWMNormalHints(display, win, &mysizehints);

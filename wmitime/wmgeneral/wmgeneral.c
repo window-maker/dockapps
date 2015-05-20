@@ -385,11 +385,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	for (i=1; argv[i]; i++) {
 		if (!strcmp(argv[i], "-display")) {
 			display_name = argv[i+1];
-			if (!display_name)
-				printf("Please provide an argument for "
-				       "-display.\n");
-			else
-				i++;
+			i++;
 		}
 		if (!strcmp(argv[i], "-geometry")) {
 			geometry = argv[i+1];

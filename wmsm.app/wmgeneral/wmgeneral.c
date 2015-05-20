@@ -303,34 +303,34 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
     for (k=0; k!=depth; k++)
     {
         zero <<=8;
-        zero |= xpm[2][k];
+        zero |= xpm[1][k];
     }
 
-    for (i=numcol+1; i < numcol+sy+1; i++) {
-	    bcount = 0;
-	    bwrite = 0;
-	    for (j=0; j<sx*depth; j+=depth) {
-		bwrite >>= 1;
+	for (i=numcol+1; i < numcol+sy+1; i++) {
+		bcount = 0;
+		bwrite = 0;
+		for (j=0; j<sx*depth; j+=depth) {
+            bwrite >>= 1;
 
-		curpixel=0;
-		for (k=0; k!=depth; k++)
-		{
-		    curpixel <<=8;
-		    curpixel |= xpm[i][j+k];
-		}
+            curpixel=0;
+            for (k=0; k!=depth; k++)
+            {
+                curpixel <<=8;
+                curpixel |= xpm[i][j+k];
+            }
 
-		if ( curpixel != zero ) {
-		    bwrite += 128;
+            if ( curpixel != zero ) {
+				bwrite += 128;
+			}
+			bcount++;
+			if (bcount == 8) {
+				*xbm = bwrite;
+				xbm++;
+				bcount = 0;
+				bwrite = 0;
+			}
 		}
-		bcount++;
-		if (bcount == 8) {
-			*xbm = bwrite;
-			xbm++;
-			bcount = 0;
-			bwrite = 0;
-		}
-	    }
-    }
+	}
 }
 
 /*******************************************************************************\
@@ -411,7 +411,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	mysizehints.x = 0;
 	mysizehints.y = 0;
 
-	back_pix = GetColor("black");
+	back_pix = GetColor("white");
 	fore_pix = GetColor("black");
 
 	XWMGeometry(display, screen, Geometry, NULL, borderwidth, &mysizehints,

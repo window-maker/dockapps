@@ -11,7 +11,10 @@
 
 	---
 	CHANGES:
-	---
+    ---
+    14/09/1998 (Dave Clark, clarkd@skyia.com)
+        * Updated createXBMfromXPM routine
+        * Now supports >256 colors
 	11/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Removed a bug from parse_rcfile. You could
 		  not use "start" in a command if a label was
@@ -287,22 +290,36 @@ int CheckMouseRegion(int x, int y) {
 \*******************************************************************************/
 void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
 
-	int		i,j;
-	int		width, height, numcol;
-	char	zero;
+	int		i,j,k;
+	int		width, height, numcol, depth;
+    int 	zero=0;
 	unsigned char	bwrite;
-	int		bcount;
+    int		bcount;
+    int     curpixel;
+
+	sscanf(*xpm, "%d %d %d %d", &width, &height, &numcol, &depth);
 
 
-	sscanf(*xpm, "%d %d %d", &width, &height, &numcol);
+    for (k=0; k!=depth; k++)
+    {
+        zero <<=8;
+        zero |= xpm[1][k];
+    }
 
-	zero = xpm[1][0];
 	for (i=numcol+1; i < numcol+sy+1; i++) {
 		bcount = 0;
 		bwrite = 0;
-		for (j=0; j<sx; j++) {
-			bwrite >>= 1;
-			if (xpm[i][j] != zero) {
+		for (j=0; j<sx*depth; j+=depth) {
+            bwrite >>= 1;
+
+            curpixel=0;
+            for (k=0; k!=depth; k++)
+            {
+                curpixel <<=8;
+                curpixel |= xpm[i][j+k];
+            }
+
+            if ( curpixel != zero ) {
 				bwrite += 128;
 			}
 			bcount++;
