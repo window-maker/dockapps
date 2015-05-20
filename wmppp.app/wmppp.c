@@ -156,32 +156,23 @@
 		* A bit of code clean-up.
 */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <ctype.h>
-
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <sys/param.h>
-#include <sys/types.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
-
-#include <net/ppp_defs.h>
-#include <net/if_ppp.h>
-
-#include <X11/Xlib.h>
-#include <X11/xpm.h>
-#include <X11/extensions/shape.h>
-
-#include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
-
-#include "wmppp-master.xpm"
+#include <X11/X.h>                     /* for ButtonPress, ButtonRelease, etc */
+#include <X11/Xlib.h>                  /* for XEvent, XButtonEvent, etc */
+#include <sys/socket.h>                /* for SOCK_DGRAM */
+#include <linux/ppp_defs.h>            /* for ppp_stats, pppstat */
+#include <net/if_ppp.h>                /* for ifpppstatsreq, etc */
+#include <stdio.h>                     /* for fprintf, stderr, NULL, etc */
+#include <stdlib.h>                    /* for exit, atoi, getenv, etc */
+#include <string.h>                    /* for strcpy, memset, strcmp, etc */
+#include <sys/ioctl.h>                 /* for ioctl */
+#include <sys/socket.h>                /* for socket, AF_INET */
+#include <sys/stat.h>                  /* for stat, st_mtime */
+#include <sys/types.h>                 /* for pid_t */
+#include <sys/wait.h>                  /* for waitpid, WNOHANG */
+#include <time.h>                      /* for timespec, nanosleep, time */
+#include "wmgeneral/misc.h"            /* for execCommand */
+#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, RedrawWindow, etc */
+#include "wmppp-master.xpm"            /* for wmppp_master_xpm */
 
   /***********/
  /* Defines */
