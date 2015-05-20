@@ -28,6 +28,9 @@
 	10/10/2003 (Simon Law, sfllaw@debian.org)
 		* changed the parse_rcfile function to use getline instead of
 		  fgets.
+	10/14/2000 (Chris Gray, cgray@tribsoft.com)
+		* Removed a bug from parse_rcfile.  An extra
+		  newline would cause a segfault.
 	14/09/1998 (Dave Clark, clarkd@skyia.com)
 		* Updated createXBMfromXPM routine
 		* Now supports >256 colors
@@ -128,6 +131,8 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 			key = 0;
 			q = strdup(temp);
 			q = strtok(q, tokens);
+			if(!q)
+				continue;
 			while (key >= 0 && keys[key].label) {
 				if ((!strcmp(q, keys[key].label))) {
 					int i;
@@ -135,7 +140,7 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 					p = strstr(temp, keys[key].label);
 					p += strlen(keys[key].label);
 					p += strspn(p, tokens);
-					if ((i = strcspn(p, "#\n"))) p[i] = 0;
+					if ((i = strcspn(p, "#\n"))) p[i] = '\0';
 					free(*keys[key].var);
 					*keys[key].var = strdup(p);
 					key = -1;
