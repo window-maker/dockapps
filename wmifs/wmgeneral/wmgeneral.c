@@ -306,7 +306,7 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
 	int 	zero=0;
 	int     curpixel;
 
-	sscanf(*xpm, "%d %d %d %d", &width, &height, &numcol, &depth);
+	sscanf(*xpm, "%10d %10d %10d %10d", &width, &height, &numcol, &depth);
 
 
 	for (k=0; k!=depth; k++)
@@ -483,7 +483,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XMapWindow(display, win);
 
 	if (geometry) {
-		if (sscanf(geometry, "+%d+%d", &wx, &wy) != 2) {
+		if (sscanf(geometry, "+%10d+%10d", &wx, &wy) != 2) {
 			fprintf(stderr, "Bad geometry string.\n");
 			exit(1);
 		}
