@@ -1,5 +1,131 @@
 Version         Description
 --------------------------------------------------------------
+1.3.1   * Released 150519
+
+	* Now maintained by Window Maker Developers Team
+	  <wmaker-dev@lists.windowmaker.org>.
+
+	* Update Free Software Foundation address and GPL2 text
+	  in COPYING.
+
+	* Remove getmodemspeed binary from source.
+
+	* Remove trailing whitespace.
+
+	* Add manpage (obtained from Debian package).
+
+	* Rename system wide fixed options configuration file
+	  for consistency.
+
+	* Allow ISDN devices.
+	  Users of ISDN dialup lines (such as me) cannot use
+	  wmppp as shipped, because it rejects to use any
+	  device except those beginning with `ppp'.
+	  The patch attached solves this.
+	  Based on the patch by Juan Cespedes <cespedes@debian.org> [1].
+
+	* Stampfile handling.
+	  This patch adds support for "stampfile" in config
+	  file, as described in manual page.
+	  Based on the patch by Juan Cespedes <cespedes@debian.org> [1].
+
+	* Display speed in K when too high.
+          When the download speed is too high, wmppp can't
+	  display it because it has only 5 digit. The most
+	  significant digits are hidden !
+	  This small patch display the speed in K when it is
+	  too high.
+	  Based on the patch by jguiton <jguiton@free.fr> [2].
+
+	* Use rm -f for make clean
+	  This patch prevents "make clean" from failing when
+	  the source tree is already clean.
+
+	* Use build flags.
+	  Compile with CPPFLAGS and LDFLAGS and do not
+	  overwrite CFLAGS.
+	  This enables the Debian package to be built with
+	  hardening options.  See [3].
+
+	* Update to latest version of wmgeneral library.
+
+	* Move source files to top directory.
+	  This way, users need only type "make" to build
+	  instead of needing to "cd wmppp" first.
+
+	* Fix spelling mistakes.
+	  Used codespell -w.
+
+	* Reduce scope of several variables.
+	  Fixes several "(style) The scope of the variable 'p'
+	  can be reduced" found by cppcheck.
+
+	* Switch ifs to #ifs for macros.
+	  Fixes "warning: null argument where non-null
+	  required" compiler warnings by not passing NULL to
+	  strdup and "(warning) Conversion of string literal
+	  to bool always evaluates to true" found by cppcheck.
+
+	* Remove unused parameter from get_statistics().
+	  Fixes "warning: unused parameter ‘devname’" compiler
+	  warning.
+
+	* Replace deprecated caddr_t cast with void*.
+
+	* Replace deprecated usleep with nanosleep.
+
+	* Remove C++ style comments.
+
+	* Use #includes from include-what-you-use.
+	  We actually include <sys/socket.h> instead of
+	  <bits/socket_type.h>, as it returns an error: "Never
+	  include <bits/socket_type.h> directly; use
+	  <sys/socket.h> instead."
+
+	* Update Makefile.  Main change is to use $(INSTALL)
+	  instead of cp in install target along with $(DESTDIR)
+	  variable.  We also remove installation of user
+	  ~/.wmppprc config file -- this isn't useful for
+	  sysadmins or package maintainers.
+	  We also update INSTALL to reflect the changes.
+
+	* Fix segfault when HOME undefined.
+	  Instead, we exit with an error message.  This fixes Debian bug #716472
+	  [4].
+
+	* Fix segfault if stop_action or start_action strings are NULL.
+
+	* Add new command line options.
+	  We add command line options for the user to change the start, stop,
+	  speed, ifdown, and stampfile settings at runtime.  This closes a
+	  Debian wishlist bug [5].
+	  Note that, in order to have the command line options overwrite the
+	  defaults set in the configuration file, we split the command line
+	  parsing code into a new function (parse_cmdline()).  We then merged
+	  main() and wmppp_routine().
+	  We document the new options in the help text and in the man page.  We
+	  also take the opportunity to reformat the help text for the -i option
+	  and add the -geometry option to the man page.
+
+	* Reread configuration file.
+	  Based in part on a patch by Chris Gray [6] to fix Debian bug #50181
+	  [7].
+
+	* Command line options take precedence over configuration files.
+	  Since we now reread the configuration files on occasion, the options
+	  given at the command line could be overwritten.  To avoid this, we
+	  save the command line options and always use them if present.
+
+	[1] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=97509
+	[2] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=328699
+	[3] https://wiki.debian.org/Hardening
+	[4] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=716472
+	[5] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=293839
+	[6] https://bugs.debian.org/cgi-bin/bugreport.cgi?msg=12;filename=wmppp.diff;att=1;bug=50181
+	[7] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=50181
+
+
+
 1.3.0	* Released 980916
 
 	* WMPPP is almost completely rewritten, WMPPP is now

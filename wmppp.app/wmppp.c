@@ -203,7 +203,7 @@
 #define TIMER_DES_Y			(6)
 #define TIMER_SZE_X			(6)
 
-#define WMPPP_VERSION "1.3.0"
+#define WMPPP_VERSION "1.3.1"
 
 #define ORANGE_LED_TIMEOUT (60)
 
