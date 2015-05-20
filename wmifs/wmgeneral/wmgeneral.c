@@ -100,20 +100,25 @@ int CheckMouseRegion(int, int);
 
 void parse_rcfile(const char *filename, rckeys *keys) {
 
-	char	*p,*q;
-	char	temp[128];
-	char	*tokens = " :\t\n";
+	char	*p;
 	FILE	*fp;
-	int		i,key;
 
 	fp = fopen(filename, "r");
 	if (fp) {
+		char temp[128];
+
 		while (fgets(temp, 128, fp)) {
+			char *q;
+			char *tokens = " :\t\n";
+			int key;
+
 			key = 0;
 			q = strdup(temp);
 			q = strtok(q, tokens);
 			while (key >= 0 && keys[key].label) {
 				if ((!strcmp(q, keys[key].label))) {
+					int i;
+
 					p = strstr(temp, keys[key].label);
 					p += strlen(keys[key].label);
 					p += strspn(p, tokens);
@@ -138,17 +143,20 @@ void parse_rcfile2(const char *filename, rckeys2 *keys) {
 	char	*p;
 	char	*line = NULL;
 	size_t  line_size = 0;
-	char	*tokens = " :\t\n";
 	FILE	*fp;
-	int		i,key;
 	char	*family = NULL;
 
 	fp = fopen(filename, "r");
 	if (fp) {
 		while (getline(&line, &line_size, fp) >= 0) {
+			int key;
+
 			key = 0;
 			while (key >= 0 && keys[key].label) {
 				if ((p = strstr(line, keys[key].label))) {
+					char *tokens = " :\t\n";
+					int i;
+
 					p += strlen(keys[key].label);
 					p += strspn(p, tokens);
 					if ((i = strcspn(p, "#\n"))) p[i] = 0;
@@ -293,36 +301,37 @@ int CheckMouseRegion(int x, int y) {
 \*******************************************************************************/
 void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
 
-	int		i,j,k;
-	int		width, height, numcol, depth;
-    int 	zero=0;
-	unsigned char	bwrite;
-    int		bcount;
-    int     curpixel;
+	int	i,j,k;
+	int	width, height, numcol, depth;
+	int 	zero=0;
+	int     curpixel;
 
 	sscanf(*xpm, "%d %d %d %d", &width, &height, &numcol, &depth);
 
 
-    for (k=0; k!=depth; k++)
-    {
-        zero <<=8;
-        zero |= xpm[1][k];
-    }
+	for (k=0; k!=depth; k++)
+	{
+		zero <<=8;
+		zero |= xpm[1][k];
+	}
 
 	for (i=numcol+1; i < numcol+sy+1; i++) {
+		unsigned char bwrite;
+		int bcount;
+
 		bcount = 0;
 		bwrite = 0;
 		for (j=0; j<sx*depth; j+=depth) {
-            bwrite >>= 1;
+			bwrite >>= 1;
 
-            curpixel=0;
-            for (k=0; k!=depth; k++)
-            {
-                curpixel <<=8;
-                curpixel |= xpm[i][j+k];
-            }
+			curpixel=0;
+			for (k=0; k!=depth; k++)
+			{
+				curpixel <<=8;
+				curpixel |= xpm[i][j+k];
+			}
 
-            if ( curpixel != zero ) {
+			if ( curpixel != zero ) {
 				bwrite += 128;
 			}
 			bcount++;
