@@ -14,8 +14,25 @@
 	---
 	10/10/2003 (Simon Law, sfllaw@debian.org)
 		* changed the parse_rcfile function to use getline instead of fgets.
+    14/09/1998 (Dave Clark, clarkd@skyia.com)
+        * Updated createXBMfromXPM routine
+        * Now supports >256 colors
+	11/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Removed a bug from parse_rcfile. You could
+		  not use "start" in a command if a label was
+		  also start.
+		* Changed the needed geometry string.
+		  We don't use window size, and don't support
+		  negative positions.
+	03/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Added parse_rcfile2
+	02/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Added -geometry support (untested)
+	28/08/1998 (Martijn Pieterse, pieterse@xs4all.nl)
+		* Added createXBMfromXPM routine
+		* Saves a lot of work with changing xpm's.
 	02/05/1998 (Martijn Pieterse, pieterse@xs4all.nl)
-		* changed the read_rc_file to parse_rcfile, as suggester by Marcelo E. Magallon
+		* changed the read_rc_file to parse_rcfile, as suggested by Marcelo E. Magallon
 		* debugged the parse_rc file.
 	30/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Ripped similar code from all the wm* programs,
@@ -23,7 +40,6 @@
 
 */
 
-#define _GNU_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -66,7 +82,6 @@ typedef struct {
 	int		right;
 } MOUSE_REGION;
 
-#define MAX_MOUSE_REGION (8)
 MOUSE_REGION	mouse_region[MAX_MOUSE_REGION];
 
   /***********************/
@@ -80,10 +95,45 @@ void AddMouseRegion(int, int, int, int, int);
 int CheckMouseRegion(int, int);
 
 /*******************************************************************************\
-|* read_rc_file																   *|
+|* parse_rcfile																   *|
 \*******************************************************************************/
 
 void parse_rcfile(const char *filename, rckeys *keys) {
+
+	char	*p,*q;
+	char	temp[128];
+	char	*tokens = " :\t\n";
+	FILE	*fp;
+	int		i,key;
+
+	fp = fopen(filename, "r");
+	if (fp) {
+		while (fgets(temp, 128, fp)) {
+			key = 0;
+			q = strdup(temp);
+			q = strtok(q, tokens);
+			while (key >= 0 && keys[key].label) {
+				if ((!strcmp(q, keys[key].label))) {
+					p = strstr(temp, keys[key].label);
+					p += strlen(keys[key].label);
+					p += strspn(p, tokens);
+					if ((i = strcspn(p, "#\n"))) p[i] = 0;
+					free(*keys[key].var);
+					*keys[key].var = strdup(p);
+					key = -1;
+				} else key++;
+			}
+			free(q);
+		}
+		fclose(fp);
+	}
+}
+
+/*******************************************************************************\
+|* parse_rcfile2															   *|
+\*******************************************************************************/
+
+void parse_rcfile2(const char *filename, rckeys2 *keys) {
 
 	char	*p;
 	char	*line = NULL;
@@ -91,6 +141,7 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 	char	*tokens = " :\t\n";
 	FILE	*fp;
 	int		i,key;
+	char	*family = NULL;
 
 	fp = fopen(filename, "r");
 	if (fp) {
@@ -109,6 +160,7 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 		}
 		fclose(fp);
 	}
+	free(family);
 }
 
 
@@ -237,6 +289,54 @@ int CheckMouseRegion(int x, int y) {
 }
 
 /*******************************************************************************\
+|* createXBMfromXPM															   *|
+\*******************************************************************************/
+void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
+
+	int		i,j,k;
+	int		width, height, numcol, depth;
+    int 	zero=0;
+	unsigned char	bwrite;
+    int		bcount;
+    int     curpixel;
+
+	sscanf(*xpm, "%d %d %d %d", &width, &height, &numcol, &depth);
+
+
+    for (k=0; k!=depth; k++)
+    {
+        zero <<=8;
+        zero |= xpm[1][k];
+    }
+
+	for (i=numcol+1; i < numcol+sy+1; i++) {
+		bcount = 0;
+		bwrite = 0;
+		for (j=0; j<sx*depth; j+=depth) {
+            bwrite >>= 1;
+
+            curpixel=0;
+            for (k=0; k!=depth; k++)
+            {
+                curpixel <<=8;
+                curpixel |= xpm[i][j+k];
+            }
+
+            if ( curpixel != zero ) {
+				bwrite += 128;
+			}
+			bcount++;
+			if (bcount == 8) {
+				*xbm = bwrite;
+				xbm++;
+				bcount = 0;
+				bwrite = 0;
+			}
+		}
+	}
+}
+
+/*******************************************************************************\
 |* copyXPMArea																   *|
 \*******************************************************************************/
 
@@ -274,16 +374,16 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	unsigned int	borderwidth = 1;
 	XClassHint		classHint;
 	char			*display_name = NULL;
-	char			*geometry = NULL;
 	char			*wname = argv[0];
 	XTextProperty	name;
 
 	XGCValues		gcv;
 	unsigned long	gcm;
 
+	char			*geometry = NULL;
 
 	int				dummy=0;
-	int				i;
+	int				i, wx, wy;
 
 	for (i=1; argv[i]; i++) {
 		if (!strcmp(argv[i], "-display"))
@@ -314,8 +414,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	fore_pix = GetColor("black");
 
 	XWMGeometry(display, screen, Geometry, NULL, borderwidth, &mysizehints,
-	            &mysizehints.x, &mysizehints.y,
-	            &mysizehints.width, &mysizehints.height, &dummy);
+				&mysizehints.x, &mysizehints.y,&mysizehints.width,&mysizehints.height, &dummy);
 	if (geometry)
 		XParseGeometry(geometry, &mysizehints.x, &mysizehints.y,
 		               (unsigned int *) &mysizehints.width, (unsigned int *) &mysizehints.height);
@@ -374,7 +473,11 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XSetCommand(display, win, argv, argc);
 	XMapWindow(display, win);
 
+	if (geometry) {
+		if (sscanf(geometry, "+%d+%d", &wx, &wy) != 2) {
+			fprintf(stderr, "Bad geometry string.\n");
+			exit(1);
+		}
+		XMoveWindow(display, win, wx, wy);
+	}
 }
-
-/* vim: sw=4 ts=4 columns=82
- */

@@ -5,7 +5,7 @@
  /* Defines */
 /***********/
 
-#define MAX_MOUSE_REGION (8)
+#define MAX_MOUSE_REGION (16)
 
   /************/
  /* Typedefs */
@@ -14,6 +14,14 @@
 typedef struct _rckeys rckeys;
 
 struct _rckeys {
+	const char	*label;
+	char		**var;
+};
+
+typedef struct _rckeys2 rckeys2;
+
+struct _rckeys2 {
+	const char	*family;
 	const char	*label;
 	char		**var;
 };
@@ -41,6 +49,7 @@ void openXwindow(int argc, char *argv[], char **, char *, int, int);
 void RedrawWindow(void);
 void RedrawWindowXY(int x, int y);
 
+void createXBMfromXPM(char *, char **, int, int);
 void copyXPMArea(int, int, int, int, int, int);
 void copyXBMArea(int, int, int, int, int, int);
 void setMaskXY(int, int);
