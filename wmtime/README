@@ -32,7 +32,7 @@ WMTime currently provides:
 	* Commandline options for help (-h), version (-v), digital
 	  clock mode (-digital) and and display (-d);
 
-WMTime is being developped on DEC Alpha machines running
+WMTime is being developed on DEC Alpha machines running
 Linux/RedHat-5.0, but, WMTime has been intensively tested
 on x86 and 68K Linux machines too ;-)
 
@@ -44,7 +44,7 @@ Files
 --------------------------------------------------------------
 README		This file.
 INSTALL		Installation instructions.
-HINTS 		Usefull hints and tips about WMTime.
+HINTS 		Useful hints and tips about WMTime.
 BUGS		Things you don't want to know ;-)
 CHANGES 	Description of changes.
 TODO            Stuff we've planned for future WMTime releases.
