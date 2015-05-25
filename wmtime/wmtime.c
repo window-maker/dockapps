@@ -60,6 +60,7 @@
 #define _GNU_SOURCE
 #include <X11/X.h>                     /* for ButtonPress, ButtonRelease, etc */
 #include <X11/Xlib.h>                  /* for XEvent, XButtonEvent, etc */
+#include <X11/xpm.h>
 #include <ctype.h>                     /* for toupper */
 #include <iconv.h>                     /* for iconv, iconv_close, etc */
 #include <langinfo.h>                  /* for nl_langinfo, ABDAY_1, etc */
@@ -96,6 +97,8 @@ int		digital = 0;
 int		noseconds = 0;
 char	day_of_week[7][3] = { "SU", "MO", "TU", "WE", "TH", "FR", "SA" };
 char	mon_of_year[12][4] = { "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+XpmIcon wmgen;
+char color[256];
 
 /* functions */
 void usage(char *);
@@ -104,6 +107,7 @@ void printversion(void);
 void wmtime_routine(int, char **);
 void get_lang();
 
+
 int main(int argc, char *argv[]) {
 
 	int		i;
@@ -111,12 +115,19 @@ int main(int argc, char *argv[]) {
 	char locale[256];
 
 	locale[0] = 0;
+	color[0] = 0;
 
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
 
 		if (*arg=='-') {
 			switch (arg[1]) {
+			case 'c' :
+				if (argc > i+1) {
+					strcpy(color, argv[i+1]);
+					i++;
+				}
+				break;
 			case 'd' :
 				if (strcmp(arg+1, "display")
 				    && strcmp(arg+1, "digital") && strcmp(arg+1, "d")) {
@@ -211,6 +222,21 @@ void get_lang(void)
 	iconv_close(icd);
 }
 
+Pixel scale_pixel(Pixel pixel, float scale)
+{
+	int red, green, blue;
+
+	red = pixel / ( 1 << 16 );
+	green = pixel % (1 << 16) / (1 << 8);
+	blue = pixel % (1 << 8);
+
+	red *= scale;
+	green *= scale;
+	blue *= scale;
+
+	return red * (1 << 16) + green * (1 << 8) + blue;
+}
+
 /*******************************************************************************\
 |* wmtime_routine															   *|
 \*******************************************************************************/
@@ -264,6 +290,66 @@ void wmtime_routine(int argc, char **argv) {
 		free(conffile);
 	}
 
+	/* set user-defined colors */
+	if (color[0] != 0) {
+		Window	Root;
+		XColor col;
+		XWindowAttributes attributes;
+		int screen;
+		Pixel pixel;
+#define NUMSYMBOLS 10
+		XpmColorSymbol user_color[NUMSYMBOLS] = {
+			{NULL, "#2081B2CAAEBA", 0}, /* O */
+			{NULL, "#000049244103", 0}, /* + */
+			{NULL, "#00007DF771C6", 0}, /* @ */
+			{NULL, "#18618A288617", 0}, /* # */
+			{NULL, "#18619A699658", 0}, /* ; */
+			{NULL, "#0820861779E7", 0}, /* : */
+			{NULL, "#000071C66185", 0}, /* > */
+			{NULL, "#000061855144", 0}, /* , */
+			{NULL, "#00004D344103", 0}, /* < */
+			{NULL, "#10407DF779E7", 0}  /* 1 */
+		};
+
+
+		/* code based on GetColor() from wmgeneral.c */
+		/* we need a temporary display to parse the color */
+		display = XOpenDisplay(NULL);
+		screen = DefaultScreen(display);
+		Root = RootWindow(display, screen);
+		XGetWindowAttributes(display, Root, &attributes);
+
+		col.pixel = 0;
+		if (!XParseColor(display, attributes.colormap, color, &col)) {
+			fprintf(stderr, "wmtime: can't parse %s.\n", color);
+			goto draw_window;
+		} else if (!XAllocColor(display, attributes.colormap, &col)) {
+			fprintf(stderr, "wmtime: can't allocate %s.\n", color);
+			goto draw_window;
+		}
+
+		pixel = col.pixel;
+
+		/* replace colors from wmtime-master.xpm */
+		user_color[0].pixel = pixel;
+		user_color[1].pixel = scale_pixel(pixel, .4);
+		user_color[2].pixel = scale_pixel(pixel, .7);
+		user_color[3].pixel = scale_pixel(pixel, .8);
+		user_color[4].pixel = scale_pixel(pixel, .9);
+		user_color[5].pixel = scale_pixel(pixel, .8);
+		user_color[6].pixel = scale_pixel(pixel, .6);
+		user_color[7].pixel = scale_pixel(pixel, .5);
+		user_color[8].pixel = scale_pixel(pixel, .4);
+		user_color[9].pixel = scale_pixel(pixel, .7);
+
+		wmgen.attributes.valuemask |= XpmColorSymbols;
+		wmgen.attributes.numsymbols = NUMSYMBOLS;
+		wmgen.attributes.colorsymbols = user_color;
+
+		XCloseDisplay(display);
+	}
+
+draw_window:
 	openXwindow(argc, argv, wmtime_master_xpm, wmtime_mask_bits, 128, 64);
 
 	/* Mask out the right parts of the clock */
@@ -684,6 +770,7 @@ void usage(char *name) {
 	printf("  -l LOCALE            set locale to LOCALE\n");
 	printf("  -h                   display this help and exit\n");
 	printf("  -v                   output version information and exit\n");
+	printf("  -c                   set color\n");
 }
 
 /*******************************************************************************\
