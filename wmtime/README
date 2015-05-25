@@ -27,18 +27,12 @@ WMTime currently provides:
         * Realtime morphing UI (analog <> digital mode);
         * Autoscaling and anti aliased hands;
 	* Locale, can display DAY and DATE in various languages;
-	* Can lauch 3 user definable commands through ~/.wmtimerc;
+	* Can launch 3 user definable commands through ~/.wmtimerc;
 	* Can be run multiple times;
 	* Commandline options for help (-h), version (-v), digital
-	  clock mode (-digital) and and display (-d);
-
-WMTime is being developed on DEC Alpha machines running
-Linux/RedHat-5.0, but, WMTime has been intensively tested
-on x86 and 68K Linux machines too ;-)
-
-WMTime also seems to compile and work okay on *BSD and SGI/
-IRIX-6.x systems (so we've heard and been told) ;-)
-
+	  clock mode (-d, -digital), display (-display), geometry
+	  (-geometry), disabling the second hand (-n, -noseconds),
+	  setting the locale (-l), and setting the color (-c).
 
 Files
 --------------------------------------------------------------
