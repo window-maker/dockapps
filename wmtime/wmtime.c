@@ -455,8 +455,8 @@ draw_window:
 \*******************************************************************************/
 
 void DrawTime(int hr, int min, int sec) {
-	const int time_size = 16;
-	char	time[time_size];
+#define TIME_SIZE 16
+	char	time[TIME_SIZE];
 	char	*p = time;
 	int		i,j,k=6;
 	int numfields;
@@ -464,11 +464,11 @@ void DrawTime(int hr, int min, int sec) {
 	/* 7x13 */
 
 	if (noseconds) {
-		snprintf(time, time_size, "%02d:%02d ", hr, min);
+		snprintf(time, TIME_SIZE, "%02d:%02d ", hr, min);
 		numfields = 2;
 	}
 	else {
-		snprintf(time, time_size, "%02d:%02d:%02d ", hr, min, sec);
+		snprintf(time, TIME_SIZE, "%02d:%02d:%02d ", hr, min, sec);
 		numfields = 3;
 	}
 
@@ -491,14 +491,14 @@ void DrawTime(int hr, int min, int sec) {
 \*******************************************************************************/
 
 void DrawDate(int wkday, int dom, int month) {
-	const int date_size = 16;
-	char	date[date_size];
+#define DATE_SIZE 16
+	char	date[DATE_SIZE];
 	char	*p = date;
 	int		i,k;
 
 	/* 7x13 */
 
-	snprintf(date, date_size,
+	snprintf(date, DATE_SIZE,
 			"%.2s%02d%.3s  ", day_of_week[wkday], dom, mon_of_year[month]);
 
 	k = 5;
