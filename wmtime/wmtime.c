@@ -554,8 +554,8 @@ void DrawWijzer(int hr, int min, int sec) {
 	dx = floor(sin(psi) * 22 * 0.7 + 0.5);
 	dy = floor(-cos(psi) * 16 * 0.7 + 0.5);
 
-	// dx, dy is het punt waar we naar toe moeten.
-	// Zoek alle punten die ECHT op de lijn liggen:
+	/* dx, dy is het punt waar we naar toe moeten.
+	 * Zoek alle punten die ECHT op de lijn liggen: */
 
 	ddx = 1;
 	ddy = 1;
@@ -571,8 +571,8 @@ void DrawWijzer(int hr, int min, int sec) {
 		else
 			adder = 0;
 		for (i=0; i<abs(dx); i++) {
-			// laat de kleur afhangen van de adder.
-			// adder loopt van abs(dx) tot 0
+			/* laat de kleur afhangen van de adder.
+			 * adder loopt van abs(dx) tot 0 */
 
 			k = 12 - adder / (abs(dx) / 12.0);
 			copyXPMArea(79+k, 67, 1, 1, x + 31, y + 24 - ddy);
@@ -621,8 +621,8 @@ void DrawWijzer(int hr, int min, int sec) {
 	dx = floor(sin(psi) * 22 * 0.55 + 0.5);
 	dy = floor(-cos(psi) * 16 * 0.55 + 0.5);
 
-	// dx, dy is het punt waar we naar toe moeten.
-	// Zoek alle punten die ECHT op de lijn liggen:
+	/* dx, dy is het punt waar we naar toe moeten.
+	 * Zoek alle punten die ECHT op de lijn liggen: */
 
 	dx += dx;
 	dy += dy;
@@ -641,8 +641,8 @@ void DrawWijzer(int hr, int min, int sec) {
 		else
 			adder = 0;
 		for (i=0; i<abs(dx); i++) {
-			// laat de kleur afhangen van de adder.
-			// adder loopt van abs(dx) tot 0
+			/* laat de kleur afhangen van de adder.
+			 * adder loopt van abs(dx) tot 0 */
 
 			k = 12 - adder / (abs(dx) / 12.0);
 			copyXPMArea(79+k, 67, 1, 1, x + 31, y + 24 - ddy);
@@ -693,8 +693,8 @@ void DrawWijzer(int hr, int min, int sec) {
 	dx = floor(sin(psi) * 22 * 0.9 + 0.5);
 	dy = floor(-cos(psi) * 16 * 0.9 + 0.5);
 
-	// dx, dy is het punt waar we naar toe moeten.
-	// Zoek alle punten die ECHT op de lijn liggen:
+	/* dx, dy is het punt waar we naar toe moeten.
+	 * Zoek alle punten die ECHT op de lijn liggen: */
 
 	ddx = 1;
 	ddy = 1;
@@ -714,8 +714,8 @@ void DrawWijzer(int hr, int min, int sec) {
 		else
 			adder = 0;
 		for (i=0; i<abs(dx); i++) {
-			// laat de kleur afhangen van de adder.
-			// adder loopt van abs(dx) tot 0
+			/* laat de kleur afhangen van de adder.
+			 * adder loopt van abs(dx) tot 0 */
 
 			k = 12 - adder / (abs(dx) / 12.0);
 			copyXPMArea(79+k, 70, 1, 1, x + 31, y + 24 - ddy);
