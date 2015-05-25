@@ -160,7 +160,6 @@ void parse_rcfile2(const char *filename, rckeys2 *keys) {
 	char	*line = NULL;
 	size_t  line_size = 0;
 	FILE	*fp;
-	char	*family = NULL;
 
 	fp = fopen(filename, "r");
 	if (fp) {
