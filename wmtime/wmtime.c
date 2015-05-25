@@ -189,8 +189,10 @@ void get_lang(void)
 	size_t insize, outsize;
 
 	icd = iconv_open("ASCII//TRANSLIT", nl_langinfo(CODESET));
-	if (icd < 0)
+	if (icd == (iconv_t) -1) {
+		perror("wmtime: Error allocating charset conversion descriptor");
 		return;
+	}
 
 	for (i = 0; i < 7; i++) {
 		strncpy(langbuf, nl_langinfo(ABDAY_1 + i), 10);
