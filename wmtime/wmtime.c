@@ -350,7 +350,7 @@ void wmtime_routine(int argc, char **argv) {
 	}
 
 draw_window:
-	openXwindow(argc, argv, wmtime_master_xpm, wmtime_mask_bits, 128, 64);
+	openXwindow(argc, argv, wmtime_master_xpm, (char*)wmtime_mask_bits, 128, 64);
 
 	/* Mask out the right parts of the clock */
 	copyXPMArea(0, 0, 128, 64, 0, 98);   /* Draw the borders */
