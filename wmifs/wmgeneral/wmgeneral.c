@@ -58,6 +58,7 @@
 
 */
 
+#define _POSIX_C_SOURCE 200809L
 #include "wmgeneral.h"
 #include <X11/Xlib.h>                   /* for XCopyArea, etc */
 #include <X11/Xutil.h>                  /* for XSizeHints, XWMHints, etc */
