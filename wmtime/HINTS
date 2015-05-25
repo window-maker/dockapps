@@ -2,12 +2,16 @@ Hints for WMTime
 
 Generic
 --------------------------------------------------------------
-WMTime supports 4 commandline options:
+WMTime supports 8 commandline options:
 
 	-h (help);
-	-v (prints);
-	-d (display);
-	-digital (digital clock);
+	-v (prints version);
+	-display (display);
+	-d, -digital (digital clock);
+	-geometry (set geometry);
+	-n, -noseconds (disable the second hand);
+	-l (set locale);
+	-c (set color)
 
 WMTime can lauch 3 user definable commands for left, middle and
 right mouse button clicks, which you can define in ~/.wmtimerc,
@@ -29,8 +33,9 @@ due to the large gfx pixmap it keeps ;-)
 WindowMaker
 --------------------------------------------------------------
 WindowMaker users simply drag and drop the WMTime dock.app on
-the WindowMaker Dock (preferred) or on the Fiend and select
-'autolaunch' from the rightmouse button Dock popupmenu.
+the WindowMaker Dock (preferred) or on the Clip, click
+'Settings...'  from the rightmouse button Dock popupmenu, and
+select 'Start when Window Maker is started'.
 
 
 Afterstep
@@ -47,6 +52,3 @@ Other WindowManagers
 --------------------------------------------------------------
 For other windowmanagers, WMTime runs nicely as a 64x64 shaped
 icon on your desktop.
-
-
-
