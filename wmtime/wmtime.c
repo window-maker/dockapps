@@ -58,31 +58,25 @@
 */
 
 #define _GNU_SOURCE
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <math.h>
-#include <locale.h>
-#include <langinfo.h>
-#include <iconv.h>
-#include <ctype.h>
+#include <X11/X.h>                     /* for ButtonPress, ButtonRelease, etc */
+#include <X11/Xlib.h>                  /* for XEvent, XButtonEvent, etc */
+#include <ctype.h>                     /* for toupper */
+#include <iconv.h>                     /* for iconv, iconv_close, etc */
+#include <langinfo.h>                  /* for nl_langinfo, ABDAY_1, etc */
+#include <locale.h>                    /* for NULL, setlocale, LC_ALL */
+#include <math.h>                      /* for floor, cos, sin, M_PI */
+#include <stddef.h>                    /* for size_t */
+#include <stdio.h>                     /* for printf, asprintf, snprintf, etc */
+#include <stdlib.h>                    /* for abs, free, exit, getenv */
+#include <string.h>                    /* for strcmp, strdup, strncpy, etc */
+#include <sys/wait.h>                  /* for waitpid, WNOHANG */
+#include <time.h>                      /* for tm, time, localtime */
+#include <unistd.h>                    /* for usleep */
+#include "wmgeneral/misc.h"            /* for execCommand */
+#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, RedrawWindow, etc */
+#include "wmtime-mask.xbm"             /* for wmtime_mask_bits */
+#include "wmtime-master.xpm"           /* for wmtime_master_xpm */
 
-#include <sys/wait.h>
-#include <sys/param.h>
-#include <sys/types.h>
-
-#include <X11/Xlib.h>
-#include <X11/xpm.h>
-#include <X11/extensions/shape.h>
-
-#include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
-
-#include "wmtime-master.xpm"
-#include "wmtime-mask.xbm"
 
   /***********/
  /* Defines */
