@@ -3,6 +3,32 @@ WMTime changes.
 Version         Description
 --------------------------------------------------------------
 
+1.3		- Released 150525
+		- Update to latest version of wmgeneral library.
+		- Fix typos. Ran `codespell -w`.
+		- Tidy #includes based on results of include-what-you-use.
+		- Add -c command line option allowing users to set color.
+		- Fix overflow warning; mask bitmap should be unsigned.
+		- Use #defines to avoid variable length arrays.
+		- Replace C++ style comments.
+		- Fix "ordered comparison of pointer with integer zero" warning.
+		  Also take the opportunity to add an error message when
+		  iconv_open fails.
+		- Update TODO. In particular,
+		  + Remove note about version 1.0 (was never released).
+		  + Remove note about LED colors (implemented).
+		  + Remove note about language files (unnecessary with locale
+		    support).
+		  + Update email address.
+		- Add proper copyright header.
+		- Update README. In particular,
+		  + Fix typo.
+		  + Mention newer command line options.
+		  + Drop 17-year-old architecture information.
+		- Update HINTS. In particular,
+		  + Add newer command line options.
+		  + Update Window Maker instructions.
+
 1.2		- Released 150103
 		- Remove unused variables.
 		- Use rm -f in make clean.
