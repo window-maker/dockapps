@@ -1,5 +1,3 @@
-
-DESTDIR =
 prefix =/usr/local
 bindir=${prefix}/bin
 datarootdir=${prefix}/share
@@ -8,7 +6,6 @@ man1dir=${mandir}/man1
 CONF=/etc
 
 CC     = gcc
-LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lXpm -lXext -lX11
 OBJS =	wmifs.o \
 		wmgeneral/wmgeneral.o \
@@ -23,10 +20,10 @@ INSTALL_PROGRAM = $(INSTALL) -p -o root -g root -m 755
 INSTALL_FILE    = $(INSTALL) -p -o root -g root -m 644
 
 .c.o:
-	$(CC) -c $(CFLAGS) $< -o $*.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
 wmifs: $(OBJS)
-	$(CC) -o wmifs $^ -lXext $(LIBDIR) $(LIBS)
+	$(CC) $(LDFLAGS) -o wmifs $^ $(LIBS)
 
 all:: wmifs
 
@@ -43,6 +40,6 @@ install::
 	$(INSTALL_PROGRAM) wmifs $(DESTDIR)$(bindir)
 	$(INSTALL_FILE) sample.wmifsrc $(DESTDIR)$(CONF)/wmifsrc
 	$(INSTALL_FILE) wmifs.1 $(DESTDIR)$(man1dir)
-	@echo "WMiFS-1.3beta installation finished..."
+	@echo "WMiFS installation finished..."
 	@echo " "
 	@echo "have fun! ;-)"
