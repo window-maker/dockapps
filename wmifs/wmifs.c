@@ -665,7 +665,6 @@ void DrawActiveIFS(char *real_name)
 	*/
 
 	size_t		i;
-	int		c;
 	int		k;
 	size_t		len;
 	char		name[256];
@@ -685,6 +684,8 @@ void DrawActiveIFS(char *real_name)
 
 	k = 5;
 	for (i = 0; name[i]; i++) {
+		int c;
+
 		if (i == strlen(name)-1 && strlen(name) <= 4 && name[strlen(name)-1] >= '0' &&
 		    name[strlen(name)-1] <= '9') {
 			copyXPMArea(61, 64, 4, 9, k, 5);
@@ -719,10 +720,11 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 	int					i;
 	int					found;
 	struct ppp_stats	ppp_cur;
-	static int			ppp_opened;
 
 
 	if (!strncmp(devname, "ppp", 3)) {
+		static int ppp_opened;
+
 		if (!ppp_opened) {
 			/* Open the ppp device. */
 			memset(&ppp_cur, 0, sizeof(ppp_cur));
@@ -804,12 +806,13 @@ int stillonline(char *ifs)
 {
 
 	FILE	*fp;
-	char	temp[BUFFER_SIZE];
 	int		i;
 
 	i = 0;
 	fp = fopen("/proc/net/route", "r");
 	if (fp) {
+		char temp[BUFFER_SIZE];
+
 		while (fgets(temp, BUFFER_SIZE, fp)) {
 			if (strstr(temp, ifs)) {
 				i = 1; /* Line is alive */
@@ -829,12 +832,9 @@ int checknetdevs(void)
 {
 
 	FILE	*fd;
-	char	temp[BUFFER_SIZE];
-	char	*p;
 	int		i = 0, j;
 	int		k;
 	int		devsfound = 0;
-	char	*tokens = " :\t\n";
 	char	foundbuffer[MAX_STAT_DEVICES][8];
 
 	for (i = 0; i < MAX_STAT_DEVICES; i++)
@@ -844,6 +844,8 @@ int checknetdevs(void)
 
 	fd = fopen("/proc/net/dev", "r");
 	if (fd) {
+		char temp[BUFFER_SIZE];
+
 		/* Skip the first 2 lines */
 		if (!fgets(temp, BUFFER_SIZE, fd)) {
 			fclose(fd);
@@ -854,6 +856,9 @@ int checknetdevs(void)
 			return -1;
 		}
 		while (fgets(temp, BUFFER_SIZE, fd)) {
+			char *p;
+			char *tokens = " :\t\n";
+
 			p = strtok(temp, tokens);
 			if (p == NULL) {
 					printf("Barfed on: %s", temp);
@@ -948,7 +953,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
 	int		pixels_per_byte;
 	int		j, k;
 	int		*p;
-	int		p0, p1, p2, p3;
+	int		p2, p3;
 
 	pixels_per_byte = size;
 	p = his;
@@ -962,6 +967,8 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
 	p = his;
 
 	for (k = 0; k < num; k++) {
+		int p0, p1;
+
 		p0 = p[0];
 		p1 = p[1];
 
