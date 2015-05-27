@@ -11,9 +11,9 @@ CC     = gcc
 LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lXpm -lXext -lX11
 OBJS =	wmifs.o \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
+		wmgeneral/wmgeneral.o \
+		wmgeneral/misc.o \
+		wmgeneral/list.o
 
 CFLAGS = -Wall -O2 -g
 

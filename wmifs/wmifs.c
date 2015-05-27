@@ -199,8 +199,8 @@
 #include <net/ppp_defs.h>
 #include <net/if_ppp.h>
 
-#include "../wmgeneral/wmgeneral.h"
-#include "../wmgeneral/misc.h"
+#include "wmgeneral/wmgeneral.h"
+#include "wmgeneral/misc.h"
 
 #include "wmifs-master.xpm"
 #include "wmifs-mask.xbm"
