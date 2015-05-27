@@ -1,5 +1,77 @@
 Version         Description
 --------------------------------------------------------------
+1.5	* Released 150527
+
+	* Include latest version of wmgeneral library.
+
+	* Move source files to top directory.
+
+	* Fix spelling error and escape hyphen in manpage. Based on a patch in
+	  the Debian package [1].
+
+	* Fix "variable 'ppp_old" set but not used" compiler warning. Based on a
+	  patch from the Debian package [2].
+
+	* Update Makefile. In particular,
+	  - Drop unnecessary definition of DESTDIR.
+	  - Drop LIBDIR; pointed to deprecated X11R6 directory.
+	  - Honors CPPFLAGS and LDFLAGS build flags.
+	  - Remove out-of-date version number from installation message.
+	  Based in part on a patch from the Debian package [3].
+
+	* Fix "suggest braces around empty body in an ‘if’ statement" compiler
+	  warning.
+
+	* Fix "comparison between signed and unsigned integer expressions"
+	  compiler warning.
+
+	* Fix "overflow in implicit constant conversion" compiler warnings.
+
+	* Replace deprecated caddr_t with void *.
+
+	* Replace deprecated usleep with nanosleep. Although defining
+	  _DEFAULT_SOURCE is overkill for nanosleep, it also fixes "field ‘b’
+	  has incomplete type" errors, as we need __USE_MISC defined to pick up
+	  the definition of ifreq in <net/if.h>.
+
+	* Add -c command line option allowing users to set color.
+
+	* Reformat help text for readability.
+
+	* Add support for wmgeneral's -geometry command line option. Also take
+	  the opportunity to correct the manpage; the -d option should be
+	  -display.
+
+	* Honor CONF Makefile variable when parsing system config files.
+
+	* Don't ignore geometry strings beginning with '-'.
+
+	* Throw out first /proc/net/dev reading. If we keep it, we start with a
+	  huge spike and everything else is zero until the spike finally leaves
+	  the window several moments later.
+
+	 * Tidy #includes using include-what-you-use.
+
+	 * Reduce scopes of variables (fixes style warnings from cppcheck).
+
+	 * Convert strtok() calls to thread-safe strtok_r().
+
+	 * Add proper copyright header.
+
+	 * Update Window Maker instructions in HINTS.
+
+	 * Remove first two installation steps in INSTALL. The user must have
+	   already done these two things already to be able to read INSTALL in
+	   the first place.
+
+	 * Update README. In particular,
+	   - Remove version-specific information in header.
+	   - Clarify webhost information in Credits section.
+
+	 [1] https://sources.debian.net/src/wmifs/1.4-2/debian/patches/fix-manpage.patch/
+	 [2] https://sources.debian.net/src/wmifs/1.4-2/debian/patches/fix-compiler-warning.patch/
+	 [3] https://sources.debian.net/src/wmifs/1.4-2/debian/patches/hardening.patch/
+
 1.4     * Released 141022
 
 	* Incorporate patches from Debian.
