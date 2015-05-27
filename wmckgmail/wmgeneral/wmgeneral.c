@@ -81,7 +81,6 @@ int			d_depth;
 XSizeHints	mysizehints;
 XWMHints	mywmhints;
 Pixel		back_pix, fore_pix;
-char		*Geometry = "";
 Window		iconwin, win;
 GC			NormalGC;
 XpmIcon		wmgen;
@@ -406,7 +405,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	char			*geometry = NULL;
 
 	int				dummy=0;
-	int				i, wx, wy;
+	int				i;
 
 	for (i=1; argv[i]; i++) {
 		if (!strcmp(argv[i], "-display"))
@@ -436,11 +435,8 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	back_pix = GetColor("white");
 	fore_pix = GetColor("black");
 
-	XWMGeometry(display, screen, Geometry, NULL, borderwidth, &mysizehints,
+	XWMGeometry(display, screen, geometry, NULL, borderwidth, &mysizehints,
 				&mysizehints.x, &mysizehints.y,&mysizehints.width,&mysizehints.height, &dummy);
-	if (geometry)
-		XParseGeometry(geometry, &mysizehints.x, &mysizehints.y,
-		               (unsigned int *) &mysizehints.width, (unsigned int *) &mysizehints.height);
 
 	mysizehints.width = 64;
 	mysizehints.height = 64;
@@ -495,12 +491,4 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 	XSetCommand(display, win, argv, argc);
 	XMapWindow(display, win);
-
-	if (geometry) {
-		if (sscanf(geometry, "+%10d+%10d", &wx, &wy) != 2) {
-			fprintf(stderr, "Bad geometry string.\n");
-			exit(1);
-		}
-		XMoveWindow(display, win, wx, wy);
-	}
 }
