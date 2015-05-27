@@ -442,7 +442,7 @@ void wmifs_routine(int argc, char **argv)
 
 	parse_rcfile("/etc/wmifsrc.fixed", wmifs_keys);
 
-	openXwindow(argc, argv, wmifs_master_xpm, wmifs_mask_bits, wmifs_mask_width, wmifs_mask_height);
+	openXwindow(argc, argv, wmifs_master_xpm, (char*)wmifs_mask_bits, wmifs_mask_width, wmifs_mask_height);
 
 	/* > Button */
 	AddMouseRegion(0, 5, 5, 35, 15);
