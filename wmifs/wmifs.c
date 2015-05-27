@@ -177,34 +177,25 @@
 */
 
 #define _DEFAULT_SOURCE
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include <string.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <ctype.h>
-
-#include <sys/wait.h>
-#include <sys/stat.h>
-#include <sys/param.h>
-#include <sys/types.h>
-#include <sys/ioctl.h>
-#include <sys/socket.h>
-#include <sys/time.h>
-
-#include <X11/Xlib.h>
-#include <X11/xpm.h>
-#include <X11/extensions/shape.h>
-
-#include <net/ppp_defs.h>
-#include <net/if_ppp.h>
-
-#include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
-
-#include "wmifs-master.xpm"
-#include "wmifs-mask.xbm"
+#include <X11/X.h>                     /* for ButtonPress, ButtonRelease, etc */
+#include <X11/Xlib.h>                  /* for XEvent, XButtonEvent, etc */
+#include <X11/xpm.h>                   /* for XpmColorSymbol, Pixel, etc */
+#include <ctype.h>                     /* for toupper */
+#include <linux/ppp_defs.h>            /* for ppp_stats, pppstat */
+#include <net/if_ppp.h>                /* for ifpppstatsreq, ifr__name, etc */
+#include <stddef.h>                    /* for size_t */
+#include <stdio.h>                     /* for fprintf, NULL, stderr, etc */
+#include <stdlib.h>                    /* for exit, atof, atoi, getenv */
+#include <string.h>                    /* for strcmp, strcpy, strlen, etc */
+#include <sys/ioctl.h>                 /* for ioctl */
+#include <sys/socket.h>                /* for socket, AF_INET */
+#include <sys/time.h>                  /* for timeval, gettimeofday */
+#include <sys/wait.h>                  /* for waitpid, WNOHANG */
+#include <time.h>                      /* for timespec, nanosleep */
+#include "wmgeneral/misc.h"            /* for execCommand */
+#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, display, etc */
+#include "wmifs-mask.xbm"              /* for wmifs_mask_bits, etc */
+#include "wmifs-master.xpm"            /* for wmifs_master_xpm */
 
 /* How often to check for new network interface, in ms */
 #define CHECK_INTERFACE_INTERVAL 5000
