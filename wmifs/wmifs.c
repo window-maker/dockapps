@@ -460,7 +460,7 @@ void wmifs_routine(int argc, char **argv)
 #endif
 
 	/* Scan throught the .rc files */
-	parse_rcfile("/etc/wmifsrc", wmifs_keys);
+	parse_rcfile(CONF"/wmifsrc", wmifs_keys);
 
 	p = getenv("HOME");
 	if (p == NULL || *p == 0) {
@@ -471,7 +471,7 @@ void wmifs_routine(int argc, char **argv)
 	strcat(temp, "/.wmifsrc");
 	parse_rcfile(temp, wmifs_keys);
 
-	parse_rcfile("/etc/wmifsrc.fixed", wmifs_keys);
+	parse_rcfile(CONF"/wmifsrc.fixed", wmifs_keys);
 
        /* set user-defined colors */
        if (color[0] != 0) {

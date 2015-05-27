@@ -20,7 +20,7 @@ INSTALL_PROGRAM = $(INSTALL) -p -o root -g root -m 755
 INSTALL_FILE    = $(INSTALL) -p -o root -g root -m 644
 
 .c.o:
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
+	$(CC) -DCONF=\"$(CONF)\" $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
 wmifs: $(OBJS)
 	$(CC) $(LDFLAGS) -o wmifs $^ $(LIBS)
