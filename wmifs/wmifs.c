@@ -176,6 +176,7 @@
 		* A bit of code clean-up.
 */
 
+#define _DEFAULT_SOURCE
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -454,6 +455,8 @@ void wmifs_routine(int argc, char **argv)
 	DrawActiveIFS(stat_devices[stat_current].name);
 
 	while (1) {
+		struct timespec ts;
+
 		gettimeofday(&tv, NULL);
 		curtime = (tv.tv_sec - tv2.tv_sec) * 1000
 			+ (tv.tv_usec - tv2.tv_usec) / 1000;
@@ -565,8 +568,9 @@ void wmifs_routine(int argc, char **argv)
 				break;
 			}
 		}
-
-		usleep(SampleInt * 1000);
+		ts.tv_sec = 0;
+		ts.tv_nsec = SampleInt * 1000000;
+		nanosleep(&ts, NULL);
 	}
 }
 
