@@ -419,6 +419,7 @@ void wmifs_routine(int argc, char **argv)
 
 	int			stat_online;
 	int			stat_current;
+	int			first_time = 1;
 
 	unsigned int	curtime;
 	unsigned int	nexttime;
@@ -545,9 +546,13 @@ draw_window:
 
 		for (i = 0; i < stat_online; i++) {
 			get_statistics(stat_devices[i].name, &ipacket, &opacket, &istat, &ostat);
-			stat_devices[i].his[53][0] += istat - stat_devices[i].istatlast;
-			stat_devices[i].his[53][1] += ostat - stat_devices[i].ostatlast;
 
+			if (first_time) {
+				first_time = 0;
+			} else {
+				stat_devices[i].his[53][0] += istat - stat_devices[i].istatlast;
+				stat_devices[i].his[53][1] += ostat - stat_devices[i].ostatlast;
+			}
 
 			if (i == stat_current) {
 				if (!stillonline(stat_devices[i].name))
