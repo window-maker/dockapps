@@ -319,6 +319,12 @@ int main(int argc, char *argv[])
 					exit(1);
 				}
 				break;
+			case 'g':
+				if (strcmp(arg+1, "geometry")) {
+					usage();
+					exit(1);
+				}
+				break;
 			case 'i':
 				active_interface = argv[i+1];
 				i++;
@@ -1003,6 +1009,7 @@ void usage(void)
 	fprintf(stderr, "usage:\n");
 	fprintf(stderr, "\t-c <color>\t\tset color\n");
 	fprintf(stderr, "\t-display <display name>\tset display\n");
+	fprintf(stderr, "\t-geometry +x+y\t\tset window position\n");
 	fprintf(stderr, "\t-h\t\t\tthis help screen\n");
 	fprintf(stderr, "\t-i <interface name>\tdefault (as it appears in /proc/net/route)\n");
 	fprintf(stderr, "\t-I <interval>\t\tsampling interval, in seconds (default: 0.05)\n");
