@@ -1001,15 +1001,15 @@ void usage(void)
 
 	fprintf(stderr, "\nwmifs - programming: tijno, (de)bugging & design: warpstah, webhosting: bobby\n\n");
 	fprintf(stderr, "usage:\n");
-	fprintf(stderr, "\t-d <display name>\n");
-	fprintf(stderr, "\t-h\tthis help screen\n");
+	fprintf(stderr, "\t-c <color>\t\tset color\n");
+	fprintf(stderr, "\t-display <display name>\tset display\n");
+	fprintf(stderr, "\t-h\t\t\tthis help screen\n");
 	fprintf(stderr, "\t-i <interface name>\tdefault (as it appears in /proc/net/route)\n");
-	fprintf(stderr, "\t-I <interval>\tsampling interval, in seconds (default: 0.05)\n");
-	fprintf(stderr, "\t-l\tstarts in lock mode\n");
-	fprintf(stderr, "\t-s <interval>\tscrolling interval, in seconds (default: 5)\n");
-	fprintf(stderr, "\t-v\tprint the version number\n");
-	fprintf(stderr, "\t-w\twaveform load\n");
-	fprintf(stderr, "\t-c <color>\tset color\n");
+	fprintf(stderr, "\t-I <interval>\t\tsampling interval, in seconds (default: 0.05)\n");
+	fprintf(stderr, "\t-l\t\t\tstarts in lock mode\n");
+	fprintf(stderr, "\t-s <interval>\t\tscrolling interval, in seconds (default: 5)\n");
+	fprintf(stderr, "\t-v\t\t\tprint the version number\n");
+	fprintf(stderr, "\t-w\t\t\twaveform load\n");
 	fprintf(stderr, "\n");
 }
 
