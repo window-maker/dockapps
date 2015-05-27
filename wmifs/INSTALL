@@ -20,17 +20,15 @@ Requirements
 
 Installation
 --------------------------------------------------------------
-1)  % tar -zxvf wmifs-1.4.tar.gz
-2)  % cd dockapps/wmifs
-3)  % make
-4)  % su root
-5)  # make install
-6)* # vi ~/.wmifsrc and/or /etc/wmifsrc
+1)  % make
+2)  % su root
+3)  # make install
+4)* # vi ~/.wmifsrc and/or /etc/wmifsrc
 	set up the paths to your pppd
 	start, stop & restart scripts
-7)  % wmifs & (or wmifs -h for brief help).
+5)  % wmifs & (or wmifs -h for brief help).
 
-6)* This is optional, WMiFS also works fine without them,
+4)* This is optional, WMiFS also works fine without them,
     it's entirely up to you ;-)
 
 
