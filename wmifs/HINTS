@@ -29,9 +29,13 @@ lo was mainly build in for testing purposes ;-)
 WindowMaker
 --------------------------------------------------------------
 WindowMaker users simply drag and drop the WMiFS dock.app on
-the WindowMaker Dock (preferred) or on the Fiend, and then
-press the rightmouse button on the outer edges of WMiFS and
-then enable 'Autolaunch' from the Dock/Fiend popup menu.
+the WindowMaker Dock (preferred) or the Clip.
+
+Now press the rightmouse button on WMiFS's outer edges and
+select "Settings..." from the popup menu that appears.
+
+Enable the 'Start when WindowMaker is started' option, then
+click on the 'OK' button in the Docked Applications Panel.
 
 
 Afterstep
