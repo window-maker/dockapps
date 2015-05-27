@@ -255,6 +255,8 @@ int		WaveForm = 0;
 int		LockMode = 0;
 int		SampleInt = DEFAULT_SAMPLE_INTERVAL;
 int		ScrollSpeed = CHECK_INTERFACE_INTERVAL;
+XpmIcon wmgen;
+char color[256];
 
   /*****************/
  /* PPP variables */
@@ -296,6 +298,7 @@ int main(int argc, char *argv[])
 
 	int		i;
 
+	color[0] = 0;
 
 	/* Parse Command Line */
 
@@ -304,6 +307,12 @@ int main(int argc, char *argv[])
 
 		if (*arg == '-') {
 			switch (arg[1]) {
+			case 'c' :
+				if (argc > i+1) {
+					strcpy(color, argv[i+1]);
+					i++;
+				}
+				break;
 			case 'd':
 				if (strcmp(arg+1, "display")) {
 					usage();
@@ -342,6 +351,21 @@ int main(int argc, char *argv[])
 
 	wmifs_routine(argc, argv);
 	return 0;
+}
+
+Pixel scale_pixel(Pixel pixel, float scale)
+{
+       int red, green, blue;
+
+       red = pixel / ( 1 << 16 );
+       green = pixel % (1 << 16) / (1 << 8);
+       blue = pixel % (1 << 8);
+
+       red *= scale;
+       green *= scale;
+       blue *= scale;
+
+       return red * (1 << 16) + green * (1 << 8) + blue;
 }
 
 /*******************************************************************************\
@@ -443,6 +467,54 @@ void wmifs_routine(int argc, char **argv)
 
 	parse_rcfile("/etc/wmifsrc.fixed", wmifs_keys);
 
+       /* set user-defined colors */
+       if (color[0] != 0) {
+               Window  Root;
+               XColor col;
+               XWindowAttributes attributes;
+               int screen;
+               Pixel pixel;
+#define NUMSYMBOLS 4
+               XpmColorSymbol user_color[NUMSYMBOLS] = {
+                       {NULL, "#2081B2CAAEBA", 0}, /* + */
+                       {NULL, "#28A23CF338E3", 0}, /* O */
+                       {NULL, "#000049244103", 0}, /* @ */
+                       {NULL, "#18618A288617", 0}, /* # */
+                        };
+
+
+               /* code based on GetColor() from wmgeneral.c */
+               /* we need a temporary display to parse the color */
+               display = XOpenDisplay(NULL);
+               screen = DefaultScreen(display);
+               Root = RootWindow(display, screen);
+               XGetWindowAttributes(display, Root, &attributes);
+
+               col.pixel = 0;
+               if (!XParseColor(display, attributes.colormap, color, &col)) {
+                       fprintf(stderr, "wmtime: can't parse %s.\n", color);
+                       goto draw_window;
+               } else if (!XAllocColor(display, attributes.colormap, &col)) {
+                       fprintf(stderr, "wmtime: can't allocate %s.\n", color);
+                       goto draw_window;
+               }
+
+               pixel = col.pixel;
+
+               /* replace colors from wmtime-master.xpm */
+               user_color[0].pixel = pixel;
+               user_color[1].pixel = scale_pixel(pixel, .3);
+               user_color[2].pixel = scale_pixel(pixel, .4);
+               user_color[3].pixel = scale_pixel(pixel, .8);
+
+               wmgen.attributes.valuemask |= XpmColorSymbols;
+               wmgen.attributes.numsymbols = NUMSYMBOLS;
+               wmgen.attributes.colorsymbols = user_color;
+
+               XCloseDisplay(display);
+       }
+
+draw_window:
 	openXwindow(argc, argv, wmifs_master_xpm, (char*)wmifs_mask_bits, wmifs_mask_width, wmifs_mask_height);
 
 	/* > Button */
@@ -937,6 +1009,7 @@ void usage(void)
 	fprintf(stderr, "\t-s <interval>\tscrolling interval, in seconds (default: 5)\n");
 	fprintf(stderr, "\t-v\tprint the version number\n");
 	fprintf(stderr, "\t-w\twaveform load\n");
+	fprintf(stderr, "\t-c <color>\tset color\n");
 	fprintf(stderr, "\n");
 }
 
