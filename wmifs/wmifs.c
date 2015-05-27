@@ -348,8 +348,10 @@ int main(int argc, char *argv[])
 				WaveForm = 1;
 				break;
 			default:
-				usage();
-				exit(0);
+				if (strcmp(argv[i-1], "-geometry")) {
+					usage();
+					exit(0);
+				}
 				break;
 			}
 		}
