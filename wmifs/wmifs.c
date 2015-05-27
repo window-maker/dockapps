@@ -714,7 +714,7 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 
 	FILE				*fp;
 	char				temp[BUFFER_SIZE];
-	char				*p;
+	char				*p, *saveptr;
 	char				*tokens = " |:\n";
 	int					input, output;
 	int					i;
@@ -762,7 +762,7 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 	i = 0;
 	found = -1;
 
-	p = strtok(temp, tokens);
+	p = strtok_r(temp, tokens, &saveptr);
 	do {
 		if (!(strcmp(p, "packets"))) {
 			if (input == -1)
@@ -771,13 +771,13 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 				output = i;
 		}
 		i++;
-		p = strtok(NULL, tokens);
+		p = strtok_r(NULL, tokens, &saveptr);
 	} while (input == -1 || output == -1);
 
 	while (fgets(temp, BUFFER_SIZE, fp)) {
 		if (strstr(temp, devname)) {
 			found = 0;
-			p = strtok(temp, tokens);
+			p = strtok_r(temp, tokens, &saveptr);
 			i = 0;
 			do {
 				if (i == input) {
@@ -789,7 +789,7 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 					output = -1;
 				}
 				i++;
-				p = strtok(NULL, tokens);
+				p = strtok_r(NULL, tokens, &saveptr);
 			} while (input != -1 || output != -1);
 		}
 	}
@@ -856,10 +856,10 @@ int checknetdevs(void)
 			return -1;
 		}
 		while (fgets(temp, BUFFER_SIZE, fd)) {
-			char *p;
+			char *p, *saveptr;
 			char *tokens = " :\t\n";
 
-			p = strtok(temp, tokens);
+			p = strtok_r(temp, tokens, &saveptr);
 			if (p == NULL) {
 					printf("Barfed on: %s", temp);
 					break;
