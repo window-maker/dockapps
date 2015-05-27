@@ -638,7 +638,7 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 	int					input, output;
 	int					i;
 	int					found;
-	struct ppp_stats	ppp_cur, ppp_old;
+	struct ppp_stats	ppp_cur;
 	static int			ppp_opened;
 
 
@@ -650,7 +650,6 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 			if (ppp_h < 0)
 				return -1;
 			get_ppp_stats(&ppp_cur);
-			ppp_old = ppp_cur;
 			ppp_opened = 1;
 		}
 
