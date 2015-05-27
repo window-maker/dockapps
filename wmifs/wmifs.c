@@ -584,10 +584,10 @@ void DrawActiveIFS(char *real_name)
 	   Destinatie: 5,5
 	*/
 
-	int		i;
+	size_t		i;
 	int		c;
 	int		k;
-	int		len;
+	size_t		len;
 	char		name[256];
 
 
