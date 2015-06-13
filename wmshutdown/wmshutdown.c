@@ -59,6 +59,7 @@ GtkWidget *cria_dock(GtkWidget *mw, unsigned int s)
 	GdkDisplay *display;
 	GtkWidget *foobox;
 
+	(void) s;
 	display = gdk_display_get_default();
 	foobox = gtk_window_new(GTK_WINDOW_POPUP);
 
@@ -148,6 +149,8 @@ void button_press(GtkWidget *widget, GdkEvent *event)
 	GtkWidget *halt_button;
 	GtkWidget *reboot_button;
 	GtkWidget *cancel_button;
+
+	(void) widget;
 
 	GdkEventButton  *bevent = (GdkEventButton *)event;
 	switch (bevent->button) {
