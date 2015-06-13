@@ -1,0 +1,44 @@
+                                .       .     .
+                                |       |     |
+                , , , ;-.-. ,-. |-. . . |-  ,-| ,-. , , , ;-.
+                |/|/  | | | `-. | | | | |   | | | | |/|/  | |
+                ' '   ' ' ' `-' ' ' `-` `-' `-' `-' ' '   ' '
+
+
+1. What is wmshutdown?
+
+	wmshutdown is a Window Maker dock application that allows you to
+	shut down or reboot your machine just by clicking a button on your
+	desktop.  It's useful just for desktop machines, so there's no need to
+	keep typing shutdown now -h every time you have to go away for some
+	reason.
+
+	I'd be thankful for any fixes or comments about it.
+
+2. Security issues
+
+   	Prior to version 1.1, wmshutdown used a setuid program (Shutdown or
+      	wmshutdown-run) to actually shut down the computer, introducing
+	potential security risks.  Beginning in version 1.1, wmshutdown uses
+	logind instead.  In version 1.2, ConsoleKit support was added.
+
+3. Install/Uninstall
+
+	./configure (or ./configure --with-consolekit to use ConsoleKit)
+	make
+	make install [as root]
+
+4. License
+
+	wmshutdown is released under the GPL v3+.  See COPYING for more details.
+
+5. Author
+
+	Rafael Vidal Aroca <rafael@linuxqos.cjb.net>
+	current maintainer:  Doug Torrance <dtorrance@monmouthcollege.edu>
+
+6. Todo
+	-Modal window for shutdown
+	-Bug: dialog "box" on the corner does not disapeer
+	-WINGs interface
+	-Interact with window maker, saving desktop state on a shutdown

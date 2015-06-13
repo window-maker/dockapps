@@ -1,0 +1,25 @@
+21/11/2001: Project started
+22/11/2001: First version (0.1) released
+20/06/2002: Bug Fix: Each click does not create a new dialog box anymore. Only
+	one is created
+26/07/2014: Version 1.0 released.
+	* Convert to GTK3 and autotools.
+	* Incorporate several changes from Debian, including renaming
+	  wmShutdown to wmshutdown and Shutdown to wmshutdown-run.
+07/08/2014: Version 1.1 released.
+	* Use logind instead of calling /sbin/shutdown; delete wmshutdown-run as
+	  it is no longer needed.
+	* Update copyright information and documentation.
+	* Add command line options (--help and --version).
+25/10/2014: Version 1.2 released.
+	* Add --with-consolekit configure option to enable users wanting to use
+	  ConsoleKit instead of logind.
+	* Use dialog to communicate dbus errors.
+	* Replace deprecated gtk_dialog_get_action_area with
+	  gtk_dialog_add_buttons.
+27/10/2014: Version 1.3 released.
+	* Correct package name for --version option.
+	* Restore original g_signal_connect() code for dialog buttons; new
+	  gtk_dialog_run() code was buggy.
+	* Consistent code style; no warnings or errors from checkpatch.pl
+	  in Window Maker source tree.
