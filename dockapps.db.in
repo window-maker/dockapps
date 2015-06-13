@@ -381,13 +381,6 @@ url = https://web.archive.org/web/20050404084709/http://www.hibernaculum.net/wms
 dockapps = 63
 category = Audio
 
-[wmstickynotes]
-image =
-description = "This program is a Window Maker style dockapp which allows you to create note windows.  By default, the notes, along with their position, size, and color, are stored in files and will be restored when wmstickynotes is run again."
-url = https://sourceforge.net/projects/wmstickynotes/
-dockapps =
-category = General/Others
-
 [wmsupermon]
 image = "wmsupermon1.png,wms122.gif,wmsupermon122.gif"
 description = "Universal Monitoring Dockapp.
