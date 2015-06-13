@@ -360,6 +360,13 @@ url =
 dockapps = 99
 category = Network
 
+[wmshutdown]
+image = wmShutdown.gif
+description = "A Window Maker Dock App for Shutting Down your machine."
+url = "https://web.archive.org/web/20051103070148/http://grad.icmc.usp.br/~rva/wmShutdown.html"
+dockapps = 49
+category = General/Others
+
 [wmsm.app]
 image = wmsm1.png
 description = "WindowMaker System Monitor"
