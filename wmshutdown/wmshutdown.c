@@ -58,6 +58,10 @@ GtkWidget *cria_dock(GtkWidget *mw, unsigned int s)
 {
 	GdkDisplay *display;
 	GtkWidget *foobox;
+	Display *d;
+	Window mainwin, iw, w, p, dummy1, *dummy2;
+	unsigned int dummy3;
+	XWMHints *wmHints;
 
 	(void) s;
 	display = gdk_display_get_default();
@@ -69,19 +73,17 @@ GtkWidget *cria_dock(GtkWidget *mw, unsigned int s)
 	gtk_widget_realize(mw);
 	gtk_widget_realize(foobox);
 
-	Display *d = GDK_DISPLAY_XDISPLAY(display);
-	Window mainwin = GDK_WINDOW_XID(gtk_widget_get_window(mw));
-	Window iw = GDK_WINDOW_XID(gtk_widget_get_window(foobox));
-	Window p, dummy1, *dummy2;
-	unsigned int dummy3;
+	d = GDK_DISPLAY_XDISPLAY(display);
+	mainwin = GDK_WINDOW_XID(gtk_widget_get_window(mw));
+	iw = GDK_WINDOW_XID(gtk_widget_get_window(foobox));
 	XQueryTree(d, mainwin, &dummy1, &p, &dummy2, &dummy3);
 	if (dummy2)
 		XFree(dummy2);
-	Window w = XCreateSimpleWindow(d, p, 0, 0, 1, 1, 0, 0, 0);
+	w = XCreateSimpleWindow(d, p, 0, 0, 1, 1, 0, 0, 0);
 	XReparentWindow(d, mainwin, w, 0, 0);
 	gtk_widget_show(mw);
 	gtk_widget_show(foobox);
-	XWMHints *wmHints = XGetWMHints(d, mainwin);
+	wmHints = XGetWMHints(d, mainwin);
 	if (!wmHints)
 		wmHints = XAllocWMHints();
 	wmHints->flags |= IconWindowHint;
@@ -149,10 +151,11 @@ void button_press(GtkWidget *widget, GdkEvent *event)
 	GtkWidget *halt_button;
 	GtkWidget *reboot_button;
 	GtkWidget *cancel_button;
+	GdkEventButton  *bevent;
 
 	(void) widget;
 
-	GdkEventButton  *bevent = (GdkEventButton *)event;
+	bevent = (GdkEventButton *)event;
 	switch (bevent->button) {
 	case 1:
 		if (dialog != NULL)
