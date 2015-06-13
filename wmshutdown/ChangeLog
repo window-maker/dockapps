@@ -23,3 +23,8 @@
 	  gtk_dialog_run() code was buggy.
 	* Consistent code style; no warnings or errors from checkpatch.pl
 	  in Window Maker source tree.
+12/06/2015: Version 1.4 released.
+	* Now maintained by the Window Maker Developers Team.
+	* Fix 'unused parameter' compiler warnings.
+	* Fix 'mixed declarations and code' compiler warnings.
+	* Update contact information.
