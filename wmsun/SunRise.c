@@ -105,20 +105,6 @@ void SunRise(int year, int month, int day, double LocalHour, double *UTRise, dou
 
 }
 
-
-void UTTohhmm(double UT, int *h, int *m){
-
-
-    if (UT < 0.0) {
-	*h = -1.0;
-	*m = -1.0;
-    } else {
-        *h = (int)UT;
-        *m = (int)((UT-(double)(*h))*60.0+0.5);
-    }
-
-}
-
 double SinH(int year, int month, int day, double UT){
 
     double	TU, frac(), jd();
