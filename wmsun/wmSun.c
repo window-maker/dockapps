@@ -147,7 +147,7 @@ int main(int argc, char *argv[]) {
    
 
    
-    openXwindow(argc, argv, wmSun_master, wmSun_mask_bits, wmSun_mask_width, wmSun_mask_height);
+    openXwindow(argc, argv, wmSun_master, (char *)wmSun_mask_bits, wmSun_mask_width, wmSun_mask_height);
 
 
 
