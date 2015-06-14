@@ -16,26 +16,26 @@ LIBS   = -lXpm -lX11 -lXext -lm
 #
 # LIBS   = -lXpm -lX11 -lXext -lsocket
 
-OBJS   = wmSun.o SunRise.o wmgeneral/wmgeneral.o
+OBJS   = wmsun.o SunRise.o wmgeneral/wmgeneral.o
 
 .c.o:
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
-all:	wmSun.o wmSun
+all:	wmsun.o wmsun
 
-wmSun.o: wmSun_master.xpm wmSun_mask.xbm
+wmsun.o: wmSun_master.xpm wmSun_mask.xbm
 
-wmSun:	$(OBJS)
-	$(CC) $(LDFLAGS) -o wmSun $^ $(LIBS)
+wmsun:	$(OBJS)
+	$(CC) $(LDFLAGS) -o wmsun $^ $(LIBS)
 
 clean:
 	for i in $(OBJS) ; do \
 		rm -f $$i; \
 	done
-	rm -f wmSun
+	rm -f wmsun
 
-install:: wmSun
+install:: wmsun
 	$(INSTALL) -d $(DESTDIR)$(BINDIR)
-	$(INSTALL) wmSun $(DESTDIR)$(BINDIR)
+	$(INSTALL) wmsun $(DESTDIR)$(BINDIR)
 	$(INSTALL) -d $(DESTDIR)$(MANDIR)
-	$(INSTALL) -m 644 wmSun.1 $(DESTDIR)$(MANDIR)
+	$(INSTALL) -m 644 wmsun.1 $(DESTDIR)$(MANDIR)

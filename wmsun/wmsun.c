@@ -368,7 +368,7 @@ void ParseCMDLine(int argc, char *argv[]) {
 
 	} else {
 	    printf("\nwmSun version: %s\n", WMSUN_VERSION);
-	    printf("\nusage: wmSun [-display <Display>] [-lat <Latitude>] [-lon <Longitude>] [-h]\n\n");
+	    printf("\nusage: wmsun [-display <Display>] [-lat <Latitude>] [-lon <Longitude>] [-h]\n\n");
 	    printf("\t-display <Display>\tUse alternate X display.\n");
 	    printf("\t-geometry <Geometry>\tSet window geometry.\n");
 	    printf("\t-lat <Latitude>\t\tObservers Latitude. Positive to the west.\n");
