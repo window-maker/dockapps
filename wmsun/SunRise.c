@@ -12,7 +12,7 @@ double    P2  = 6.283185307;
 
 int Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, double *z2, int *nz){
 
-    double	a, b, c, d, dx;
+    double	a, b, c, d;
 
     *nz = 0;
     a = 0.5*(ym+yp)-y0;
@@ -23,6 +23,8 @@ int Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, 
     d = b*b - 4.0*a*c;
 
     if (d >= 0){
+	double dx;
+
 	dx = 0.5*sqrt(d)/fabs(a);
 	*z1 = *xe - dx;
 	*z2 = *xe+dx;
@@ -38,7 +40,7 @@ int Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, 
 
 void SunRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
 
-    double	UT, ym, y0, yp, SinH0;
+    double	UT, ym, SinH0;
     double	xe, ye, z1, z2, SinH(), hour24();
     int		Rise, Set, nz;
 
@@ -53,6 +55,7 @@ void SunRise(int year, int month, int day, double LocalHour, double *UTRise, dou
     ym = SinH(year, month, day, UT-1.0) - SinH0;
 
     while ( (UT <= 24.0+TimeZone) ) {
+	double y0, yp;
 
 	y0 = SinH(year, month, day, UT) - SinH0;
 	yp = SinH(year, month, day, UT+1.0) - SinH0;
@@ -148,7 +151,7 @@ double jd(ny, nm, nd, UT)
 int ny, nm, nd;
 double UT;
 {
-        double A, B, C, D, JD, day;
+        double B, C, D, JD, day;
 
         day = nd + UT/24.0;
 
@@ -159,6 +162,8 @@ double UT;
         }
 
         if (((double)ny+nm/12.0+day/365.25)>=(1582.0+10.0/12.0+15.0/365.25)){
+                        double A;
+
                         A = ((int)(ny / 100.0));
                         B = 2.0 - A + (int)(A/4.0);
         }
