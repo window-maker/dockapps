@@ -325,6 +325,10 @@ void ParseCMDLine(int argc, char *argv[]) {
 
   	    ++i;
 
+        } else if (!strcmp(argv[i], "-geometry")){
+
+	    ++i;
+
         } else if (!strcmp(argv[i], "-lat")){
 
 	    Glat = atof(argv[++i]);
@@ -347,9 +351,10 @@ void ParseCMDLine(int argc, char *argv[]) {
 	    printf("\nwmSun version: %s\n", WMSUN_VERSION);
 	    printf("\nusage: wmSun [-display <Display>] [-lat <Latitude>] [-lon <Longitude>] [-h]\n\n");
 	    printf("\t-display <Display>\tUse alternate X display.\n");
+	    printf("\t-geometry <Geometry>\tSet window geometry.\n");
 	    printf("\t-lat <Latitude>\t\tObservers Latitude. Positive to the west.\n");
 	    printf("\t-lon <Longitude>\tObservers Longitude.\n");
-	    printf("\t-td <Delta Time>\tUser defined difference between UT an LT (hours).\n");
+	    printf("\t-td <Delta Time>\tUser defined difference between UT an LT (hrs).\n");
 	    printf("\t-h\t\t\tDisplay help screen.\n\n");
 	    exit(1);
 	}
