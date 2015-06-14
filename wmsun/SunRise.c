@@ -10,6 +10,31 @@ double    cosEPS = 0.91748;
 double    sinEPS = 0.39778;
 double    P2  = 6.283185307;
 
+Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, double *z2, int *nz){
+
+    double	a, b, c, d, dx;
+
+    *nz = 0;
+    a = 0.5*(ym+yp)-y0;
+    b = 0.5*(yp-ym);
+    c = y0;
+    *xe = -b/(2.0*a);
+    *ye = (a*(*xe) + b) * (*xe) + c;
+    d = b*b - 4.0*a*c;
+
+    if (d >= 0){
+	dx = 0.5*sqrt(d)/fabs(a);
+	*z1 = *xe - dx;
+	*z2 = *xe+dx;
+	if (fabs(*z1) <= 1.0) *nz += 1;
+	if (fabs(*z2) <= 1.0) *nz += 1;
+	if (*z1 < -1.0) *z1 = *z2;
+    }
+
+    return(0);
+
+
+}
 
 SunRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
 
@@ -92,40 +117,6 @@ UTTohhmm(double UT, int *h, int *m){
     }
 
 }
-
-
-
-
-
-
-Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, double *z2, int *nz){
-
-    double	a, b, c, d, dx;
-
-    *nz = 0;
-    a = 0.5*(ym+yp)-y0;
-    b = 0.5*(yp-ym);
-    c = y0;
-    *xe = -b/(2.0*a);
-    *ye = (a*(*xe) + b) * (*xe) + c;
-    d = b*b - 4.0*a*c;
-
-    if (d >= 0){
-	dx = 0.5*sqrt(d)/fabs(a);
-	*z1 = *xe - dx;
-	*z2 = *xe+dx;
-	if (fabs(*z1) <= 1.0) *nz += 1;
-	if (fabs(*z2) <= 1.0) *nz += 1;
-	if (*z1 < -1.0) *z1 = *z2;
-    }
-
-    return(0);
-
-
-}
-
-
-
 
 double SinH(int year, int month, int day, double UT){
 
