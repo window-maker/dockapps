@@ -61,7 +61,7 @@
 /*
  *  Delay between refreshes (in microseconds)
  */
-#define DELAY 10000L
+#define DELAY 1000000L
 #define WMSUN_VERSION "1.03"
 
 #define DegPerRad       57.29577951308232087680
@@ -108,6 +108,8 @@ int main(int argc, char *argv[]) {
     long		CurrentLocalTime, CurrentGMTTime, date;
     double		UT, val, LTRise, LTSet, LocalHour, hour24();
     int			H, M;
+    struct timeval	timeout;
+    fd_set		xfdset;
 
 
 
@@ -254,6 +256,11 @@ int main(int argc, char *argv[]) {
 
 
 
+	/*
+	 *  Add X display to file descriptor set for polling.
+	 */
+	FD_ZERO(&xfdset);
+	FD_SET(ConnectionNumber(display), &xfdset);
 
 
 
@@ -285,7 +292,9 @@ int main(int argc, char *argv[]) {
 	 *  Redraw and wait for next update
 	 */
 	RedrawWindow();
-	usleep(DELAY);
+	timeout.tv_sec = DELAY / 1000000L;
+	timeout.tv_usec = DELAY % 1000000L;
+	select(ConnectionNumber(display) + 1, &xfdset, NULL, NULL, &timeout);
 
 
      }
