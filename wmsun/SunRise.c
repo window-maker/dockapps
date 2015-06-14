@@ -124,7 +124,7 @@ double SinH(int year, int month, int day, double UT){
     double	TU, frac(), jd();
     double	RA_Sun, DEC_Sun, gmst, lmst, Tau;
     double	M, DL, L, SL, X, Y, Z, RHO;
-    
+
 
     TU = (jd(year, month, day, UT+62.0/3600.0) - 2451545.0)/36525.0;
 
