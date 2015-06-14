@@ -10,7 +10,7 @@ double    cosEPS = 0.91748;
 double    sinEPS = 0.39778;
 double    P2  = 6.283185307;
 
-Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, double *z2, int *nz){
+int Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, double *z2, int *nz){
 
     double	a, b, c, d, dx;
 
@@ -36,7 +36,7 @@ Interp(double ym, double y0, double yp, double *xe, double *ye, double *z1, doub
 
 }
 
-SunRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
+void SunRise(int year, int month, int day, double LocalHour, double *UTRise, double *UTSet){
 
     double	UT, ym, y0, yp, SinH0;
     double	xe, ye, z1, z2, SinH(), hour24();
@@ -105,7 +105,7 @@ SunRise(int year, int month, int day, double LocalHour, double *UTRise, double *
 }
 
 
-UTTohhmm(double UT, int *h, int *m){
+void UTTohhmm(double UT, int *h, int *m){
 
 
     if (UT < 0.0) {

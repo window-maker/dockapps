@@ -98,7 +98,7 @@
 
 void ParseCMDLine(int argc, char *argv[]);
 void pressEvent(XButtonEvent *xev);
-SunRise(int year, int month, int day, double LocalHour, double *UTRise,
+void SunRise(int year, int month, int day, double LocalHour, double *UTRise,
 	double *UTSet);
 
 int	ToggleWindow = 0;
