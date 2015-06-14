@@ -120,16 +120,12 @@ UTTohhmm(double UT, int *h, int *m){
 
 double SinH(int year, int month, int day, double UT){
 
-    double	TU0, TU, TU2, TU3, LambdaMoon, BetaMoon, R, AGE, frac(), jd();
-    double	RA_Sun, DEC_Sun, T0, gmst, lmst, Tau, epsilon;
+    double	TU, frac(), jd();
+    double	RA_Sun, DEC_Sun, gmst, lmst, Tau;
     double	M, DL, L, SL, X, Y, Z, RHO;
     
 
-    TU0 = (jd(year, month, day, 0.0) - 2451545.0)/36525.0;
-
     TU = (jd(year, month, day, UT+62.0/3600.0) - 2451545.0)/36525.0;
-    TU2 = TU*TU;
-    TU3 = TU2*TU;
 
     M = P2*frac(0.993133 + 99.997361*TU);
     DL = 6893.0*sin(M) + 72.0*sin(2.0*M);
@@ -146,9 +142,7 @@ double SinH(int year, int month, int day, double UT){
      *  Compute Greenwich Mean Sidereal Time (gmst)
      */
     UT = 24.0*frac( UT/24.0 );
-/*
-    gmst = 6.697374558 + 1.0027379093*UT + (8640184.812866*TU0 +(0.093104-6.2e-6*TU)*TU2)/3600.0;
-*/
+
     gmst = 6.697374558 + 1.0*UT + (8640184.812866+(0.093104-6.2e-6*TU)*TU)*TU/3600.0;
     lmst = 24.0*frac( (gmst-Glon/15.0) / 24.0 );
 
@@ -167,7 +161,7 @@ double jd(ny, nm, nd, UT)
 int ny, nm, nd;
 double UT;
 {
-        double A, B, C, D, JD, MJD, day;
+        double A, B, C, D, JD, day;
 
         day = nd + UT/24.0;
 

@@ -126,14 +126,12 @@ int main(int argc, char *argv[]) {
 
     struct tm		*GMTTime, *LocalTime;
     XEvent		event;
-    int			i, n, k, j, ImageNumber;
-    int 		Year, Month, DayOfWeek, OldLocalDayOfMonth;
+    int			n;
+    int 		Year, Month, OldLocalDayOfMonth;
     int			LocalDayOfMonth,	DayOfMonth;
-    int			Hours, Mins, Secs, OldSecs, digit, xoff, xsize;
     long		CurrentLocalTime, CurrentGMTTime, date;
-    double		UT, val, RA, DEC, LTRise, LTSet, LocalHour, hour24();
-    int			D, H, M, S, sgn, A, B, q;
-    char		str[10];
+    double		UT, val, LTRise, LTSet, LocalHour, hour24();
+    int			H, M;
 
 
 
