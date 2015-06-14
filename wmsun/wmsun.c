@@ -103,8 +103,8 @@ int main(int argc, char *argv[]) {
     struct tm		*GMTTime, *LocalTime;
     XEvent		event;
     int			n;
-    int 		Year, Month, OldLocalDayOfMonth;
-    int			LocalDayOfMonth,	DayOfMonth;
+    int 		Year, Month;
+    int			DayOfMonth;
     long		CurrentLocalTime, CurrentGMTTime, date;
     double		UT, val, LTRise, LTSet, LocalHour, hour24();
     int			H, M;
@@ -135,7 +135,6 @@ int main(int argc, char *argv[]) {
      *  Loop until we die
      */
     n = 32000;
-    OldLocalDayOfMonth = -999;
     while(1) {
 
 
@@ -157,7 +156,7 @@ int main(int argc, char *argv[]) {
 	    struct tm result;
 
 	    n = 0;
-	    nMAX = 1000;
+	    nMAX = 60;
 
 
 	    CurrentGMTTime = time(CurrentTime);
@@ -171,9 +170,7 @@ int main(int argc, char *argv[]) {
 
 	    CurrentLocalTime = CurrentGMTTime;
 	    LocalTime = localtime_r(&CurrentLocalTime, &result);
-	    LocalDayOfMonth = LocalTime->tm_mday;
 
-	    if ((OldLocalDayOfMonth != LocalDayOfMonth)||(Flag)){
 
 		Flag = 0;
 
@@ -239,11 +236,6 @@ int main(int argc, char *argv[]) {
 		} else {
 	    	    copyXPMArea(10, 84, 28, 7, 19, 40);
 		}
-
-	    }
-
-	    OldLocalDayOfMonth = LocalDayOfMonth;
-
 
 	} else {
 
