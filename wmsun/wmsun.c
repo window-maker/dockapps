@@ -44,17 +44,18 @@
  *   Includes
  */
 #define _POSIX_C_SOURCE 1
-#include <stdio.h>
-#include <math.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <X11/X.h>
-#include <X11/xpm.h>
-#include "wmgeneral/wmgeneral.h"
-#include "wmSun_master.xpm"
-#include "wmSun_mask.xbm"
+#include <X11/X.h>                     /* for ButtonPress, ButtonRelease, etc */
+#include <X11/Xlib.h>                  /* for XEvent, ConnectionNumber, etc */
+#include <math.h>                      /* for cos, sin */
+#include <stdio.h>                     /* for printf, NULL */
+#include <stdlib.h>                    /* for atof, atoi, exit */
+#include <string.h>                    /* for strcmp */
+#include <sys/select.h>                /* for select, FD_SET, FD_ZERO, etc */
+#include <sys/time.h>                  /* for timeval */
+#include <time.h>                      /* for tm, gmtime_r, localtime_r, etc */
+#include "wmSun_mask.xbm"              /* for wmSun_mask_bits, etc */
+#include "wmSun_master.xpm"            /* for wmSun_master */
+#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, display, etc */
 
 
 

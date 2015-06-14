@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <math.h>
+#include <math.h>                      /* for sin, cos, fabs, sqrt, atan, etc */
 
 #define DegPerRad       57.29577951308232087680
 #define RadPerDeg        0.01745329251994329576
