@@ -124,13 +124,13 @@ void parse_rcfile(const char *filename, rckeys *keys) {
 		char temp[128];
 
 		while (fgets(temp, 128, fp)) {
-			char *q;
+			char *q, *saveptr;
 			char *tokens = " :\t\n";
 			int key;
 
 			key = 0;
 			q = strdup(temp);
-			q = strtok(q, tokens);
+			q = strtok_r(q, tokens, &saveptr);
 			if(!q)
 				continue;
 			while (key >= 0 && keys[key].label) {

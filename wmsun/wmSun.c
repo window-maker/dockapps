@@ -69,6 +69,7 @@
 /*
  *   Includes
  */
+#define _POSIX_C_SOURCE 1
 #include <stdio.h>
 #include <math.h>
 #include <unistd.h>
@@ -177,12 +178,14 @@ int main(int argc, char *argv[]) {
 	 *
 	 */
 	if (n>nMAX){
+	    struct tm result;
 
 	    n = 0;
 	    nMAX = 1000;
 
 
-            CurrentGMTTime = time(CurrentTime); GMTTime = gmtime(&CurrentGMTTime);
+	    CurrentGMTTime = time(CurrentTime);
+	    GMTTime = gmtime_r(&CurrentGMTTime, &result);
 	    DayOfMonth = GMTTime->tm_mday;
 
 	    UT = GMTTime->tm_hour + GMTTime->tm_min/60.0 + GMTTime->tm_sec/3600.0;
@@ -190,7 +193,8 @@ int main(int argc, char *argv[]) {
 	    Month = GMTTime->tm_mon+1;
 
 
-	    CurrentLocalTime = CurrentGMTTime; LocalTime = localtime(&CurrentLocalTime);
+	    CurrentLocalTime = CurrentGMTTime;
+	    LocalTime = localtime_r(&CurrentLocalTime, &result);
 	    LocalDayOfMonth = LocalTime->tm_mday;
 
 	    if ((OldLocalDayOfMonth != LocalDayOfMonth)||(Flag)){
