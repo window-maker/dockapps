@@ -34,32 +34,6 @@
  *                       Second click brings up buttons to change lat/lon.
  *                       Third goes back to display
  *                       Set time delay to go back to display if user doesnt do it...
- *
- *
- *
- *
- *
- *      Changes:
- *
- * 	Version 1.03 - released February 4, 1999.
- *                     cosmetic for AfterStep users. removed spurious black line at RHS edge an mask.
- *
- *
- *	Version 1.02 - released January 12, 1999.
- *		       Added support for User-specified date and Time difference so that
- *		       you can have the display be correct in local time even for remote
- *                     lat/lons. (I am in Hawaii right now. I dont want to reset the time on
- *                     my laptop, so with these new options I can still get the correct
- *                     local times of rise/set. Sunset is awesome here in Kona!!! And the calcs
- *                     seem to be quite good -- it's a good test here because the Sun sets over
- *                     the Pacific (no mountains are in the way)).
- *
- *	Version 1.01 - released January 6, 1999.
- *                     Fixed stupid bug in Date change montior.
- *
- *	Version 1.0 - released January 5, 1999.
- *
- *
  */
 
 
