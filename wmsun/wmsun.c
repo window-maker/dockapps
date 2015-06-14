@@ -1,6 +1,6 @@
 /*
  *
- *  	wmSun-1.03 (C) 1999 Mike Henderson (mghenderson@lanl.gov)
+ *  	wmSun (C) 1999 Mike Henderson (mghenderson@lanl.gov)
  *
  *  		- Shows Sun Rise/Set Times....
  *
@@ -63,7 +63,7 @@
  *  Delay between refreshes (in microseconds)
  */
 #define DELAY 1000000L
-#define WMSUN_VERSION "1.03"
+#define WMSUN_VERSION "1.04"
 
 #define DegPerRad       57.29577951308232087680
 #define RadPerDeg        0.01745329251994329576
