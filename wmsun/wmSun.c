@@ -77,7 +77,7 @@
 #include <time.h>
 #include <X11/X.h>
 #include <X11/xpm.h>
-#include "../wmgeneral/wmgeneral.h"
+#include "wmgeneral/wmgeneral.h"
 #include "wmSun_master.xpm"
 #include "wmSun_mask.xbm"
 

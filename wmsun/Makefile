@@ -18,7 +18,7 @@ LIBS   = -lXpm -lX11 -lXext
 # LIBS   = -lXpm -lX11 -lXext -lsocket
 
 
-OBJS   = wmSun.o SunRise.o ../wmgeneral/wmgeneral.o
+OBJS   = wmSun.o SunRise.o wmgeneral/wmgeneral.o
 
 
 .c.o:
