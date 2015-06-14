@@ -42,6 +42,7 @@ void SunRise(int year, int month, int day, double LocalHour, double *UTRise, dou
     double	xe, ye, z1, z2, SinH(), hour24();
     int		Rise, Set, nz;
 
+    (void) LocalHour;
     SinH0 = sin( -50.0/60.0 * RadPerDeg );
 
 

@@ -365,6 +365,7 @@ void ParseCMDLine(int argc, char *argv[]) {
  */
 void pressEvent(XButtonEvent *xev){
 
+   (void) xev;
    ++ToggleWindow;
    if (ToggleWindow > 4) ToggleWindow = 0;
    Flag = 1;
