@@ -108,6 +108,7 @@ int	UseUserTimeDiff = 0;
 int	UseUserDate = 0;
 long	UserDate;
 double 	Glat, Glon, SinGlat, CosGlat, TimeZone, UserTimeDiff;
+int	TwelveHour = 0;
 
 
 int	xDigit[11] = {8, 18, 27, 37, 46, 55, 64, 74, 83, 92, 102};
@@ -225,6 +226,11 @@ int main(int argc, char *argv[]) {
 		if (LTRise > 0.0){
 	    	    val = LTRise;
 	    	    H = (int)val; val = (val-H)*60.0;
+		    if (TwelveHour) {
+			H = H % 12;
+			if (H == 0)
+			    H = 12;
+		    }
 	    	    M = (int)val;
 	    	    copyXPMArea(xDigit[H/10], 73, 7, 9, 17, 13);
 	    	    copyXPMArea(xDigit[H%10], 73, 7, 9, 17+7, 13);
@@ -239,6 +245,11 @@ int main(int argc, char *argv[]) {
 		if (LTSet > 0.0){
 	    	    val = LTSet;
 	    	    H = (int)val; val = (val-H)*60.0;
+		    if (TwelveHour) {
+			H = H % 12;
+			if (H == 0)
+			    H = 12;
+		    }
 	    	    M = (int)val;
 	    	    copyXPMArea(xDigit[H/10], 73, 7, 9, 17, 40);
 	    	    copyXPMArea(xDigit[H%10], 73, 7, 9, 17+7, 40);
@@ -347,6 +358,10 @@ void ParseCMDLine(int argc, char *argv[]) {
 	    UseUserDate = 1;
 	    UserDate = atoi(argv[++i]);
 
+	} else if (!strcmp(argv[i], "-12")){
+
+	    TwelveHour = 1;
+
 	} else {
 	    printf("\nwmSun version: %s\n", WMSUN_VERSION);
 	    printf("\nusage: wmSun [-display <Display>] [-lat <Latitude>] [-lon <Longitude>] [-h]\n\n");
@@ -355,6 +370,7 @@ void ParseCMDLine(int argc, char *argv[]) {
 	    printf("\t-lat <Latitude>\t\tObservers Latitude. Positive to the west.\n");
 	    printf("\t-lon <Longitude>\tObservers Longitude.\n");
 	    printf("\t-td <Delta Time>\tUser defined difference between UT an LT (hrs).\n");
+	    printf("\t-12\t\t\tUse 12-hour clock.\n");
 	    printf("\t-h\t\t\tDisplay help screen.\n\n");
 	    exit(1);
 	}
