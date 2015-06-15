@@ -1,6 +1,7 @@
 [AlsaMixer.app]
 image = AlsaMixer.app.png
 description = "AlsaMixer.app is simple mixer application for Linux with ALSA drivers (>= 0.9.x)."
+hosted = 1
 url =
 dockapps = 253
 category = Audio
@@ -8,6 +9,7 @@ category = Audio
 [libdockapp]
 image = libdockapp.png
 description = "Simple library that eases the creation of Window Maker dock apps. It provides functions that set up a dock app in such a way that they can be properly docked. It also provides some event handlers and makes it very simple to write dockapps."
+hosted = 1
 url = "https://web.archive.org/web/20070403030810/http://solfertje.student.utwente.nl/~dalroi/libdockapp/"
 dockapps =
 category = Libraries
@@ -15,6 +17,7 @@ category = Libraries
 [Temperature.app]
 image = "Temp-app.png,Temperature.gif"
 description = "Temperature.app is a Window Maker applet which fetches local temperature information every 15 minutes from http://weather.noaa.gov and displays it (in Celsius or Fahrenheit)."
+hosted = 1
 url = "https://web.archive.org/web/20071020004554/http://www.fukt.hk-r.se/~per/temperature/"
 dockapps = 86
 category = General/Others
@@ -22,6 +25,7 @@ category = General/Others
 [wmMatrix]
 image = wmMatrix.gif
 description = "A DockApp thats runs a slightly modified version of Jamie Zawinski's xmatrix screenhack."
+hosted = 1
 url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
 dockapps = 10
 category = Date/Time
@@ -34,6 +38,7 @@ description = "* Current CPU utilization of up to two CPUs
 * Current memory usage
 * Current swap usage
 * Currently supports Linux kernel 2.2, 2.4 and 2.6"
+hosted = 1
 url = "http://lancre.ribbrock.org/en/binabit_en/wmsmpmon_en.html"
 dockapps = 299
 category = System Monitoring
@@ -41,6 +46,7 @@ category = System Monitoring
 [wmacpi]
 image = wmacpi.gif
 description = "This is port of WMApm 1.1 (see below) with ACPI support. Check README, and please report success/failure issues to me. Since I can't determine "time remaining" from the information provided, its value has been replaced with "system power load", which is roughly how much power is being used while on-battery. Note, this (for now) only supports laptops with one system battery. I am working with kernel acpi people to standartize power reporting interface, and when it's usable, WMApm will be updated to support any number of batteries, and provide full information about ACPI power sources. Right now, all I can say is that it works on my laptop :)"
+hosted = 1
 url = "https://web.archive.org/web/20140630032948/http://himi.org/wmacpi/"
 dockapps = 32
 category = System Monitoring
@@ -48,6 +54,7 @@ category = System Monitoring
 [wmacpi-ng]
 image = wmacpi.gif
 description = "wmacpi-ng was a fork of <a href=\"?name=wmacpi\">wmacpi</a>.  Eventually, wmacpi-ng was blessed as the official version of wmacpi."
+hosted = 1
 url = "https://web.archive.org/web/20140630032948/http://himi.org/wmacpi/"
 dockapps =
 category = System Monitoring
@@ -55,6 +62,7 @@ category = System Monitoring
 [wmacpiload]
 image = wmacpiload1.png
 description = "An app for monitoring CPU temp and battery time from ACPI. In the style of wmcpuload and wmapmload"
+hosted = 1
 url =
 dockapps = 168
 category = System Monitoring
@@ -62,6 +70,7 @@ category = System Monitoring
 [wmauda]
 image = x1.miff.png
 description = "This is a port of wmxmms to GTK 2.x and Audacious."
+hosted = 1
 url =
 dockapps = 330
 category = Audio
@@ -71,6 +80,7 @@ image = wmbatteries.gif
 description = "wmbatteries - a dockapp based on wmacpiload.
 monitors up to 2 battery capacities, remaining time, current power consumption and cpu temperature.
 requires recent acpi kernel"
+hosted = 1
 url =
 dockapps = 216
 category = System Monitoring
@@ -78,6 +88,7 @@ category = System Monitoring
 [wmbattery]
 image = wmbattery.gif
 description = "Wmbattery displays the status of your laptop's battery in a small icon. This includes if it is plugged in, if the battery is charging, how many minutes of battery life remain, battery life remaining (with both a percentage and a graph), and battery status (high - green, low - yellow, or critical - red)."
+hosted = 1
 url = http://joeyh.name/code/wmbattery/
 dockapps = 34
 category = System Monitoring
@@ -93,6 +104,7 @@ incoming Licq messages, so you can put Licq in the background.
 .
 At this moment, wmbiff supports unix-style, maildir, pop3, APOP, IMAP
 and IMAPS mailboxes, as well as Licq and GnomeICU history files."
+hosted = 1
 url = "http://wmbiff.sourceforge.net/"
 dockapps = 97
 category = E-mail
@@ -103,6 +115,7 @@ description = "Wmbuttons is simple little application that I wrote (and am in th
 
 
 Wmbutton is a 64x64 pixel application that displays nine buttons. Each of these buttons can be configured via a configuration file to run just about any application you'd like to. Basically, if you can type it in a shell command, wmbutton can run it. The graphics of in each button may, of course, be changed as well. "
+hosted = 1
 url = "https://web.archive.org/web/20040417092638/http://members.cox.net/ehf_dockapps/"
 dockapps = 241
 category = General/Others
@@ -114,6 +127,7 @@ you're not familiar with these windowmanagers, check them out in the links secti
 
 Wmcalc is a 64x64 pixel application that performs all the functions (and eventually more) of a simple four function calculator. It includes a 10 digit
 alpha-numeric display, and twenty buttons for user input. Clicking on the display will clear the calculator. "
+hosted = 1
 url = "https://web.archive.org/web/20040417092638/http://members.cox.net/ehf_dockapps/"
 dockapps = 130
 category = General/Others
@@ -121,6 +135,7 @@ category = General/Others
 [wmCalClock]
 image = wmCalClock4.gif
 description = "A Calendar clock with antialiased text."
+hosted = 1
 url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
 dockapps = 9
 category = Date/Time
@@ -128,6 +143,7 @@ category = Date/Time
 [wmcalendar]
 image = wmcalendar.png
 description = "A dockapp calendar with monthly view and interface to iCalendar based calendars like Ximian Evolution or Mozilla calendar."
+hosted = 1
 url = "http://wmcalendar.sourceforge.net/"
 dockapps = 171
 category = Date/Time
@@ -135,6 +151,7 @@ category = Date/Time
 [wmcdplay]
 image = "wmcdplay1.gif,wmcdplay2.gif,wmcdplay3.gif,wmcdplay4.gif"
 description = "A dock applet for playing CDs.  Artwork files allow you to customize the look-and-feel of wmcdplay."
+hosted = 1
 url = "http://web.archive.org/web/20000604201402/http://www.geocities.com/SiliconValley/Vista/2471/wmcdplay.html"
 dockapps =
 category = Audio
@@ -144,6 +161,7 @@ image = "wmckgmail-screenshot.jpg,wmckgmail-screenshot2.jpg"
 description = "wmckgmail is a very simple program used to monitor the number of unread mails in a gmail inbox. It uses the wget command to get the gmail atom feed and reads the number of new mails from this feed.
 
 This app is based on the wmgeneral code."
+hosted = 1
 url =
 dockapps = 316
 category = E-mail
@@ -151,6 +169,7 @@ category = E-mail
 [wmcliphist]
 image = wmcliphist.gif
 description =  "wmcliphist is a dockable application for Window Maker. It keeps a history of clipboard operations and allows you to put previously copied items back to clipboard for pasting to other applications."
+hosted = 1
 url = http://linux.nawebu.cz/wmcliphist/
 dockapps =
 category = General/Others
@@ -158,6 +177,7 @@ category = General/Others
 [wmclock]
 image = wmclock.png
 description = "wmclock is an applet which displays the date and time in a dockable tile in the same style as the clock from the NEXTSTEP(tm) operating system. wmclock is specially designed for the Window Maker window manager, by Alfredo Kojima, and features multiple language support, twenty-four-hour and twelve-hour (am/pm) time display, and, optionally, can run a user-specified program on a mouse click. wmclock is derived from ASClock (now called ASClock classic), a similar clock for the AfterStep window manager."
+hosted = 1
 url = http://www.bluestop.org/wmclock/
 dockapps = 202
 category = Date/Time
@@ -169,6 +189,7 @@ description = "wmcpufreq displays on a windowmaker dock application
 - the driver in green
 - the active governor in red
 Included a tool for setting governor an maximum or minimum frequency."
+hosted = 1
 url =
 dockapps = 309
 category = System Monitoring
@@ -176,6 +197,7 @@ category = System Monitoring
 [wmcpuload]
 image = "wmcpuload2.png,wmcpuload3.png"
 description = "A simple program to monitor CPU usage."
+hosted = 1
 url = https://web.archive.org/web/20080505022830/http://seiichisato.jp/dockapps/
 dockapps = 36
 category = System Monitoring
@@ -185,6 +207,7 @@ category = System Monitoring
 image = wmfemon.png
 description = "WindowMaker DVB frontend monitor dock applet.
 Tested with skystar2. "
+hosted = 1
 url =
 dockapps = 338
 category = System Monitoring
@@ -192,6 +215,7 @@ category = System Monitoring
 [wmfsm]
 image = wmfsm.png
 description = "Nice graphical 'df', showing you to what degree the mounted filesystems are used."
+hosted = 1
 url = "https://web.archive.org/web/20050202220830/http://www.cs.ubc.ca/~cmg/"
 dockapps = 100
 category = System Monitoring
@@ -199,6 +223,7 @@ category = System Monitoring
 [wmfu]
 image = wmfu-1.0.png
 description = "wmfu displays all sorts of information about your Linux (laptop) system. It is designed for WindowMaker, but can also be run in other window managers. It does not need external custom libraries, but does need a recent kernel, since it uses ACPI and proc/sys pseudo-filesystems to read system data."
+hosted = 1
 url =
 dockapps = 329
 category = System Monitoring
@@ -206,6 +231,7 @@ category = System Monitoring
 [wmifinfo]
 image = led.gif
 description = "wmifinfo is a simple applet showing basic network info for all available interfaces. It shows IP address, netmask, gateway and MAC address. A bit like ifconfig."
+hosted = 1
 url = http://zevv.nl/play/code/wmifinfo/
 dockapps = 72
 category = Network
@@ -217,6 +243,7 @@ it's designed for Window Maker's dock, but of course, it works with other
 windowmanagers too :)
 
 Oh BTW, WMiFS means 'Window Maker InterFace Statistics';-)"
+hosted = 1
 url = https://web.archive.org/web/19990224233117/http://windowmaker.mezaway.org/dockapps/wmifs.html
 dockapps =
 category = Network
@@ -225,6 +252,7 @@ category = Network
 image = wmitime1.jpg
 description = "WMitime is yet another clock dock app (and quite overglorified at that! :)
 it shows standard time, date, as well as the new internet time (see www.swatch.com)"
+hosted = 1
 url = https://web.archive.org/web/20040204094101/http://www.neotokyo.org/illusion/dock_apps.html
 dockapps = 22
 category = Date/Time
@@ -232,6 +260,7 @@ category = Date/Time
 [wmix]
 image = "wmix.gif,wmix-3.2.jpg"
 description = "Dockapp mixer for OSS or ALSA. Allows toggling record source, muting individual channels, adjusting volume and balance, all in a compact dockapp size, with TV-like on-screen-display for volume levels. Supports mousewheel to adjust current channel volume, and can be controlled remotely with SIGUSR1 / SIGUSR2 to adjust the volume, too. Can use a configuration file to control some of the features."
+hosted = 1
 url = http://www.ne.jp/asahi/linux/timecop/
 dockapps = 58
 category = Audio
@@ -239,6 +268,7 @@ category = Audio
 [wmkeys]
 image = wmkeys.png
 description = "wmkeys is a Window Maker and AfterStep dock app which allows you to quickly switch between different X keymaps, for example QWERTY and Dvorak. The source includes QWERTY and Dvorak keymappings. Other keymappings can be made with JWZ's xkeycaps."
+hosted = 1
 url = http://www.goesgens.de/wmkeys.html
 dockapps = 215
 category = General/Others
@@ -246,6 +276,7 @@ category = General/Others
 [wmload]
 image = wmload.gif
 description = "WMLoad is a dockable CPU meter."
+hosted = 1
 url =
 dockapps =
 category = System Monitoring
@@ -253,6 +284,7 @@ category = System Monitoring
 [wmmemload]
 image = wmmemload-bgreen.thumbnail.png
 description =  "WindowMaker dockapp to monitor memory and swap usage.  wmmemload displays the current memory and swap usage as a percentage value. It is based on wmcpuload and wmmemmon, and as such looks very nice alongside those.  wmmemload is designed to work with the WindowMaker dock, but will work with other window managers as well."
+hosted = 1
 url = https://web.archive.org/web/20080516180755/http://www.markstaggs.net/wmmemload/
 dockapps =
 category = System Monitoring
@@ -262,6 +294,7 @@ image = wmmenu.png
 description = "Provide a popup menu of icons for WindowMaker like in AfterStep, as a dockable application. It is not as powerful as there is only one menu level, but I think it is sufficient, since you can make multiple separate menus.
 
 The program can be run more than once at the same time, which allows as much different menus, each one described in a separate file. The description simply consists in a suite of lines containing the pixmap name and the shell command to run, with the first line giving the dock image and the menu's title (will be used later). The menu automatically pops up to the right or left depending on the on-screen position."
+hosted = 1
 url = https://web.archive.org/web/20110720231607/http://www.fcoutant.freesurf.fr/wmmenu.html
 dockapps =
 category = General/Others
@@ -281,6 +314,7 @@ channel.
 There's nothing in the program that makes it require WindowMaker, except maybe
 the NeXTStep look and the fact that it properly docks. It can be used with
 other window managers without problems."
+hosted = 1
 url =
 dockapps = 101
 category = Audio
@@ -288,6 +322,7 @@ category = Audio
 [wmmixer-alsa]
 image = wmmixer-alsa.gif
 description = "A hack of WMMixer to use the ALSA sound drivers."
+hosted = 1
 url = "https://web.archive.org/web/20050311202958/http://bohemians.org/~iznogood/wmmixer-alsa/"
 dockapps = 63
 category = Audio
@@ -305,6 +340,7 @@ description = "Window Maker dockapp for monitoring system information WMMon moni
    * realtime memory and swap usage meters;
    * a display for system uptime;
    * three user-defined commands to launch."
+hosted = 1
 url =
 dockapps =
 category = System Monitoring
@@ -312,6 +348,7 @@ category = System Monitoring
 [wmmoonclock]
 image = wmMoonClock5.png
 description = "Shows lunar ephemeris to fairly high accuracy."
+hosted = 1
 url =  "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
 dockapps = 14
 category = General/Others
@@ -319,6 +356,7 @@ category = General/Others
 [wmnet]
 image = wmnet.gif
 description = "WMnet is a little X dock.app network monitor I wrote for Linux. It was originally inspired by that funky program 'tleds' that blinks your keyboard LED's in response to net traffic, but its a lot more entertaining than that nowadays. I wrote this thing with low cpusage, low memory, and efficient use of screen real-estate in mind."
+hosted = 1
 url = https://web.archive.org/web/20050403180151/http://www.digitalkaos.net/linux/wmnet/
 dockapps = 77
 category = Network
@@ -326,6 +364,7 @@ category = Network
 [wmnotify]
 image = mailbox2.png
 description = "Wmnotify is an E-mail checker for a single POP3 or IMAP4 mailbox, with optional SSL encryption. Notification of new messages is done with a simple graphics animation and/or by playing a sound (WAV or AIFF format)."
+hosted = 1
 url = "http://www.hugovil.com/projet.php?proj=wmnotify&lang=en_US"
 dockapps = 163
 category = E-mail
@@ -341,6 +380,7 @@ wmpager offers the following features:
 * automagic adjustment to the currently active workspace (if you happen to switch workspaces using the keyboard or some other Window Maker means)
 * configurable look and feel to match your Window Maker theme
 * tooltips for the workspace names (if you happen to have to many workspaces and can't remember which is which ;-))"
+hosted = 1
 url = http://wmpager.sourceforge.net/
 dockapps = 109
 category = General/Others
@@ -348,6 +388,7 @@ category = General/Others
 [wmpower]
 image = wmpower.gif
 description = "wmpower is a Window Maker dock application for linux allowing the user to graphically see (and set) the power management status of his laptop. It supports both APM and ACPI kernels, plus it interfaces directly to toshiba hardware (but should work with every laptop)."
+hosted = 1
 url = http://wmpower.sourceforge.net/
 dockapps = 164
 category = System Monitoring
@@ -356,6 +397,7 @@ category = System Monitoring
 image = wmppp.jpg
 description = "PPP dial control and network load monitor with NeXTStep look
 wmppp.app provides a PPP activator and network load monitor on a 64x64 mini window. With wmppp you can monitor the total traffic as well as the outbound and inbound traffic. It is designed to work with the WindowMaker dock, but will work great with other window managers as well."
+hosted = 1
 url =
 dockapps = 99
 category = Network
@@ -363,6 +405,7 @@ category = Network
 [wmshutdown]
 image = wmShutdown.gif
 description = "A Window Maker Dock App for Shutting Down your machine."
+hosted = 1
 url = "https://web.archive.org/web/20051103070148/http://grad.icmc.usp.br/~rva/wmShutdown.html"
 dockapps = 49
 category = General/Others
@@ -370,6 +413,7 @@ category = General/Others
 [wmsm.app]
 image = wmsm1.png
 description = "WindowMaker System Monitor"
+hosted = 1
 url =
 dockapps = 208
 category = System Monitoring
@@ -377,6 +421,7 @@ category = System Monitoring
 [wmsmixer]
 image = ss-wmsmixer2.png
 description = "This is a hack to wmmixer which makes some changes to the display and adds a few new features, most notably scrollwheel support."
+hosted = 1
 url = https://web.archive.org/web/20050404084709/http://www.hibernaculum.net/wmsmixer.html
 dockapps = 63
 category = Audio
@@ -384,6 +429,7 @@ category = Audio
 [wmsun]
 image = wmSun.gif
 description = "Rise/Set time of Sun."
+hosted = 1
 url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
 dockapps = 16
 category = General/Others
@@ -404,6 +450,7 @@ Can be used to monitor
 10. battery status (with actual - not guessed - discharge rate!)
 11. traffic from yuor router
 12. anything else :) "
+hosted = 1
 url =
 dockapps = 320
 category = System Monitoring
@@ -423,6 +470,7 @@ It currently provides:
 * localization, displaying the day and date in various languages;
 
 * three user-defined commands to launch."
+hosted = 1
 url = https://web.archive.org/web/19991104043355/http://windowmaker.mezaway.org/dockapps/wmtime.html
 dockapps = 324
 category = Date/Time
@@ -430,6 +478,7 @@ category = Date/Time
 [wmtv]
 image = wmtv.png
 description = "Dockable video4linux TV player for WindowMaker"
+hosted = 1
 url = "https://web.archive.org/web/20000831082905/http://www.student.uwa.edu.au/~wliang/"
 dockapps =
 category = General/Others
@@ -437,6 +486,7 @@ category = General/Others
 [wmtz]
 image = wmtz.jpg
 description = "wmtz displays the time in different time zones as defined in it's configuration file. It can also display the current Julian Day Number, sidereal time and swatch beats."
+hosted = 1
 url = https://web.archive.org/web/20091027110712/http://geocities.com/jl1n/wmtz/wmtz.html
 dockapps = 24
 category = Date/Time
@@ -444,6 +494,7 @@ category = Date/Time
 [wmWeather]
 image = wmWeather.gif
 description = "Shows local weather conditions."
+hosted = 1
 url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
 dockapps = 17
 category = General/Others
@@ -452,6 +503,7 @@ category = General/Others
 image = wmwifi-screenshot-0.5.gif
 description = "wmwifi is a wireless network interface monitor dockapp for the Window Maker desktop. It is designed to fit well with dockapps like wmcpuload and wmnetload.
 wmwifi relys on the Wireless Exntension being enabled in the kernel."
+hosted = 1
 url = "https://web.archive.org/web/20080723160021/http://wmwifi.digitalssg.net/"
 dockapps = 222
 category = Network
@@ -459,6 +511,7 @@ category = Network
 [wmwlmon]
 image = wmwlmon.png
 description = "wmwlmon is a wmdockapp which shows the state of a wireless network interface. In the title you see the network interface name and a led showing if the interface link is active. As next you see the signal strength from the conntected access point in dB (decibel). The bar shows the signal strength in percents. If the bar is full, it means that you have the full throughput of the bandwidth displayed in Mbps. As next you see the channel number. A red lock shines if WEP is enabled. The last line shows the network id."
+hosted = 1
 url = http://www.nazgul.ch/dev_wmwlmon.html
 dockapps =
 category = Network
