@@ -381,6 +381,13 @@ url = https://web.archive.org/web/20050404084709/http://www.hibernaculum.net/wms
 dockapps = 63
 category = Audio
 
+[wmsun]
+image = wmSun.gif
+description = "Rise/Set time of Sun."
+url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
+dockapps = 16
+category = General/Others
+
 [wmsupermon]
 image = "wmsupermon1.png,wms122.gif,wmsupermon122.gif"
 description = "Universal Monitoring Dockapp.
