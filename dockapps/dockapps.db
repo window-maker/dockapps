@@ -283,6 +283,14 @@ url =
 dockapps = 338
 category = System Monitoring
 
+[wmforecast]
+image = wmforecast.png
+description = "A weather dockapp for Window Maker using the Yahoo Weather API."
+hosted = 0
+url = https://github.com/d-torrance/wmforecast
+dockapps =
+category = General/Others
+
 [wmfsm]
 version-0.35+20150614 = 3186ede037e8276d2f7b393ec83da20a84e7b632
 version-0.35 = 9bd29e4b921c53d9d1c70eb164dbd858f4580ecb
@@ -565,6 +573,15 @@ url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/W
 dockapps = 16
 category = General/Others
 
+[wmstickynotes]
+version-0.1 = 144b28f85dc3f7fb70547b36ddf7469facb9b3b6
+image = wmstickynotes.png
+description = "This program is a Window Maker style dockapp which allows you to create note windows.  By default, the notes, along with their position, size, and color, are stored in files and will be restored when wmstickynotes is run again."
+hosted = 0
+url = https://sourceforge.net/projects/wmstickynotes/
+dockapps =
+category = General/Others
+
 [wmsupermon]
 version-1.2.2+20141005 = dd46bda63d1020ce61a09f26ee044d6b030edc8f
 version-1.2.2 = c2fa6a3698bd6f4769ba152b4056ffd3af7fa9db
@@ -632,6 +649,17 @@ hosted = 1
 url = https://web.archive.org/web/20091027110712/http://geocities.com/jl1n/wmtz/wmtz.html
 dockapps = 24
 category = Date/Time
+
+[wmweather+]
+version-2.12 = 4a09f802559f102ef823acd1b1a0093a55741fc6
+image = "wmweather+.png,wmweather+2.png,wmweather+4.png"
+description = "wmweather+ will download the National Weather Serivce METAR bulletins, ANV and MRF forecasts, and any weather map for display in a WindowMaker dockapp. Think wmweather with a smaller font, forecasts, a weather map, and a sky condition display.
+
+Please see the sourceforge page for the latest version."
+hosted = 0
+url = https://sourceforge.net/projects/wmweatherplus/
+dockapps = 112
+category = General/Others
 
 [wmWeather]
 version-1.31+20141005 = cad4dab5fc946b564269dab4152f34ebf894d0fa
