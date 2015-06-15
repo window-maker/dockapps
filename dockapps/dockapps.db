@@ -35,7 +35,7 @@ dockapps = 10
 category = Date/Time
 
 [wmSMPmon]
-version-3.1+20150527 = ee11e5de0d97c948afb0e408268db4bb4e9240e0
+version-3.1+20150614 = 53985f20c618082473ca7f138905be98e2e40efd
 version-3.1 = 573f183185747f9427a0d21b234aba5f1f8bbf41
 image = wmSMPmon-SMP_style1.jpg
 description = "* Current CPU utilization of up to two CPUs
@@ -198,7 +198,7 @@ dockapps =
 category = Audio
 
 [wmckgmail]
-version-1.1+20150527 = d92dbbdfeef5956996af2fbdf17985973087b593
+version-1.1+20150614 = ad78bfa7ce7912dd193d43572084b24d4672d132
 version-1.1 = 0daf87ea4f81433819245f95ed022d7837fb42c8
 image = "wmckgmail-screenshot.jpg,wmckgmail-screenshot2.jpg"
 description = "wmckgmail is a very simple program used to monitor the number of unread mails in a gmail inbox. It uses the wget command to get the gmail atom feed and reads the number of new mails from this feed.
@@ -227,7 +227,7 @@ dockapps = 202
 category = Date/Time
 
 [wmcpufreq]
-version-3.1+20150527 = 206225879f3e7ab1669069e151acab246a96a624
+version-3.1+20150614 = 60ef2e1c8101367ad97a8197d82c2b8f76f781ab
 version-3.1 = 53d0a8fd93d811a9a3f4a2bfb67133f38930cc85
 version-3.0 = ca477c635903252c7c6e150e21eacc4b2bd015b7
 image = "cp3.png,wmcpufre2.qpng.png,wmcpufreq.png"
@@ -261,7 +261,7 @@ dockapps = 338
 category = System Monitoring
 
 [wmfsm]
-version-0.35+20150527 = c87d3938a93370da192d2a85681029bec18f0ad4
+version-0.35+20150614 = 3186ede037e8276d2f7b393ec83da20a84e7b632
 version-0.35 = 9bd29e4b921c53d9d1c70eb164dbd858f4580ecb
 version-0.34 = fa3a329d866128a901ae468944ab6b5a46b3bee7
 image = wmfsm.png
@@ -292,6 +292,7 @@ dockapps = 72
 category = Network
 
 [wmifs]
+version-1.5+20150614 = 0b3bcbff2d393ef80fd737683005e6a6ad70b0f4
 version-1.5 = 4128ba27446478e714619062930ace930cc46e8b
 version-1.4 = 667077ad937a814152f5c1d5b72115654ede9f44
 version-1.3b1 = 4241b86c9b50654e9a47c8271e471e122ece328a
@@ -306,7 +307,7 @@ dockapps =
 category = Network
 
 [wmitime]
-version-0.4+20150527 = a1e7a8feae77f644650858f29056260bbe24dabe
+version-0.4+20150614 = f05a3d299ca0e34b502cedb8e20b36f78b6141ea
 version-0.4 = 49fa1f6a55e22ad45f2121273e1631c62e642c6d
 version-0.3 = bf32df76ae6ae945f02428fff7a9b269c82f32f6
 image = wmitime1.jpg
@@ -327,7 +328,7 @@ dockapps = 58
 category = Audio
 
 [wmkeys]
-version-0.1+20150527 = 95a727ddad09dbecc5f35416351a98f99b68e58c
+version-0.1+20150614 = 7532420942e76cdab97ee96fbab599237115ec1e
 version-0.1 = 54d1397485d952592104876aab2c72052c8dca4b
 image = wmkeys.png
 description = "wmkeys is a Window Maker and AfterStep dock app which allows you to quickly switch between different X keymaps, for example QWERTY and Dvorak. The source includes QWERTY and Dvorak keymappings. Other keymappings can be made with JWZ's xkeycaps."
@@ -398,7 +399,7 @@ dockapps = 63
 category = Audio
 
 [wmmon]
-version-1.2b1+20150527 = 02690cde186eeba401a84f04dff5c0c78a44e0c9
+version-1.2b1+20150614 = af4ea98aa69d52e33801d6352083025d894ff1d0
 version-1.2b1 = 1f7dc4736465673ee36dc3fa22cdf4f4aea822c4
 version-1.0b2 = 26794d80270124f3e39a036503b3edc3284c7f74
 image = wmmon.gif
@@ -472,7 +473,7 @@ dockapps = 164
 category = System Monitoring
 
 [wmppp.app]
-version-1.3.1+20150527 = 7b5862da2b9fff4b7ab2166bd879ba273998df13
+version-1.3.1+20150614 = 041387dbe4cc3edc3126dc0f08fa8d9c8a8b3e20
 version-1.3.1 = 8461cce2c346b913e92d2d8d72ca239c5f0e279e
 version-1.3.0 = ce6a2505fafc92acfb2d2f6b17cd7f7e52b5d241
 image = wmppp.jpg
@@ -492,7 +493,7 @@ dockapps = 49
 category = General/Others
 
 [wmsm.app]
-version-0.2.1+20150527 = f744692c412e6c2078098ae36549e67f571c6b84
+version-0.2.1+20150614 = f9a6f5d6e9bf0802a116103001d72b8355b2c208
 version-0.2.1 = ead2cf748468ac35858450a7ec38f2f560168b5d
 image = wmsm1.png
 description = "WindowMaker System Monitor"
@@ -508,6 +509,15 @@ description = "This is a hack to wmmixer which makes some changes to the display
 url = https://web.archive.org/web/20050404084709/http://www.hibernaculum.net/wmsmixer.html
 dockapps = 63
 category = Audio
+
+[wmsun]
+version-1.04 = d2da72b85da82ef14af8aaf51ae6779b949b9cc0
+version-1.03 = 7ef62d15e754d9095c5340465b7dc84ed8d90be5
+image = wmSun.gif
+description = "Rise/Set time of Sun."
+url = "https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml"
+dockapps = 16
+category = General/Others
 
 [wmsupermon]
 version-1.2.2+20141005 = dd46bda63d1020ce61a09f26ee044d6b030edc8f
@@ -532,7 +542,7 @@ dockapps = 320
 category = System Monitoring
 
 [wmtime]
-version-1.3+20150527 = 60684367c659ad09f695b769501cdd3c4104500f
+version-1.3+20150614 = 8e70cc6fc3d9e907b0650d9e6d36450cd2ee3121
 version-1.3 = d87af19195e66748338aee7cdc8951dc22d3fad9
 version-1.2 = 62029f244a9e03250dd846a0d75d692cbd9da683
 version-1.1 = 41744c0d145f064c961989e2650a279b59e27518
@@ -565,7 +575,7 @@ dockapps =
 category = General/Others
 
 [wmtz]
-version-0.7+20150527 = ed85e65d28b67ed6162f92e5efe500085d3d44ad
+version-0.7+20150614 = 9b731f5e17069c7ce19b089ba0bcafa43e5d5ff7
 version-0.7 = 4746377212cee072e0629d6bff8cb8269c0be96d
 image = wmtz.jpg
 description = "wmtz displays the time in different time zones as defined in it's configuration file. It can also display the current Julian Day Number, sidereal time and swatch beats."
