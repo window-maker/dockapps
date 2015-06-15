@@ -35,6 +35,8 @@
 #   than one image)
 # description = (description, possibly taken from archive.org copy of
 #   dockapps.windowmaker.org; in double quotes)
+# hosted = (1 if in git repo, 0 if hosted elsewhere, i.e., original maintainer
+#   is still active)
 # url = (use archive.org copy if original homepage no longer exists)
 # dockapps = (currently unused; id number from dockapps.windowmaker.org)
 # category = (category from dockapps.windowmaker.org)
