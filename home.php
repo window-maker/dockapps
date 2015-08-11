@@ -36,8 +36,8 @@
           <h3>Download</h3>
 
           <p>The latest <a href="http://repo.or.cz/w/wmaker-crm.git/shortlog/refs/heads/master">stable</a> version is
-	  <a href="http://windowmaker.org/pub/source/release/WindowMaker-0.95.6.tar.gz">0.95.6</a>,
-          released on 30.08.2014. See the <a href="news.php">NEWS</a> section for more information.</p>
+	  <a href="http://windowmaker.org/pub/source/release/WindowMaker-0.95.7.tar.gz">0.95.6</a>,
+          released on 02.08.2015. See the <a href="news.php">NEWS</a> section for more information.</p>
         </td>
       </tr>
     </table>
