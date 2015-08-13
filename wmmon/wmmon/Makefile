@@ -1,13 +1,9 @@
-LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11
-OBJS =  wmmon.o \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
+LIBDIR = -L/usr/X11R6/lib -L/usr/local/lib
+LIBS   = -lXpm -lXext -lX11 -lwmgeneral
+OBJS =  wmmon.o
 
 CFLAGS = -O2
 CC = cc
-
 
 .c.o:
 	$(CC) $(CFLAGS) -c -Wall $< -o $*.o

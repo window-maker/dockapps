@@ -108,8 +108,8 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
-#include "../wmgeneral/wmgeneral.h"
-#include "../wmgeneral/misc.h"
+#include <wmgeneral/wmgeneral.h>
+#include <wmgeneral/misc.h>
 
 #include "wmmon-master.xpm"
 #include "wmmon-mask.xbm"
