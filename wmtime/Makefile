@@ -1,8 +1,5 @@
-LIBS   = -lXpm -lXext -lX11 -lm
-OBJS =	wmtime.o \
-		wmgeneral/wmgeneral.o \
-		wmgeneral/misc.o \
-		wmgeneral/list.o
+LIBS   = -lXpm -lXext -lX11 -lm -lwmgeneral
+OBJS =	wmtime.o
 XPMS = wmtime-master.xpm wmtime-mask.xbm
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
