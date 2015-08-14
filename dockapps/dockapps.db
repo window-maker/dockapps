@@ -442,7 +442,7 @@ dockapps = 63
 category = Audio
 
 [wmmon]
-version-1.2b1+20150614 = af4ea98aa69d52e33801d6352083025d894ff1d0
+version-1.2b1+20150813 = b9a19e1255ffe7505e652f0b05cac3121123616e
 version-1.2b1 = 1f7dc4736465673ee36dc3fa22cdf4f4aea822c4
 version-1.0b2 = 26794d80270124f3e39a036503b3edc3284c7f74
 image = wmmon.gif
@@ -606,7 +606,7 @@ dockapps = 320
 category = System Monitoring
 
 [wmtime]
-version-1.3+20150614 = 8e70cc6fc3d9e907b0650d9e6d36450cd2ee3121
+version-1.3+20150813 = 1e36ad9ca7dbb0ec2856f1d9eb0617a961d28e6b
 version-1.3 = d87af19195e66748338aee7cdc8951dc22d3fad9
 version-1.2 = 62029f244a9e03250dd846a0d75d692cbd9da683
 version-1.1 = 41744c0d145f064c961989e2650a279b59e27518
