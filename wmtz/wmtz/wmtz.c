@@ -51,8 +51,7 @@
 #define STRSIZE 10
 #define LMST 1
 #define GMST 0
-#define ABOUT "xmessage -center -buttons \"Close\" \"WMTZ - Window Maker Time Zone dockapp v0.7
-http://www.geocities.com/jl1n/wmtz/wmtz.html\""
+#define ABOUT "xmessage -center -buttons \"Close\" \"WMTZ - Window Maker Time Zone dockapp v0.7 http://www.geocities.com/jl1n/wmtz/wmtz.html\""
 
 
 /*
@@ -478,7 +477,6 @@ void wmtz_routine(int argc, char **argv)
                    }
 		   but_stat = -1;
                    break;
-	    default:
 	  }
         }
 
@@ -528,7 +526,6 @@ void handleTheMenu(int but_stat)
 	case 4:
 	    exit(0);
 	    break;
-	default:
       }
     return;
 }
