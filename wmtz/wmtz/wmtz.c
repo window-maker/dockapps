@@ -37,8 +37,8 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
-#include "../wmgeneral/wmgeneral.h"
-#include "../wmgeneral/misc.h"
+#include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 #include "wmtz.xpm"
 #include "wmtz_mono.xpm"
 

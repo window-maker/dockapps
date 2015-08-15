@@ -1,13 +1,9 @@
 CC = gcc
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11 -lm
+LIBS   = -lXpm -lXext -lX11 -lm -ldockapp
 FLAGS = -O2
 DESTDIR = /usr/local
-OBJS =	wmtz.o \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
-
+OBJS =	wmtz.o
 
 .c.o:
 	$(CC) -I/usr/X11R6/include $(FLAGS) -c -Wall $< -o $*.o
