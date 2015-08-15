@@ -10,13 +10,13 @@ INSTALL = install
 #
 # For Linux (and other?) Machines...
 #
-LIBS   = -lXpm -lX11 -lXext -lm
+LIBS   = -lXpm -lX11 -lXext -lm -ldockapp
 #
 # For Sun Solaris Machines (I know it compiles on 2.6)...
 #
 # LIBS   = -lXpm -lX11 -lXext -lsocket
 
-OBJS   = wmsun.o SunRise.o wmgeneral/wmgeneral.o
+OBJS   = wmsun.o SunRise.o
 
 .c.o:
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o

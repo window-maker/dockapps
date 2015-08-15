@@ -55,7 +55,7 @@
 #include <time.h>                      /* for tm, gmtime_r, localtime_r, etc */
 #include "wmSun_mask.xbm"              /* for wmSun_mask_bits, etc */
 #include "wmSun_master.xpm"            /* for wmSun_master */
-#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, display, etc */
+#include <libdockapp/wmgeneral.h>      /* for copyXPMArea, display, etc */
 
 
 
