@@ -3,13 +3,9 @@
 # release date  : September 09, 2006
 
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11 -lm
+LIBS   = -lXpm -lXext -lX11 -lm -ldockapp
 FLAGS = -O2
-OBJS =	wmckgmail.o \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
-
+OBJS =	wmckgmail.o
 
 .c.o:
 	cc -I/usr/X11R6/share/include $(FLAGS) -D$(LANG) -c -Wall $< -o $*.o

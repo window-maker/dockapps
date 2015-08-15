@@ -28,8 +28,8 @@
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
 
-#include "../wmgeneral/wmgeneral.h"
-#include "../wmgeneral/misc.h"
+#include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 
 #include "wmckgmail.xpm"
 
