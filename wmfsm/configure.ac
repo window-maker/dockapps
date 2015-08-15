@@ -14,7 +14,7 @@ AC_PROG_RANLIB
 
 dnl Checks for libraries
 AC_PATH_XTRA
-X11LIBS="-L$x_libraries -I$x_includes -lX11 -lXpm -lXext"
+X11LIBS="-L$x_libraries -I$x_includes -lX11 -lXpm -lXext -ldockapp"
 AC_SUBST(X11LIBS)
 AC_MSG_CHECKING([to see if we can use X])
 AC_TRY_LINK([#include <X11/Xlib.h>],,AC_MSG_RESULT([yes]),AC_MSG_RESULT([no]); exit 1)
@@ -76,5 +76,5 @@ echo "configuring for ${with_xpm} appearance..."
 rm -f wmfsm/wmfsm_master.xpm
 ln -sr ${xpm} wmfsm/wmfsm_master.xpm
 
-AC_OUTPUT(Makefile wmfsm/Makefile wmgeneral/Makefile)
+AC_OUTPUT(Makefile wmfsm/Makefile)
 

@@ -42,7 +42,7 @@
 #include <string.h>
 #include <X11/X.h>
 #include <X11/xpm.h>
-#include "../wmgeneral/wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 #include "wmfsm_master.xpm"
 #include "wmfsm_mask.xbm"
 
