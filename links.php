@@ -74,6 +74,14 @@
               <p><a href="http://blog.bigsmoke.us/2009/03/30/wmaker" target="_blank">My Window Maker 'desktop' configuration</a> (blog post)</p>
             </li>
 
+	    <li>
+              <p><a href="http://galgotsmacs.blogspot.fr/2015/05/my-windowmaker-config-on-jessie-part-1.html" target="_blank">My WindowMaker config on Jessie, Part 1</a> (blog post)</p>
+            </li>
+
+	    <li>
+              <p><a href="http://galgotsmacs.blogspot.fr/2015/06/my-windowmaker-config-on-jessie-part-2.html" target="_blank">My WindowMaker config on Jessie, Part 2</a> (blog post)</p>
+            </li>
+
 	    <li> <a href="http://browse.deviantart.com/customization/skins/themes/windowmaker/" target="_blank"> Window Maker themes</a></li>
             <li> <a href="chaos-wmaker.tar.gz">WMaker Skin</a> for audacious</li>
 
