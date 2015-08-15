@@ -3,9 +3,8 @@
 #
 INCDIR	=	-I/usr/X11R6/include
 LIBDIR	=	-L/usr/X11R6/lib
-LIBS	=	-lXpm -lXext -lX11 -lXxf86dga -lXxf86vm
-OBJS	=	src/wmtv.o \
-			src/wmgeneral/wmgeneral.o \
+LIBS	=	-lXpm -lXext -lX11 -lXxf86dga -lXxf86vm -ldockapp
+OBJS	=	src/wmtv.o
 
 .c.o:
 	cc -c -O2 -Wall -D$(shell echo `uname -s`) $< -o $*.o $(INCDIR)
