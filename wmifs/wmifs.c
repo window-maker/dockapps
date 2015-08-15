@@ -209,8 +209,8 @@
 #include <sys/time.h>                  /* for timeval, gettimeofday */
 #include <sys/wait.h>                  /* for waitpid, WNOHANG */
 #include <time.h>                      /* for timespec, nanosleep */
-#include "wmgeneral/misc.h"            /* for execCommand */
-#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, display, etc */
+#include <libdockapp/misc.h>           /* for execCommand */
+#include <libdockapp/wmgeneral.h>      /* for copyXPMArea, display, etc */
 #include "wmifs-mask.xbm"              /* for wmifs_mask_bits, etc */
 #include "wmifs-master.xpm"            /* for wmifs_master_xpm */
 

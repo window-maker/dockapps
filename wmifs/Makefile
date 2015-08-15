@@ -6,11 +6,8 @@ man1dir=${mandir}/man1
 CONF=/etc
 
 CC     = gcc
-LIBS   = -lXpm -lXext -lX11
-OBJS =	wmifs.o \
-		wmgeneral/wmgeneral.o \
-		wmgeneral/misc.o \
-		wmgeneral/list.o
+LIBS   = -lXpm -lXext -lX11 -ldockapp
+OBJS =	wmifs.o
 
 CFLAGS = -Wall -O2 -g
 
