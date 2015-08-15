@@ -171,8 +171,8 @@
 #include <sys/types.h>                 /* for pid_t */
 #include <sys/wait.h>                  /* for waitpid, WNOHANG */
 #include <time.h>                      /* for timespec, nanosleep, time */
-#include "wmgeneral/misc.h"            /* for execCommand */
-#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, RedrawWindow, etc */
+#include <libdockapp/misc.h>           /* for execCommand */
+#include <libdockapp/wmgeneral.h>      /* for copyXPMArea, RedrawWindow, etc */
 #include "wmppp-master.xpm"            /* for wmppp_master_xpm */
 
   /***********/

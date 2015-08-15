@@ -1,8 +1,5 @@
-LIBS   = -lXpm -lXext -lX11
-OBJS  = wmppp.o \
-		wmgeneral/wmgeneral.o \
-		wmgeneral/misc.o \
-		wmgeneral/list.o
+LIBS   = -lXpm -lXext -lX11 -ldockapp
+OBJS  = wmppp.o
 
 INSTALL = install
 INSTALL_PROGRAM = $(INSTALL)
