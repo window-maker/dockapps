@@ -1,6 +1,6 @@
-LIBS   = -lXpm -lXext -lX11 -lm
+LIBS   = -lXpm -lXext -lX11 -lm -ldockapp
 CFLAGS = -O2 -Wall
-OBJS = wmitime.o wmgeneral/wmgeneral.o
+OBJS = wmitime.o
 INSTALL = install
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
