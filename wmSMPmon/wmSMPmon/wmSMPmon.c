@@ -16,7 +16,7 @@ CURRENT MAINTAINER: Thomas Ribbrock <emgaron@gmx.net>
 #include	<X11/Xlib.h>
 #include	<X11/xpm.h>
 #include	<X11/extensions/shape.h>
-#include	"../wmgeneral/wmgeneral.h"
+#include	<libdockapp/wmgeneral.h>
 #include	"wmSMPmon_master.xpm"
 #include	"wmSMPmon_mask.xbm"
 #include	"general.h"

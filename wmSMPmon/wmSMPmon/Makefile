@@ -7,7 +7,7 @@ MANDIR=/usr/local/share/man/
 
 OS := $(shell uname -s)
 
-SRC = general.c ../wmgeneral/wmgeneral.c wmSMPmon.c
+SRC = general.c wmSMPmon.c
 EXE = wmSMPmon
 MAN = wmSMPmon.1
 OBJ = $(SRC:.c=.o)
@@ -16,7 +16,7 @@ INSTALLEXEFLAGS = -m 755 -s
 INSTALLMANFLAGS = -m 644
 CC = gcc
 CFLAGS = -Wall -O2 -g
-LIB = -L/usr/X11R6/lib -lXpm -lXext -lX11
+LIB = -L/usr/X11R6/lib -lXpm -lXext -lX11 -ldockapp
 
 ifeq ($(OS),Linux)
 SRC += sysinfo-linux.c
@@ -35,7 +35,6 @@ $(OBJ): %.o : %.c
 clean:
 	rm -rf $(EXE)
 	rm -rf *.o
-	rm -rf ../wmgeneral/*.o
 
 install:
 	$(INSTALL) $(INSTALLEXEFLAGS) $(EXE) $(BINDIR)
