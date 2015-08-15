@@ -89,8 +89,8 @@
 #include <sys/wait.h>                  /* for waitpid, WNOHANG */
 #include <time.h>                      /* for tm, time, localtime */
 #include <unistd.h>                    /* for usleep */
-#include "wmgeneral/misc.h"            /* for execCommand */
-#include "wmgeneral/wmgeneral.h"       /* for copyXPMArea, RedrawWindow, etc */
+#include "libdockapp/misc.h"            /* for execCommand */
+#include "libdockapp/wmgeneral.h"       /* for copyXPMArea, RedrawWindow, etc */
 #include "wmtime-mask.xbm"             /* for wmtime_mask_bits */
 #include "wmtime-master.xpm"           /* for wmtime_master_xpm */
 
