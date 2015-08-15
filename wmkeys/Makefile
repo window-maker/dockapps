@@ -1,9 +1,6 @@
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11 -lm
+LIBS   = -lXpm -lXext -lX11 -lm -ldockapp
 OBJS =	wmkeys.o \
-		wmgeneral/wmgeneral.o \
-		wmgeneral/misc.o \
-		wmgeneral/list.o
 
 .c.o:
 	cc -c -O2 -Wall $< -o $*.o

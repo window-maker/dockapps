@@ -56,8 +56,8 @@
  * Window Maker includes
  */
 
-#include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
+#include "libdockapp/wmgeneral.h"
+#include "libdockapp/misc.h"
 
 /*
  * Pixmap, bitmap includes
