@@ -3,9 +3,13 @@ AUTOMAKE_OPTIONS = no-dependencies
 
 lib_LTLIBRARIES = libdockapp.la
 
-libdockapp_la_LDFLAGS = -version-info 2:0:0 @X_LIBS@
+libdockapp_la_LDFLAGS = -version-info 3:0:0 @X_LIBS@
 
-include_HEADERS = dockapp.h
+otherincludedir = $(includedir)/libdockapp
+otherinclude_HEADERS = dockapp.h \
+		  wmgeneral.h \
+		  list.h \
+		  misc.h
 
 libdockapp_la_SOURCES = \
 	dockapp.h \
@@ -17,7 +21,10 @@ libdockapp_la_SOURCES = \
 	dapixmap.c \
 	darect.c \
 	dashaped.c \
-	dautil.c
+	dautil.c \
+	list.c \
+	misc.c \
+	wmgeneral.c
 
 # Include these in a distribution, but don't install
 noinst_HEADERS = daargs.h dautil.h
