@@ -35,7 +35,7 @@
 #include <cpufreq.h>
 #include <time.h>
 
-#include "../wmgeneral/wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 #include "wmcpufreq_master_1.xpm"
 #include "wmcpufreq_master_2.xpm"
 #include "wmcpufreq_master_3.xpm"

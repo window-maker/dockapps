@@ -3,12 +3,8 @@ CFLAGS = -O2 -Wall
 INCDIR = -I/usr/X11R6/include
 DESTDIR= /usr/local/
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lX11 -lXext -lcpufreq
-OBJS   = wmcpufreq.o \
-         ../wmgeneral/wmgeneral.o \
-	 ../wmgeneral/misc.o \
-	 ../wmgeneral/list.o
-
+LIBS   = -lXpm -lX11 -lXext -lcpufreq -ldockapp
+OBJS   = wmcpufreq.o
 
 .c.o:
 	$(CC) $(CFLAGS)  -c $< -o $*.o $(INCDIR)
