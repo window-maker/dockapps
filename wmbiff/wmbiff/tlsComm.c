@@ -657,7 +657,7 @@ void handle_gnutls_read_error(int readbytes, struct connection_state *scs)
 
 #else
 /* declare stubs when tls isn't compiled in */
-struct connection_state *initialize_gnutls(UNUSED(int sd),
+struct connection_state *initialize_gnutls(UNUSED(intptr_t sd),
 										   UNUSED(char *name),
 										   UNUSED(Pop3 pc),
 										   UNUSED(const char
