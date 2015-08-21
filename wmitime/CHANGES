@@ -1,5 +1,9 @@
 Version		Description
 --------------------------------------------------------------
+0.5		* wmitime uses now the new library libdockapp that includes the
+		  old wmgeneral library.
+		* Add note about libdockapp to README.
+
 0.4		* Update GPL text and Free Software Foundation address.
 		* Remove trailing whitespace.
 		* Allow -display option with no argument.  Previously, if a user

@@ -38,7 +38,7 @@ char wmitime_mask_bits[64*64];
 int  wmitime_mask_width = 64;
 int  wmitime_mask_height = 64;
 
-#define WMITIME_VERSION "0.4"
+#define WMITIME_VERSION "0.5"
 
 #define CHAR_WIDTH 5
 #define CHAR_HEIGHT 7
