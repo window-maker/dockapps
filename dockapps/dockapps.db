@@ -294,7 +294,7 @@ dockapps =
 category = General/Others
 
 [wmfsm]
-version-0.35+20150816 = 66bccf8e44b6a7575ea8d0d9b6709b08fd296e11
+version-0.36 = 83c2c40265a25e0d4b769051c23039ce646d838e
 version-0.35 = 9bd29e4b921c53d9d1c70eb164dbd858f4580ecb
 version-0.34 = fa3a329d866128a901ae468944ab6b5a46b3bee7
 image = wmfsm.png
@@ -344,7 +344,7 @@ dockapps =
 category = Network
 
 [wmitime]
-version-0.4+20150816 = 2234a5a3e590fffcca2b25047df7f545be43d7a4
+version-0.5 = 26db4477e9d3078c78956859b01a68cf1e8012eb
 version-0.4 = 49fa1f6a55e22ad45f2121273e1631c62e642c6d
 version-0.3 = bf32df76ae6ae945f02428fff7a9b269c82f32f6
 image = wmitime1.jpg
