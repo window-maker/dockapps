@@ -1,3 +1,7 @@
+Requirements:
+libdockapp (at least version 0.7.0)
+http://windowmaker.org/dockapps/?name=libdockapp
+
 Installation:
 autoreconf -i
 ./configure
