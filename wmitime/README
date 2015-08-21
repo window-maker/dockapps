@@ -20,6 +20,10 @@ Let me know what you think of it. ;)
 
 Installing
 --------------------------------------------------------------
+Make sure libdockapp (at least version 0.7.0) is installed. It
+may be obtained at
+http://windowmaker.org/dockapps/?name=libdockapp
+
 make
 make install
 
