@@ -1,3 +1,39 @@
+2015-08-21  Doug Torrance <dtorrance@piedmont.edu>
+
+	* ChangeLog, configure.ac: Bump to version 0.36.
+
+2015-08-21  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmfsm/wmfsm.c: Handle errors related to the HOME
+	environment variable.  In particular, if HOME is undefined, then a
+	segmentation fault will occur.	Also, if HOME is at least 245
+	characters, then a buffer overflow will occur.	We check for these
+	conditions and exit with an error message instead.  Patch obtained from
+	Debian package [1].
+
+	[1] https://sources.debian.net/src/wmfsm/0.35-1/debian/patches/handle_HOME_errors.patch/
+
+2015-08-21  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmfsm/wmfsm.c: Lengthen the buffer for mount options
+	to decrease the likelihood of a stack buffer overflow.
+
+2015-08-21  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmfsm/Makefile.am: Move wmfsm_master.xpm from make
+	clean to make distclean; otherwise make && make clean && make fails.
+
+2015-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* README: Add note about libdockapp to README.
+
+2015-08-16  Rodolfo García Peñas (kix) <kix@kix.es>
+
+	* Makefile.am, configure.ac, wmfsm/Makefile.am,
+	wmfsm/wmfsm.c, wmgeneral/Makefile.am,
+	wmgeneral/wmgeneral.c, wmgeneral/wmgeneral.h: wmfsm uses now the new
+	library libdockapp that includes the old wmgeneral library.
+
 2015-01-22  Doug Torrance <dtorrance@monmouthcollege.edu>
 
 	* ChangeLog, configure.ac: Bump to version 0.35.
