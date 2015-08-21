@@ -565,6 +565,7 @@ excludeFileSystems()
 {
 	char confFileName[255];
 	char workString[255];
+	char *home;
 	int i, j, exnumberfs = 0;
 	int excluded, finalnumberfs = 0;
 	char *mount_points[100];
@@ -572,7 +573,17 @@ excludeFileSystems()
 	int include = -1;
 	int included = 0;
 
-	strncpy(confFileName, (char *) getenv("HOME"), 245);
+	home = getenv("HOME");
+	if (home == NULL) {
+		fprintf(stderr, "error: HOME must be defined\n");
+		exit(1);
+	}
+	if (strlen(home) > 244) {
+		fprintf(stderr,
+			"error: HOME may not be longer than 244 characters\n");
+		exit(1);
+	}
+	strncpy(confFileName, home, 245);
 	strcat(confFileName, "/.wmfsmrc");
 	confFile = fopen(confFileName, "r");
 	if (confFile) {
