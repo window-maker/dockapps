@@ -513,7 +513,7 @@ readFileSystems()
 #else /* __OpenBSD__ || __FreeBSD__ */
 
 	FILE *fp;
-	char mountPoint[255], dummy[255], fstype[255], options[255];
+	char mountPoint[255], dummy[255], fstype[255], options[512];
 
 #if defined(SunOS)
 	/* Solaris uses /etc/mnttab */
