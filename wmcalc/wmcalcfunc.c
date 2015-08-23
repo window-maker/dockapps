@@ -17,6 +17,7 @@
     Change History:
     Date       Modification
     11/03/00   File Header added
+    27/12/06   Increased significant digits (Antony Gelberg, antony@wayforth.co.uk)
 
  ****************************************************************/
 
@@ -382,19 +383,19 @@ void equalfunc (void) {
   switch (OpFlag) {
   case '+':
     RegisterA = RegisterB + RegisterA;
-    sprintf(DispString, "%10.5g", RegisterA);
+    sprintf(DispString, "%10.10g", RegisterA);
     break;
   case '-':
     RegisterA = RegisterB - RegisterA;
-    sprintf(DispString, "%10.5g", RegisterA);
+    sprintf(DispString, "%10.10g", RegisterA);
     break;
   case '*':
     RegisterA = RegisterB * RegisterA;
-    sprintf(DispString, "%10.5g", RegisterA);
+    sprintf(DispString, "%10.10g", RegisterA);
     break;
   case '/':
     RegisterA = RegisterB / RegisterA;
-    sprintf(DispString, "%10.5g", RegisterA);
+    sprintf(DispString, "%10.10g", RegisterA);
     break;
   default:
     break;
