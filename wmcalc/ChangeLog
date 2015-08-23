@@ -1,5 +1,23 @@
 CHANGE LOG:
 -----------
+0.6	Increase significant digits.  Patch by Antony Gelberg
+	 <antony@wayforth.co.uk> to fix Debian bug #320597 [1].  Obtained from
+	 the Debian package [2].
+	Fix typo in Makefile.  Correctly create the directory
+	 /usr/share/man/man1 instead of /usr/share/man/man1/man1.  Obtained
+	 from the Debian package [3].
+	Fix manpage spelling.  Avoid Lintian warning in the Debian package.
+	 Obtained from [4].
+	Move changelog from README to new ChangeLog file.
+
+	[1] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=320597
+	[2] https://sources.debian.net/src/wmcalc/0.5-1/debian/patches/
+	    10_bts-320597_increase_significant_digits.patch/
+	[3] https://sources.debian.net/src/wmcalc/0.5-1/debian/patches/
+	    fix_makefile_typo.patch/
+	[4] https://sources.debian.net/src/wmcalc/0.5-1/debian/patches/
+	    fix_manpage_spelling.patch/
+
 0.5	Add manpage from Debian.
 	Update Makefile.
 	Switch #include <XKBlib.h> to #include <X11/XKBlib.h>.

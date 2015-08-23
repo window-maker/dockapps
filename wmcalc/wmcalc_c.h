@@ -19,7 +19,7 @@
 #define CONFTEMPFILE  "/tmp/wmcalc.tmp"
 #define CONFIGGLOBAL  CONF"/wmcalc.conf"
 #define VER           0
-#define REL           5
+#define REL           6
 
 #define LMASK         100
 #define MMASK         200
