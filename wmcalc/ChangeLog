@@ -1,0 +1,37 @@
+CHANGE LOG:
+-----------
+0.5	Add manpage from Debian.
+	Update Makefile.
+	Switch #include <XKBlib.h> to #include <X11/XKBlib.h>.
+	Fix -Wunused-but-set-variable compiler warnings.
+	Fix -Warray-bounds compiler warning.
+	Fix -Wunused-result compiler warning.
+	Remove trailing whitespace.
+	Remove redundant .wmcalc*; essentially the same as wmcalc.conf.
+	Update COPYING from http://www.gnu.org/licenses/gpl-2.0.txt.
+	Update README.
+	Allow installation without root access.
+	Fix -Woverflow compiler warnings.
+	Remove C++ style comments.
+	Maintained by Window Maker Developers Team
+		<wmaker-dev@lists.windowmaker.org>
+
+0.4     Added global config file
+	Maintained by Gordon Fraser <gordon@debian.org>
+
+0.3     Added "Locked" memory capabilities via config file
+        General Code clean-up
+	Keyboard Support - may not be platform independent
+
+0.21    Added Display of memory locations containing non-zero data
+
+0.2	First psuedo-major enhancements
+	Added Memories, Config File, CalcStart button
+	Bug Fix - Squared imaginary number is now negative
+
+0.1	First real version.
+	Limited functionality.
+
+0.0	Original version.  Very limited distribution, as it was not a
+	functional calculator, but just tested the display.  It was more
+	of a proof of concept.
