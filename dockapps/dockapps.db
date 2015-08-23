@@ -173,6 +173,7 @@ dockapps = 241
 category = General/Others
 
 [wmcalc]
+version-0.6 = 43ddcdfb2b03a3ad66b368ed635cf942d8a629b4
 version-0.5 = c2f0ad2882b89c5c33dfb8331c1f05ca284e7c36
 version-0.4 = 8c0d48a6e55bb901cd1217e8a78601e1ab36a6a4
 image = wmcalcscr3.jpg
