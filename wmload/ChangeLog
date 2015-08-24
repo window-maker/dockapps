@@ -1,3 +1,21 @@
+VERSION: 0.9.7
+RELEASE DATE: 23 August 2015
+	-Bump _POSIX_C_SOURCE to 200112L.  Otherwise, we get the following
+	 warning during build.
+	  wmload.c: In function ‘GetLoad’:
+	  wmload.c:523:10: warning: incompatible implicit declaration of
+	    built-in function ‘rint’
+	      *usr = rint(Maximum * (float)(*usr)   /total);
+		     ^
+	 Obtained from the Debian package [1].
+	-Fix -Wunused-result compiler warning.	Obtained from the Debian
+	 package [2].
+
+	[1] https://sources.debian.net/src/wmload/0.9.6-1/debian/patches/
+	    bump_POSIX_C_SOURCE.patch/
+	[2] https://sources.debian.net/src/wmload/0.9.6-1/debian/patches/
+	    fix_unused_result.patch/
+
 VERSION: 0.9.6
 RELEASE DATE: 15 April 2015
 	-Clarify copyright information.

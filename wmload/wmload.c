@@ -42,7 +42,7 @@
 
 #define major_VER 0
 #define minor_VER 9
-#define patch_VER 6
+#define patch_VER 7
 #define MW_EVENTS   (ExposureMask | ButtonPressMask | StructureNotifyMask)
 #define FALSE 0
 #define Shape(num) (ONLYSHAPE ? num-5 : num)
