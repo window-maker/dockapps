@@ -127,6 +127,7 @@ dockapps = 216
 category = System Monitoring
 
 [wmbattery]
+version-2.49 = 654c4255ac8822fc7964762b3c33ac5bdac246db
 version-2.48 = 04ac9be7c94e3fad36d1bbd6a3935a9842c29daf
 version-2.47 = 11f45ed174f93b1c99c325e2fb4189168ea5b913
 version-2.46 = 6eaba7b5eb1ecf697f4e76b1cd33283b70a30194
@@ -378,6 +379,7 @@ dockapps = 215
 category = General/Others
 
 [wmload]
+version-0.9.7 = dc2036646a746ae0e62e2d10ad07ee775044d150
 version-0.9.6 = 75a622aeaf643a00bcbe0b4b6d3d3783c448d0de
 version-0.9.5 = 70f2b13168beeee53735454afdb3c26555967825
 version-0.9.2 = 2b2f0b6cf76eab7097a80b503bb19c49a4b7a891
@@ -610,7 +612,7 @@ dockapps = 320
 category = System Monitoring
 
 [wmtime]
-version-1.3+20150815 = 32d124860cd15c6379997b4bad8614181e6a294a
+version-1.4 = 7d1ef92bd2b0dd9110baa69dd43cb64c380ee110
 version-1.3 = d87af19195e66748338aee7cdc8951dc22d3fad9
 version-1.2 = 62029f244a9e03250dd846a0d75d692cbd9da683
 version-1.1 = 41744c0d145f064c961989e2650a279b59e27518
