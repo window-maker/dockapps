@@ -1,3 +1,12 @@
+wmbattery (2.49)
+  * Add config.h.in to `make distclean`.  Its absence created a problem for the
+    Debian package.  During the build, dh_auto_clean results in a call to
+    autoheader, which creates config.h.in.  If this isn't then removed, we get
+    a dpkg-source error.  Obtained from [1].
+
+  [1] https://sources.debian.net/src/wmbattery/2.48-1/debian/patches/
+      clean_config.h.in.patch/
+
 wmbattery (2.48)
   * Escape hyphen in manpage. Fixes hyphen-used-as-minus-sign Lintian warning
     in the Debian package.  Patch from [1].

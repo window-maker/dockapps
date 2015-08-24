@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(wmbattery.c, 2.48)
+AC_INIT(wmbattery.c, 2.49)
 AC_CONFIG_HEADER(config.h)
 
 AC_CONFIG_AUX_DIR(autoconf)
