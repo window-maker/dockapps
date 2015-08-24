@@ -6,7 +6,8 @@ clean:
 	rm -f wmbattery *.o
 
 distclean: clean
-	rm -f config.status config.cache config.log makeinfo config.h configure
+	rm -f config.status config.cache config.log makeinfo config.h \
+		config.h.in configure
 
 install: all
 	$(INSTALL) -d $(DESTDIR)$(bindir) $(DESTDIR)$(man1dir) $(DESTDIR)$(icondir)
