@@ -145,7 +145,9 @@ void ExecuteExternal()
 	ruid = getuid();
 	euid = geteuid();
 	if ( ruid == euid ) {
-		system( Execute );
+		if (system( Execute ) == -1)
+			fprintf(stderr, "system(%s) returned an error",
+				Execute);
 		return;
 	}
 	pid = fork();
@@ -171,7 +173,8 @@ void ExecuteExternal()
 				strerror(errno));
 		exit(127);
 	}
-	system( Execute );
+	if (system( Execute ) == -1)
+		fprintf(stderr, "system(%s) returned an error", Execute);
 	exit(0);
 }
 int main(int argc,char *argv[])
