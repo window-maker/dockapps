@@ -3,6 +3,11 @@ WMTime changes.
 Version         Description
 --------------------------------------------------------------
 
+1.4		- Released 150824
+		- The dockapp wmtime uses the new version of libdockapp and do
+		  not use libwmgeneral.
+		- Add note about libdockapp to INSTALL.
+
 1.3		- Released 150525
 		- Update to latest version of wmgeneral library.
 		- Fix typos. Ran `codespell -w`.
