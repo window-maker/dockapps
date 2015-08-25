@@ -1,3 +1,9 @@
+Version 1.05 - released August 24, 2015
+	wmsun uses now the new library libdockapp that includes the old
+	  wmgeneral library.
+	Expand README.
+	Fix typos in manpage.
+
 Version 1.04 - released June 14, 2015
 	Update to latest version of wmgeneral library.
 	Move source files to top directory.
