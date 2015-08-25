@@ -17,6 +17,9 @@ Requirements
 	the installation copies the GLOBAL config files
 	there, don't worry, nothing will be overwritten ;-)
 
+Make sure libdockapp (at least version 0.7.0) is installed. It
+may be obtained at
+http://windowmaker.org/dockapps/?name=libdockapp
 
 Installation
 --------------------------------------------------------------
