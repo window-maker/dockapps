@@ -1,5 +1,12 @@
 Version         Description
 --------------------------------------------------------------
+1.6	* Released 150824
+
+	* wmifs uses now the new library libdockapp that includes the old
+	  wmgeneral library.
+
+	* Add note about libdockapp to INSTALL.
+
 1.5	* Released 150527
 
 	* Include latest version of wmgeneral library.
