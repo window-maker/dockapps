@@ -226,6 +226,7 @@ int find_items(char *itemname, char infoarray[ACPI_MAXITEM][128],
 			acpi_labels[label_info]);
 		snprintf(statusarray[i], sizeof(statusarray[i]), SYSFS_PATH "/%s/%s", devices[i],
 			acpi_labels[label_status]);
+		free(devices[i]);
 	}
 
 	free(devices);
