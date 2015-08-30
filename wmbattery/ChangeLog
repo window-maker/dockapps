@@ -1,3 +1,11 @@
+wmbattery (2.50)
+  * Free memory allocated by strdup.  This corrects a mistake in [1] noticed by
+    Andrew Shadura [2].
+
+    [1] http://repo.or.cz/dockapps.git/commitdiff/29e5012
+    [2] https://github.com/d-torrance/wmbattery/commit/
+	9f7be30#commitcomment-12965145
+
 wmbattery (2.49)
   * Add config.h.in to `make distclean`.  Its absence created a problem for the
     Debian package.  During the build, dh_auto_clean results in a call to
