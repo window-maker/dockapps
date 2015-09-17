@@ -30,6 +30,7 @@
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/extensions/Xrandr.h>
 
 #include "include/common.h"
 #include "include/mixer.h"
@@ -64,6 +65,8 @@ static void choose_api(int api);
 int main(int argc, char **argv)
 {
     XEvent event;
+    int rr_event_base, rr_error_base;
+    Bool have_randr;
 
     config_init();
     parse_cli_options(argc, argv);
@@ -89,12 +92,21 @@ int main(int argc, char **argv)
 	fprintf(stderr, "wmix:error: Unable to open display \"%s\"\n", name);
 	return EXIT_FAILURE;
     }
+
+    have_randr = XRRQueryExtension(display, &rr_event_base, &rr_error_base);
+    if (have_randr) {
+        int rr_mask = RRScreenChangeNotifyMask;
+        XRRSelectInput(display,
+                       RootWindow(display, DefaultScreen(display)),
+                       rr_mask);
+    }
+
     display_width = (float)DisplayWidth(display, DefaultScreen(display)) / 4.0;
     display_height = (float)DisplayHeight(display, DefaultScreen(display)) / 2.0;
 
-    dockapp_init(display);
+    dockapp_init(display, have_randr);
     new_window("wmix", 64, 64);
-    new_osd(DisplayWidth(display, DefaultScreen(display)) - 200, 60);
+    new_osd(60);
 
     if (config.mmkeys)
 	    mmkey_install(display);
@@ -152,6 +164,12 @@ int main(int argc, char **argv)
 		    XCloseDisplay(display);
 		    return EXIT_SUCCESS;
 		default:
+                    if (have_randr) {
+                        if (event.type == rr_event_base + RRScreenChangeNotify) {
+                            XRRUpdateConfiguration(&event);
+                            ui_rrnotify();
+                        }
+                    }
 		    break;
 	    }
 	} else {

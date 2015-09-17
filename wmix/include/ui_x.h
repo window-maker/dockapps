@@ -18,11 +18,11 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-void		dockapp_init	(Display *x_display);
+void		dockapp_init	(Display *x_display, Bool randr);
 
 void		new_window	(char *name, int width, int height);
 
-void		new_osd		(int width, int height);
+void		new_osd		(int height);
 void		update_osd	(float volume, bool up);
 void		map_osd		(void);
 void		unmap_osd	(void);
@@ -38,3 +38,5 @@ void		knob_turn	(float delta);
 void		slider_move	(float delta);
 
 unsigned long	get_color	(Display *display, char *color_name);
+
+void            ui_rrnotify     (void);

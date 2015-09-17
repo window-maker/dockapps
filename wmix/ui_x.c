@@ -35,6 +35,7 @@
 #include <X11/extensions/shape.h>
 #include <X11/xpm.h>
 #include <X11/cursorfont.h>
+#include <X11/extensions/Xrandr.h>
 
 #include "include/master.xpm"
 #include "include/led-on.xpm"
@@ -70,6 +71,8 @@ struct _Dockapp {
     Window osd;
     GC osd_gc;
     int osd_width;
+    int osd_x;
+    int osd_y;
     bool osd_mapped;
 
 };
@@ -103,11 +106,15 @@ static Cursor hand_cursor;
 static Cursor null_cursor;
 static Cursor norm_cursor;
 static Cursor bar_cursor;
+static Bool have_randr;
 
 /* public methods */
-void dockapp_init(Display *x_display)
+void dockapp_init(Display *x_display, Bool randr)
 {
     display = x_display;
+    have_randr = randr;
+    dockapp.osd = 0;
+    dockapp.gc = 0;
 }
 
 void redraw_window(void)
@@ -328,7 +335,7 @@ void new_window(char *name, int width, int height)
     XMapWindow(display, win);
 }
 
-void new_osd(int width, int height)
+void new_osd(int height)
 {
     Window osd;
     Pixel fg, bg;
@@ -338,20 +345,45 @@ void new_osd(int width, int height)
     XSetWindowAttributes xattributes;
     int win_layer = 6;
     XFontStruct *fs = NULL;
+    XRRScreenResources *screen;
+    XRRCrtcInfo *crtc_info;
+    int width;
+    int x;
+    int y;
+
+    if (have_randr) {
+        screen = XRRGetScreenResources(display, DefaultRootWindow(display));
+        crtc_info = XRRGetCrtcInfo(display, screen, screen->crtcs[0]);
+        width = crtc_info->width - 200;
+        x = crtc_info->x + 100;
+        y = crtc_info->y + crtc_info->height - 120;
+        if (dockapp.osd &&
+            width == dockapp.osd_width &&
+            x == dockapp.osd_x &&
+            y == dockapp.osd_y) {
+            // Nothing important has changed.
+            return;
+        }
+    } else {
+        width = DisplayWidth(display, DefaultScreen(display)) - 200;
+        x = 100;
+        y = DisplayHeight(display, 0) - 120;
+    }
 
     sizehints.flags = USSize | USPosition;
-    sizehints.x = (DisplayWidth(display, 0) - width) / 2;
-    sizehints.y = (DisplayHeight(display, 0) - 120);
+    sizehints.x = x;
+    sizehints.y = y;
     sizehints.width = width;
     sizehints.height = height;
     xattributes.save_under = True;
     xattributes.override_redirect = True;
     xattributes.cursor = None;
 
-
     fg = WhitePixel(display, DefaultScreen(display));
     bg = BlackPixel(display, DefaultScreen(display));
 
+    if (dockapp.osd)
+        XDestroyWindow(display, dockapp.osd);
     osd = XCreateSimpleWindow(display, DefaultRootWindow(display),
 			      sizehints.x, sizehints.y, width, height,
 			      0, fg, bg);
@@ -398,6 +430,8 @@ void new_osd(int width, int height)
 	}
     }
 
+    if (dockapp.osd_gc)
+        XFreeGC(display, dockapp.osd_gc);
     gc =
 	XCreateGC(display, osd,
 		  GCForeground | GCBackground | GCGraphicsExposures,
@@ -407,6 +441,8 @@ void new_osd(int width, int height)
     dockapp.osd = osd;
     dockapp.osd_gc = gc;
     dockapp.osd_width = width;
+    dockapp.osd_x = x;
+    dockapp.osd_y = y;
     dockapp.osd_mapped = false;
 }
 
@@ -612,4 +648,9 @@ unsigned long get_color(Display *display, char *color_name)
     XAllocColor(display, winattr.colormap, &color);
 
     return color.pixel;
+}
+
+void ui_rrnotify()
+{
+    new_osd(60);
 }

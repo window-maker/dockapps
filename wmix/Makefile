@@ -1,7 +1,7 @@
 CC		= gcc
-CFLAGS		= -std=gnu99 -O3 -W -Wall `pkg-config --cflags alsa`
+CFLAGS		= -std=gnu99 -O3 -W -Wall `pkg-config --cflags alsa xrandr`
 LDFLAGS		= -L/usr/X11R6/lib
-LIBS		= -lXpm -lXext -lX11 -lm `pkg-config --libs alsa`
+LIBS		= -lXpm -lXext -lX11 -lm `pkg-config --libs alsa xrandr`
 OBJECTS		= misc.o config.o mixer-alsa.o mixer-oss.o ui_x.o mmkeys.o wmix.o
 
 # where to install this program (also for packaging stuff)
