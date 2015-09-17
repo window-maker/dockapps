@@ -28,7 +28,7 @@ extern struct _Config {
 	char        *display_name;		/* X Display to connect to */
 	char        *mixer_device;		/* device file to use for controlling Mixer volumes */
 
-	unsigned int api;               /* Sound API (0 = ALSA, 1 = OSS) */
+	int api;                        /* Sound API (0 = ALSA, 1 = OSS) */
 	unsigned int verbose    : 1;	/* be Verbose when starting */
 	unsigned int osd        : 1;	/* show OSD? */
 	unsigned int mousewheel : 1;	/* mousewheel enabled? */

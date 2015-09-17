@@ -66,7 +66,7 @@ const char default_osd_color[] = "green";
 void config_init(void)
 {
 	memset(&config, 0, sizeof(config));
-        config.api = 0;
+        config.api = -1;
 	config.mixer_device = NULL;
 	config.mousewheel = 1;
 	config.scrolltext = 1;
@@ -163,8 +163,10 @@ void parse_cli_options(int argc, char **argv)
 		case 'a':
 			if(!strcmp("oss", optarg))
 				config.api = 1;
-			else if (strcmp("alsa", optarg))
-				fprintf(stderr, "Warning: Incorrect sound api specified, defaulting to alsa\n");
+			else if (!strcmp("alsa", optarg))
+				config.api = 0;
+			else
+				fprintf(stderr, "wmix:warning: incorrect sound api specified on command line, ignoring\n");
 			break;
 		case 'd':
 			if (config.display_name)
@@ -325,7 +327,16 @@ void config_read(void)
 		*ptr = '\0';
 
 		/* Check what keyword we have */
-		if (strcmp(keyword, "device") == 0) {
+		if (strcmp(keyword, "api") == 0) {
+			if (config.api == -1) {
+				if(!strcmp("oss", value))
+					config.api = 1;
+				else if (!strcmp("alsa", value))
+					config.api = 0;
+				else
+					fprintf(stderr, "wmix:warning: incorrect sound api in config, ignoring\n");
+			}
+		} else if (strcmp(keyword, "device") == 0) {
 			if (config.mixer_device == default_mixer_device)
 				config.mixer_device = strdup(value);
 			/* If not the default, keep the previous value because it was provided in the command-line */
@@ -393,6 +404,9 @@ void config_read(void)
 
 void config_set_defaults()
 {
+	if (config.api == -1)
+		config.api = 0;
+
 	if (!config.mixer_device) {
 		if (config.api == 0)
 			config.mixer_device = (char *)default_card_name;
