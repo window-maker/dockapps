@@ -111,6 +111,25 @@ void config_release(void)
 	}
 }
 
+void parse_monitor_value(char *value)
+{
+	char *end;
+	long mon = strtol(value, &end, 10);
+	if (end == value + strlen(value)) {
+		if ((mon > INT_MAX) || (mon < -1)) {
+			fprintf(stderr, "wmix:warning: unreasonable monitor number provided, falling back to default\n");
+			config.osd_monitor_number = 0;
+		} else {
+			if (mon == -1)
+				config.osd = 0;
+			else
+				config.osd_monitor_number = (int)mon;
+		}
+	} else {
+		config.osd_monitor_name = strdup(value);
+	}
+}
+
 /*
  * Parse Command-Line options
  *
@@ -183,22 +202,8 @@ void parse_cli_options(int argc, char **argv)
 			config.mixer_device = strdup(optarg);
 			break;
 
-		case 'o': ;
-			char *end;
-			long mon = strtol(optarg, &end, 10);
-			if (end == optarg + strlen(optarg)) {
-				if ((mon > INT_MAX) || (mon < -1)) {
-					fprintf(stderr, "wmix:error: unreasonable monitor number provided\n");
-					error_found = true;
-				} else {
-					if (mon == -1)
-						config.osd = 0;
-					else
-						config.osd_monitor_number = (int)mon;
-				}
-			} else {
-				config.osd_monitor_name = strdup(optarg);
-			}
+		case 'o':
+			parse_monitor_value(optarg);
 			break;
 
 		case 'v':
@@ -354,6 +359,9 @@ void config_read(void)
 			if (config.osd_color != default_osd_color)
 				free(config.osd_color);
 			config.osd_color = strdup(value);
+
+		} else if (strcmp(keyword, "osdmonitor") == 0) {
+			parse_monitor_value(value);
 
 		} else if (strcmp(keyword, "scrolltext") == 0) {
 			config.scrolltext = atoi(value);
