@@ -335,6 +335,35 @@ void new_window(char *name, int width, int height)
     XMapWindow(display, win);
 }
 
+XRRCrtcInfo *crtc_info_by_output_name(char *monitor)
+{
+    XRRScreenResources *screen = XRRGetScreenResources(display, DefaultRootWindow(display));
+    for (int i = 0; i < screen->noutput; i++) {
+        XRROutputInfo *output_info = XRRGetOutputInfo(display, screen, screen->outputs[i]);
+        if (!strcmp(monitor, output_info->name)) {
+	    XRRCrtcInfo *crtc_info = XRRGetCrtcInfo(display, screen, output_info->crtc);
+	    XRRFreeOutputInfo(output_info);
+	    XRRFreeScreenResources(screen);
+            return crtc_info;
+	}
+	XRRFreeOutputInfo(output_info);
+    }
+    XRRFreeScreenResources(screen);
+    return NULL;
+}
+
+XRRCrtcInfo *crtc_info_by_output_number(int monitor)
+{
+    XRRScreenResources *screen = XRRGetScreenResources(display, DefaultRootWindow(display));
+    if (monitor >= screen->ncrtc) {
+	fprintf(stderr, "wmix:warning: Requested osd monitor number is out of range, clamping\n");
+	monitor = screen->ncrtc - 1;
+    }
+    XRRCrtcInfo *crtc_info = XRRGetCrtcInfo(display, screen, screen->crtcs[monitor]);
+    XRRFreeScreenResources(screen);
+    return crtc_info;
+}
+
 void new_osd(int height)
 {
     Window osd;
@@ -345,18 +374,27 @@ void new_osd(int height)
     XSetWindowAttributes xattributes;
     int win_layer = 6;
     XFontStruct *fs = NULL;
-    XRRScreenResources *screen;
     XRRCrtcInfo *crtc_info;
     int width;
     int x;
     int y;
 
     if (have_randr) {
-        screen = XRRGetScreenResources(display, DefaultRootWindow(display));
-        crtc_info = XRRGetCrtcInfo(display, screen, screen->crtcs[0]);
+        if (config.osd_monitor_name) {
+            crtc_info = crtc_info_by_output_name(config.osd_monitor_name);
+	    if (crtc_info == NULL) {
+		fprintf(stderr, "wmix:warning: Requested osd monitor not found, falling back to default\n");
+		crtc_info = crtc_info_by_output_number(0);
+	    }
+	}
+        else {
+	    crtc_info = crtc_info_by_output_number(config.osd_monitor_number);
+	}
+
         width = crtc_info->width - 200;
         x = crtc_info->x + 100;
         y = crtc_info->y + crtc_info->height - 120;
+	XRRFreeCrtcInfo(crtc_info);
         if (dockapp.osd &&
             width == dockapp.osd_width &&
             x == dockapp.osd_x &&

@@ -25,6 +25,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <getopt.h>
+#include <limits.h>
 
 #include <sys/soundcard.h>
 
@@ -45,6 +46,8 @@
 	"  -k        disable grabing volume control keys\n" \
 	"  -m <dev>  oss mixer device [/dev/mixer]\n" \
 	"            or alsa card name [default]\n" \
+	"  -o <num>  display osd on this monitor number or name [0]\n" \
+	"            use -1 to disable osd\n" \
 	"  -v        verbose -> id, long name, name\n" \
 
 /* The global configuration */
@@ -73,6 +76,8 @@ void config_init(void)
 	config.scrollstep = 0.03;
 	config.osd = 1;
 	config.osd_color = (char *) default_osd_color;
+	config.osd_monitor_number = 0;
+	config.osd_monitor_name = NULL;
 }
 
 /*
@@ -122,7 +127,7 @@ void parse_cli_options(int argc, char **argv)
 	config.verbose = false;
 	error_found = false;
 	for (;;) {
-		opt = getopt(argc, argv, ":a:d:e:f:hkm:v");
+		opt = getopt(argc, argv, ":a:d:e:f:hkm:o:v");
 		if (opt == -1)
 			break;
 
@@ -176,6 +181,24 @@ void parse_cli_options(int argc, char **argv)
 			if (config.mixer_device != default_mixer_device)
 				free(config.mixer_device);
 			config.mixer_device = strdup(optarg);
+			break;
+
+		case 'o': ;
+			char *end;
+			long mon = strtol(optarg, &end, 10);
+			if (end == optarg + strlen(optarg)) {
+				if ((mon > INT_MAX) || (mon < -1)) {
+					fprintf(stderr, "wmix:error: unreasonable monitor number provided\n");
+					error_found = true;
+				} else {
+					if (mon == -1)
+						config.osd = 0;
+					else
+						config.osd_monitor_number = (int)mon;
+				}
+			} else {
+				config.osd_monitor_name = strdup(optarg);
+			}
 			break;
 
 		case 'v':
