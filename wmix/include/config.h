@@ -64,4 +64,7 @@ void parse_cli_options(int argc, char **argv);
 /* Read configuration from file */
 void config_read(void);
 
+/* Set some default values based on configuration choices */
+void config_set_defaults();
+
 #endif	/* WMIX_CONFIG_H */

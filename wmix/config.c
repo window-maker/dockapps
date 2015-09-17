@@ -76,7 +76,7 @@ void config_init(void)
 	config.scrollstep = 0.03;
 	config.osd = 1;
 	config.osd_color = (char *) default_osd_color;
-	config.osd_monitor_number = 0;
+	config.osd_monitor_number = -1;
 	config.osd_monitor_name = NULL;
 }
 
@@ -111,14 +111,13 @@ void config_release(void)
 	}
 }
 
-void parse_monitor_value(char *value)
+bool parse_monitor_value(char *value)
 {
 	char *end;
 	long mon = strtol(value, &end, 10);
 	if (end == value + strlen(value)) {
 		if ((mon > INT_MAX) || (mon < -1)) {
-			fprintf(stderr, "wmix:warning: unreasonable monitor number provided, falling back to default\n");
-			config.osd_monitor_number = 0;
+			return false;
 		} else {
 			if (mon == -1)
 				config.osd = 0;
@@ -128,6 +127,7 @@ void parse_monitor_value(char *value)
 	} else {
 		config.osd_monitor_name = strdup(value);
 	}
+	return true;
 }
 
 /*
@@ -203,7 +203,8 @@ void parse_cli_options(int argc, char **argv)
 			break;
 
 		case 'o':
-			parse_monitor_value(optarg);
+			if (!parse_monitor_value(optarg))
+				fprintf(stderr, "wmix:warning: unreasonable monitor number provided on command line, ignoring\n");
 			break;
 
 		case 'v':
@@ -215,13 +216,6 @@ void parse_cli_options(int argc, char **argv)
 		}
 	}
 	config.exclude_channel[count_exclude] = NULL;
-
-	if (!config.mixer_device) {
-		if (config.api == 0)
-			config.mixer_device = (char *)default_card_name;
-		else if (config.api == 1)
-			config.mixer_device = (char *)default_mixer_device;
-	}
 
 	if (optind < argc) {
 		fprintf(stderr, "wmix:error: argument '%s' not understood\n", argv[optind]);
@@ -361,7 +355,10 @@ void config_read(void)
 			config.osd_color = strdup(value);
 
 		} else if (strcmp(keyword, "osdmonitor") == 0) {
-			parse_monitor_value(value);
+			if (!config.osd_monitor_name &&
+			    config.osd_monitor_number == -1 &&
+			    !parse_monitor_value(value))
+				fprintf(stderr, "wmix:warning: unreasonable monitor number in config, ignoring\n");
 
 		} else if (strcmp(keyword, "scrolltext") == 0) {
 			config.scrolltext = atoi(value);
@@ -392,4 +389,17 @@ void config_read(void)
 		}
 	}
 	fclose(fp);
+}
+
+void config_set_defaults()
+{
+	if (!config.mixer_device) {
+		if (config.api == 0)
+			config.mixer_device = (char *)default_card_name;
+		else if (config.api == 1)
+			config.mixer_device = (char *)default_mixer_device;
+	}
+
+	if (!config.osd_monitor_name && config.osd_monitor_number == -1)
+		config.osd_monitor_number = 0;
 }

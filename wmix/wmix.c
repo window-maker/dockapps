@@ -71,6 +71,7 @@ int main(int argc, char **argv)
     config_init();
     parse_cli_options(argc, argv);
     config_read();
+    config_set_defaults();
     choose_api(config.api);
 
     mixer_init(config.mixer_device, config.verbose, (const char **)config.exclude_channel);
