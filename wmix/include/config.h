@@ -20,9 +20,7 @@
 #ifndef WMIX_CONFIG_H
 #define WMIX_CONFIG_H
 
-/* Needed for SOUND_MIXER_NRDEVICES */
-#include <sys/soundcard.h>
-
+#define EXCLUDE_MAX_COUNT 100
 
 /* Global Configuration */
 extern struct _Config {
@@ -30,6 +28,7 @@ extern struct _Config {
 	char        *display_name;		/* X Display to connect to */
 	char        *mixer_device;		/* device file to use for controlling Mixer volumes */
 
+	unsigned int api;               /* Sound API (0 = ALSA, 1 = OSS) */
 	unsigned int verbose    : 1;	/* be Verbose when starting */
 	unsigned int osd        : 1;	/* show OSD? */
 	unsigned int mousewheel : 1;	/* mousewheel enabled? */
@@ -42,7 +41,7 @@ extern struct _Config {
 	float        scrollstep;		/* scroll mouse step adjustment */
 	char        *osd_color;			/* osd color */
 
-	char        *exclude_channel[SOUND_MIXER_NRDEVICES + 1];	/* Devices to exclude from GUI's list */
+	char        *exclude_channel[EXCLUDE_MAX_COUNT + 1];	/* Devices to exclude from GUI's list */
 } config;
 
 /* Default color for OSD */

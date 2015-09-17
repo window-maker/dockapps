@@ -32,7 +32,7 @@
 
 #include "include/common.h"
 #include "include/misc.h"
-#include "include/mixer.h"
+#include "include/mixer-oss.h"
 
 #define WMVOLUME_CHANNEL_NAMES \
 	"Master volume", \
@@ -221,7 +221,43 @@ static void set_record_state(void)
     }
 }
 
-void mixer_init(const char *mixer_device, bool verbose, const char * exclude[])
+static bool is_exclude(const char *short_name, const char *exclude[])
+{
+    int count;
+    int len;
+
+    for (count = 0; exclude[count] != NULL; count++) {
+
+        /*
+         * Short names may be padded with spaces, because apparently there is a minimum
+         * length requirement of 6 characters for the name, and we do not want to
+         * include this padding in the match
+         */
+        len = strlen(short_name);
+        while (len > 0) {
+            if (short_name[len - 1] == ' ')
+                len--;
+            else
+                break;
+        }
+
+        if (strncmp(short_name, exclude[count], len) != 0)
+            continue;
+
+        if (exclude[count][len] != '\0')
+            continue;
+
+        /* Check the remaining in short name is only space */
+        while (short_name[len] == ' ')
+            len++;
+
+        if (short_name[len] == '\0')
+            return true;
+    }
+    return false;
+}
+
+void mixer_oss_init(const char *mixer_device, bool verbose, const char * exclude[])
 {
     int devmask, srcmask, recmask, stmask;
     struct mixer_info m_info;
@@ -288,32 +324,32 @@ void mixer_init(const char *mixer_device, bool verbose, const char * exclude[])
     get_mixer_state();
 }
 
-bool mixer_is_changed(void)
+bool mixer_oss_is_changed(void)
 {
     return get_mixer_state();
 }
 
-int mixer_get_channel_count(void)
+int mixer_oss_get_channel_count(void)
 {
     return n_channels;
 }
 
-int mixer_get_channel(void)
+int mixer_oss_get_channel(void)
 {
     return cur_channel;
 }
 
-const char *mixer_get_channel_name(void)
+const char *mixer_oss_get_channel_name(void)
 {
     return mixer[cur_channel].name;
 }
 
-const char *mixer_get_short_name(void)
+const char *mixer_oss_get_short_name(void)
 {
     return mixer[cur_channel].sname;
 }
 
-void mixer_set_channel(int channel)
+void mixer_oss_set_channel(int channel)
 {
     assert((channel >= 0) && (channel < n_channels));
 
@@ -321,7 +357,7 @@ void mixer_set_channel(int channel)
     get_record_state();
 }
 
-void mixer_set_channel_rel(int delta_channel)
+void mixer_oss_set_channel_rel(int delta_channel)
 {
     cur_channel = (cur_channel + delta_channel) % n_channels;
     if (cur_channel < 0)
@@ -329,13 +365,13 @@ void mixer_set_channel_rel(int delta_channel)
     get_record_state();
 }
 
-float mixer_get_volume(void)
+float mixer_oss_get_volume(void)
 {
     get_mixer_state();
     return mixer[cur_channel].volume;
 }
 
-void mixer_set_volume(float volume)
+void mixer_oss_set_volume(float volume)
 {
     assert((volume >= 0.0) && (volume <= 1.0));
 
@@ -343,20 +379,20 @@ void mixer_set_volume(float volume)
     set_mixer_state();
 }
 
-void mixer_set_volume_rel(float delta_volume)
+void mixer_oss_set_volume_rel(float delta_volume)
 {
     mixer[cur_channel].volume += delta_volume;
     mixer[cur_channel].volume = CLAMP(mixer[cur_channel].volume, 0.0, 1.0);
     set_mixer_state();
 }
 
-float mixer_get_balance(void)
+float mixer_oss_get_balance(void)
 {
     get_mixer_state();
     return mixer[cur_channel].balance;
 }
 
-void mixer_set_balance(float balance)
+void mixer_oss_set_balance(float balance)
 {
     assert((balance >= -1.0) && (balance <= 1.0));
 
@@ -366,7 +402,7 @@ void mixer_set_balance(float balance)
     }
 }
 
-void mixer_set_balance_rel(float delta_balance)
+void mixer_oss_set_balance_rel(float delta_balance)
 {
     if (mixer[cur_channel].is_stereo) {
 	mixer[cur_channel].balance += delta_balance;
@@ -376,14 +412,14 @@ void mixer_set_balance_rel(float delta_balance)
     }
 }
 
-void mixer_toggle_mute(void)
+void mixer_oss_toggle_mute(void)
 {
     mixer[cur_channel].is_muted = !mixer[cur_channel].is_muted;
 
     set_mixer_state();
 }
 
-void mixer_toggle_rec(void)
+void mixer_oss_toggle_rec(void)
 {
     if (mixer[cur_channel].can_record) {
 	mixer[cur_channel].is_recording = !mixer[cur_channel].is_recording;
@@ -392,60 +428,22 @@ void mixer_toggle_rec(void)
     }
 }
 
-bool mixer_is_muted(void)
+bool mixer_oss_is_muted(void)
 {
     return mixer[cur_channel].is_muted;
 }
 
-bool mixer_is_stereo(void)
+bool mixer_oss_is_stereo(void)
 {
     return mixer[cur_channel].is_stereo;
 }
 
-bool mixer_is_rec(void)
+bool mixer_oss_is_rec(void)
 {
     return mixer[cur_channel].is_recording;
 }
 
-bool mixer_can_rec(void)
+bool mixer_oss_can_rec(void)
 {
     return mixer[cur_channel].can_record;
-}
-
-bool is_exclude(const char *short_name, const char *exclude[])
-{
-	int count;
-	int len;
-
-	for (count = 0; count < SOUND_MIXER_NRDEVICES; count++) {
-		if (exclude[count] == NULL)
-			break;
-
-		/*
-		 * Short names may be padded with spaces, because apparently there is a minimum
-		 * length requirement of 6 characters for the name, and we do not want to
-		 * include this padding in the match
-		 */
-		len = strlen(short_name);
-		while (len > 0) {
-			if (short_name[len - 1] == ' ')
-				len--;
-			else
-				break;
-		}
-
-		if (strncmp(short_name, exclude[count], len) != 0)
-			continue;
-
-		if (exclude[count][len] != '\0')
-			continue;
-
-		/* Check the remaining in short name is only space */
-		while (short_name[len] == ' ')
-			len++;
-
-		if (short_name[len] == '\0')
-			return true;
-	}
-	return false;
 }

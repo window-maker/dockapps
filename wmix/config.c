@@ -30,19 +30,21 @@
 
 #include "include/common.h"
 #include "include/config.h"
-
+#include "include/misc.h"
 
 #define VERSION_TEXT \
 	"WMixer " VERSION " by timecop@japan.co.jp + skunk@mit.edu\n"
 
 #define HELP_TEXT \
 	"usage:\n" \
+        "  -a <api>  use this sound api (oss or alsa) [alsa]\n" \
 	"  -d <dsp>  connect to remote X display\n" \
 	"  -e <name> exclude channel, can be used many times\n" \
 	"  -f <file> parse this config [~/.wmixrc]\n" \
 	"  -h        print this help\n" \
 	"  -k        disable grabing volume control keys\n" \
-	"  -m <dev>  mixer device [/dev/mixer]\n" \
+	"  -m <dev>  oss mixer device [/dev/mixer]\n" \
+	"            or alsa card name [default]\n" \
 	"  -v        verbose -> id, long name, name\n" \
 
 /* The global configuration */
@@ -50,7 +52,7 @@ struct _Config config;
 
 /* The default device used for Mixer control */
 static const char default_mixer_device[] = "/dev/mixer";
-
+static const char default_card_name[] = "default";
 /* Default color for OSD */
 const char default_osd_color[] = "green";
 
@@ -61,8 +63,8 @@ const char default_osd_color[] = "green";
 void config_init(void)
 {
 	memset(&config, 0, sizeof(config));
-
-	config.mixer_device = (char *) default_mixer_device;
+        config.api = 0;
+	config.mixer_device = NULL;
 	config.mousewheel = 1;
 	config.scrolltext = 1;
 	config.mmkeys = 1;
@@ -89,13 +91,14 @@ void config_release(void)
 	if (config.display_name)
 		free(config.display_name);
 
-	if (config.mixer_device != default_mixer_device)
+	if (config.mixer_device != default_mixer_device
+            && config.mixer_device != default_card_name)
 		free(config.mixer_device);
 
 	if (config.osd_color != default_osd_color)
 		free(config.osd_color);
 
-	for (i = 0; i < SOUND_MIXER_NRDEVICES; i++) {
+	for (i = 0; i < EXCLUDE_MAX_COUNT; i++) {
 		if (config.exclude_channel[i])
 			free(config.exclude_channel[i]);
 		else
@@ -119,7 +122,7 @@ void parse_cli_options(int argc, char **argv)
 	config.verbose = false;
 	error_found = false;
 	for (;;) {
-		opt = getopt(argc, argv, ":d:e:f:hkm:v");
+		opt = getopt(argc, argv, ":a:d:e:f:hkm:v");
 		if (opt == -1)
 			break;
 
@@ -133,7 +136,12 @@ void parse_cli_options(int argc, char **argv)
 			fprintf(stderr, "wmix:error: missing argument for option '-%c'\n", optopt);
 			error_found = true;
 			break;
-
+		case 'a':
+			if(!strcmp("oss", optarg))
+				config.api = 1;
+			else if (strcmp("alsa", optarg))
+				fprintf(stderr, "Warning: Incorrect sound api specified, defaulting to alsa\n");
+			break;
 		case 'd':
 			if (config.display_name)
 				free(config.display_name);
@@ -141,7 +149,7 @@ void parse_cli_options(int argc, char **argv)
 			break;
 
 		case 'e':
-			if (count_exclude < SOUND_MIXER_NRDEVICES) {
+			if (count_exclude < EXCLUDE_MAX_COUNT) {
 				config.exclude_channel[count_exclude] = strdup(optarg);
 				count_exclude++;
 			} else
@@ -179,6 +187,13 @@ void parse_cli_options(int argc, char **argv)
 		}
 	}
 	config.exclude_channel[count_exclude] = NULL;
+
+	if (!config.mixer_device) {
+		if (config.api == 0)
+			config.mixer_device = (char *)default_card_name;
+		else if (config.api == 1)
+			config.mixer_device = (char *)default_mixer_device;
+	}
 
 	if (optind < argc) {
 		fprintf(stderr, "wmix:error: argument '%s' not understood\n", argv[optind]);
@@ -296,9 +311,10 @@ void config_read(void)
 		} else if (strcmp(keyword, "exclude") == 0) {
 			int i;
 
-			for (i = 0; i < SOUND_MIXER_NRDEVICES; i++) {
+			for (i = 0; i < EXCLUDE_MAX_COUNT; i++) {
 				if (config.exclude_channel[i] == NULL) {
 					config.exclude_channel[i] = strdup(value);
+					config.exclude_channel[i+1] = NULL;
 					break;
 				}
 

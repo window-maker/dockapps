@@ -31,14 +31,14 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-#include <sys/soundcard.h>
-
 #include "include/common.h"
 #include "include/mixer.h"
 #include "include/misc.h"
 #include "include/ui_x.h"
 #include "include/mmkeys.h"
 #include "include/config.h"
+#include "include/mixer-oss.h"
+#include "include/mixer-alsa.h"
 
 
 static Display *display;
@@ -58,6 +58,7 @@ static void button_press_event(XButtonEvent *event);
 static void button_release_event(XButtonEvent *event);
 static int  key_press_event(XKeyEvent *event);
 static void motion_event(XMotionEvent *event);
+static void choose_api(int api);
 
 
 int main(int argc, char **argv)
@@ -67,6 +68,7 @@ int main(int argc, char **argv)
     config_init();
     parse_cli_options(argc, argv);
     config_read();
+    choose_api(config.api);
 
     mixer_init(config.mixer_device, config.verbose, (const char **)config.exclude_channel);
     mixer_set_channel(0);
@@ -154,6 +156,8 @@ int main(int argc, char **argv)
 	    }
 	} else {
 	    usleep(100000);
+            if (mixer_tick)
+                mixer_tick();
 	    scroll_text(3, 4, 57, false);
 	    /* rescroll message after some delay */
 	    if (idle_loop++ > 256) {
@@ -193,6 +197,55 @@ static void signal_catch(int sig)
 	    ui_update();
 	    idle_loop = 0;
 	    break;
+    }
+}
+
+static void choose_api(int api)
+{
+    if (api == 0) {
+        mixer_init = &mixer_alsa_init;
+        mixer_is_changed = &mixer_alsa_is_changed;
+        mixer_get_channel_count = mixer_alsa_get_channel_count;
+        mixer_get_channel = mixer_alsa_get_channel;
+        mixer_get_channel_name = mixer_alsa_get_channel_name;
+        mixer_get_short_name = mixer_alsa_get_short_name;
+        mixer_set_channel = mixer_alsa_set_channel;
+        mixer_set_channel_rel = mixer_alsa_set_channel_rel;
+        mixer_get_volume = mixer_alsa_get_volume;
+        mixer_set_volume = mixer_alsa_set_volume;
+        mixer_set_volume_rel = mixer_alsa_set_volume_rel;
+        mixer_get_balance = mixer_alsa_get_balance;
+        mixer_set_balance = mixer_alsa_set_balance;
+        mixer_set_balance_rel = mixer_alsa_set_balance_rel;
+        mixer_toggle_mute = mixer_alsa_toggle_mute;
+        mixer_toggle_rec = mixer_alsa_toggle_rec;
+        mixer_is_muted = mixer_alsa_is_muted;
+        mixer_is_stereo = mixer_alsa_is_stereo;
+        mixer_is_rec = mixer_alsa_is_rec;
+        mixer_can_rec = mixer_alsa_can_rec;
+        mixer_tick = mixer_alsa_tick;
+    } else if (api == 1) {
+        mixer_init = &mixer_oss_init;
+        mixer_is_changed = &mixer_oss_is_changed;
+        mixer_get_channel_count = mixer_oss_get_channel_count;
+        mixer_get_channel = mixer_oss_get_channel;
+        mixer_get_channel_name = mixer_oss_get_channel_name;
+        mixer_get_short_name = mixer_oss_get_short_name;
+        mixer_set_channel = mixer_oss_set_channel;
+        mixer_set_channel_rel = mixer_oss_set_channel_rel;
+        mixer_get_volume = mixer_oss_get_volume;
+        mixer_set_volume = mixer_oss_set_volume;
+        mixer_set_volume_rel = mixer_oss_set_volume_rel;
+        mixer_get_balance = mixer_oss_get_balance;
+        mixer_set_balance = mixer_oss_set_balance;
+        mixer_set_balance_rel = mixer_oss_set_balance_rel;
+        mixer_toggle_mute = mixer_oss_toggle_mute;
+        mixer_toggle_rec = mixer_oss_toggle_rec;
+        mixer_is_muted = mixer_oss_is_muted;
+        mixer_is_stereo = mixer_oss_is_stereo;
+        mixer_is_rec = mixer_oss_is_rec;
+        mixer_can_rec = mixer_oss_can_rec;
+        mixer_tick = NULL;
     }
 }
 
