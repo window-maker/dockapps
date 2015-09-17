@@ -42,7 +42,6 @@ typedef struct {
 } MRegion;
 MRegion mr[16];
 
-
 /* Converts separate left and right channel volumes (each in [0, 1]) to
  * volume and balance values. (Volume is in [0, 1], balance is in [-1, 1])
  */
@@ -119,7 +118,7 @@ void create_pid_file(void)
     if (home == NULL)
 	return;
 
-    pid = calloc(1, strlen(home) + 10);
+    pid = malloc(strlen(home) + 11);
     sprintf(pid, "%s/.wmix.pid", home);
     fp = fopen(pid, "w");
     if (fp) {
