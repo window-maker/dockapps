@@ -417,16 +417,20 @@ void update_osd(float volume, bool up)
     static int bar;
 
     if (config.osd) {
-	foo =
-	    (((dockapp.osd_width / 100) * (volume * 100)) / 20) + 1;
+	foo = (dockapp.osd_width - 20) * volume / 20.0;
 
-	if ((foo != bar) || up) {
-	    XClearArea(display, dockapp.osd, ((bar - 1) * 20), 30,
-		       (foo * 20), 25, 1);
-	    for (i = 1; i < foo; i++)
-		XFillRectangle(display, dockapp.osd, dockapp.osd_gc,
-			       i * 20, 30, 5, 25);
-	}
+        if (up) {
+            for (i = 1; i <= foo; i++)
+                XFillRectangle(display, dockapp.osd, dockapp.osd_gc,
+                               i * 20, 30, 5, 25);
+        } else if (foo < bar) {
+            XClearArea(display, dockapp.osd, ((foo+1) * 20), 30,
+                       ((bar-foo) * 20), 25, 1);
+        } else if (foo > bar) {
+            for (i = (bar > 0 ? bar : 1); i <= foo; i++)
+                XFillRectangle(display, dockapp.osd, dockapp.osd_gc,
+                               i * 20, 30, 5, 25);
+        }
 	bar = foo;
     }
 }
