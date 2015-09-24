@@ -146,7 +146,7 @@ int enableShapedWindow = 1;	/* default value is noshape */
 int enableBlinking = 1;		/* default is blinking */
 int startIconified = 0;		/* default is not iconified */
 int enableYearDisplay = 0;	/* default is to show time, not year */
-int blinkInterval = 2;          /* default is a 2-second blink cycle */
+unsigned int blinkInterval = 2;          /* default is a 2-second blink cycle */
 
 int timePos12[NUM_TIME_POSITIONS]  = { 5, 14, 24, 28, 37 };
 int timePos24[NUM_TIME_POSITIONS]  = { 4,  8, 17, 22, 31 };
