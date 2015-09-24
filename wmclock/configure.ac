@@ -1,4 +1,4 @@
-AC_INIT([wmclock], [1.0.15], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmclock], [1.0.16], [wmaker-dev@lists.windowmaker.org])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC

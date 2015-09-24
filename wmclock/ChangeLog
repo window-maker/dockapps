@@ -1,3 +1,16 @@
+2015-09-24  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Bump to version 1.0.16.
+
+	* configure.ac, wmclock.1.in: Get manpage date from ChangeLog instead
+	of manually updating.
+
+	* configure.ac, wmclock.c: Use defines to get language xpms instead of
+	creating symlinks.
+
+	* wmclock.c: Fix "comparison between signed and unsigned integer"
+	warnings.
+
 2014-12-11  Doug Torrance <dtorrance@monmouthcollege.edu>
 
 	* Bump to version 1.0.15.
@@ -31,8 +44,6 @@
 
 	* Imakefile, Makefile.am, configure, configure.ac:  Switch build
 	system from deprecated imake to autotools.
-
-2014-12-10  Doug Torrance <dtorrance@monmouthcollege.edu>
 
 	* ChangeLog, INSTALL, Imakefile, README, configure, dynlist.c,
 	dynlist.h, wmclock.c, wmclock.man.in:  Remove trailing whitespace.
