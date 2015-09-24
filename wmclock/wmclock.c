@@ -109,8 +109,8 @@
 #ifndef ONLY_SHAPED_WINDOW
 # include "clk.xpm"
 #endif /* !ONLY_SHAPED_WINDOW */
-#include "month.xpm"
-#include "weekday.xpm"
+#include MONTH_XPM
+#include WEEKDAY_XPM
 #include "xpm/date.xpm"
 #include "xpm/led.xpm"
 #include "xpm/mask.xbm"
