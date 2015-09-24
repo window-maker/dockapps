@@ -359,7 +359,7 @@ dockapps = 22
 category = Date/Time
 
 [wmix]
-version-3.2+20141005 = c1906c4c38da67d552bdac372d8381c0852210dd
+version-3.2+20150916 = 738c5a74b89fff1d0c31308f2dd2f15343a54914
 version-3.2 = c5828a9c18cd6afa3253bb745acf61594517af81
 version-3.1 = d0a93dcba903b8a0c9b3b89a4a0ac17f3998ef5b
 image = "wmix.gif,wmix-3.2.jpg"
