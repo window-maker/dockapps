@@ -21,7 +21,7 @@
 .TP \\$1
 ..
 .\" ----------------------------------------------------------------
-.TH wmclock 1 "2014-Dec-11" "Version @VERSION@"
+.TH wmclock 1 @DATE@ "Version @VERSION@"
 .\" ----------------------------------------------------------------
 .SH NAME
 wmclock \- A dockable clock for the Window Maker window manager

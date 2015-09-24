@@ -21,6 +21,8 @@ AC_DEFINE_UNQUOTED(MONTH_XPM, ["${LangDir}/month.xpm"])
 AC_DEFINE_UNQUOTED(WEEKDAY_XPM, ["${LangDir}/weekday.xpm"])
 AC_MSG_NOTICE([configuring for ${with_lang} day-of-week and month names...])
 
+AC_SUBST(DATE, "esyscmd(head -n 1 ChangeLog | cut -d' ' -f1 | tr -d '\n')")
+
 PKG_CHECK_MODULES([x11], [x11])
 PKG_CHECK_MODULES([xpm], [xpm])
 PKG_CHECK_MODULES([xext], [xext])
