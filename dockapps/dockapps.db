@@ -242,6 +242,7 @@ dockapps =
 category = General/Others
 
 [wmclock]
+version-1.0.16 = daaf3aa04e55152d4c2ec002cabefe7e2026b150
 version-1.0.15 = f09894b79e650686e1511db67e1e75ca4ed4eb93
 version-1.0.14 = 52e35fed8d8b18d3af00b5ec8add20ebd62cb181
 image = wmclock.png
