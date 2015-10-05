@@ -9,8 +9,15 @@ Pascal G. Hofstee <daeron@windowmaker.org>
 You must have libXpm library installed and the shape extension supported
 by your X server to be able to build and install libdockapp.
 
+If you received this file in a tarball then you probably need to generate the
+configuration environment yourself. You need libtool and autotools for this
+purpose.
 To compile libDockApp enter the libdockapp directory and type:
 
+libtoolize 
+aclocal
+autoconf
+automake --add-missing
 ./configure
 make install
 
