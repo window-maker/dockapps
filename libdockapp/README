@@ -14,10 +14,7 @@ configuration environment yourself. You need libtool and autotools for this
 purpose.
 To compile libDockApp enter the libdockapp directory and type:
 
-libtoolize 
-aclocal
-autoconf
-automake --add-missing
+autoreconf -if
 ./configure
 make install
 
