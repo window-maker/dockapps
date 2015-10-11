@@ -9,6 +9,7 @@ dockapps = 253
 category = Audio
 
 [libdockapp]
+version-0.7.0+20151009 = eb55637ad868d1ee0394f5c61081e19b7a14ee43
 version-0.7.0 = bc1223ae9359e7965b797902941d4621e16cdeb8
 version-0.6.4 = d06e8c1ef2fe262d9cd19a86569070d7f6f2e892
 version-0.6.3 = 16b041049fdb98d2770d006680e39302e0ceeb3a
