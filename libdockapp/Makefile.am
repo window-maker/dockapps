@@ -27,7 +27,7 @@ EXTRA_DIST = BUGS
 
 update-changelog:
 	@git log `git log -1 --pretty=%h -- ChangeLog`..HEAD \
-		--pretty --numstat --summary | \
+		--pretty --numstat --summary -- . | \
 		git2cl | \
 		sed 's/libdockapp: \?//g' | \
 		sed 's/libdockapp\///g' > ChangeLog.new
