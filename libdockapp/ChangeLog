@@ -1,3 +1,39 @@
+2015-10-17  Doug Torrance <dtorrance@piedmont.edu>
+
+	* configure.ac: Bump to version 0.7.1.
+
+2015-10-17  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Makefile.am: Update update-changelog target in Makefile.
+	Only grab libdockapp commits.
+
+2015-10-17  Doug Torrance <dtorrance@piedmont.edu>
+
+	* examples/basic/basic.c, examples/rectangles/rectangles.c: Update
+	header location in examples.
+
+2015-10-09  Shining <wmaker-dev@linuxcondom.net>
+
+	* README: Simplify instructions to generate a ./configure script.
+	Based on suggestions by Alexey Frolov and BALATON Zoltan.
+
+2015-10-05  Shining <wmaker-dev@linuxcondom.net>
+
+	* README: Info about generating 'configure' script in README.
+	In the README it is said to run ./configure but there's no such
+	script in the tarball. I wrote instructions to generate a
+	./configure with libtool and autotools.
+
+2015-08-15  Rodolfo García Peñas (kix) <kix@kix.es>
+
+	* Include libwmgeneral in libdockapp.
+	This patch includes the libwmgeneral library in the libdockapp library.
+	The new library is now version 3 (previous was version 2) and it
+	includes the new include folder in $libdir/libdockapp.  The wmgeneral
+	files were moved from the previous folder (libwmgeneral) and the folder
+	is now removed.
+	Signed-off-by: Rodolfo García Peñas (kix) <kix@kix.es>
+
 2014-11-28  Doug Torrance <dtorrance@monmouthcollege.edu>
 
 	* NEWS, configure.ac: Release version 0.6.4.
