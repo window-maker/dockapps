@@ -8,7 +8,7 @@
  */
 
 /* also includes Xlib, Xresources, XPM, stdlib and stdio */
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 #include <time.h>
 
 /* include the pixmap to use */

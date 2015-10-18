@@ -18,7 +18,7 @@
  */
 #include <X11/extensions/shape.h>
 
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 
 /* already includes Xlib, Xresources, XPM, stdlib and stdio */
 
