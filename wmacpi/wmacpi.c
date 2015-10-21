@@ -19,7 +19,7 @@
 
 #define _GNU_SOURCE
 
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 
 #include <stdio.h>
 #include <stdlib.h>
