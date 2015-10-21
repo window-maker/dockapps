@@ -23,6 +23,8 @@ dockapp.pc: Makefile
 	@echo 'Libs: -L${libdir} -ldockapp' >> $@
 	@echo 'Cflags: -I${includedir}' >> $@
 
+CLEANFILES = dockapp.pc
+
 EXTRA_DIST = BUGS
 
 update-changelog:
