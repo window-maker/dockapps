@@ -22,7 +22,7 @@ Reparent and Destroy events are catched with StructureNotifyMask.
 
 #include <stdlib.h>
 
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 
 #include "types.h"
 #include "events.h"

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 
 #include "options.h"
 #include "menu.h"

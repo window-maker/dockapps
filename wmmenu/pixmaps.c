@@ -4,7 +4,7 @@
 #ifdef WITH_GDKPIXBUF
 #include <gdk-pixbuf-xlib/gdk-pixbuf-xlib.h>
 #endif
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 
 #include "pixmaps.h"
 #include "xobjects.h"

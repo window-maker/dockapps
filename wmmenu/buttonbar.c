@@ -1,6 +1,6 @@
 #include <assert.h>
 
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 
 #include "buttonbar.h"
 #include "xobjects.h"
