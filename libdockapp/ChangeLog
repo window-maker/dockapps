@@ -1,3 +1,35 @@
+2015-10-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* configure.ac: Bump to version 0.7.2.
+
+2015-10-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Makefile.am: Clean generated file dockapp.pc.
+	Based on the Debian patch [1].
+
+	[1] https://sources.debian.net/src/1:0.7.1-1/debian/patches/
+	    clean_dockapp.pc.patch/
+
+2015-10-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* configure.ac, src/Makefile.am:
+	Remove AC_PATH_XTRA macro from configure.ac
+	We already check for libraries with the PKG_CHECK_MODULES macros.
+	This also allows the Debian package to drop the Build-Depend on
+	libice-dev.  Based on the Debian patch [1].
+
+	[1] https://sources.debian.net/src/1:0.7.1-1/debian/patches/
+	    remove_AC_PATH_XTRA.diff/
+
+2015-10-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Recompress fonts without timestamp.
+	This fixes the package-contains-timestamped-gzip warning given by
+	Lintian for the Debian package.  (This warning is really
+	unnecessary, as its purpose it to check for reproducible builds and
+	the fonts are not compressed at build time, but I see no harm in
+	removing these timestamps.)
+
 2015-10-17  Doug Torrance <dtorrance@piedmont.edu>
 
 	* configure.ac: Bump to version 0.7.1.
