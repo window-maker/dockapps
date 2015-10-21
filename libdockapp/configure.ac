@@ -25,8 +25,6 @@ AC_PROG_CC
 AC_PROG_INSTALL
 
 dnl Checks for libraries.
-AC_PATH_XTRA
-
 PKG_CHECK_MODULES([X11],[x11])
 PKG_CHECK_MODULES([Xext],[xext])
 PKG_CHECK_MODULES([xpm],[xpm])

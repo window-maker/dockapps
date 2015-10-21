@@ -3,7 +3,7 @@ AUTOMAKE_OPTIONS = no-dependencies
 
 lib_LTLIBRARIES = libdockapp.la
 
-libdockapp_la_LDFLAGS = -version-info 3:0:0 @X_LIBS@
+libdockapp_la_LDFLAGS = -version-info 3:0:0
 
 otherincludedir = $(includedir)/libdockapp
 otherinclude_HEADERS = dockapp.h \
@@ -30,7 +30,7 @@ libdockapp_la_SOURCES = \
 noinst_HEADERS = daargs.h dautil.h
 
 AM_CFLAGS = $(X11_CFLAGS) $(Xext_CFLAGS) $(xpm_CFLAGS)
-AM_CPPFLAGS = @X_CFLAGS@ @CPPFLAGS@ @DFLAGS@
+AM_CPPFLAGS = @CPPFLAGS@ @DFLAGS@
 LIBS += $(X11_LIBS) $(Xext_LIBS) $(xpm_LIBS)
 
 LIBLIST = libdockapp.la @XLIBS@
