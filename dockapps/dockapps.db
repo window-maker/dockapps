@@ -9,6 +9,7 @@ dockapps = 253
 category = Audio
 
 [libdockapp]
+version-0.7.2 = b9baa8f0ab793b64530a9029e638b2cdf0c51dc0
 version-0.7.1 = 2a0faa44fe3fbe2d2fc6779968ed35033f0282b1
 version-0.7.0 = bc1223ae9359e7965b797902941d4621e16cdeb8
 version-0.6.4 = d06e8c1ef2fe262d9cd19a86569070d7f6f2e892
@@ -56,6 +57,7 @@ dockapps = 299
 category = System Monitoring
 
 [wmacpi]
+version-2.3+20151021 = 5453910740be30a13f520661eda005ba673c195c
 version-2.3 = d4871ec5b557772614222856ffc6abf00fefc4b0
 version-2.2 = efbb69d77277b35cb7689dc6850f1dc5b40b8be6
 version-2.2rc5 = daa0ba41e07a073d40576e4344d3ddfb555d6282
@@ -405,6 +407,7 @@ dockapps =
 category = System Monitoring
 
 [wmmenu]
+version-1.3+20151021 = 753975c6f07d0d0db0e9165e328ab08cbea24221
 version-1.3 = bcf2ec75002fa74c6dc3ba03dd825ecd3bbbf65b
 version-1.2 = 632db993895433cdbe25f501538bc77076eada85
 image = wmmenu.png
