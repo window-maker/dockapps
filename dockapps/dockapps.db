@@ -145,7 +145,7 @@ dockapps = 34
 category = System Monitoring
 
 [wmbiff]
-version-0.4.28+20150816 = faef25c1eb95024c8702a6870ca3d333937a9701
+version-0.4.28+20151026 = caff0d64cbb04e2ac7aa5f44a090404b85601b00
 version-0.4.28 = 9727bb7b02ee88966de03c74e9da21b7611ca2a6
 version-0.4.27 = 0e2f5afd57ca4e5b2f75f5e16c1fd0550d98f210
 image = wmbiff.jpg
