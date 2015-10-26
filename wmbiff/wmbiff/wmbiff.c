@@ -1249,6 +1249,7 @@ static void usage(void)
 		   "    -relax                    assume the configuration is \n"
 		   "                              correct, parse it without paranoia, \n"
 		   "                              and assume hostnames are okay.\n"
+	           "    -o                        enable classical mode look and behaviour\n"
 		   "    -v                        print the version number\n"
 		   "    +w                        not withdrawn: run as a window\n"
 		   "\n", PACKAGE_VERSION, PACKAGE_BUGREPORT);
