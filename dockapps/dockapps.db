@@ -643,7 +643,7 @@ dockapps = 324
 category = Date/Time
 
 [wmtv]
-version-0.6.5+20150816 = 68313f0a9ced8127c7df64619a958a4d957b433e
+version-0.6.6 = 2fceb9d2e01f20762af59c11f9489751277a8974
 version-0.6.5 = 0dbb066412c26a633e09baec15570d10f4c7246e
 image = wmtv.png
 description = "Dockable video4linux TV player for WindowMaker"
