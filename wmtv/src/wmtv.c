@@ -75,7 +75,7 @@
 #define SETUNE		2
 #define SETSPD		3
 
-#define MAXCHAN		100
+#define MAXCHAN		99
 #define OPTIONS		"hvd:g:e:b:"
 
 #define TELEVISION	0
@@ -115,7 +115,6 @@ int fsheight = 0;
 unsigned long ccrfreq;
 unsigned long rfreq;
 unsigned long st;
-unsigned long offset;
 
 char *norm = NULL;
 char *source;
@@ -123,8 +122,8 @@ char *mode = NULL;
 char *fullscreen = NULL;
 int  freqnorm = -1;
 char *cname[MAXCHAN];
-char *wcname[MAXCHAN];
-int	 ftune[MAXCHAN];
+char *comment[MAXCHAN];
+long ftune[MAXCHAN];
 char *progname;
 char *dev = "/dev/video";
 
@@ -209,7 +208,7 @@ int
 main(int argc, char *argv[])
 {
 	int i, c, opind;
-	// pid_t pid;
+	/* pid_t pid; */
 	char cfile[128];
 	static struct option long_options[] = {
 		{"display", 1, 0, 'd'},
@@ -402,8 +401,8 @@ main(int argc, char *argv[])
 								}
 								else if (ntfb_status == SETUNE) {
 										if (!btime) {
-											offset = (rfreq - ccrfreq);
-											// fprintf(stderr, "wmtv: finetune offset = %ld\n", offset);
+											ftune[cchannel] = (rfreq - ccrfreq);
+											/* fprintf(stderr, "wmtv: finetune offset = %ld\n", ftune[cchannel]); */
 											WriteRCFile(cfile);
 											ntfb_status = SETON;
 											DrawPresetChan(cchannel);
@@ -441,10 +440,10 @@ main(int argc, char *argv[])
 														ntfb_status = SETOFF;
 														TVOff();
 														system(exe);
-														/*
+#if 0
 														pid = fork();
 
-														// child
+														/* child */
 														if (pid == (pid_t) 0) {
 														execlp("xawtv", "xawtv", "&", (char *) 0);
 														}
@@ -453,11 +452,11 @@ main(int argc, char *argv[])
 															perror("fork");
 														}
 
-														// parent
+														/* parent */
 														else {
 															if (waitpid(pid, NULL, 0) < 0) {
 																perror("waitpid");
-														*/
+#endif
 													}
 													else {
 														DoFullScreen();
@@ -808,7 +807,7 @@ MuteAudio(void)
 {
 	if (vchn.flags & VIDEO_VC_AUDIO) {
 		vaud.audio = tvsource;
-		// vaud.volume = 0;
+		/* vaud.volume = 0; */
 		vaud.flags |= VIDEO_AUDIO_MUTE;
 		if (ioctl(tfd, VIDIOCSAUDIO, &vaud) < 0)
 				perror("ioctl VIDIOCSAUDIO");
@@ -823,7 +822,7 @@ UnMuteAudio(void)
 {
 	if ((vchn.flags & VIDEO_VC_AUDIO) && (vaud.flags & VIDEO_AUDIO_MUTE)) {
 		vaud.audio = tvsource;
-		// vaud.volume = (0xFFFF/2)+1;
+		/* vaud.volume = (0xFFFF/2)+1; */
 		vaud.flags &= ~VIDEO_AUDIO_MUTE;
 		if (ioctl(tfd, VIDIOCSAUDIO, &vaud) < 0)
 				perror("ioctl VIDIOCSAUDIO");
@@ -900,7 +899,7 @@ void
 ChanUp(void)
 {
 	int i;
-	if (cchannel != maxpst)
+	if (cchannel < maxpst)
 	++cchannel;
 	for (i=0; i < CHAN_ENTRIES; i++) {
 		if (!strcmp(cname[cchannel], tvtuner[i].name)) {
@@ -947,7 +946,7 @@ DrawPresetChan(int cchannel)
 	int k=6;
 
 	if (isource == TELEVISION) {
-		sprintf(temp, "%02d", cchannel);
+		sprintf(temp, "%02d", cchannel+1);
 
 		if (*p == '0') {
 			copyXPMArea(66, 79, 5, 7, k, 50);
@@ -980,7 +979,7 @@ DrawPresetChan(int cchannel)
 void
 ParseRCFile(const char *filename, rckeys *keys)
 {
-	char	*p,*q;
+	char	*p;
 	char	temp[128];
 	char	*tokens = " =\t\n";
 	FILE	*fp;
@@ -993,20 +992,17 @@ ParseRCFile(const char *filename, rckeys *keys)
 	}
 	norcfile = 0;
 	while (fgets(temp, 128, fp)) {
-		key = 0;
-		q = strdup(temp);
-		if (*q != '\n') {
-		q = strtok(q, tokens);
-			while (key >= 0 && keys[key].label) {
-				if ((!strcmp(q, keys[key].label))) {
+		if (temp[0] != '\n') {
+			p = strtok(temp, tokens);
+			for (key=0; keys[key].label; key++) {
+				if ((!strcmp(p, keys[key].label))) {
 					p = strtok(NULL, tokens);
 					free(*keys[key].var);
 					*keys[key].var = strdup(p);
-					key = -1;
-				} else key++;
+					break;
+				}
 			}
 		}
-		free(q);
 	}
 	fclose(fp);
 }
@@ -1017,12 +1013,9 @@ void
 ParseRCFile2(const char *filename)
 {
 	int  menu = FALSE;
-	char temp[128];
-	char tp[10];
-	char *tokens = " \t\n()";
-	char *q, *p;
+	char temp[128], name[128];
 	FILE *fp;
-	int i = 0;
+	int len, i = 0;
 
 	if ((fp = fopen(filename, "r")) == NULL) {
 		fprintf(stderr, "wmtv: %s\n", strerror(errno));
@@ -1031,42 +1024,22 @@ ParseRCFile2(const char *filename)
 	}
 	norcfile = 0;
 	while (fgets(temp, 128, fp)) {
-		q = strdup(temp);
-		if (*q != '\n') {
-			q = strtok(q, tokens);
+		if (*temp != '\n') {
 			if (menu) {
-				cname[i] = (char *)malloc(sizeof(q));
-				strncpy(cname[i], q, sizeof(q));
-				p = q;
-				p = strtok(NULL, tokens);
-				if (p != NULL) {
-					if (*p == '-') {
-						p++;
-						ftune[i] = -1*atoi(p);
-					}
-					else if (*p == '+') {
-						p++;
-						ftune[i] = atoi(p);
-					}
-					else {
-						ftune[i] = atoi(p);
-					}
+				ftune[i]=0;
+				if(sscanf(temp, " %s %n(%ld) %n", name, &len, &ftune[i], &len)>=1) {
+					cname[i]=strdup(name);
+					comment[i]=temp[len]?strdup(temp+len):"\n";
 				}
-				else {
-					ftune[i] = 0;
-				}
-				wcname[i] = (char *)malloc(sizeof(cname[i])+sizeof(p));
-				wcname[i] = strdup(cname[i]);
-				sprintf(tp, " (%d) ", ftune[i]);
-				strcat(wcname[i], tp);
-				i++;
-				tpst = i;
+				if(++i>=MAXCHAN)
+					break;
 			}
-			if ((q = strchr(q, '[')) != NULL) {
+			else if (strchr(temp, '[')) {
 				menu = TRUE;
 			}
 		}
 	}
+	tpst = i;
 	fclose(fp);
 }
 
@@ -1075,11 +1048,8 @@ ParseRCFile2(const char *filename)
 void
 WriteRCFile(const char *filename)
 {
-	int i;
+	long i;
 	char temp[128];
-	char tp[10];
-	char *tokens = " \t\n()";
-	char *q;
 	FILE *fp;
 
 	if ((fp = fopen(filename, "r+")) == NULL) {
@@ -1087,24 +1057,17 @@ WriteRCFile(const char *filename)
 		return;
 	}
 
-
 	while (fgets(temp, 128, fp)) {
-		q = strdup(temp);
-		if (*q != '\n') {
-			q = strtok(temp, tokens);
-			if ((q = strchr(q, '[')) != NULL) {
-				for (i = 0; i <= maxpst; i++) {
-					// fprintf(stderr, "offset is %ld\n", offset);
-					sprintf(tp, " (%ld) ", offset);
-					strtok(wcname[cchannel], tokens);
-					strcat(wcname[cchannel], tp);
-					fputs(wcname[i], fp);
-					fputs("\n", fp);
-				}
-			}
+		if (*temp != '\n' && strchr(temp, '[')) {
+			fseek(fp, 0L, SEEK_CUR);	/* required between read and write */
+			for (i = 0; i < maxpst; i++)
+				fprintf(fp, "%s (%ld)\t%s", cname[i], ftune[i], comment[i]);
+			break;
 		}
 	}
+	i=ftell(fp);
 	fclose(fp);
+	truncate(filename, i);
 }
 
 
