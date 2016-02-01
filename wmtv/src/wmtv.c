@@ -53,8 +53,6 @@
 
 
 /* Defines */
-#define VERSION "0.6.5"
-
 #define ON		1
 #define OFF		0
 
