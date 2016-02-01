@@ -1,3 +1,26 @@
+version 0.6.6
+-------------
+Date	-	1/2/16
+		-	Now maintained by the Window Maker Developers Team.
+		-	Update GPL text and Free Software Foundation address.
+		-	Remove trailing whitespace.
+		-	Config file handling.
+		-	Fix calculation of bytes per line.
+		-	Fix security hole.
+		-	Add some French channels.
+		-	Start without user config file.
+		-	Do not shorten user config file.
+		-	Remaining changes from debian package versions 0.6.5-8
+			through 13.
+		-	Fix frequency sent to external program.
+		-	Add new -c option to choose the video4linux device to
+			use.
+		-	Update video4linux include.
+		-	Replace obsolete include of xf86dga.h with Xxf86dga.h.
+		-	Switch to autotools for build.
+		-	Add manpage from Debian.
+		-	Update and tidy up README.
+
 Version 0.6.5
 -------------
 Date	-	25/4/99
