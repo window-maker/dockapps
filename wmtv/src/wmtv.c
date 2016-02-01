@@ -1070,7 +1070,7 @@ WriteRCFile(const char *filename)
 	while (fgets(temp, 128, fp)) {
 		if (*temp != '\n' && strchr(temp, '[')) {
 			fseek(fp, 0L, SEEK_CUR);	/* required between read and write */
-			for (i = 0; i < maxpst; i++)
+			for (i = 0; i <= maxpst; i++)
 				fprintf(fp, "%s (%ld)\t%s", cname[i], ftune[i], comment[i]);
 			break;
 		}
