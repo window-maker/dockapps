@@ -1264,7 +1264,7 @@ GetFrameBuffer(void)
 	int evbr, erbr, flr = 0;
 	int bankr, memr, depth;
 	int i, n;
-	int bytesperline, bitsperpixel;
+	int bytesperline, bytesperpixel;
 	XPixmapFormatValues *pf;
 
 	if (!XGetWindowAttributes(display, DefaultRootWindow(display), &Winattr)) {
@@ -1294,13 +1294,13 @@ GetFrameBuffer(void)
 			}
 	}
 
-	bitsperpixel = (depth+7) & 0xf8;				    /* Taken from */
-	bytesperline = Winattr.width * bitsperpixel / 8;    /* Gerd Knorr's xawtv */
+	bytesperpixel = (depth+7) & 0xf8;
+	bytesperline *= bytesperpixel;
 
 	vfb.base = baseaddr;
 	vfb.height = Winattr.height;
 	vfb.width  = Winattr.width;
-	vfb.depth  = bitsperpixel;
+	vfb.depth  = bytesperpixel;
 	vfb.bytesperline = bytesperline;
 
 	if (Winattr.depth == 15)
