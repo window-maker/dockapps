@@ -29,6 +29,7 @@
 #include <fcntl.h>
 #include <time.h>
 #include <errno.h>
+#include <signal.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/types.h>
@@ -82,6 +83,9 @@
 #define COMPOSITE   1
 #define SVIDEO		2
 
+#ifndef GLOBALCONFFILE
+#define GLOBALCONFFILE "/etc/wmtvrc"
+#endif
 
 /* Global Variables */
 int tfd;
@@ -111,6 +115,8 @@ int dcret;
 int tml;
 int fswidth = 0;
 int fsheight = 0;
+pid_t child_pid = -1;
+int restart = FALSE;
 
 unsigned long ccrfreq;
 unsigned long rfreq;
@@ -126,6 +132,9 @@ char *comment[MAXCHAN];
 long ftune[MAXCHAN];
 char *progname;
 char *dev = "/dev/video";
+
+char *sysConfFile = GLOBALCONFFILE;
+char *usrConfFile;
 
 int  wmtv_mask_width = 64;
 int  wmtv_mask_height = 64;
@@ -195,21 +204,89 @@ void GrabImage(void);
 
 void ParseRCFile(const char *, rckeys *);
 void ParseRCFile2(const char *);
-void WriteRCFile(const char *);
+void WriteRCFile(const char *, rckeys *);
 void InitConfig(void);
 void InitPalette(void);
 
 void Usage(void);
 void Version(void);
 
+void
+sigchld_handler(int i)
+{
+	pid_t pid;
+	pid = waitpid((pid_t)-1, NULL, WNOHANG);
+	while (pid>(pid_t)0) {
+		if (pid == child_pid) {
+			child_pid = -1;
+			restart = TRUE;
+		}
+		pid = waitpid((pid_t)-1, NULL, WNOHANG);
+	}
+}
+
+void
+init_signal()
+{
+	struct sigaction sa;
+
+	sa.sa_handler = &sigchld_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGCHLD, &sa, NULL);
+}
+
+char *
+expand_format(char *format, char *letters, char **expansions)
+{
+	char *string;
+	unsigned int string_pos = 0;
+	unsigned int size;
+	size = strlen(format)+1;
+	string = (char *)malloc(size*sizeof(char));
+	for (; *format != '\0'; format++) {
+		if (*format == '%') {
+			format++;
+			if (*format != '%') {
+				unsigned int i;
+				for (i = 0; letters[i] != '\0'; i++) {
+					if (letters[i] == *format)
+						break;
+				}
+				if (letters[i] != '\0') {
+					unsigned int expansion_size;
+					expansion_size = strlen(expansions[i]);
+					while (string_pos+expansion_size+1 > size) {
+						size *= 2;
+						string = realloc(string, size*sizeof(char));
+					}
+					memcpy(string+string_pos, expansions[i], expansion_size);
+					string_pos += expansion_size;
+					continue;
+				}
+				else {
+					format--;
+				}
+			}
+		}
+		while (string_pos+1+1 > size) {
+			size *= 2;
+			string = realloc(string, size*sizeof(char));
+		}
+		string[string_pos] = *format;
+		string_pos++;
+	}
+	string[string_pos] = '\0';
+	return string;
+}
 
 /* main function */
 int
 main(int argc, char *argv[])
 {
-	int i, c, opind;
+	int c, opind;
+	int pressed_button = -1;
 	/* pid_t pid; */
-	char cfile[128];
 	static struct option long_options[] = {
 		{"display", 1, 0, 'd'},
 		{"geometry", 1, 0, 'g'},
@@ -222,8 +299,18 @@ main(int argc, char *argv[])
 
 	progname = strdup(argv[0]);
 
-	strncpy(cfile, (char *)getenv("HOME"), sizeof(char)*128);
-	strcat(cfile, "/.wmtvrc");
+	{
+		char *home = getenv("HOME");
+
+		if (home == NULL) {
+			fprintf(stderr, "wmtv: $HOME should be set.\n");
+			exit(1);
+		}
+
+		usrConfFile = (char *)malloc(sizeof(char)*(strlen(home)+8+1));
+		strcpy(usrConfFile, home);
+		strcat(usrConfFile, "/.wmtvrc");
+	}
 
 	while (1) {
 		opind = 0;
@@ -277,9 +364,21 @@ main(int argc, char *argv[])
 	AddMouseRegion (SCANRB, 35, 48, 47, 59); 	/* Right Preset/Scan Button */
 	AddMouseRegion (FULLSB, 5, 5, 59, 44);		/* Toggle FullScreen */
 
+	init_signal();
+
 	/* wmtv main loop */
 	while (1)
 	{
+		if (restart) {
+			TVOn();
+			if (ntfb_status == SETOFF) {
+				ntfb_status = SETON;
+				RedrawWindow();
+				XFlush(display);
+			}
+			restart = FALSE;
+			continue;
+		}
 		while (XPending(display))
 		{
 			XNextEvent(display, &Event);
@@ -302,8 +401,8 @@ main(int argc, char *argv[])
 						RetScreen();
 					}
 					else {
-					i = CheckMouseRegion (Event.xbutton.x, Event.xbutton.y);
-					switch (i) {
+					pressed_button = CheckMouseRegion (Event.xbutton.x, Event.xbutton.y);
+					switch (pressed_button) {
 						case NTFB:
 							ButtonDown(NTFB);
 							t_lc = Event.xbutton.time;
@@ -325,7 +424,7 @@ main(int argc, char *argv[])
 										break;
 								}
 							}
-							else
+							else if (ntfb_status == SETON)
 									ChanDown();
 							break;
 						case SCANRB:
@@ -344,7 +443,7 @@ main(int argc, char *argv[])
 										break;
 								}
 							}
-							else
+							else if (ntfb_status == SETON)
 									ChanUp();
 							break;
 						case FULLSB:
@@ -371,8 +470,7 @@ main(int argc, char *argv[])
 					}
 					break;
 				case ButtonRelease:
-					i = CheckMouseRegion (Event.xbutton.x, Event.xbutton.y);
-					switch (i) {
+					switch (pressed_button) {
 						case NTFB:
 							ButtonUp(NTFB);
 								if (but_pressed) {
@@ -383,8 +481,10 @@ main(int argc, char *argv[])
 								}
 
 								if (ntfb_status == SETOFF) {
+									if (child_pid == -1) {
 										ntfb_status = SETON;
 										TVOn();
+								}
 								}
 								else if (ntfb_status == SETON) {
 										if (!btime) {
@@ -403,7 +503,7 @@ main(int argc, char *argv[])
 										if (!btime) {
 											ftune[cchannel] = (rfreq - ccrfreq);
 											/* fprintf(stderr, "wmtv: finetune offset = %ld\n", ftune[cchannel]); */
-											WriteRCFile(cfile);
+											WriteRCFile(usrConfFile, wmtv_keys);
 											ntfb_status = SETON;
 											DrawPresetChan(cchannel);
 										}
@@ -437,19 +537,39 @@ main(int argc, char *argv[])
 											{
 												if ((ntfb_status == SETON) || (ntfb_status == SETUNE)) {
 													if (exe) {
+														pid_t pid;
+														char *command;
+														char *letters = "#nf";
+														char *(expansions[3]);
 														ntfb_status = SETOFF;
 														TVOff();
+														expansions[0] = malloc(3*sizeof(char));
+														snprintf(expansions[0], 3, "%d", cchannel+1);
+														expansions[1] = comment[cchannel];
+														expansions[2] = malloc(15*sizeof(char));
+														snprintf(expansions[2], 15, "%ld", rfreq);
+														command = expand_format(exe, letters, expansions);
 														/* system(exe); */
-														if (fork() == (pid_t) 0) {
+														child_pid = fork();
+														if (child_pid == (pid_t) 0) {
 														char *argv[4];
-														setuid(getuid()); /* Drop the privileges */
 														argv[0] = "sh";
 														argv[1] = "-c";
-														argv[2] = exe;
+															argv[2] = command;
 														argv[3] = NULL;
 														execv("/bin/sh", argv);
 														exit(-1);
 														}
+														free(expansions[0]);
+														free(expansions[2]);
+														free(command);
+														pid = waitpid(child_pid, NULL, WNOHANG);
+														if (pid != 0) {
+															child_pid = -1;
+															restart = TRUE;
+														}
+														/* printf("Returned pid:\n"); */
+
 #if 0
 														pid = fork();
 
@@ -554,12 +674,10 @@ main(int argc, char *argv[])
 									ChanDown();
 									break;
 								case XK_Right:
-									if (isource == TELEVISION)
-									FineTuneUp();
+									VolumeUp();
 									break;
 								case XK_Left:
-									if (isource == TELEVISION)
-									FineTuneDown();
+									VolumeDown();
 									break;
 								case XK_m:
 									if (!mute) {
@@ -642,7 +760,6 @@ TVOn(void)
 	int rx, ry;
 	char *p;
 
-
 	XWindowAttributes winattr;
 
 	if (!XGetWindowAttributes (display, iconwin, &winattr)) {
@@ -656,6 +773,18 @@ TVOn(void)
 		fprintf(stderr, "wmtv: error translating coordinates\n");
 	}
 
+	/* This part was taken from xawtv's source code */
+	switch (system("v4l-conf -q")) {
+	case -1: /* can't run */
+		fprintf(stderr,"could'nt start v4l-conf\n");
+		break;
+	case 0: /* ok */
+		break;
+	default: /* non-zero return */
+		fprintf(stderr,"v4l-conf had some trouble, "
+				"trying to continue anyway\n");
+	}
+	/* End of "stolen" part */
 	InitConfig();
 	GetFrameBuffer();
 	InitPalette();
@@ -716,7 +845,7 @@ TVOn(void)
 
 		if (vaud.flags & VIDEO_AUDIO_MUTE) {
 			vaud.flags &= ~VIDEO_AUDIO_MUTE; 	/* Unmute */
-			vaud.volume = (0xFFFF/2)+1;
+			vaud.volume = 0xFFFF;
 		}
 
 	if (isource == TELEVISION) {
@@ -787,9 +916,11 @@ void
 VolumeUp(void)
 {
 	if(vchn.flags & VIDEO_VC_AUDIO) {
-		if (vaud.volume <= 0xFFFF) {
+		if ((vaud.flags & VIDEO_AUDIO_VOLUME) == 0)
+			fprintf(stderr, "Warning: v4l device does not support volume control.\n");
+		else if (vaud.volume <= 0xEEEE) {
 			vaud.audio = tvsource;
-			vaud.volume += (0xFFFF/10);
+			vaud.volume += 0x1111;
 			if (ioctl(tfd, VIDIOCSAUDIO, &vaud) < 0)
 				perror("ioctl VIDIOCSAUDIO");
 		}
@@ -802,9 +933,11 @@ void
 VolumeDown(void)
 {
 	if (vchn.flags & VIDEO_VC_AUDIO) {
-		if (vaud.volume > 0) {
+		if ((vaud.flags & VIDEO_AUDIO_VOLUME) == 0)
+			fprintf(stderr, "Warning: v4l device does not support volume control.\n");
+		else if (vaud.volume >= 0x1111) {
 			vaud.audio = tvsource;
-			vaud.volume -= (0xFFFF/10);
+			vaud.volume -= 0x1111;
 			if (ioctl(tfd, VIDIOCSAUDIO, &vaud) < 0)
 				perror("ioctl VIDIOCSAUDIO");
 		}
@@ -1038,8 +1171,16 @@ ParseRCFile2(const char *filename)
 			if (menu) {
 				ftune[i]=0;
 				if(sscanf(temp, " %s %n(%ld) %n", name, &len, &ftune[i], &len)>=1) {
+					char *pos;
 					cname[i]=strdup(name);
-					comment[i]=temp[len]?strdup(temp+len):"\n";
+					comment[i]=temp[len]?strdup(temp+len):"";
+					/* Remove the end-of-line symbol */
+					for (pos = comment[i]; *pos != '\0'; pos++) {
+						if (*pos == '\n') {
+							*pos = '\0';
+							break;
+						}
+					}
 				}
 				if(++i>=MAXCHAN)
 					break;
@@ -1056,28 +1197,27 @@ ParseRCFile2(const char *filename)
 
 /* WriteRCFile function */
 void
-WriteRCFile(const char *filename)
+WriteRCFile(const char *filename, rckeys *keys)
 {
 	long i;
-	char temp[128];
 	FILE *fp;
+	int key;
 
-	if ((fp = fopen(filename, "r+")) == NULL) {
+	if ((fp = fopen(filename, "w")) == NULL) {
 		fprintf(stderr, "wmtv: %s\n", strerror(errno));
 		return;
 	}
 
-	while (fgets(temp, 128, fp)) {
-		if (*temp != '\n' && strchr(temp, '[')) {
-			fseek(fp, 0L, SEEK_CUR);	/* required between read and write */
+	for (key=0; keys[key].label; key++)
+		if (*keys[key].var)
+			fprintf(fp, "%s = %s\n", keys[key].label, *keys[key].var);
+
+	fprintf(fp, "\n[channel]\n");
+
 			for (i = 0; i <= maxpst; i++)
-				fprintf(fp, "%s (%ld)\t%s", cname[i], ftune[i], comment[i]);
-			break;
-		}
-	}
-	i=ftell(fp);
+		fprintf(fp, "%s (%ld)\t%s\n", cname[i], ftune[i], comment[i]);
+
 	fclose(fp);
-	truncate(filename, i);
 }
 
 
@@ -1128,17 +1268,13 @@ void
 InitConfig(void)
 {
 	int i;
-	char temp[128];
 
-	strncpy(temp, (char *)getenv("HOME"), (sizeof(char)*128));
-	strcat(temp, "/.wmtvrc");
-	ParseRCFile(temp, wmtv_keys);
-	ParseRCFile2(temp);
+	ParseRCFile(usrConfFile, wmtv_keys);
+	ParseRCFile2(usrConfFile);
 
 	if (norcfile) {
-		strcpy(temp, "/etc/wmtvrc");
-		ParseRCFile(temp, wmtv_keys);
-		ParseRCFile2(temp);
+		ParseRCFile(sysConfFile, wmtv_keys);
+		ParseRCFile2(sysConfFile);
 
 		if (norcfile) {
 			fprintf(stderr, "wmtv: error - config file not found\n");
@@ -1272,17 +1408,20 @@ InitConfig(void)
 void
 GetFrameBuffer(void)
 {
+#if 0
 	void *baseaddr = NULL;
 	int evbr, erbr, flr = 0;
 	int bankr, memr, depth;
 	int i, n;
-	int bytesperline, bytesperpixel;
+	int bytesperline, bitsperpixel;
 	XPixmapFormatValues *pf;
+#endif
 
 	if (!XGetWindowAttributes(display, DefaultRootWindow(display), &Winattr)) {
 		fprintf(stderr, "wmtv: error getting winattr of root\n");
 	}
 
+#if 0
 	depth = Winattr.depth;
 
 	if (XF86DGAQueryExtension(display, &evbr, &erbr)) {
@@ -1306,13 +1445,13 @@ GetFrameBuffer(void)
 			}
 	}
 
-	bytesperpixel = (depth+7) & 0xf8;
-	bytesperline *= bytesperpixel;
+	bitsperpixel = (depth+7) & 0xf8;
+	bytesperline *= bitsperpixel/8;
 
 	vfb.base = baseaddr;
 	vfb.height = Winattr.height;
 	vfb.width  = Winattr.width;
-	vfb.depth  = bytesperpixel;
+	vfb.depth  = bitsperpixel;
 	vfb.bytesperline = bytesperline;
 
 	if (Winattr.depth == 15)
@@ -1321,6 +1460,7 @@ GetFrameBuffer(void)
 	if (ioctl(tfd, VIDIOCSFBUF, &vfb) < 0) {
 		perror("ioctl VIDIOCSFBUF");
 	}
+#endif
 }
 
 
