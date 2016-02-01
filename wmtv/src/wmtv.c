@@ -249,7 +249,7 @@ main(int argc, char *argv[])
 					break;
 				case 'e':
 					exe = strdup(optarg);
-					strcat(exe, " &");
+					/* strcat(exe, " &"); */
 					break;
 				case 'b':
 					fprintf(stderr, "wmtv: option not implemented yet\n");
@@ -439,7 +439,17 @@ main(int argc, char *argv[])
 													if (exe) {
 														ntfb_status = SETOFF;
 														TVOff();
-														system(exe);
+														/* system(exe); */
+														if (fork() == (pid_t) 0) {
+														char *argv[4];
+														setuid(getuid()); /* Drop the privileges */
+														argv[0] = "sh";
+														argv[1] = "-c";
+														argv[2] = exe;
+														argv[3] = NULL;
+														execv("/bin/sh", argv);
+														exit(-1);
+														}
 #if 0
 														pid = fork();
 
