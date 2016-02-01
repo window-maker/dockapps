@@ -77,7 +77,7 @@
 #define SETSPD		3
 
 #define MAXCHAN		99
-#define OPTIONS		"hvd:g:e:b:"
+#define OPTIONS		"hvd:g:e:b:c:"
 
 #define TELEVISION	0
 #define COMPOSITE   1
@@ -288,6 +288,7 @@ main(int argc, char *argv[])
 	int pressed_button = -1;
 	/* pid_t pid; */
 	static struct option long_options[] = {
+		{"device", 1, 0, 'c'},
 		{"display", 1, 0, 'd'},
 		{"geometry", 1, 0, 'g'},
 		{"bpp", 1, 0, 'b'},
@@ -337,6 +338,9 @@ main(int argc, char *argv[])
 				case 'e':
 					exe = strdup(optarg);
 					/* strcat(exe, " &"); */
+					break;
+				case 'c':
+					dev = strdup(optarg);
 					break;
 				case 'b':
 					fprintf(stderr, "wmtv: option not implemented yet\n");
@@ -1677,6 +1681,7 @@ Usage(void)
 	fprintf(stderr, "\n");
 	fprintf(stderr, "wmtv v%s, Copyright (c) 1999 Wee Liang <wliang@tartarus.uwa.edu.au>\n", VERSION);
 	fprintf(stderr, "usage: wmtv [%s]\n", OPTIONS);
+	fprintf(stderr, "  -c, --device <file>\tsets video4linux device to use\n");
 	fprintf(stderr, "  -d, --display <host:vs>\tsets display name\n");
 	fprintf(stderr, "  -g, --geometry <{+-}XP{+-}YP>\tsets geometry\n");
 	fprintf(stderr, "  -b, --bpp\t\t\tdisplay color depth\n");
