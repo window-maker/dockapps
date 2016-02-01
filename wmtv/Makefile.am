@@ -7,4 +7,5 @@ AM_CFLAGS = $(x11_CFLAGS) $(xext_CFLAGS) $(xpm_CFLAGS) $(xxf86dga_CFLAGS) \
 LIBS += $(x11_LIBS) $(xext_LIBS) $(xpm_LIBS) $(xxf86dga_LIBS) $(xxf86vm_LIBS) \
 	$(libv4l1_LIBS)
 
+dist_man_MANS = wmtv.1
 EXTRA_DIST = wmtvrc.sample

@@ -1,0 +1,244 @@
+.TH WMTV 1 "August 2005"
+
+.SH "NAME"
+wmtv \- dockable video4linux TV player for WindowMaker.
+
+.SH "SYNOPSIS"
+.B wmtv
+.I "[--exe program]"
+
+.SH "DESCRIPTION"
+.BR wmtv
+is a dockable video4linux TV player. It supports channel presets,
+PAL/Secam/NTSC, fine tuning, full screen display, ...
+
+.SH "OPTIONS"
+.TP
+.B \-c, \-\-device
+Specifies the video4linux device to use.
+
+.TP
+.B \-d, \-\-display
+Specifies the X server to contact.
+
+.TP
+.B \-e, \-\-exe
+Launch an external TV player when the screen is double clicked. It is
+possible to pass some parameters to this external application with %
+codes.
+
+.SH "USAGE"
+This sections describes how to use the application in docked
+state. See below for fullscreen mode usage.
+
+Button map:
+.br
+    [ < ] [ > ] [ 0 ]
+.br
+     <1>   <2>   <3>
+
+There are 3 modes of operation on this applications. You can cycle
+through the 3 modes by clicking on the right most button <3>.
+
+The 3 modes are described below:
+
+.in +5
+.B "On mode"
+.br
+Clicking on the rightmost button <3> for the first time (after the
+start of WMTV) will turn the TV on. While in this mode, the left <1>
+and right <2> buttons change to preset channels which has been defined
+in your config file. Use the left button to move down one channel and
+the right button to move up one channel.
+
+.B "Tune mode"
+.br
+Clicking again on button <3> after On mode will change WMTV into tune
+mode. Left-clicking on the left <1> or right <2> button performs a
+channel scan. Scanning stops when there is a strong signal
+strength. Right-clicking on the left <1> or right <2> button fine
+tunes the current channel. After tuning, clicking on button <3> saves
+the fine tuning to your config file and brings you back into "On
+mode".
+
+.B "Off mode"
+.br
+Holding down button <3> for about 3 seconds from any of the two
+modes described above turns the TV off.
+.in -5
+
+Right-clicking the TV screen mutes/unmutes the audio.
+
+Double left-clicking the TV screen launches the application specified
+with --exe. If --exe was not specified, then the built-in full-screen
+mode is used instead. Double middle-clicking will always invoke the
+built-in full screen mode.
+
+
+.SH "FULL SCREEN MODE"
+To exit full screen mode, click.
+
+.B Keyboard functions
+.br
+.in +2
+Up     - Change to next preset channel.
+.br
+Down   - Change to previous preset channel.
+.br
+Right  - Increase volume. (If supported by the v4l device.)
+.br
+Left   - Decrease volume. (If supported.)
+.br
+Escape - Leave full screen mode.
+.br
+m      - mute/unmute.
+.br
+.in -2
+
+.SH "EXTERNAL APPLICATION"
+It is possible to pass some parameters to the external application
+through % codes:
+.br
+.in +2
+.B %%
+is replaced by a single %.
+.br
+.B %n
+is replaced by the name of the current channel.
+.br
+.B %#
+is replaced by the number of the current channel.
+.br
+.B %f
+is replaced by the current frequency in MHz.
+.br
+.in -2
+The behavior of other % codes is undefined and subject to change.
+
+Example: wmtv -e 'xawtv "%n"'
+
+.SH "CONFIGURATION FILE"
+This section describes the format of WMTV's configuration file. It is
+located in your home directory under ".wmtvrc".
+
+Excerpt from a sample config file:
+.in +5
+.br
+/*-----------------------
+.sp
+source = Television
+.br
+freqnorm = pal-australia
+.br
+maxpreset = 7
+.br
+mode = pal
+.br
+fullscreen = 640x480
+.br
+
+.sp
+[channel]
+.br
+2       NAME
+.br
+7       FOO
+.br
+9       BAR
+.br
+10      FOOBAR
+.br
+32 (50)
+.br
+SE11
+.br
+S21     LAST CHANNEL
+.br
+-------------------------*/
+.br
+.in -5
+
+.B Settings
+.br
+source = { Television | CompositeX | S-Video } (X is an integer)
+.br
+.sp
+freqnorm = { ntsc-bcast | ntsc-cable | ntsc-cable-hrc | ntsc-bcast-jp
+| ntsc-cable-jp | pal-europe | pal-europe-east | pal-italy |
+pal-newzealand | pal-australia | pal-ireland | secam-france }
+
+maxpreset = integer (maximum channel presets)
+
+mode = { pal | ntsc | secam }
+
+fullscreen = widthxheight
+
+[channel]
+.br
+Choose a total of <maxpreset> from the below channels.
+.br
+Separate the channels with a new line as in the sample config file above.
+.br
+{
+.in +2
+.br
+E2 | E3 | E4 |
+.br
+S01 | S02 | S03 |
+.br
+R1 | R2 | R3 | R4 | R5 |
+.br
+SE1 | SE2 | SE3 | SE4 | SE5 | SE6 | SE7 | SE8 | SE9 | SE10 |
+.br
+E5 | E6 | E7 | E8 | E9 | E10 | E11 | E12 |
+.br
+R6 | R7 | R8 | R9 | R10 | R11 | R12 |
+.br
+SE11 | SE12 | SE13 | SE14 | SE15 | SE16 | SE17 | SE18 | SE19 | SE20 |
+.br
+S21 | S22 | S23 | S24 | S25 | S26 | S27 | S28 | S29 | S30 | S31 | S32
+| S33 | S34 | S35 | S36 | S37 | S38 | S39 | S40 | S41 |
+.br
+T7 | T8 | T9 | T10 | T11 | T12 | T13 | T14 |
+.br
+K01 | K02 | K03 | K04 | K05 | K06 | K07 | K08 | K09 | K10 |
+.br
+KB | KC | KD | KE | KF | KG | KH | KI | KJ | KK | KL | KM | KN | KO |
+KP | KQ |
+.br
+H01 | H02 | H03 | H04 | H05 | H06 | H07 | H08 | H09 | H10 | H11 | H12
+| H13 | H14 | H15 | H16 | H17 | H18 | H19 |
+.br
+1 - 125
+.br
+.in -2
+}
+.br
+Finetune parameters could be added in brackets, spaced after the
+channel.
+.br
+A name for the channel can also be specified, tabbed after the
+finetune.
+.br
+.sp
+for example:
+  32 (50)                 # channel 32 plus 50
+  or
+  SE11    LAST CHANNEL    # channel SE11 called "LAST CHANNEL"
+
+.SH "FILES"
+.TP
+.I /etc/wmtvrc
+System wide config file.
+.TP
+.I ~/.wmtvrc
+Users config file.
+
+.SH AUTHOR
+This manual page was first written by Remi Lefebvre <remi@debian.org>,
+and then modified by Nicolas Boullis <nboullis@debian.org>,
+for the Debian GNU/Linux system (but may be used by others).
+
+This manual page was written for the Debian GNU/Linux distribution
+because the original program does not have a manual page. It is widely
+based on the README provided with the program.
