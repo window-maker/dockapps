@@ -47,8 +47,7 @@
 #include <X11/extensions/Xxf86dga.h>
 #include <X11/extensions/xf86vmode.h>
 
-#include <libdockapp/wmgeneral.h>
-#include <libdockapp/misc.h>
+#include "wmgeneral/wmgeneral.h"
 #include "wmtv-master.xpm"
 #include "channels.h"
 
