@@ -547,7 +547,7 @@ main(int argc, char *argv[])
 														snprintf(expansions[0], 3, "%d", cchannel+1);
 														expansions[1] = comment[cchannel];
 														expansions[2] = malloc(15*sizeof(char));
-														snprintf(expansions[2], 15, "%ld", rfreq);
+														snprintf(expansions[2], 15, "%.3f", (double)rfreq/(double)st);
 														command = expand_format(exe, letters, expansions);
 														/* system(exe); */
 														child_pid = fork();
