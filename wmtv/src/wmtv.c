@@ -34,7 +34,7 @@
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <linux/videodev.h>
+#include <libv4l1-videodev.h>
 #include <linux/soundcard.h>
 
 #include <X11/Xlib.h>
