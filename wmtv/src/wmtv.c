@@ -1130,18 +1130,20 @@ InitConfig(void)
 	int i;
 	char temp[128];
 
-	strcpy(temp, "/etc/wmtvrc");
-	ParseRCFile(temp, wmtv_keys);
-	ParseRCFile2(temp);
-
 	strncpy(temp, (char *)getenv("HOME"), (sizeof(char)*128));
 	strcat(temp, "/.wmtvrc");
 	ParseRCFile(temp, wmtv_keys);
 	ParseRCFile2(temp);
 
 	if (norcfile) {
-		fprintf(stderr, "wmtv: error - config file not found\n");
-		exit(1);
+		strcpy(temp, "/etc/wmtvrc");
+		ParseRCFile(temp, wmtv_keys);
+		ParseRCFile2(temp);
+
+		if (norcfile) {
+			fprintf(stderr, "wmtv: error - config file not found\n");
+			exit(1);
+		}
 	}
 
 	if (maxpreset != NULL)
