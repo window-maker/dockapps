@@ -949,7 +949,7 @@ static int init_grim_reaper (void)
 static dockapp_rv_t on_click_pbar (
         void *cbdata, int x_unused, int y_unused)
 {
-    int which = (int)cbdata;
+    int which = (intptr_t)cbdata;
     (void)x_unused;
     (void)y_unused;
 
@@ -969,7 +969,7 @@ static dockapp_rv_t on_click_pbar (
 static dockapp_rv_t on_click_stop (
         void *cbdata, int x_unused, int y_unused)
 {
-    int which = (int)cbdata;
+    int which = (intptr_t)cbdata;
     (void)x_unused;
     (void)y_unused;
 
@@ -1047,7 +1047,7 @@ static dockapp_rv_t on_middle_click (void *cbdata, int x, int y)
  */
 int server (int argc, char **argv)
 {
-    int i;
+    intptr_t i;
 
     config_server (argc, argv, &config);
 
