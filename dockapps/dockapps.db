@@ -321,6 +321,16 @@ url =
 dockapps = 329
 category = System Monitoring
 
+[wmget]
+version-0.6.1 = 5aaf8424af3ded0e4d3dc4d7fa45c4e5a8fd188e
+version-0.6.0 = 7a30f9ecfebe72ac93e3f67e67ecd058ffe93d99
+image = "wmget1.png,wmget2.png,wmget3.png"
+description = "wmget is a dock app for the Window Maker window manager which makes it more convenient to perform long downloads in the background. It uses the excellent libcurl library, part of the cURL automated-download program, to perform file retrieval."
+hosted = 1
+url = http://amtrickey.net/wmget/
+dockapps =
+category = Network
+
 [wmifinfo]
 version-0.10 = 7186a6794ae8575a7e6f0de5ebe70e8a075a9079
 version-0.09 = 423824aacd6be831dd4152485067e3bd4f76dc60
