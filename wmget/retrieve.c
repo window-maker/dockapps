@@ -98,6 +98,7 @@ void write_error_file (Job *job, const char *msg)
     fprintf (error_file, " To file: %s\n", job->options.save_to);
     fprintf (error_file, " Error: %s\n", msg);
     fprintf (error_file, " (" WMGET_VERSION_BANNER ")\n");
+    fclose (error_file);
 }
 
 

@@ -373,6 +373,7 @@ static void load_rcfile (ServerConfig *cfg)
 
     if ((rcfp = fopen (rcfile, "rt"))) {
         read_rcfile (rcfp, cfg);
+        fclose (rcfp);
     } else {
         /* rcfiles are fully optional... */
         debug_sys ("Could not open rcfile '%s'", rcfile);
