@@ -6,5 +6,5 @@ PKG_CHECK_MODULES([x11],[x11])
 PKG_CHECK_MODULES([xext],[xext])
 PKG_CHECK_MODULES([xpm],[xpm])
 PKG_CHECK_MODULES([libcurl],[libcurl])
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile wmget.1])
 AC_OUTPUT
