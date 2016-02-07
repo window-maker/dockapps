@@ -1,0 +1,62 @@
+/*
+    wmget - A background download manager as a Window Maker dock app
+    Copyright (c) 2001-2003 Aaron Trickey <aaron@amtrickey.net>
+
+    Permission is hereby granted, free of charge, to any person
+    obtaining a copy of this software and associated documentation files
+    (the "Software"), to deal in the Software without restriction,
+    including without limitation the rights to use, copy, modify, merge,
+    publish, distribute, sublicense, and/or sell copies of the Software,
+    and to permit persons to whom the Software is furnished to do so,
+    subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    ********************************************************************
+    config.def - Definition of the command line and RC file settings
+
+    This file is #included in multiple places in the source code, each
+    of which interprets it by providing a different #define for the
+    macros used here.  Each macro takes the following parameters:
+
+        O(
+            '<char|\0>',    <-- short opt character, \0 for none
+            name,           <-- option name (*)
+            yes|no,         <-- has argument?
+            "documentation" <-- provided in help
+         )
+
+    (*): These are composed to produce RC file keywords, long
+    command-line options, and internal C identifiers.  Write them as C
+    identifiers (they'll be prefixed, don't worry about collision with
+    keywords or other symbols), not as quoted strings.
+*/
+
+O( 's', silent,     no, "Suppress any non-error messages"              )
+O( 'V', verbose,    no, "Produce verbose output (debugging only)"      )
+O( 'o', output,     yes,"Where to save the downloaded file"            )
+O( 'd', display,    yes,"The text to display in the progress bar"      )
+O( 'O', overwrite,  no, "Allow overwriting an existing file?"          )
+O( 'C', continue,   no, "Continue a previously-aborted download"       )
+O( 'a', auth,       yes,"USERNAME:PASSWORD for server"                 )
+O( 'p', proxy,      yes,"Specify an HTTP proxy server"                 )
+O( 'P', proxy_auth, yes,"USERNAME:PASSWORD for HTTP proxy"             )
+O( 'f', follow,     yes,"How many HTTP redirects to follow (0 = off)"  )
+O( 'U', user_agent, yes,"User-Agent to provide to Web servers"         )
+O( 'B', ascii,      no, "Force FTP downloads to be ASCII-mode"         )
+O( 'e', referer,    yes,"Set the referer URL passed to the HTTP server")
+O( 'n', interface,  yes,"Use this network interface (e.g. eth0)"       )
+O( 'h', headers,    no, "Include the HTTP response header in the file" )
+
+
+
+/* vim: set filetype=c: */

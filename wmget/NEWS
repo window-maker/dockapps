@@ -1,0 +1,89 @@
+
+Development History for wmget
+
+wmget 0.6.0 - More options, nominal error handling, fixes
+
+    * New options: auth, proxy_auth, ascii, interface, referer, headers
+    * Failed downloads now generate a <filename>.ERROR file containing
+      error text, instead of making you guess
+    * Minor fixes & cleanups
+    * Rewrote much of the manpage, and moved it from POD to DocBook-XML
+
+wmget 0.5.0 - RC file, more options, bugfixes
+
+    * wmget may now be configured via ~/.wmgetrc
+    * Cleaned up and more comprehensive command-line options
+    * More download options available: proxy support, redirect support,
+      and yes, FINALLY... output directory support!
+    * Some old source cleanups, and some new source sloppiness.
+    * Fix to a bug that created garbage download names
+
+wmget 0.4.4 - Fix to work with libcurl > 7.9.5
+
+    * Thanks again to Rafal Zawadzki for a report: wmget + newer libcurl
+      did not show download progress.  After updating my libcurl it
+      turns out that the progress callback function signature has
+      changed, so a little #iffing and all is well again.
+
+wmget 0.4.3 - Minor bugfixes, cleanups
+
+    * Fixed the makefile sourceball target to unpack into a subdirectory
+    * Cleaned up a couple of bits of code
+    * Removed -Werror and -g from normal builds
+    * Thanks to Rafal Zawadzki for building a .deb and submitting it to
+      Debian Sid, and to Kurt Hindenburg for reporting build and tarball
+      issues.
+
+wmget 0.4.2 - Fixed AfterStep support
+
+    * The new dockapp code no longer worked right under AfterStep's
+      Wharf.  Fixed.  Thanks to Andy Jalics for the email bugreport.
+    * Updated the docs to reflect the fact that Window Maker is not the
+      only WM out there.  :)
+
+wmget 0.4.1 - Bugfix
+
+    * Off-by-one error in a memmove() caused garbage characters to
+      appear at the end of downloaded filenames on the local system in
+      certain cases.
+
+wmget 0.4.0 - New ``dockapp'' library, cleanups, features
+
+    * Middle clicking on the dockapp now starts a download of the URI in
+      the primary X selection (right-click on a link in Mozilla, select
+      ``Copy Link Address'', and middle-click on wmget... presto.)
+    * Wrote from scratch a new little library to do dockapp programming.
+      Hides all the X stuff, and provides a main loop with a few new
+      features.  Replaces the old wmgeneral.c.
+    * Fixed default save-name of URL's with no trailing filename
+      component---now selects the final path component, whatever it is
+      (e.g. http://example.com/ => "example.com"); also fixed the
+      display name to always show the basename of the save filename if
+      no display name was provided
+    * Added a Slackware package target.
+    * Corrected/added command line help (LIST was missing...)
+    * Cleanups: Makefile, source, docs.
+
+wmget 0.3.0 - A couple of new features, cleanups, fixes
+
+    * Implemented CANCEL and LIST commands
+    * Minor doc cleanup
+    * Fixed it to work with more recent libcurl's (thanks to Paul Tweedy
+      for emailing me about that; I hadn't upgraded my cURL in a while)
+
+wmget 0.2.0 - Rewrite of the client/server ipc.  Renaming.
+
+    Very little user-visible change.
+
+    Rewrote client/server ipc to use text requests/responses over a unix
+    domain socket rather than binary structures over a FIFO.
+
+    Also, with this version, I renamed it from ``wmcurl'' to ``wmget''.
+    The old name was sorta a poor choice: while I still rely on, and want
+    to give full credit to, the cURL guys, the name ``wmcurl'' is 
+    not very intuitive.  Plus I didn't want people thinking it was part
+    of the cURL project proper.  Plus this saves me a keystroke when
+    typing it :)
+
+wmcurl 0.1.0 - Initial release.
+

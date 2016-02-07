@@ -1,0 +1,14 @@
+
+
+Missing things:
+- graphical indication of errors
+
+Improvable things:
+- more packages
+- XDND support
+
+- bigger clickable region
+- allow overwrite of zero-length files and/or clean up files after
+  failure
+
+

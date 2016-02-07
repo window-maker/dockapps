@@ -1,0 +1,70 @@
+
+wmget - Background download manager in a Window Maker dock app
+Copyright (C) 2001-2003 Aaron Trickey
+Free software, licensed under ``MIT-style'' terms (see below)
+ABSOLUTELY NO WARRANTY -- SEE BELOW
+
+[This file is only rarely updated.  If you're upgrading from a prior
+ release, please see the file NEWS.]
+
+wmget is a dock app for the GNU Window Maker window manager (or one of
+the many other WM's which support dockapps) which makes it more
+convenient to perform long downloads in the background.  It uses the
+excellent libcurl library, part of the cURL automated-download program,
+to perform file retrieval.
+
+The latest information about and version of wmget will hopefully always
+be available at:
+    <http://amtrickey.net/wmget/index.html>
+
+Wmget requires libcurl (various versions from 7.5.1 on were used during
+development); this is part of the main cURL distribution.  Grab it from:
+    <http://curl.haxx.se/>
+
+configure and install it if you don't have it.  And for routine download
+tasks, check out their ``curl'' command-line tool.
+
+wmget is written entirely in C.  It (as of 0.4) uses a from-scratch
+dockapp library I cooked up for fun.  This replaced a common dockapp
+utility library named wmgeneral.c, which helped me get off the ground;
+thanks to the authors (Martijn Pieterse & Dave Clark).
+
+The wmget manpage is written in Perl's POD documentation language.  If you
+don't have Perl, that's fine; just don't delete and try to remake the
+manpage I provided.
+
+I'm releasing my code under the same licensing terms as the X Window
+System.  These terms are commonly known as ``MIT'' licensing terms,
+since that's where they originated.  I've attached these licensing
+terms, and the important non-warranty clauses, below.
+
+Enjoy!
+
+Aaron Trickey
+aaron at amtrickey dot net
+
+
+----------------------------------------------------------------------------
+
+Licensing and Non-Warranty Terms and Disclaimers.
+
+Copyright (c) 2001-2003 Aaron Trickey
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+

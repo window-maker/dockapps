@@ -1,0 +1,492 @@
+<?xml version="1.0" standalone="no"?>
+<?xml-stylesheet
+    href="http://docbook.sourceforge.net/release/xsl/1.62/manpages/docbook.xsl"
+    type="text/xsl"?>
+<!--
+<!DOCTYPE refentry
+    PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+
+<!DOCTYPE refentry
+    PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+    "/usr/local/docbook/docbookx.dtd">
+    -->
+
+<!DOCTYPE refentry
+    PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN"
+    "http://www.oasis-open.org/docbook/xml/4.0/docbookx.dtd">
+
+<refentry>
+  <refentryinfo>
+    <author>
+      <firstname>Aaron</firstname><surname>Trickey</surname>
+      <email>aaron@amtrickey.net</email>
+    </author>
+    <copyright>
+      <year>2001</year>
+      <year>2002</year>
+      <year>2003</year>
+      <holder>Aaron Trickey</holder>
+    </copyright>
+  </refentryinfo>
+
+  <refmeta>
+    <refentrytitle>wmget</refentrytitle>
+    <manvolnum>1</manvolnum>
+  </refmeta>
+
+  <refnamediv>
+    <refname>wmget</refname>
+    <refpurpose>Background download manager in a dockapp</refpurpose>
+  </refnamediv>
+
+  <refsynopsisdiv>
+    <cmdsynopsis>
+      <command>wmget</command>
+      <arg choice="plain">dock</arg>
+      <arg choice="opt"><replaceable>options</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+      <command>wmget</command>
+      <arg choice="opt"><replaceable>options</replaceable></arg>
+      <arg choice="req"><replaceable>URL</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+      <command>wmget</command>
+      <arg choice="plain">cancel</arg>
+      <arg choice="req"><replaceable>job-id</replaceable></arg>
+    </cmdsynopsis>
+    <cmdsynopsis>
+      <command>wmget</command>
+      <arg choice="plain">list</arg>
+    </cmdsynopsis>
+  </refsynopsisdiv>
+
+  <refsect1>
+    <title>Description</title>
+    <para>
+      wmget is a ``dockapp'' which makes it more convenient to
+      retrieve files in the background.  Dockapps are applications
+      which run in small windows intended to be ``docked'' in window
+      manager-provided locations.  wmget was developed primarily under
+      GNU Window Maker, the author's preferred WM, but is known to
+      work under AfterStep as well, and should work with other
+      dockapp-aware window managers and docks.
+    </para>
+    <para>
+      It uses the excellent libcurl library, part of the Curl
+      automated-download program, to perform file retrieval from Web
+      servers, FTP servers, and other sources.
+    </para>
+    <para>
+      wmget allows you to perform multiple downloads without keeping a
+      terminal open (for FTP or curl or something) or another window
+      on your desktop (e.g. for Mozilla download progress); download
+      progress is visible any time the Dock is visible.
+    </para>
+    <para>
+      You start downloads either by ``pasting'' URLs from Web browsers
+      or other applications, or by invoking wmget from the command
+      line (or another script or program) with a source URL.  The
+      dockapp has a handful of configurable download options, such as
+      target directory, HTTP proxy server, etc.
+    </para>
+  </refsect1>
+
+  <refsect1>
+    <title>Starting Up</title>
+    <para>
+      To start the dockapp, just run <command>wmget dock
+      &amp;</command>.  If you are running Window Maker, you can then
+      just drag the new appicon onto your Dock, right-click on an area
+      outside the four progress bars, select
+      <guimenuitem>Settings</guimenuitem>, and select <guilabel>Start
+      when Window Maker is started</guilabel>.
+    </para>
+
+    <para>
+      If you are running AfterStep, you can add it to your Wharf by
+      adding the following line to your
+      <filename>~/GNUstep/Library/AfterStep/wharf</filename> file:
+    </para>
+
+    <informalfigure>
+      <programlisting>
+        *Wharf wmget - Swallow "wmget" wmget dock &amp;
+      </programlisting>
+    </informalfigure>
+
+    <para>
+      Other window managers support dockapps in different ways.  Even in
+      window managers without any special dockapp support, you can run
+      wmget as noted above; it will simply show up as a small window or
+      "icon".
+    </para>
+  </refsect1>
+
+  <refsect1>
+    <title>Using wmget</title>
+    <para>
+      wmget's user interface is simple: four stacked progress bars,
+      initially empty, representing four possible simultaneous
+      downloads.  The top bar will say ``wmget'' when there isn't a
+      download running there, but any download will cover that up.
+    </para>
+    <para>
+      Each running download normally shows up to nine characters of its
+      filename, overlaid with a progress bar.  You can click on any
+      progress bar to reveal a percentage display and a stop button;
+      clicking on the percentage display switches back, while clicking
+      on the stop button stops the download.  There is currently no
+      confirmation; it just stops.
+    </para>
+    <para>
+      You can ``request'' downloads at any time.  If all four places
+      show running downloads, additional requests will queue up, waiting
+      for one to complete; wmget will never be downloading more than
+      four files at a time.
+    </para>
+    <para>
+      By default, wmget figures out a reasonable filename for any
+      requested downloads, writes them to your home directory, and won't
+      overwrite an existing file by the same name.  All of these, along
+      with a few other options, are configurable.  See below.
+    </para>
+
+    <refsect2>
+      <title>Requesting Downloads with the Mouse</title>
+      <para>
+        The easiest way to request a download is by copying and pasting
+        a link.  wmget lets you paste a URL by middle-clicking anywhere
+        on any of its status bars.  Simply copy a link from some other
+        source (for example, by right-clicking on a link in Mozilla or
+        Netscape and picking <guimenuitem>Copy Link
+        Location</guimenuitem>), and middle-click on one of the progress
+        meter boxes in wmget.
+      </para>
+    </refsect2>
+
+    <refsect2>
+      <title>Requesting Downloads from the Command Line</title>
+      <para>
+        The <command>wmget</command> command also lets you directly
+        request downloads from the command line, or from within a script
+        or another program.  The syntax is <command>wmget
+        <replaceable>URL</replaceable></command>, plus any of the
+        options documented below.
+      </para>
+      <para>
+        Once you run this command, you'll either get an error message or
+        a ``job ID''.  The job ID is only useful in conjunction with the
+        <command>wmget cancel</command> command.
+      </para>
+    </refsect2>
+
+    <refsect2>
+      <title>Download Failures</title>
+      <para>
+        Downloads can fail for a variety of reasons, from running out of
+        disk space to modem hangups.  Since wmget is designed not to
+        interrupt your workflow or exceed its little square window, it
+        responds to any download error by aborting the download and
+        writing an error file to your download directory.  This error
+        file has the name <filename>file.ERROR</filename>, where
+        <filename>file</filename> is the name of the actual download
+        target.  This error file is a plain text file containing
+        information on what you were downloading and what went wrong.
+      </para>
+    </refsect2>
+
+    <refsect2>
+      <title>Viewing and Canceling Downloads</title>
+      <para>
+        As noted above, you can see the currently-running downloads in
+        the four progress boxes on the dockapp.  Clicking on a bar
+        reveals a stop button, and clicking on that stop button cancels
+        the download (but leaves the partially-downloaded file on your
+        computer).
+      </para>
+      <para>
+        At any time, you can also run the <command>wmget list</command>
+        command, which displays all the running downloads as well as any
+        queued-up requests.  The listing contains entries like this:
+      </para>
+<informalfigure><screen
+>Job 10 [linux-2.6]: 1658544/33073407 RUNNING
+ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-2.6.0-test6.tar.bz2
+=&gt; /home/aaron/DOWNLOAD/linux-2.6.0-test6.tar.bz2
+</screen></informalfigure>
+      <para>
+        What you see in that (admittedly dense) listing are the job ID,
+        the name of the download as displayed on the dockapp (surrounded
+        in brackets), the progress in bytes, the total bytes to
+        download, the current status, the source URL, and the target
+        file on your computer.  Whew.
+      </para>
+      <para>
+        You can cancel any requested or running download from the
+        command line by specifying <command>wmget cancel
+        <replaceable>job-id</replaceable></command>.
+      </para>
+    </refsect2>
+  </refsect1>
+
+  <refsect1>
+    <title>Command-Line Options and the Configuration File</title>
+    <para>
+      wmget supports a handful of configuration options.  You can
+      specify defaults for all downloads by putting them in a
+      configuration file or adding command-line options to the
+      <command>wmget dock</command> command at startup, or you can
+      specify options for one specific download by adding options to the
+      <command>wmget <replaceable>URL</replaceable></command> command
+      when you request them.  There isn't any way to specify options on
+      URLs you paste with the mouse.  Dockapp command-line arguments
+      override config-file settings, and per-URL settings override
+      dockapp settings.
+    </para>
+    <para>
+      The configuration file is an optional file named
+      <filename>.wmgetrc</filename> in your home directory.  If it's
+      there, it's parsed by the dockapp at startup.  The syntax is
+      simple: one option per line, all options consisting of a name and
+      possibly a value.  Blank lines are okay, and lines starting with #
+      are ignored (so you can disable options easily).  Option names are
+      just the same as the command-line option names given below, except
+      you don't put the dashes (``--'') and you can't use the one-letter
+      abbreviations.
+    </para>
+
+    <variablelist>
+      <varlistentry>
+        <term>--version</term>
+        <term>-v</term>
+        <listitem>
+          <para>
+            Regardless of any other options, this prints out version and
+            copyright information and exits.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--help</term>
+        <term>-h</term>
+        <listitem>
+          <para>
+            Regardless of any other options, this prints out a help
+            message and exits.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--silent</term>
+        <term>-s</term>
+        <listitem>
+          <para>
+            Suppress any output text other than error messages.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--verbose</term>
+        <term>-V</term>
+        <listitem>
+          <para>
+            Write extra debugging information; not very useful unless
+            you're debugging or extending the software.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--output <replaceable>pathname</replaceable></term>
+        <term>-o <replaceable>pathname</replaceable></term>
+        <listitem>
+          <para>
+            Specifies where to write downloaded files.  In the config
+            file or on the dockapp command line, this can only be used
+            to specify your default download directory; it must be an
+            existing directory, and if it's not absolute then it is
+            assumed to be relative to your home directory.  On a
+            specific download request, this can provide an alternate
+            save directory or even an alternate filename; in that case,
+            a non-absolute path is relative to the default download
+            directory.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--display <replaceable>name</replaceable></term>
+        <term>-d <replaceable>name</replaceable></term>
+        <listitem>
+          <para>
+            Display the first nine characters of
+            <replaceable>name</replaceable> in the progress display for
+            this file.
+            (Only valid on specific download requests, not on the
+            dockapp or in the config file.)
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--overwrite</term>
+        <term>-O</term>
+        <listitem>
+          <para>
+            Allow wmget to overwrite an existing file when downloading.
+            Normally, it will refuse to do so.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--continue</term>
+        <term>-C</term>
+        <listitem>
+          <para>
+            When fetching a file that already exists locally, assume the
+            local copy was an aborted download and try to download just
+            the remainder.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--auth <replaceable>username</replaceable>:<replaceable>password</replaceable></term>
+        <term>-a <replaceable>username</replaceable>:<replaceable>password</replaceable></term>
+        <listitem>
+          <para>
+            Provides login information for the server from which you're
+            downloading.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--proxy
+          <replaceable>server</replaceable>:<replaceable>port</replaceable>
+        </term>
+        <term>-p
+          <replaceable>server</replaceable>:<replaceable>port</replaceable>
+        </term>
+        <term>--proxy_auth
+          <replaceable>user</replaceable>:<replaceable>password</replaceable>
+        </term>
+        <term>-P
+          <replaceable>user</replaceable>:<replaceable>password</replaceable>
+        </term>
+        <listitem>
+          <para>
+            Specifies a proxy server and optionally a proxy-server
+            username/password pair for getting past firewalls.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--follow <replaceable>N</replaceable></term>
+        <term>-f <replaceable>N</replaceable></term>
+        <listitem>
+          <para>
+            Specifies how many HTTP redirects to follow when resolving a
+            page; by default, wmget is configured to follow up to 5.
+            Set this to 0 to disable redirection.  (In any real-world
+            situation, if you're getting redirected more than 5 times,
+            there's a problem...)
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--user-agent <replaceable>string</replaceable></term>
+        <term>-U <replaceable>string</replaceable></term>
+        <listitem>
+          <para>
+            Specifies which User-Agent string to provide to servers when
+            performing HTTP downloads.  The default User-Agent names
+            both the wmget and libcurl versions in use.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--ascii</term>
+        <term>-B</term>
+        <listitem>
+          <para>
+            Force FTP downloads to use ASCII mode; normally, they use
+            binary mode.  If you're downloading text documents, ASCII
+            mode will take care of any necessary conversions between
+            the text formats of the server and your computer.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--referer <replaceable>string</replaceable></term>
+        <term>-e <replaceable>string</replaceable></term>
+        <listitem>
+          <para>
+            Provides a ``referer'' string to the Web server.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--interface <replaceable>interface</replaceable></term>
+        <term>--n <replaceable>interface</replaceable></term>
+        <listitem>
+          <para>
+            Names a specific network interface to use (e.g., eth0 for
+            the first Ethernet interface on a Linux system).  Rarely
+            needed.
+          </para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term>--headers</term>
+        <term>-h</term>
+        <listitem>
+          <para>
+            When performing an HTTP retrieval, include the HTTP message
+            header in the saved file.  This is only really useful for
+            testing.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
+    <title>Files</title>
+    <variablelist>
+      <varlistentry>
+        <term><filename>~/.wmgetrc</filename></term>
+        <listitem>
+          <para>
+            The (optional) configuration file for the wmget dockapp.
+            Settings in this file are used to specify defaults for the
+            dockapp when it starts; see the section on configuration and
+            command-line options for more details.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><filename>~/.wmget.iq</filename></term>
+        <listitem>
+          <para>
+            A Unix-domain socket created by the wmget dockapp to accept
+            requests from wmget commands.  Created at startup
+            automatically.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+</refentry>
+
+
+
+
+
+
+
+
+
+
+
+
+
