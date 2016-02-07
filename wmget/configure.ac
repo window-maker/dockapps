@@ -1,4 +1,4 @@
-AC_INIT([wmget], [0.6.0], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmget], [0.6.1], [wmaker-dev@lists.windowmaker.org])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC

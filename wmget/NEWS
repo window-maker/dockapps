@@ -1,6 +1,35 @@
 
 Development History for wmget
 
+wmget 0.6.1 - Now maintained by the Window Maker Developers Team
+
+    * Fix -Wpointer-to-int-cast compiler warnings.  In particular, use intptr_t
+      instead of int.  From the Debian patch [1].
+    * Fix resource leaks.  In particular, fclose() all the files we fopen().
+      From Debian [2].
+    * Switch to autotools for build.
+    * Remove docbook -> manpage conversion.  It was resulting in compilation
+      errors:
+        profzoom@cayke:~/src/dockapps/dockapps/wmget$ xsltproc --nonet
+          wmget.refentry.xml
+        I/O error : Attempt to load network entity
+	  http://docbook.sourceforge.net/release/xsl/1.62/manpages/docbook.xsl
+        warning: failed to load external entity "http://docbook.sourceforge.net/
+          release/xsl/1.62/manpages/docbook.xsl"
+        error
+        xsltParseStylesheetFile : cannot parse http://docbook.sourceforge.net/
+          release/xsl/1.62/manpages/docbook.xsl
+        compilation error: file wmget.refentry.xml line 19 element refentry
+        xsltParseStylesheetProcess : document is not a stylesheet
+      We therefore remove the xml source file and in the future, we will edit
+      the troff file directly. We also add the version number to the manpage via
+      autoconf.
+
+    [1] http://sources.debian.net/src/wmget/0.6.0-5/debian/patches/
+        fix_-Wpointer-to-int-cast.patch/
+    [2] http://sources.debian.net/src/wmget/0.6.0-5/debian/patches/
+        fix_resource_leaks.patch/
+
 wmget 0.6.0 - More options, nominal error handling, fixes
 
     * New options: auth, proxy_auth, ascii, interface, referer, headers

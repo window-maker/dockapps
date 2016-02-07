@@ -35,10 +35,7 @@
 #include <sys/param.h>
 #include <curl/curl.h>
 
-/* Important: the Makefile greps the source to extract WMGET_VERSION.
- * So don't change its format or anything without checking there first.
- */
-#define WMGET_VERSION           "0.6.0"
+#define WMGET_VERSION           PACKAGE_VERSION
 #define WMGET_VERSION_BANNER    "wmget " WMGET_VERSION \
                                 ", compiled with libcurl " \
                                         LIBCURL_VERSION
