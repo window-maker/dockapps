@@ -236,6 +236,14 @@ url =
 dockapps = 329
 category = System Monitoring
 
+[wmget]
+image = "wmget1.png,wmget2.png,wmget3.png"
+description = "wmget is a dock app for the Window Maker window manager which makes it more convenient to perform long downloads in the background. It uses the excellent libcurl library, part of the cURL automated-download program, to perform file retrieval."
+hosted = 1
+url = http://amtrickey.net/wmget/
+dockapps =
+category = Network
+
 [wmifinfo]
 image = led.gif
 description = "wmifinfo is a simple applet showing basic network info for all available interfaces. It shows IP address, netmask, gateway and MAC address. A bit like ifconfig."
