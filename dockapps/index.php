@@ -113,9 +113,11 @@ Team.  You may download these dockapps at their respective websites.
 	sort($categories);
 	foreach ($categories as $category)
 		echo "<a href=\"?category=$category\">$category</a><br/>\n";
-}?>
+?>
 <p/>
 Many other dockapps may be found at <a href="http://www.cs.mun.ca/~gstarkes/wmaker/dockapps/">http://www.cs.mun.ca/~gstarkes/wmaker/dockapps/</a>.
+<?php
+}?>
         </td>
       </tr>
     </table>
