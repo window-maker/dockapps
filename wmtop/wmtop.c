@@ -27,6 +27,8 @@
 #error No operating system selected
 #endif /* !defined(OS_DEFINED) */
 
+#define _BSD_SOURCE
+
 /******************************************/
 /* Includes                               */
 /******************************************/
