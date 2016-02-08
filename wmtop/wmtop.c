@@ -258,7 +258,7 @@ int update_process_table(void);
 int calculate_cpu(struct process *);
 void process_cleanup(void);
 void delete_process(struct process *);
-inline void draw_processes(void);
+void draw_processes(void);
 int calc_cpu_total(void);
 void calc_cpu_each(int);
 #if defined(LINUX)
@@ -267,9 +267,9 @@ void calc_mem_each(int);
 #endif
 int process_find_top_three(struct process **);
 void draw_bar(int, int, int, int, float, int, int);
-inline void blit_string(char *, int, int);
+void blit_string(char *, int, int);
 void usage(void);
-inline void printversion(void);
+void printversion(void);
 
 /******************************************/
 /* Main                                   */
