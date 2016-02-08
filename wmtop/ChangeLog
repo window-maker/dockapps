@@ -1,4 +1,72 @@
-$Log: CHANGES,v $
+2016-02-07 Doug Torrance
+Bump to version 0.85.
+
+2016-02-07 Doug Torrance
+Remove .cvsignore.
+
+2016-02-07 Doug Torrance
+Switch build system to autotools.
+
+To take advantage of this, we rename CHANGES to ChangeLog and also replace
+the WMTOP_VERSION macro with PACKAGE_VERSION.
+
+2016-02-07 Doug Torrance
+Use proper int types.
+
+Based partially on a patch by wbk to fix Gentoo bug #410093 [1].  From the
+bug report:
+
+  After fixing the /proc/meminfo issue, another bug will emerge on systems
+  where total system RAM in bytes exceeds INT_MAX. The correct top three
+  processes will be identified, but their load bars will have the wrong
+  value. This is caused by a value overflow due to storing total system
+  memory in an "int" type variable. We will end up thinking ((Total RAM)
+  modulo (INT_MAX)) is our total system RAM, so our percentages will be
+  inflated when drawing the load bar. This fix will require a bit more care
+  to follow the flow of data and ensure this value isn't being cast to "int"
+  along the way. Function return types will need to be changed.
+
+[1] https://bugs.gentoo.org/show_bug.cgi?id=410093
+
+2015-09-07 Doug Torrance
+Remove inline keywords.
+
+Otherwise, build fails with "error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or
+‘__attribute__’ before ‘void’" if using ANSI C.
+
+2015-09-07 Doug Torrance
+Add #define _BSD_SOURCE.
+
+Avoid implicit declaration warnings (usleep and getpagesize) if compiled
+using C99 standard.
+
+2015-09-07 Doug Torrance
+Switch user variable from int to uid_t.
+
+Fixes 'comparison between signed and unsigned integer expressions' compiler
+warnings.
+
+2015-09-07 Doug Torrance
+Remove wmgeneral directory and use libdockapp.
+
+2015-09-07 Doug Torrance
+Escape minus signs and fix spelling errors in manpage.
+
+Obtained from [1].
+
+[1] https://sources.debian.net/src/wmtop/0.84-12/debian/patches/
+    fix_manpage.patch/
+
+2015-09-07 Doug Torrance
+Fix incorrect memory usage.
+
+Patch by Dwayne C. Litzenberger <dlitz@dlitz.net> to fix Debian bug #224732.
+
+Obtained from [1].
+
+[1] https://sources.debian.net/src/wmtop/0.84-12/debian/patches/
+    fix_incorrect_memory_usage.patch/
+
 Revision 1.3  2001/03/06 21:29:46  mrolig
 
 added support for stripping kdeinit, and displaying something useful for KDE apps.

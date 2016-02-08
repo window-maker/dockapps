@@ -6,8 +6,10 @@ processes displaying the amount of CPU used as a horizontal bar.
 Very useful for spotting those rogue Netscape processes!
 
 To compile:
-Type 'make linux' or 'make freebsd' depending on which operating system you
-are using. (Type uname if you don't know :-)
+Type 'autoreconf -fvi', './configure', and 'make'.
+
+(Note that in previous versions, you had to indicate 'make linux' or 'make
+freebsd' -- this is now taken care of by ./configure.)
 
 To install:
 If you are superuser type 'make install'
