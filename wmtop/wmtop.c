@@ -96,7 +96,7 @@
 /******************************************/
 
 regex_t *exclusion_expression = 0;
-int user = -1;
+uid_t user = (uid_t) -1;
 char *process_command = 0;
 /*
  * Default mode: zero=cpu one=memory
@@ -431,7 +431,7 @@ void wmtop_routine(int argc, char **argv) {
 			mode = !mode;
 #endif
 		    if (Event.xbutton.button==2) {
-			if (user==-1)
+			if (user==(uid_t)-1)
 			    user=getuid();
 			else
 			    user=-1;
@@ -478,7 +478,7 @@ int process_parse_procfs(struct process *process) {
     /*
      * Permissions of /proc filesystem are permissions of process too
      */
-    if (user>=0) {
+    if (user!=(uid_t)-1) {
 	stat(filename,&sbuf);
 	if (sbuf.st_uid!=user)
 	    return 1;
@@ -523,7 +523,7 @@ int process_parse_procfs(struct process *process) {
       /*
        * Permissions of /proc filesystem are permissions of process too
        */
-      if (user>=0) {
+      if (user!=(uid_t)-1) {
         stat(filename,&sbuf);
         if (sbuf.st_uid!=user)
             return 1;
