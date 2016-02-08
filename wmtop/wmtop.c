@@ -185,12 +185,12 @@ struct process {
     pid_t pid;
     char *name;
     float amount;
-    int user_time;
-    int kernel_time;
-    int previous_user_time;
-    int previous_kernel_time;
-    int vsize;
-    int rss;
+    unsigned long user_time;
+    unsigned long kernel_time;
+    unsigned long previous_user_time;
+    unsigned long previous_kernel_time;
+    unsigned long vsize;
+    long rss;
     int time_stamp;
     int counted;
 };
@@ -239,8 +239,8 @@ struct process *new_process(int p) {
 
     process->pid = p;
     process->time_stamp = 0;
-    process->previous_user_time = INT_MAX;
-    process->previous_kernel_time = INT_MAX;
+    process->previous_user_time = ULONG_MAX;
+    process->previous_kernel_time = ULONG_MAX;
     process->counted = 1;
 
 /*    process_find_name(process);*/
@@ -259,11 +259,11 @@ int calculate_cpu(struct process *);
 void process_cleanup(void);
 void delete_process(struct process *);
 void draw_processes(void);
-int calc_cpu_total(void);
-void calc_cpu_each(int);
+unsigned long calc_cpu_total(void);
+void calc_cpu_each(unsigned long total);
 #if defined(LINUX)
-int calc_mem_total(void);
-void calc_mem_each(int);
+unsigned long calc_mem_total(void);
+void calc_mem_each(unsigned long total);
 #endif
 int process_find_top_three(struct process **);
 void draw_bar(int, int, int, int, float, int, int);
@@ -460,7 +460,7 @@ int process_parse_procfs(struct process *process) {
     char line[WMTOP_BUFLENGTH],filename[WMTOP_BUFLENGTH],procname[WMTOP_BUFLENGTH];
     int ps;
     struct stat sbuf;
-    int user_time,kernel_time;
+    unsigned long user_time,kernel_time;
     int rc;
 #if defined(LINUX)
     char *r,*q;
@@ -468,6 +468,8 @@ int process_parse_procfs(struct process *process) {
 		int endl;
 #endif /* defined(LINUX) */
 #if defined(FREEBSD)
+    /* TODO: needs analysis. Probably needs same data type fix as LINUX (use
+     * long types). Need to check FreeBSD docs and test.  -wbk		     */
     int us,um,ks,km;
 #endif /* defined(FREEBSD) */
 
@@ -505,9 +507,10 @@ int process_parse_procfs(struct process *process) {
 
 #if defined(LINUX)
     /*
-     * Extract cpu times from data in /proc filesystem
+     * Extract cpu times from data in /proc filesystem.
+     * For conversion types see man proc(5).
      */
-    rc = sscanf(line,"%*s %s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %d %d %*s %*s %*s %*s %*s %*s %*s %d %d",
+    rc = sscanf(line,"%*s %s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %lu %lu %*s %*s %*s %*s %*s %*s %*s %lu %ld",
 	    procname,
 	    &process->user_time,&process->kernel_time,
 	    &process->vsize,&process->rss);
@@ -572,6 +575,9 @@ int process_parse_procfs(struct process *process) {
     /*
      * Extract cpu times from data in /proc/<pid>/stat
      * XXX: Process name extractor for FreeBSD is untested right now.
+     *
+     * [TODO: FREEBSD code probably needs similar data type changes to 
+     * those made for LINUX above. Need to check docs.			-wbk]
      */
     rc = sscanf(line,"%s %*s %*s %*s %*s %*s %*s %*s %d,%d %d,%d",
 	    procname,
@@ -585,11 +591,14 @@ int process_parse_procfs(struct process *process) {
     process->kernel_time = ks*1000+km/1000;
 #endif /* defined(FREEBSD) */
 
+    /* not portable (especially unsuitable for redistributable executables.
+     * On some systems, getpagesize() is a preprocessor macro).
+     */
     process->rss *= getpagesize();
 
-    if (process->previous_user_time==INT_MAX)
+    if (process->previous_user_time==ULONG_MAX)
 	process->previous_user_time = process->user_time;
-    if (process->previous_kernel_time==INT_MAX)
+    if (process->previous_kernel_time==ULONG_MAX)
 	process->previous_kernel_time = process->kernel_time;
 
     user_time = process->user_time-process->previous_user_time;
@@ -731,7 +740,7 @@ void delete_process(struct process *p) {
 void draw_processes() {
     int i,n;
     struct process *best[3] = { 0, 0, 0 };
-    int total;
+    unsigned long total;
 
     /*
      * Invalidate time stamps
@@ -788,21 +797,21 @@ void draw_processes() {
 /* Calculate cpu total                    */
 /******************************************/
 
-int calc_cpu_total() {
-    int total,t;
-    static int previous_total = INT_MAX;
+unsigned long calc_cpu_total() {
+    unsigned long total,t;
+    static unsigned long previous_total = ULONG_MAX;
 #if defined(LINUX)
     int rc;
     int ps;
     char line[WMTOP_BUFLENGTH];
-    int cpu,nice,system,idle;
+    unsigned long cpu,nice,system,idle;
 
     ps = open("/proc/stat",O_RDONLY);
     rc = read(ps,line,sizeof(line));
     close(ps);
     if (rc<0)
 	return 0;
-    sscanf(line,"%*s %d %d %d %d",&cpu,&nice,&system,&idle);
+    sscanf(line,"%*s %lu %lu %lu %lu",&cpu,&nice,&system,&idle);
     total = cpu+nice+system+idle;
 #endif /* defined(LINUX) */
 
@@ -825,7 +834,7 @@ int calc_cpu_total() {
 /* Calculate each processes cpu           */
 /******************************************/
 
-void calc_cpu_each(int total) {
+void calc_cpu_each(unsigned long total) {
     struct process *p = first_process;
     while (p) {
 
@@ -843,7 +852,8 @@ void calc_cpu_each(int total) {
 /******************************************/
 
 #if defined(LINUX)
-int calc_mem_total() {
+/* INT_MAX won't always hold total system RAM, especially on a 64 bit system. */
+unsigned long calc_mem_total() {
     int ps;
     char line[1024];
     char *ptr;
@@ -873,10 +883,10 @@ int calc_mem_total() {
 /******************************************/
 
 #if defined(LINUX)
-void calc_mem_each(int total) {
+void calc_mem_each(unsigned long total) {
     struct process *p = first_process;
     while (p) {
-	p->amount = 100*(float)p->rss/total;
+	p->amount = 100*(double)p->rss/total;
 	p = p->next;
     }
 }
