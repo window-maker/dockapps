@@ -499,6 +499,14 @@ url = https://web.archive.org/web/19991104043355/http://windowmaker.mezaway.org/
 dockapps = 324
 category = Date/Time
 
+[wmtop]
+image = wmtop_rainbow.gif
+description = "Wmtop is a Windowmaker dockapp that is a mini graphical version of the cpu monitoring utility top."
+hosted = 1
+url = "http://wmtop.sourceforge.net/"
+dockapps = 50
+category = System Monitoring
+
 [wmtv]
 image = wmtv.png
 description = "Dockable video4linux TV player for WindowMaker"
