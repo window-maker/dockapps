@@ -1,0 +1,71 @@
+Introduction
+------------
+
+Wmtop maintains a view of the 3 top CPU (or memory) consuming
+processes displaying the amount of CPU used as a horizontal bar.
+Very useful for spotting those rogue Netscape processes!
+
+To compile:
+Type 'make linux' or 'make freebsd' depending on which operating system you
+are using. (Type uname if you don't know :-)
+
+To install:
+If you are superuser type 'make install'
+
+Instructions
+------------
+
+Invoke wmtop using the command 'wmtop'
+
+Use -display and -geometry options in the usual way.
+
+Use the command line option '-s <time in milliseconds>' to control the
+frequency of sampling of the processes and '-r <time in milliseconds>' to
+control how often the display is updated.
+
+Use -U to watch only your own processes rather than all of them. While
+running, a middle mouse click changes between the display of user processes
+and all processes.
+
+Use -x <regexp> to exclude processes whose name matches a given pattern
+from the list.
+
+Use -m to display physical memory usage instead of CPU, but is currently
+only supported under Linux. While running, a left mouse click changes
+between cpu and memory display.
+
+Use -c 'command' to have a command executed when you right click on wmtop.
+For example you could launch a window with the real 'top' command for a closer
+look at a rogue process.
+
+Use -a <1..X> to choose a theme for wmtop.
+
+Example
+-------
+
+wmtop -U -x '^wm' -c "xterm -e top"
+
+Means list my own processes that are not dockapps. Launch top on a right
+click.
+
+Caveats
+-------
+As far as I know this only works under Linux or FreeBSD with a
+/proc filesystem. Tested by me under Linux 2.2.5 and FreeBSD 3.2
+(PAO) and FreeBSD 4.0 on a Sony Vaio 505TX. Reportedly works also
+on other platforms including various combnations of Linux and
+FreeBSD on Intel and Alpha CPU machines. See TODO file for information
+about porting progress.
+
+Credits
+-------
+
+I have liberally borrowed code from wmsysmon by Dave Clark. Thanks!
+
+Thanks to Cyrille Mars (mailto:cmars@club-internet.fr) for some
+new pixmaps and beta testing.
+Thanks to Thomas C Sobczyns for beta testing (mailto:tcs@mit.edu).
+Thanks to Brian Servis (mailto:servis@purdue.edu) for improvements to the
+Makefile (that I have since ruined...).
+Thanks to Alan Swanson (mailto:swanson@uklinux.net) for some bugfixes and
+improvements.

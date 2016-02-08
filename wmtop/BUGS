@@ -1,0 +1,13 @@
+* It's still occasionally bombing out under FreeBSD.
+
+* I've had the colour of the bars go funny on me. I'm inclined to
+  blame this on X rather than my code. I've seen other dockapps to
+  this too.
+
+* Under FreeBSD /proc seems to be updated at a low sample rate so
+  the bars can be a bit misleading with processes fluctuating
+  between 0% and 100%. It still gives a correct overall idea of
+  what's using CPU.
+
+* A process that appears and disappears between samples will never
+  show up. I don't anticipate this ever getting fixed.

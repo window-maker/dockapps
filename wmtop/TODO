@@ -1,0 +1,13 @@
+* Sort out the CHANGES file which is a mess right now.
+
+* Make it use less CPU time.
+
+* Port to IRIX.  I know how to do this but it means using the
+  computers at work...
+
+* Port to SunOS. Need to find a suitable volunteer to help!
+
+* More safety checks (eg. around mallocs) and get rid of some of
+  those fixed length arrays.
+
+* Make a gnome applet version.

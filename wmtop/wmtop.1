@@ -1,0 +1,84 @@
+.\" Man Page for WMTOP
+.\" groff -man -Tascii wmtop.1
+.\"
+.TH WMTOP 1 "JUNE 1999" Linux "User Manuals"
+
+.SH NAME
+wmtop - WindowMaker dockapp
+
+.SH SYNOPSIS
+.B wmtop
+[\-c command]
+[\-U]
+[\-x regexp]
+[-m]
+
+
+.SH DESCRIPTION
+.B wmtop
+displays the CPU or physical memory (under Linux only) usage of the
+top three processes. These may be refined by user supplied criteria,
+either via the command line or by clicking on the application.
+
+.SH OPTIONS
+While running a left click alternates between CPU and memory
+display. A right click launches the appliction specfied at the
+command line. Middle clicking changes between displaying all
+and user only processes.
+.TP
+.B \-v
+Displays program version.
+.TP
+.B \-geometry
+The standard X geometry specifications. Only X and Y position
+requests  are  honoured.  Any  height and width specifications
+will be ignored.
+.TP
+.B \-display
+Specify an X server other than the local display.
+.TP
+.B \-U
+Displays processes only owned by the user.
+.TP
+.B \-c \fIcommand
+Execute \fIcommand\fP when application is right clicked.
+.TP
+.B \-x \fIregexp
+Exclude processes whose name matches the given regular expression. The regular
+expression need only match part of the process name. Use '^' to mean the start
+of the name and '$' to mean the end.
+.TP
+.B \-m 
+Show memory usage rather than CPU usage on start-up.
+.TP
+.B \-a \fItheme
+Choose an artisitc style or theme for wmtop to use.
+.TP
+.B \-s 
+Set interval between process samples in milliseconds.
+.TP
+.B \-r 
+Set interval between screen updates in milliseconds.
+
+.SH EXAMPLES
+Monitor only users processes, exclude WindowMaker dock apps and
+pop up xps when double clicked:
+.IP
+wmtop -c xps -U -x '^wm'
+.LP
+where we assume dock apps all have names starting with 'wm'.
+
+.SH BUGS
+Please report any bugs you may find to:
+.TP
+.B wmtop-bugs@tanelorn.demon.co.uk
+
+.SH AUTHOR
+Dan Piponi <dan@tanelorn.demon.co.uk>
+.LP
+http://www.tanelorn.demon.co.uk
+.LP
+http://wmtop.sourceforge.net
+
+.SH "SEE ALSO"
+.BR top (1)
