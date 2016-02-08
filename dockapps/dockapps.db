@@ -652,6 +652,16 @@ url = https://web.archive.org/web/19991104043355/http://windowmaker.mezaway.org/
 dockapps = 324
 category = Date/Time
 
+[wmtop]
+version-0.85 = be3f170b74d12bb6a13cadb8cce20b28acc26f27
+version-0.84 = 5cbffe1b2b9bd088f161f726a22e6b17ebf28fae
+image = wmtop_rainbow.gif
+description = "Wmtop is a Windowmaker dockapp that is a mini graphical version of the cpu monitoring utility top."
+hosted = 1
+url = "http://wmtop.sourceforge.net/"
+dockapps = 50
+category = System Monitoring
+
 [wmtv]
 version-0.6.6 = 2fceb9d2e01f20762af59c11f9489751277a8974
 version-0.6.5 = 0dbb066412c26a633e09baec15570d10f4c7246e
