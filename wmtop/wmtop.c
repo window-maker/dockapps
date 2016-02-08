@@ -62,8 +62,8 @@
 
 #include <regex.h>
 
-#include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
+#include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 #include "xpm/wmtop-default.xpm"
 #include "xpm/wmtop-lcd.xpm"
 #include "xpm/wmtop-neon1.xpm"

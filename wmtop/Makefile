@@ -1,8 +1,8 @@
 DEBUG  = -DPARANOID
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11
+LIBS   = -lXpm -lXext -lX11 -ldockapp
 INCS   = -I/usr/X11R6/share/include -I/usr/X11R6/include
-OBJS   = wmtop.o wmgeneral/wmgeneral.o wmgeneral/misc.o wmgeneral/list.o
+OBJS   = wmtop.o
 OPTS   = -O3 -g -Wall
 FLAGS  = $(DEBUG) $(OPTS) -D$(OS)
 MAKE   = make
