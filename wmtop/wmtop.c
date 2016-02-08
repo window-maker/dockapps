@@ -843,7 +843,7 @@ void calc_cpu_each(int total) {
 #if defined(LINUX)
 int calc_mem_total() {
     int ps;
-    char line[512];
+    char line[1024];
     char *ptr;
     int rc;
 
@@ -853,13 +853,16 @@ int calc_mem_total() {
     if (rc<0)
 	return 0;
 
-    if ((ptr = strstr(line, "Mem:")) == NULL) {
-        return 0;
-    } else {
+    if ((ptr = strstr(line, "Mem:")) != NULL) {
         ptr += 4;
         return atoi(ptr);
+    } else if ((ptr = strstr(line, "MemTotal:")) != NULL) {
+        /* The "Mem:" line has been removed in Linux 2.6 */
+        ptr += 9;
+        return atoi(ptr) << 10; /* MemTotal is given in kiB */
+    } else {
+        return 0;
     }
-
 }
 #endif /* defined(LINUX) */
 
