@@ -11,7 +11,7 @@ wmtop - WindowMaker dockapp
 [\-c command]
 [\-U]
 [\-x regexp]
-[-m]
+[\-m]
 
 
 .SH DESCRIPTION
@@ -22,7 +22,7 @@ either via the command line or by clicking on the application.
 
 .SH OPTIONS
 While running a left click alternates between CPU and memory
-display. A right click launches the appliction specfied at the
+display. A right click launches the application specfied at the
 command line. Middle clicking changes between displaying all
 and user only processes.
 .TP
@@ -64,7 +64,7 @@ Set interval between screen updates in milliseconds.
 Monitor only users processes, exclude WindowMaker dock apps and
 pop up xps when double clicked:
 .IP
-wmtop -c xps -U -x '^wm'
+wmtop \-c xps \-U \-x '^wm'
 .LP
 where we assume dock apps all have names starting with 'wm'.
 
