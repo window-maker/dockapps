@@ -76,8 +76,6 @@
 /* Defines                                */
 /******************************************/
 
-#define WMTOP_VERSION "0.9"
-
 /*
  * XXX: I shouldn't really use this WMTOP_BUFLENGTH variable but scanf is so
  * lame and it'll take me a while to write a replacement.
@@ -1007,5 +1005,5 @@ void usage(void) {
 /******************************************/
 
 void printversion(void) {
-    fprintf(stderr, "wmtop v%s\n",WMTOP_VERSION);
+    fprintf(stderr, "wmtop v%s\n",PACKAGE_VERSION);
 }
