@@ -73,7 +73,7 @@ if ($name) {
 			"$name-$version</a><br/>\n";
 		}
 		echo "<p/>\n<i>Note:</i>  By default, the above tarballs will ";
-		echo "save as dockapps-$string.tar.gz, where $string is a ";
+		echo 'save as dockapps-$string.tar.gz, where $string is a ';
 		echo "long string of hexadecimal characters.  You may wish to ";
 		echo "right click and use the <i>Save Link As...</i> option.\n";
 	} else {
