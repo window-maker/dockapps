@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=WMiFS
+Comment=Complete network monitoring dockapp
+Exec=wmifs
+Categories=Network;Monitor
+Keywords=network monitor;dockapp;window maker
