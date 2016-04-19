@@ -23,16 +23,23 @@ http://windowmaker.org/dockapps/?name=libdockapp
 
 Installation
 --------------------------------------------------------------
-1)  % make
-2)  % su root
-3)  # make install
-4)* # vi ~/.wmifsrc and/or /etc/wmifsrc
+1)  % ./autogen.sh
+2)  % ./configure
+3)  % make
+4)  % su root
+5)  # make install
+6)* # vi ~/.wmifsrc and/or $sysconfdir/wmifsrc
 	set up the paths to your pppd
 	start, stop & restart scripts
-5)  % wmifs & (or wmifs -h for brief help).
+7)  % wmifs & (or wmifs -h for brief help).
 
-4)* This is optional, WMiFS also works fine without them,
+6)* This is optional, WMiFS also works fine without them,
     it's entirely up to you ;-)
+    See sample.wmifsrc for an example configuration file.
+    Note that $sysconfdir defaults to /usr/local/etc.  You may
+    change this by running
+    ./configure --sysconfdir=DIR
+    prior to building.
 
 
 
@@ -40,28 +47,28 @@ Extra Install Info For Site Administrators!
 --------------------------------------------------------------
 For site administrators who don't want their users messing
 up pppd's configuration files, WMiFS now supports an
-/etc/wmifsrc.fixed file.
+$sysconfdir/wmifsrc.fixed file.
 
 The installation will install the normal user and global
-wmifsrc files in $HOME and /etc, NOT the fixed one!
+wmifsrc files in $HOME and $sysconfdir, NOT the fixed one!
 
 WMiFS scan for 3 files at startup, in the following order:
 
-	1. /etc/wmifsrc
+	1. $sysconfdir/wmifsrc
 	2. $HOME/.wmifsrc
-	3. /etc/wmifsrc.fixed
+	3. $sysconfdir/wmifsrc.fixed
 
 If no .wmifsrc file is found in the users home directory,
-WMiFS will use the global one (/etc/wmifsrc, if present
+WMiFS will use the global one ($sysconfdir/wmifsrc, if present
 and valid).
 
-When WMiFS finds a /etc/wmifs.fixed file, all settings
-that WMiFS detected in /etc/wmifsrc and/or $HOME/.wmifsrc
+When WMiFS finds a $sysconfdir/wmifs.fixed file, all settings
+that WMiFS detected in $sysconfdir/wmifsrc and/or $HOME/.wmifsrc
 will be discarted i.e. OVERRIDDEN!
 
 If you want your users to be able to dialout, but you
 don't want them to mess around, simply move or copy
-the default /etc/wmifsrc to /etc/wmifsrc.fixed :)
+the default $sysconfdir/wmifsrc to $sysconfdir/wmifsrc.fixed :)
 
 Note: When NO wmifsrc files are found at all, WMiFS will
 work, but quite obvious, WMiFS won't launch any scripts.
@@ -87,10 +94,6 @@ WMiFS support the following commandline options:
 
 General Notes
 --------------------------------------------------------------
-Note 1: If "make install" fails on your system, please edit
-        the Makefile to set the paths according to your setup.
-        "make install" defaults to /usr/local/bin, $HOME & /etc.
-
-Note 2: Please DO read the HINTS, this file contains some
+Note:   Please DO read the HINTS, this file contains some
         very usefull tips about WMiFS.
 
