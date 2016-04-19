@@ -1,4 +1,4 @@
-AC_INIT([wmifs], [1.6], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmifs], [1.7], [wmaker-dev@lists.windowmaker.org])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC

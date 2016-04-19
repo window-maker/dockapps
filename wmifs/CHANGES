@@ -1,5 +1,18 @@
 Version         Description
 --------------------------------------------------------------
+1.7	* Released 160419
+
+	* Fix buffer overflow if interface has name > 8 characters.
+	  Patch by anomie@users.sourceforge.net to fix Debian bug #805519. [1]
+
+	* Switch to autotools for build.
+
+	* Add desktop entry file.
+
+	* Update INSTALL after switch to autotools.
+
+	[1] https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=805519
+
 1.6	* Released 150824
 
 	* wmifs uses now the new library libdockapp that includes the old
