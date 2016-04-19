@@ -247,6 +247,7 @@
 
 /* the size of the buffer read from /proc/net/ */
 #define BUFFER_SIZE 512
+
   /**********************/
  /* External Variables */
 /**********************/
@@ -317,7 +318,7 @@ int main(int argc, char *argv[])
 			switch (arg[1]) {
 			case 'c' :
 				if (argc > i+1) {
-					strcpy(color, argv[i+1]);
+					strncpy(color, argv[i+1], sizeof(color));
 					i++;
 				}
 				break;
@@ -392,7 +393,7 @@ Pixel scale_pixel(Pixel pixel, float scale)
 
 typedef struct {
 
-	char	name[8];
+	char	name[IFNAMSIZ];
 	int	his[55][2];
 	long	istatlast;
 	long	ostatlast;
@@ -478,7 +479,7 @@ void wmifs_routine(int argc, char **argv)
 		fprintf(stderr, "Unknown $HOME directory, please check your environment\n");
 		return;
 	}
-	strcpy(temp, p);
+	strncpy(temp, p, BUFFER_SIZE - 10);
 	strcat(temp, "/.wmifsrc");
 	parse_rcfile(temp, wmifs_keys);
 
@@ -852,7 +853,7 @@ int checknetdevs(void)
 	int		i = 0, j;
 	int		k;
 	int		devsfound = 0;
-	char	foundbuffer[MAX_STAT_DEVICES][8];
+	char	foundbuffer[MAX_STAT_DEVICES][IFNAMSIZ];
 
 	for (i = 0; i < MAX_STAT_DEVICES; i++)
 		foundbuffer[i][0] = 0;
@@ -890,7 +891,7 @@ int checknetdevs(void)
 			   skip it! */
 
 			if (strcmp(p, "lo") || (active_interface && !strcmp(active_interface, "lo"))) {
-				strcpy(foundbuffer[devsfound], p);
+				strncpy(foundbuffer[devsfound], p, IFNAMSIZ);
 				devsfound++;
 			}
 			if (devsfound >= MAX_STAT_DEVICES)
@@ -930,7 +931,7 @@ int checknetdevs(void)
 	for (j = 0; j < MAX_STAT_DEVICES; j++) {
 		if (foundbuffer[j][0]) {
 
-			strcpy(stat_devices[i].name, foundbuffer[j]);
+			strncpy(stat_devices[i].name, foundbuffer[j], IFNAMSIZ);
 
 			for (k = 0; k < 48; k++) {
 				stat_devices[i].his[k][0] = 0;
@@ -948,7 +949,7 @@ int checknetdevs(void)
 				break;
 			}
 		if (!k) {
-			strcpy(stat_devices[i].name, active_interface);
+			strncpy(stat_devices[i].name, active_interface, IFNAMSIZ);
 			for (k = 0; k < 48; k++) {
 				stat_devices[i].his[k][0] = 0;
 				stat_devices[i].his[k][1] = 0;
