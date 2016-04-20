@@ -345,6 +345,8 @@ dockapps = 72
 category = Network
 
 [wmifs]
+version-1.8 = 4828dc47af1aec869a2066b9c9618393380195ee
+version-1.7 = ce5fd43bb3274770fffef353317cda69b2f7174c
 version-1.6 = a15dc597a0f8cea2c735b48f88a9903ee347a568
 version-1.5 = 4128ba27446478e714619062930ace930cc46e8b
 version-1.4 = 667077ad937a814152f5c1d5b72115654ede9f44
