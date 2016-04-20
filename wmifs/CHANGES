@@ -140,7 +140,7 @@ Version         Description
 	  options in WMiFS for 'real' multiuser systems,
 	  when 'force*' is detected in /etc/wmifsrc the
 	  user settings in ~/.wmifsrc are overridden
-	  (usefull for sites where users may not fiddle
+	  (useful for sites where users may not fiddle
 	   with pppd's options :)
 
 	* WMPPP: Ditto, added 'force' facility here too
@@ -159,7 +159,7 @@ Version         Description
 	* WMPPP: dropped the config GUI and added an
 	         .wmppprc file instead > motivation to do so:
 	         this way, WMPPP is much more platform and
-	         distribution independant :)
+	         distribution independent :)
 
 	* WMPPP: enhanced the status LED, yellow means
 	         dialing, green means online, red means error
@@ -178,7 +178,7 @@ Version         Description
 	* WMiFS: added -w commandline option, this will
 	         draw the graph in our new 'waveform' look :)
 
-	* WMiFS: fixed the coredump problems that occured
+	* WMiFS: fixed the coredump problems that occurred
 	         on some systems with or without .wmifsrc file
 	         typo's, errors, etc. in the .wmifsrc file are
 	         now also being ignored/rejected, the worst

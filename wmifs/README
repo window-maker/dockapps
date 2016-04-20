@@ -26,7 +26,7 @@ nice & nifty features like:
 
 	* Autosensing of *ALL* active network interfaces;
 	* Integrated autoscaling (per interface) transfer
-	  statistics, tested upto 100Mbit;
+	  statistics, tested up to 100Mbit;
 	* Displays a 'normal' xload style graph or our new
 	  'waveform' like load graph;
 	* Realtime cycling through active interfaces by simply
@@ -37,10 +37,10 @@ nice & nifty features like:
 	  interface, even 'lo' is supported (-h for help);
 	* User-definable scripts for left/middle/right mouse
 	  buttons which are read from ~/.wmifsrc (optional);
-	* Fixed rc file option, usefull for sites where users
+	* Fixed rc file option, useful for sites where users
 	  are not allowed to mess with pppd;
 
-WMiFS is developped on DEC Alpha machines running RedHat-5.0/Linux,
+WMiFS is developed on DEC Alpha machines running RedHat-5.0/Linux,
 but, WMiFS has also been intensively tested on x86 and 68K RedHat/
 Linux machines ;-)
 

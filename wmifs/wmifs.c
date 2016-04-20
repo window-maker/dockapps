@@ -128,7 +128,7 @@
 		* Used the DrawStats routine from wmifs in wmppp
 		* I decided to add a list in this source file
 		  with name of ppl who helped me build this code better.
-		* I finally removed the /proc/net/route dependancy
+		* I finally removed the /proc/net/route dependency
 		  All of the connections are taken from /proc/net/dev.
 		  /proc/net/route is still used for checking if it is on-line.
 	27/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
@@ -137,7 +137,7 @@
 	25/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Changed the checknetdevs routine, a lot!
 	23/04/1998 (Martijn Pieterse, pieterse@xs4all.nl)
-		* Added line speed detection. via seperate exec. (this has to be suid root!)
+		* Added line speed detection. via separate exec. (this has to be suid root!)
 		  Speed has to be no more than 99999
 		* Added speed and forcespeed in ~/.wmppprc and /etc/wmppprc
 		* wmifs: added on-line detection scheme, update the bitmap coordinates
