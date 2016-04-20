@@ -1,5 +1,11 @@
 Version         Description
 --------------------------------------------------------------
+1.8	* Released 160420
+
+	* Display version number from configure.ac with -v option.
+
+	* Fix typos.  Ran `codespell -w .`.
+
 1.7	* Released 160419
 
 	* Fix buffer overflow if interface has name > 8 characters.
