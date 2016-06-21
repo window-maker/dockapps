@@ -93,8 +93,8 @@ Verbose Mode.
 Help.
 .SH FILES
 .TP
-.I /etc/wmbutton.conf
-system wide wmbutton configuration file which will be used for all users who start wmcalc the first time.
+.I /etc/wmcalc.conf
+system wide wmcalc configuration file which will be used for all users who start wmcalc the first time.
 .TP
 .I ~/.wmcalc
 The configuration file (.wmcalc) is written by wmcalc whenever the user requests to store a number to memory. This file is automatically created the first time a user launches wmcalc with /etc/wmcalc.conf as template. As a part of this process, a file is written to /tmp. If /tmp is not accessible, it tries in the user's home directory, as defined by the environment variable HOME. This file is erased as soon as it is written over the main configuration file.
