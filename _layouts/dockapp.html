@@ -18,7 +18,7 @@ layout: default
     {{ content }}
     <h2>Screenshots:</h2>
       {% for image in page.images %}
-        <img src="/img/{{ image }}"/>
+        <img src="/dockapps/img/{{ image }}"/>
       {% endfor %}
         <p/>
      {% if page.hosted == 0 %}
@@ -27,7 +27,7 @@ layout: default
       {% else %}
         <h2>Available Versions:</h2>
       {% for version in page.versions %}
-      <a href="/download/{{ version.download }}">{{ version.number }}</a><br/>
+      <a href="/dockapps/download/{{ version.download }}">{{ version.number }}</a><br/>
       {% endfor %}
       {% endif %}
   </div>
