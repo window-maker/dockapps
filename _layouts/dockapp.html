@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+  </header>
+
+  <div class="post-content">
+    Category: {{ page.categories }}<br/>
+    {% if page.hosted == 0 %}
+      Website: <a href="{{ page.website }}">{{ page.website }}</a>
+    {% else %}
+      Original website: <a href="{{ page.website }}">{{ page.website }}</a>
+    {% endif %}
+    <p/>
+    {{ content }}
+    <h2>Screenshots:</h2>
+      {% for image in page.images %}
+        <img src="/img/{{ image }}"/>
+      {% endfor %}
+        <p/>
+     {% if page.hosted == 0 %}
+ 	This dockapp is not maintained by the Window Maker Developers Team.
+	Please visit the dockapp's website for downloads.
+      {% else %}
+        <h2>Available Versions:</h2>
+      {% for version in page.versions %}
+      <a href="/download/{{ version.download }}">{{ version.number }}</a><br/>
+      {% endfor %}
+      {% endif %}
+  </div>
+
+</article>
