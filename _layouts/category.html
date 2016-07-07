@@ -12,7 +12,8 @@ layout: default
       <div class="wrapper">
         {{ content }}
 	<ul>
-	  {% for dockapp in site.categories.[page.title] %}
+	  {% assign sorted_dockapps = site.categories.[page.title] | sort %}
+	  {% for dockapp in sorted_dockapps %}
 	    <li><a href="{{ dockapp.url }}">{{ dockapp.title }}</a></li>
 	  {% endfor %}
 	</ul>

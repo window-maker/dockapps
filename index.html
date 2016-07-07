@@ -19,7 +19,8 @@ layout: default
 
   <h2>Categories</h2>
   <ul>
-    {% for category in site.categories %}
+    {% assign sorted_cats = site.categories | sort %}
+    {% for category in sorted_cats %}
       <li><a href="/category/{{ category | first }}">{{ category | first }}</a></li>
     {% endfor %}
   </ul>
