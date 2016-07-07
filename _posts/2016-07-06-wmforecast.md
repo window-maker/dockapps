@@ -6,6 +6,6 @@ hosted: 0
 website: http://wmforecast.friedcheese.org
 images:
  - wmforecast.png
-categories: "General/Others"
+categories: weather
 ---
 A weather dockapp for Window Maker using the Yahoo Weather API.
