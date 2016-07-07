@@ -4,20 +4,24 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  Here you can download a number of Window Maker dockapps which
+  are no longer maintained by their original developers and have been adopted by
+  the Window Maker Developers Team.  They are maintained in a git repository,
+  which you may browse at
+  <a href="http://repo.or.cz/dockapps.git">http://repo.or.cz/dockapps.git</a>.
+  <p/>
+  If you would like to submit a patch to an existing dockapp or add a new
+  dockapp to the repository, please follow
+  <a href="http://repo.or.cz/w/wmaker-crm.git/blob/HEAD:/The-perfect-Window-Maker-patch.txt">these directions</a>.
+  <p/>
+  Some of the dockapps listed are not maintained by the Window Maker Developers
+  Team.  You may download these dockapps at their respective websites.
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
+  <h2>Categories</h2>
+  <ul>
+    {% for category in site.categories %}
+      <li><a href="/category/{{ category | first }}">{{ category | first }}</a></li>
     {% endfor %}
   </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
 </div>

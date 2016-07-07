@@ -8,7 +8,7 @@ layout: default
   </header>
 
   <div class="post-content">
-    Category: {{ page.categories }}<br/>
+    Category: <a href="/category/{{ page.categories }}">{{ page.categories }}</a><br/>
     {% if page.hosted == 0 %}
       Website: <a href="{{ page.website }}">{{ page.website }}</a>
     {% else %}
