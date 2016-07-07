@@ -10,8 +10,8 @@ title: dockapps
 email: dtorrance@piedmont.edu
 description: > # this means to ignore newlines until "baseurl:"
   Window Maker dockapps
-baseurl: "/dockapps" # the subpath of your site, e.g. /blog
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://www.dockapps.net # the base hostname & protocol for your site
 #twitter_username: jekyllrb
 github_username:  d-torrance
 
