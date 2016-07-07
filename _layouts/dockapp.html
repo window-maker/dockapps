@@ -12,7 +12,9 @@ layout: default
     {% if page.hosted == 0 %}
       Website: <a href="{{ page.website }}">{{ page.website }}</a>
     {% else %}
-      Original website: <a href="{{ page.website }}">{{ page.website }}</a>
+      {% if page.website %}
+        Original website: <a href="{{ page.website }}">{{ page.website }}</a>
+      {% endif %}
     {% endif %}
     <p/>
     {{ content }}
