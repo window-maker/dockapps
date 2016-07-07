@@ -1,7 +1,7 @@
 ---
 layout: dockapp
 title: alsamixer.app
-permalink: alsamixer.app
+permalink: alsamixerapp
 hosted: 1
 images:
  - AlsaMixer.app.png
