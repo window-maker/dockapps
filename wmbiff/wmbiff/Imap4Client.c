@@ -294,6 +294,7 @@ int imap_checkmail( /*@notnull@ */ Pop3 pc)
 	/* recover connection state from the cache */
 	struct connection_state *scs = state_for_pcu(pc);
 	char buf[BUF_SIZE];
+	char examine_expect[BUF_SIZE];
 	static int command_id;
 
 	/* if it's not in the cache, try to open */
@@ -309,6 +310,14 @@ int imap_checkmail( /*@notnull@ */ Pop3 pc)
 
 	if (tlscomm_is_blacklisted(scs) != 0) {
 		/* unresponsive server, don't bother. */
+		return -1;
+	}
+
+	command_id++;
+	tlscomm_printf(scs, "a%03d EXAMINE %s\r\n", command_id, pc->path);
+	snprintf(examine_expect, BUF_SIZE, "a%03d OK", command_id);
+	if (tlscomm_expect(scs, examine_expect, buf, 127) == 0) {
+		tlscomm_close(unbind(scs));
 		return -1;
 	}
 
