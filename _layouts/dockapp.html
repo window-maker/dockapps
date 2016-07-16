@@ -23,11 +23,11 @@ layout: default
         <img src="/img/{{ image }}" alt="{{ page.title }} screenshot">
       {% endfor %}
         <p>
+      <h2>Available Versions:</h2>
      {% if page.hosted == 0 %}
  	This dockapp is not maintained by the Window Maker Developers Team.
 	Please visit the dockapp's website for downloads.
       {% else %}
-        <h2>Available Versions:</h2>
       {% for version in page.versions %}
       <a href="/download/{{ version.download }}">{{ version.number }}</a><br>
       <p><p>
