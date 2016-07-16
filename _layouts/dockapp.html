@@ -30,12 +30,12 @@ layout: default
       {% else %}
       {% for version in page.versions %}
       <a href="/download/{{ version.download }}">{{ version.number }}</a><br>
+      {% endfor %}
       <p><p>
       A newer version may be available in the Window Maker dockapps git
       repository:
       <br>
       <code>git clone https://repo.or.cz/dockapps.git</code>
-      {% endfor %}
       {% endif %}
   </div>
 
