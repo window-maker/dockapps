@@ -8,7 +8,7 @@ layout: default
   </header>
 
   <div class="post-content">
-    Category: <a href="/category/{{ page.categories }}">{{ page.categories }}</a><br/>
+    Category: <a href="/category/{{ page.categories }}">{{ page.categories }}</a><br>
     {% if page.hosted == 0 %}
       Website: <a href="{{ page.website }}">{{ page.website }}</a>
     {% else %}
@@ -16,24 +16,24 @@ layout: default
         Original website: <a href="{{ page.website }}">{{ page.website }}</a>
       {% endif %}
     {% endif %}
-    <p/>
+    <p>
     {{ content }}
     <h2>Screenshots:</h2>
       {% for image in page.images %}
-        <img src="/img/{{ image }}"/>
+        <img src="/img/{{ image }}" alt="{{ page.title }} screenshot">
       {% endfor %}
-        <p/>
+        <p>
      {% if page.hosted == 0 %}
  	This dockapp is not maintained by the Window Maker Developers Team.
 	Please visit the dockapp's website for downloads.
       {% else %}
         <h2>Available Versions:</h2>
       {% for version in page.versions %}
-      <a href="/download/{{ version.download }}">{{ version.number }}</a><br/>
-      <p/><p/>
+      <a href="/download/{{ version.download }}">{{ version.number }}</a><br>
+      <p><p>
       A newer version may be available in the Window Maker dockapps git
       repository:
-      <br/>
+      <br>
       <code>git clone https://repo.or.cz/dockapps.git</code>
       {% endfor %}
       {% endif %}
