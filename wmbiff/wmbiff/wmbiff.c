@@ -1098,7 +1098,7 @@ extern void ProcessPendingEvents(void)
 					&& extra_click_action[0] != 0
 					&& strcmp(extra_click_action, "msglst")) {
 					DM(&mbox[but_released_region], DEBUG_INFO,
-					   "runing: %s", extra_click_action);
+					   "running: %s", extra_click_action);
 					(void) execCommand(extra_click_action);
 				}
 				if (click_action != NULL
