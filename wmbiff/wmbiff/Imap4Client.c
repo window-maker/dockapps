@@ -321,6 +321,14 @@ int imap_checkmail( /*@notnull@ */ Pop3 pc)
 		return -1;
 	}
 
+	command_id++;
+	tlscomm_printf(scs, "a%03d CLOSE\r\n", command_id);
+	snprintf(examine_expect, BUF_SIZE, "a%03d OK", command_id);
+	if (tlscomm_expect(scs, examine_expect, buf, 127) == 0) {
+		tlscomm_close(unbind(scs));
+		return -1;
+	}
+
 	/* if we've got it by now, try the status query */
 	command_id++;
 	tlscomm_printf(scs, "a%03d STATUS %s (MESSAGES UNSEEN)\r\n",
