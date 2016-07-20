@@ -1,3 +1,41 @@
+2016-07-19  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/Imap4Client.c: Close mailbox before we call
+	status on it.
+
+	Additional patch by Nye Liu <nyet@nyet.org> to fix Debian bug
+	#830889 [1].
+
+	[1] https://bugs.debian.org/830889
+
+2016-07-12  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/Imap4Client.c: EXAMINE before STATUS
+
+	Patch by Nye Liu <nyet@nyet.org> to fix Debian bug #830889 [1].
+
+	Outlook Office365 IMAP servers now expect a client to issue at least
+	one EXAMINE before STATUS, or UNSEEN is always zero.
+
+	[1] https://bugs.debian.org/830889
+
+2015-10-25  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/wmbiff.1, wmbiff/wmbiff.c: Add	missing command line options
+	to documentation.
+
+	Closes Debian bug #770117 [1].
+
+	[1] https://bugs.debian.org/770117
+
+2015-08-16  Rodolfo García Peñas (kix) <kix@kix.es>
+
+	* wmbiff/tlsComm.c: FTBFS with initialize_gnutls
+
+	The first argument for the function initialize_gnutls is an intptr_t
+	so wmbiff fails to build from source. This patch changes the current
+	int to intptr_t.
+
 2014-11-07  Doug Torrance <dtorrance@monmouthcollege.edu>
 
 	* wmbiff/Makefile.am: Remove sourceforgeupload target from
