@@ -1471,7 +1471,7 @@ If you get an error such as sh: /dev/console: Permission denied, login as root, 
 <A name="100"></A>
 <h2>5.5 &nbsp;Where can I get more dockapps?</h2>
 The Window Maker team got tired of people E-mailing constantly asking where the websites for obscure dockapps disappeared to.  So we've created the ultimate dockapps community website.
-Visit <a href="http://windowmaker.org/dockapps">windowmaker.org/dockapps</a> for the latest, up-to-date links, information, and download for Window Maker and related dockapps.
+Visit <a href="http://www.dockapps.net">dockapps.net</a> for the latest, up-to-date links, information, and download for Window Maker and related dockapps.
 <P>
 Another large index of dockapp links is available at <A HREF="http://www.bensinclair.com/dockapp">http://www.bensinclair.com/dockapp</A> .  The downside to this is that they're only links, so if someone stops maintaining a dockapp, or their web hosting provider cuts them off, you won't be able to get to it.  Still, Ben Sinclair's site was the first big "dockapp warehouse" site, so we give credit where credit is due. :)
 
