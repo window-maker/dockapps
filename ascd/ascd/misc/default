@@ -1,0 +1,8 @@
+#!/bin/sh
+# This generates a default configuration file without
+# asking any question
+
+cp -f misc/config.h.default config.h
+cp -f misc/dirs.h.default dirs.h
+cat version.h >> config.h
+xmkmf

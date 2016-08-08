@@ -1,0 +1,203 @@
+#!/bin/sh
+
+LS=/bin/ls
+
+rm -f config.h
+rm -f dirs.h
+
+echo "/* auto-generated config.h for AScd. */" >  config.h
+echo "/* do not edit. Run ./configure!       */" >> config.h
+echo "" >> config.h
+
+echo "/* internal defines, do not change! */" >> config.h
+echo "#define PACKAGE \"ascd\"" >> config.h
+cat version.h >> config.h
+echo "" >> config.h
+echo "/* user choices */" >> config.h
+echo "#define DEFAULT_COLOR \"#2FAFAF\"" >> config.h
+echo "#define DEFAULT_BGCOLOR \"#000000\"" >> config.h
+
+clear
+
+#################################################################
+
+echo "Welcome to the ascd configuration script. Please answer the"
+echo "following questions before compilation."
+echo
+echo "--------------------"
+echo "1. Default CD device"
+echo "--------------------"
+echo
+echo "Please select a default CD device. This can be overriden at run"
+echo "time with the -d option. Default is /dev/cdrom. You can also type"
+echo "'NO' if you don't want to specify a default device (in case you're"
+echo "using Volume Manager for example."
+echo
+printf "Default device or NO (or return to accept the default): "
+read CDD
+echo
+
+case $CDD in
+   "")	echo "#define DEFAULTDEVICE \"/dev/cdrom\"" >> config.h
+	echo "** the default device will be /dev/cdrom"
+	;;
+   NO)	echo "#define DEFAULTDEVICE \"/dev/cdrom\"" >> config.h
+	echo "#define NO_D_DEVICE" >> config.h
+	echo "** no device option enabled"
+	;;
+   *)	echo "#define DEFAULTDEVICE \"$CDD\"" >> config.h
+	echo "** the default device will be $CDD"
+	;;
+esac
+
+#################################################################
+
+echo
+echo "------------------"
+echo "2. Binary location"
+echo "------------------"
+echo
+echo "Where shall I install ascd program? Press return to accept the"
+echo "default value (/usr/local/bin)."
+echo
+printf "Bin directory? "
+read BINDIR
+echo
+
+case $BINDIR in 
+    "") echo "#define CBINDIR /usr/local/bin" > dirs.h
+        echo "** Ascd will be /usr/local/bin/ascd"
+	;;
+    *)	echo "#define CBINDIR $BINDIR" >> dirs.h
+        echo "** Ascd will be $BINDIR/ascd"
+	;;
+esac
+
+#################################################################
+
+echo
+echo "---------------"
+echo "3. Man location"
+echo "---------------"
+echo
+echo "Where shall I install the man page? Press return to accept the"
+echo "default value (/usr/local/man/man1)."
+echo
+printf "Man directory? "
+read MANDIR
+echo 
+
+case $MANDIR in 
+    "") echo "#define CMANDIR /usr/local/man/man1" >> dirs.h
+        echo "** Man page will be installed in /usr/local/man/man1."
+	;;
+    *)	echo "#define CMANDIR $MANDIR" >> dirs.h
+        echo "** Man page will be installed in $MANDIR."
+	;;
+esac
+
+#################################################################
+
+echo
+echo "------------------"
+echo "4. themes location"
+echo "------------------"
+echo
+echo "Where shall I install the ascd themes files? Press return"
+echo "to accept default value (/usr/local/share/AScd)."
+echo
+printf "Themes pixmaps directory? "
+read THDIR
+echo
+
+case $THDIR in 
+    "") echo "#define THDIR \"/usr/local/share/AScd\"" >> config.h
+        echo "#define CTHDIR /usr/local/share/AScd" >> dirs.h
+        echo "** Theme dir: /usr/local/share/AScd."
+	;;
+    *)	echo "#define THDIR \"$THDIR\"" >> config.h
+        echo "#define CTHDIR $THDIR" >> dirs.h
+        echo "** Theme dir: $THDIR."
+	;;
+esac
+
+
+#################################################################
+
+echo
+echo "-------------------------"
+echo "5. optional WINGs support"
+echo "-------------------------"
+echo
+echo "If you're using Window Maker window manager, AScd can be compiled"
+echo "with a configuration window using WINGs toolkit. Please note that"
+echo "it's work in progress and you may have to change a few things in"
+echo "ascd/Imakefile."
+echo
+echo "1) compile with WINGs support"
+echo "2) no WINGs support (DEFAULT)"
+echo
+printf "Type 1 or 2: "
+read WINGS
+echo 
+
+case $WINGS in 
+    1)  echo "#define WMK" >> config.h
+    	echo "** Compiling with WINGs support."
+	;;
+    *)	echo "** No WINGs support."
+	;;
+esac
+
+#################################################################
+
+echo
+echo "-------------------------"
+echo "6. optional mixer support"
+echo "-------------------------"
+echo
+echo "This optional module adds mixing capabilities to AScd's themes."
+echo "It is not supported on a lot of platforms, and you may have to"
+echo "make some changes in the sources."
+echo
+echo "1) compile with mixer support"
+echo "2) no mixer support (DEFAULT)"
+echo
+printf "Type 1 or 2: "
+read WINGS
+echo
+
+case $WINGS in 
+    1)  echo "#define MIXER" >> config.h
+    	echo "** Compiling with mixer support."
+	;;
+    *)	echo "** No mixer support."
+	;;
+esac
+
+
+#################################################################
+
+echo
+echo "-----------------------------"
+echo "Automatic Makefile generation"
+echo "-----------------------------"
+echo
+echo "Configuration is done. This script is now running xmkmf to"
+echo "generate the Makefiles."
+echo
+
+xmkmf -a
+
+echo
+echo "---------"
+echo "Finished!"
+echo "---------"
+echo
+echo "You are now ready to compile AScd. type:"
+echo
+echo "make                ... to compile the software"
+echo "make install        ... to install it"
+echo "make install.man    ... to install the man page"
+echo
+echo

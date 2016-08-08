@@ -1,0 +1,9 @@
+#!/bin/sh
+
+cd ascd
+rm -f workman
+ln -s ../libworkman/include workman
+./configure
+cd ..
+xmkmf -a
+

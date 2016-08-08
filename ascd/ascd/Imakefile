@@ -1,0 +1,63 @@
+#include "config.h"
+#include "dirs.h"
+
+NAME 		= ascd
+BINDIR		= CBINDIR
+MANDIR		= CMANDIR
+THEMESDIR	= CTHDIR
+MOREFLAGS	= -I/usr/local/include -I/usr/X11R6/include -I.
+CCOPTIONS	= $(MOREFLAGS)
+SYS_LIBRARIES	= $(XLIB) -lXpm
+
+LOCAL_LIBRARIES = -L../libworkman -lworkman -L/usr/local/lib
+
+SRCS_OPT1 =
+SRCS_OPT2 =
+SRCS_OPT3 =
+OBJS_OPT1 =
+OBJS_OPT2 =
+OBJS_OPT3 =
+
+#ifdef WMK
+SRCS_OPT1 = wings_main.c
+OBJS_OPT1 = wings_main.o
+#endif
+
+#ifdef MIXER
+SRCS_OPT2 = mixer_handlers.c
+OBJS_OPT2 = mixer_handlers.o
+#endif
+
+SRCS = 	cdcontrol.c misc.c faktory.c handlers.c \
+	$(SRCS_OPT1) \
+	$(SRCS_OPT2) \
+	$(SRCS_OPT3) \
+	ascd.c
+
+OBJS = 	cdcontrol.o misc.o faktory.o handlers.o \
+	$(OBJS_OPT1) \
+	$(OBJS_OPT2) \
+	$(OBJS_OPT3) \
+	ascd.o
+
+#ifdef WMK
+WM_LIB = -lm -lz -lpng -ljpeg -ltiff -lgif -lPropList -lwraster -lWINGs
+#else
+WM_LIB = 
+#endif
+
+AllTarget($(NAME))
+NormalProgramTarget($(NAME),$(OBJS),NullParameter,$(SYS_LIBRARIES) $(LOCAL_LIBRARIES) $(WM_LIB),NullParameter)
+InstallProgram($(NAME),$(BINDIR))
+InstallManPage($(NAME),$(MANDIR))
+InstallMultiple(themes/themes-manual.ps.gz,$(THEMESDIR))
+
+install::
+	@echo "Installing themes..."
+	@cp themes/themes.tar $(THEMESDIR)
+	@cp themes/default.tar $(THEMESDIR)
+	@cd $(THEMESDIR) ; tar xf themes.tar
+	@cd $(THEMESDIR) ; tar xf default.tar
+	@cd $(THEMESDIR) ; rm themes.tar
+	@cd $(THEMESDIR) ; rm default.tar
+	@echo "Done."

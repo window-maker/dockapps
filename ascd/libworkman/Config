@@ -1,0 +1,48 @@
+XCOMM -------------------------------------------------------------------
+XCOMM        libworkman installation configuration
+XCOMM -------------------------------------------------------------------
+XCOMM
+XCOMM This file is part of LibWorkMan, the civilized CD player library
+XCOMM (c) 1991-1997 by Steven Grimm (original author)
+XCOMM (c) by Dirk Försterling (current 'author' = maintainer)
+XCOMM The maintainer can be contacted by his e-mail address:
+XCOMM milliByte@DeathsDoor.com 
+XCOMM
+XCOMM This library is free software; you can redistribute it and/or
+XCOMM modify it under the terms of the GNU Library General Public
+XCOMM License as published by the Free Software Foundation; either
+XCOMM version 2 of the License, or (at your option) any later version.
+XCOMM
+XCOMM This library is distributed in the hope that it will be useful,
+XCOMM but WITHOUT ANY WARRANTY; without even the implied warranty of
+XCOMM MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+XCOMM Library General Public License for more details.
+XCOMM
+XCOMM You should have received a copy of the GNU Library General Public
+XCOMM License along with this library; if not, write to the Free
+XCOMM Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+XCOMM
+XCOMM -------------------------------------------------------------------
+XCOMM
+XCOMM This configures the compilation and installation
+XCOMM processes only. To configure libworkman to your
+XCOMM needs, please review the file include/wm_config.h
+XCOMM
+XCOMM
+
+XCOMM -------------------------------------------------------------------
+XCOMM                        Directory Prefix
+XCOMM -------------------------------------------------------------------
+DESTDIR=/usr/local/
+
+XCOMM -------------------------------------------------------------------
+XCOMM          LibWorkMan include file target relative to DSTDIR
+XCOMM -------------------------------------------------------------------
+WMINCDIR=include/workman
+
+
+
+XCOMM -------------------------------------------------------------------
+#define SHARED_LIBWORKMAN
+LIBDIR=lib
+

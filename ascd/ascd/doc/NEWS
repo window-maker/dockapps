@@ -1,0 +1,148 @@
+New features in ascd 0.13-beta:
+===============================
+
+(it is a big big big release, as I had to redesign or rewrite nearly
+everything in the soft except the CD control functions. So, I'm
+considering this code as beta stage one.)
+
+* Visual Themes:
+
+  Visual themes are now 100% configurable. A theme consist in a description 
+  file and various pixmaps. You can place any screen element anywhere in the 
+  window and the icon. Available screen elements:
+
+  - pixmaps
+  - counter
+  - track number
+  - message area
+  - database display area
+  - direct access horizontal, vertical and inverted vertical bars
+  - hardware volume horizontal, vertical and inverted vertical bars
+  - mixer control horizontal, vertical and inverted vertical bars
+
+  For each element, you specify the *command* to use for the three mouse
+  buttons. AScd provides commands to control the general options, the CD
+  player and the mixer.
+
+  AScd is no longer restricted to a "dockable" size. More: In -w mode, it's 
+  now possible to have different screen layouts for the main window and the 
+  icon one
+
+* Mixer support is back (FreeBSD and Linux are the only supported platforms)
+* New documentation (PostScript) about making new themes
+* LibWorkman updated to 990505, with early CDDB support (but it is *not*
+  yet supported by AScd)
+* database support has been enhanced
+* Quick Reference gif files support with an external viewer (xv by default)
+* the font used in messages and database is now 8bit compatible, thanks to
+  Stefan Zeiger who made an excellent 8bit new font
+* added -debug support, which could help when making/debugging new themes
+* Speed improvment for a few features (fast track selector for instance)
+* Better messages hierarchy
+* CD control updated to 1.4 with a few fixes
+* ascd.c has been splitted in several modules
+
+New features in ascd 0.12:
+==========================
+
+* visual theme support!!! With the WINGs configuration
+  window, it is possible to switch between themes without
+  restarting ascd.
+
+New features in ascd 0.11.X:
+============================
+
+* another brand new look, with a lot of enhancements
+* the mixer was removed once again
+* better volume handling
+* size set to 56x56 as it's ok with AfterStep's Wharf
+* CD control updated to 1.2 with several fixes
+* database editing (ALPHA!) in optional WINGs module
+* AScd can show and scroll CD artist and track title
+* a few commandline options to control this feature
+* Added a commandline option to launch Xfascd
+* The "avoid track" WorkMan's parameter is handled
+* fast track access when playing by left/right clicking
+  on the track number
+* a lot of enhancements in the configuration window
+* fixes, as usual
+
+New features in ascd 0.10:
+==========================
+
+* Using LibWorkMan 99/03/07
+* New configure script
+* CD control updated to 1.0pre1
+* Enhanced WINGs module
+* fixes
+
+0.9.4:
+======
+
+* optionnal config window using WINGs (WindowMaker) toolkit.
+* fade in/out
+* blind mode
+* volume settings are now saved in ~/.ascdrc
+* -save commandline option
+
+New features in ascd 0.9.1,2 and 3:
+===================================
+
+* 0.9.3 is a bug-fixes only
+* fixes, fixes and fixes!
+* alternate pixmaps set which be set in the config file
+* mixer device can be changed with a command line option and
+  is stored in ~/.ascdrc
+* in mixer mode, the track nbr displays the current mixer
+  setting.
+* full mixer section added to man page.
+
+New features in ascd 0.9:
+=========================
+
+* Lib code updated to WorkMan 1.3b with:
+  - plat_linux.c patched for glib systems
+  - plat_openbsd.c added
+* Added an option in Config to compile libworkman as a
+  shared library (this works with ascd 0.8 too)
+* plat_freebsd.c patched for FreeBSD 3.0-STABLE and hacked:
+  Eject now works and there're no more device locking!
+* REWRITE of the pixmap routines: there are now one pixmap
+  per button, and several pixmaps are new.
+* REWRITE of the CD control routine, which is now in a
+  separate src file.
+* REWRITE from scratch of the mixer.
+* REWRITE of the command line parsing function. Added a few
+  new options. See the man page or type ascd -help.
+* ascd can save and load its settings in ~/.ascdrc file. It
+  is also possible to save the 17 mixer settings in this file. The 
+  .ascdrc settings can be overidden with the commandline options.
+* added drive volume control with a "mute" switch (values
+  can be changed with commandline options). Note that mute
+  function controls the CD Drive Volume, and is independant 
+  from the mixer module.
+* The LED colors can be changed for the mixer (Config file, 
+  commandline & ~/.ascdrc)
+* Autoplay and autorepeat modes redesigned. They should ok now.
+  (still a few little problems with autoplay detecting)
+* a lot of fixes, including redraw problems found in 0.7 & 0.8.
+
+New features in ascd 0.8:
+=========================
+
+* 'Config' file to specify compilation time default values
+* Hardware code (WorkMan) updated and compiled as a lib
+* Compilation on Solaris 7 i386 with gcc
+* Compilation on AIX (Thanks to Erik O'Shaughnessy)
+* Optional Mixer module (similar to asmixer)
+* New pixmaps, size changed from 56x56 to 48x48
+* Text messages displaying mode changes
+* LEDs colors can be changed from the commandline
+* several fixes
+* updated man page
+* french translation for docs
+* direct access to every part of the CD with a single click!
+* right clic on "stop" button end the application
+
+==========================================================================
+See CHANGES for details. Denis.

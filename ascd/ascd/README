@@ -1,0 +1,138 @@
+========================================================================
+                                 AScd 0.13
+                 CD player for Afterstep and Window Maker
+========================================================================
+
+MAINTAINER:
+
+                 Denis Bourez:
+               - email: denis@rsn.fdn.fr
+               - AScd home page: http://worldserver.oleane.com/rsn/
+
+AScd ORIGINAL AUTHOR:
+
+                 Rob Malda:
+               - email: malda@slashdot.org
+               - WWW: http://CmdrTaco.net/
+
+========================================================================
+
+DESCRIPTION:
+
+AScd is a CD player that can be "docked" on the Afterstep Wharf or the
+Window Maker dock. It uses libworkman to access CD drivers.
+
+========================================================================
+
+HISTORY:
+
+AScd 0.1 -> 0.6
+---------------
+
+The original code was taken by Rob Malda from asclock (Afterstep wharf
+module, by Beat Christen <bchriste@iiic.ethz.ch>) and from workbone (CD
+driver). 
+
+AScd 0.7 -> 0.9
+---------------
+
+I removed all the workbone code (Linux specific): ascd could then be compiled
+on several UN*X flavors. I took a big part or the WorkMan (see at the end of
+this text) src and merged it with the ascd 0.4 interface. The WorkMan code
+was compiled as a library.
+
+AScd >= 0.10
+------------
+
+WorkMan has splitted in 2 parts: the ui and the lib, named libworkman. So,
+AScd uses this brand new lib, instead of the one which was included in the
+AScd's archive. WorkMan's maintainer is Dirk Foersterling
+(milliByte@DeathsDoor.com).
+
+AScd >= 0.12
+------------
+
+AScd no longer includes the pixmaps in the source files. It is now possible 
+to change the pixmaps theme at run time. AScd now needs a directory where
+to store the pixmaps. The default is /usr/local/share/AScd.
+
+AScd >= 0.13
+------------
+
+The theme files are now fully customizable. All theme directories are
+installed by default in /usr/local/share/AScd/Themes.
+
+========================================================================
+                             HOW TO COMPILE????
+========================================================================
+
+You need to download, compile and install the WorkMan library. Please
+use the 99/05/05 snapshot wish can be found on the AScd's home page or
+on the primary ftp site for WorkMan: 
+
+ftp://ftp.midwinter.com/WorkMan/snapshots/
+
+========================================================================
+                              CONFIGURATION
+========================================================================
+
+Run ./configure
+
+This script will ask you a few questions about compilation-time
+options, and generate a "config.h" file matching your choices. The
+script will then run xmkmf to generate the Makefile.
+
+========================================================================
+                          COMPILATION/INSTALLATION
+========================================================================
+
+IMPORTANT NOTE: if you're upgrading from AScd 0.12, please remove
+everything in the AScd default directory (/usr/local/share/AScd) as the
+theme files are *not* compatible.
+
+    make
+  
+  - If you want to try the program, just type
+    
+    ./ascd
+    
+    (try './ascd -help' to see the commandline options)
+
+    If everything is ok, you can install the program and the
+    man page:
+    
+    make install
+    make install.man
+
+
+* installation for AfterStep
+  --------------------------
+
+  Add a line in your ~/.steprc file:
+
+  *Wharf - - Swallow "ascd" /usr/local/bin/ascd -device /dev/wcd0a &
+
+  (customized to your system settings of course!)
+  
+* installation for Window Maker
+  -----------------------------
+
+  Launch ascd with the "+w" option.
+  Dock ascd by dragging it to the dock.
+
+========================================================================
+                                CREDITS
+========================================================================
+
+  Denis Bourez (denis@rsn.fdn.fr) http://worldserver.oleane.com/rsn/
+  Rob Malda (malda@slashdot.org)  http://CmdrTaco.net/
+
+  The 0.12 *digits.xpm were taken and modified from wmitime, an excellent
+  clock applet for Window Maker. Wmitime was written by Dave Clark
+  (clarkd@skynet.ca) More info at: http://www.neotokyo.org. I added the
+  lower case letters.
+  
+  The new 0.13 default font is fully 8bit compatible! It has been drawn
+  by Stefan Zeiger (szeiger@novocode.com).
+========================================================================
+                                                Denis Bourez, 05/17/1999

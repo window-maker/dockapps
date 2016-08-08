@@ -1,0 +1,7 @@
+#define IHaveSubdirs
+#define PassCDebugFlags
+
+SUBDIRS = libworkman ascd
+
+MakeSubdirs($(SUBDIRS))
+DependSubdirs($(SUBDIRS))

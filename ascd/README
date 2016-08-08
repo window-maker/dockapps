@@ -1,0 +1,50 @@
+This archive includes the original ascd 0.13.2 archive and the latest
+LibWorkMan snapshot (990620). To compile the software:
+
+  - run ./configure (*)
+  - make
+  - make install
+  - make install.man
+
+(*) configure will ask you a few question about ascd options. If you want
+to use the default settings, run ./default instead of ./configure.
+
+Important note:
+---------------
+
+I changed two things in libworkman:
+
+1) I added #under OSS_SUPPORT in plat_linux.c in order to definitly 
+prevent libworkman to use the mixer.
+
+2) I added wm_cddb.h in installed files as it was missing in the
+original tarball.
+
+Upgrading from ascd <= 0.12.X
+-----------------------------
+
+Ascd 0.13 uses the last libworkman snapshot and is *not* compatible
+with the previous ones. Do not forget to compile and install the
+snapsnot included in this archive before trying to compile ascd 0.13.
+
+More infos:
+-----------
+
+I strongly suggest to read the following texts:
+
+  - in libworkman/ dir, read the README file and edit Config file.
+  - in ascd/ dir, read the README file.
+
+AScd:
+-----
+
+  * maintained by Denis Bourez <denis@rsn.fdn.fr>
+  * homepage: http://worldserver.oleane.com/rsn/ascd-en.html
+
+LibWorkMan:
+-----------
+
+  * maintained by Dirk Försterling <milliByte@DeathsDoor.com>
+  * homepage: http://www.DeathsDoor.com/milliByte/WorkMan/
+
+Denis Bourez, 99/9/5

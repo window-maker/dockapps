@@ -1,0 +1,267 @@
+.TH ascd 1 "17 may 1999" ascd
+.UC
+
+.SH NAME
+
+\fBascd\fP \- An AfterStep and WindowMaker CD player
+
+.SH SYNOPSIS
+
+.B ascd
+[
+.BI \-help
+]
+.br
+.B ascd
+[
+.BI \-version
+]
+.br
+.B ascd
+[
+.BI \-themes
+]
+.br
+.br
+.B ascd
+[
+.BI \-geometry " geometry"
+]
+[
+.BI \+/-withdrawn
+]
+[
+.BI \-device " device"
+]
+[
+.BI \-mixer " device"
+]
+[
+.BI \+/-a
+]
+[
+.BI \+/-p
+]
+[
+.BI \+/-t
+]
+[
+.BI \+/-B
+]
+[
+.BI \-cue " time"
+]
+[
+.BI \-ti " time"
+]
+[
+.BI \-volume " volume"
+]
+[
+.BI \-mvolume " volume"
+]
+[
+.BI \-maxvolume " volume"
+]
+[
+.BI \-minvolume " volume"
+]
+[
+.BI \-fadestep " value"
+]
+[
+.BI \-theme " theme directory"
+]
+[
+.BI \+/-ia
+]
+[
+.BI \+/-up
+]
+[
+.BI \-showtitle
+]
+[
+.BI \-showartist
+]
+[
+.BI \-debug
+]
+[
+.BI \-save
+]
+
+.SH DESCRIPTION
+
+\fBascd\fP is CD player written to play audio CD's integrated in
+afterstep's Wharf module or WindowMaker's dock. 
+\fBascd\fP handles mounted volumes, and opens and closes the tray.
+
+.SH CONFIGURATION OPTIONS
+
+.B -help, -h
+     print a list of commandline options and exit.
+
+.B -version
+
+     print the version number and exit.
+
+
+.B -themes
+
+     print the list of installed themes and exit.
+
+.B -geometry <geom>
+     specifies the geometry of \fBascd\fP. The Geometry
+     works like the standard X-Window geometry option.
+
+.B +/-withdrawn, +/-w
+    Turn on and off withdrawn mode. Use this option if
+    you use ascd with WindowMaker.
+
+.B -device <device>
+     specifies the CDROM device which should be used by 
+     ascd. If "-DNO_DEFAULT_DEVICE" was set at
+     compilation time this option will have no effect.
+
+.B -mixer <device>
+     specifies the mixer device. Works only if mixer
+     support was enabled at compilation.
+
+.B -cue <seconds>
+     specifies the time -in seconds- for \fBintro scan\fP
+     and \fBcue\fP modes.
+
+.B -ti <seconds>
+     specifies the timeout for the help texts. The
+     default is 1 second.
+
+.B +/-autoplay, +/-a
+     Turn on or off \fBautoplay mode\fP. When this is
+     turned on, ascd always wait for a CD, and play it 
+     automatically when inserted.
+
+.B +/-autoprobe, +/-p
+     Turn on or off \fBautoprobe mode\fP. This mode
+     checks for inserted CD. Default is on.
+
+.B +/-autorepeat, +/-t
+     autorepeat mode: when ascd reaches the end of the
+     last track, the CD is not stopped and first track
+     is played.
+
+.B +/-B
+     This option is no longer supported.
+
+.B -maxvolume <value>
+     Set the CD driver max volume.
+
+.B -minvolume <value>
+     Set the CD driver min volume.
+
+.B -volume <value>
+     Set the CD driver volume, between 0 and maxvolume.
+     Note that the -volume option in independant from 
+     the mixer. It controls the drive, not the sound
+     card.
+
+.B -mvolume <value>
+     Set the CD driver volume for the mute mode.
+
+.B -fadestep <value>
+     Set the fade in/out speed. Default is 5. Greater
+     values accelerate the fade.
+
+.B -theme <theme dir>
+     Specify the visual theme to use.
+
+.B +/-ia
+     When this option is enabled, AScd ignore the skip
+     orders found in WorkMan database and read all the
+     tracks of the CD.
+
+.B +/-up
+     When enabled, all the message (and the track title
+     display) are forced in uppercase.
+
+.B -showtitle
+     Show the track title if found in WorkMan database.
+     If the message panel is not large enough, AScd
+     scrolls the title.
+
+.B -showartist
+     Add the artist name to the track title (-showtitle
+     option needed)
+
+.B -debug
+     AScd verbose mode
+
+.B -save
+     Save all the settings and exit. Usefull to 'make' a
+     new configuration file: set all the stuff you want
+     to set and put -save as last commandline option. 
+     Example:
+
+     ascd +w +a -device /dev/cd0c -save
+
+     Then, you just call ascd without arguments, it will
+     use the settings you just saved.
+
+.SH FILES
+
+\fBascd\fP stores its settings in ~/.ascdrc.
+
+The theme files are usually stored in /usr/local/share/AScd.
+
+.SH INVOCATION
+\fBascd\fP can be called from one of many ways.  The most common invocation
+is the command line:
+.nf
+
+	% ascd -device /dev/wcd0a +w +a &
+
+.fi
+With Afterstep, another way to call \fBascd\fP is from the window
+manager:
+.nf
+
+	*Wharf - - Swallow "ascd" ascd&
+
+.fi
+This line, when placed in the \fI.steprc\fP file in the users home directory
+will cause \fBascd\fP to use the shape extensions so that it will be a
+button on the \fBWharf (1)\fP button bar under the \fBafterstep (1)\fP
+window manager.
+
+.SH COPYRIGHTS
+
+Copyright 1999, Rob Malda and Denis Bourez. No guarantees or
+warranties or anything are provided or implied in any way whatsoever.
+Use this program at your own risk. Permission to use this program for
+any purpose is given, as long as the copyright is kept intact.
+
+.SH AUTHORS
+
+Denis Bourez <denis@rsn.fdn.fr>
+     application since 0.7
+.br
+Rob Malda <malda@slashdot.org>
+     application until 0.6
+.br
+Dirk Foersterling <milliByte@DeathsDoor.com>
+     WorkMan maintainer
+.br
+Steven Grimm <koreth@Hyperion.COM>
+     WorkMan maintainer until 1.3
+.br
+Erik O'Shaughnessy <eriko@austin.ibm.com>
+     AIX platform device driver
+.br
+Michael Kurz <mkurz@rzws.fh-aalen.de>
+     changes and man page until 0.6
+
+.SH MORE INFORMATION
+
+<URL:http://worldserver.oleane.com/rsn/>
+.br
+<URL:http://CmdrTaco.net/>

@@ -1,0 +1,74 @@
+XCOMM -------------------------------------------------------------------
+XCOMM                     libworkman Imakefile
+XCOMM -------------------------------------------------------------------
+XCOMM
+XCOMM This file is part of LibWorkMan, the civilized CD player library
+XCOMM (c) 1991-1997 by Steven Grimm (original author)
+XCOMM (c) by Dirk Försterling (current 'author' = maintainer)
+XCOMM The maintainer can be contacted by his e-mail address:
+XCOMM milliByte@DeathsDoor.com 
+XCOMM
+XCOMM This library is free software; you can redistribute it and/or
+XCOMM modify it under the terms of the GNU Library General Public
+XCOMM License as published by the Free Software Foundation; either
+XCOMM version 2 of the License, or (at your option) any later version.
+XCOMM
+XCOMM This library is distributed in the hope that it will be useful,
+XCOMM but WITHOUT ANY WARRANTY; without even the implied warranty of
+XCOMM MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+XCOMM Library General Public License for more details.
+XCOMM
+XCOMM You should have received a copy of the GNU Library General Public
+XCOMM License along with this library; if not, write to the Free
+XCOMM Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+XCOMM
+XCOMM -------------------------------------------------------------------
+XCOMM
+XCOMM Please edit the file "Config" for paths.
+XCOMM
+
+#include <Config>
+
+#include "include/wm_version.h"
+
+WM_LIBVER=WM_LIBVER_MAJOR.WM_LIBVER_MINOR.WM_LIBVER_PL
+
+SRCS = cddb.c cdrom.c cdinfo.c plat_freebsd.c plat_sun.c plat_hpux.c \
+       plat_ultrix.c plat_news.c plat_bsd386.c plat_osf1.c plat_linux.c \
+       plat_aix.c plat_openbsd.c plat_irix.c plat_svr4.c \
+       drv_sony.c drv_toshiba.c scsi.c database.c index.c \
+       wm_helpers.c
+
+OBJS = cddb.o cdrom.o cdinfo.o plat_freebsd.o plat_sun.o plat_hpux.o \
+       plat_ultrix.o plat_news.o plat_bsd386.o plat_osf1.o plat_linux.o \
+       plat_aix.o plat_openbsd.o plat_irix.o plat_svr4.o \
+       drv_sony.o drv_toshiba.o scsi.o database.o index.o \
+       wm_helpers.o
+
+HEADERS= \
+	include/wm_cdda.h \
+	include/wm_cdinfo.h \
+	include/wm_cdrom.h \
+	include/wm_config.h \
+	include/wm_database.h \
+	include/wm_helpers.h \
+	include/wm_index.h \
+	include/wm_platform.h \
+	include/wm_scsi.h \
+	include/wm_struct.h \
+	include/wm_version.h \
+	include/workman.h \
+	include/workman_defs.h 
+       
+
+#include <Library.tmpl>
+
+#ifdef SHARED_LIBWORKMAN
+SharedLibraryTarget(workman,$(WM_LIBVER),$(OBJS),.,.)
+InstallSharedLibrary(workman,$(WM_LIBVER),$(LIBDIR))
+#else
+NormalLibraryTarget(workman, $(OBJS))
+#endif
+
+InstallMultiple($(HEADERS),$(WMINCDIR))
+

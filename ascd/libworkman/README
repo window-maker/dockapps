@@ -1,0 +1,6 @@
+$Id: README,v 1.2 1999/02/14 09:53:54 dirk Exp $
+
+This directory contains the WorkMan library.
+
+libworkman is a multi-plaform CD-Player library for creating various
+CD-Player-UIs.
