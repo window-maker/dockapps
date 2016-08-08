@@ -1,0 +1,27 @@
+wmmp3 v0.06 INSTALL -- Patrick Crosby <xb@dotfiles.com>
+
+1. Type './configure'
+
+2. Type 'make'
+
+3. Type 'make install'
+
+The default will probably put it in /usr/local/bin.  Use 
+
+	./configure --help 
+
+to set various options if the default is not right for you.
+
+4. Copy the sample .wmmp3 file to your home directory:
+
+	cp sample.wmmp3 ~/.wmmp3
+
+5. Edit ~/.wmmp3 to set the directories where your mp3 files live.
+
+6. The executable is 'wmmp3', so run it.
+
+
+
+
+
+

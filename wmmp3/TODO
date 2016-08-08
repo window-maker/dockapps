@@ -1,0 +1,33 @@
+
+TODO:
+
+* realize when done playing
+* use playlist
+* pause
+* get rid of directory limit
+
+DONE:
+
+* make back button work
+* call mpg123 with -q flag
+* write readme
+* have play continue to next directory when done with current
+* display filename
+* scrolling
+	- once first time
+	- any time they click in the box (once)
+* make buttons depress
+* allow user to change directory
+* repeat
+* -v,--version
+* -h, --help
+* when not playing, clicking in title puts depressed stop button there
+* get rid of song limit (do it dynamically)
+* fix previous bug
+* random
+
+
+
+
+
+

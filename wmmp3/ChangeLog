@@ -1,0 +1,18 @@
+Fri Nov 19 23:15:00 1999  Matthew D. Campbell <matt@campbellhome.dhs.org>
+	* added random play
+	* added continuous filename scrolling
+
+Wed Oct 6 16:56:00 1999  Patrick Crosby <xb@dotfiles.com>
+	* changed pixmap
+	* added support for directory changing
+	* added repeat support
+
+
+Wed Oct 6 12:55:00 1999  Patrick Crosby <xb@dotfiles.com>
+
+	* configure.in added
+	* Makefile.am  added
+	* configure    added...whole building process should be working
+	now.
+
+	

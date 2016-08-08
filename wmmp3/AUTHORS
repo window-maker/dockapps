@@ -1,0 +1,24 @@
+wmmp3 Authors:
+
+Primary Author:  
+	Patrick Crosby <xb@dotfiles.com>
+
+Contributors:
+	Matthew D. Campbell <matt@campbellhome.dhs.org> 
+		(random play functionality, plus alwaysscroll)
+	Steven Jorgensen
+		(bug fixes with song names, added ability for
+		 song names to have spaces)
+
+Borrowed/Looked at code from:
+	Kristian Wiklund (jb-1.23 curses mp3 jukebox)
+	Malcolm Cowe (wmrecord)
+
+Character Set courtesy of:
+	Steven Cook <sven@harshbutfair.org> from wmsvencd
+	http://www.linuxfreak.com/~wmsvencd
+
+mpg123 Author:
+	Michael Hipp <hippm@informatik.uni-tuebingen.de>
+
+

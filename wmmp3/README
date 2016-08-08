@@ -1,0 +1,20 @@
+wmmp3 v0.08 README -- Patrick Crosby <xb@dotfiles.com>
+
+wmmp3 is an mpg123 frontend.  It is a small X application that will also 
+work as a windowmaker dock app.
+
+All user options are contained in a config file, ~/.wmmp3 .  There is a 
+sample.wmmp3 file in the distribution that can be used as an 
+example/template.
+
+Basically, enter in the config file any directories that contain mp3 files 
+and wmmp3 right now will play all the files in each directory sequentially 
+when you press play.  You can select which directory to start with by using
+the up/down buttons in the left frame when the player is stopped.  Pressing
+the "infinity" button will cause the player to repeat the songs in the current
+directory instead of just playing them once.  Pressing the "random" (R) button 
+will cause the player to randomly select songs from the current directory.
+
+More documentation can be found at http://dotfiles.com/software/wmmp3/
+
+If you find any bugs, please let me know at <xb@dotfiles.com>

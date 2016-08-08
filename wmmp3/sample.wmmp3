@@ -1,0 +1,46 @@
+# full path to mpg123 executable
+mpg123 = /usr/local/bin/mpg123
+
+#
+# mp3 directories, 1 per line
+#
+mp3dir = /mnt/msdos/tmp/mp3/radiohead
+mp3dir = /mnt/msdos/tmp/mp3/pharcyde-labcabincalifornia
+mp3dir = /mnt/msdos/tmp/mp3/blue_in_the_face
+mp3dir = /mnt/msdos/tmp/mp3/dj_shadow
+mp3dir = /mnt/msdos/tmp/mp3/fatboyslim
+mp3dir = /mnt/msdos/tmp/mp3/genius
+mp3dir = /mnt/msdos/tmp/mp3/glenn_gould
+mp3dir = /mnt/msdos/tmp/mp3/portishead
+mp3dir = /mnt/msdos/tmp/mp3/sea_and_cake
+
+#
+# mp3 directory names (9 chars or less), same order as mp3dir's above
+#
+# These are nicknames for the directories above
+#
+mp3dirname = radiohead
+mp3dirname = pharcyde2
+mp3dirname = blueface
+mp3dirname = djshadow
+mp3dirname = fatboy
+mp3dirname = genius
+mp3dirname = gould
+mp3dirname = portis
+mp3dirname = seacake
+
+#
+# play list extension
+# (not used yet)
+playlistext = .m3u
+
+#
+# extension for all mp3 files
+#
+mp3ext = .mp3
+
+#
+# always scroll the song names?
+# (default = no)
+alwaysscroll = 0
+
