@@ -38,7 +38,7 @@
 
                 <th>DESCRIPTION</th>
 
-                <th>Gmane Archive</th>
+                <th>Mail Archive</th>
               </tr>
             </thead>
 
@@ -48,7 +48,7 @@
 
                 <td>Development discussion about the Window Maker window manager</td>
 
-                <td><a href="http://news.gmane.org/gmane.compw.window-managers.windowmaker.devel">wmaker-dev Archives</a></td>
+                <td><a href="https://www.mail-archive.com/wmaker-dev@lists.windowmaker.org/">wmaker-dev Archives</a></td>
               </tr>
 
               <tr>
@@ -56,7 +56,7 @@
 
                 <td>User discussion about the Window Maker window manager</td>
 
-                <td><a href="http://news.gmane.org/gmane.compw.window-managers.windowmaker.user">wmaker-user Archives</a></td>
+                <td><a href="https://www.mail-archive.com/wmaker-user@lists.windowmaker.org/">wmaker-user Archives</a></td>
               </tr>
             </tbody>
           </table>
