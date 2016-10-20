@@ -219,7 +219,7 @@ $Id: ChangeLog,v 1.9 2006-01-28 10:40:06 sch Exp $
 
 2001 July 23
   * version 0.5.6 released
-  * changed to get rid of compiler warning messages with gcc 
+  * changed to get rid of compiler warning messages with gcc
     on Linux and FreeBSD.
   * added OpenBSD support (it's testing!!)
     (john katagawa <dhc at scurvy.org>)

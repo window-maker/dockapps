@@ -44,7 +44,7 @@ cpu_get_usage(cpu_options *opts)
     int result, i;
 
     if (opts->cpu_number >= cpuCount) return 0;
-    SGT_COOKIE_INIT(&cookie); 
+    SGT_COOKIE_INIT(&cookie);
     if (opts->cpu_number < 1) {
       /* Get stats for all CPUs */
       cpuload  = 0;
@@ -57,7 +57,7 @@ cpu_get_usage(cpu_options *opts)
         cpuload  += info.cpu[CPU_USER] + info.cpu[CPU_KERNEL] +
                     info.cpu[CPU_WAIT] + info.cpu[CPU_SXBRK]  +
                     info.cpu[CPU_INTR];
-        cputotal += cpuload + info.cpu[CPU_IDLE]; 
+        cputotal += cpuload + info.cpu[CPU_IDLE];
       };
     } else {
       SGT_COOKIE_SET_CPU(&cookie, opts->cpu_number);
@@ -67,7 +67,7 @@ cpu_get_usage(cpu_options *opts)
       cpuload  = info.cpu[CPU_USER] + info.cpu[CPU_KERNEL] +
                  info.cpu[CPU_WAIT] + info.cpu[CPU_SXBRK]  +
                  info.cpu[CPU_INTR];
-      cputotal = cpuload + info.cpu[CPU_IDLE]; 
+      cputotal = cpuload + info.cpu[CPU_IDLE];
     }
 #ifdef DEBUG
     fprintf(stderr, "!!!%d/%d: %d, %d, %d, %d, %d, %d\n", opts->cpu_number,
