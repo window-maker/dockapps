@@ -1,3 +1,11 @@
+2016 Oct 20
+  * Bump to version 1.1.1.
+  * Fix Makefile.am for automake 1.14.
+  * Update url and contact information.
+  * Remove CVS cruft.
+  * Update autotools files to silence warnings.
+  * Restore some previous commits (COPYING update, whitespace).
+
 2006 Jan 28
   * cpu_linux.c:
   * main.c:
