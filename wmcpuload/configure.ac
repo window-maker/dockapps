@@ -3,7 +3,7 @@ AC_PREREQ(2.52)
 
 dnl AC_INIT(src/main.c)
 dnl AM_INIT_AUTOMAKE(wmcpuload, 0.9.0)
-AC_INIT(wmcpuload, 1.1.0pre5, ssato@sh.rim.or.jp)
+AC_INIT(wmcpuload, 1.1.0pre5, wmaker-dev@lists.windowmaker.org)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
