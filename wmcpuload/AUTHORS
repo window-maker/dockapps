@@ -1,10 +1,12 @@
+$Id: AUTHORS,v 1.1.1.1 2002-10-14 09:31:17 sch Exp $
+
 Main Author:
 Seiichi SATO <ssato@sh.rim.or.jp>
 
 Solaris port:
 Jonathan Lang <lang@synopsys.com>
 
-Writting manpage:
+Man-page:
 Gordon Fraser <gordon@debian.org>
 
 NetBSD port:
@@ -12,3 +14,9 @@ Thomas Runge <coto@core.de>
 
 BSDi port:
 Nicolas Belan <belan@matranet.com>
+
+IRIX port:
+Jonathan C. Patschke <jp@celestrion.net>
+
+Darwin port:
+Landon Fuller <landonblue@mac.com>

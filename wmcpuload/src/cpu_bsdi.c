@@ -1,3 +1,5 @@
+/* $Id: cpu_bsdi.c,v 1.1.1.1 2002-10-14 09:31:17 sch Exp $ */
+
 /*
  * cpu_bsdi - module to get cpu usage, for BSDi
  *

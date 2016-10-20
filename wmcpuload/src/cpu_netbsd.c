@@ -1,10 +1,13 @@
+/* $Id: cpu_netbsd.c,v 1.3 2003-10-13 04:34:02 sch Exp $ */
+
 /*
- * cpu_netbsd - module to get cpu usage, for NetBSD
+ * cpu_netbsd - module to get cpu usage, for NetBSD 
  *
  * This code is based on cpu_openbsd.c
  *
  * Copyright (c) 2001, 2002 Seiichi SATO <ssato@sh.rim.or.jp>
- * Copyright (c) 2002       Thomas Runge <coto@core.de>
+ * Copyright (c) 2002 Thomas Runge <coto@core.de>
+ * Copyright (C) 2003 Nedko Arnaudov <nedko@users.sourceforge.net>
  *
  * Licensed under the GPL
  */
@@ -46,12 +49,11 @@ cpu_get_usage(cpu_options *opts)
     if (sysctl(mib, 2, &cpu_time, &size, NULL, 0) < 0)
 	return 0;
 
-    if (opts->ignore_nice) cpu_time[CP_NICE] = 0;
-
     /* calculate usage */
-    used = cpu_time[CP_USER] + cpu_time[CP_SYS] +
-	   cpu_time[CP_NICE] + cpu_time[CP_INTR];
-    total = used + cpu_time[CP_IDLE];
+    total = cpu_time[CP_USER] + cpu_time[CP_SYS] + cpu_time[CP_INTR] +
+	    cpu_time[CP_NICE] + cpu_time[CP_IDLE];
+    used = cpu_time[CP_USER] + cpu_time[CP_SYS] + cpu_time[CP_INTR] +
+	   (opts->ignore_nice ? 0 : cpu_time[CP_NICE]);
     if ((pre_total == 0) || !(total - pre_total > 0)) {
 	result = 0;
     } else {

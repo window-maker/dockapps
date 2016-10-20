@@ -1,3 +1,5 @@
+$Id: README,v 1.6 2003-06-29 14:34:32 sch Exp $
+
 WMCPULoad - A dockapp to monitor CPU usage
 
 General Information
@@ -11,7 +13,8 @@ LCD look-alike user interface. The back-light may be turned on/off by clicking
 the mouse button over the application. If the CPU usage hits a certain
 threshold, an alarm-mode will alert you by turning back-light on.
 
-It runs on GNU/Linux / FreeBSD / OpenBSD / NetBSD / BSDi / Solaris / Cygwin.
+It runs on GNU/Linux / FreeBSD / OpenBSD / NetBSD / BSDi / Solaris / Cygwin /
+IRIX / Darwin .
 
 Installation
 ============
@@ -31,7 +34,7 @@ $ wmcpuload [OPTIONS]
  -bl, --backlight               turn on back-light
  -lc, --light-color <color>     back-light color (rgb:6E/C6/3B is default)
  -i,  --interval <number>       number of secs between updates (1 is default)
- -c,  --cpu <number>            CPU number (0, 1, ...)
+ -c,  --cpu <number>            which CPU is monitored (0, 1, ...)
  -n,  --ignore-nice             ignore a nice value
  -p,  --ignore-proc <name><...> ignore all processes specified by command name
  -h,  --help                    show this help text and exit
@@ -46,12 +49,12 @@ $ wmcpuload [OPTIONS]
 NOTES:
 - '-n, --ignore-nice' option is activated under GNU/Linux / {Free,Open,Net}BSD.
 - '-p, --ignore-proc' option is activated under GNU/Linux.
-- '-c,  --cpu'        option is activated under GNU/Linux.
+- '-c,  --cpu'        option is activated under GNU/Linux / IRIX.
 
 
 For AfterStep users
 ===================
-Add below entry to your Wharf
+Add this line to your ~/GNUstep/Library/AfterStep/wharf:
 
   *Wharf wmcpuload - Swallow "wmcpuload" wmcpuload -w &
 
@@ -66,8 +69,7 @@ open 'Create swallow Applet' dialog and enter the values as below.
   3. width: 62
   4. height: 62
 
-NOTE: You can't run swallowed application with sawfish 1.0.1. This problem has
-fixed in current cvs.
+NOTE: GNOME2 does not support the swallowed application.
 
 
 For Enlightenment users
@@ -77,7 +79,7 @@ Use '-bw, --broken-wm' option.
 
 For Golem users
 ===============
-Add below entry to your ~/.golem/plugins/pier/rc
+Add following entry to your ~/.golem/plugins/pier/rc
 
   param "item" "dock" {
           param "cmd" "exec wmcpuload";
@@ -91,7 +93,7 @@ Frequently Asked Questions
 Q) Which window managers do support dockapps?
 A) - Window Maker  http://www.windowmaker.org/
    - AfterStep     http://www.afterstep.org/
-   - Blackbox      http://blackbox.alug.org/
+   - Blackbox      http://blackboxwm.sourceforge.net/
    - Enlightenment http://www.enlightenment.org/
    - Fluxbox       http://fluxbox.sourceforge.net/
    - Waimea        http://waimea.sourceforge.net/

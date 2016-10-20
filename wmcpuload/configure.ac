@@ -1,9 +1,11 @@
+dnl $Id: configure.ac,v 1.6 2006-01-28 10:40:37 sch Exp $
+
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 
 dnl AC_INIT(src/main.c)
 dnl AM_INIT_AUTOMAKE(wmcpuload, 0.9.0)
-AC_INIT(wmcpuload, 1.0.0, ssato@sh.rim.or.jp)
+AC_INIT(wmcpuload, 1.1.0pre5, ssato@sh.rim.or.jp)
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE($PACKAGE_NAME, $PACKAGE_VERSION)
@@ -89,15 +91,13 @@ dnl Determine OS
 dnl ============
 
 ignore_nice=no
-ignore_proc=no
+use_smp=no
 
 case ${target_os} in
 linux*)
   OS=linux
   ignore_nice=yes
-  ignore_proc=yes
-  AC_CHECK_HEADER(linux/threads.h, [AC_DEFINE(USE_SMP, 1, [use SMP support])],
-    [echo "linux/threads.h header file was not found, but is necessary to support mulit processors"])
+  use_smp=yes
   ;;
 freebsd*)
   OS=freebsd
@@ -124,6 +124,13 @@ solaris*)
 cygwin*)
   OS=cygwin
   ;;
+irix*)
+  OS=irix
+  use_smp=yes
+  ;;
+darwin*)
+  OS=darwin
+  ;;
 *)
   echo ""
   echo "Sorry, ${target_os} is not supported yet"
@@ -139,8 +146,8 @@ AC_SUBST(LIBS)
 if test "$ignore_nice" = yes; then
   AC_DEFINE(IGNORE_NICE, 1, [use '--ignore-nice' option])
 fi
-if test "$ignore_proc" = yes; then
-  AC_DEFINE(IGNORE_PROC, 1, [use '--ignore-process' option])
+if test "$use_smp" = yes; then
+  AC_DEFINE(USE_SMP, 1, [use SMP support])
 fi
 
 

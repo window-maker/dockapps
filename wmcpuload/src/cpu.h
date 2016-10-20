@@ -1,3 +1,5 @@
+/* $Id: cpu.h,v 1.3 2005-02-10 01:12:49 sch Exp $ */
+
 /*
  * cpu.h - header file of the module to get cpu usage
  *
@@ -13,13 +15,11 @@
 #define COMM_LEN 16
 #endif
 #define MAX_PROC 5
-
+#define MAX_CPU 99
 
 typedef struct _cpu_options {
     int ignore_nice;
     int cpu_number;
-    char *ignore_proc_list[MAX_PROC];
-    int ignore_procs;
 } cpu_options;
 
 void cpu_init(void);

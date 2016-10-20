@@ -1,3 +1,5 @@
+# $Id: Makefile.am,v 1.1.1.1 2002-10-14 09:31:17 sch Exp $
+
 bin_PROGRAMS = wmcpuload
 
 wmcpuload_SOURCES = \
@@ -15,7 +17,9 @@ EXTRA_wmcpuload_SOURCES = \
 	cpu_netbsd.c \
 	cpu_bsdi.c \
 	cpu_solaris.c \
-	cpu_cygwin.c
+	cpu_cygwin.c \
+	cpu_irix.c \
+	cpu_darwin.c
 
 wmcpuload_DEPENDENCIES = ../libdockapp/dockapp.o
 

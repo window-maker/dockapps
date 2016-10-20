@@ -1,7 +1,10 @@
+/* $Id: cpu_openbsd.c,v 1.3 2003-10-13 04:34:02 sch Exp $ */
+
 /*
  * cpu_openbsd - module to get cpu usage, for OpenBSD
  *
  * Copyright (C) 2001, 2002 Seiichi SATO <ssato@sh.rim.or.jp>
+ * Copyright (C) 2003 Nedko Arnaudov <nedko@users.sourceforge.net>
  *
  * Licensed under the GPL
  */
@@ -43,18 +46,14 @@ cpu_get_usage(cpu_options *opts)
 	return 0;
 
     /* calc usage */
-    used = cpu_time[CP_USER] + cpu_time[CP_SYS];
-    if (!opts->ignore_nice) {
-	used += cpu_time[CP_NICE];
-    }
-    total = used + cpu_time[CP_IDLE];
-
-    if (pre_total == 0) {
+    total = cpu_time[CP_USER] + cpu_time[CP_SYS] + cpu_time[CP_INTR] +
+	    cpu_time[CP_NICE] + cpu_time[CP_IDLE];
+    used = cpu_time[CP_USER] + cpu_time[CP_SYS] + cpu_time[CP_INTR] +
+	   (opts->ignore_nice ? 0 : cpu_time[CP_NICE]);
+    if ((pre_total == 0) || !(total - pre_total > 0)) {
 	result = 0;
-    } else if ((total - pre_total) > 0) {
-	result = 100 * (double)(used - pre_used) / (double)(total - pre_total);
     } else {
-	result = 0;
+	result = 100 * (double)(used - pre_used) / (double)(total - pre_total);
     }
 
     /* save used/total for next calculation */

@@ -1,10 +1,26 @@
 /*
- * cpu_linux.c - module to get cpu usage, for GNU/Linux
+ * wmcpuload
+ * GNU/Linux specific part
  *
- * Copyright (C) 2001, 2002 Seiichi SATO <ssato@sh.rim.or.jp>
+ * Copyright (C) 2001, 2002, 2005 Seiichi SATO <ssato@sh.rim.or.jp>
  *
- * licensed under the GPL
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
  */
+
+/* $Id: cpu_linux.c,v 1.4 2006-01-28 10:40:09 sch Exp $ */
 
 #ifdef HAVE_CONFIG_H
 #include "config.h"
@@ -21,156 +37,97 @@
 #include <sys/stat.h>
 #include <linux/limits.h>
 
-#ifdef USE_SMP
-#include <linux/threads.h>
-#endif
+static int is_linux26;
 
-static void set_pidlist_from_namelist(int names, char **name_list);
-static int get_cpuusage_bypid(pid_t pid);
-
-static int *pid_list;
-static int pids;
-
-void cpu_init(void)
+static void
+skip_line(FILE *fp)
 {
-    /*  You don't need initialization under GNU/Linux */
-    return;
+	int c;
+
+	while ((c = fgetc(fp)) != '\n')
+		if (c == EOF) break;
+}
+
+void
+cpu_init(void)
+{
+	unsigned long long softirq;
+	FILE *fp;
+
+	if (!(fp = fopen("/proc/stat", "r"))) {
+		perror("fopen");
+		exit(1);
+	}
+
+	is_linux26 = fscanf(fp, "%*s  %*u %*u %*u %*u %*u %*u %llu",
+			    &softirq);
+
+	fclose(fp);
+
+	return;
 }
 
 /* returns current cpu usage in percent */
 int
-cpu_get_usage(cpu_options *opts)
+cpu_get_usage(cpu_options * opts)
 {
-    static int pre_used, pre_total;
-    static int pre_ig_used;
-    int usage;
-    int cpu, nice, system, idle;
-    int used = 0, total = 0;
-    int ig_used = 0;
-    int i;
+	unsigned long long user, nice, system, idle, iowait, irq, softirq;
+	unsigned long long used, total;
+	static unsigned long long pre_used = 0, pre_total = 0;
+	int result;
 
-    FILE *fp;
-    if (!(fp = fopen("/proc/stat", "r"))) {
-	perror("can't open /proc/stat");
-	exit(1);
-    }
-
-    fscanf(fp, "%*s %d %d %d %d", &cpu, &nice, &system, &idle);
-
-#ifdef USE_SMP
-    if (opts->cpu_number >= 0) {
-	char cpu_name[20];
-	if (opts->cpu_number > NR_CPUS - 1) {
-	    fprintf (stderr, "MAX CPU number that can be running in SMP is %d\n", NR_CPUS - 1);
-	    exit(1);
+	FILE *fp;
+	if (!(fp = fopen("/proc/stat", "r"))) {
+		perror("fopen");
+		exit(1);
 	}
 
-	for (i = 0; i <= opts->cpu_number; i++) {
-	    fscanf(fp, "%s %d %d %d %d", cpu_name, &cpu, &nice, &system, &idle);
-	    if (strncmp(cpu_name, "cpu", 3)){
-		fprintf (stderr, "can't find cpu%d!\n", opts->cpu_number);
-		exit (1);
-	    }
-	}
-    }
-#endif /* USE_SMP */
 
-    fclose(fp);
-    used = cpu + system;
-    if (!opts->ignore_nice)
-	used += nice;
-    total = cpu + nice + system + idle;
+	if (opts->cpu_number == -1) {
+		if (is_linux26)
+			fscanf(fp, "%*s  %llu %llu %llu %llu %llu %llu %llu",
+			       &user, &nice, &system, &idle, &iowait,
+			       &irq, &softirq);
+		else
+			fscanf(fp, "%*s  %llu %llu %llu %llu",
+			       &user, &nice, &system, &idle);
+	} else {
+		char cpu_name[20];
+		int i;
 
-    /* get CPU usage of processes which specified by name with '-p' option */
-    if (opts->ignore_procs) {
-	pids = 0;
-	if (!(pid_list = malloc(sizeof(pid_t)))) {
-	    perror("malloc");
-	    exit(1);
-	}
-	set_pidlist_from_namelist(opts->ignore_procs, opts->ignore_proc_list);
-	for (i = 0; i < pids; i++)
-	    ig_used += get_cpuusage_bypid(pid_list[i]);
-	free(pid_list);
-    }
+		for (i = 0; i <= opts->cpu_number; i++)
+			skip_line(fp);
 
-    /* calc CPU usage */
-    if ((pre_total == 0) || !(total - pre_total > 0)) {
-	usage = 0;
-    } else  if (ig_used - pre_ig_used > 0) {
-	usage = (100 * (double)(used - pre_used - ig_used + pre_ig_used)) /
-		(double)(total - pre_total);
-    } else {
-	usage = (100 * (double)(used - pre_used)) / (double)(total - pre_total);
-    }
+		if (is_linux26)
+			fscanf(fp, "%s  %llu %llu %llu %llu %llu %llu %llu",
+			       cpu_name, &user, &nice, &system, &idle, &iowait,
+			       &irq, &softirq);
+		else
+			fscanf(fp, "%s  %llu %llu %llu %llu",
+			       cpu_name, &user, &nice, &system,
+			       &idle);
 
-    /* save current values for next calculation */
-    pre_ig_used = ig_used;
-    pre_used = used;
-    pre_total = total;
-
-    return usage;
-}
-
-/* set pid list table from command names */
-static void
-set_pidlist_from_namelist(int names, char **name_list)
-{
-    DIR *dir;
-    struct dirent *de;
-    FILE *fp;
-    char path[PATH_MAX + 1];
-    char comm[COMM_LEN];
-    pid_t pid;
-    int i;
-
-    if (!(dir = opendir("/proc"))) {
-	perror("can't open /proc");
-	exit(1);
-    }
-
-    /* search specified process from all processes */
-    chdir("/proc");
-    while ((de = readdir(dir)) != NULL) {
-	if ((de->d_name[0] != '.') &&
-	    ((de->d_name[0] >= '0') && (de->d_name[0] <= '9'))) {
-	    pid = (pid_t) atoi(de->d_name);
-	    sprintf(path, "%d/stat", pid);
-	    if ((fp = fopen(path, "r")) != NULL) {
-		fscanf(fp, "%*d (%[^)]", comm);
-		for (i = 0; i < names; i++) {
-		    if (strcmp(comm, name_list[i]) == 0) {
-			/* add process id to list */
-			pids++;
-			if (!(pid_list=realloc(pid_list, pids*sizeof(pid_t)))){
-			    perror("realloc() failed");
-			    exit(1);
-			}
-			pid_list[pids - 1] = pid;
-		    }
+		if (cpu_name[3] != '0' + opts->cpu_number) {
+			fprintf(stderr, "Could not find cpu%d.\n",
+				opts->cpu_number);
+			exit(1);
 		}
-		fclose(fp);
-	    }
 	}
-    }
-    closedir(dir);
-}
 
-static int
-get_cpuusage_bypid(pid_t pid)
-{
-    FILE *fp;
-    char path[PATH_MAX];
-    int utime = 0, stime = 0;
-    int ret = 0;
-
-    sprintf(path, "/proc/%d/stat", pid);
-    if ((fp = fopen(path, "r")) != NULL) {
-	fscanf(fp, "%*d %*s %*s %*d %*d %*d %*d %*d %*d %*d %*d %*d %*d %d %d ",
-	       &utime, &stime);
 	fclose(fp);
-    }
 
-    ret = utime + stime;
-    return ret;
+	used = user + system;
+	if (!opts->ignore_nice)
+		used += nice;
+	total = user + nice + system + idle;
+	if (is_linux26)
+		total += iowait + irq + softirq;
+
+	result = (100 * (double)(used - pre_used)) / (double)(total - pre_total);
+
+	pre_total = total;
+	pre_used = used;
+
+	return result;
 }
+

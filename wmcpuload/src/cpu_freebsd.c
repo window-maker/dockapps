@@ -1,7 +1,9 @@
+/* $Id: cpu_freebsd.c,v 1.3 2004-02-01 10:49:53 sch Exp $ */
+
 /*
  * cpu_freebsd.c - module to get cpu usage, for FreeBSD
  *
- * Copyright (c) 2001, 2002 Seiichi SATO <ssato@sh.rim.or.jp>
+ * Copyright (c) 2001, 2002, 2004 Seiichi SATO <ssato@sh.rim.or.jp>
  *
  * Licensed under the GPL
  */
@@ -18,7 +20,14 @@
 
 #include <kvm.h>
 #include <fcntl.h>
-#include <sys/dkstat.h>
+
+#include <sys/param.h>
+
+#if __FreeBSD_version < 500101
+#   include <sys/dkstat.h>
+#else
+#   include <sys/resource.h>
+#endif /* __FreeBSD_version < 500101 */
 
 static kvm_t *kd = NULL;
 static struct nlist nlst[] = { {"_cp_time"}, {0} };
@@ -63,20 +72,18 @@ cpu_get_usage(cpu_options *opts)
 	sizeof(cpu_time))
 	return 0;
 
-    used = cpu_time[CP_USER] + cpu_time[CP_SYS];
-    if (!opts->ignore_nice)
-	used += cpu_time[CP_NICE];
-    total = used + cpu_time[CP_IDLE];
-
-    if (pre_total == 0) {
+    /* calculate usage */
+    total = cpu_time[CP_USER] + cpu_time[CP_SYS] + cpu_time[CP_INTR] +
+	    cpu_time[CP_NICE] + cpu_time[CP_IDLE];
+    used = cpu_time[CP_USER] + cpu_time[CP_SYS] + cpu_time[CP_INTR] +
+	   (opts->ignore_nice ? 0 : cpu_time[CP_NICE]);
+    if ((pre_total == 0) || !(total - pre_total > 0)) {
 	result = 0;
-    } else if ((total - pre_total) > 0) {
-	result = (100 * (double) (used - pre_used)) / (double) (total -
-		 pre_total);
     } else {
-	result = 0;
+	result = 100 * (double)(used - pre_used) / (double)(total - pre_total);
     }
 
+    /* save used/total for next calculation */
     pre_used = used;
     pre_total = total;
 

@@ -1,3 +1,5 @@
+/* $Id: cpu_cygwin.c,v 1.2 2005-02-10 01:15:21 sch Exp $ */
+
 /*
  * cpu_cygwin.c - module to get cpu usage, for Cygwin
  *
@@ -99,7 +101,7 @@ cpu_get_usage_9x(cpu_options *opts)
 
     if (RegOpenKeyEx(HKEY_DYN_DATA, "PerfStats\\StatData",
 		     0, KEY_READ, &hkeyr) != ERROR_SUCCESS) {
-	fprintf(stderr, "%s: can't open registry 'PerfStats\\StatData'\n", PACKAGE);
+	fprintf(stderr, "%s: could not open registry 'PerfStats\\StatData'\n", PACKAGE);
 	return 0;
     }
 
@@ -150,14 +152,14 @@ cpu_get_usage_NT(cpu_options *opts)
     SYSTEM_PERFORMANCE_INFORMATION spi;
 
     if ((h_ntdll = LoadLibraryEx("NTDLL.DLL", NULL, 0)) == NULL) {
-	fprintf(stderr, "%s: can't load NTDLL.DLL\n", PACKAGE);
+	fprintf(stderr, "%s: could not load NTDLL.DLL\n", PACKAGE);
 	exit (1);
     }
 
     NtQuerySystemInformation = GetProcAddress(h_ntdll,
 					      "NtQuerySystemInformation");
     if (!NtQuerySystemInformation) {
-	fprintf(stderr, "%s: can't find NtQuerySystemInformation()\n", PACKAGE);
+	fprintf(stderr, "%s: could not find NtQuerySystemInformation()\n", PACKAGE);
 	FreeLibrary(h_ntdll);
 	return 0;
     }

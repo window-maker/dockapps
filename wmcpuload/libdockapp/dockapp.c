@@ -1,3 +1,5 @@
+/* $Id: dockapp.c,v 1.3 2004-01-25 14:06:27 sch Exp $ */
+
 /*
  * Copyright (c) 1999 Alfredo K. Kojima
  *
@@ -261,22 +263,39 @@ void
 dockapp_copyarea(Pixmap src, Pixmap dist, int x_src, int y_src, int w, int h,
 		 int x_dist, int y_dist)
 {
+    Window win;
+
+    win = dockapp_isbrokenwm ? window : icon_window;
+
+    if (src == win) {
+	x_src += offset_w;
+	y_src += offset_h;
+    }
+    if (dist == win) {
+	x_dist += offset_w;
+	y_dist += offset_h;
+    }
+
     XCopyArea(display, src, dist, gc, x_src, y_src, w, h, x_dist, y_dist);
 }
 
-
 void
-dockapp_copy2window (Pixmap src)
+dockapp_copy2window(Pixmap src, int x_src, int y_src, int w, int h, int x_dist,
+		    int y_dist)
 {
-    if (dockapp_isbrokenwm) {
-	XCopyArea(display, src, window, gc, 0, 0, width, height, offset_w,
-		  offset_h);
-    } else {
-	XCopyArea(display, src, icon_window, gc, 0, 0, width, height, offset_w,
-		  offset_h);
-    }
+    Window win;
+
+    win = dockapp_isbrokenwm ? window : icon_window;
+
+    XCopyArea(display, src, win, gc, x_src, y_src, w, h, offset_w + x_dist,
+	      offset_h + y_dist);
 }
 
+Window
+dockapp_win(void)
+{
+    return dockapp_isbrokenwm ? window : icon_window;
+}
 
 Bool
 dockapp_nextevent_or_timeout(XEvent *event, unsigned long miliseconds)
@@ -457,3 +476,5 @@ dockapp_blendedcolor(char *color_name, int r, int g, int b, float fac)
 
     return color.pixel;
 }
+
+/* ex:set sw=4 softtabstop=4: */

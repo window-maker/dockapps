@@ -1,3 +1,57 @@
+$Id: ChangeLog,v 1.9 2006-01-28 10:40:06 sch Exp $
+
+2006 Jan 28
+  * cpu_linux.c:
+  * main.c:
+    applied a patch from php-coder <php-coder at altlinux.ru>
+
+2005 Feb 12
+  * main.c: clear digits before redraw_digit().
+
+2005 Feb 10
+  * cpu_linux.c:
+  - supported linux 2.6
+  - remvoed --ignore-proc.
+  * configure.ac: remvoed --ignore-proc.
+  * main.c: remvoed --ignore-proc.
+
+2005 Jan 17
+  * configure.ac: fixed a typo.
+
+2004 Feb 1
+  * src/cpu_freebsd.c: fixed a bug with --ignore-nice option.
+
+2004 Jan 25
+  * libdockapp/dockapp.c (dockapp_win): added.
+  * src/main.c: ExposureMask
+  * src/main.c: removed pixmap buffering for optimization.
+
+2003 Oct 12
+  * src/cpu_openbsd.c, src/cpu_netbsd.c: fixed a bug with --ignore-nice option.
+    (Thanks to Nedko Arnaudov <nedko at users.sourceforge.net> for sending a
+     patch)
+
+2003 Mar 9
+  * version 1.0.1 released
+
+2003 Mar 8
+  * src/cpu_freebsd.c: changed to use <sys/resource.h> instead of <sys/dkstat.h>
+                       in the case of __FreeBSD_version >= 500101.
+                       (Thanks to Philip Paeps <philip at paeps.cx)
+
+2002 Sep 29
+  * doc/wmcpuload.1: updated
+
+2002 Sep 25
+  * cpu_darwin.c: added (Landon Fuller <landonblue at mac.com>)
+
+2002 Sep 1
+  * main.c: changed description for `--cpu' oprion to be more clear.
+  * README: updated
+
+2002 Aug 20
+  * cpu_irix.c: added for IRIX (Jonathan C. Patschke <jp at celestrion.net>)
+
 2002 Jul 14
   * version 1.0.0 released
 
@@ -11,13 +65,13 @@
   * src/Makefile.am: added missing @DFLAGS@
 
 2002 May 17
-  * cpu_bsdi.c: added (Nicolas Belan <belan@matranet.com>)
+  * cpu_bsdi.c: added (Nicolas Belan <belan at matranet.com>)
 
 2002 April 09
   * dockapp.c, dockapp.h: moved to libdockapp/dockapp.[ch]
   * libdockapp/{COPYING,AUTHORS}: added (taken from libdockapp-0.4.0)
   * configure.ac: removed '-L/usr/local/lib' '-I/usr/local/include' from
-                  *_search_path (Thanks to Thomas Runge <coto@core.de>)
+                  *_search_path (Thanks to Thomas Runge <coto at core.de>)
   * README: added 'for GNOME users' section
 
 2002 April 05
@@ -28,7 +82,7 @@
   * dockapp.c: removed background panel from windowed mode.
   * dockapp.c: added '-wp, --windowed-withpanel' option.
   * main.c: added '-t, --title' option to specify title name
-            (Thanks to Ryan Lovett <ryan@ocf.berkeley.edu>)
+            (Thanks to Ryan Lovett <ryan at ocf.berkeley.edu>)
   * wmcpuload.1: updated
   * cpu_netbsd.c: added 'CP_INTR' parameter
 
@@ -165,7 +219,7 @@
 
 2001 July 23
   * version 0.5.6 released
-  * changed to get rid of compiler warning messages with gcc
+  * changed to get rid of compiler warning messages with gcc 
     on Linux and FreeBSD.
   * added OpenBSD support (it's testing!!)
     (john katagawa <dhc at scurvy.org>)

@@ -1,3 +1,4 @@
+.\" $Id: wmcpuload.1,v 1.2 2005-02-10 01:13:40 sch Exp $
 .\"                                      Hey, EMACS: -*- nroff -*-
 .\" First parameter, NAME, should be all caps
 .\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
@@ -26,7 +27,7 @@ command.
 This manual page was written for the Debian GNU/Linux distribution.
 .PP
 .\" TeX users may be more comfortable with the \fB<whatever>\fP and
-.\" \fI<whatever>\fP escape sequences to invode bold face and italics,
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
 .\" respectively.
 \fBWMCPULoad\fP is a dockapp that is supported by X window managers such as
 Window Maker, AfterStep, BlackBox, and Enlightenment. It displays the current
@@ -57,7 +58,7 @@ back-light color (rgb:6E/C6/3B is default)
 .B \-i,  \-\-interval <number>
 number of secs between updates (1 is default)
 .TP
-.B \-c,  \-\-cpu <number>
+.B \-c,  \-\-cpu <number> (GNU/Linux / IRIX)
 CPU number to monitor (Counting starts with 0).
 .TP
 .B \-n,  \-\-ignore\-nice (GNU/Linux / FreeBSD / OpenBSD / NetBSD)
@@ -80,9 +81,6 @@ activate broken window manager fix
 .TP
 .B \-a,  \-\-alarm <percentage>
 activate alarm mode. <percentage> is threshold of percentage from 0 to 100.(90 is default)
-.TP
-.B \-p,  \-\-ignore\-proc <name><...>
-ignore all processes specified by command name
 
 .SH AUTHOR
 WMCPULoad was written by Seiichi SATO <ssato@sh.rim.or.jp>.

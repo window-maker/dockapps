@@ -1,3 +1,5 @@
+/* $Id: dockapp.h,v 1.3 2004-01-25 14:06:27 sch Exp $ */
+
 /*
  * Copyright (c) 1999 Alfredo K. Kojima
  *
@@ -98,7 +100,8 @@ Pixmap dockapp_XCreatePixmap(int w, int h);
 void dockapp_setshape(Pixmap mask, int x_ofs, int y_ofs);
 void dockapp_copyarea(Pixmap src, Pixmap dist, int x_src, int y_src,
 		      int w, int h, int x_dist, int y_dist);
-void dockapp_copy2window(Pixmap src);
+void dockapp_copy2window(Pixmap src, int x_src, int y_src, int w, int h,
+			 int x_dist, int y_dist);
 Bool dockapp_nextevent_or_timeout(XEvent * event, unsigned long miliseconds);
 
 
