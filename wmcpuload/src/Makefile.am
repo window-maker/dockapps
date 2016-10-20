@@ -23,11 +23,11 @@ EXTRA_wmcpuload_SOURCES = \
 
 wmcpuload_DEPENDENCIES = ../libdockapp/dockapp.o
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	@HEADER_SEARCH_PATH@ \
 	@XCFLAGS@
 
-CFLAGS = @DFLAGS@ @CFLAGS@ -I../libdockapp/
+AM_CFLAGS = @DFLAGS@ @CFLAGS@ -I../libdockapp/
 
 wmcpuload_LDADD = \
 	dockapp.o \
