@@ -20,8 +20,6 @@
  * 02111-1307, USA.
  */
 
-/* $Id: cpu_linux.c,v 1.4 2006-01-28 10:40:09 sch Exp $ */
-
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif

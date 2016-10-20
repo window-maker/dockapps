@@ -1,5 +1,3 @@
-/* $Id: cpu_irix.c,v 1.1.1.1 2002-10-14 09:31:17 sch Exp $ */
-
 /*
  * cpu_irix.c - module to get cpu usage, for IRIX 6.5 and IRIX64 6.5
  *

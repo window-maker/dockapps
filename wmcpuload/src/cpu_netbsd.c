@@ -1,5 +1,3 @@
-/* $Id: cpu_netbsd.c,v 1.3 2003-10-13 04:34:02 sch Exp $ */
-
 /*
  * cpu_netbsd - module to get cpu usage, for NetBSD
  *

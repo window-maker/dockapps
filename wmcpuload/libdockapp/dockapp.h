@@ -1,5 +1,3 @@
-/* $Id: dockapp.h,v 1.3 2004-01-25 14:06:27 sch Exp $ */
-
 /*
  * Copyright (c) 1999 Alfredo K. Kojima
  *

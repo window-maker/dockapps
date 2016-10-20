@@ -1,5 +1,3 @@
-/* $Id: cpu.h,v 1.3 2005-02-10 01:12:49 sch Exp $ */
-
 /*
  * cpu.h - header file of the module to get cpu usage
  *

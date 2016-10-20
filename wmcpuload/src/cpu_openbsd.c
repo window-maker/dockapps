@@ -1,5 +1,3 @@
-/* $Id: cpu_openbsd.c,v 1.3 2003-10-13 04:34:02 sch Exp $ */
-
 /*
  * cpu_openbsd - module to get cpu usage, for OpenBSD
  *

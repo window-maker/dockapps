@@ -1,5 +1,3 @@
-/* $Id: main.c,v 1.6 2006-01-28 10:40:09 sch Exp $ */
-
 /*
  *    WMCPULoad - A dockapp to monitor CPU usage
  *    Copyright (C) 2001,2002  Seiichi SATO <ssato@sh.rim.or.jp>

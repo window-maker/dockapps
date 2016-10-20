@@ -1,5 +1,3 @@
-/* $Id: cpu_freebsd.c,v 1.3 2004-02-01 10:49:53 sch Exp $ */
-
 /*
  * cpu_freebsd.c - module to get cpu usage, for FreeBSD
  *

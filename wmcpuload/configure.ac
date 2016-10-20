@@ -1,5 +1,3 @@
-dnl $Id: configure.ac,v 1.6 2006-01-28 10:40:37 sch Exp $
-
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 

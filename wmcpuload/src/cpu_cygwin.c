@@ -1,5 +1,3 @@
-/* $Id: cpu_cygwin.c,v 1.2 2005-02-10 01:15:21 sch Exp $ */
-
 /*
  * cpu_cygwin.c - module to get cpu usage, for Cygwin
  *
