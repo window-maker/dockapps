@@ -1,3 +1,5 @@
+AUTOMAKE_OPTIONS = subdir-objects
+
 bin_PROGRAMS = wmcpuload
 
 wmcpuload_SOURCES = \
@@ -6,7 +8,8 @@ wmcpuload_SOURCES = \
 	main.c \
 	backlight_on.xpm \
 	backlight_off.xpm \
-	parts.xpm
+	parts.xpm \
+	../libdockapp/dockapp.c ../libdockapp/dockapp.h
 
 EXTRA_wmcpuload_SOURCES = \
 	cpu_linux.c \
@@ -19,7 +22,6 @@ EXTRA_wmcpuload_SOURCES = \
 	cpu_irix.c \
 	cpu_darwin.c
 
-wmcpuload_DEPENDENCIES = ../libdockapp/dockapp.o
 
 AM_CPPFLAGS = \
 	@HEADER_SEARCH_PATH@ \
@@ -28,7 +30,6 @@ AM_CPPFLAGS = \
 AM_CFLAGS = @DFLAGS@ @CFLAGS@ -I../libdockapp/
 
 wmcpuload_LDADD = \
-	dockapp.o \
 	@LIBRARY_SEARCH_PATH@ \
 	@XLIBS@ \
 	@XLFLAGS@
