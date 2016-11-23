@@ -1,0 +1,10 @@
+Install
+=======
+1. ./configure [options]
+2. make
+3. make install
+4. make install-skins
+
+How to build rpm
+================
+rpm -ta --target noarch,i386 wmradio-VERSION.tgz

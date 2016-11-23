@@ -1,0 +1,78 @@
+.TH WMRADIO 1 
+.SH NAME
+wmradio \- dockable FM radio for WindowMaker.
+.SH SYNOPSIS
+.B wmradio
+.I "[options]"
+.B wmradio-remote COMMAND
+.I "[param]"
+.SH OPTIONS
+.LP
+.TP
+.B \-q|\-\-dont\-quit
+Start in "Don't quit" mode.
+.TP
+.B \-m|\-\-start\-muted 
+Start and don't open the radio device.  
+.TP
+.B \-h|\-\-help
+Print help page and quit
+.SH wmradio-remote
+is simple shell script. It writes commands into wmradio's named pipe.
+Example:
+.I wmradio-remote SET_PRESET 3 
+.SH wmradio-config.py
+GUI application for setting wmradio
+.SH Tunning
+You can tune the radio by clicking into <left> or <right> buttons in
+the skin. Fine tunning is posible to do by <control-click> in these buttons.
+.SH Preset stations
+Current frequency is stored in the buttons
+memory by <control-click> in the station button .
+When program quits trough the <power> button, all freq are saved in
+the ~/.wmradio file.
+.SH Mouse wheel support
+In the diaplay the mouse wheel changes stations with names.
+With <shift-wheel> it change frequency (<shift-control-wheel>
+= fine tuning). In other place the Mouse wheel changes 
+the preset station. 
+.SH Normal mode
+In this mode, program mutes the radio, closes the device and quits by clicking
+into <power> button. <control-power> click close the device only, the program
+doesn't quit. Next <control-power> click unmutes the radio.
+.SH Don't quit mode
+In this mode, program mutes the radio and closes the device by click into <power>.
+Next <power> click unmutes the radio. <control-power> click terminates the program.
+.SH Skins
+Every skin is specified in two files. The XPM bitmap file and the text description file.
+There are coordinates and dimensions of skin parts (as buttons and digits) in this
+file. You can change the skin by editing your ~/.wmradio file.
+.P
+In the skin image is the background in left top corner. Default size is 
+56x56 pixels. Buttons and digits are around this. Button is defined by 
+6 numbers.
+.P
+name=xdest,ydest,xsource,ysource,width,height
+.P
+Other state of button (as pressed) must be next to normal state image.
+Take a look at default.xpm and default.skin. xsource and ysource are
+ignored in display line.
+.P
+Digits are specified with more dimensions
+.P
+digits=xdest,ydest,xsrc,ysrc,width_of_0,...,9,width_of.,height
+.P
+xpm line contains the name of bitmap
+.P
+Icon size is defided with two lines
+.P
+iconwidth=width
+.br
+iconheight=height
+.SH FILES
+.B ~/.wmradio
+.SH AUTHOR
+This manual page was written by Tomas Cermak
+.br
+<Tomas.Cermak(at)email.cz>.
+

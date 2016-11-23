@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=WmRadio Config
+Name[cs]=WmRadio konfigurace
+Comment=WmRadio Config
+Comment[cs]=Konfigurace programu WmRadio
+Exec=wmradio-config.py
+Icon=wmradio.png
+Terminal=false
+Categories=Application;AudioVideo;
+StartupNotify=true

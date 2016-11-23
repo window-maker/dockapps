@@ -1,0 +1,45 @@
+#!/bin/sh
+
+PIPEPREFIX=/tmp/wmradio_
+
+PIPE=${PIPEPREFIX}`id -u`
+
+if [ "$1" = "" ] ; then 
+  echo -e "Usage: $0 COMMAND [param]\n"\
+          "valid commands are:\n"\
+          "  POWER\n"\
+	  "  TUNE_MINUS\n"\
+          "  FINE_TUNE_MINUS\n"\
+          "  TUNE_PLUS\n"\
+          "  TUNE_NAME_NEXT\n"\
+          "  TUNE_NAME_PREV\n"\
+          "  FINE_TUNE_PLUS\n"\
+          "  SET_PRESET\n"\
+          "  SAVE_PRESET\n"\
+          "  SCAN\n"\
+          "  READ_CONFIG"
+  exit 1
+fi
+if [ ! -p $PIPE ] ; then
+  echo "Pipe $PIPE doesn't exist! Is wmradio started?"
+  exit 1
+fi
+
+
+case "$1" in
+    POWER|TUNE_MINUS|FINE_TUNE_MINUS|TUNE_PLUS|\
+    FINE_TUNE_PLUS|SCAN|TUNE_NAME_NEXT|TUNE_NAME_PREV|\
+    READ_CONFIG)
+        echo $1 >>$PIPE
+        ;;
+    SET_PRESET|SAVE_PRESET)
+        if [ "$2" = "" ] ; then
+            echo "wmradio-remote: command \"$1\" need an argument"
+            exit 1
+        fi
+        echo $1 `expr $2 - 1` >>$PIPE
+        ;;
+    *)
+        echo "wmradio-remote: invalid command \"$1\""
+        ;;
+esac

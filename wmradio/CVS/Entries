@@ -1,0 +1,37 @@
+/Makefile.in/1.4/Mon Nov 22 17:36:31 2004//
+/README/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/bootstrap/1.2/Fri Oct  3 18:38:05 2025//
+/config.h/1.4/Mon Nov 22 18:58:58 2004//
+/config.h.in/1.2/Mon Nov 22 17:36:33 2004//
+/configure/1.3/Mon Nov 22 17:36:33 2004//
+/configure.in/1.3/Mon Nov 22 17:36:34 2004//
+/const.h/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/fifo.c/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/fifo.h/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/gnome_applet_envelope.c/1.6/Mon Nov 22 22:07:56 2004//
+/gnome_applet_envelope.h/1.2/Fri Oct  3 18:38:05 2025//
+/ini.c/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/ini.h/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/lists.c/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/lists.h/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/osd.c/1.2/Mon Nov 22 17:36:36 2004//
+/osd.h/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/radio.c/1.1.1.1/Sun Sep 26 18:09:37 2004//
+/radio.h/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/rc.c/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/rc.h/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/skin.c/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/skin.h/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/stationnames.c/1.2/Mon Sep 27 19:47:37 2004//
+/stationnames.h/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/wm_envelope.c/1.3/Mon Nov 22 17:36:36 2004//
+/wm_envelope.h/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/wmradio-remote/1.1.1.1/Sun Sep 26 18:09:38 2004//
+/wmradio.c/1.5/Mon Nov 22 18:58:58 2004//
+/wmradio.h/1.2/Sun Nov 21 17:32:02 2004//
+/wmradio.spec/1.2/Fri Oct  3 18:38:05 2025//
+/x_envelope.c/1.2/Mon Nov 22 17:36:37 2004//
+/xor.c/1.1.1.1/Sun Sep 26 18:09:38 2004//
+D/config////
+D/doc////
+D/skins////

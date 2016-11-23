@@ -1,0 +1,55 @@
+AC_INIT(wmradio.c)
+
+AC_ARG_ENABLE(libxosd,
+              [AC_HELP_STRING([--enable-libxosd],[use libxosd library (default yes)])],
+	      [],
+	      [enable_libxosd="yes"])
+
+AC_ARG_ENABLE(gnome,
+              [AC_HELP_STRING([--enable-gnome],[create gnome applet too (default yes)])],
+	      [],
+	      [enable_gnome="yes"])
+
+AC_PROG_CC
+AC_PATH_X
+AC_PATH_XTRA
+
+TARGETS="wmradio xwmradio"
+AC_SUBST(TARGETS)
+
+dnl libxosd test -----------------------------------------------
+AC_SUBST(HAVE_XOSD)
+HAVE_XOSD="undef "
+
+if test "$enable_libxosd" = "yes"; then
+  AM_PATH_LIBXOSD(
+  HAVE_XOSD="define",
+  AC_MSG_ERROR(Can't find libxosd))
+fi
+
+dnl gnome panel test -------------------------------------------------
+PANEL_LIBS=""
+PANEL_CFLAGS=""
+if test "$enable_gnome" = "yes" ; then 
+  AC_PATH_PROG(PKG_CONFIG, pkg-config )
+  if test "$PKG_CONFIG" = "" ; then
+    AC_MSG_ERROR(pgk-config not found)
+  fi
+  TARGETS="$TARGETS gwmradio"
+  PANEL_LIBS="`$PKG_CONFIG --libs libpanelapplet-2.0`"
+  PANEL_CFLAGS="`$PKG_CONFIG --cflags libpanelapplet-2.0`"
+fi
+AC_SUBST(PANEL_LIBS)
+AC_SUBST(PANEL_CFLAGS)
+
+if test "x${prefix}" = "xNONE"; then
+  AC_DEFINE_UNQUOTED(LOCALE_DIR, "${ac_default_prefix}/${DATADIRNAME}/locale")
+else
+  AC_DEFINE_UNQUOTED(LOCALE_DIR, "${prefix}/${DATADIRNAME}/locale")
+fi
+
+AC_OUTPUT([
+Makefile
+config.h
+config/wmradio-config.py
+])

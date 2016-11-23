@@ -1,0 +1,5 @@
+#!/bin/sh
+
+aclocal-1.5
+#automake-1.5 --gnu --foreign --add-missing --copy
+autoconf
