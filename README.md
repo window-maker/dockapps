@@ -95,10 +95,8 @@ Note that some dockapps (e.g., [mixer.app](http://dockapps.net/mixerapp))
 contain dots in their names.  In this case, we need to remove the dot from
 the `permalink` field, e.g.,
 
-    ...
     title: foo.app
     permalink: fooapp
-    ...
 
 Note that categories are also stored as Jekyll posts.  For example, the "baz"
 category which wmfoo and wmbar both belong to corresponds to a file
