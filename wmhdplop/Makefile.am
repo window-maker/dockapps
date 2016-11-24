@@ -1,6 +1,7 @@
 bin_PROGRAMS=wmhdplop
 noinst_PROGRAMS=@GKHDPLOP@
 EXTRA_PROGRAMS=gkhdplop.so
+dist_man_MANS = wmhdplop.1
 
 EXTRA_DIST=autogen.sh gkrellm_hdplop.c
 
