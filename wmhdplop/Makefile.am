@@ -18,6 +18,6 @@ LIBTOOLSUX_GKHDPLOP_SRC=wmhdplop.c util.c util.h procstat.c procstat.h devnames.
 
 gkhdplop_so_SOURCES=$(LIBTOOLSUX_GKHDPLOP_SRC)
 gkhdplop_so_CFLAGS=-DGKRELLM -fPIC $(GTK2_CFLAGS) $(IMLIB2_CFLAGS)
-gkhdplop_so_LDFLAGS=-shared -Wl $(IMLIB2_LIBS) -lm
+gkhdplop_so_LDFLAGS=-shared $(IMLIB2_LIBS) -lm
 
 all: @GKHDPLOP@
