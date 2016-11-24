@@ -1,0 +1,33 @@
+
+          ------------------------------------------------
+                        wmdhplop & gkhdplop
+          ------------------------------------------------
+
+  wmhdplop is yet another monitoring applet. This one watches hard-drive 
+activity.
+  gkhdplop is the port of wmhdplop into a gkrellm2 plugin.
+
+Compilation:
+-----------
+  ./configure && make && make install
+
+  Note that this applet uses Imlib2, and requires the script imlib2-config 
+to be in the path. It won't compile on anything but a recent linux kernel
+(2.4.20 or better, 2.6 is also supported).
+
+  gkhdplop requires gtk2 and gkrellm2.
+  
+Usage:
+------
+  wmhdplop -h for the list of options. If you have the hddtemp daemon running,
+then wmhdplop may use it to display the temperature of your hard-drives.
+  The monitored hard-drive or partition can be changed with the mouse wheel.
+
+gkhdplop:
+---------
+  To install the plugin:
+    mv gkhdplop.so ~/.gkrellm2/plugins
+  
+  The configuration is made by clicking with the right button on the plugin.
+  BUG: gkhdplop will close gkrellm if no default .ttf font is found (look at
+  the messages in console).
