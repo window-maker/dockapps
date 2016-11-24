@@ -28,7 +28,7 @@ layout: default
  	This dockapp is not maintained by the Window Maker Developers Team.
 	Please visit the dockapp's website for downloads.
       {% else %}
-      {% for version in page.versions %}
+      {% for version in page.versions reversed %}
       <a href="/download/{{ version.download }}">{{ version.number }}</a><br>
       {% endfor %}
       <p><p>
