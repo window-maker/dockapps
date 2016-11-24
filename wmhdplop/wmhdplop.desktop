@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=wmhdplop
+Comment=A hard drive monitor dockapp for Window Maker
+Exec=wmhdplop
+Categories=System;Monitor;
+Keywords=hard drive;monitor;dockapp;window maker;

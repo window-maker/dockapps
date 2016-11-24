@@ -3,6 +3,9 @@ noinst_PROGRAMS=@GKHDPLOP@
 EXTRA_PROGRAMS=gkhdplop.so
 dist_man_MANS = wmhdplop.1
 
+desktopdir = $(datadir)/applications
+dist_desktop_DATA = wmhdplop.desktop
+
 EXTRA_DIST=autogen.sh gkrellm_hdplop.c
 
 IMLIB2_LIBS=@IMLIB2_LIBS@
