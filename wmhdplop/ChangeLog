@@ -1,3 +1,15 @@
+2016-11-24 (v0.9.10)
+	Now maintained by the Window Maker Team.
+	Add desktop entry file.
+	Add manpage from Debian.
+	Support NVME devices
+	Fix compiler warnings.
+	Modernize autotools.
+	Find disk device after /run transition
+	Change gkhdplop_so_LDFLAGS to gkhdplop_so_LDADD in Makefile
+	Fix GCC 4.7 FTBFS. -Wl needs to have values passed to it so that it can
+	  pass those on to the linker.
+
 2007-04-20 (v0.9.9)
   Fixed device lookup from /proc/partitions & /etc/mtab on feisty fawn.
 
