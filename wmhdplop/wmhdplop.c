@@ -448,7 +448,8 @@ static void draw_hdlist(App *app) {
         imlib_image_fill_rectangle(lx+1,y-5,3,3); 
       }
       if (dl->touched_w) { 
-        imlib_context_set_color(255,100-10*dl->touched_w,100-10*dl->touched_w, 25*dl->touched_w--); 
+        imlib_context_set_color(255,100-10*dl->touched_w,100-10*dl->touched_w, 25*dl->touched_w - 1);
+        dl->touched_w--;
         imlib_image_fill_rectangle(lx+1,y-9,3,3); 
       }
       x += 5;
@@ -977,7 +978,12 @@ int main(int argc, char**argv)
 int hdplop_main(int width, int height, GdkDrawable *gkdrawable)
 #endif
 {
-  euid = geteuid(); uid = getuid(); seteuid(uid);
+  int s;
+
+  euid = geteuid(); uid = getuid();
+  s = seteuid(uid);
+  if (s == -1)
+    fprintf(stderr, "seteuid(uid) failed : %s\n", strerror(errno));
   ALLOC_OBJ(app);
   srand(time(NULL));
   /* Initialize options */

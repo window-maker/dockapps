@@ -70,7 +70,7 @@ void update_stats() {
   FILE *f;
   char line[1024];
   char hdname[200];
-  int readok = 0, in_our_disk = 0;
+  int readok = 0;
   const char *proc_fname;
   if (!use_proc_diskstats) proc_fname = "/proc/partitions";
   else proc_fname = "/proc/diskstats";
@@ -93,7 +93,6 @@ void update_stats() {
         dl->touched_r = (dl->nr - nr) ? 10 : dl->touched_r; 
         dl->touched_w = (dl->nw - nw) ? 10 : dl->touched_w; 
         dl->nr = nr; dl->nw = nw;
-        if (!is_partition(major,minor)) in_our_disk = 1;
         if (is_displayed(dl->hd_id,dl->part_id) && 
             ((dl->part_id && (!find_id(dl->hd_id, 0) || !is_displayed(dl->hd_id, 0))) || /* partition without host disk */
              (dl->part_id == 0))) /* disk */
@@ -112,7 +111,7 @@ void update_stats() {
             }
             readok = 2;
           }
-      } else if (!is_partition(major,minor)) in_our_disk = 0;
+      }
       /*      if (in_our_disk || find_dev(major,minor))*/ {
         strlist *sl;
         for (sl = swap_list(); sl; sl=sl->next) {

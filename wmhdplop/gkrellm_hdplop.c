@@ -185,6 +185,7 @@ static void cb_spinbutton_modified(GtkWidget *widget UNUSED, GtkSpinButton *spin
 }
 
 static void cb_reload_fonts(GtkWidget *widget) {
+  (void) widget;
   if (strcmp(gtk_entry_get_text(GTK_ENTRY(entry_smallfont)), app->current_smallfont_name) ||
       strcmp(gtk_entry_get_text(GTK_ENTRY(entry_bigfont)), app->current_bigfont_name)) {
     ASSIGN_STRING(Prefs.smallfontname, gtk_entry_get_text(GTK_ENTRY(entry_smallfont)));

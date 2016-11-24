@@ -319,6 +319,7 @@ DockImlib2* dockimlib2_gkrellm_setup(int x0, int y0, int w, int h, DockImlib2Pre
 #ifndef GKRELLM
   dockimlib2_xinit(dock, prefs);
 #else
+  (void) prefs;
   dockimlib2_gkrellm_xinit(dock, gkdrawable);
 #endif
   dockimlib2_setup_imlib(dock);
