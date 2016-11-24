@@ -153,6 +153,14 @@ int device_info(unsigned major, unsigned minor, char *name, int *hd_id, int *par
       if (part_id) *part_id = 0;            
       return 9;      
 #endif
+
+#ifdef BLOCK_EXT_MAJOR
+    case (BLOCK_EXT_MAJOR):
+      if (name) sprintf(name, "nvme0n%cp%s", "0123456789"[(minor/16)], to_num_(minor));
+      if (hd_id) *hd_id = 400 + minor;
+      if (part_id) *part_id = 0;
+      return 10;
+#endif
   }
   if (name) *name = 0;
   if (hd_id) *hd_id = -1;
