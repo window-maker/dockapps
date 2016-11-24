@@ -1,11 +1,11 @@
 ---
 layout: dockapp
-title: wmauda
-permalink: wmauda
+title: wmforecast
+permalink: wmforecast
 hosted: 0
-website: http://www.netswarm.net/
+website: http://wmforecast.friedcheese.org
 images:
- - x1.miff
-categories: audio
+ - wmforecast.png
+categories: weather
 ---
-This is a port of wmxmms to GTK 2.x and Audacious.
+A weather dockapp for Window Maker using the Yahoo Weather API.
