@@ -11,12 +11,16 @@ layout: default
     <div class="page-content">
       <div class="wrapper">
         {{ content }}
-	<ul>
-	  {% assign sorted_dockapps = site.categories.[page.title] | sort %}
-	  {% for dockapp in sorted_dockapps %}
-	    <li><a href="{{ dockapp.url }}">{{ dockapp.title }}</a></li>
+	{% assign sorted_dockapps = site.categories.[page.title] | sort %}
+	{% for dockapp in sorted_dockapps %}
+	  <div class="post-content">
+	  <img src="/img/{{ dockapp.images | first }}"
+	       style="float: left; margin: 5px;">
+	  <a href="{{ dockapp.url }}">{{ dockapp.title }}</a>
+	  <br>
+	  {{ dockapp.content}}
+	  </div>
 	  {% endfor %}
-	</ul>
       </div>
     </div>
 
