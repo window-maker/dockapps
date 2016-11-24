@@ -186,9 +186,10 @@ int device_id_from_name(const char *devname__, unsigned *pmajor, unsigned *pmino
 
   if (lstat(devname,&stat_buf)) { BLAHBLAH(1,perror(devname)); return -1; }
   if (S_ISLNK(stat_buf.st_mode)) {
-    char lname[512];
-    int n = readlink(devname, lname, 511); lname[n] = 0;
-    snprintf(devname,512,"/dev/%s",stripdev(lname));
+    devname_ = realpath(devname, NULL);
+    if(!devname_) { BLAHBLAH(1,perror(devname)); return -1; }
+    strncpy(devname, devname_, 512); devname[511] = 0;
+    free(devname_);
     if (stat(devname,&stat_buf)) { BLAHBLAH(1,perror(devname)); return -1; }
   }
   if (!S_ISBLK(stat_buf.st_mode)) {
