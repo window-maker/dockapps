@@ -1,0 +1,16 @@
+---
+layout: dockapp
+title: wmfishtime
+permalink: wmfishtime
+hosted: 0
+website: http://www.ne.jp/asahi/linux/timecop/
+images:
+ - wmfishtime.gif
+categories: time
+---
+The last clock dockapp you'll ever need! Features sexy gradient background,
+antialiased clock hands, alpha-blended bubbles, and cool fish swimming around
+behind the clock.  Displays current time with up-to-the-second accuracy, and
+today's date and day of the week.  But wait, there is more!  Move your mouse
+inside the screen, and the fish will get scared and run away!  (Only if your
+Window Manager doesn't suck). Oh yeah, and it checks your mail, too!
