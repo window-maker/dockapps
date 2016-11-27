@@ -1,6 +1,6 @@
 ---
 layout: dockapp
-title: alsamixer.app
+title: AlsaMixer.app
 permalink: alsamixerapp
 hosted: 1
 images:

@@ -1,6 +1,6 @@
 ---
 layout: dockapp
-title: wmcalclock
+title: wmCalClock
 permalink: wmcalclock
 hosted: 1
 website: https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml

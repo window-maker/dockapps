@@ -1,6 +1,6 @@
 ---
 layout: dockapp
-title: wmweather
+title: wmWeather
 permalink: wmweather
 hosted: 1
 website: https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml
