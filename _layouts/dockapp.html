@@ -26,7 +26,11 @@ layout: default
       <h2>Available Versions:</h2>
      {% if page.hosted == 0 %}
  	This dockapp is not maintained by the Window Maker Developers Team.
-	Please visit the dockapp's website for downloads.
+	Please visit the dockapp's
+        <a href="{{ page.website }}">
+	  website
+	</a>
+	for downloads.
       {% else %}
       {% for version in page.versions reversed %}
       <a href="/download/{{ version.download }}">{{ version.number }}</a><br>
