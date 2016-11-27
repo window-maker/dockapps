@@ -1,0 +1,14 @@
+September 21, 2001 : washerDryer-1.0
+    Mike Foley <foley@ucsd.edu> :
+    - Initial release.
+
+December 18, 2001 : washerDryer-1.0.1
+    Mike Foley <foley@ucsd.edu> :
+    - Updated CFLAGS in Makefile to be compatible with most Linux distributions.
+
+March 23, 2002 : washerDryer-1.1
+    Mike Foley <foley@ucsd.edu> :
+    - Added feature to change process times on the fly.
+    - Configuration window no longer automatically closes.
+    - Replaced strcpy calls with strncpy
+

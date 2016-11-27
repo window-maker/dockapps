@@ -1,0 +1,19 @@
+Requirements
+------------
+* UNIX compatible system running X11
+* GTK libraries
+
+Installation
+------------
+1)  % cd washerDryer
+2)  % make
+3)  % make install
+
+    Install is optional. Must be root to install.
+    If any problems with make or make install, try editing the Makefile.
+
+4)  % vi ~/.wdryerrc
+
+    Adjust ~/.wdryerrc to your preferences.
+
+5)  % washerDryer &

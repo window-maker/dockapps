@@ -1,0 +1,24 @@
+# ~/.wdryerrc
+#
+# washerDryer configuration file
+# Mike Foley, 9/21/01
+#
+# All options except for washer_time and
+# dryer_time can be changed while program
+# is running. To configure, click on the
+# main part of the app.
+
+# time of washer and dryer (in minutes)
+washer_time=30
+dryer_time=40
+
+# do we execute a command when the load
+# is done, or beep?
+exec_washer_action=1
+exec_dryer_action=1
+
+# commands for washer and dryer, if they
+# are being executed
+washer_action=xmessage -center "Washer done!" -buttons "cool"
+dryer_action=xmessage -center "Dryer done!" -buttons "time to fold"
+
