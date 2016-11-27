@@ -1,0 +1,126 @@
+=============================================
+asclock - afterstep clock
+
+the best clock for the best X-windowmanager!
+=============================================
+
+RELEASE 10
+      26 August 1996
+      by Beat Christen, bchriste@iiic.ethz.ch 
+
+
+VERSION 1.0
+
+
+AVAILABILITY
+     the latest release should be available from
+
+     ftp://sunsite.unc.edu/pub/Linux/X11/xutils/clocks/asclock.tgz
+     ftp://ftp.x.org/contrib/applications/asclock.tgz
+
+
+INSTALL
+     1. Check in the Imakefile if all LIBS are ok for your system.
+     2. `configure`
+     3. `make` (Send me the output if this fails)
+
+
+HINTS
+     -  If you are using 'Wharf', and only a part (48x48) of the clock is 
+        visible, then
+        you need AfterStep 0.98Beta Prerelease 4 and you have to set the 
+        'MaxSwallow' keyword for 'asclock'.
+
+
+TODO  (for version 1.1)
+    - proper colorhandling for shaped clock. (too many colors used!)
+    - inclusion of asclock into Wharf
+    - language loading at run-time
+
+FEEDBACK
+    Please send me language customized 'month.xpm' and 'weekday.xpm' files.
+    I prefer uuencoded mail.
+
+AUTHOR
+    Beat Christen
+
+CONTRIBUTORS
+    Shape Extensions     Dan Weeks
+    and man page
+
+    language specific    Carlos Canau          
+    files                Frank Larsen 
+                         Andy Lo A Foe
+			 Dan Weeks
+                         Emanuele Caratti
+                         Jorgen Pehrson
+                         and many more. look at the changes for the
+                         respective names.
+CHANGES
+    26-Aug-96  - czech added
+    13-Aug-96  - french added
+     6-Aug-96  - spanish added (thanks to David Lazaro Saz khelekir@encomix.es)
+               - hungarian added 
+                 (thanks to Gyula Matics mgyula@garfield.sch.bme.hu)
+               - breton added (thanks to Jean-Pierre.Messager@univ-brest.fr) 
+
+    30-Jul-96  - ClassHints added (patch by Peter Parnes peppar@cdt.luth.se)
+
+    23-Jul-96  - swedish added (by Jorgen Pehrson d93jpe@blg.du.se)
+
+     4-Jul-96  - italian added (by Emanuele Caratti)
+               - improved configure
+
+    21-Jun-96  - '-iconic' state added
+               - usleep did not exist on Solaris 2.4: changed to poll() 
+               - better error messages 
+ 
+     8-Jun-96  - '-noblink' feature added
+               - final switch to imake
+
+    30-May-96  - am/pm should not show 0:00 am/pm but 12:00 am/pm
+               - portuguese weekday resized
+               - man page (by Dan Weeks)
+
+    25-May-96  - '-geometry' is now '-position' and it _works_ !!!
+               - in AM/PM mode, no leading one was visible...
+               - '-led' command line option added
+
+    24-May-96  - asclock can start an executable: as default you get a 
+                 message on console
+               - command line options added (-exe, -geometry, -shape, -12, -24)
+               - Shape-Extension (by Dan Weeks)
+               - now it's a Build script
+               - dutch added (by Andy Lo A Foe <arloafoe@cs.vu.nl>) 
+               - norwegian added (by Frank Larsen <frankrl@stud.cs.uit.no>)
+
+    22-May-96  - obscure, not necessary XRaiseWindow removed :)
+               - error-message if Xpm-conversion failed
+               - name changed to 'afterstep clock'
+               - blinking optimized
+               - color selection in Configure
+               - color led added (by James Robinson <jimr@simons-rock.edu>)
+               - portuguese added (by Carlos Canau <canau@dawn.EUnet.pt>)
+               - Makefile improvements
+               - Configure is now for sh
+
+    20-May-96  - english support added (by Dan Weeks <dan@mango.sfasu.edu>)
+	       - Language configure script
+	       - german weekday widened to same size as english...
+               - Makefile changes for Solaris
+
+    18-May-96  - 8bit greyscale support added
+               - slightly moved the time-led's
+               - no bmclock directory was created while decompressing
+--
+END OF FILE
+
+
+
+
+
+
+
+
+
+

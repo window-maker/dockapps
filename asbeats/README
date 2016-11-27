@@ -1,0 +1,47 @@
+asbeats 0.2 by Martin Dahl <dahlm@vf.telia.no> 
+               and Karl-Martin Skontorp <karl-ms@online.no>
+
+WHAT IS IT?
+-----------
+
+A beats clock dockable in the windowmaker dock.
+
+
+CREDITS
+-------
+
+Credits go out to Beat Christen, the author of asclock, which most of
+the code that handles X comes from. Also to Alfredo Kojima, who has
+written the code for docking the application in the afterstep and
+windowmaker dock.
+
+
+INSTALLING
+----------
+
+To install, just do a 'make' and copy the generated 'asbeats' 
+program anywhere you like.
+
+
+TODO
+----
+
+ - Command line parser for selecting decimal-mode, etc.
+ - Better looking graphics
+
+
+AVAILABILITY
+------------
+
+You will find both tar.gz as well as rpms for both i386 and sparc at this URL:
+
+http://bohemians.org/~iznogood/asbeats/
+
+The packages should always be the newest release.
+
+
+LICENCE
+-------
+
+For licencing information, please see the LICENCE file distributed
+with this program.
