@@ -1,0 +1,93 @@
+WMPOP3 CHANGE_LOG
+
+WMPOP3LB
+
+Version 2.4.2: 
+    * fixed a bug in pop3WriteOneMail: the first line of a received buffer was 
+	always removed, so the received mail was incomplete and corrupted. 
+Version 2.4.1: 
+    * %c with newmailcommand only applies to new mails
+    * final dot of messages removed when saving to a temporary file.
+    * optmized connecting/disconnecting when using %c or %C
+Version 2.4: 
+    * switch directly in the summary view mode from total number of messages 
+	to number of unread messages.
+    * selectedmesgcommand configuation option: specify a command per server 
+	to launch only on selected messages.
+    * wilcard implemented for newmailcommand, mailclient and 
+	selectedmesgcommand. 
+    * maxdlsize configuration option: in the case of the %c, %C and %m 
+	wildcards, will not download messages bigger than this value.
+    * mailseparator configuration option: specify a separator to include 
+	between each mail when using %c or %C wildcards.
+    * configuration options specified between double quotes ('"') can now be
+	spread among multiple lines. Usefull for mailseparator option...
+Version 2.3: skipped
+Version 2.2: 
+    * now unlimited (i.e. not limited by wmpop3lb...) number of messages per 
+	server listed.
+    * new scrollbar for fast browsing.
+    * newmailcommand configuration option : allows to specify (per server) a 
+	command, per server, to run if a new mail has arrived.
+    * progress bar shown when retrieving the messages off the server.
+Version 2.1: 
+    * smooth scrolling.
+Version 2.0:  !! new, multi pop3 checker !!
+    * can check up to 6 pop3 servers
+    * you can choose in the configuration, for each server, 
+      to display the number of unread messages only or the total number 
+      of messages.
+    * put back the ability to launch a mail client from WMPop3lb.
+      You can specify one mail client per account!
+      To launch your mail client, switch to the counter view mode and click on 
+      the desired server line.
+
+Version 1.0: based on WMPop3
+    * completely changed the GUI.
+    * display information when contacting the POP3 server.
+    * fixed the button behaviour (buttons now "react" to the clicks).
+    * now displays the From: and Subject: header fields of each mail in the 
+	mailbox instead of just a picture telling there is new messages.
+    * you can no longer launch your mail browser from the interface, as this is
+	a feature I didn't need. If anyone needs it, please send a mail to
+	lb@jourdain.org.
+
+The changelog below is from the original work of Scott Holden 
+	( scotth@thezone.net ) on WMPop3.
+
+=======================================================================
+Version 0.5.6a : Minor additions
+    * Added extra checking when connecting to pop-server.
+    * Fixed some variable addressing problems.
+    * updated the version number int the source.. :) oops.
+    
+Version 0.5.5a : Minor additions
+    * Fixed Pop3Client, it now closes the socket after use.
+    * Fixed Comment missing in the default config file.
+
+Version 0.5.0a : Minor additions
+    * Added arrows to left toggle button. ( very minor ).
+
+Version 0.4.2a : Minor Fixes and additions
+	* Fixed the problem with "::error::" not being properly removed
+      from the display after refresh.
+    * Added the optional ability for unread and read messages to
+      be shown. ( uuu/rrr ).
+	* WMPop3 will now check the pop server 30 sec's after a mail
+      browser has been activated using Wmpop3. ( This will give
+      the mail browser a chance to download messages from the
+      server).
+
+Version 0.4.1a : Minor Fixes and additions
+    * Fixed the problem with the right button showing "AC" when
+      pressed.
+
+Version 0.4.0a : Minor Fixes and additions
+	* Messages shown are now unread messages instead total messages
+
+Version 0.3.5a : Minor Fixes and additions
+    * Fixed messages reading 3 when not connected to the net.
+      Now shows up as "::Error::" when something is wrong.
+    * Added ability to enable/disable autochecking at program
+      startup.
+    * Added text to the "Check Now" and "autochecking" buttons

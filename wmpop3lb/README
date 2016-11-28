@@ -1,0 +1,168 @@
+WMpop3LB2.4
+=================================
+
+Written by Louis-Benoit JOURDAIN (lb@jourdain.org)
+
+This software is based on Wmpop3-0.5.6 by Scott Holden ( scotth@thezone.net )
+
+WARNING!!! WMPop3LB is to be used at your own risk. I will not be held
+responsible for any damages this application may cause to your system.
+
+1) WHAT IS THIS
+   WMPop3LB is a multi POP3 mail box checker. It will connect to up to 6
+   POP3 servers to check if you have mail, get the "From:" and "Subject:"
+   header fields of each mail and display them in a 7 lines window. 
+   If there are more than 7 mails, they can be read by scrolling the window 
+   up and down.
+   Messages can be deleted directly off the servers by selecting the mails
+   to delete and clicking the "delete" button.
+   A command to spawn can be specified for each new received message, for
+   selected messages (by clicking on the "open" button) or to launch a 
+   mailclient.
+
+2) How do I configure WMPop3LB
+   WMPop3LB when first executed will check if there is a .wmpop3rc file in
+   the user's home directory, it will create it if it can not be located. 
+   This file must be edited and the following fields must be changed :
+
+-- before any [server] section:
+    1) autochecking: This allows to disable or enable auto mail checking. 
+       1 enables, 0 disables
+    2) displaydelay: this will determine how long error messages show up
+	before the screen is cleaned up.
+    3) scrollspeed: this is a percentage of the original scrolling speed.
+       Higher than 100, the text will scroll faster, lower than 100, the 
+       text will scroll more slowly.
+    4) tempdir: directory to put temporary mails retrieved when using %c, %C or
+       %m wildcards (default: /tmp).
+    5) viewallmessages: This allows for alternating mail views upon startup, 
+       0 shows the From: and Subject: header fields of each mail, (message 
+       view mode)
+       1 shows the total number of messages or the number of unread
+       messages, per domain, and the number of selected messages (summary view
+       mode).
+
+-- for each [server] section (you can list up to 6 [server] sections):
+
+    1) popserver:  this is the name of the pop3 server to contact.
+    2) port:	   this is the port the pop3 server is on ( default 110).
+    3) username:   user's pop3 login name.
+    4) password:   user's pop3 login password.
+    5) alias:	   3 alphanum characters server alias name, to
+		   differentiate servers in the display window.
+    6) mailcheckdelay: Number of minutes, before checking mail on this server.
+                  (default = 10 minutes)
+    7) countunreadonly: in the counter view, 0 displays the total number of 
+                   messages on the server, 1 displays only the number of unread
+		   messages.
+    8) mailclient: command to launch when clicking on the server alias name in
+                   summary view mode.
+		   The command, if it contains spaces or special characters
+		   must be written between double quotes (`"').
+		   See "template substitution" for more options.
+    9) newmailcommand: command to launch when a new mail has arrived on the 
+	 	   server.
+		   See "template substitution" for more options.
+   10) selectedmesgcommand: command to launch on selected messages.
+		   See "template substitution" for more options.
+   11) mailseparator: specify a separator to include between each mail when 
+		   using %c or %C template substitutions.
+   12) maxdlsize: in the case of the %c, %C and %m template substitutions, will
+		   not download messages bigger than this value (-1: no limit).
+		
+
+3) Using WMPop3.
+
+    1) If you have no mail, WMPop3LB will show "No mesg" and will count down
+       the time before the next cheking.
+       If none of the configured server can be contacted, WMPop3LB will
+       show "ERROR" and will count down the time before the next checking.
+           
+    2) If you have mails, WMPop3LB will display a line for each mail, and will
+       start scrolling the display, showing the server alias identifier, the 
+       "From:" and "Subject:" header fields in the following format:
+	  "alias:<from field>/<subject field> * "
+
+    * each time a new mail is received, wmpop3lb will try to launch the 
+      newmailcommand if it is specified in the configuration file.
+    
+    3) Depending on the option chosen for viewallmessages, it will display 
+       either:
+	
+	a) the alias, The From: and Subject: fields of each mail as 
+	   described above.
+	b) The total number of messages or the number of unread messages
+	   (depending on the configuration parameter "countunreadonly") on
+	   the POP3 server (if the server has been contacted successfully)
+	   as well as the number of messages selected.
+	   Switching between number of unread messages and total number of 
+	   messages can be done by clicking on the right side of each server
+	   line (':' means total number, '-' means total number of unread).
+	   If the server cannot be contacted, it will show one of the
+	   following error message:
+		     - alias: C*ER  --> connection error
+		     - alias: L*ER  --> login error (wrong login or passwd)
+		     - alias: M*ER  --> can't get mails.
+
+       * The far most right button is used to toggle both views.
+    
+    4) To delete one or more messages directly off one or more servers,
+       select the messages you want to delete and then click on the bottom
+       left "DEL" button.
+
+       You can check how many messages are selected by switching view
+       mode.
+
+       A status per server will show up during "displaydelay" seconds with the
+       following error codes:
+		 - OK: messages were deleted successfully from the server
+		 - NONE: no message was selected for this server
+		 - D:nb: nb messages failed to be deleted.
+		 -  Err: an error has occured (connection or else).
+       
+       WMPop3LB will not allow you to delete messages if the content of the
+       mailbox on the server has changed since last checking.
+       It will instead display an error message ("mailbox content has
+       changed between updates del can.") and reload the content of the
+       mailbox from the server.
+   
+    5) If a message is selected in the message view mode, the "reload" button
+       will change to represent an "open" button.
+       Clicking on this button will launch the command specified in the 
+       configuration file by the selectedmesgcommand parameter.
+  
+    6) to select all the messages, go to the summary view mode and click on 
+       "sel:" (left side of the last displayed line).
+       to unselect all the messages, click on the right side of that line.
+    
+    7) To manually check for mail at any time, mouse click on the 
+       2nd button from the left, with a round arrow, if no message is selected.
+    
+    8) To turn off auto mail checking, mouse click on the "ch" button (second
+       from the right).
+
+    9) If you have more than 7 messages on all your servers you can scroll the 
+       window up and down using the up and down arrows or by using the 
+       scrollbar.
+
+     
+4) known problems / TODO
+
+    1) wmpop3lb was built on the existing source code of wmpop3, written by 
+       Scott Holden (scotth@thezone.net).
+       I didn't touch a lot the network functions, which are still using
+       blocking sockets and connections.
+       Because of that, if there is any network problem while waiting for some
+       data, wmpop3lb will hang forever.
+       The only solution, for the moment, is to restart wmpop3lb.
+
+       Next version will use non-blocking sockets.
+
+
+
+
+
+
+
+
+

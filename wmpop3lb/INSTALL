@@ -1,0 +1,39 @@
+Installation instructions.
+
+This has only been tested and compiled on a i386 Linux machine.
+
+
+    There are two methods to install WMPop3lb, either a system install
+where all users have access to this file, OR a single user install
+which installs WMPop3lb in the users home directory, this is useful 
+if you have an account on someone else's computer.
+
+    First thing you should do is the following:
+
+    1> Remember you are using this at your own risk.
+    2> tar zxvf wmpop3lbx.x.tar.gz
+    3> cd wmpop3lb/wmpop3
+
+
+Method 1.    System install
+
+A system install will place the WMPop3lb binary in "/usr/local/bin", 
+this can be done as follows (must be root for this ) :
+        
+            make install1
+            
+Method 2.   Single user install
+
+A single user install will create a directory called wmpop3lbx.x in the users
+home directory, and copy the wmpop3 binary there. This install is as
+follows:
+
+            make install2
+
+Make sure you put this new directory in your path.
+This usually can be done by placing the following in your login
+shell setup file,( .bashrc, .bashrc_profile, .profile, etc ).
+
+        PATH=$PATH:~/wmpop3
+
+
