@@ -1,0 +1,17 @@
+#!/bin/bash
+################
+
+spool=/var/spool/mail/${USER}
+
+[ -n "$1" ] && spool="$1"
+
+[ ! -f "$spool" ] && echo "0 - 0 - 0" && exit
+
+  msg=`cat ${spool} | grep -ic ^Message-ID:`
+readm=`cat ${spool} | grep  -c ^Status:\ RO`
+fakem=`cat ${spool} | grep -ic ^Content-Type:\ Message.rfc`
+
+ msg=`expr ${msg} - ${fakem}`
+newm=`expr ${msg} - ${readm}`
+
+echo "${newm} - ${msg} - ${readm}"

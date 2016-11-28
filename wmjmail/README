@@ -1,0 +1,18 @@
+This isn't really a mail checker app.  Well, it is... but this tar-ball's main
+goal is to share my new jDockApp lib.  It's still pretty new to go releasing it
+by itself; so, you get it desguised as a mail app.
+
+The goal here was to create a doc app lib that's really easy to use.  Well...
+and I also needed a mail checking program.  If you were to read through
+wmjmail.c and mailchk, you would find that authoring more of these little
+apps (that look just like mine) is really quite easy.  You shouldn't need to
+edit anything else.  I'll be making more changes to jDockApp (the lib) in the
+future.  If you really wish it would do something that it doesn't:  Drop me an
+e-mail.
+
+
+Jet (jettero@yakko.cs.wmich.edu)
+
+
+P.S. Read the CHANGES file, I give some proper credit to a few others in there.
+It also explains some additional options.

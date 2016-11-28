@@ -1,0 +1,38 @@
+Installation instructions for wmjmail.
+
+Requirements
+---------------------------------------------------------------------------
+wmjmail requires the Xpm library (which should be available on most machines
+with XFree86 installed).   You'll also need a copy of sh, and grep.  That
+shouldn't be a problem though.
+
+Installation
+---------------------------------------------------------------------------
+1) gunzip wmjmail-#.#.tar.gz
+
+1) tar -xvf wmjmail-#.#.tar
+
+2) cd wmjmail/src
+
+3) edit the Makefile to change the prefix variable and the
+   owner and group variables.
+   prefix describes where the files go during install.
+   owner and group describe who owns it after install.
+   You must uncomment owner and group if you use them.
+
+3) make install
+
+4) edit mailchk to make it go.  Currently it relies on mail being in
+   /var/spool/mail/$USER, or in perl speak: /var/spool/mail/$ENV{USER}
+
+   Alternatively, use dave's mail script.  It's designed to work with
+   "Maildir/" type mail spools.  Search me on what that is.  He told me
+   that it works great with his configuration.
+
+--------------------------------------------------------------------------
+
+
+If you have problems, please contact me.
+
+Jettero Heller
+jettero@yakko.cs.wmich.edu

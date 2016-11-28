@@ -1,0 +1,12 @@
+# I wrote up a really quick mailchk to work with Maildir/ mail spools, and
+# I figured you might want a copy:
+#
+#
+#!/bin/bash
+################
+
+dir=${HOME}/Maildir
+  msg=`ls -1 ${dir}/cur ${dir}/new | egrep -v '(cur:|new:|^$)' |wc -l`
+readm=`ls -1 ${dir}/cur | wc -l`
+newm=`expr ${msg} - ${readm}`
+echo "${newm} - ${msg} - ${readm}"

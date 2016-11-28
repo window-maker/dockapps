@@ -1,0 +1,75 @@
+--- wmjmail.c	Wed Mar 28 08:34:44 2001
++++ wmjmail.c.3	Wed Mar 28 08:33:08 2001
+@@ -14,22 +14,27 @@
+ #define AUDIOPLAYER "/usr/bin/play"
+ #define AUDIOFILE   "/usr/share/audio/clink.au"
+ #define SPOOLDIR    "/var/spool/mail/"
+-#define APPLICATION "xterm -sb -sl 2000 +si +sk -title XTerm -fg black -bg wheat -geometry 71x50-0-0  -e mutt &"
++#define APPLICATION "Eterm -g 80x40 -e mutt"
++
++// I wanted a different default than Andre, since I print it and no-longer use '&'
++//#define APPLICATION "xterm -sb -sl 2000 +si +sk -title XTerm -fg black -bg wheat -geometry 71x50-0-0  -e mutt &"
+ 
+ int            dontread = 0;
+ static char    my_folder[256];
+ static char    my_app[256];
+ static char    my_audio[512];
++static char    my_aplayer[256];  // made global for the help 
++static char    my_afile[256];    // made global for the help 
+ static int     my_new, my_tot, my_read;
+ static off_t   size;
+ 
+ void show_help() {
+-    printf("-r         :  Don't show the read mail stat.\n");
+-    printf("-s <sec>   :  Seconds between executions of mailchk\n");
+-    printf("-x <exe>   :  Program to execute on button click   \n");
+-    printf("-f <folder>:  Mail folder to watch                 \n");
+-    printf("-P <player>:  Audio player to use for notification \n");
+-    printf("-p <afile> :  Audio file to play for notification  \n");
++    printf("-r         :  Don't show the number of unread messages.\n");
++    printf("-s <sec>   :  Seconds between executions of mailchk [15]\n");
++    printf("-x <exe>   :  Program to execute on button click [%s]\n", my_app);
++    printf("-f <folder>:  Mail folder to watch [%s]\n", my_folder);
++    printf("-P <player>:  Audio player to use for notification [%s]\n", my_afile);
++    printf("-p <afile> :  Audio file to play for notification  [%s]\n", my_aplayer);
+ 
+     exit(0);
+ }
+@@ -37,8 +42,6 @@
+ void setup(int argc, char** argv) {
+     char    c;
+     int     i;
+-    char    my_aplayer[256];
+-    char    my_afile[256];
+ 
+     snprintf (my_app,     255, "%s",    APPLICATION);
+     snprintf (my_folder,  255, "%s/%s", SPOOLDIR, getenv("USER"));
+@@ -70,15 +73,13 @@
+     int           in;
+     struct stat   buf;
+ 
+-    if ( stat (my_folder, &buf) != 0 )
+-    {
++    if ( stat (my_folder, &buf) != 0 ) {
+         perror ("");
+         fprintf (stderr, "Could not stat '%s'\n", my_folder);
+         exit (-2);
+     }
+     
+-    if ( size != buf.st_size )
+-    {
++    if ( size != buf.st_size ) {
+         FILE *f = popen ("mailchk", "r");
+         fscanf (f, "%i - %i - %i", &my_new, &my_tot, &my_read);
+         pclose (f);
+@@ -121,6 +122,9 @@
+ }
+     
+ void do_button_release() {
+-    system (my_app);
++    if(!fork()) {
++        system( my_app );
++        exit( 0 );
++    }
+ }
+ 
