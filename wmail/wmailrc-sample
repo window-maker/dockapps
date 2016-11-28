@@ -1,0 +1,120 @@
+#-*-shell-script-*-############################################################
+#
+# .wmailrc - wmail v2.0 configuration file
+# note: cmd-line options always overide the settings in this file unless you
+# force runtime reconfiguration by clicking on the docklets display area
+#
+# Format:
+# identifier '=' value
+# - identifiers are not case-sensitive
+# - each identifier expects a typed value to be assigned with
+# - typed value means either "string", boolean-switch (yes,on,true|no,off,false), some enum or int number
+# - string values must be enclosed with `"'-characters (quoting)
+# - string values supportes escape-sequences like \n,\r,\b,\t and decimal numbers \XXX (except \0)
+# - # comments (only at beginning of lines)
+
+
+# specify X display to open (not re-configurable during run-time)
+# string value, default: ""
+# Window.Display = "localhost:0.0"
+
+# turn on non-shaped window-mode
+# boolean value, default: No
+# Window.NonShaped = Yes
+
+# command to execute on button-click
+# string value, default: "xterm -e mail"
+Window.Button.Command = "wterm -fg white -bg black -T Pine -e pine &"
+
+# specify your mailbox (if not, the $MAIL evironment-variable is used)
+# string value, default: unset
+# Mail.MailBox = "/var/spool/mail/YOUR_LOGIN"
+
+# what file to use to store the cksums which help identify the mails
+# string value, default: "" (causes fallback to $HOME/.wmail-cksums)
+# Mail.ChecksumFile = "/home/YOUR_LOGIN/.wmail-cksums"
+
+# enable wmail to ticker (and count) only new (unread) mails
+# boolean value, default: No
+Mail.ShowOnlyNew = Yes
+
+# mail-check interval in seconds
+# integer value, default: 1
+Mail.CheckIntervall = 5
+
+# setup the ticker-line: allowed values are: Address | NickName | FamilyName
+# enum value, default: Address
+Ticker.Mode = FamilyName
+
+# set the ticker-frame-rate per seconds
+# integer value, default: 60
+# Ticker.Frames = 100
+
+# like to use a real X11 font instead of the buildin ?
+# Note the buildin font does not support all possible latin1 characters, so
+# if you would like to see them you must make use of this.
+# Ticker.X11Font = "-*-helvetica-medium-r-*-*-16-*-*-*-*-*-*-*"
+
+# command to execute when receiving new mail (for example "/usr/bin/play somefile.wav &")
+# string value, default: unset
+# Mail.OnNew.Command = "/usr/bin/play /hda1/win98/media/notify.wav &"
+
+# sender-skip-list, use this command multiple times to skip more then one sender-name
+# string value, default: unset
+Mail.SkipSender = "MAILER-DAEMON"
+
+# force wmail to display and count only those mails who have their Status-field
+# not set to RO (old read mail)
+# this is useful if you do not remove your mails from the mbox after reading them
+# default: Off
+# Mail.UseStatusField = On
+
+# supply the content of the status field that markes you email as read
+# (The given value is substring-matched)
+# default: "O"
+# Mail.ReadStatus = "ro"
+
+# color definitions follow: note that you can specify either
+# - a X color-name like "Grey", "White", "light green" etc. or
+# - a rgb-value using a hex-string like "#RRGGBB"
+
+
+# color of the upper symbols
+# string value, default: "#20B2AA"
+# Colors.Symbols = "yellow"
+
+# color of the ticker
+# string value, default: "#D3D3D3"
+# Colors.Font = "light grey"
+
+# color of the dockapps background
+# string value, default: "#282828"
+# Colors.Backlight = "dark slate grey"
+
+# color of inactive symbols
+# string value, default: "black"
+# Colors.OffLight = "#282828"
+
+# color of the outer frame (using it will force non-shaped window mode)
+# string value, default: unset
+# Colors.NonShapedFrame = "grey"
+
+
+### some color schemes :)
+
+#############################
+# wmcpuload like colors
+#
+# Colors.Symbols = "#131313"
+# Colors.Font = "black"
+# Colors.Backlight = "#6e766e"
+# Colors.OffLight = "#5e665a"
+
+#############################
+# dark blue
+#
+# Colors.Symbols = "Yellow"
+# Colors.Font = "White"
+# Colors.Backlight = "DarkBlue"
+# Colors.OffLight = "Black"
+

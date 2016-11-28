@@ -1,0 +1,358 @@
+Name            : wmail
+Description     : a enhanced Window Maker email flagging docklet
+Current version : 2.0
+Last updated    : SEP 30 2002
+Licence         : see file COPYING for licencing details
+Web/Home        : www.informatik.uni-jena.de/~topical/sveng/wmail.html
+Author          : (c) 2000~2002 Sven Geisenhainer
+Contact         : sveng@informatik.uni-jena.de
+
+Change Log:
+
+ v 2.0
+    - Autoconf based package configuration support added.
+    - Support for real X11 fonts when drawing the ticker.
+      Use the new option "-fn X11_FONT_NAME" or ~/.wmailrc-file statement
+      "Ticker.X11Font = X11_FONT_NAME" to enable it. If you wish to see latin1
+      characters not covered by the buildin font you MUST make use of this.
+	- Removed support of two buildin fonts (one seems enough when native
+      X11 font rendering is supported...) -> cmdline option "-bf" and
+      rcfile statement "Ticker.BoldFont" are no longer available
+    - added a window name when called with the -w option (libdockapp windowing
+      mode), this workarounds a dockapp library bug and makes wmail work docked
+      in Gnomes panel bar
+    - Fixed some reconfiguration memleaks
+    - Fixed button-keeps-up-when-pressed-and-empty-inbox bug
+    - Fixed Maildir file-parsing bug
+    - Fixed wmail-crash on dual-headed displays (Thanx to Michael Hocke!)
+    - Changed upper M@il symbol a bit ;-)
+
+ v 1.9
+    - Comment support added (by Juergen A. Erhard - thank you!)
+    - Status field content recognition enhanced: now you can supply the
+      content of the status field that markes you email as read. This is due
+      to different behaviour of different mbox readers - pine seems using "ro"
+      to mark a mail as read. The given value is substring-matched.
+
+ v 1.8
+    - Support for qmails Maildir format added: if you specify a directory
+      as your inbox then wmail assumes 'Maildir' functionality,
+      searches for the subdirectories "new" and "cur" and interprets all
+      files found directly under these directories as text-files containing
+      one single email message. When in Maildir-mode, checksums and the
+      file ~/.wmail-cksums are not used.
+    - Combining of equal sender-names before tickering them is not done
+      anymore - this hasn't worked if for example wmail shows only unread
+      emails and there are two emails from the same sender and one of them
+      is read, the other isn't.
+
+ v 1.72
+    - Now redrawing is done only if there are some changes to be drawn
+      (previous versions had redrawn the screen fps-times per sec. even if
+       the inbox was empty...)
+
+ v 1.71
+    - File parsing bug fixed: searching for "From"-directive is now
+      case-sensitive.
+
+ v 1.7
+    - Support for mail-header-field "Status" added: if this field
+      is set to "RO" the mail is assumed to be read. Turn this feature on
+      either by adding "Mail.UseStatusField = Yes" to your ~/.wmailrc-file
+      or using the new cmd-line option "-sf"
+
+ v 1.61
+    - Minor changes: signal-handling stuff reimplemented
+    - Included another set of xpms (thanx to delt!); to use it,
+      change the #includes in wmail.c to point to the xpm_delt dir
+
+ v 1.6
+    - Sender-skipping added: use this by adding some
+      "Mail.SkipSender = XYZ" to your ~/.wmailrc file. Note that you can
+      use the known wildcards here (i.e. "Mail.SkipSender = *Foo*" matches
+      all names containing "Foo")
+    - Support for execution of a custom command when receiving a new mail
+      added: either use the new option "-e" or a
+      "Mail.OnNew.Command = some-cmd" in the rc-file (for example this
+      makes it possible to play some sound file using the command
+      "/usr/bin/play some-sound.wav")
+
+ v 1.5
+    - Config-file support (~/.wmailrc), re-configuration of most options
+      during run-time is possible - a click on the docklets main-area
+      forces wmail to read its config-file. Note that this can also be
+      used to do a mailbox update...
+    - Bolder tickerfont added -> new option "-bf"
+    - Polling bug fixed (wmail has queried for new mail fps-times per
+      second...)
+    - Mailbox made configurable via cmdline -> new cmd-option "-mb"
+    - Color of inactive (off-switched) symbols made customizable -> new
+      cmd-option "-oc"
+
+ v 1.41
+    - Minor fixes, debugging-aid macro TRACE made more portable
+
+ v 1.4
+    - Made mails identifiable by a checksum to (hopefully) fix some
+      wrong behaviour of the recent-mails-only feature introduced with
+      v1.3 - this is also used to make wmail able to keep the current state
+      in mind, even after a restart. These checksums are written to the
+      file ".wmail-cksums" in the users home directory
+
+ v 1.3
+    - wmail is now able to show only recent mails in ticker and counter
+      (such ones you don't have read/opened yet since startup of wmail)
+      this is quite nice if you use your mail-file as an inbox storing
+      loads of mails there -> new cmd-option "-n"
+    - Solaris port got working (signal-handler bug fixed)
+    - Image of run-client-button changed
+
+ v 1.2
+    - Message counter now displays up to 3 digits
+    - Made ticker scroll-refresh customizable (30 fps by default)
+      -> new cmd-option "-fps"
+
+ v 1.1
+    - Parsing of from-header fixed/improved
+    - Added windowed mode support (only works with libdockapp v >0.4.0) and
+      support for a non-shaped window -> new cmd-options "-w" and "-ns"
+    - Made background color customizable (useful in windowed mode)
+      -> new cmd-option "-bg"
+    - Ticker either fullname, short-address-name or total-address
+      -> new cmd-option "-s"
+    - Changed pixmaps a bit
+
+ v 1.0
+    - Initial release
+
+Description:
+
+ This is wmail - a nifty Window Maker docklet watching your inbox, which is
+ either a ordinary mbox or a directory conforming to qmails Maildir format.
+ It provides a nice little GUI displaying some useful pieces of information
+ about your inbox (as many other nice wm-apps doing nearly the same thing...).
+ Per default it uses the $MAIL environment-variable to locate the inbox you
+ are using, other mailing mechanisms like POP or IMAP are not supported - use
+ a tool like fetchmail to retrieve POP- or IMAP-based mail.
+
+ It displays the following:
+
+ - a mail-icon in the upper-left if your inbox contains some mails
+ - a frequently flashing "M@iL" in the upper-right if there are unread mails
+ - a ticker displaying either complete mail-address, it's name-part or the
+   full sender's name (without the "-n" option each sender found in the inbox
+   is tickered, else only the unread ones)
+ - the number of new and read emails found (or the number of unread messages
+   if invoked with the "-n" option)
+
+ In addition, the lower-right button allowes you to quickly launch your
+ preferred email user agent (xterm -e mail, mutt, pine, etc.)
+
+ wmail is highly customizable, both command-line and configuration-file support
+ is provided. The following list describes all customizable items,
+ their associated cmd-line options, config-file statements and default values:
+
+ item             : X11 display
+ cmd-line option  : -display <string>
+ rc-file statement: Window.Display = "<string>"
+ default value    : <unset>
+
+ item             : toggle nonshaped mode
+ cmd-line option  : -ns
+ rc-file statement: Window.NonShaped = Yes|No
+ default value    : No
+
+ item             : button command to execute
+ cmd-line option  : -c <string>
+ rc-file statement: Window.Button.Command = "<string>"
+ default value    : "xterm -e mail"
+    
+ item             : your mailbox (file => mbox, directory => Maildir)
+ cmd-line option  : -mb <string>
+ rc-file statement: Mail.MailBox = "<string>"
+ default value    : <unset, $MAIL is used>
+
+ item             : file to store the checksums used to identify mbox mails
+ cmd-line option  : <no option>
+ rc-file statement: Mail.ChecksumFile = "<string>"
+ default value    : "~/.wmail-cksums"
+
+ item             : ticker (and count) only unread mails
+ cmd-line option  : -n
+ rc-file statement: Mail.ShowOnlyNew = Yes|No
+ default value    : No
+
+ item             : mail check intervall (sec)
+ cmd-line option  : -i <num>
+ rc-file statement: Mail.CheckIntervall = <num>
+ default value    : 1
+
+ item             : consider status-field (not used when in maildir mode)
+ cmd-line option  : -sf
+ rc-file statement: Mail.UseStatusField = Yes|No
+ default value    : No
+
+ item             : custom status field content used for read mails
+ cmd-line option  : -rs
+ rc-file statement: Mail.ReadStatus = "<string>"
+ default value    : "O"
+
+ item             : show nick names in the ticker (all before the @)
+ cmd-line option  : -s
+ rc-file statement: Ticker.Mode = NickName
+ default value    : Address
+
+ item             : show family names in the ticker (if available)
+ cmd-line option  : -f
+ rc-file statement: Ticker.Mode = FamilyName
+ default value    : Address
+
+ item             : how many ticker frames per sec
+ cmd-line option  : -fps <num>
+ rc-file statement: Ticker.Frames = <num>
+ default value    : 30
+
+ item             : use a real X11 font when drawing the ticker
+ cmd-line option  : -fn <string>
+ rc-file statement: Ticker.X11Font = "<string>"
+ default value    : <unset, a buildin font is used>
+
+ item             : command to execute when new mail has arrived
+ cmd-line option  : -e <string>
+ rc-file statement: Mail.OnNew.Command = "<string>"
+ default value    : <unset>
+
+ item             : sender-names to skip (don't ticker and count them)
+ cmd-line option  : <no option>
+ rc-file statement: Mail.SkipSender = "<string>"
+ default value    : <unset>
+
+ item             : color for upper symbols (envelope and MAiL)
+ cmd-line option  : -sc <string>
+ rc-file statement: Colors.Symbols = "<string>"
+ default value    : "#20B2AA"
+
+ item             : ticker font color
+ cmd-line option  : -fc <string>
+ rc-file statement: Colors.Font = "<string>"
+ default value    : "#D3D3D3"
+
+ item             : backlight color (dockapp background)
+ cmd-line option  : -bc <string>
+ rc-file statement: Colors.Backlight = "<string>"
+ default value    : "#282828"
+
+ item             : color of inactive symbols
+ cmd-line option  : -oc <string>
+ rc-file statement: Colors.OffLight = "<string>"
+ default value    : "#282828"
+
+ item             : outer frame color (used in nonshaped window mode)
+ cmd-line option  : -bg <color>
+ rc-file statement: Colors.NonShapedFrame = "<string>"
+ default value    : <unset, this color is translucent>
+
+ libdockapp provides the following additional cmd-line options:
+
+ windowed-mode        : -w
+
+ show help and exit   : -h
+
+ show version and exit: -v
+
+Known bugs:
+
+ - Solaris: sometimes wmail gets terminated by Xlib displaying the message:
+   XIO:  fatal IO error 0 (Error 0) on X server ":0.0"
+         after XXX requests (YYY known processed) with 0 events remaining.
+   I do not have any ideas on how to fix this ... :-( --> PLEASE HELP!!!
+ - "From" header field folding (see RFC822) is not supported
+ - Reconfiguration during run-time results in a complete state-lost -> all
+   email in your mbox is assumed to be unread again
+
+ Please keep in mind this code is free and comes with absolutly no warranty
+ (see file COPYING included in the package) - but if you think something goes
+ wrong, please let me know!
+
+What is still missing (and when it will be done :)
+
+ - Pop3/Imap support (never - use fetchmail)
+ - Character encoding in ticker - at least latin1 (currently in progress)
+ - Multiple mailslots (never)
+ - Displaying/tickering of other email header fields (hmm, i don't know...)
+ - Your needs/ideas...?
+
+Requirements:
+
+ This application needs a running X window system and libdockapp v0.2 or newer
+ (0.4.0 required for windowed-mode), that for itself has some requirements
+ (Xpm support for example). libdockapp comes with Window Maker - if not sure,
+ see what the configure-script says when running it.
+
+Compile:
+
+ Simply follow these steps:
+ 1. Call "./configure", try "./configure --help" for a list of options.
+ 2. Call "make" to build the binary (or gmake if make is't GNU make compliant)
+
+ If compiling does not succeed due to missed header files or libraries
+ you have to make use of configures `--includedir=DIR' and/or `--libdir=DIR'
+ cmdline options in order to specify paths to those files.
+
+Porting:
+
+ This code (without using the new Maildir code and autoconf package setup)
+ is known to work under:
+ - Linux >=2.4.10 on x86
+ - Osf 3.2 on Dec/Alpha
+ - Sun Solaris 4.0 on Sparc Station 4 and 10
+ - Sun Solaris 6, 7 and 8 (thanx to Kristian Borum!)
+ - SunOs 5.7 on Ultra Sparc 5 (thanx to Alessandro!)
+ 
+ ...together with Window Maker v0.60.0 or better (or standalone of course) and
+ libdockapp v0.4.0.
+
+ Please let me know if you have ported this to a platform not listed
+ above to mention it (and your name of cource ;). Some users had
+ trouble porting wmail to Solaris because the original timer signal handling
+ has not worked properly. This was caused by different semantics of libc's
+ signal function and should got fixed since releases >= v1.3.
+
+Install:
+
+ Call "make install" or copy the binary found in the src subdirectory by hand.
+ Make based installation also copies the provided sample rc-file to ~/.wmailrc
+ but wmail even runs without it.
+
+ Keep in mind, libdockapp must be installed properly (i.e. let reside it in
+ your X11 base library directory or let $LD_LIBRARY_PATH point to the lib).
+ If you would like to use rc-based configuration, look into the provided
+ sample-file "wmailrc-sample" and use it as a base for your particular needs
+ by copying it to ~/.wmailrc (make install has done this automatically).
+ Note: the name of this rc-file is hard-wired and cannot be customized.
+
+Run:
+
+ Try wmail -h to see a list of all available options.
+
+Web/Home:
+
+ www.informatik.uni-jena.de/~topical/sveng/wmail.html
+
+Author and maintainer:
+
+ Sven Geisenhainer <sveng@informatik.uni-jena.de>
+
+ There is also a Debian package available under "http://jerhard.org/files/"
+ maintained by Juergen A. Erhard <juergen.erhard@gmx.net> - Thank you, Juergen!
+
+Final words:
+
+ Thanx to Thomas Kurschel for his suggestions and coding assistance.
+ Thanx to Juergen A. Erhard for his codings and Debian packaging efforts.
+ Thanx to many users on the web for their ideas, test- and bug reports.
+
+ And many great thanx to all the GNUstep and Window Maker people who've
+ provided us with such a great user environment!
+
+ Hope you will ENJOY!

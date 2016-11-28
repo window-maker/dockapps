@@ -1,0 +1,66 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/wmail.c)
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_MAKE_SET
+
+dnl Checks for header files.
+#AC_PATH_X
+AC_HEADER_DIRENT
+AC_HEADER_STDC
+AC_CHECK_HEADERS(limits.h sys/time.h)
+
+dnl Checks for X installation root directory.
+AC_PATH_XTRA
+X_LIBRARY_PATH="$x_libraries"
+XLIBS="-lX11 $X_EXTRA_LIBS"
+XCFLAGS="$X_CFLAGS"
+XLFLAGS="$X_LIBS"
+
+if test -n "$includedir"; then
+	XCFLAGS="$XCFLAGS -I$includedir"
+fi
+
+if test -n "$libdir"; then
+	XLIBS="$XLIBS -L$libdir"
+fi
+
+CPPFLAGS_old="$CPPFLAGS"
+CPPFLAGS="$CPPFLAGS $XCFLAGS"
+AC_CHECK_HEADER(dockapp.h,,)
+CPPFLAGS="$CPPFLAGS_old"
+
+AC_SUBST(XCFLAGS)
+AC_SUBST(XLFLAGS)
+AC_SUBST(XLIBS)
+AC_SUBST(X_LIBRARY_PATH)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+dnl Checks for library functions.
+AC_FUNC_FNMATCH
+AC_FUNC_UTIME_NULL
+AC_FUNC_VPRINTF
+AC_CHECK_FUNCS(strdup strstr memcpy)
+
+dnl Checks for libraries.
+AC_CHECK_LIB(X11, XCreateGC,,,$XLFLAGS $XLIBS)
+AC_CHECK_LIB(dockapp, DAInitialize,,,$XLFLAGS $XLIBS)
+
+dnl Enable Debugging?
+AC_ARG_ENABLE(debug,
+            [  --enable-debug	  enable debugging ],, enable_debug=no)
+if test "$enable_debug" = yes; then
+    CFLAGS="-Wall -g -DDEBUG"
+fi
+
+dnl Use delt's pixmaps instead of the default ones?
+AC_ARG_ENABLE(delt_xpms,
+			[  --enable-delt-xpms	  enable delt's pixmaps ],, enable_delt_xpms=no)
+if test "$enable_delt_xpms" = yes; then
+ 	CFLAGS="$CFLAGS -DUSE_DELT_XPMS"
+fi
+
+AC_OUTPUT(Makefile src/Makefile)
