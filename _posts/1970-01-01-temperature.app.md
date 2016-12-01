@@ -4,6 +4,7 @@ title: Temperature.app
 permalink: temperatureapp
 hosted: 1
 website: https://web.archive.org/web/20071020004554/http://www.fukt.hk-r.se/~per/temperature/
+dockapps: 86
 images:
  - Temp-app.png
  - Temperature.gif

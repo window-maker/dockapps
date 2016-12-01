@@ -3,6 +3,7 @@ layout: dockapp
 title: AlsaMixer.app
 permalink: alsamixerapp
 hosted: 1
+dockapps: 253
 images:
  - AlsaMixer.app.png
 versions:

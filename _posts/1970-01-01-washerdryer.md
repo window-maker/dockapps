@@ -4,6 +4,7 @@ title: washerdryer
 permalink: washerdryer
 hosted: 1
 website: https://web.archive.org/web/20021210035511/http://lucille.dhs.org/washerDryer.html
+dockapps: 8
 images:
  - washerDryer.jpg
 versions:

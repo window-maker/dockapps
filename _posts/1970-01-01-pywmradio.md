@@ -4,6 +4,7 @@ title: pywmradio
 permalink: pywmradio
 hosted: 0
 website: http://pywmdockapps.sourceforge.net/old-index.html
+dockapps: 331
 images:
  - pywmradio.png
 categories: audio
