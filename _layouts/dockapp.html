@@ -18,6 +18,12 @@ layout: default
     {% endif %}
     <p>
     {{ content }}
+    {% if page.dockapps %}
+      <p>
+      <i>For comments, see the
+      <a href="https://web.archive.org/web/20121130090946/http://dockapps.windowmaker.org/file.php/id/{{ page.dockapps }}">
+        original dockapps.org entry</a>.</i>
+    {% endif %}
     <h2>Screenshots:</h2>
       {% for image in page.images %}
         <img src="/img/{{ image }}" alt="{{ page.title }} screenshot">
