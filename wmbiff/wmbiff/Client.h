@@ -18,6 +18,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <sys/time.h>
 
 #ifdef HAVE_GCRYPT_H
@@ -78,8 +79,8 @@ typedef struct _mbox_t {
 			char password[BUF_SMALL];
 			char userName[BUF_BIG];
 			char serverName[BUF_BIG];
-			int serverPort;
-			int localPort;
+			uint16_t serverPort;
+			uint16_t localPort;
 			char authList[100];
 			unsigned int dossl:1;	/* use tls. */
 			/* prompt the user if we can't login / password is empty */
@@ -113,7 +114,7 @@ int shellCreate( /*@notnull@ */ Pop3 pc, const char *str);
 int mboxCreate( /*@notnull@ */ Pop3 pc, const char *str);
 int maildirCreate( /*@notnull@ */ Pop3 pc, const char *str);
 
-int sock_connect(const char *hostname, int port);
+int sock_connect(const char *hostname, uint16_t port);
 FILE *openMailbox(Pop3 pc, const char *mbox_filename);
 
 /* backtickExpand returns null on failure */

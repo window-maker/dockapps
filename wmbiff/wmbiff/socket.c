@@ -48,7 +48,7 @@ static int sanity_check_hostname(const char *hostname)
 			|| inet_aton(hostname, &dummy));
 }
 
-static int ipv4_sock_connect(struct in_addr *address, short port)
+static int ipv4_sock_connect(struct in_addr *address, uint16_t port)
 {
 	struct sockaddr_in addr;
 	int fd, i;
@@ -82,7 +82,7 @@ static int ipv4_sock_connect(struct in_addr *address, short port)
 /* 1 June 2002; incorporated IPv6 support by
    Jun-ichiro itojun Hagino <itojun@iijlab.net>, thanks! */
 
-int sock_connect(const char *hostname, int port)
+int sock_connect(const char *hostname, uint16_t port)
 {
 #ifdef HAVE_GETADDRINFO
 	struct addrinfo hints, *res, *res0;
