@@ -1,3 +1,26 @@
+2016-11-30  Doug Torrance <dtorrance@piedmont.edu>
+
+        * ChangeLog, NEWS, configure.ac: Bump to verson 0.4.30.
+
+2016-11-30  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/Imap4Client.c, wmbiff/ShellClient.c, wmbiff/passwordMgr.c,
+	wmbiff/test_wmbiff.c: Add #define _GNU_SOURCE to avoid "implicit
+	declaration" warnings.
+
+2016-11-30  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/Client.h, wmbiff/socket.c: Use unsigned data type for port
+	number.
+
+2016-07-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/wmbiff.1, wmbiff/wmbiff.c: Fix typos.
+
+2016-07-19  Doug Torrance <dtorrance@piedmont.edu>
+
+	* ChangeLog, configure.ac: Bump to version 0.4.29.
+
 2016-07-19  Doug Torrance <dtorrance@piedmont.edu>
 
 	* wmbiff/Imap4Client.c: Close mailbox before we call
