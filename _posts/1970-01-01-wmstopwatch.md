@@ -4,6 +4,7 @@ title: wmstopwatch
 permalink: wmstopwatch
 hosted: 0
 website: http://fccode.free.fr/dockapps/
+dockapps: 341
 images:
  - wmstopwatch-0.png
 categories: time

@@ -4,6 +4,7 @@ title: wmdaysago
 permalink: wmdaysago
 hosted: 0
 website: https://sourceforge.net/projects/wmdaysago/
+dockapps: 365
 images:
  - screenshot64x64.png
 categories: time

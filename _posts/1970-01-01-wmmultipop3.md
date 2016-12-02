@@ -4,6 +4,7 @@ title: wmmultipop3
 permalink: wmmultipop3
 hosted: 0
 website: http://wmmultipop3.sourceforge.net/
+dockapps: 76
 images:
  - wmMultiPop3.gif
 categories: email

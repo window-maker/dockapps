@@ -4,6 +4,7 @@ title: wmfishtime
 permalink: wmfishtime
 hosted: 0
 website: http://www.ne.jp/asahi/linux/timecop/
+dockapps: 19
 images:
  - wmfishtime.gif
 categories: time

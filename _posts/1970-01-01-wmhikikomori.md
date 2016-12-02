@@ -4,6 +4,7 @@ title: wmhikikomori
 permalink: wmhikikomori
 hosted: 0
 website: https://code.google.com/archive/p/wmhikikomori/
+dockapps: 343
 images:
  - wmhikikomori.png
 categories: time

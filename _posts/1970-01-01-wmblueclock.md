@@ -4,6 +4,7 @@ title: wmblueclock
 permalink: wmblueclock
 hosted: 0
 website: https://github.com/vampirefrog/wmblueclock
+dockapps: 344
 images:
  - wmblueclock.png
 categories: time
