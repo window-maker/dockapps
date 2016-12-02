@@ -1,0 +1,49 @@
+ChangeLog for wmymail
+---------------------
+
+2004-06-11  Joshua Swink <yathster@yahoo.com>
+
+  * Version 0.3
+
+  * Documentation (code comments, README, LSM file)
+
+2002-08-28  Thomas Nemeth <tnemeth@free.fr>
+
+  * Added -m/--mailbox option for specifying mailbox when no $MAIL
+    variable is available
+
+  * Corrected the misbehavior about zombie child process
+
+2002-03-27  Joshua Swink  <jswink@pacbell.net>
+
+  * Change error message about unset MAIL variable
+
+2001-07-26  Joshua Swink  <jswink@pacbell.net>
+
+  * Version 0.2
+
+  * Changed -f (for fetchmail) to -F
+
+  * Added -n/--newcommand option for something to run when new mail
+    is received
+
+  * Added -c/--command option for something to run when clicked
+
+  * Reduced xpm file sizes by reducing their colors in the Gimp
+
+  * checkfetchmail() - use mkstemp()
+
+  * Add -Wall to Makefile's CFLAGS (and fix resulting warnings)
+
+  * Remove code that futzes with the mail file's access time
+
+  * parseMailFile() - less likely to misinterpret a message with long lines
+
+2001-06-06  Joshua Swink  <jswink@pacbell.net>
+
+  * Version 0.1
+
+  * Change lots of stuff
+
+  * Fork from wmail
+

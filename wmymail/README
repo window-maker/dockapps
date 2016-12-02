@@ -1,0 +1,75 @@
+
+    readme for wmymail - mail checker dock application
+
+wmymail is a dock application that shows how many messages are in your
+mailbox, and how many of them are unread.  When there are new messages,
+it displays one or more brightly colored envelopes.  Otherwise, it
+displays a dull, gray envelope.
+
+
+BEHAVIOR
+========
+
+mbox (local mail file) (default)
+--------------------------------
+
+By default, it will check your mailbox file about once per second to
+see if it has changed. If it has changed, wmymail reads it to see how
+many messages are inside, and how many have been read, and displays
+the current counts.
+
+  * It looks at the filename specified in the $MAIL environment
+    variable.
+
+  * You can tell it to look in a different file by using the -m
+    option, e.g.  "wmymail -m /var/foo/mail/username"
+
+  * You can make it check less frequently with the -i option, which
+    changes the interval between mailbox checks:
+    "wmymail -i 60" will make it check once per minute.
+
+IMAP
+----
+
+If you are using IMAP for your email, you will need to use the -F
+option. This option makes wmymail run fetchmail to determine how
+many messages you have.
+
+Since running fetchmail takes considerably longer than checking
+a local file, wmymail checks once per minute when -F is used.
+Furthermore, the -i option now specifies the number of minutes:
+"wmymail -F -i 5" would make it check every five minutes.
+
+The command that wmymail runs is: "fetchmail -c"
+Therefore, you will need to have fetchmail set up and working prior
+to using wmymail.
+
+
+HISTORY
+=======
+
+The current maintainer is Joshua Swink, <yathster@yahoo.com>.
+
+This program forked from version 1.1 of wmail, a similar dock app with
+different goals.
+
+wmail may be found here:
+  http://dockapps.org/file.php/id/70
+
+And here is its old homepage (no longer exists):
+  http://www.informatik.uni-jena.de/~topical/sveng/wmail.html
+
+
+INSTALLATION
+============
+
+You will need libdockapp, which can probably be found here:
+
+  ftp://shadowmere.student.utwente.nl/pub/WindowMaker/
+
+Then, run "make", and "strip wmymail" if desired, and finally
+copy wmymail to a directory in your path.
+
+Making it show up on your dock or wharf or pier varies greatly
+according to your window manager, and won't be explained here.
+

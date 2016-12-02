@@ -1,0 +1,12 @@
+Begin4
+Title:           wmymail
+Version:         0.3
+Entered-date:    2004-01-01
+Description:     wmymail is a mail-checking dock app.
+Keywords:        X11, email, dockapp
+Author:          yathster@yahoo.com (Joshua Swink)
+Maintained-by:   yathster@yahoo.com (Joshua Swink)
+Primary-site:    http://yath.mine.nu/wmymail/
+Platforms:       X11
+Copying-policy:  public domain
+End

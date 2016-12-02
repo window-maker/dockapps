@@ -1,0 +1,66 @@
+name            : wmail (Window Maker DockApp email flag)
+current version : 1.1
+last update     : Oct 13 2000
+
+description     :
+
+ This is wmail - a little dockable application watching your email-file
+ and signaling changes. It works quite similar to xbiff
+ but provides a more informative, more interactive and yes, more colorful nice
+ little gui displaying some useful pieces of state-informations about that
+ file.
+ It uses the $MAIL environment-variable to locate the email-file you are using,
+ other mailing mechanisms like POP or IMAP are currently not supported.
+
+ It shows the following:
+
+ - a mail-icon in the upper-left if the file contains some mails
+ - a frequently blinking mail-text in the upper-right if there are unread mails
+ - a ticker displaying eighter the complete mail-adress, it's name-part or the
+   full sender name
+ - the number of emails stored in the file
+
+ In addition, the button labeled `Client' allowes you to quickly run your
+ preferred email-client.
+
+ Last, there are some attributes you can customize via the command-line.
+ So it's possible to set the interval-time between the updates, the
+ shell-command to run the client, what the ticker has to show and what colors
+ should be used. Custom coloring is what every dockapp should support, but
+ unfortunatly most didn't came with this nice and useful feature :(
+
+ Bugs: be sure there are! Since many time and motivation is needed to clean
+ even such a little app properly there are good chances this friendly toy
+ will change into an aggressive animal ready to cause irreversible damage -
+ thus, keep in mind this code comes with absolutly no warran...blablabla
+ >>Please let me know, if something works wrong<<
+
+requirements :
+
+ this application needs libdockapp v0.2 or newer
+
+compile      :
+ 
+ this code is known to work under linux v2.10 and osf v3.2 (tested)
+ together with Window Maker v0.60.0 and docklib v0.2. I've provided a simple
+ Makefile you can use to build the binary - edit that file to suit your needs.
+
+run          :
+
+ try wmail -h to see a list of options.
+
+download     :
+
+ www.crosswinds.net/~sveniboy/wmail.html
+
+maintainer   :
+
+ Sven Geisenhainer <sveng@informatik.uni-jena.de>
+
+final words  :
+
+ Thanx to all the GNUstep and Window Maker people who've provided us
+ with such a great user environment!
+
+ Hope you will enjoy!
+ Sven.
