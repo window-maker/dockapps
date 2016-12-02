@@ -1,0 +1,47 @@
+How to use wmHexaClock 0.1
+
+GENERAL
+-------
+
+wmHexaClock is a DockApp that provides an hexadecimal
+clock.
+
+
+HOW TO USE
+----------
+
+It's not too difficult to use wmHexDock. You run it by
+typing "wmHexaClock" and confirming with <enter> :)
+There are just a few options so far:
+
+	--color (-c)	[COLORCODE]
+		You can change to foreground color with this option.
+		[COLORCODE] stands for the color which you specifiy in
+		hexadecimal notation (RRGGBB). Do not add the #-sign
+		in the beginning. Example:
+		"wmHexClock -fg-color 00ff00" for green.
+
+	--mode (-m)	[0 or 1] 
+		You can run wmHexaClock in two different modes. In
+		mode 0 the program will display the time always while
+		the name of the day and the date of the day will be displayed
+		in turns (Interval is three seconds).
+		In mode 1 everything will be displayed the same time. It is much
+		more difficult to read it since the space is actually not
+		big enough.
+	
+	--help (-h)
+		Might help you
+
+	--version (-v)
+		Displays version number
+
+
+ANYTHING MORE?
+--------------
+
+Yes, I didn't write the wohle DockApp from scratch. As a base I took wmDockApp0.1
+from Todd Goyen. It is under GPL aswell and you will find it
+here: http://dockapps.org/download.php/id/138/wmDockApp.tar.gz
+
+Thanks a lot!

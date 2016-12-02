@@ -1,0 +1,23 @@
+Basic Installation
+------------------
+
+	The simplest way to compile this package is:
+
+  		1. Type `cd' to the directory containing the package's source code and type
+		`make´ to compile the package
+
+  		2. Type `su´ to become super user and run
+  	 	make install´ to move the binaries into the rigt bin-folders
+
+	  	3. To remove the binary in the source directory you type
+		`make clean´
+
+  		4. Type `make uninstall' to remove the program
+
+
+Installation Names
+------------------
+
+	By default the make install script will install the binary in:
+	/usr/local/bin/
+  
