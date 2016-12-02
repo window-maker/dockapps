@@ -4,6 +4,7 @@ title: wmWeather
 permalink: wmweather
 hosted: 1
 website: https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml
+dockapps: 17
 images:
  - wmWeather.gif
 versions:
