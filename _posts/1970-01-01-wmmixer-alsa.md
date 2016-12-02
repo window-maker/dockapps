@@ -4,6 +4,7 @@ title: wmmixer-alsa
 permalink: wmmixer-alsa
 hosted: 1
 website: https://web.archive.org/web/20020202104555/http://bohemians.org/~iznogood/
+dockapps: 59
 images:
  - wmmixer-alsa.gif
 versions:
