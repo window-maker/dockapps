@@ -1,0 +1,12 @@
+
+wmAppKill requires the libGtop. 
+Download it at: http://www.home-of-linux.org/gnome/libgtop/
+
+To install wmAppKill :
+
+1. tar xvfz wmAppKill-x.x.tar.gz
+2. make
+3. make install (you must be root)
+
+
+
