@@ -1,0 +1,82 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH WMLONGRUN 1 "March 13, 2002"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+wmlongrun \- A dockapp to monitor the LongRun(tm) status on Crusoe(tm)
+processors.
+.SH SYNOPSIS
+.B wmlongrun [options]
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmlongrun
+command.
+.PP
+.\" TeX users may be more comfortable with the \fB<whatever>\fP and
+.\" \fI<whatever>\fP escape sequences to invode bold face and italics, 
+.\" respectively.
+\fBWMLongRun\fP is a program to monitor for LongRun(tm). It displays the current
+LongRun(tm) settings and status: the frequency, the LongRun(tm) flags
+(performance or economy), and the performance level (expressed as a percentile).
+
+It is a dockapp (dockable application) that is supported by X window managers
+such as Window Maker, AfterStep, BlackBox, and Enlightenment. It has two user
+interfaces: an LCD look-alike user interface and an LED-interface.  If you
+select the LCD-interfaces, the back-light may be turned on/off by clicking the
+mouse button over the application.
+
+.SH OPTIONS
+This program follows the usual GNU command line syntax, with long options
+starting with two dashes (`\-'). A summary of options is included below.
+.TP
+.B \-d,  \-\-display <string>
+Attempt to open a window on the named X display. In the absence of  this option,
+the  display  specified  by the
+.B DISPLAY
+environment variable is used.
+.TP
+.B \-bl, \-\-backlight
+turn on back-light.
+.TP
+.B \-lc, \-\-light-color <color>
+back-light color. (rgb:6E/C6/3B is default)
+.TP
+.B \-i,  \-\-interval <number>
+number of secs between updates. (1 is default)
+.TP
+.B \-cd,  \-\-cpuid\-device <device>
+specify Linux CPUID device ('/dev/cpu/0/cpuid' is default)
+.TP
+.B \-md,  \-\-msr\-device <device>
+specify Linux MSR device ('/dev/cpu/0/msr' is default)
+.TP
+.B \-l,  \-\-led
+run the application with LED interface
+.TP
+.B \-h,  \-\-help
+show help text and exit.
+.TP
+.B \-v,  \-\-version
+show program version and exit.
+.TP
+.B \-w,  \-\-windowed
+run the application in windowed mode
+.TP
+.B \-bw, \-\-broken\-wm
+activate broken window manager fix
+
+.SH AUTHOR
+Seiichi SATO <ssato@sh.rim.or.jp>.

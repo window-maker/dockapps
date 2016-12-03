@@ -1,0 +1,7 @@
+#!/bin/sh
+
+msr_major=202
+cpuid_major=203
+mkdir -m 0755 -p /dev/cpu/0
+mknod /dev/cpu/0/msr -m 0600 c $msr_major 0
+mknod /dev/cpu/0/cpuid -m 0444 c $cpuid_major 0

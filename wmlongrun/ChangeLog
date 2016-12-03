@@ -1,0 +1,34 @@
+2002 March 23
+  * version 0.2.0 released
+  * longrun_linux.c longrun_freebsd.c: renamed get_longrun_stat() as
+                                       longrun_get_stat()
+
+2002 March 14
+  * dockapp.c: rewrote (taken from wmmemmon)
+  * backdrop_on.xpm, backdrop_off.xpm: changed bar of guage narrowly
+  * main.c: code cleanup/review
+
+2002 March 13
+  * dropped the GNU coding standards:)
+  * longrun_freebsd.c: fixed MIB for sysctl ('hw.crusoe.longrun')
+  * backdrop_off.xpm: changed color of background
+  * made Non-GNU make fixes
+  * renamed wmlongrun.c to main.c
+  * added manpage
+
+2002 January 05
+  * removed setgid flag under FreeBSD
+
+2001 November 06
+  * made small color adjustment for back-light
+
+2001 October 16
+  * made small modifications to dockapp.c
+    (freeing the memory that is used for wmHints, removing d_width/d_height, and
+     adding a argument for event-mask to DA_Initialize())
+
+2001 October 30
+  * added FreeBSD support
+
+2001 September 20
+  * version 0.1.0 released.(initial release)

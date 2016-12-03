@@ -1,0 +1,8 @@
+* optimize drawing-routines (gdk-pixbuf? MIT-SHM?)
+* display the current voltage
+
+
+---
+* FreeBSD support (done)
+* Non-GNU make fixes (done)
+* man page (done)

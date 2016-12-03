@@ -1,0 +1,71 @@
+
+Supported Platforms:
+====================
+
+- GNU/Linux (kernel 2.4.x / 2.2.18 or later)
+- FreeBSD (5.0-CURRENT / 4.4-RELEASE or later)
+
+Patches to make it work on other platforms are welcome.
+
+
+Requirements:
+============
+- Basic obvious stuff
+	If you will build WMLongRun, make sure you have gcc (or some Other ANSI
+	C compiler).the X header files installed.
+
+- X11R6.x
+	WMLongRun can NOT be compiled in older versions of X, like X11R5 or
+	X11R4. Upgrading the client libraries (Xlib, Xext) will help if you
+	can't upgrade the server.
+
+- libXPM 4.7 or newer
+	Older versions may not work.
+	Available at ftp://sunsite.unc.edu/pub/Linux/libs/X/
+
+- CPUID/MSR drivers. (GNU/Linux)
+	To run WMLongRun under GNU/Linux, you will need CPUID/MSR drivers.
+	These drivers have been a part of the kernel distribution since version
+	2.2.18. (2.4.x kernel has already included support for CPUID/MSR.) Make
+	sure your kernel was compiled with 'CONFIG_X86_CPUID=y' and
+	'CONFIG_X86_MSR=y'. If the CPUID/MSR drivers are not already built, you
+	will need to configure and build a new kernel. You can either build the
+	CPUID/MSR drivers into the kernel or build them as kernel loadable
+	modules.
+
+- CPUID/MSR character devices (GNU/Linux)
+	To get the information of the LongRun settings and status, you may need
+	to make the special character files in the /dev directory. Please type
+	as following to see if these devices already exist.
+
+	 $ ls -l /dev/cpu/0/*
+	 crw-------   1 root    root     203,  0 Sep 27  00:16 /dev/cpu/0/cpuid
+	 cr--r--r--   1 root    root     202,  0 Sep 27  00:16 /dev/cpu/0/msr
+
+	If not, you will need to create them. There is a MAKEDEV-cpuid-msr
+	script in the source distribution of WMLongRun which will create
+	the CPUID/MSR devices for you. You can also do it yourself.
+	As root, type:
+
+	 $ mkdir -m 0755 -p /dev/cpu/0
+	 $ mknod /dev/cpu/0/msr -m 0600 c 202 0
+	 $ mknod /dev/cpu/0/cpuid -m 0444 c 203 0
+
+
+Installation:
+=============
+
+1: tar -zxvf wmlongrun-<version>.tar.gz
+2: cd wmlongrun-<version>
+3: ./configure
+4: make
+5: su root
+6: make install (or 'make install-strip')
+7: wmlongrun &
+
+NOTES:
+- WMLongRun is installed as a setuid-root program on GNU/Linux. A setuid
+  program with a graphical user interface is NOT secure. Please use at your own
+  risk.
+- Non-GNU make may not work.
+  e.g.) it doesn't work on FreeBSD when you run 'make clean'.

@@ -1,0 +1,69 @@
+WMLongRun - A dockapp to monitor the LongRun(tm) status on Crusoe
+
+General Information
+===================
+WMLongRun is a program to monitor for LongRun. It displays the current
+LongRun(tm) settings and status: the frequency, the LongRun(tm) flags
+(performance or economy), and the performance level (expressed as a percentile).
+
+It is a dockapp (dockable application) that is supported by X window managers
+such as Window Maker, AfterStep, BlackBox, and Enlightenment. It has two user
+interfaces: an LCD look-alike user interface and an LED-interface. If you select
+the LCD-interfaces, the back-light may be turned on/off by clicking the mouse
+button over the application.
+
+It runs on GNU/Linux / FreeBSD.
+
+
+Installation
+============
+See the file 'INSTALL' for instructions.
+
+
+Copyright
+=========
+GPL applies all portions of the code I wrote. Please see COPYING file.
+
+
+Usage
+=====
+* To turn on/off back-light, click the mouse button over the application.
+* To see the following help messages, type 'wmlongrun --help'.
+
+$ wmlongrun [OPTIONS]
+ -d,  --display <string>        display to use
+ -bl, --backlight               turn on back-light
+ -lc, --light-color <color>     back-light color (rgb:6E/C6/3B is default)
+ -i,  --interval <number>       number of secs between updates (1 is default)
+ -cd, --cpuid-device <device>   CPUID device ('/dev/cpu/0/cpuid' is default)
+ -md, --msr-device <device>     MSR device   ('/dev/cpu/0/msr' is default)
+ -l,  --led                     run the application with LED interface
+ -h,  --help                    show this help text and exit
+ -v,  --version                 show program version and exit
+ -w,  --windowed                run the application in windowed mode
+ -bw, --broken-wm               activate broken window manager fix
+
+NOTE:
+'-cd, --cpuid-device','-md, --msr-device' are options for GNU/Linux.
+
+For AfterStep users
+===================
+Add this line to your ~/GNUstep/Library/AfterStep/wharf:
+
+  *Wharf wmlongrun - Swallow "wmlongrun" wmlongrun -w & 
+
+
+For Enlightenment users
+=======================
+'-bw, --broken-wm' option will help you.
+
+
+Bug reports
+===========
+Please send e-mail to ssato@sh.rim.or.jp
+
+
+URL
+===
+http://www.sh.rim.or.jp/~ssato/dockapp/index.shtml#wmlongrun
+
