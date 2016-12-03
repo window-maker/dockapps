@@ -1,0 +1,30 @@
+.TH WMSPACEWEATHER 1.1 "19 December 1998" 
+.SH NAME
+WMSPACEWEATHER \- Dockable Space Weather Monitor
+.SH SYNOPSIS
+.B wmSpaceWeather
+[-h] [-display <Display>] 
+.SH DESCRIPTION
+.PP
+wmSpaceWeather is a space weather monitor. The monitor shows: 2 relativistic electron 
+and 3 relativistic proton flux levels at geosyncronous orbit (currently from the NOAA
+GOES spacecraft), current Solar Flare X-ray flux, and the last 8 3-hour Kp index values.
+.PP
+Large fluxes of relativistic (aka `Killer') electrons can cause harmful `deep-dielectric' 
+charging/discharging events inside satellites. High proton fluxes (`Solar Energetic Proton' or
+SEP events) can cause single event upsets in satellite electronics. The Kp index is a measure
+of how disturbed the Earth's magnetic field has been over a 3-hour interval. Kp can range from
+0-9, where 0 is quiet and 9 is very disturbed. The Kp values shown are the 8 previous values
+(i.e. the last 24 hours). If the display is up-to-date, the LED next to the Kp
+bars will flash blue. If the display is not up-to-date, the LED will flash orange.
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-display [display]
+Use an alternate X Display.
+.SH BUGS
+Let me know if/when you find any.
+.SH AUTHOR
+Michael G. Henderson <mghenderson@lanl.gov>

@@ -1,0 +1,18 @@
+wmSpaceWeather changes.
+
+Version         Description
+-------------------------------------------------------------------------
+1.04 		- released Feb 18, 1999
+		  Added double click capability. Double clicking on mouse button 1 sends
+		  URL (defined via ne command line option -url) to netscape.
+  
+1.03 		- released Feb 11, 1999
+		  Changed display a bit. When no data is
+		  available, it now shows nothing (before it would
+		  show false junk...). Modified Perl Script GetKp.
+  
+  
+1.02 		- released Feb 8, 1999
+		  bug fixes...
+  
+1.0b 		- released Dec 19, 1998

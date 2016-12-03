@@ -1,0 +1,36 @@
+Hints for wmSpaceWeather
+
+Generic.
+--------
+wmSpaceWeather version: 1.0b
+
+usage: wmSpaceWeather [-h] [-display <display>]
+
+        -d <display>    Use alternate display.
+        -h              Display help screen.
+
+
+
+WindowMaker.
+------------
+In WindowMaker simply drag and drop the wmSpaceWeather App on
+the WindowMaker Dock or Clip.
+
+
+Afterstep.
+---------
+Afterstep users put the following in their .steprc
+"Wharf wmSpaceWeather - MaxSwallow "wmSpaceWeather" wmSpaceWeather &".
+
+Note: AfterStep's Wharf has a problem with pixmaps that are
+larger than 60x60 pixels. Please tell the AfterStep authors
+to fix this, this is not our fault, but a Wharf problem!
+ 
+
+Other window managers.
+----------------------
+wmSpaceWeather shows as a 64x64 shaped icon on your desktop under other
+window managers.
+
+
+

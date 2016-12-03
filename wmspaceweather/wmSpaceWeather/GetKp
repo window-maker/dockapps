@@ -1,0 +1,212 @@
+#!/usr/bin/perl
+
+#
+# A really crappy code to grab last 8 Kp values....
+#
+
+
+    require "ctime.pl";
+
+
+    ($Year, $Month, $Day) = &year_month_day();
+    
+    if (-e "/tmp/DGD.txt"){
+	unlink("/tmp/DGD.txt");
+    }
+
+    if (-e "/tmp/curind.txt"){
+	unlink("/tmp/curind.txt");
+    }
+
+
+    $grabcmd = "cd /tmp; wget --passive-ftp --tries 2 -q ftp://www.sec.noaa.gov/pub/indices/DGD.txt";
+    system "$grabcmd";
+
+
+    #
+    # ensure that there are at least 8 values available...
+    #
+    %Kp = ();
+    $Kp{190001011} = 999;
+    $Kp{190001012} = 999;
+    $Kp{190001013} = 999;
+    $Kp{190001014} = 999;
+    $Kp{190001015} = 999;
+    $Kp{190001016} = 999;
+    $Kp{190001017} = 999;
+    $Kp{190001018} = 999;
+
+
+    open(TmpFile, "/tmp/DGD.txt");
+    while (<TmpFile>){
+        chop;
+	if ($_ =~ /^\d{4} \d{2} \d{2}\s*\d*/ ){
+
+	    $Date = $_;
+	
+	    s/^(\d{4}) (\d{2}) (\d{2}).*\s{2,}(.*)/\4/;
+	    s/([ -]{0,1}\d{1,2})([ -]{0,1}\d{1,2})([ -]{0,1}\d{1,2})([ -]{0,1}\d{1,2})([ -]{0,1}\d{1,2})([ -]{0,1}\d{1,2})([ -]{0,1}\d{1,2})([ -]{0,1}\d{1,2})/\1 \2 \3 \4 \5 \6 \7 \8/;
+
+	    $Date =~ s/^(\d{4}) (\d{2}) (\d{2}).*\s{2,}(.*)/\1\2\3/;
+	    ($a, $b, $c, $d, $e, $f, $g, $h) = split(/\s{1,}/, $_);
+
+	    $TimeTag = $Date*10 + 1; $Kp{$TimeTag} = $a;
+	    $TimeTag = $Date*10 + 2; $Kp{$TimeTag} = $b;
+	    $TimeTag = $Date*10 + 3; $Kp{$TimeTag} = $c;
+	    $TimeTag = $Date*10 + 4; $Kp{$TimeTag} = $d;
+	    $TimeTag = $Date*10 + 5; $Kp{$TimeTag} = $e;
+	    $TimeTag = $Date*10 + 6; $Kp{$TimeTag} = $f;
+	    $TimeTag = $Date*10 + 7; $Kp{$TimeTag} = $g;
+	    $TimeTag = $Date*10 + 8; $Kp{$TimeTag} = $h;
+
+	}
+    }
+    close(TmpFile);
+
+
+
+    #
+    # Add in very latest stuff
+    #
+    $grabcmd = "cd /tmp; wget --passive-ftp --tries 2 -q ftp://www.sec.noaa.gov/pub/latest/curind.txt";
+    system "$grabcmd";
+    %lmonstr = ( "Jan", 1, "Feb", 2, "Mar", 3, "Apr", 4, "May", 5, "Jun", 6, "Jul", 7, "Aug", 8, "Sep", 9, "Oct", 10, "Nov", 11, "Dec", 12);
+
+@lval = ($lyear, $lmonstr{$lmon}, $ldom);
+    open(TmpFile, "/tmp/curind.txt");
+    while (<TmpFile>){
+        chop;
+	if ($_ =~ /^:Geomagnetic_Values: (\d{4}) (.*) (\d{1,2})/){
+		$y  = $_;
+		$ms = $_;
+		$d  = $_;
+
+		$y  =~ s/^:Geomagnetic_Values: (\d{4}) (.*) (\d{1,2})/\1/;
+		$ms =~ s/^:Geomagnetic_Values: (\d{4}) (.*) (\d{1,2})/\2/;
+		$d  =~ s/^:Geomagnetic_Values: (\d{4}) (.*) (\d{1,2})/\3/;
+	    	$tDate = $y*10000 + $lmonstr{$ms}*100 + $d;
+	}
+	if ($_ =~ /.*\d/) {
+		$Line = $_;
+	} 
+
+	if ($_ =~ /^\s{1,}[0-9e\.\+\-]{2,}\s{1,}[0-9e\.\+\-]{2,}\s{1,}[0-9e\.\+\-]{2,}\s{1,}[0-9e\.\+\-]{2,}\s{1,}[0-9e\.\+\-]{2,}\s{1,}[BCMX]{1,}[0-9\.]{1,}\s{1,}[0-9-]{1,}/){
+
+		$FluxLine = $_;
+
+	}
+
+
+
+    }
+
+    $Line =~ s/.*\s{3,}(.*)/\1/;
+    ($a, $b, $c, $d, $e, $f, $g, $h) = split(/\s{1,}/, $Line);
+    if ($tDate > 0) {
+        $TimeTag = $tDate*10 + 1; $Kp{$TimeTag} = $a;
+        $TimeTag = $tDate*10 + 2; $Kp{$TimeTag} = $b;
+        $TimeTag = $tDate*10 + 3; $Kp{$TimeTag} = $c;
+        $TimeTag = $tDate*10 + 4; $Kp{$TimeTag} = $d;
+        $TimeTag = $tDate*10 + 5; $Kp{$TimeTag} = $e;
+        $TimeTag = $tDate*10 + 6; $Kp{$TimeTag} = $f;
+        $TimeTag = $tDate*10 + 7; $Kp{$TimeTag} = $g;
+        $TimeTag = $tDate*10 + 8; $Kp{$TimeTag} = $h;
+    } else {
+        $Kp{190001011} = 999;
+        $Kp{190001012} = 999;
+        $Kp{190001013} = 999;
+        $Kp{190001014} = 999;
+        $Kp{190001015} = 999;
+        $Kp{190001016} = 999;
+        $Kp{190001017} = 999;
+        $Kp{190001018} = 999;
+    }
+
+
+
+    $n = 0;
+    %Result = ();
+    foreach $key  (reverse sort keys %Kp ) {
+	if (($Kp{$key} >= 0)&&($n < 8)){
+	    $Result{$key} = $Kp{$key};
+	    ++$n;
+	}
+    }
+
+    open(TmpFile, ">/tmp/LatestKp.txt");
+    foreach $key  (sort keys %Result ) {
+	if ($Result{$key} > 10) { $Result{$key} = -1; }
+	printf TmpFile "$key $Result{$key}\n";
+    }
+
+
+
+
+    $FluxLine =~ s/^\s*//;
+    if ($FluxLine =~ /\d/){
+        ($E1, $E2, $P1, $P2, $P3, $Xray, $junk) = split(/\s{1,}/, $FluxLine);
+	
+    } else {
+	$E1 = -999;
+	$E2 = -999;
+	$P1 = -999;
+	$P2 = -999;
+	$P3 = -999;
+	$Xray = "Z0.0";
+    }
+
+
+    printf TmpFile "$E1\n";
+    printf TmpFile "$E2\n";
+    printf TmpFile "$P1\n";
+    printf TmpFile "$P2\n";
+    printf TmpFile "$P3\n";
+    printf TmpFile "$Xray\n";
+    close(TmpFile);
+
+
+
+
+
+
+
+
+#
+#    sort(List);
+#
+#    $Gif = "$List[$#List]";
+#    $Latest = "http://swdcdb.kugi.kyoto-u.ac.jp/dstdir/dst1/q/$Gif";
+#
+#
+#    $grabcmd = "/u/mgh/wwwgrab/wwwgrab $Latest /n/tmp/polar/$Gif";
+#    system "$grabcmd";
+#
+#
+#    system "convert -crop 0x0 /n/tmp/polar/${Gif} /n/tmp/polar/Dst.rle";
+#    system "fant -s .5 .5 -o /n/tmp/polar/Dst2.rle /n/tmp/polar/Dst.rle";
+#    system "convert -frame 4x4 -gamma 3 -crop 0x0 -colors 256 /n/tmp/polar/Dst2.rle /n/leadbelly/belly3/PolarNRT/CEPPAD/IPS/LatestDst.gif";
+#
+#
+#
+#   
+#
+#    open(TmpFile, ">/n/leadbelly/belly3/PolarNRT/CEPPAD/IPS/LatestDst.txt");
+#    printf TmpFile "${Gif}\n";
+#    close(TmpFile);
+#
+#    system "touch /n/leadbelly/belly3/PolarNRT/CEPPAD/IPS/LatestDst.txt";
+
+
+sub year_month_day{
+
+    local($ldate_string, $ldow, $lmon, $ldom, $ltim, $lyear, %lmonstr, $tzone, @lval);
+
+    $ldate_string = &ctime(time);
+    ($ldow, $lmon, $ldom, $ltim, $lyear) = split(" ", $ldate_string);
+
+    %lmonstr = ( "Jan", 1, "Feb", 2, "Mar", 3, "Apr", 4, "May", 5, "Jun", 6, "Jul", 7, "Aug", 8, "Sep", 9, "Oct", 10, "Nov", 11, "Dec", 12);
+
+    @lval = ($lyear, $lmonstr{$lmon}, $ldom);
+
+}
+
