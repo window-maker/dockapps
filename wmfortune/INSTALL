@@ -1,0 +1,17 @@
+WMFORTUNE INSTALLATION
+
+Before installation.
+
+    Make sure fortune command is in your path.
+
+
+To compile and install wmfortune.
+
+    (1) Edit Makefile as you like.
+    (2) Type "make"
+    (3) Then type "make install"
+
+
+To uninstall.
+
+     Just type "make uninstall".

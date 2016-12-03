@@ -1,0 +1,34 @@
+
+RCS file: RCS/wmfortune.c,v
+Working file: wmfortune.c
+head: 0.24
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+wmfortune: DockApp that shows the fortune messages.
+----------------------------
+revision 0.24
+date: 2000/03/28 01:49:58;  author: sugano;  state: Exp;  lines: +4 -2
+found the small bug arround the button press.
+----------------------------
+revision 0.23
+date: 2000/03/27 00:18:55;  author: sugano;  state: Exp;  lines: +6 -6
+changed the UI a little.
+----------------------------
+revision 0.22
+date: 2000/03/26 23:39:58;  author: sugano;  state: Exp;  lines: +30 -27
+very stable, but UI's not finished.
+----------------------------
+revision 0.21
+date: 2000/03/25 17:03:52;  author: sugano;  state: Exp;  lines: +136 -87
+beautifulized the code a little.
+much better to read.
+----------------------------
+revision 0.20
+date: 2000/03/25 14:50:27;  author: sugano;  state: Exp;
+Started using the RCS.
+=============================================================================
