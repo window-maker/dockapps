@@ -1,0 +1,45 @@
+wmGrabImage
+
+Version         Description
+-------------------------------------------------------------------------
+Version 0.70  - March 28, 1999.
+		Added support for local images (e.g. file:///home/mgh/junk.gif.)
+
+Version 0.66  - February 23, 1999.
+		Added help line for -delay option. And added a man page.
+
+Version 0.65  - February 11, 1999.
+		Now starts netscape if not already running...
+
+Version 0.64  - February 9, 1999.
+		Added command-line option for "Time between updates"
+
+Version 0.63  - February 9, 1999.
+		Fixed (potential) memory leak in the ShapeMask Pixmap
+		(gets returned only if color None is used in xpm file)
+		Added XFreeColors call.
+
+Version 0.62  - February 4, 1999.
+		buf fixes. Added -c option to center vertically.
+
+
+Version 0.61  - February 2, 1999.
+		Added Attributes support for Xpm Creation.
+		Also, added a kludge to GrabImage to stream edit
+		any "Transparent" colors that may get generated. (Change them
+		to black.)
+
+Version 0.6   - February 2, 1999.
+		Some bug fixes. Added Double click support.
+		Now, DoubleClick's do the following:
+		
+			Button1: display original size image via xv.
+
+			Button2: send another URL (specified with the -http
+			command line option) to netscape.
+
+			Button3: Force Update.
+
+
+Version 0.5   - initial (very) beta release February 1, 1999.
+

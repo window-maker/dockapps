@@ -1,0 +1,69 @@
+#!/usr/bin/perl
+
+#
+#    Grabs an image on the WWW and resizes it (with antialiasing) down so that it can be
+#    displayed in a WindowMaker DockApp.
+
+#    Need to give it the URL of the image like so;
+#
+#           GrabWeather http://whatever.com/image.gif
+#
+
+
+    require "ctime.pl";
+
+
+    #
+    #  Change to users home directory. We used to dump into /tmp
+    #  but using home dir instead avoids multiple users interfering
+    #  with one another. (Yeah, we could "unique-ize" the filenames, but
+    #  this is easier for now...)
+    #
+    $home = (getpwuid($<))[7];
+    $ok = chdir() || chdir($home);
+
+
+    #
+    #  Check to see if .wmGrabImage exists.
+    #  If not, make it and move to it.
+    #
+    if ( !(-e ".wmGrabImage") ){
+	mkdir(".wmGrabImage", 0775);
+    }
+    chdir(".wmGrabImage");
+
+
+
+
+
+    $URL       = $ARGV[0];
+    $Geometry  = $ARGV[1];
+    $ImageName = $URL;
+    $ImageName =~ s/.*\/(.*)$/\1/;
+    if ($URL =~ /^file:\/\//) {
+
+	$ImagePath = $URL;
+	$ImagePath =~ s+file://(.*)+\1+;
+	system("cp $ImagePath $home/.wmGrabImage/$ImageName");
+
+    } else {
+
+
+        #
+        #  I think some of these wget command line options may cause problems
+        #  for some people? Dont know why...
+        #
+        $GrabCmd = "wget --proxy=off --passive-ftp --tries 0 -q -O $home/.wmGrabImage/$ImageName $URL";
+        system "$GrabCmd";
+
+    }
+
+
+if (! ($Geometry eq "") ) {
+    system "convert -crop $Geometry $home/.wmGrabImage/${ImageName} $home/.wmGrabImage/${ImageName}.tmp.gif" ;
+    system "convert -geom 54x54 $home/.wmGrabImage/${ImageName}.tmp.gif ${home}/.wmGrabImage/${ImageName}.tmp.xpm";
+} else {
+    system "convert -geom 54x54 $home/.wmGrabImage/${ImageName} ${home}/.wmGrabImage/${ImageName}.tmp.xpm";
+}
+    system "cat ${home}/.wmGrabImage/${ImageName}.tmp.xpm | sed -e \"s/Transparent/Black/\" \> ${home}/.wmGrabImage/${ImageName}.xpm; rm ${home}/.wmGrabImage/${ImageName}.tmp.xpm";
+

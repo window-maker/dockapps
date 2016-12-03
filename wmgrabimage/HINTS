@@ -1,0 +1,38 @@
+Hints for wmGrabImage
+
+Generic.
+--------
+wmGrabImage version: 0.5
+
+usage: wmGrabImage [-h] [-display <display>] -url <URL>
+
+        -d <display>    		Use alternate display.
+        -h              		Display help screen.
+        -url <URL>		 	This option tells wmGrabImage 
+					which WWW image to monitor.
+
+
+
+WindowMaker.
+------------
+In WindowMaker simply drag and drop the wmGrabImage App on
+the WindowMaker Dock or Clip.
+
+
+Afterstep.
+---------
+Afterstep users put the following in their .steprc
+"Wharf wmGrabImage - MaxSwallow "wmGrabImage" wmGrabImage &".
+
+Note: AfterStep's Wharf has a problem with pixmaps that are
+larger than 60x60 pixels. Please tell the AfterStep authors
+to fix this, this is not our fault, but a Wharf problem!
+ 
+
+Other window managers.
+----------------------
+wmGrabImage shows as a 64x64 shaped icon on your desktop under other
+window managers.
+
+
+

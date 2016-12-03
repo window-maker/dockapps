@@ -1,0 +1,56 @@
+.TH WMGRABIMGAE 1 "16 December 1998" 
+.SH NAME
+WMGRABIMGAE \- Dockable WWW Image monitor.
+.SH SYNOPSIS
+.B wmGrabImage
+[-h] [-display <Display>] -url <Image URL> [-http <URL>] [-c] [-delay <Time>]
+.SH DESCRIPTION
+.PP
+wmGrabImage is a WindowMaker DockApp that maintains a small thumbnail copy of
+your favorite image from the WWW.  The image to monitor is specified via the
+"-url <Image URL>" command-line option and it gets updated approximately every
+5 minutes.  The update interval can be overridden via the "-delay <Time>"
+command-line option (Time is in seconds).
+.P
+Each of the three mouse buttons can be double clicked with the following effects;
+.TP
+.B Left Mouse:
+Brings up the full-sized image in xv.
+.TP
+.B Middle Mouse:
+Sends a URL (specified via the -http <URL> command-line option) to an already
+running netscape process or in a new netscape process if there arent any
+running.
+.TP
+.B Right Mouse:
+Updates the image immediately.
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-display [display]
+Use an alternate X Display.
+.TP
+.B \-url <Image URL>
+The URL of the WWW image to monitor.
+.TP
+.B \-http <URL>
+The URL to send to netscape via a Middle double click.
+.TP
+.B \-c
+Center the image vertically within the icon. 
+.TP
+.B \-delay <Time>
+The time between updates. The default is about 5 minutes.
+.SH FILES
+The original sized image and the thumbnail XPM image are both stored in
+~/.wmGrabImage/ which gets created if it doesnt already exist.
+.SH SEE ALSO
+wget and the ImageMagick convert utility.
+.SH BUGS
+Who knows? -- its still Beta though. (Let me know if you find any). Oldish
+versions of the ImageMagick convert utility have a memory leak -- if you have
+that problem, upgrade to the latest version.
+.SH AUTHOR
+Michael G. Henderson <mghenderson@lanl.gov>
