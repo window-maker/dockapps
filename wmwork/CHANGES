@@ -1,0 +1,106 @@
+wmwork: CHANGES
+---------------
+For further information please visit http://www.godisch.de/cvs/wmwork/.
+
+0.2.5 - Dec 02, 2005
+
+  * Solaris portability fixes, thanks to Ben Stern.
+    Lockfile removal still does not work perfectly, since Solaris
+    /proc is not the same as Linux /proc.
+  * Small bugfix in display code, thanks to Josep Portella Florit.
+  * Build system cleanup.
+  * Fixed manual dashes.
+
+0.2.4 - Apr 29, 2003
+
+  * Fixed lock file removal on program exit.
+  * Moved exit code out of the signal handler.
+
+0.2.3 - Mar 25, 2003
+
+  * Updated autoconf support and README file.
+  * Wrote PID into lock file, added PID check on startup.
+
+0.2.2 - Jan 02, 2003
+
+  * Added lock file and --force.
+  * Removed strip option from Makefile.in.
+
+0.2.1 - Nov 02, 2002
+
+  * Made ~/.wmwork/XYZ timestamp format RFC 822 compliant.
+  * Wrote logging information to stderr if an error occurs.
+  * Changed --days format 'dd:hh:mm' to 'dd.hh:mm'.
+  * Changed the default project id 'NN' to '---'.
+  * Moved timers and project id one pixel to the left.
+  * Let ':' always be shown when the timer is not running.
+  * Raised an error on additional arguments.
+  * Fixed 'make uninstall'.
+  * Documentation cleanups.
+
+0.2.0 - Oct 19, 2002
+
+  * Introduced ~/.wmwork directory.
+  * Comments in ~/.wmwork/worklog will be preserved now.
+  * Added --display and --geometry support.
+  * Applied the FreeBSD patch for wmwork.c.
+    Thanks to Alexey Dokuchaev.
+  * Added autoconf support.
+
+0.1.0 - Mar 30, 2002
+
+  * Added signal handling: a running timer will be saved before
+    exiting on usual signals.
+  * Fixed options handling.
+  * Extended viewable characters (#32...#126) for project id.
+    Please note that #47 (slash) is the directory delimiter,
+    hence it cannot be used here.
+
+0.0.10
+
+  * Some bugfixes in wmwork.c and wmwork.xpm.
+    Thanks to Daniel Tschan.
+
+0.0.9
+
+  * Added command line option -d.
+  * Changed source directory.
+
+0.0.8
+
+  * Added long options.
+  * Changed error messages.
+
+0.0.7
+
+  * Separated Debian packaging information.
+  * Fixed a bug when scanning project identifiers with length < 3.
+  * Changed error reporting and human readable timestamp logging.
+  * Changed look of the < > buttons and fixed a single coordinate.
+  * Updated manual page.
+
+0.0.6
+
+  * Fixed segfault when reading a logfile starting with comments.
+
+0.0.5
+
+  * Updated manual page.
+
+0.0.4
+
+  * Added command line options -h and -v.
+  * Fixed nullpointer in error message.
+
+0.0.3
+
+  * Updated Makefile and manual page.
+
+0.0.2
+
+  * Replaced project array by linked list.
+  * Updated Makefile and manual page.
+
+0.0.1
+
+  * Initial revision.

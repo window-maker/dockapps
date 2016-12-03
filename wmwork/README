@@ -1,0 +1,30 @@
+wmwork: README
+--------------
+
+INSTALLATION
+
+On Debian systems, install the Debian package: type 'dpkg -i wmwork_*.deb' as
+root. If you need to compile it first, e.g. you want to install the unstable
+version on a woody system, type 'dpkg-buildpackage -rfakeroot -tc -uc -us'.
+
+This program requires GNU make. On Non-Debian systems compile the program
+typing './configure', 'make' and then 'make install' as root.
+
+
+UPGRADING
+
+If you are upgrading from a version prior to 0.2.0, wmwork will move
+~/.wmworklog to ~/.wmwork/worklog and ~/.wmworklog.XYZ to ~/.wmwork/XYZ if it
+detects a missing ~/.wmwork and an existing ~/.wmworklog.
+
+
+HOW TO USE THIS PROGRAM
+
+Please read the manual page, type 'man wmwork'.
+
+
+WHAT DO YOU WANT?
+
+All of the author's requirements are implemented in wmwork now. Are there any
+additional features you would like to see implemented? Please tell me if you
+are missing some functionality...
