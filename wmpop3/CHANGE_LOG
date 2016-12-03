@@ -1,0 +1,37 @@
+WMPOP3 CHANGE_LOG
+
+Version 0.5.6a : Minor additions
+    * Added extra checking when connecting to pop-server.
+    * Fixed some variable addressing problems.
+    * updated the version number int the source.. :) oops.
+    
+Version 0.5.5a : Minor additions
+    * Fixed Pop3Client, it now closes the socket after use.
+    * Fixed Comment missing in the default config file.
+
+Version 0.5.0a : Minor additions
+    * Added arrows to left toggle button. ( very minor ).
+
+Version 0.4.2a : Minor Fixes and additions
+	* Fixed the problem with "::error::" not being properly removed
+      from the display after refresh.
+    * Added the optional ability for unread and read messages to
+      be shown. ( uuu/rrr ).
+	* WMPop3 will now check the pop server 30 sec's after a mail
+      browser has been activated using Wmpop3. ( This will give
+      the mail browser a chance to download messages from the
+      server).
+
+Version 0.4.1a : Minor Fixes and additions
+    * Fixed the problem with the right button showing "AC" when
+      pressed.
+
+Version 0.4.0a : Minor Fixes and additions
+	* Messages shown are now unread messages instead total messages
+
+Version 0.3.5a : Minor Fixes and additions
+    * Fixed messages reading 3 when not connected to the net.
+      Now shows up as "::Error::" when something is wrong.
+    * Added ability to enable/disable autochecking at program
+      startup.
+    * Added text to the "Check Now" and "autochecking" buttons

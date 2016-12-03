@@ -1,0 +1,58 @@
+WMpop3-0.5.6a
+=================================
+
+Written by Scott Holden ( scotth@thezone.net )
+
+WARNING!!! WMPop3 is to be used at your own risk. I will not be held
+responsible for any damages this application may cause your system.
+
+1) WHAT IS THIS
+    WMPop3 is a POP3 mail box checker. It will connect to a POP3
+server to check if you have mail, if you do then it will alert you 
+of new mail and how many messages are currently in you mail box.
+
+2) How do I configure WMPop3
+    WMPop3 when first executed will check if there is a .wmpop3rc
+file in the users home directory, it will create this if it can not
+be located. This file must be edited and the following fields must
+be changed :
+
+    1) popserver - this is the name of the pop3 server.
+    2) port      - this is the port the pop3 server is on.( default 110)
+    3) username  - users pop3 login name.
+    4) password  - users pop3 login password.
+    5) autochecking - This allows to disable or enable auto mail
+                   checking. 1 enables, 0 disables
+    6) mailcheckdelay - Number of minutes, before checking mail.
+                  (default = 10 minutes)
+    7) mailclient - this is the mail client you use to send/retrieve
+                   messgaes(default pine)
+    8) viewallmessages - This allows for alternating mail views, 0 shows
+                   unread and read messages, 1 shows only unread messages.
+
+3) Using WMPop3.
+
+    This is the easy part..
+
+    1) If you have no mail, WMPop3 will show a empty mail bin.
+    
+    2) If you have new mail, WMPop3 will show a mail bin containing
+        a message.
+    
+    3) Depending on the option chosen for viewallmessages, either, 
+                a) The number of read and unread messages in you mail box 
+                    will be shown below the mailbox image. 
+                b) The number of unread messages currently in your mail box
+                    will be shown below the mail box image..
+
+       * The right button is now used to toggle both views.
+    
+    4) To run your configured mail reader, mouse click on the mail bin.
+    
+    5) To manually check for mail at any time, mouse click on the 
+          center grey button marked "CHECK" on the bottom.
+    
+    6) To turn off auto mail checking mouse click bottom left button
+       marked "AC". A red led will appear up in the top right hand
+       corner, this means that auto mail checking is disabled.
+
