@@ -1,0 +1,9 @@
+TODO:
+  - get more information from the capshare
+    - this will make the interface more useful and allow better management
+      of the captured pages
+  - display downloaded filename
+  - make the wait state have an animation(maybe)
+  - reverse engineer the serial protocol used by the capshare to allow use
+    without IrDA.
+  - suggestions?

@@ -1,0 +1,4 @@
+0.1:  First release
+  - basic capshare opperations (recieve file(s))
+  - first pass on interface (animation experiment, font handler)
+  - initial artwork

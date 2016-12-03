@@ -1,0 +1,12 @@
+wmcapshare - a Window Maker dockapp to manage the HP Capshare
+
+Why
+  I got sick of having to deal with the openobex sample application as my
+only interface to my HP Capshare.  So I finally sat down and dealt with it.
+Also HP recently discontinued the product and no longer support it.  I had
+been using it with windows when I needed to, but the drivers no longer work
+with Win2K.
+
+What
+  The HP CapShare is a handheld document scanner.
+  wmcapshare is a dockapp to manage the files you upload
