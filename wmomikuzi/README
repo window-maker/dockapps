@@ -1,0 +1,87 @@
+
+                          WMOMIKUZI version 0.122
+                  Copyrigth(C) 1999, Makoto SUGANO.
+                        (m-sugano@01.246.ne.jp)
+
+
+What is this?
+============
+
+	It's a dock-app that predicts your luck (without any basis)
+ in traditional Japanese Style. "omikuzi" means "written orale" or
+ "fortune telling" in Japanese.
+
+	The latest version will be in available in:
+	http://www.01.246.ne.jp/~m-sugano/apps.html
+
+
+How I install it?
+=================
+
+	Please read INSTALL file.
+
+
+License?
+========
+
+	wmomikuzi is based on libdock and other GPL'ed software. 
+	This program is distributed under the GPL license.
+
+
+How do I read the messages?
+===========================
+
+        Messages shown in wmomikuzi are combination of characters below.
+
+
+   charcter         pronunciation         meaning
+
+       @
+    @@@@@@@               DAI               big
+       @
+      @ @
+     @   @
+    @     @
+
+
+       @
+    @@@@@@@               CHU               medium
+    @  @  @
+    @@@@@@@
+       @
+       @
+
+
+       @
+       @                  SHOU              small
+    @  @  @
+   @   @   @
+       @
+       @
+
+
+       @
+   @@@@@@@@@              SUE               afterwards
+       @  
+    @@@@@@@
+      @@@
+     @ @ @
+    @  @  @
+
+
+       @
+    @@@@@@@               KICHI             good luck
+       @  
+     @@@@@
+
+     @@@@@
+     @   @
+     @@@@@
+
+
+   @     @ @
+   @ @  @  @              KYOU              bad luck
+   @   @   @
+   @  @  @ @
+   @ @     @
+   @@@@@@@@@

@@ -1,0 +1,10 @@
+WMOMIKUZI INSTALLATION
+
+To compile and install wmbbs.
+
+    (1) Edit Makefile as you like.
+    (2) Type "make"
+    (3) Then type "make install"
+
+To uninstall.
+     Just type "make uninstall".
