@@ -1,0 +1,56 @@
+wmwebcam 0.3.5 - written by Antti Takala <fragment@nic.fi>
+--------------
+
+better documentation coming later, don't panic.
+
+this is for watching your webcam which has a video4linux driver in your
+windowmakers dock..
+
+this is actually just a edited version of vidcat (from w3cam's package)
+I combined it with minirgb to open a dockapp window where to draw the
+image from the webcam. some code is also taken from timecops
+wmtime-minirgb demo (windowopening etcetc).
+
+default jpeg output file is /tmp/wmwebcam.jpg and default quality is 100%,
+change the default values if necessary from the source code.
+
+also remember to check the wmwebcam.pl and edit it
+
+problems running this app? first I was going to make this only for myself but
+decided to release it anyway. don't ask help if this doesn't work on your
+system, sorry =)
+
+w3cam/vidcat are written by Rasca (thron@gmx.de)
+minirgb is written by timecop@japan.co.jp
+
+requirements:
+-------------
+- a v4l webcam (default /dev/video) supporting 352x288
+- libjpeg
+- made for windowmaker but should work on other windowmanagers too
+
+installing:
+-----------
+- adjust default values from wmwebcam.c
+- "make"
+- modify wmwebcam.pl
+- "make install" or copy files manually (wmwebcam, wmwebcam.pl)
+
+features:
+---------
+- grabs image from v4l device once a second (to prevent unnecessary cpu load)
+- shows webcam image in dock resized to 6x smaller image than original
+- saves jpeg image to a file and runs a custom script every X seconds (def 60)
+
+bugs:
+-----
+- not very userfriendly yet =)
+- propably many
+
+todo:
+-----
+- some buttons to control the dockapp (disable scriptrunnig etc)
+- optimizing
+- configuration (command line options and/or .wmwebcamrc file etc..)
+- better documentation,..
+- much much more (please send ideas etc)

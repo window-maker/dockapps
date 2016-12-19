@@ -1,0 +1,18 @@
+0.3.5 (27.01.2001 1900)
+- fixed some things
+
+0.3.0 (27.01.2001 1600)
+- default resolution raised to 352x288 (size about 56x47 in dock)
+- added a one second delay to prevent too much cpu load
+- outputs jpeg image every X seconds to a file and runs a custom script
+  (which runs stamp (for example) and sends the image to webserver or
+   whatever you want it to do..)
+
+0.2.0 (26.01.2001 0300)
+- simple resizing added (just skips pixels, no smoothing)
+
+0.1.1 (26.01.2001 0200)
+- colors fixed
+
+0.1.0
+- first release
