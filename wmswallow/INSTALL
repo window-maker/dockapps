@@ -1,0 +1,34 @@
+INSTALLATION:
++++++++++++++
+        untar the sources by typing something along the lines of
+
+        zcat wmswallow.tar.Z|tar cvf -
+        cd wmswallow
+        make <platform>
+
+        where platform is currently one out of
+                xfree, solaris, solaris-gcc
+
+        The xfree target works under linux and freebsd.
+
+        Linux is tested best, since i'm hacking this stuff under linux (at
+        home). I have access to several Solaris Workstations (some sparcs, and
+        2 pcs) whith quite different Installations which i regularly use, so
+        the solaris target will at least get some attention. Solaris users
+        please read README.solaris for some hints.
+
+        Other Unices might or might not get happy with the xfree target or
+        some or other... I really think using autoconf/automake for this small
+        app would be overkill. If you devise a proper patch for a different
+        Unix-flavour, i will include it, but i might not be able to test it.
+        (I have currently access to FreeBSD and AIX, in addition to my
+        "home-platforms")
+
+        After compilation put the binary somewhere you like (e.g. in /usr/local/bin)
+        and in case you want to delete the Sourcetree, you might want to copy the
+        README to /usr/doc/wmswallow
+
+        Now try
+                wmswallow -h
+        to get a basic idea how it works.
+

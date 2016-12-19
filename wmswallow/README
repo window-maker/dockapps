@@ -1,0 +1,160 @@
+		wmswallow
+
+	A WindowMaker dock applet to make any application dockable.
+
+	Copyright 2000 by Friedrich Delgado Friedrichs
+
+	   (be sure to read the LICENCE file as well)
+
+===========================================================================
+
+Why?
+----
+	I wanted to have coolmail in my Windowmaker dock.
+
+How?
+----
+
+INSTALLATION:
++++++++++++++
+	untar the sources by typing something along the lines of
+
+	zcat wmswallow.tar.Z|tar cvf -
+	cd wmswallow
+	make <platform>
+
+	where platform is currently one out of
+		xfree, solaris, solaris-gcc
+
+	The xfree target works under linux and freebsd.
+
+	Linux is tested best, since i'm hacking this stuff under linux (at
+	home). I have access to several Solaris Workstations (some sparcs, and
+	2 pcs) whith quite different Installations which i regularly use, so
+	the solaris target will at least get some attention. Solaris users
+	please read README.solaris for some hints.
+
+	Other Unices might or might not get happy with the xfree target or
+	some or other... I really think using autoconf/automake for this small
+	app would be overkill. If you devise a proper patch for a different
+	Unix-flavour, i will include it, but i might not be able to test it.
+	(I have currently access to FreeBSD and AIX, in addition to my
+	"home-platforms")
+
+	After compilation put the binary somewhere you like (e.g. in /usr/local/bin)
+	and in case you want to delete the Sourcetree, you might want to copy the
+	README to /usr/doc/wmswallow
+
+	Now try 
+		wmswallow -h
+	to get a basic idea how it works.
+
+USE:
+++++
+	Then some things you might try out are: 
+	(i.e. lots of)
+	EXAMPLES:
+	=========
+
+-------	wmswallow coolmail coolmail
+		(Will make coolmail docked, but it starts an xterm with mailx
+		 per default so you will probably want:)
+
+-------	wmswallow coolmail coolmail -e "xterm -n mutt -T mutt -e mutt"
+
+------- wmswallow glbiff glbiff
+		(glbiff is really a killer! Try it! (If you have some 3D
+		 hardware) :-) Find it at
+		 http://www.dgp.toronto.edu/~mac/projects/glbiff.html
+
+-------	wmswallow asclock asclock -shape -exe plan
+		(Works with the unpatched "classic" version of asclock)
+
+-------	wmswallow oclock oclock -transparent -minute red -bd green
+		(is one of my personal favorites)
+
+-------	wmswallow tuXeyes tuXeyes --puppy
+		(a nice alternative to xeyes)
+
+-------	wmswallow Lament /usr/local/bin/demos/lament -name Lament -geom 55x57
+		(/usr/local/bin/demos is where my xscreensaver demos are
+		installed.
+		This commandline demonstrates two things:
+	1. You can give a WM_CLASS on the commandline instead of a WM_NAME
+	2. Some applications don't handle resizing well and must get the correct
+	   geometry on their commandline, which is always 55x57 for dockapps.)
+
+-------	wmswallow xaos xaos
+		(This kinda obsoletes wmmand :-)
+
+-------	wmswallow xload xload -nolabel -hl LightSeaGreen -fg LightSeaGreen \
+		-bg black -update 5
+		(This is like wmload, but there is a frame at the edges which is a
+		little annoying, so wmload is a better choice)
+
+-------	wmswallow -focus XTerm
+		(Weeelll... 
+	1. wmswallow can swallow apps without starting them
+	2. it takes the first it gets
+	3. swallowed apps can take keyboard focus now! (Is that useful? I doubt
+	   it, but i could not resist :-))
+
+-------	wmswallow -geom 64x64 -getclick "xterm -e top" xeyes xeyes
+		(A more advanced example. The xeyes look better with 64x64 than
+		 with the default width/height of 55x57, and since xeyes ignores
+		 mouseclicks, we can grab them and execute an xterm on a click.
+		 Note that you must poke xeyes right in the eye! :-)
+
+-------	wmswallow -noshape -getclick gtop -geom 57x57 xload xload -nolabel \
+	-hl LightSeaGreen -fg LightSeaGreen -bg black -update 5
+		(This looks and behaves a little more like wmload. Executes
+		 the "Gnome Systemmonitor" on a mouse click. The -noshape
+		 option lets wmswallow ignore any shape the application might
+		 have. I thought this would increase performance for some
+		 apps, but it doesn't. [It just uses a very slight bit less
+		 memory])
+------- wmswallow -unmanaged xteddy xteddy
+		(swallows the left ear of an xteddy, that will complain about it...
+		 completely useless :-)
+------- wmswallow -focus bb xterm -bg black -fg white -T bb -fn "-*-*-*-*-*-*-2-*-*-*-*-*-*-*" -geometry 50x25 -e bb -driver curses
+		(utterly useless as well! :)
+
+How not?
+--------
+	When should you *not* use wmswallow?
+
+-	In general, if a special dockapp for that purpose already exists, you
+	should use it, because every instance of wmswallow has a memory
+	footprint of about 600k, and a simple dockapp usually uses less
+	ressources. If the WindowMaker developers will one day choose to
+	implement "swallowing" applications as a feature in the WindowMaker
+	dock, this will probably a much more simple and clean solution.
+
+-	You should not swallow applications over slow network links.
+ 	First tests show, that 2 mbit/s are more than enough, but 90kbit/s get
+ 	terribly hogged if you run wmswallow on a remote hosts over such a
+ 	link. Note that i am not referring to your hardware, but to the
+ 	overall throughput that can be acchieved between the two hosts.
+
+Have a lot of fun... :-)
+
+Thanks
+------
+	The following people helped and/or contributed to wmswallow:
+
+	Dan Piponi <dan@mvfx.com>:
+		Makefile fix for FreeBSD
+
+	Jason Lowdermilk <lowdermilk@visto.com>:
+		diff to enable wmswallow really to look after the WM_NAME of a
+		window.
+		Valuable suggestions and code on how to identify the wanted
+		window more reliably.
+		further valuable input
+
+	honx:
+		Giving me the idea to wmswallow, by constantly nagging that
+		WindowMaker cannot swallow apps :-) Next thing to satisfy this
+		dude, somebody will have to write a pager for WindowMaker
+		(like the one for fvwm) that works *without* gnome... Somebody
+		else will have to do that, since i don't like Pagers :-)

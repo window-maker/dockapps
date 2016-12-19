@@ -1,0 +1,130 @@
+					-*- text -*-
+TODO:
+	Bugs:
+-------------
+
+	Feature-wishes:
+-----------------------
+	detect automatically if a window wants to be managed or not (should be
+	easy, but the -unmanaged switch works well, too)
+
+	Kill apps nicely when killed. (Some signal handling)
+
+	Make wmswallow not only accept mouseclicks on ButtonPress, but also get
+	some contents of the cutbuffer on (say) a middleclick, and then do
+	something user-defineable about it. (generic solution for wmnetselect
+	stuff)
+
+	Write manpage
+
+	Maybe write freebsd port
+
+	Do things reliably/the clean way
+	   -> I mean, don't wait for some microsecs, when you can ask the app
+	      what's up -> find out how! -> XSync seems to work...
+	   -> Wait a second at the right moment helps some things greatly!
+	      Still i don't know if it's the "right thing"[TM]
+
+        Problems (maybe unresolvable):
+--------------------------------------
+	WindowMaker segfaults if an instance of wmswallow hangs when
+	the wm is restarted -> Probably windowmaker bug, but can be fixed by
+	better signal-handling on behalf of wmswallow
+
+	If you swallow apps on the clip *and* in the dock at the same time,
+	the apps for the clip wander to the dock and vice versa...
+	    Huh? This is most strange. I fear that looks like one of
+	    WindowMaker's many bugs.. :) (Yeah, blame it on others, good
+	    strategy!)
+
+	Shaped apps that change their shape will look "out of sync". This is
+	especially visible with
+        wmswallow xdaliclock xdaliclock -24 -transparent -cycle \
+		       -geometry 61x61 -fn fixed -oink-oink
+        There are other problems with xdaliclock -transparent (flicker, the
+        seconds are lagged behind respectively out of beat) which do not
+        depend on wmswallow and can be noticed as well, when
+	xdaliclock -transparent is not being swallowed.
+
+	perfmeter objects to have its mouseclicks selected
+		-> As a workaround, i make the XInputSelect Mask dependant on
+		   whether the user wants to click on the window, or not. But
+		   i'd like to do it better (i.e. force perfmeter to accept
+		   the change)
+		-> In fact, for every application that selects ButtonPress
+		   events, the same events cannot be selected twice (manpage
+		   of XSelectInput(3))
+		-> It seems, this "Problem" cannot be fixed!
+
+	click works only on the surface of the swallowed window:
+	(Obviously, because the rest of the area belongs to the
+	dock... Or can that be redeemed?) 
+
+
+===============================================================================
+DONE:
+	Make basic dockable App
+
+	Then steal code off fvwm2 to learn how to swallow stuff
+		-> done.. Wow! That's easy!
+
+	Resize swallowed window appropriately
+
+	Judge what to get by following rule:
+		1. name
+		2. class
+
+	Get command to run from commandline and spawn program.
+
+	Somehow handle shaped windows (Like xeyes)
+		-> Ok, even resizing works
+
+	Option: -updateshape (or similar) for apps that change their shape 
+		(like oclock -transparent)
+		-> is done by default behaviour! :-)
+
+	Clean up allocated space (fix memory holes)!
+		-> Looks ok now. Sending multiple Events under X11 has evil
+		   effects!
+
+	Better command-line switch handling. Following commandline-switches:
+		-noshape/-shape : Switch shape functionality on or off
+		-getclick: Define commandline to exec when window is clicked 
+		-geometry: Define geometry of swallowed application! 
+			(Size is useful, position as well, to adjust asclock)
+		-id: Give Window-id to swallow
+
+	Freshmeat announcement
+
+	Let apps take keyboard focus
+	    -> might or might not be a problem with windowmaker/dock
+	    -> It wasn't... :-) wmMand used Enter and Leave events and then set
+	       the focus for himself. And i blatantly stole the code... (just
+	       2 lines...) :-)
+
+	The currently focused window flickers, when the shape gets updated.
+	This is especially strong with 
+	     wmswallow xdaliclock xdaliclock -24 -transparent -cycle \
+		       -geometry 61x61 -fn fixed -oink-oink
+	This also interferes with focus, and it can be seen that the shape
+	gets updated in an unclean way, i.e. the shape and the graphics seem
+	"out of sync"
+	     -> Action on Focus event shortened, XMapSubwindows and XMapWindow
+	        weren't necessary, stealshape only grabs the shape to the
+	        iconwin
+
+	Swallowing sometimes is unreliable (especially on WindowMaker start
+	with many instances) ... Why?
+		-> Theory: Maybe when several instances of wmswallow start,
+		   the tree of windows gets changed in a way that sometimes a
+		   window cannot be found anymore.
+		-> Jason helped a little, i figured the rest out... every
+		   windowmanager reparents windows, and waiting for that is
+		   very reliable...
+			-> done!
+
+	some apps cannot be found (xmountains). Why? xmountains in particular
+	seems to lack a window-id. I didn't know that was possible...
+	        -> resolved by Jason, i did not really check the WM_NAME
+
+	just made an rpm specfile

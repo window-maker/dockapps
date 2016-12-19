@@ -1,0 +1,67 @@
+			-*- text -*-
+Time-stamp: <00/05/15 23:33:49 friedel>
+
+(Note: don't get confused, the dates in this file are in german-locale (de_DE),
+       because i was too lazy to use something else than 
+       ctrl-u meta-! date... but the timestamp is in C locale...)
+
+0.6.1: <Mon Mai 15 23:15:29 CEST 2000>
+Fixed eternal loop under openwindows (solaris-x86)
+      <Mon Mai 15 23:14:54 CEST 2000>
+Added wmswallow.spec for easy building of rpm :-)
+       <Fre Mai 12 15:50:12 CEST 2000>
+
+0.6: <Fre Mai 12 02:16:30 CEST 2000>
+Celebrated first wmswallow version without my favorite bug, with a beer :-)
+Made the switches work :-)
+       <Fre Mai 12 01:49:49 CEST 2000>
+Added commandline switches -managed -unmanaged. -managed is the default
+behaviour, we wait for the Window to be reparented.
+      <Fre Mai 12 01:27:47 CEST 2000>
+Added code from Jason Lowdermilk to listen to CreateWindow Events, after the
+app has been started. Then i modified it heavily, because i found it was still
+too unreliable. Now wmswallow Listens for ReparentNotify events. So, we rely
+on WindowMaker first reparenting the windows, then sleep just a second and can
+be sure that everything worked! And i don't think that the Windowmaker
+behaviour (or any other windowmanager) will change in that respect :-) Well,
+this might not work for xteddy (or other apps that are ignored by the
+windowmanager)
+	<Fre Mai 12 00:47:24 CEST 2000>
+Put code to check window for WM_CLASS and WM_NAME in extra function.
+    <Don Mai 11 17:23:13 CEST 2000>
+
+0.5.3: <Don Mai 11 01:02:02 CEST 2000>
+Fixed a nasty bug that i introduced by modyfying Jason's patch incorrectly and
+some tiny cleanups.
+      <Don Mai 11 00:54:38 CEST 2000>
+Added thanks to the contributors to README
+      <Don Mai 11 00:29:55 CEST 2000>
+Incorporated patch from Jason Lowdermilk <lowdermilk@visto.com> to enable
+finding windows by WM_NAME (i confused WM_NAME with the name part of the
+property returned by XGetClassHint. The patch fixes some memory leaks as well.
+Jason says, this helps with some Java-Applications.
+	 <Don Mai 11 00:10:50 CEST 2000>
+
+
+0.5.2: <Mit Mai  3 22:03:27 CEST 2000>
+Modified README
+New switch: -focus/-nofocus, to make focus-handling enabled only on demand,
+    more fixes  to focus-handling (this time for real...)
+	<Mit Mai  3 21:52:29 CEST 2000>
+Small code cleanups, fixes for focus handling (windows could "lose" focus)
+	<Mit Mai  3 07:24:09 CEST 2000>
+Keyboard focus works now.
+	<Die Mai  2 22:35:58 CEST 2000>
+Makefile modified, new target xfree tested under linux and freebsd
+	<Die Mai  2 14:00:46 CEST 2000>
+
+0.5.1: <Sam Apr 29 13:15:27 CEST 2000>
+softenwindows() is superfluous, removed
+chidren_return is now XFree'd in findnamedwindowacc()
+
+0.5: <Fre Apr 28 10:30:00 CEST 2000>
+Initial beta release, all functionality present, some small bugs, some small
+shortcomings.
+
+Shortly after freshmeat announcement i discovered a small bug in the Makefile,
+but that was fixed before the news got out.

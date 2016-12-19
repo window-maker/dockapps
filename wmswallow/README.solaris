@@ -1,0 +1,16 @@
+Whew! You really want this stuff to run under solaris, huh?
+
+Well, you can try "make solaris" if you have got sun-workshop, if you use gcc
+"make solaris-gcc" *might* work. The Problem is, everybody installs libXpm in
+a different place. If you know that your sysadmin put everything that is X11
+related into, say, /usr/X11, the default targets will work. But if libXpm
+resides in /usr/local/lib you might help yourself with:
+
+make SOLX=/usr/local solaris
+
+If all fails, you will have to look at the solaris target and adjust the
+variables INCLUDES and LIBPATHS to help the compiler find the includes and
+libs.
+
+I also noticed that on one machine wmswallow appeared to generate constant
+network load (when i was using it over a remote link) so be aware of problems.
