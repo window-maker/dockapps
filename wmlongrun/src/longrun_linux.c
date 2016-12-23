@@ -22,6 +22,7 @@
 #ifdef USE_PREAD
 #define __USE_UNIX98	     /* for pread/pwrite */
 #endif
+#define __USE_FILE_OFFSET64 /* msr/cpuid needs 64bit address with newer linuxes */
 #include <unistd.h>
 #include "common.h"
 
@@ -45,7 +46,7 @@ static int  msr_fd;			/* MSR file descriptor */
 static char *msr_device;		/* MSR device name */
 
 static void
-read_cpuid(long address, int *eax, int *ebx, int *ecx, int *edx)
+read_cpuid(loff_t address, int *eax, int *ebx, int *ecx, int *edx)
 {
     uint32_t data[4];
 
@@ -75,7 +76,7 @@ read_cpuid(long address, int *eax, int *ebx, int *ecx, int *edx)
 
 /* note: if an output is NULL, then don't set it */
 static void
-read_msr(long address, int *lower, int *upper)
+read_msr(loff_t address, int *lower, int *upper)
 {
     uint32_t data[2];
 

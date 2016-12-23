@@ -8,6 +8,7 @@
   * Replace INCLUDES and CPPFLAGS with AM_CPPFLAGS to fix warnings.
   * Detect GNU/kFreeBSD during build.
   * Update README with new contact info and url.
+  * Update for modern kernels.
 
 2002 March 23
   * version 0.2.0 released
