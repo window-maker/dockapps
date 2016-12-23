@@ -12,6 +12,9 @@ versions:
  -
   number: 0.3.0pre1
   download: wmlongrun-0.3.0pre1.tar.gz
+ -
+  number: 0.3.1
+  download: wmlongrun-0.3.1.tar.gz
 categories: system
 ---
 A program to monitor LongRun® status.
