@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -32,7 +32,7 @@
  */
 
 #ifdef sgi
- 
+
 static char plat_irix_id[] = "$Id: plat_irix.c,v 1.6 1999/03/07 08:36:40 dirk Exp $";
 
 #include "include/wm_config.h"
@@ -440,7 +440,7 @@ wmcd_reopen( struct wm_drive *d )
 /*----------------------------------*
  * Send a SCSI command out the bus.
  *----------------------------------*/
-int 
+int
 wm_scsi(d, xcdb, cdblen, retbuf, retbuflen, getreply)
 	struct wm_drive *d;
 	unsigned char *xcdb;

@@ -21,7 +21,7 @@ OBJS   = wmxss.o \
 all:	wmxss.o wmxss
 
 wmxss.o: wmxss_master.xpm wmxss_mask.xbm
-wmxss:	$(OBJS) 
+wmxss:	$(OBJS)
 	$(CC) $(COPTS) $(SYSTEM) -o wmxss $(OBJS) $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:
@@ -32,5 +32,5 @@ clean:
 
 install:: wmxss
 	install -s -m 0755 wmxss $(DESTDIR)/bin
-	install -c -m 0644 wmxss.1 $(DESTDIR)/man/man1 
+	install -c -m 0644 wmxss.1 $(DESTDIR)/man/man1
 

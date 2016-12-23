@@ -1,6 +1,6 @@
 /* Author : Louis-Benoit JOURDAIN (lb@jourdain.org)
  * based on the original work by Scott Holden ( scotth@thezone.net )
- * 
+ *
  * multi Pop3 Email checker.
  *
  * Last Updated : Feb 7th, 2002
@@ -28,15 +28,15 @@
 #include "Pop3Client.h"
 
 /* return size if all goes well, -1 if not expected answer */
-int	send_command(char *exp_answer, char **retour, Pop3 pc) 
+int	send_command(char *exp_answer, char **retour, Pop3 pc)
 {
   int	size;
-  
-  send(pc->s, &pc->outBuf,strlen(pc->outBuf),0); 
+
+  send(pc->s, &pc->outBuf,strlen(pc->outBuf),0);
   size = recv(pc->s,pc->inBuf,1024,0);
   memset(*retour,0,1024);
   memcpy(*retour,pc->inBuf,size);
-  if (strncmp(pc->inBuf, exp_answer, strlen(exp_answer))) {	     
+  if (strncmp(pc->inBuf, exp_answer, strlen(exp_answer))) {
     return (-1);
   }
   return (size);
@@ -45,7 +45,7 @@ int	send_command(char *exp_answer, char **retour, Pop3 pc)
 Pop3 pop3Create(int num)
 {
     Pop3 pc;
-    
+
     pc = (Pop3)malloc( sizeof(*pc) );
     if( pc == 0)
         return 0;
@@ -86,7 +86,7 @@ int pop3IsConnected(Pop3 pc){
 
 int pop3Login(Pop3 pc, char *name, char *pass){
 
-      int size; 
+      int size;
       char temp[1024];
 
       if( pc->connected == NOT_CONNECTED ){
@@ -103,7 +103,7 @@ int pop3Login(Pop3 pc, char *name, char *pass){
       }
 
       sprintf(pc->outBuf,"USER %s\r\n",name);
-      send(pc->s, &pc->outBuf,strlen(pc->outBuf),0); 
+      send(pc->s, &pc->outBuf,strlen(pc->outBuf),0);
       size =recv(pc->s,pc->inBuf,1024,0);
       memset(temp,0,1024);
       memcpy(temp,pc->inBuf,size);
@@ -131,11 +131,11 @@ int	store_from(char *buf, int pos, int buflen, int num, Pop3 pc) {
   int	deb_addr;
   int	fin_addr;
   int	i;
-  
+
   /* strip the white spaces */
   for (; (pos < buflen) && isspace(buf[pos]); pos++);
   /* get the end of the line */
-  for (end = pos; (end + 1 < buflen) && 
+  for (end = pos; (end + 1 < buflen) &&
 	 (buf[end] != '\r') && (buf[end + 1] != '\n'); end++);
   /* try to find the '@' sign for the address */
   for (i = pos; (i < end) && buf[i] != '@'; i++);
@@ -146,12 +146,12 @@ int	store_from(char *buf, int pos, int buflen, int num, Pop3 pc) {
     for (fin_addr = i; fin_addr < end && !isspace(buf[fin_addr]); fin_addr++);
     if ('>' == buf[fin_addr - 1])
       fin_addr--;
-    memcpy(pc->mails[num].from, buf + deb_addr, 
-	   (fin_addr - deb_addr > MAIL_BUFLEN) ? 
+    memcpy(pc->mails[num].from, buf + deb_addr,
+	   (fin_addr - deb_addr > MAIL_BUFLEN) ?
 	   MAIL_BUFLEN : fin_addr - deb_addr);
   }
   else {
-    memcpy(pc->mails[num].from, buf + pos, 
+    memcpy(pc->mails[num].from, buf + pos,
 	   (end - pos > MAIL_BUFLEN) ? MAIL_BUFLEN : end - pos);
   }
   return (end + 2);
@@ -162,7 +162,7 @@ int	store_subject(char *buf, int pos, int buflen, int num, Pop3 pc) {
   int	i;
 
   /* get the end of the line */
-  for (end = pos, i = 0; (i < MAIL_BUFLEN) && (end + 1 < buflen) && 
+  for (end = pos, i = 0; (i < MAIL_BUFLEN) && (end + 1 < buflen) &&
 	 (buf[end] != '\r') && (buf[end + 1] != '\n'); end++, i++);
   for (; (pos < buflen) && (buf[pos] == ' '); pos++);
   memcpy(pc->mails[num].subject, buf + pos, end - pos);
@@ -172,7 +172,7 @@ int	store_subject(char *buf, int pos, int buflen, int num, Pop3 pc) {
 int	parse_header(char *buf, int buflen, int num, Pop3 pc) {
   int	pos = 0;
   int	retour = 1;
-  
+
   /* parse the header for the from and subject fields */
 #ifdef _DEBUG
   printf("  parse_header, buflen: %d, num %d, buf:\n%s\n",
@@ -193,7 +193,7 @@ int	parse_header(char *buf, int buflen, int num, Pop3 pc) {
       pos = store_subject(buf, pos, buflen, num, pc);
     }
     else {
-      for( ; (buflen > (pos + 2)) && (buf[pos] != '\r') && 
+      for( ; (buflen > (pos + 2)) && (buf[pos] != '\r') &&
 	     (buf[pos + 1] != '\n'); pos++);
       pos += 2;
     }
@@ -206,10 +206,10 @@ int	pop3VerifStats(Pop3 pc)
   int	retour = 0;
   char	*ptr;
   int	size;
-  
+
   if( pc->connected == NOT_CONNECTED )
     return (-1);
-  
+
   /* Find total number of messages in mail box */
   sprintf(pc->outBuf,"STAT\r\n");
   send(pc->s, pc->outBuf, strlen(pc->outBuf),0 );
@@ -222,7 +222,7 @@ int	pop3VerifStats(Pop3 pc)
   ptr = strtok( 0," ");
   ptr = strtok( 0, " ");
   if (ptr)
-    retour = atoi(ptr); 
+    retour = atoi(ptr);
   return (retour);
 }
 
@@ -238,7 +238,7 @@ long	calculate_cksum(char *buf, int len) {
 
 int		is_in_old_mails(long cksum, t_mail *oldmails, int numold) {
   int		i;
-  
+
   for (i = 0; i < numold; i++) {
     if (oldmails[i].cksum == cksum)
       return (1);
@@ -257,7 +257,7 @@ int		pop3CheckMail(Pop3 pc) {
   int		old_numOfMessages;
   int		progressbarpos = 0;
   t_mail	*oldmails;
-  
+
   if( pc->connected == NOT_CONNECTED )
     return -1;
   /* save the old values */
@@ -290,7 +290,7 @@ int		pop3CheckMail(Pop3 pc) {
   pc->mails = NULL;
   /* allocate space for the new ones */
   if (pc->numOfMessages) {
-    if (NULL == 
+    if (NULL ==
 	(pc->mails = (t_mail *) malloc (sizeof(t_mail) * pc->numOfMessages))) {
       fprintf(stderr, "can't allocate memory for message structure\n");
       /* clear the old messages */
@@ -306,7 +306,7 @@ int		pop3CheckMail(Pop3 pc) {
   }
 
   ptr = strtok( 0, " ");
-  pc->sizeOfAllMessages = atoi(ptr); 
+  pc->sizeOfAllMessages = atoi(ptr);
   /* -1 means first time */
   if (-1 != pc->sizechanged)
     pc->sizechanged = (old_sizeOfAllMessages != pc->sizeOfAllMessages);
@@ -338,9 +338,9 @@ int		pop3CheckMail(Pop3 pc) {
     printf("  ---- message %d ---\n", i);
 #endif
     /* increment the progress bar by 1 message */
-    progressbarpos = (int) ((i + 1) * (PROGRESSBAR_LEN - 2)) / 
+    progressbarpos = (int) ((i + 1) * (PROGRESSBAR_LEN - 2)) /
       pc->numOfMessages;
-    copyXPMArea(ORIG_PB_BARX, ORIG_PB_BARY, progressbarpos, 2, 
+    copyXPMArea(ORIG_PB_BARX, ORIG_PB_BARY, progressbarpos, 2,
 		PROGRESSBAR_HPOS + 1, PROGRESSBAR_VPOS + 2);
     RedrawWindow();
     /* reset the from and subject fields for num */
@@ -366,11 +366,11 @@ int		pop3CheckMail(Pop3 pc) {
     }
     pc->mails[i].todelete = 0;
     /* verify if this message is new or not */
-    pc->mails[i].new = !is_in_old_mails(pc->mails[i].cksum, oldmails, 
+    pc->mails[i].new = !is_in_old_mails(pc->mails[i].cksum, oldmails,
 					old_numOfMessages);
 #ifdef _DEBUG
-    printf("  mess %d, cksum: %ld, new: %d\n", 
-	   i, pc->mails[i].cksum, pc->mails[i].new); 
+    printf("  mess %d, cksum: %ld, new: %d\n",
+	   i, pc->mails[i].cksum, pc->mails[i].new);
 #endif
   }
   /* clear the old messages */
@@ -378,7 +378,7 @@ int		pop3CheckMail(Pop3 pc) {
     free (oldmails);
   }
   return 1;
-}     
+}
 
 int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
 {
@@ -392,7 +392,7 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
   char	*deb, *fin;
   int	theemailsize = 0;
   int	mustdisconnect = 0;
-  
+
 
   if (NOT_CONNECTED == pc->connected) {
 #ifdef _DEBUG
@@ -409,12 +409,12 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
   /* check the size */
 #ifdef _DEBUG
   printf("  pc->maxdlsize = [%d]\n", pc->maxdlsize);
-#endif	
+#endif
   if (-1 != pc->maxdlsize) {
     sprintf(pc->outBuf, "LIST %d\r\n", nb);
 #ifdef _DEBUG
     printf("  pop3WriteOneMail: %s", pc->outBuf);
-#endif 
+#endif
     send(pc->s, pc->outBuf, strlen(pc->outBuf), 0);
     size = recv(pc->s, pc->inBuf, 4096, 0);
 #ifdef _DEBUG
@@ -426,7 +426,7 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
     printf("  pop3WriteOneMail: answer [%s]\n", temp);
 #endif
     if (temp[0] != '+') {
-      sprintf(buf, TXT_ERROR, pc->mails[nb - 1].from, 
+      sprintf(buf, TXT_ERROR, pc->mails[nb - 1].from,
 	      pc->mails[nb - 1].subject, pc->outBuf);
       write (dest_fd, buf, strlen(buf));
 #ifdef _DEBUG
@@ -464,8 +464,8 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
     /* else {}
        the command is screwed up, never mind, continue to download the mail */
   }
-  
-  
+
+
   sprintf(pc->outBuf, "RETR %d\r\n", nb);
 #ifdef _DEBUG
   printf("  pop3WriteOneMail: %s", pc->outBuf);
@@ -480,7 +480,7 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
     deb = temp;
     if (!pass) {
       if (temp[0] != '+') {
-	sprintf(buf, TXT_ERROR, pc->mails[nb - 1].from, 
+	sprintf(buf, TXT_ERROR, pc->mails[nb - 1].from,
 		pc->mails[nb - 1].subject, pc->outBuf);
 	write (dest_fd, buf, strlen(buf));
 	retour = 1;
@@ -489,7 +489,7 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
       }
 #ifdef _DEBUG
       printf("  first pass, skeep RETR answer ([%s])\n", deb);
-#endif      
+#endif
       /* skip the RETR answer, go to the end of the line; */
       for (;*deb && ('\n' != *deb); deb++);
       deb++;
@@ -498,7 +498,7 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
     fin = temp + size - 5;
 #ifdef _DEBUG
     printf("  size: %d, fin: [%s]\n", size, fin);
-#endif    
+#endif
     if (size >= 5) {
       if (!strncmp(fin, "\r\n.\r\n", 5)) {
 	go = 0;
@@ -536,10 +536,10 @@ int	pop3WriteOneMail(int nb, int dest_fd, Pop3 pc)
   return (retour);
 }
 
-int	pop3DeleteMail(int num, Pop3 pc) 
+int	pop3DeleteMail(int num, Pop3 pc)
 {
   int	size;
-  
+
   sprintf(pc->outBuf, "DELE %d\r\n", num);
 #ifdef _DEBUG
   printf("  %s\n", pc->outBuf);
@@ -552,14 +552,14 @@ int	pop3DeleteMail(int num, Pop3 pc)
   }
   return (0);
 }
-  
 
-  
+
+
 
 int  pop3GetTotalNumberOfMessages( Pop3 pc ){
      if( pc != 0 )
          return pc->numOfMessages;
-     return -1;    
+     return -1;
 }
 
 int  pop3GetNumberOfUnreadMessages( Pop3 pc ){
@@ -570,7 +570,7 @@ int  pop3GetNumberOfUnreadMessages( Pop3 pc ){
 
 int pop3Quit(Pop3 pc){
     int size;
-    
+
 #ifdef _DEBUG
     printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
     printf("XXXXXX  pop3Quit -------- disconneting XXXXXXXXX\n");

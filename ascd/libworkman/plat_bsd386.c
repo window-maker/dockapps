@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -49,7 +49,7 @@ static char plat_bsd386_id[] = "$Id: plat_bsd386.c,v 1.5 1999/03/07 08:36:40 dir
 #else
   /*
    * this is for glibc 2.x which defines ust structure in
-   * ustat.h not stat.h. 
+   * ustat.h not stat.h.
    */
   #ifdef __GLIBC__
     #include <sys/ustat.h>
@@ -377,7 +377,7 @@ unscale_volume(int cd_vol, int max)
 		else
 			bot = vol + 1;
 	}
-	
+
 	if (vol < 0)
 		vol = 0;
 	else if (vol > max)

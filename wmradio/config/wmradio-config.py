@@ -7,7 +7,7 @@ from locale import setlocale, LC_ALL
 import os
 
 PREFIX = "/usr"
-LOCALEDIR = "%s/share/locale" % (PREFIX) 
+LOCALEDIR = "%s/share/locale" % (PREFIX)
 PACKAGE = "wmradio-config.py"
 SKINDIR = "%s/lib/wmradio" % (PREFIX)
 FREQMIN=87.5
@@ -126,7 +126,7 @@ class WmRadioConfig:
             self.cfg.set_variable("config",
                                   "preset%i" % i ,
                                   "%.2f" % self.g_pressed[i].get_value())
-        self.station_to_ini()        
+        self.station_to_ini()
         self.cfg.set_int_variable("config","osd", self.g_osd.get_active())
         self.cfg.set_variable("config","osd-font",self.g_osd_font.get_text())
         self.cfg.set_variable("config","osd-color", self.g_osd_color.get_text())
@@ -156,7 +156,7 @@ class WmRadioConfig:
             for name in self.cfg.sections["names"].keys():
                 item = self.g_jobs.append()
                 self.g_jobs.set(item,0,
-                                "%s=%s" % 
+                                "%s=%s" %
                                 (name,self.cfg.get_variable("names",name))
                                 )
         if self.cfg.get_variable("config","osd") == "1":
@@ -184,7 +184,7 @@ class WmRadioConfig:
             item = self.g_jobs.append()
             self.g_jobs.set(item,
                             0,
-                            "%s=%.2f" % 
+                            "%s=%.2f" %
                             (self.g_new_name.get_text(),
                              self.g_new_freq.get_value()))
     def activate_delete_button(self,model,path,iter,data):
@@ -207,7 +207,7 @@ class WmRadioConfig:
             if string.lower(name) == string.lower(text):
                 self.g_jobs.set(iter,
                                 0,
-                                "%s=%.2f" % 
+                                "%s=%.2f" %
                                 (self.g_new_name.get_text(),
                                  self.g_new_freq.get_value()))
                 self.station_alredy_exist = 1
@@ -243,10 +243,10 @@ class WmRadioConfig:
 
         self.g_start_muted =  gtk.CheckButton(_("Start muted"))
         table.attach(self.g_start_muted,0,2,2,3)
-        
+
         self.g_dont_quit = gtk.CheckButton(_("Don't quit mode"))
         table.attach(self.g_dont_quit,0,2,3,4)
-        
+
         return frame
     def frame2(self):
         frame = gtk.Frame(_("Stations"))
@@ -314,7 +314,7 @@ class WmRadioConfig:
         self.g_delete_button = gtk.Button(_("Delete"))
         self.g_delete_button.connect("clicked",self.on_delete)
         self.g_delete_button.set_sensitive(gtk.FALSE)
-        
+
         table.attach(self.g_delete_button,0,1,2,3,yoptions=0)
         return frame
     def frame4(self):
@@ -327,7 +327,7 @@ class WmRadioConfig:
         table.set_border_width(5)
         table.set_col_spacings(5)
         frame.add(table)
-        
+
         self.g_osd = gtk.CheckButton(_("Use osd"))
         table.attach(self.g_osd,0,2,0,1)
         self.g_osd.connect("clicked",self.on_osd_changed,None)
@@ -361,7 +361,7 @@ class WmRadioConfig:
         table.attach(lbl,0,1,5,6)
         self.g_osd_timeout = gtk.SpinButton(gtk.Adjustment(0,0,5000,1,5,0))
         table.attach(self.g_osd_timeout,1,2,5,6)
-        
+
         return vbox
     def create_gui(self):
         setlocale(LC_ALL,"")

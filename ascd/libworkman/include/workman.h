@@ -7,7 +7,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -31,21 +31,21 @@
 /*
  * wm_config should always be included first
  */
-#include "wm_config.h" 
+#include "wm_config.h"
 
 #include "workman_defs.h"
 #ifdef BUILD_CDDA
 #include "wm_cdda.h"
-#endif 
+#endif
 #include "wm_cddb.h"
-#include "wm_cdinfo.h" 
-#include "wm_cdrom.h" 
-#include "wm_database.h" 
-#include "wm_helpers.h" 
-#include "wm_index.h" 
-#include "wm_platform.h" 
-#include "wm_scsi.h" 
-#include "wm_struct.h" 
+#include "wm_cdinfo.h"
+#include "wm_cdrom.h"
+#include "wm_database.h"
+#include "wm_helpers.h"
+#include "wm_index.h"
+#include "wm_platform.h"
+#include "wm_scsi.h"
+#include "wm_struct.h"
 
 #endif /* WORKMAN_H */
 

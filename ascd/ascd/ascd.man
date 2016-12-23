@@ -94,7 +94,7 @@
 .SH DESCRIPTION
 
 \fBascd\fP is CD player written to play audio CD's integrated in
-afterstep's Wharf module or WindowMaker's dock. 
+afterstep's Wharf module or WindowMaker's dock.
 \fBascd\fP handles mounted volumes, and opens and closes the tray.
 
 .SH CONFIGURATION OPTIONS
@@ -120,7 +120,7 @@ afterstep's Wharf module or WindowMaker's dock.
     you use ascd with WindowMaker.
 
 .B -device <device>
-     specifies the CDROM device which should be used by 
+     specifies the CDROM device which should be used by
      ascd. If "-DNO_DEFAULT_DEVICE" was set at
      compilation time this option will have no effect.
 
@@ -138,7 +138,7 @@ afterstep's Wharf module or WindowMaker's dock.
 
 .B +/-autoplay, +/-a
      Turn on or off \fBautoplay mode\fP. When this is
-     turned on, ascd always wait for a CD, and play it 
+     turned on, ascd always wait for a CD, and play it
      automatically when inserted.
 
 .B +/-autoprobe, +/-p
@@ -161,7 +161,7 @@ afterstep's Wharf module or WindowMaker's dock.
 
 .B -volume <value>
      Set the CD driver volume, between 0 and maxvolume.
-     Note that the -volume option in independant from 
+     Note that the -volume option in independant from
      the mixer. It controls the drive, not the sound
      card.
 
@@ -199,7 +199,7 @@ afterstep's Wharf module or WindowMaker's dock.
 .B -save
      Save all the settings and exit. Usefull to 'make' a
      new configuration file: set all the stuff you want
-     to set and put -save as last commandline option. 
+     to set and put -save as last commandline option.
      Example:
 
      ascd +w +a -device /dev/cd0c -save

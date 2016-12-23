@@ -1,11 +1,11 @@
 /*
  * $Id: index.c,v 1.2 1999/02/14 09:50:42 dirk Exp $
- * 
+ *
  * This file is part of WorkMan, the civilized CD player library
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -143,7 +143,7 @@ idx_find_entry( char *file, int ntracks, int *tracks,
 		dbpos = ntohl(*((unsigned long *) data.data));
 		if (fseek(text, dbpos, 0))
 			break;
-		
+
 		fgets(tracksline, sizeof(tracksline), text);
 		if (strncmp(tracksline, "tracks ", 7))
 			break;
@@ -155,7 +155,7 @@ idx_find_entry( char *file, int ntracks, int *tracks,
 			break;
 		if (atoi(s) != ntracks)
 			continue;
-		
+
 		for (i = 0; i < ntracks; i++)
 		{
 			s = strtok(NULL, " \t");
@@ -174,7 +174,7 @@ idx_find_entry( char *file, int ntracks, int *tracks,
 		val = atoi(s);
 		if (val + fuzz / 75 < len / 75 || val + fuzz / 75 > len / 75)
 			continue;
-		
+
 		/* XXX - add to sorted list! */
 		*pos = dbpos;
 		(index->close)(index);

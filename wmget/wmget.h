@@ -42,7 +42,7 @@
 #define WMGET_COPYRIGHT         "Copyright (c) 2001-2003 " \
                                  "Aaron Trickey <aaron@amtrickey.net>" \
                                  "; ABSOLUTELY NO WARRANTY"
-                                                
+
 
 #define DEFAULT_USER_AGENT \
     "wmget/" WMGET_VERSION " (libcurl/" LIBCURL_VERSION ")"

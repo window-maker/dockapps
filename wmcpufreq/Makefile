@@ -1,16 +1,16 @@
 #
 PACK=wmcpufreq-3.0
 
-all:	
+all:
 
 	cd wmcpufreq ; $(MAKE) $@
-	
+
 clean:
 	cd wmcpufreq ; $(MAKE) $@
-	 
+
 
 install:
 	cd wmcpufreq ; $(MAKE) $@
-	
-package:   
+
+package:
 	   tar -cvzf $(PACK).tar.gz ../$(PACK)/*

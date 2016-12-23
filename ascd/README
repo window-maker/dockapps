@@ -14,7 +14,7 @@ Important note:
 
 I changed two things in libworkman:
 
-1) I added #under OSS_SUPPORT in plat_linux.c in order to definitly 
+1) I added #under OSS_SUPPORT in plat_linux.c in order to definitly
 prevent libworkman to use the mixer.
 
 2) I added wm_cddb.h in installed files as it was missing in the

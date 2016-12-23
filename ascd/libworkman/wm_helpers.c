@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -41,7 +41,7 @@ static char wm_helpers_id[] = "$Id: wm_helpers.c,v 1.7 1999/03/07 08:36:41 dirk 
 
 int wm_lib_verbosity = WM_MSG_LEVEL_NONE;
 
-/* 
+/*
  * Some seleced functions of version reporting follow...
  */
 
@@ -52,7 +52,7 @@ int wm_libver_pl( void ){return WM_LIBVER_PL;}
 char *wm_libver_name( void )
 {
 	char *s = NULL;
-	
+
 	wm_strmcat(&s, WM_LIBVER_NAME);
 	return s;
 } /* wm_libver_name() */
@@ -78,9 +78,9 @@ char *wm_libver_string( void )
 {
 	char *s = NULL;
 
-	wm_strmcat( &s, wm_libver_name() ); 
-	wm_strmcat( &s, " " ); 
-	wm_strmcat( &s, wm_libver_number() ); 
+	wm_strmcat( &s, wm_libver_name() );
+	wm_strmcat( &s, " " );
+	wm_strmcat( &s, wm_libver_number() );
 	return s;
 } /* wm_libver_string() */
 
@@ -203,7 +203,7 @@ void wm_lib_message( unsigned int level, char *fmt, ... )
 	}
         /*
          * print it only if level and class are allowed.
-         */	
+         */
 	if( (level <= vlevel) && (vclass != 0) )
 	{
 		va_start(ap, fmt);

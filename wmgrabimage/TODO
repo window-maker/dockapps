@@ -2,7 +2,7 @@ For version 0.80
 ----------------
 Allow user to specify command line options for imagemagick convert
 routine. This way, we immediatley buy into the impreesive cabablities
-of convert. (E.g. limit colors,filtering, blurring, sharpening, annotating 
+of convert. (E.g. limit colors,filtering, blurring, sharpening, annotating
 and so on....).
 
 For version 0.90

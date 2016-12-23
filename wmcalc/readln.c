@@ -1,6 +1,6 @@
 /* readln.c - Edward H. Flora - ehflora@ksu.edu */
 /* Last Modified: 2/24/98 */
-/* 
+/*
  *	This function reads a string from a file pointed to by fp until a
  *   new line (EOLN) or an end of file is encountered.  It returns a pointer
  *   to the string.  The new line character is included in the string returned
@@ -8,10 +8,10 @@
  */
 
 /* EXTERNALS:
- ****************** 
+ ******************
  * Functions Called:
  *      Standard Libraries.
- * 
+ *
  * Header Files Included:
  *      Standard Includes only.
  */
@@ -34,7 +34,7 @@
 char *readln(FILE *fp){
   char *tmp, *t1, *t2;
   int count = 0, s1 = SIZE1;
-  
+
   if((tmp = malloc(SIZE1*sizeof(char))) == NULL)return NULL;
   				/* If cannot allocate memory */
   if((t1 = fgets(tmp, SIZE1, fp)) == NULL){

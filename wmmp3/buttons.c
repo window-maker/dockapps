@@ -3,10 +3,10 @@
  * Copyright (c)1999 Patrick Crosby <xb@dotfiles.com>.
  * This software covered by the GPL.  See COPYING file for details.
  *
- * buttons.c                                                    
- *                                                                
+ * buttons.c
+ *
  * This file contains button code.
- *                                                                
+ *
  * $Id: mpg123ctl.c,v 1.12 1999/10/08 06:21:41 pcrosby Exp $
  */
 

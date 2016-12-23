@@ -101,9 +101,9 @@ CreateWindow(int ac, char *av[])
     attributes.valuemask = XpmSize;
     result = XpmReadFileToPixmap(display, root, option.background_pixmap,
                                  &back_pm, &mask_pm, &attributes);
-    
+
     if (result != XpmSuccess)
-      fprintf(stderr, "ERR: trouble loading pixmap\n");      
+      fprintf(stderr, "ERR: trouble loading pixmap\n");
     else if (attributes.width != SIZE || attributes.height != SIZE)
       fprintf(stderr, "ERR: pixmap must be %dx%d\n", SIZE, SIZE);
     else

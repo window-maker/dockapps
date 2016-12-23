@@ -29,7 +29,7 @@ static void dockimlib2_set_rect_shape(DockImlib2 *dock, int x, int y, int w, int
   XFillRectangle(dock->display, mask, gc, x,y,w,h);
   XFreeGC(dock->display,gc);
   /* setup shaped window */
-  XShapeCombineMask(dock->display, dock->normalwin, ShapeBounding, 
+  XShapeCombineMask(dock->display, dock->normalwin, ShapeBounding,
                     0, 0, mask, ShapeSet);
   if (dock->iconwin)
     XShapeCombineMask(dock->display, dock->iconwin, ShapeBounding,
@@ -45,7 +45,7 @@ void set_window_title(Display *display, Window win, char *window_title, char *ic
   rc = XStringListToTextProperty(&window_title,1, &window_title_property); assert(rc);
   XSetWMName(display, win, &window_title_property);
   XFree(window_title_property.value);
-  
+
   /* icon window name */
   rc = XStringListToTextProperty(&icon_title,1, &window_title_property); assert(rc);
   XSetWMIconName(display, win, &window_title_property);
@@ -72,10 +72,10 @@ static void dockimlib2_xinit(DockImlib2 *dock, DockImlib2Prefs *prefs) {
   char sdockgeom[40];
 
   assert(prefs->argv); // this should be always set ..
-  
+
   if (prefs->flags & DOCKPREF_DISPLAY) sdisplay = prefs->display;
   if (prefs->flags & DOCKPREF_GEOMETRY) { pgeom = prefs->geometry; undocked = 1; }
-  
+
   dock->display = XOpenDisplay(sdisplay);
   if(!dock->display) DOCKIMLIB2_ERR("Couldn't connect to display %s\n", sdisplay);
   dock->screennum = DefaultScreen(dock->display);
@@ -99,8 +99,8 @@ static void dockimlib2_xinit(DockImlib2 *dock, DockImlib2Prefs *prefs) {
   xsh->flags = XWMGeometry(dock->display, dock->screennum, pgeom, sdockgeom, 0,
                            xsh, &xsh->x, &xsh->y, &xsh->width, &xsh->height, &i);
   if (undocked) {
-    dock->win_width  = dock->w = xsh->width; 
-    dock->win_height = dock->h = xsh->height; 
+    dock->win_width  = dock->w = xsh->width;
+    dock->win_height = dock->h = xsh->height;
     dock->x0 = dock->y0 = 0;
   }
   xsh->base_width = xsh->width;
@@ -115,7 +115,7 @@ static void dockimlib2_xinit(DockImlib2 *dock, DockImlib2Prefs *prefs) {
                                         xsh->x, xsh->y, xsh->width, xsh->height, 0,
                                         BlackPixel(dock->display, dock->screennum),
                                         WhitePixel(dock->display, dock->screennum));
-  
+
   if(!dock->normalwin) DOCKIMLIB2_ERR("Couldn't create window\n");
   if (!undocked) {
     /* create icon window */
@@ -133,7 +133,7 @@ static void dockimlib2_xinit(DockImlib2 *dock, DockImlib2Prefs *prefs) {
 
   /* start with an empty window in order to get the background pixmap */
   dockimlib2_set_rect_shape(dock,32,32,1,0);
-  
+
   /* set window manager hints */
   if (!undocked) {
     XWMHints *xwmh;
@@ -157,7 +157,7 @@ static void dockimlib2_xinit(DockImlib2 *dock, DockImlib2Prefs *prefs) {
     long evmask = ExposureMask |  ButtonPressMask | ButtonReleaseMask | VisibilityChangeMask |
       PointerMotionMask | EnterWindowMask | LeaveWindowMask | StructureNotifyMask;
     XSelectInput(dock->display, dock->normalwin, evmask);
-    if (dock->iconwin) 
+    if (dock->iconwin)
       XSelectInput(dock->display, dock->iconwin, evmask);
   }
   XSetWMProtocols(dock->display, dock->normalwin, &dock->atom_WM_DELETE_WINDOW, 1);
@@ -191,7 +191,7 @@ void dockimlib2_gkrellm_xinit(DockImlib2 *dock, GdkDrawable *gkdrawable) {
 
   /* start with an empty window in order to get the background pixmap */
   dockimlib2_set_rect_shape(dock,32,32,1,0);
-  
+
   /* map the main window */
   XMapWindow(dock->display, dock->normalwin);
 }
@@ -199,7 +199,7 @@ void dockimlib2_gkrellm_xinit(DockImlib2 *dock, GdkDrawable *gkdrawable) {
 
 static void add_fontpath(const char *path, int recurse) {
   struct stat st;
-    
+
   if (stat(path,&st) != 0 ||
       !S_ISDIR(st.st_mode)) return;
   if (recurse > 3) return; /* prevent scanning of whole hd/infinite recursions in case of a bad symlink */
@@ -330,18 +330,18 @@ DockImlib2* dockimlib2_gkrellm_setup(int x0, int y0, int w, int h, DockImlib2Pre
 static char *last_font_name = 0;
 
 const char* dockimlib2_last_loaded_font() { return last_font_name; }
- 
+
 Imlib_Font *imlib_load_font_nocase(const char *name) {
   Imlib_Font *f;
   int i;
   if (last_font_name) free(last_font_name);
-  last_font_name = strdup(name); 
+  last_font_name = strdup(name);
   if ((f = imlib_load_font(last_font_name))) return f;
   for (i=0; last_font_name[i]; ++i) last_font_name[i] = tolower(last_font_name[i]);
   if ((f = imlib_load_font(last_font_name))) return f;
   for (i=0; last_font_name[i]; ++i) last_font_name[i] = toupper(last_font_name[i]);
   f = imlib_load_font(last_font_name);
-  return f; 
+  return f;
 }
 
 Imlib_Font *load_font(char *prefname, char **flist_) {
@@ -375,8 +375,8 @@ Imlib_Font *load_font(char *prefname, char **flist_) {
   return f;
 }
 
-/* 
-   merges dock->bg and dock->img, and renders the result on the window 
+/*
+   merges dock->bg and dock->img, and renders the result on the window
    this function does not alter the imlib context
 */
 void dockimlib2_render(DockImlib2 *dock) {
@@ -397,7 +397,7 @@ void dockimlib2_render(DockImlib2 *dock) {
     if (dock->iconwin) {
       imlib_context_set_drawable(dock->iconwin);
       imlib_render_image_on_drawable(dock->x0, dock->y0);
-    }    
+    }
     /* XSetWindowBackgroundPixmap(dock->display, dock->GKwin, dock->win);
        XClearWindow(dock->display, dock->GKWin); */
     imlib_free_image();

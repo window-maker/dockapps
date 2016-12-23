@@ -67,7 +67,7 @@ GC gc;
 int c;
 char buff[BUFF_SIZE];
 
-/* 
+/*
  * i: used to count the number of letters in fill_buff().
  * j: the number that points the message starting pixel.
  */
@@ -120,7 +120,7 @@ buttonReleaseCallback (int button, int state, int x, int y)
       x < (BUTTON_X + BUTTON_WIDTH) &&
       BUTTON_Y < y && y < (BUTTON_Y + BUTTON_HEIGHT))
     {
-      fill_buff();      
+      fill_buff();
     }
   XCopyArea(DADisplay, panel_pixmap, pixmap, gc,
 	    BUTTON_X, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
@@ -149,16 +149,16 @@ main(int argc, char **argv)
 
    DACallbacks callbacks = {NULL,buttonPressCallback
 	,buttonReleaseCallback,NULL,NULL,NULL,NULL};
-   
+
    DAParseArguments(argc, argv, options,
 		    sizeof(options)/sizeof(DAProgramOption),
 		    "dockapp that shows the messages from fortune command.", "$Id: wmfortune.c,v 0.24 2000/03/28 01:49:58 sugano Exp $");
 
-   fill_buff();      
+   fill_buff();
 
-   DAInitialize(displayName, "wmfortune", 64, 64, argc, argv);   
+   DAInitialize(displayName, "wmfortune", 64, 64, argc, argv);
    pixmap = DAMakePixmap();
-   
+
    /* making pixmap for the panel */
    DAMakePixmapFromData(panel_xpm, &panel_pixmap,
 			&panel_mask, &w, &h);
@@ -181,24 +181,24 @@ main(int argc, char **argv)
    XCopyArea(DADisplay, panel_pixmap, pixmap, gc,
 	     BUTTON_X, BUTTON_Y, BUTTON_WIDTH, BUTTON_HEIGHT,
 	     BUTTON_X, BUTTON_Y);
-   
+
    while (1)
      {
        XEvent ev;
-       
+
        /* sets the foreground color green */
        XSetForeground(DADisplay, gc, DAGetColor("green"));
        XCopyArea(DADisplay, panel_window_pixmap, pixmap, gc,
 		 WINDOW_X, WINDOW_Y, WINDOW_WIDTH, WINDOW_HEIGHT,
 		 WINDOW_X, WINDOW_Y);
        XDrawString(DADisplay, pixmap, gc, j, STRING_Y, buff, strlen(buff));
-       
+
        DASetPixmap(pixmap);
 
        /* scroll the message by a pixel to left */
        i--;
        j = i + MESSAGE_LAG;
-       
+
        /*
 	* starts scrolling the messages from the beginning
 	* if the message ends.

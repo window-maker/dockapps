@@ -55,13 +55,13 @@
 - added "quick ref" support with quick_ref command and a button
   in the WINGs main window
 
-------------- 05/16/99: 
+------------- 05/16/99:
 
 - added support for vertical sliders (CD direct access, volume and
   mixer) via vprogress_bar, vvolume_bar and vmixer_bar.
 - added support for inverted vertical sliders via iprogress_bar,
   ivolume_bar and imixer_bar.
-- mixer support (FreeBSD and Linux only. Please send me a mail if 
+- mixer support (FreeBSD and Linux only. Please send me a mail if
   you compile mixer support on other platforms.)
 - added -mixer commandline option to specify the mixer device
 - themes manual updated
@@ -79,21 +79,21 @@
 - better WINGs handling. The WINGs window is no longer closed by
   the program when CD is ejected.
 - [fix] WINGs windows crashed when CD was stopped
-- [fix] big bug in database code that oftent crashed the 
+- [fix] big bug in database code that oftent crashed the
   program at startup time (cd_curtrack = -1)
 - [fix] bug in the song title scrolling (hardcoded length)
 
 ------------- 05/11/99: 0.13pr6
 
 - small updates in the man page (so outdated...)
-- the theme manual (in PostScript) is now in the archive and 
+- the theme manual (in PostScript) is now in the archive and
   installed in /usr/local/share/AScd
 - added alt pixmap support for eject command
 - added database panel which can now be different from message one
 - changed the themes loading mechanism: themes are now installed in
   /usr/local/share/AScd/Themes. There's also a Default/ dir that can
   contain pixmaps. If a pixmap is not found in the theme dir, AScd
-  also search in the Default dir. By default, this dir contains 
+  also search in the Default dir. By default, this dir contains
   digits.xpm and digits2.xpm.
 - the theme selectors now use dirent instead of the '.dir' file
 - added alt pixmap support for mute command
@@ -147,7 +147,7 @@ New features and fixes since 0.12.1:
 
 0.13 fixes and additions:
 
-- the buttons containing no command are no longuer parsed in 
+- the buttons containing no command are no longuer parsed in
   case of mouse events
 - support for introscan
 - support for fade in/out
@@ -158,11 +158,11 @@ New features and fixes since 0.12.1:
 
 ------------- 05/07/99: 0.13pr1 **** BACK TO ALPHA STAGE ****
 
-It's the biggest change since I begun working on ascd. Everything 
+It's the biggest change since I begun working on ascd. Everything
 that appears on the screen is now 100% configurable. Put the buttons
 you want, where you want!
 
-- major rewrite of AScd. The source code has been splitted in 
+- major rewrite of AScd. The source code has been splitted in
   several smaller C files.
 - [bug] the WINGs support shall *not* compile. I didn't have time
   to update this code with the new features.
@@ -178,7 +178,7 @@ pre-releases.
 
 =====================================================================
 
-------------- 05/02/99: 0.12.1 
+------------- 05/02/99: 0.12.1
 
 - [fix WINGs] the themes popup didn't display the selected theme
 - multiple-mask shape mode, to allow transparent background with
@@ -193,7 +193,7 @@ pre-releases.
 - added runtime visual themes management, with -theme cl option
 - added a popup menu in configuration window to change the visual
   theme *without* restarting the program
-- [fix] there was a bug in the mouse routine that could eject CD 
+- [fix] there was a bug in the mouse routine that could eject CD
   if the mouse click was outside the buttons
 - [fix] a couple of typos in the WINGs windows.
 
@@ -219,13 +219,13 @@ pre-releases.
 
 ------------- 04/14/99: 0.11.1
 
-- added lowercase letters in (r)digits.xpm. I had to make a few 
+- added lowercase letters in (r)digits.xpm. I had to make a few
   changes in the background pixmap to display the new letters. I
   also added a conversion that remove accents.
 - added 2 buttons in WINGs window to switch on/off song name and
   artist scrolling in main window.
 - added a field to edit the cd device in WINGs window
-- [fix] with a songname <= 8 cars, the artist was not shown 
+- [fix] with a songname <= 8 cars, the artist was not shown
 - [fix?] autorepeat
 
 ------------- 04/13/99: 0.11.0 RELEASE
@@ -331,7 +331,7 @@ is gone again!
 
 - [fix] 0.9 didn't compile if NO_D_DEVICE was defined. Thanks to
   Gus Hartmann who found the bug.
-- [fix] 0.9 entered a crazy loop at CD end when autorepeat 
+- [fix] 0.9 entered a crazy loop at CD end when autorepeat
   was off.
 
 ------------- 01/27/99: 0.9 RELEASE
@@ -346,7 +346,7 @@ is gone again!
 
 - [fix] ascd crashed on launch with no cd in tray (since 01/22)
 - [fix] up/down buttons didn't work when paused (since 01/22)
-- [fix] track nbr was not properly redrawn when using up/down 
+- [fix] track nbr was not properly redrawn when using up/down
   buttons when stopped (since 01/21)
 - [fix] window was not properly redrawn when stopped (since 0.8-R)
 - [fix] it was not possible to access the last track when stopped
@@ -364,13 +364,13 @@ is gone again!
 
 * Ascd:
 
-- 100% new mixer section, with access to all the 17 mixing "sliders" 
+- 100% new mixer section, with access to all the 17 mixing "sliders"
   of OSS.
-- the back and foreground colors may now be different for the CD 
+- the back and foreground colors may now be different for the CD
   player and the mixer.
 - all the mixer settings can be saved in a ~/.ascdrc file. This file
   can be loaded at startup.
-- Total rewrite of the command line parse function. Added several 
+- Total rewrite of the command line parse function. Added several
   new commands. See ascd -help for further details.
 
 * Lib:
@@ -385,25 +385,25 @@ is gone again!
 
 - Almost total rewrite of cd_control() function. The code should be
   more reliable (I hope!). Some clean-ups two.
-- no more uses old ascd variables (currenttrack, maxtracks, playing, 
+- no more uses old ascd variables (currenttrack, maxtracks, playing,
   paused). Only the WorkMan ones (cur_track, cur_ntracks, cur_cdmode)
   are used.
 - on launch, if autoplay is disabled, the track nbr panel displays
   how tracks are on the CD instead of "01".
-- when the time panel displays the global remaining time of the CD, 
+- when the time panel displays the global remaining time of the CD,
   the track nbr panel displays the number of remaining tracks.
 - new alpha pixmaps.
 - adjusted timing for checking inserted CD in autoplay mode.
-- Middle click on the display switch the mute mode. Muted/Unmuted 
+- Middle click on the display switch the mute mode. Muted/Unmuted
   volumes can be set with 'm' and 'v' command line parameters.
 - [fix] in autoplay mode, launching ascd with an inserted audio CD in
-  drive didn't play this one automatically. 
+  drive didn't play this one automatically.
 
 ------------- 01/21/99: PR2
 
 * Ascd:
 
-- The mixer code was removed once again, due to the big XPM code 
+- The mixer code was removed once again, due to the big XPM code
   changes.
 - XPM code redesigned: each button has its own XPM file.
 
@@ -412,15 +412,15 @@ is gone again!
 * Lib:
 
 - added O_RDONLY | O_NONBLOCK flagsto the cd_device opening function
-  in plat_linux.c and plat_freebsd.c. Thanks to Jens Axboe 
+  in plat_linux.c and plat_freebsd.c. Thanks to Jens Axboe
   (axboe@image.dk)
-  
+
 ------------- 12/20/98: PR1
 
 * Lib:
 
 - using WorkMan 1.3b (BETA) code instead of WorkMan 1.3a
-- patched plat_freebsd.c to compile under FreeBSD 3.0. Thanks to 
+- patched plat_freebsd.c to compile under FreeBSD 3.0. Thanks to
   Stephane Marzloff (secrer@le-bar.fdn.fr)
 - plat_openbsd.c added (WorkMan)
 
@@ -456,7 +456,7 @@ is gone again!
 ------------- 11/29/98:
 
 - lib should now compile on Solaris 7 with gcc, using a specific
-  Makefile. 
+  Makefile.
 - added NO_D_DEVICE option for Solaris Volume Manager.
 
 ------------- 12/01/97:
@@ -472,13 +472,13 @@ is gone again!
 
 - 'Config' file where all compilation options can be changed.
   can be changed.
-- now recognize WorkMan splited tracks. Try it with Prince's 
+- now recognize WorkMan splited tracks. Try it with Prince's
   Lovesexy's album !!
 
 * Ascd:
 
 - ascd now includes asmixer!
-- added a "mixer screen" based on asmixer 0.5: clic on 
+- added a "mixer screen" based on asmixer 0.5: clic on
   time display with right button to switch to it.
 - added -v, -1, -2, -3 command line parameters for the
   mixer screen (same as asmixer). Removed the old -v option.
@@ -490,12 +490,12 @@ is gone again!
 - changed "-l" option to "-f" ([F]oreground color)
 - when CD is ejected, track nbr shows "--".
 - all the XPMs are now included in ascd.c, to allow to
-  define the bg color. I also fixed a few things in the 
+  define the bg color. I also fixed a few things in the
   "old and quick made" ascd+ buttons.
 - when global time is displayed, clicking on the
   progress bar give access to the whole disk.
 - added a "#define VERSION" in ascd.c
-- added the new options (since 0.7) in the man page 
+- added the new options (since 0.7) in the man page
 
 =====================================================================
 
@@ -524,7 +524,7 @@ from ascd 0.6
 
 v0.6
 - Most important: WindowMaker Dock support with the -w flag!
-   
+
 =====================================================================
 
 03/25/97: 0.4+ release
@@ -555,7 +555,7 @@ database code)
 - added: 4th digit for songs longer than 10 minutes.
 - added: -a command line option. Activates the autoplay mode: ascd
   automatically plays the CD when it is inserted.
-- added: -c command line option which sets the value, in seconds, 
+- added: -c command line option which sets the value, in seconds,
   for the intro scan mode and the cue/review function.
 - changed the indentation in the source code with the auto-
   indentation in jed. Sorry ;-)
@@ -594,4 +594,4 @@ v0.2
   useful with ascdc.
 - Now includes the correct README file.  Thanks to the
   Hundreds of you who caught that.  It's nice to know
-  someone reads these files.    
+  someone reads these files.

@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 12 Jun 2003 Tomas Cermak
- * 
- * This file is part of wmradio program. 
+ *
+ * This file is part of wmradio program.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
@@ -40,7 +40,7 @@ guint timer;
 void logt(char *s)
 {
     FILE *f;
-    
+
     f = fopen("/tmp/wmradio.log","a");
     fputs(s,f);
     fputs("\n",f);
@@ -72,10 +72,10 @@ void gtk_drawing_area_copy_from_X11_drawable(GtkDrawingArea *DA,
 					     int destx, int desty)
 {
     GdkWindow *gdkwindow;
-    
+
     g_return_if_fail( DA != NULL );
     g_return_if_fail( X11 != 0 );
-    
+
     gdkwindow = GDK_WINDOW(GTK_WIDGET(DA)->window);
     if(!GDK_WINDOW_DESTROYED( gdkwindow ) ) {
 	XCopyArea(GDK_DISPLAY(),
@@ -89,7 +89,7 @@ void gtk_drawing_area_copy_from_X11_drawable(GtkDrawingArea *DA,
 gint on_expose(GtkWidget *w, GdkEventExpose *e)
 {
     RadioEvent re;
-    
+
     re.type = REVENT_EXPOSE;
     wmradio_handle_event(&re);
     return TRUE;
@@ -98,39 +98,39 @@ gint on_expose(GtkWidget *w, GdkEventExpose *e)
 gint on_button_press(GtkWidget *w, GdkEventButton *e)
 {
     RadioEvent re;
-    
+
     re.type = REVENT_BUTTON_PRESS;
     re.x = e->x;
     re.y = e->y;
-    re.control = e->state & GDK_CONTROL_MASK ? 
+    re.control = e->state & GDK_CONTROL_MASK ?
 	CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
-    re.shift   = e->state & GDK_SHIFT_MASK ? 
+    re.shift   = e->state & GDK_SHIFT_MASK ?
 	CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
     wmradio_handle_event(&re);
-    if( e->button & 2 ) return FALSE; 
+    if( e->button & 2 ) return FALSE;
     return TRUE;
 }
 
 gint on_button_release(GtkWidget *w, GdkEventButton *e)
 {
     RadioEvent re;
-    
+
     re.type = REVENT_BUTTON_RELEASE;
     re.x = e->x;
     re.y = e->y;
-    re.control = e->state & GDK_CONTROL_MASK ? 
+    re.control = e->state & GDK_CONTROL_MASK ?
 	CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
-    re.shift   = e->state & GDK_SHIFT_MASK ? 
+    re.shift   = e->state & GDK_SHIFT_MASK ?
 	CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
     wmradio_handle_event(&re);
-    if( e->button & 2 ) return FALSE; 
+    if( e->button & 2 ) return FALSE;
     return TRUE;
 }
 
 gint on_scroll(GtkWidget *w, GdkEventScroll *e)
 {
     RadioEvent re;
-    
+
     switch(e->direction) {
     case GDK_SCROLL_UP:
 	re.type = REVENT_SCROLL_UP;
@@ -143,9 +143,9 @@ gint on_scroll(GtkWidget *w, GdkEventScroll *e)
     }
     re.x = e->x;
     re.y = e->y;
-    re.control = e->state & GDK_CONTROL_MASK ? 
+    re.control = e->state & GDK_CONTROL_MASK ?
 	CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
-    re.shift   = e->state & GDK_SHIFT_MASK ? 
+    re.shift   = e->state & GDK_SHIFT_MASK ?
 	CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
     wmradio_handle_event(&re);
     return TRUE;
@@ -154,7 +154,7 @@ gint on_scroll(GtkWidget *w, GdkEventScroll *e)
 gint on_timer(gpointer data)
 {
     RadioEvent re;
-    
+
     re.type = REVENT_TIMER;
     wmradio_handle_event(&re);
     return TRUE;
@@ -240,7 +240,7 @@ static gboolean wmradio_applet_fill(PanelApplet *applet,
 				    gpointer data)
 {
     if (strcmp (iid, "OAFIID:WMRadioApplet") != 0) return FALSE;
-    
+
     video_init();
     gtk_container_add (GTK_CONTAINER (applet), radio);
     gtk_widget_show_all (GTK_WIDGET (applet));
@@ -258,10 +258,10 @@ PANEL_APPLET_BONOBO_FACTORY ("OAFIID:WMRadioApplet_Factory",
 /* int main(int argc, char *argv[]) */
 /* { */
 /*     GtkWidget *win; */
-    
+
 /*     gtk_set_locale(); */
 /*     gtk_init(&argc,&argv); */
-    
+
 /*     win = gtk_window_new(GTK_WINDOW_TOPLEVEL); */
 /*     radio = video_init(); */
 /*     gtk_container_add (GTK_CONTAINER (win), radio); */

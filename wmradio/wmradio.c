@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 12 Jun 2003 Tomas Cermak
- * 
- * This file is part of wmradio program. 
+ *
+ * This file is part of wmradio program.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
@@ -89,7 +89,7 @@ void tuned_to_preset_station(void)
 {
     int i;
     int x,y;
-    
+
     x = radio_info.current_freq;
     for(i = 0; i<6; i++) {
 	y = rc_get_freq(i);
@@ -373,7 +373,7 @@ void wmradio_handle_event(RadioEvent *e)
 }
 
 int wmradio_init(void)
-{    
+{
     if (rc_get_variable_as_int(SECTION_CONFIG,"osd",0) ){
 	if (! osd_init("wmradio",
 		       rc_get_variable(SECTION_CONFIG,"osd-font","*-courier-*"),
@@ -408,7 +408,7 @@ int wmradio_init(void)
 }
 
 void wmradio_done(void)
-{ 
+{
     osd_close();
     fifo_close();
 }

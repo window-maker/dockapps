@@ -17,8 +17,8 @@ Installation
 1) gunzip wmGrabImage-1.0.tar.gz
 1) tar -xvf wmGrabImage-1.0.tar
 2) cd wmGrabImage-1.0/wmGrabImage/
-3) make 
-4) make install (must be root) 
+3) make
+4) make install (must be root)
 5) wmGrabImage & (or 'wmGrabImage -h' for help, or 'man wmGrabImage' for the man page)
 6) You need to set the location of perl correctly in GrabImage if your perl
    is located in a place other than /usr/bin/

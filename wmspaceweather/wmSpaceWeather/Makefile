@@ -18,7 +18,7 @@ OBJS   = wmSpaceWeather.o \
 all:	wmSpaceWeather.o wmSpaceWeather
 
 wmSpaceWeather.o: wmSpaceWeather_master.xpm wmSpaceWeather_mask.xbm
-wmSpaceWeather:	$(OBJS) 
+wmSpaceWeather:	$(OBJS)
 	$(CC) $(COPTS) $(SYSTEM) -o wmSpaceWeather $^ $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:
@@ -30,5 +30,5 @@ clean:
 install:: wmSpaceWeather
 	install -s -m 0755 wmSpaceWeather $(DESTDIR)/bin
 	install    -m 0755 GetKp $(DESTDIR)/bin
-	install    -m 0644 wmSpaceWeather.1 $(DESTDIR)/man/man1 
+	install    -m 0644 wmSpaceWeather.1 $(DESTDIR)/man/man1
 

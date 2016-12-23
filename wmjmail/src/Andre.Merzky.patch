@@ -3,7 +3,7 @@
 @@ -3,7 +3,22 @@
  #include <getopt.h>
  #include "jenglish.h"
- 
+
 -int dontread = 0;
 +#include <errno.h>
 +#include <fcntl.h>
@@ -21,7 +21,7 @@
 +static char    my_app[256];
 +static int     my_new, my_tot, my_read;
 +static off_t   size;
- 
+
  void show_help() {
      printf("-s <sec>:  Seconds between executions of mailchk\n");
 @@ -15,47 +30,69 @@
@@ -37,7 +37,7 @@
          switch(c) {
              case '?': exit(1);
              case 'h': show_help();
- 
+
              case 'r': dontread = 1;   break;
              case 's': i=atoi(optarg); break;
 +            case 'x': snprintf (my_app,    255, "%s", optarg); break;
@@ -48,7 +48,7 @@
      set_update_delay((i) ? i : 15); /* seconds */
      set_loop_delay(1000); /* mu seconds */
  }
- 
+
  void do_update() {
 -    int i, new, tot, read;
 -
@@ -66,25 +66,25 @@
 +        fprintf (stderr, "Could not stat '%s'\n", my_folder);
 +        exit (-2);
 +    }
-+    
++
 +    if ( size != buf.st_size )
 +    {
 +        FILE *f = popen ("mailchk", "r");
 +        fscanf (f, "%i - %i - %i", &my_new, &my_tot, &my_read);
 +        pclose (f);
- 
+
 +        size = buf.st_size;
 +    }
-+        
++
      clear_window();
- 
+
      jpprintf(0, 0, YELLOW, "    J-mail");
- 
--    jpprintf(1, 2, BLUE, "New", new); 
+
+-    jpprintf(1, 2, BLUE, "New", new);
 -    jprintf(GREEN, ":");
 -    if(new) {
 -        jpprintf(7, 2, RED,  "%i", new);
-+    jpprintf(1, 2, BLUE, "New"); 
++    jpprintf(1, 2, BLUE, "New");
 +    jpprintf(6, 2, GREEN, ":");
 +    if (my_new) {
 +        jpprintf(7, 2, RED,  "%i", my_new);
@@ -92,7 +92,7 @@
 -        jpprintf(7, 2, CYAN, "%i", new);
 +        jpprintf(7, 2, CYAN, "%i", my_new);
      }
- 
+
 -    if(!dontread) {
 -        jpprintf(1, 3, BLUE, "Read", read);
 -        jprintf(GREEN, ":");
@@ -102,7 +102,7 @@
 +        jpprintf(6, 3, GREEN, ":");
 +        jpprintf(7, 3, CYAN, "%i", my_read);
      }
- 
+
 -    jpprintf(1, 4, BLUE, "Total", tot);
 -    jprintf(GREEN, ":");
 -    jpprintf(7, 4, CYAN, "%i", tot);
@@ -110,11 +110,11 @@
 +    jpprintf(6, 4, GREEN, ":");
 +    jpprintf(7, 4, CYAN, "%i", my_tot);
  }
- 
+
  void do_expose() {
 @@ -63,5 +100,6 @@
  }
-     
+
  void do_button_release() {
 -    do_update();
 +    system (my_app);

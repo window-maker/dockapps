@@ -1,6 +1,6 @@
 /* ===========================================================================
  * AScd: cdcontrol.c
- * This is cd_control() function: accept orders from the ui player and send 
+ * This is cd_control() function: accept orders from the ui player and send
  * the appropriate commands to libworkman.
  *
  * Please do *not* modify this function as it is used without changes by
@@ -28,20 +28,20 @@
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL DENIS BOUREZ, ROB MALDA OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  * ===========================================================================
  */
- 								   
+
 #define CD_C_VERSION "1.4"
 #include "ext.h"
 
-void 
+void
 cd_control(int order)
 {
     static int pos_changed = FALSE;
@@ -61,7 +61,7 @@ cd_control(int order)
 
     if ((cur_ntracks == 1) && (cd->trk[cur_track - 1].data)) {
 
-	/* only one track, and it's a data track. We ignore 
+	/* only one track, and it's a data track. We ignore
 	   all commands to avoid some funny things. Only the EJECT
 	   commands are allowed */
 
@@ -70,7 +70,7 @@ cd_control(int order)
 	    return;
 	}
     }
-    
+
     switch(order) {
 
     case PLAY:
@@ -85,7 +85,7 @@ cd_control(int order)
 	if (cur_track < 1) cur_track = 1;
 
 	/* don't play data tracks: */
-          
+
 	if (! cd->trk[cur_track - 1].data) {
 	    if (cur_cdmode != WM_CDM_EJECTED) {
 		if (cur_cdmode != WM_CDM_PAUSED) {
@@ -226,7 +226,7 @@ cd_control(int order)
 
 	/* if it's a data track, skip it */
 	while ((cd->trk[cur_track - 1].data) && (cur_track <= cur_ntracks)) cur_track++;
-          
+
 	if (cur_cdmode == WM_CDM_PLAYING) {
 	    wanna_play = TRUE;
 	    wm_cd_play(cur_track, 0, cur_ntracks + 1);
@@ -280,17 +280,17 @@ cd_control(int order)
     case LOOP:
 	if ( (loop_2 > loop_1) ||
 	     (loop_end_track > loop_start_track) ) {
-               
+
 	    if (loop_start_track == 0) loop_start_track = 1;
 	    intro_mode = 0;
-	    if ( ( loop_2 > loop_1 ) 
+	    if ( ( loop_2 > loop_1 )
 		 || ( loop_start_track != loop_end_track ) )
 		currenttrack = loop_start_track;
 	    else {
 		loop_end_track = cur_ntracks;
 		currenttrack = loop_start_track = 1;
 		loop_1 = 0;
-		loop_2 = 
+		loop_2 =
 		    thiscd.trk[ loop_end_track - 1 ].length - 1;
 	    }
 	    wm_cd_play(loop_start_track, loop_1, cur_ntracks + 1);
@@ -327,7 +327,7 @@ cd_control(int order)
 	    intro_mode = 0;
 	}
 	break;
-          
+
     case INTRONEXT:
 	wm_cd_pause();
 	currenttrack = cur_track;
@@ -337,7 +337,7 @@ cd_control(int order)
 	cur_pos_rel = 0;
 	wm_cd_play(currenttrack, 0, cur_ntracks + 1);
 	break;
-          
+
     case LOCACCESS:
 	if ( (loop_1 > 0) && (loop_start_track > 0) ) {
 	    intro_mode = 0;

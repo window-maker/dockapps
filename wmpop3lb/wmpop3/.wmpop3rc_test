@@ -10,7 +10,7 @@ tempdir	           "/tmp"
 #popserver          pop.free.fr
 #port               110    # default port
 #username           lbj
-#password           42vm90cx 
+#password           42vm90cx
 #mailcheckdelay     3     # default mail check time in minutes
 #alias		   flb
 #countunreadonly	   0
@@ -41,7 +41,7 @@ maxdlsize	   650
 mailclient	   "echo %c %C"
 selectedmesgcommand "echo %c %C"
 mailseparator      "
-From - 
+From -
 "
 
 [server]

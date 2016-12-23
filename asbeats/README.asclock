@@ -6,7 +6,7 @@ the best clock for the best X-windowmanager!
 
 RELEASE 10
       26 August 1996
-      by Beat Christen, bchriste@iiic.ethz.ch 
+      by Beat Christen, bchriste@iiic.ethz.ch
 
 
 VERSION 1.0
@@ -26,9 +26,9 @@ INSTALL
 
 
 HINTS
-     -  If you are using 'Wharf', and only a part (48x48) of the clock is 
+     -  If you are using 'Wharf', and only a part (48x48) of the clock is
         visible, then
-        you need AfterStep 0.98Beta Prerelease 4 and you have to set the 
+        you need AfterStep 0.98Beta Prerelease 4 and you have to set the
         'MaxSwallow' keyword for 'asclock'.
 
 
@@ -48,8 +48,8 @@ CONTRIBUTORS
     Shape Extensions     Dan Weeks
     and man page
 
-    language specific    Carlos Canau          
-    files                Frank Larsen 
+    language specific    Carlos Canau
+    files                Frank Larsen
                          Andy Lo A Foe
 			 Dan Weeks
                          Emanuele Caratti
@@ -60,9 +60,9 @@ CHANGES
     26-Aug-96  - czech added
     13-Aug-96  - french added
      6-Aug-96  - spanish added (thanks to David Lazaro Saz khelekir@encomix.es)
-               - hungarian added 
+               - hungarian added
                  (thanks to Gyula Matics mgyula@garfield.sch.bme.hu)
-               - breton added (thanks to Jean-Pierre.Messager@univ-brest.fr) 
+               - breton added (thanks to Jean-Pierre.Messager@univ-brest.fr)
 
     30-Jul-96  - ClassHints added (patch by Peter Parnes peppar@cdt.luth.se)
 
@@ -72,9 +72,9 @@ CHANGES
                - improved configure
 
     21-Jun-96  - '-iconic' state added
-               - usleep did not exist on Solaris 2.4: changed to poll() 
-               - better error messages 
- 
+               - usleep did not exist on Solaris 2.4: changed to poll()
+               - better error messages
+
      8-Jun-96  - '-noblink' feature added
                - final switch to imake
 
@@ -86,12 +86,12 @@ CHANGES
                - in AM/PM mode, no leading one was visible...
                - '-led' command line option added
 
-    24-May-96  - asclock can start an executable: as default you get a 
+    24-May-96  - asclock can start an executable: as default you get a
                  message on console
                - command line options added (-exe, -geometry, -shape, -12, -24)
                - Shape-Extension (by Dan Weeks)
                - now it's a Build script
-               - dutch added (by Andy Lo A Foe <arloafoe@cs.vu.nl>) 
+               - dutch added (by Andy Lo A Foe <arloafoe@cs.vu.nl>)
                - norwegian added (by Frank Larsen <frankrl@stud.cs.uit.no>)
 
     22-May-96  - obscure, not necessary XRaiseWindow removed :)

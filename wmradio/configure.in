@@ -30,7 +30,7 @@ fi
 dnl gnome panel test -------------------------------------------------
 PANEL_LIBS=""
 PANEL_CFLAGS=""
-if test "$enable_gnome" = "yes" ; then 
+if test "$enable_gnome" = "yes" ; then
   AC_PATH_PROG(PKG_CONFIG, pkg-config )
   if test "$PKG_CONFIG" = "" ; then
     AC_MSG_ERROR(pgk-config not found)

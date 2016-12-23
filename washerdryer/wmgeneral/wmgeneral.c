@@ -17,7 +17,7 @@
    * Now supports >256 colors
    11/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
    * Removed a bug from parse_rcfile. You could
-   not use "start" in a command if a label was 
+   not use "start" in a command if a label was
    also start.
    * Changed the needed geometry string.
    We don't use window size, and don't support

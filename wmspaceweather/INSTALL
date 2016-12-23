@@ -10,8 +10,8 @@ Installation
 1) gunzip wmSpaceWeather-1.0.tar.gz
 1) tar -xvf wmSpaceWeather-1.0.tar
 2) cd wmSpaceWeather-1.0/wmSpaceWeather/
-3) make 
-4) make install (must be root) 
+3) make
+4) make install (must be root)
 5) wmSpaceWeather & (or 'wmSpaceWeather -h' for help, or 'man wmSpaceWeather' for the man page)
 6) You need to set the location of perl correctly in GetKp if your perl
    is located in a place other than /usr/bin/

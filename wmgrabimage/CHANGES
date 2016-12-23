@@ -32,7 +32,7 @@ Version 0.61  - February 2, 1999.
 Version 0.6   - February 2, 1999.
 		Some bug fixes. Added Double click support.
 		Now, DoubleClick's do the following:
-		
+
 			Button1: display original size image via xv.
 
 			Button2: send another URL (specified with the -http

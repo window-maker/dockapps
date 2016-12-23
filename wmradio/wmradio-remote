@@ -4,7 +4,7 @@ PIPEPREFIX=/tmp/wmradio_
 
 PIPE=${PIPEPREFIX}`id -u`
 
-if [ "$1" = "" ] ; then 
+if [ "$1" = "" ] ; then
   echo -e "Usage: $0 COMMAND [param]\n"\
           "valid commands are:\n"\
           "  POWER\n"\

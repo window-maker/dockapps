@@ -351,7 +351,7 @@ static void read_rcfile (FILE *rcfp, ServerConfig *cfg)
 #       undef O
 #       undef ARG_yes
 #       undef ARG_no
-                
+
             error ("Unknown keyword in config file: %s", name);
     }
 }

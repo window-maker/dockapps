@@ -166,7 +166,7 @@ Description:
  cmd-line option  : -c <string>
  rc-file statement: Window.Button.Command = "<string>"
  default value    : "xterm -e mail"
-    
+
  item             : your mailbox (file => mbox, directory => Maildir)
  cmd-line option  : -mb <string>
  rc-file statement: Mail.MailBox = "<string>"
@@ -308,7 +308,7 @@ Porting:
  - Sun Solaris 4.0 on Sparc Station 4 and 10
  - Sun Solaris 6, 7 and 8 (thanx to Kristian Borum!)
  - SunOs 5.7 on Ultra Sparc 5 (thanx to Alessandro!)
- 
+
  ...together with Window Maker v0.60.0 or better (or standalone of course) and
  libdockapp v0.4.0.
 

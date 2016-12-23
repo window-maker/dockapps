@@ -7,7 +7,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -31,7 +31,7 @@
  * names listed below and then set your OS specific options there.
  * Don't be surprised, if there are no options for your OS. They aren't
  * needed in any case.
- * 
+ *
  * The default values should produce a functional WorkMan on every
  * platform.
  *
@@ -72,7 +72,7 @@
 
 #define WORKMAN_NAME "LibWorkMan"
 #define WORKMAN_VERSION "1.4.0"
- 
+
 /*
  * If your CD-ROM drive closes its tray if the device is opened, then
  * the next define can make WorkMans "Eject" button an "open/close"
@@ -182,7 +182,7 @@
 
 /*
  * Uncomment the following line to have WorkMan send SCSI commands
- *  directly to the CD-ROM drive.  If you have a SCSI drive you 
+ *  directly to the CD-ROM drive.  If you have a SCSI drive you
  * probably want this, but it will cause WorkMan to not work on IDE
  * drives.
  */
@@ -210,7 +210,7 @@
  */
 
 /* #define CURVED_VOLUME */
- 
+
 /*
  * Uncomment the following if you want to try out a better responding
  * WorkMan, especially with IDE drives. This may work with non-IDE
@@ -229,7 +229,7 @@
  * fstat() should be used, but I'm too dumb to do so.
  */
 
-#define BSD_MOUNTTEST 
+#define BSD_MOUNTTEST
 
 #endif /* linux */
 
@@ -353,5 +353,5 @@
 
 #endif /* IBM AIX */
 
-/******************************************************************/ 
+/******************************************************************/
 #endif /* WM_CONFIG_H */

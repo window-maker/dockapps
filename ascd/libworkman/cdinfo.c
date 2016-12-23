@@ -1,11 +1,11 @@
 /*
  * $Id: cdinfo.c,v 1.6 1999/02/14 16:47:40 dirk Exp $
- * 
+ *
  * This file is part of WorkMan, the civilized CD player library
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -169,7 +169,7 @@ split_trackinfo( int pos )
 			if (playlist[i].end > num)
 				playlist[i].end++;
 		}
-	
+
 	/* Now adjust the information in cd->trk[]. */
 	cd->trk[num].start = pos;
 	if (num == cur_ntracks)
@@ -194,7 +194,7 @@ split_trackinfo( int pos )
 	for (i = num + 1; i < cur_ntracks; i++)
 		if (cd->trk[i].track == cd->trk[num].track)
 			cd->trk[i].section++;
-	
+
 	return (1);
 }
 
@@ -214,7 +214,7 @@ remove_trackinfo( int num )
 
 	if (num < 1 || num >= cur_ntracks || cd->trk[num].section < 2)
 		return (0);
-	
+
 	cd->trk[num - 1].length += cd->trk[num].length;
 
 	for (i = num; i < cur_ntracks - 1; i++)
@@ -226,7 +226,7 @@ remove_trackinfo( int num )
 		cur_firsttrack--;
 	if (cur_lasttrack > num)
 		cur_lasttrack--;
-	
+
 	/* Update the user-defined playlists. */
 	if (cd->lists != NULL)
 		for (l = 0; cd->lists[l].name != NULL; l++)
@@ -234,7 +234,7 @@ remove_trackinfo( int num )
 				for (i = 0; cd->lists[l].list[i]; i++)
 					if (cd->lists[l].list[i] > num)
 						cd->lists[l].list[i]--;
-	
+
 	/* Update the internal playlist. */
 	if (playlist != NULL)
 		for (i = 0; playlist[i].start; i++)
@@ -244,7 +244,7 @@ remove_trackinfo( int num )
 			if (playlist[i].end > num)
 				playlist[i].end--;
 		}
-	
+
 	cur_ntracks--;
 	cur_nsections--;
 
@@ -297,12 +297,12 @@ listentry( int num )
 
 		digits = 2;
 		sdigits = cur_nsections < 9 ? -1 : -2;
-		
+
 		name = cd->trk[num].songname ? cd->trk[num].songname : "";
 
 		if (cur_nsections)
 	        {
-    			if (cd->trk[num].section > 9) 
+    			if (cd->trk[num].section > 9)
 			{
 				sprintf(tracknum, "%*d.%d", digits,
 					cd->trk[num].track,
@@ -348,7 +348,7 @@ listentry( int num )
 char *
 trackname( int num )
 {
-	if (num >= 0 && num < cur_ntracks) 
+	if (num >= 0 && num < cur_ntracks)
 	{
 		if (cd->trk[num].songname)
 		{
@@ -861,7 +861,7 @@ pl_find_track( int track )
 			cur_lasttrack = playlist[i].end - 1;
 			return;
 		}
-	
+
 	/*
 	 * Couldn't find the track in question.  Make a special entry with
 	 * just that track.

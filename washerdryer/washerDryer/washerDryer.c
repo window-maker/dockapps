@@ -43,7 +43,7 @@ int wdryer_mask_width = 64;
 int wdryer_mask_height = 64;
 
 int wInCommandMode = 0;      // 0 = default/bell     1 = command
-int dInCommandMode = 0; 
+int dInCommandMode = 0;
 
 int tmp_wInCmdMode = 0;
 int tmp_dInCmdMode = 0;
@@ -184,7 +184,7 @@ int main (int argc, char *argv[])
 
   //clickable regions
   AddMouseRegion (0, 8, 6, 28, 24); //0: washer
-  AddMouseRegion (1, 32, 6, 52, 24); //1: dryer 
+  AddMouseRegion (1, 32, 6, 52, 24); //1: dryer
   AddMouseRegion (2, 6, 26, 57, 57); //2: main area
 
   starttime = time (0);
@@ -209,7 +209,7 @@ int main (int argc, char *argv[])
         //decrement timer, draw status
         if (oldsec < time_struct->tm_sec)
           DecrementTimer ();
-        oldsec = (time_struct->tm_sec); 
+        oldsec = (time_struct->tm_sec);
 
         RedrawWindow ();
 
@@ -275,7 +275,7 @@ int main (int argc, char *argv[])
                               break;
                             /***************
                             * click on main
-                            ***************/    
+                            ***************/
                             case 2:  // main area
                                 //open GUI
                                 configure_washerdryer ();
@@ -354,7 +354,7 @@ void DrawStatus(int intProcNum, int intStatus)
     copyXPMArea (intXPMx, 64,
       3, 30,
       8 + intProcNum*5, 27);
-   
+
     intPrevStatus[intProcNum] = intXPMx;
   }
 }
@@ -668,7 +668,7 @@ void destroyAndReloadConfig(GtkWidget* widget)
   configure_washerdryer();
 }
 
-//destroys window 
+//destroys window
 void destroy (GtkWidget * widget, gpointer data)
 {
   gtk_main_quit ();
@@ -786,7 +786,7 @@ int configure_washerdryer ()
   // Add vertical box to main window
   gtk_container_add (GTK_CONTAINER (frame), sub_vbox);
   gtk_widget_show (sub_vbox);
-  
+
   box2 = gtk_hbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (sub_vbox), box2, TRUE, TRUE, 2);
 
@@ -897,7 +897,7 @@ int configure_washerdryer ()
       gtk_box_pack_start (GTK_BOX(innerHbox), buttonChange, FALSE, FALSE, 2);
       gtk_widget_show (buttonChange);
 
-      sprintf(buffer, " min remaining"); 
+      sprintf(buffer, " min remaining");
       label = gtk_label_new (buffer);
       gtk_misc_set_alignment (GTK_MISC (label), 2, 2);
       gtk_box_pack_start (GTK_BOX (innerHbox), label, FALSE, FALSE, 2);
@@ -964,7 +964,7 @@ int configure_washerdryer ()
 
       gtk_box_pack_start (GTK_BOX (innerHbox), button, FALSE, FALSE, 4);
       gtk_widget_show (button);
-      
+
     }
   } //end for
 

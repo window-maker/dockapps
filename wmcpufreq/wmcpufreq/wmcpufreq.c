@@ -1,12 +1,12 @@
 
-/*************************************************************************/ 
+/*************************************************************************/
 /* piece of code and pixmaps from                                        */
 /*                                                                       */
-/* wmspeedfreq ( Tom Kistner )                                           */ 
+/* wmspeedfreq ( Tom Kistner )                                           */
 /* wmppp  ( Martijn Pieterse, Antoine Nulle )                            */
 /* wmapkill (S.Rozange                                                   */
 /*                                                                       */
-/* This program is free software; you can redistribute it and/or modify  */ 
+/* This program is free software; you can redistribute it and/or modify  */
 /* it under the terms of the GNU General Public License as published by  */
 /* the Free Software Foundation; either version 2, or (at your option)   */
 /* any later version.                                                    */
@@ -20,11 +20,11 @@
 /* along with this program (see the file COPYING); if not, write to the  */
 /*  Free Software Foundation, Inc., 59 Temple Place - Suite 330,         */
 /*  Boston, MA  02111-1307, USA                                          */
-/*                                                                       */ 
+/*                                                                       */
 /* you need libcpufreq for the libarary                                  */
 /* and libcpufreq-dev for cpufreq.h                                      */
-/*                                                                       */ 
-/*                                                                       */ 
+/*                                                                       */
+/*                                                                       */
 /*************************************************************************/
 #include <stdio.h>
 #include <unistd.h>
@@ -43,7 +43,7 @@
 #include "wmcpufreq_mask_2.xbm"
 #include "wmcpufreq_mask_3.xbm"
 
-#define DELAY 200000000    /*nano second */ 
+#define DELAY 200000000    /*nano second */
 #define WMCPUFREQ_VERSION "VERSION 3.0 2009/05/14 \n"
 #define LN_PATH 40
 #define MAX_CPU 4
@@ -57,7 +57,7 @@ static unsigned char *wm_bits;
 struct cpufreq_policy *policy;
 int cpu=0;
 unsigned long min,max,f_min,f_max;
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
    struct timespec ts,ts1;
    int i,ncpu;
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
      freq[i]=0;
    if(argc >1)
      {
-	for (i=1; i<=argc; i++) 
+	for (i=1; i<=argc; i++)
 	  {
 	     if (!strcmp(argv[i], "-v"))
 	       {
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 	       {
 		 if(strlen(argv[i+1]) < LN_PATH )
 		   idcpu=strtol(argv[i+1],&endptr,0);
-		 printf("cpuid= %d \n",idcpu);		  
+		 printf("cpuid= %d \n",idcpu);
 		 break;
 	       }
 	     printf("only -v, -exe, -cpuid supported \n");
@@ -120,7 +120,7 @@ int main(int argc, char *argv[])
 
 
    /* get number of cpu (0=cpu0, 1=cpu1 ...) */
-  
+
    ncpu=-1;
 
    for(i=0;i<MAX_CPU;i++)
@@ -168,11 +168,11 @@ int main(int argc, char *argv[])
 	       wm_xpm,
 	       (char*)wm_bits,
 	       wmcpufreq_mask_width,
-               wmcpufreq_mask_height);   
-   while(1) 
-     { 
+               wmcpufreq_mask_height);
+   while(1)
+     {
 	/* Process any pending X events */
-	while(XPending(display)) 
+	while(XPending(display))
 	  {
 	     XNextEvent(display, &event);
 	     switch(event.type)
@@ -214,7 +214,7 @@ void show_driver( char *pt)
 	a=(int)pt[i];
         c=show_char(a);
 	copyXPMArea(6+(6*c),64,6,9, 7+(6*i), 34);
-     }	
+     }
    RedrawWindow();
    return;
 }
@@ -226,11 +226,11 @@ void show_governor(char *ptr)
 	a=(int)ptr[i];
 	c=show_char(a);
 	copyXPMArea(6+(6*c),78,6,9, 7+(6*i), 49);
-     }	
+     }
    RedrawWindow();
    return;
 }
-void show_mhz(unsigned long *kHz,int nu) 
+void show_mhz(unsigned long *kHz,int nu)
 {
    int i,j,delta=0,ddelta=0,odelta=0;
    char buffer[5];
@@ -238,14 +238,14 @@ void show_mhz(unsigned long *kHz,int nu)
    switch (nu) {
     case 0:
       snprintf(buffer, 5, "%4ld", (kHz[0] / 1000));
-      for (i=0;i<4;i++) 
+      for (i=0;i<4;i++)
       {
-	 if (buffer[i] == ' ') 
+	 if (buffer[i] == ' ')
 	 {
 	    /* blank zero */
 	    copyXPMArea(75, 93, 6, 9, 7+(7*i), 7);
 	 }
-	 else 
+	 else
 	 {
 	    /* a standard digit */
 	    copyXPMArea(((buffer[i]-48)*7)+5,93, 6, 9, 7+(7*i), 7);
@@ -256,22 +256,22 @@ void show_mhz(unsigned long *kHz,int nu)
 		 //         //                  l,h
 		 //         //                         dest x,y
         copyXPMArea(65, 40, ((kHz[0] - f_min) / ((f_max - f_min) / 49)), 9, 7, 18);
-        RedrawWindow(); 
+        RedrawWindow();
       }
       break;
     case 1:
       for(j=0;j<=nu;j++)
       {
 	 snprintf(buffer, 5, "%4ld", (kHz[j] / 1000));
-	
-	 for (i=0;i<4;i++) 
+
+	 for (i=0;i<4;i++)
 	 {
-	     if (buffer[i] == ' ') 
+	     if (buffer[i] == ' ')
 	     {
 		/* blank zero */
 		copyXPMArea(75, 93, 6, 9, 7+(7*i), 7+delta);
 	     }
-	     else 
+	     else
 	     {
 	        /* a standard digit */
 		copyXPMArea(((buffer[i]-48)*7)+5, 93, 6, 9, 7+(7*i), 7+delta);
@@ -280,7 +280,7 @@ void show_mhz(unsigned long *kHz,int nu)
        /* update  speed bar */
        copyXPMArea(65, 18, 49, 4, 7, 18+delta);
        copyXPMArea(65, 40, ((kHz[j] - f_min) / ((f_max - f_min) / 49)), 4, 7, 18+delta);
-	     
+
        RedrawWindow();
        delta=19;
      }
@@ -293,15 +293,15 @@ void show_mhz(unsigned long *kHz,int nu)
       for(j=0;j<4;j++)
       {
 	 snprintf(buffer, 5, "%4ld", (kHz[j] / 1000));
-	
-	 for (i=0;i<4;i++) 
+
+	 for (i=0;i<4;i++)
 	 {
-	     if (buffer[i] == ' ') 
+	     if (buffer[i] == ' ')
 	     {
 		/* blank zero */
 		copyXPMArea(126,6+odelta*j ,6,7, 6+(6*i),5+ddelta*j);
 	     }
-	     else 
+	     else
 	     {
 	        /* a standard digit */
 		copyXPMArea(((buffer[i]-48)*6)+66,6+odelta*j, 6,7, 6+(6*i), 5+ddelta*j);
@@ -311,7 +311,7 @@ void show_mhz(unsigned long *kHz,int nu)
           copyXPMArea(31,67,24,7,34,5+ddelta*j);
 	  /* update spped bar */
        	 if( !(nu==2 && j==3) ) /* 3 cpu 4 bar nul */
-	  copyXPMArea(6,67 , ((kHz[j] - f_min) / ((f_max - f_min) / 24)),7, 34,5+ddelta*j);	       
+	  copyXPMArea(6,67 , ((kHz[j] - f_min) / ((f_max - f_min) / 24)),7, 34,5+ddelta*j);
        RedrawWindow();
       }
       break;

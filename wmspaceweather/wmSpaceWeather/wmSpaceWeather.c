@@ -1,11 +1,11 @@
 /*
  *
  *  	wmSpaceWeather-1.04 (C) 1998 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *  		- Its a Space Weather Monitor
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  *      Boston, MA  02111-1307, USA
  *
  *      ToDo:
@@ -41,7 +41,7 @@
  *      Changes:
  *
  *	Version 1.04 - released Feb 18, 1999
- *			Added double click capability. Double clicking on mouse button 1 sends 
+ *			Added double click capability. Double clicking on mouse button 1 sends
  *			URL (defined via ne command line option -url) to netscape.
  *
  *	Version 1.03 - released Feb 11, 1999
@@ -62,8 +62,8 @@
 
 
 
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -78,8 +78,8 @@
 
 
 
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000L
 #define WMSPACEWEATHER_VERSION "1.04"
@@ -104,8 +104,8 @@ void pressEvent(XButtonEvent *xev);
 
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
 
@@ -136,19 +136,19 @@ FILE		*fp;
 
 
 
-	  
+
     /*
      *  Parse any command line arguments.
      */
     ParseCMDLine(argc, argv);
-	   
 
-	   
+
+
     openXwindow(argc, argv, wmSpaceWeather_master, wmSpaceWeather_mask_bits, wmSpaceWeather_mask_width, wmSpaceWeather_mask_height);
 
 
 
-	   
+
     /*
      *  Loop until we die
      */
@@ -169,18 +169,18 @@ FILE		*fp;
 	 *  Keep track of # of seconds
 	 */
 	if (m > 100){
-	
+
 	    m = 0;
 	    ++dt1;
 	    ++dt2;
-	
+
 	} else {
-	
+
 	    /*
 	     *  Increment counter
 	     */
 	    ++m;
-	
+
 	}
 
 
@@ -212,7 +212,7 @@ FILE		*fp;
 
 
 
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -233,9 +233,9 @@ FILE		*fp;
 
 
 
-	
-	/* 
-	 *  Redraw 
+
+	/*
+	 *  Redraw
 	 */
 	RedrawWindow();
 
@@ -256,7 +256,7 @@ FILE		*fp;
 	 *  may be Up-To-Date!
 	 */
 	if (dt2 > 2){
-	    
+
 	    dt2 = 0;
 
 	    /*
@@ -272,7 +272,7 @@ FILE		*fp;
 	    Secs  = Time->tm_sec;
 	    UT = (double)Hours + (double)Mins/60.0 + (double)Secs/3600.0;
 	    CurrentJD = jd(Year, Month, Day, UT);
-	    
+
 
 
     	    /*
@@ -333,9 +333,9 @@ FILE		*fp;
 		}
 
 
-	    } 
+	    }
 
-	} 
+	}
 
 
 
@@ -350,7 +350,7 @@ FILE		*fp;
 	    n = 0;
 
 	    copyXPMArea(5, 67, 47, 20, 5, 39);
-	
+
 	    for (i=0; i<8; ++i){
 	        if ((Kp[i] >= 0)&&(Kp[i] <= 9)){
 	            height = 2*Kp[i] + 1;
@@ -471,7 +471,7 @@ FILE		*fp;
 	    s = 0;
 
 	    if (LEDOn){
-	
+
 	        if (UpToDate)
 	            copyXPMArea(65, 82, 4, 4, 54, 53);
 	        else
@@ -479,7 +479,7 @@ FILE		*fp;
 
 	        LEDOn = 0;
 
-	    } else { 
+	    } else {
 
 	        if (UpToDate)
 	            copyXPMArea(60, 82, 4, 4, 54, 53);
@@ -487,7 +487,7 @@ FILE		*fp;
 	            copyXPMArea(60, 76, 4, 4, 54, 53);
 
 	        LEDOn = 1;
-	
+
 	    }
 	} else {
 
@@ -498,7 +498,7 @@ FILE		*fp;
 
 	}
 
-	    
+
 
 
 
@@ -526,8 +526,8 @@ FILE		*fp;
 
 
 
-	/* 
-	 *  Wait for next update 
+	/*
+	 *  Wait for next update
 	 */
 	usleep(DELAY);
 

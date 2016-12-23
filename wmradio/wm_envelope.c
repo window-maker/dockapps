@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 12 Jun 2003 Tomas Cermak
- * 
- * This file is part of wmradio program. 
+ *
+ * This file is part of wmradio program.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
@@ -161,7 +161,7 @@ int parse_command_line(int argc, char *argv [],RadioInfo *info)
 	case 10:
 	case 'k':
 	    rc_set_variable(SECTION_CONFIG,"skin",optarg);
-	    break;	
+	    break;
 	}
     }
     return 1;
@@ -171,7 +171,7 @@ void video_mainloop(void)
 {
     XEvent xe;
     RadioEvent re;
-    
+
     radio_continue = 1;
     while (radio_continue) {
         /* X Events */
@@ -205,9 +205,9 @@ void video_mainloop(void)
 		    re.x = xe.xbutton.x;
 		    re.y = xe.xbutton.y;
 		    re.button = xe.xbutton.button;
-		    re.control = xe.xbutton.state & ControlMask ? 
+		    re.control = xe.xbutton.state & ControlMask ?
 		        CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
-		    re.shift = xe.xbutton.state & ShiftMask ? 
+		    re.shift = xe.xbutton.state & ShiftMask ?
 		        CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
 		    wmradio_handle_event(&re);
 		}
@@ -217,9 +217,9 @@ void video_mainloop(void)
 		re.x = xe.xbutton.x;
 		re.y = xe.xbutton.y;
 		re.button = xe.xbutton.button;
-		re.control = xe.xbutton.state & ControlMask ? 
+		re.control = xe.xbutton.state & ControlMask ?
 		    CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
-		re.shift = xe.xbutton.state & ShiftMask ? 
+		re.shift = xe.xbutton.state & ShiftMask ?
 		    CONTROL_STATE_PRESSED : CONTROL_STATE_NOT_PRESSED;
  	        if(re.button == 4) re.type = REVENT_SCROLL_UP;
  	        if(re.button == 5) re.type = REVENT_SCROLL_DOWN;
@@ -259,7 +259,7 @@ int main(int argc, char *argv [])
     wmradio_init_radio_info();
     rc_read_config();
     parse_command_line(argc,argv,wmradio_radio_info());
-    
+
     main_display = XOpenDisplay(NULL);
     if (!main_display) {
         printf("wmradio: can't open display %s.\n",XDisplayName(NULL));
@@ -306,8 +306,8 @@ int main(int argc, char *argv [])
     XStoreName(main_display, applet, "WmRadio");
     XSetIconName(main_display, applet, "WmRadio");
 
-    wm_delete_window_atom = XInternAtom(main_display, "WM_DELETE_WINDOW", 0); 
-    wm_protocol_atom = XInternAtom(main_display, "WM_PROTOCOLS", 0);    
+    wm_delete_window_atom = XInternAtom(main_display, "WM_DELETE_WINDOW", 0);
+    wm_protocol_atom = XInternAtom(main_display, "WM_PROTOCOLS", 0);
     XSetWMProtocols(main_display, applet, &wm_delete_window_atom, 1);
 
     status = XMapWindow(main_display, applet);

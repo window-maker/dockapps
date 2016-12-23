@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 12 Jun 2003 Tomas Cermak
- * 
- * This file is part of wmradio program. 
+ *
+ * This file is part of wmradio program.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
@@ -150,7 +150,7 @@ void skin_def_line(char *line, Display *display, Drawable drawable, char *skin_d
             letters.w[i] = skin_read_num(p);
         }
         letters.h = skin_read_num(p);
-        break;	
+        break;
     case 2917: /* stereo */
         StereoInfo.destx = skin_read_num(p);
         StereoInfo.desty = skin_read_num(p);
@@ -182,7 +182,7 @@ void create_skin(char *skin_def_file, Display *display, Drawable drawable)
     p = &dir[strlen(dir)-1];
     while( *p != '/' ) p--;
     p[1] = '\000';
-    
+
     f = fopen(buffer,"r");
     if(! f ){
         printf("wmradio: Skin %s not found\n", skin_def_file);
@@ -224,10 +224,10 @@ int skin_button_index(int x, int y)
 {
     int i;
     for(i=0; i< button_count; i++) {
-        if( in_region(x,y, 
-		      buttons[i].destx, 
-		      buttons[i].desty, 
-		      buttons[i].width, 
+        if( in_region(x,y,
+		      buttons[i].destx,
+		      buttons[i].desty,
+		      buttons[i].width,
 		      buttons[i].height) ) {
             return i;
         }
@@ -317,7 +317,7 @@ int have_letters(void)
 void char_to_window(Display *display, Window win, GC gc, char c, int *x, int y)
 {
     int idx, sourcex;
-    
+
     if(isalpha(c)) {
 	idx = letter_index(c);
 	sourcex  = letter_source_x(idx);
@@ -348,7 +348,7 @@ void freq_to_window(Display *display, Window win, GC gc, int freq)
 {
     char freqs[10], temp[10], *stn_name;
     int x,i;
-    
+
     stn_name = station_get_freq_name(freq);
     if(stn_name && have_letters()) {
 	strncpy(freqs,stn_name,4);
@@ -440,7 +440,7 @@ int skin_width(void) {
 int skin_height(void) {
     return icon_height;
 }
-    
+
 void skin_select_station(int station)
 {
     int i;

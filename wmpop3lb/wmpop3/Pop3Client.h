@@ -1,6 +1,6 @@
 /* Author : Louis-Benoit JOURDAIN (lb@jourdain.org)
  * based on the original work by Scott Holden ( scotth@thezone.net )
- * 
+ *
  * multi Pop3 Email checker.
  *
  * Last Updated : Feb 7th, 2002
@@ -27,7 +27,7 @@
 
 #define	RSET_COLOR	color = 0
 #define	SWAP_COLOR	color = 1 - color
-#define	CH_COLOR(a)	(color) ? a + 24 : a	
+#define	CH_COLOR(a)	(color) ? a + 24 : a
 
 #define WMPOP3_VERSION "2.4.2"
 
@@ -57,7 +57,7 @@
 #define	ORIG_PB_TX	72
 #define	ORIG_PB_TY	65
 
-#define	ORIG_PB_BARX	73	
+#define	ORIG_PB_BARX	73
 #define	ORIG_PB_BARY	71
 
 #define SCROLL_LX	4	/* left X coordinate */
@@ -66,7 +66,7 @@
 #define SCROLL_BY	45	/* botton Y coordinate */
 #define SCROLL_W	3
 #define SCROLL_H	38	/* this is without SCROLL_EXT at each end */
-#define	SCROLL_EXT	2	
+#define	SCROLL_EXT	2
 
 #define	TMPPREFIX	"Pop3tmp"
 #define TMPPREFIXLEN	7
@@ -123,7 +123,7 @@ struct pop3_struct{
   int			numOfUnreadMessages;
   int			countunreadonly;
   int			sizeOfAllMessages;
-  int			sizechanged;	       
+  int			sizechanged;
   int			mailCheckDelay;
   int			forcedCheck;
   int			status;

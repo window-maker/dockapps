@@ -7,7 +7,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -32,7 +32,7 @@
 /*
  * LibWorkMan message levels. I'm not sure how to call them all and which
  * use they should fulfill. This is not very urgent now, because there
- * aren't many messages in LibWorkMan now. 
+ * aren't many messages in LibWorkMan now.
  */
 #define WM_MSG_LEVEL_NONE	0
 #define WM_MSG_LEVEL_ERROR	1
@@ -49,7 +49,7 @@
  * Message classes. This is somehow a definition of
  * the message's source.
  */
- 
+
 #define WM_MSG_CLASS_PLATFORM	0x010
 #define WM_MSG_CLASS_SCSI	0x020
 #define WM_MSG_CLASS_CDROM      0x040
@@ -66,7 +66,7 @@ extern int wm_lib_verbosity;
 #ifdef DEBUG
 #define CHECKPOINT(t) fprintf(stderr, "%s (%d): %s\n", __FILE__, __LINE__, t );
 #else
-#define CHECKPOINT(t) 
+#define CHECKPOINT(t)
 #endif
 
 #ifndef TRUE

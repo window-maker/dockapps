@@ -2,7 +2,7 @@
 wmAppKill v0.2
 --------------
 
-wmAppKill is a Window Maker dock applet that lists all your running processes. 
+wmAppKill is a Window Maker dock applet that lists all your running processes.
 You can kill any of them by doubleclicking on their names.
 
 You can specify wich process will be the oldest one of the list.
@@ -11,10 +11,10 @@ Type "wmAppKill -h" to get command line options.
 
 Please send comments, bugs, modifications to : rozange@club-internet.fr
 
-Future releases will be holded at: 
+Future releases will be holded at:
 http://internettrash.com/users/beuz/wmappkill.html
 
-Hope you'll enjoy it... 
+Hope you'll enjoy it...
 
 You might want to check this other cool dockapp from which i started :
 wmNetscapeKiller at http://pblumo.free.fr/wmNetscapeKiller

@@ -55,14 +55,14 @@ bool errorColor(char *color)
 
     if (strlen(color)!=6)
         return true;
-    
+
 
     for (i=0;i<6;i++)
     {
         if ((color[i]<48 || color[i]>57) && (color[i]<65 || color[i]>70) && (color[i]<97 || color[i]>102))
             return true;
     }
-    
+
     return false;
 }
 
@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 {
 	XEvent	event;
 	actualtime=time(0);
-   
+
 	static struct option long_options[] =
 	{
 		/* These options set a flag. */
@@ -129,13 +129,13 @@ int main(int argc, char *argv[])
 	{
 		int c;
 		int option_index = 0;
-		     
+
 		c = getopt_long (argc, argv, "vhc:m:", long_options, &option_index);
-		
+
 		/* Detect the end of the options. */
 		if (c == -1)
 	        	break;
-		
+
 		switch (c)
 		{
 			case 'v':
@@ -145,7 +145,7 @@ int main(int argc, char *argv[])
 				print_help();
 				break;
 			case 'c':
-				setColor(optarg);	
+				setColor(optarg);
 				break;
 			case 'm':
 				setMode(optarg);
@@ -161,14 +161,14 @@ int main(int argc, char *argv[])
 
 	openXwindow(argc, argv, xpm_numbers, xpm_master, xpm_mask_bits, xpm_mask_width, xpm_mask_height);
 
- 
+
 	/* Loop Forever */
-	while (1) 
+	while (1)
 	{
 		if (actualtime!=time(0))
-			beat();    
+			beat();
 		/* Process any pending X events. */
-		while (XPending(display)) 
+		while (XPending(display))
 		{
 			XNextEvent(display, &event);
 			if (event.type==Expose)
@@ -189,17 +189,17 @@ void beat()
 	time_struct=localtime(&actualtime);
 
 	cleanXPMArea();
-  
+
 	display_time(time_struct->tm_hour,HOUR);
 	display_time(time_struct->tm_min,MINUTE);
 	display_time(time_struct->tm_sec,SECOND);
 	copyXPMArea(177,0,8,12,27,3);   /*Display the two dots*/
-	
+
 	display_lines(time_struct->tm_sec);
 
 	display_date(time_struct->tm_wday,time_struct->tm_mday,time_struct->tm_mon,time_struct->tm_year+1900,g_mode,time_struct->tm_sec);
-	
-	RedrawWindow();   
+
+	RedrawWindow();
 }
 
 void display_time(int number,int time_unit){
@@ -246,9 +246,9 @@ void display_date(int day_of_week, int day_of_month, int month, int year,int mod
 	int first_pos_year=year/256;
 	int second_pos_year=(year-first_pos_year*256)/16;
 	int third_pos_year=year-first_pos_year*256-second_pos_year*16;
-    
+
 	static bool rec_mode;
-    
+
 	if (mode==1)
 	{
 		copyXPMArea((day_of_week-1)*22,20,22,9,5,39);
@@ -262,12 +262,12 @@ void display_date(int day_of_week, int day_of_month, int month, int year,int mod
 		copyXPMArea(third_pos_year*7,12,7,8,53,50);
 	}
 	else
-	{   
+	{
 		if (seconds%3==0)
 			rec_mode=!rec_mode;
 	}
 
-	if (rec_mode)    
+	if (rec_mode)
 			copyXPMArea((day_of_week-1)*31,32,31,12,16,39);
 	else
 	{

@@ -99,7 +99,7 @@ GC gc_gc, gc_bitgc;
 unsigned long color[4];
 
 
-// Misc custom global variables 
+// Misc custom global variables
 // ----------------------------
 
 // For artwork loading
@@ -513,7 +513,7 @@ void pressEvent(XButtonEvent *xev){
    }
    if(btn==-1){
       if(art_showled[3]){
-         if(x>=art_ledpos[3][0] && y>=art_ledpos[3][1] && x<=art_ledpos[3][0]+art_ledsize[4] && y<=art_ledpos[3][1]+art_ledsize[5]){ 
+         if(x>=art_ledpos[3][0] && y>=art_ledpos[3][1] && x<=art_ledpos[3][0]+art_ledsize[4] && y<=art_ledpos[3][1]+art_ledsize[5]){
             int tsels[] = { tsNone, tsNext, tsRepeat, tsRepeatCD, tsRandom };
             tsel++;
             if(tsel>=5)
@@ -525,7 +525,7 @@ void pressEvent(XButtonEvent *xev){
          }
       }
       if(art_showled[0]){
-         if(x>=art_ledpos[0][0] && y>=art_ledpos[0][1] && x<=art_ledpos[0][0]+(art_ledsize[0]+1)*9-1 && y<=art_ledpos[0][1]+art_ledsize[1]){ 
+         if(x>=art_ledpos[0][0] && y>=art_ledpos[0][1] && x<=art_ledpos[0][0]+(art_ledsize[0]+1)*9-1 && y<=art_ledpos[0][1]+art_ledsize[1]){
             tdisplay++;
             if(tdisplay>=2)
                tdisplay=0;

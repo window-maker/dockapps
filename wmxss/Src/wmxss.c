@@ -1,11 +1,11 @@
 /*
  *
  *  	wmxss-0.10 (C) 1999 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *  		- Its a DockApp front end for xscreensaver
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  *      Boston, MA  02111-1307, USA
  *
  *
@@ -35,8 +35,8 @@
 
 
 
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -51,8 +51,8 @@
 
 
 
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000L
 #define WMXSS_VERSION "0.10"
@@ -85,8 +85,8 @@ char    BackgroundColor[30]    	= "#181818";
 
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
 
@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
 
 
 
-    
+
     initXwindow(argc, argv);
     openXwindow(argc, argv, wmxss_master, wmxss_mask_bits, wmxss_mask_width, wmxss_mask_height);
 
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
     }
 
 
-   
+
     /*
      *  Loop until we die
      */
@@ -133,7 +133,7 @@ int main(int argc, char *argv[]) {
 	} else {
 
 	    /*
-	     *  Update the counter. 
+	     *  Update the counter.
 	     */
 	    ++n;
 
@@ -163,7 +163,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -184,9 +184,9 @@ int main(int argc, char *argv[]) {
 
 
 
-	
-	/* 
-	 *  Redraw and wait for next update 
+
+	/*
+	 *  Redraw and wait for next update
 	 */
 /*
 	RedrawWindow();
@@ -207,13 +207,13 @@ int main(int argc, char *argv[]) {
 
 
 
-/* 
- *   ParseCMDLine()  
+/*
+ *   ParseCMDLine()
  */
 void ParseCMDLine(int argc, char *argv[]) {
 
 int  i;
-  
+
     for (i = 1; i < argc; i++) {
 
         if (!strcmp(argv[i], "-display")){
@@ -255,7 +255,7 @@ int  i;
 	}
 
     }
-    
+
 
 }
 

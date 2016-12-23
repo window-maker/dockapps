@@ -1,4 +1,4 @@
-asbeats 0.2 by Martin Dahl <dahlm@vf.telia.no> 
+asbeats 0.2 by Martin Dahl <dahlm@vf.telia.no>
                and Karl-Martin Skontorp <karl-ms@online.no>
 
 WHAT IS IT?
@@ -19,7 +19,7 @@ windowmaker dock.
 INSTALLING
 ----------
 
-To install, just do a 'make' and copy the generated 'asbeats' 
+To install, just do a 'make' and copy the generated 'asbeats'
 program anywhere you like.
 
 

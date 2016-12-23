@@ -1,7 +1,7 @@
 To Install wmcapshare just modify the Makefile to conform to your
 environment.  And run make. make install.
 
-wmcapshare depends on 
+wmcapshare depends on
   libdockapp 0.4
   openobex   0.9.8
   glib	     1.2

@@ -7,7 +7,7 @@
 //
 // Copyright 2000~2002, Sven Geisenhainer <sveng@informatik.uni-jena.de>.
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
 // are met:
@@ -18,7 +18,7 @@
 //    documentation and/or other materials provided with the distribution.
 // 3. The name of the author may not be used to endorse or promote products
 //    derived from this software without specific prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 // IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 // OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -226,7 +226,7 @@ int main( int argc, char **argv )
 		if(( usersHome = getenv( "HOME" )) == NULL ) {
 			WARNING( "HOME environment-variable is not set, placing %s in current directory!\n", WMAIL_CHECKSUM_FILE );
 			config.checksumFileName = WMAIL_CHECKSUM_FILE;
-		} else 
+		} else
 			config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
     }
 
@@ -312,7 +312,7 @@ int main( int argc, char **argv )
 
 	XStringListToTextProperty( &name, 1, &windowName );
 	XSetWMName( DADisplay, DAWindow, &windowName );
-    
+
     UpdatePixmap( false );
     DAShow();
     SetTimer();
@@ -421,7 +421,7 @@ void PreparePixmaps( bool freeMem )
     DAMakePixmapFromData( chars_xpm, &charsPixmap, NULL, &dummy, &dummy );
     DAMakePixmapFromData( numbers_xpm, &numbersPixmap, NULL, &dummy, &dummy );
     DAMakePixmapFromData( button_xpm, &buttonPixmap, NULL, &dummy, &dummy );
-  
+
 	if( config.useX11Font != NULL )
 	{
 		XRectangle clipRect;
@@ -445,7 +445,7 @@ void PreparePixmaps( bool freeMem )
 
 		XSetClipRectangles( DADisplay, tickerGC, 0, 0, &clipRect, 1, Unsorted );
 	}
-  
+
     if( config.noshape ) // non-shaped dockapp ?
 		DASetShape( None );
     else
@@ -455,7 +455,7 @@ void PreparePixmaps( bool freeMem )
 void MarkName( unsigned long checksum )
 {
     name_t *name;
-    
+
     for( name = names; name != NULL; name = name->next ) {
 		if( name->checksum == checksum ) {
 			name->flag |= FLAG_READ;
@@ -469,18 +469,18 @@ void MarkName( unsigned long checksum )
 void DetermineState()
 {
     name_t *name;
-    
+
     for( name = names; name != NULL; name = name->next )
 		if(!( name->flag & FLAG_READ )) {
 			state = STATE_NEWMAIL;
 
 			if( config.cmdOnMail != NULL ) {
 				int ret = system( config.cmdOnMail );
-	
+
 				if( ret == 127 || ret == -1 )
 					WARNING( "execution of command \"%s\" failed.\n", config.cmdOnMail );
 			}
-		
+
 			break;
 		}
 }
@@ -496,7 +496,7 @@ void ReadChecksumFile()
 		MarkName( checksum );
     } else
 		return;
-    
+
     fclose( f );
 }
 
@@ -517,15 +517,15 @@ void WriteChecksumFile( bool writeAll )
 		return;
 
     TRACE( "\n" );
-    
-    fclose( f );    
+
+    fclose( f );
 }
 
 void UpdateChecksum( unsigned long *checksum, const char *buf )
 {
     if( buf != NULL ) {
 		unsigned int i, len = strlen( buf );
-	
+
 		for( i = 0; i < len; ++i )
 			*checksum += buf[i] << (( i % sizeof(long) ) * 8 );
     }
@@ -558,7 +558,7 @@ void TimerHandler( int dummy )
 		else
 			CheckMBox();
 	}
-    
+
     UpdatePixmap( checkMail % config.fps < config.fps/2 );
 
     if( ++checkMail >= config.fps * config.checkInterval )
@@ -727,7 +727,7 @@ char *FileNameConcat( const char *path, const char *fileName )
 name_t *GetMail( unsigned long checksum )
 {
 	name_t *name;
-    
+
     for( name = names; name != NULL; name = name->next )
 		if( name->checksum == checksum )
 			return name;
@@ -746,7 +746,7 @@ void UpdatePixmap( bool flashMailSymbol )
 
     XCopyArea( DADisplay, mainPixmap, outPixmap, DAGC,
 			   0, 0, 64, 64, 0, 0 );
-    
+
     if( numMails > 999 )
 	{
 		XCopyArea( DADisplay, numbersPixmap, outPixmap, DAGC,
@@ -879,7 +879,7 @@ void ParseMaildirFile( const char *fileName, unsigned long checksum,
 
 	timeStruct.actime = fileStat->st_atime;
     timeStruct.modtime = fileStat->st_mtime;
-    utime( fileName, &timeStruct );	
+    utime( fileName, &timeStruct );
 }
 
 char *ParseFromField( char *buf )
@@ -918,7 +918,7 @@ char *ParseFromField( char *buf )
 				state = STATE_QUOTED_FULLNAME;
 				continue;
 			case '<':
-				if( fullName[0] != '\0' && 
+				if( fullName[0] != '\0' &&
 					fullName[ strlen( fullName ) - 1 ] == ' ' )
 					fullName[ strlen( fullName ) - 1 ] = '\0';
 				state = STATE_ADDRESS;
@@ -941,9 +941,9 @@ char *ParseFromField( char *buf )
 				fullName[ strlen( fullName ) ] = *c;
 			}
 			continue;
-			
+
 		case STATE_QUOTED_FULLNAME:
-		    
+
 			switch( *c ) {
 			case '\\':
 				fullName[ strlen( fullName ) ] = *(++c);
@@ -1064,7 +1064,7 @@ bool SkipSender( char *address )
 		 skipName != NULL && *skipName != NULL; skipName++ )
 	{
 		TRACE( "comparing \"%s\" and \"%s\"\n", *skipName, address );
-			
+
 		// call libc-fnmatch (wildcard-match :-) !
 		if( !fnmatch( *skipName, address, 0 )) {
 			TRACE( "skipping sender \"%s\"\n", *skipName );
@@ -1103,7 +1103,7 @@ void RemoveLastName()
 void ClearAllNames()
 {
     name_t *name, *nextName;
-    
+
     for( name = names; name != NULL; name = nextName ) {
 		nextName = name->next;
 
@@ -1120,7 +1120,7 @@ void ClearAllNames()
 void SetMailFlags( flag_t flag )
 {
     name_t *name;
-    
+
     for( name = names; name != NULL; name = name->next )
 		name->flag |= flag;
 }
@@ -1174,7 +1174,7 @@ void DrawTickerBuildinFont()
     int leftSpace;
     int drawTo;
     unsigned char *currentChar;
-    
+
     if( names == NULL )
 		return;
 
@@ -1201,13 +1201,13 @@ void DrawTickerBuildinFont()
 		int outChar = (*currentChar < 32 || *currentChar >= 128) ? '?' :
 			*currentChar;
 		int charWidth = 57-drawTo >= 14 ? 14 - leftSpace : 57-drawTo;
-	
+
 		XCopyArea( DADisplay, charsPixmap, outPixmap, DAGC,
 				   (outChar-32)*14+leftSpace, 0, charWidth, 21, drawTo, 20 );
 
         leftSpace = 0;
         drawTo += charWidth;
-        
+
         if( drawTo > 57 )
             break;
     }
@@ -1229,7 +1229,7 @@ void DrawTickerBuildinFont()
 		}
     }
 }
-	
+
 void ButtonPressed( int button, int state, int x, int y )
 {
     if( x >= 35 && x <= 59 && y >= 47 && y <= 59 ) {
@@ -1247,7 +1247,7 @@ void ButtonReleased( int button, int state, int x, int y )
 
     if( x >= 35 && x <= 59 && y >= 47 && y <= 59 ) {
 		int ret = system( config.runCmd );
-	
+
 		if( ret == 127 || ret == -1 )
 			WARNING( "execution of command \"%s\" failed.\n", config.runCmd );
     }
@@ -1271,7 +1271,7 @@ char *XpmColorLine( const char *colorName, char *colorLine, bool disposeLine )
 {
     char *newLine = strdup( colorLine );
     char *from = strrchr( newLine, '#' );
-    
+
     if( from == NULL && !strcasecmp( &colorLine[ strlen( colorLine ) - 4 ], "none" ))  {
 		// if no # found, it should be a None-color line
 		free( newLine );
@@ -1283,9 +1283,9 @@ char *XpmColorLine( const char *colorName, char *colorLine, bool disposeLine )
 
     if( disposeLine )
 		free( colorLine );
-    
+
     GetHexColorString( colorName, from+1 );
-    
+
     return newLine;
 }
 

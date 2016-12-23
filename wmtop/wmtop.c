@@ -6,7 +6,7 @@
  * wmtop.c -- WindowMaker process view dock app
  * Derived by Dan Piponi dan@tanelorn.demon.co.uk
  * http://www.tanelorn.demon.co.uk
- * http://wmtop.sourceforge.net 
+ * http://wmtop.sourceforge.net
  * from code originally contained in wmsysmon by Dave Clark (clarkd@skynet.ca)
  * This software is licensed through the GNU General Public License.
  */
@@ -546,7 +546,7 @@ int process_parse_procfs(struct process *process) {
       line[endl]=0;
       /* account for "kdeinit: " */
       if ((char*)line == strstr(line, "kdeinit: "))
-        r = ((char*)line)+9; 
+        r = ((char*)line)+9;
       else
         r = (char*)line;
 
@@ -574,7 +574,7 @@ int process_parse_procfs(struct process *process) {
      * Extract cpu times from data in /proc/<pid>/stat
      * XXX: Process name extractor for FreeBSD is untested right now.
      *
-     * [TODO: FREEBSD code probably needs similar data type changes to 
+     * [TODO: FREEBSD code probably needs similar data type changes to
      * those made for LINUX above. Need to check docs.			-wbk]
      */
     rc = sscanf(line,"%s %*s %*s %*s %*s %*s %*s %*s %d,%d %d,%d",
@@ -746,7 +746,7 @@ void draw_processes() {
     ++g_time;
 
     update_process_table();
-    
+
     switch (mode) {
     case 0:
 	total = calc_cpu_total();
@@ -954,8 +954,8 @@ void blit_string(char *name, int x, int y) {
 
     k = x;
     for ( i = 0; name[i]; i++) {
-	c = toupper(name[i]); 
-	if (c >= 'A' && c <= 'J') {   
+	c = toupper(name[i]);
+	if (c >= 'A' && c <= 'J') {
 	    c -= 'A';
 	    copyXPMArea(c*6,73,6,7,k,y);
 	} else if (c>='K' && c<='T') {
@@ -964,7 +964,7 @@ void blit_string(char *name, int x, int y) {
 	} else if (c>='U' && c<='Z') {
 	    c -= 'U';
 	    copyXPMArea(c*6,89,6,7,k,y);
-	} else if (c>='0' && c<='9') { 
+	} else if (c>='0' && c<='9') {
 	    c -= '0';
 	    copyXPMArea(c*6,65,6,7,k,y);
 	} else {

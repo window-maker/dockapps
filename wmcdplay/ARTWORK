@@ -113,7 +113,7 @@ symbols.xpm
 
 /* XPM */
 static const char * symbols_xpm[] = {
-   
+
 cdplayer.xpm
 ------------
    This pixmap provides the basic background for wmcdplay
@@ -194,7 +194,7 @@ What does each button do?
                        A   T   L   A   O   R
                        T   O   A   U       A
                        A   P   Y   S   C   Y
-                           P   I   E   D    
+                           P   I   E   D
                        T   E   N   D       O
                        R   D   G           P
                        K                   E

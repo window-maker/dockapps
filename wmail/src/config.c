@@ -4,7 +4,7 @@
 //
 // Copyright 2000~2002, Sven Geisenhainer <sveng@informatik.uni-jena.de>.
 // All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
 // are met:
@@ -15,7 +15,7 @@
 //    documentation and/or other materials provided with the distribution.
 // 3. The name of the author may not be used to endorse or promote products
 //    derived from this software without specific prior written permission.
-// 
+//
 // THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
 // IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
 // OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -38,7 +38,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // wmailrc file format
-// 
+//
 // # - comment-lines
 // Window.Display = "string"
 // Window.NonShaped = On|Off
@@ -107,7 +107,7 @@ config_t config = {
 };
 
 // enumeration names for ticker mode
-enumList_t tickerEnum[] = 
+enumList_t tickerEnum[] =
 {
     { "address", TICKER_ADDRESS },
     { "familyname", TICKER_FAMILYNAME },
@@ -134,7 +134,7 @@ bool Tokenize( const char *line, const char **id, const char **value )
 			{
 				*id = token1;
 				*value = token2;
-	
+
 				return true;
 			}
 		}
@@ -153,7 +153,7 @@ void AddSenderToSkipList( char *sender  )
     {
 		if( !strcmp( *skipName, sender ))
 			return;
- 
+
 		numNames++;
     }
 
@@ -228,7 +228,7 @@ void PostProcessConfiguration()
 		config.display = strdup( WMAIL_DISPLAY );
 
 	if( config.runCmd == NULL )
-		config.runCmd = strdup( WMAIL_CLIENT_CMD );	
+		config.runCmd = strdup( WMAIL_CLIENT_CMD );
 
 	if( config.mailBox == NULL )
 	{
@@ -245,12 +245,12 @@ void ReadConfigFile( bool resetConfigStrings )
 	// free all config strings and reset their pointers if required
 	if( resetConfigStrings )
 		ResetConfigStrings();
-    
+
     if(( usersHome = getenv( "HOME" )) != NULL )
 	{
 		char *fileName = MakePathName( usersHome, WMAIL_RC_FILE );
 		FILE *f = fopen( fileName, "rt" );
-	
+
 		if( f != NULL )
 		{
 			char buf[1024];
@@ -260,7 +260,7 @@ void ReadConfigFile( bool resetConfigStrings )
 			{
 				const char *id, *value;
 				unsigned int len;
-		
+
 				if( fgets( buf, 1024, f ) == NULL )
 					break;
 
@@ -268,7 +268,7 @@ void ReadConfigFile( bool resetConfigStrings )
 				for( len = strlen( buf );
 					 len > 0 && IsWhiteSpace(buf+(--len)); )
 					*(buf+len) = '\0';
-		
+
 				if( !Tokenize( buf, &id, &value ))
 					continue;
 
@@ -332,7 +332,7 @@ void ReadConfigFile( bool resetConfigStrings )
 				} else
 					WARNING( "cfg-file(%i): unrecognized: \"%s\"\n", line, buf );
 			}
-		
+
 			fclose( f );
 		} else {
 			TRACE( "unable to open config-file \"%s\"\n", fileName );
@@ -355,7 +355,7 @@ bool ReadString( const char *from, unsigned int line, char **to )
 	{
 	    if( *(trailingQuote-1) != '\\' )
 		break;
-	    
+
 	    ++trailingQuote;
 	}
 
@@ -367,7 +367,7 @@ bool ReadString( const char *from, unsigned int line, char **to )
 	    // disposing of "to" is up to the caller...
 	    *to = malloc( trailingQuote - from + 1 );
 	    to_c = *to;
-	    
+
 	    for( c = from; c != trailingQuote; ++c ) {
 		if( *c == '\\' ) {
 		    switch( *(++c) ) {
@@ -394,17 +394,17 @@ bool ReadString( const char *from, unsigned int line, char **to )
 		    }
 		} else
 		    *to_c = *c;
-		
+
 		++to_c;
 	    }
-	    
+
 	    *to_c = '\0';
 	    TRACE( "ReadString read \"%s\"\n", *to );
 
 	    return true;
 	}
     }
-	
+
     WARNING( "cfg-file(%i): invalid string\n" );
     return false;
 }
@@ -428,7 +428,7 @@ bool ReadBool( const char *from, unsigned int line, bool *to )
 bool ReadInt( const char *from, unsigned int line, int *to )
 {
     int value = 0;
-    
+
     if( *from == '0' && (*(from+1) == 'x' || *(from+1) == 'X') ) {
 	for( from += 2; *from != '\0' && !IsWhiteSpace( from ); ++from )
 	{
@@ -460,7 +460,7 @@ bool ReadInt( const char *from, unsigned int line, int *to )
 	    return false;
 	}
     }
-    
+
     *to = value;
 
     TRACE( "ReadInt read \"%i\"\n", *to );
@@ -482,7 +482,7 @@ bool ReadEnum( const char *from, unsigned int line, int *to, const enumList_t *e
 	}
 
     WARNING( "cfg-file(%i): unknown modifier: \"%s\"\n", line, from );
-	    
+
     return false;
 }
 
@@ -494,9 +494,9 @@ bool IsWhiteSpace( const char *chr )
 const char *SkipWhiteSpaces( const char *str )
 {
     const char *c;
-    
+
     for( c = str; IsWhiteSpace( c ); ++c )
 	;
-    
+
     return c;
 }

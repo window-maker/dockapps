@@ -8,7 +8,7 @@ responsible for any damages this application may cause your system.
 
 1) WHAT IS THIS
     WMPop3 is a POP3 mail box checker. It will connect to a POP3
-server to check if you have mail, if you do then it will alert you 
+server to check if you have mail, if you do then it will alert you
 of new mail and how many messages are currently in you mail box.
 
 2) How do I configure WMPop3
@@ -35,23 +35,23 @@ be changed :
     This is the easy part..
 
     1) If you have no mail, WMPop3 will show a empty mail bin.
-    
+
     2) If you have new mail, WMPop3 will show a mail bin containing
         a message.
-    
-    3) Depending on the option chosen for viewallmessages, either, 
-                a) The number of read and unread messages in you mail box 
-                    will be shown below the mailbox image. 
+
+    3) Depending on the option chosen for viewallmessages, either,
+                a) The number of read and unread messages in you mail box
+                    will be shown below the mailbox image.
                 b) The number of unread messages currently in your mail box
                     will be shown below the mail box image..
 
        * The right button is now used to toggle both views.
-    
+
     4) To run your configured mail reader, mouse click on the mail bin.
-    
-    5) To manually check for mail at any time, mouse click on the 
+
+    5) To manually check for mail at any time, mouse click on the
           center grey button marked "CHECK" on the bottom.
-    
+
     6) To turn off auto mail checking mouse click bottom left button
        marked "AC". A red led will appear up in the top right hand
        corner, this means that auto mail checking is disabled.

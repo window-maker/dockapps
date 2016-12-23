@@ -50,7 +50,7 @@ static GkrellmChartconfig *chart_config = NULL;
 
 #define PLUGIN_HEIGHT 64
 
-static gint timeout_id; 
+static gint timeout_id;
 static int option_timer = 0;
 
 /* Options stuffs */
@@ -115,10 +115,10 @@ static void create_plugin(GtkWidget *vbox, gint first_create)
   if(first_create) {
     chart = gkrellm_chart_new0();
   }
-  
+
   gkrellm_set_chart_height_default(chart, PLUGIN_HEIGHT);
   gkrellm_chart_create(vbox, mon, chart, &chart_config);
-  
+
   if (first_create) {
     hdplop_main(chart->w, chart->h, chart->drawing_area->window);
   } else {
@@ -128,7 +128,7 @@ static void create_plugin(GtkWidget *vbox, gint first_create)
   if (first_create) {
     //printf("chart : w=%d, h=%d\n", chart->w, chart->h);
     gtk_signal_connect(GTK_OBJECT(chart->drawing_area),
-		       "expose_event", (GtkSignalFunc) chart_expose_event, NULL); 
+		       "expose_event", (GtkSignalFunc) chart_expose_event, NULL);
     gtk_signal_connect(GTK_OBJECT(chart->drawing_area),
 		       "button_release_event", GTK_SIGNAL_FUNC(button_release_event), NULL);
     g_signal_connect(G_OBJECT(chart->drawing_area),
@@ -144,7 +144,7 @@ static void option_toggled_cb(GtkToggleButton *button, gpointer user_data UNUSED
 {
   gboolean active = gtk_toggle_button_get_active(button);
   GtkWidget *togglebutton = GTK_WIDGET(button);
-  
+
   if (togglebutton == swap_check) {
      Prefs.disable_swap_matrix = !active;
   }
@@ -211,7 +211,7 @@ static void create_plugin_tab(GtkWidget *tab_vbox)
   GtkWidget *about_tab = NULL;
   GtkWidget *about = NULL;
   GtkWidget *main_box;
-  
+
   static gchar *info_text[] =
     {
       "<b>" PLUGIN_NAME "\n\n",
@@ -228,7 +228,7 @@ static void create_plugin_tab(GtkWidget *tab_vbox)
       "- Several glittering color schemes...\n",
       "- Popup display with the io throughput...\n",
     };
-  
+
   static gchar *about_text =
     _(
       PLUGIN_NAME " " PLUGIN_VERSION "\n"
@@ -244,10 +244,10 @@ static void create_plugin_tab(GtkWidget *tab_vbox)
   tabs = gtk_notebook_new();
   gtk_notebook_set_tab_pos(GTK_NOTEBOOK(tabs), GTK_POS_TOP);
   gtk_box_pack_start(GTK_BOX(tab_vbox), tabs, TRUE, TRUE, 0);
-  
+
   /* Options tab */
   options_tab = gkrellm_gtk_notebook_page(tabs, _("Options"));
-  
+
   main_box = gtk_vbox_new(FALSE, 0);
   gtk_widget_set_name(main_box, "main_box");
   gtk_widget_ref(main_box);
@@ -263,7 +263,7 @@ static void create_plugin_tab(GtkWidget *tab_vbox)
   gkrellm_gtk_check_button_connected(main_box, &swap_check, !Prefs.disable_swap_matrix, 1, 1, 0,
 				     option_toggled_cb, NULL, _("Show swap activity"));
   /* hdlist button */
-  gkrellm_gtk_check_button_connected(main_box, &hdlist_check, 
+  gkrellm_gtk_check_button_connected(main_box, &hdlist_check,
 				     (Prefs.hdlist_pos == AL_NONE)?FALSE:TRUE, 1, 1, 0,
 				     option_toggled_cb, NULL, _("Show disk name"));
   /* leds button */
@@ -278,17 +278,17 @@ static void create_plugin_tab(GtkWidget *tab_vbox)
   /* colormap spin button */
   gkrellm_gtk_spin_button(main_box, NULL, Prefs.iomatrix_colormap, 0, 4, 1, 1, 0, 0,
 			  cb_colormap_modified, NULL, FALSE, _("Colormap"));
-  
+
   /* threshold spin button */
   gkrellm_gtk_spin_button(main_box, &throughput_threshold, Prefs.popup_throughput_threshold, 0., 500, 0.1, 1, 1, 0,
                           cb_spinbutton_modified, NULL, FALSE, _("minimum io throughput (MB/s)"));
-  
+
   {
     GtkWidget *frame = gtk_frame_new("Fonts");
     gtk_box_pack_start(GTK_BOX(main_box), frame, TRUE, FALSE, 0);
 
     GtkWidget *hbox0 = gtk_hbox_new(FALSE, 4);
-    gtk_container_add(GTK_CONTAINER(frame), hbox0); 
+    gtk_container_add(GTK_CONTAINER(frame), hbox0);
 
     GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
     gtk_box_pack_start(GTK_BOX(hbox0), vbox, TRUE, FALSE, 0);
@@ -350,7 +350,7 @@ static void load_plugin_config(gchar *config_line)
                 &Prefs.iomatrix_colormap,
                 &Prefs.popup_throughput_threshold,
                 sf, bf);
-  if (n>= 8) Prefs.smallfontname = strdup(sf); 
+  if (n>= 8) Prefs.smallfontname = strdup(sf);
   if (n>= 9) Prefs.bigfontname = strdup(bf);
 }
 
@@ -362,15 +362,15 @@ static GkrellmMonitor hdplop_mon =
   NULL,                /* The update_plugin() function             */
   create_plugin_tab,   /* The create_plugin_tab() config function  */
   NULL,                /* The apply_plugin_config() function       */
-  
+
   save_plugin_config,  /* The save_plugin_config() function        */
   load_plugin_config,  /* The load_plugin_config() function        */
   PLUGIN_KEYWORD,      /* config keyword                           */
-  
+
   NULL,                /* Undefined 2                              */
   NULL,                /* Undefined 1                              */
   NULL,                /* private                                  */
-  
+
   MON_CPU,             /* Insert plugin before this monitor.       */
   NULL,                /* Handle if a plugin, filled in by GKrellM */
   NULL                 /* path if a plugin, filled in by GKrellM   */

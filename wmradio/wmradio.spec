@@ -41,4 +41,3 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/applications/wmradio.desktop
 /usr/share/pixmaps/wmradio.png
 
- 

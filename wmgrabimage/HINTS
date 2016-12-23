@@ -8,7 +8,7 @@ usage: wmGrabImage [-h] [-display <display>] -url <URL>
 
         -d <display>    		Use alternate display.
         -h              		Display help screen.
-        -url <URL>		 	This option tells wmGrabImage 
+        -url <URL>		 	This option tells wmGrabImage
 					which WWW image to monitor.
 
 
@@ -27,7 +27,7 @@ Afterstep users put the following in their .steprc
 Note: AfterStep's Wharf has a problem with pixmaps that are
 larger than 60x60 pixels. Please tell the AfterStep authors
 to fix this, this is not our fault, but a Wharf problem!
- 
+
 
 Other window managers.
 ----------------------

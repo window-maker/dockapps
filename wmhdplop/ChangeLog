@@ -14,7 +14,7 @@
   Fixed device lookup from /proc/partitions & /etc/mtab on feisty fawn.
 
 2006-12-01 (v0.9.8)
-	  
+
 	Added option -F to display hd temperatures in Farenheit degrees
   instead of Celsius.
 
@@ -25,8 +25,8 @@
 2005-06-17 (v0.9.7)
 
 	Should tolerate swapless configurations.
-	
-2005-02-25  
+
+2005-02-25
 
 	Damned there was a leak in both wmforkplop and wmhdplop.
 
@@ -37,36 +37,36 @@
 
 	Added options --32, --48 and --56 for user whose dock is smaller
 	than 64x64.
-	
+
 2004-07-07 (v0.9.5)
 
 	Some small bugfixes, added /usr/X11R6/lib/X11/fonts/truetype to
 	default font path, wmhdplop will try harder to find a
 	font. gkhdplop won't kill gkrellm if not font is found. wmhdplop
 	should work out of box with fvwm2 and others windowmanagers.
-	
+
 	http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=257760 should be
 	fixed, and the font names/size can now be changed in the gkhdplop
 	panel.
-	
+
 2004-04-06 (v0.9.4)
 
 	Well well well, wmhdplop won't try anymore to parse device
 	names. Major & minor device number are the only truth. Forget the
 	brain-damaged 0.9.3 which was broken with devfs.
-	
+
 2004-04-06 (v0.9.3)
 
 	Fixed some crashes, and wrong throughput when partitions where
 	monitored.  wmhdplop should recognize automatically scsi drives,
 	and even raid arrays.
-	
+
 2004-04-01
 
 	The release that will rule the desktops \o/ (v0.9.2) Add mouse
 	interactivity.  Add gkhdplop, the port to gkrellm.  wmhdplop
 	-g=wxh is not resizable
-	
+
 2003-12-18
 
 	Improved release \o/ (v0.9.1) Many internal changes. The
@@ -77,7 +77,7 @@
 	arbitray window size. This option has to be used with the
 	gnome-swallow meta applet (see example on the homepage).  The
 	default font-paths are now scanned recursively.
-      
+
 2003-12-06
 
 	Initial release \o/ (v0.9.0)

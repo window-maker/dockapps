@@ -1,5 +1,5 @@
 /*********************************************************************
- *                
+ *
  * Filename:      obex_io.c
  * Version:       0.3
  * Description:   Some useful disk-IO functions
@@ -10,24 +10,24 @@
  * Modified by:   Pontus Fuchs <pontus.fuchs@tactel.se>
  * Modified at:   Sun Oct 06 10:00:00 2001
  * Modified by:   Ben Moore <ben@netjunki.org>
- * 
+ *
  *     Copyright (c) 1999 Dag Brattli, All Rights Reserved.
- *     
- *     This program is free software; you can redistribute it and/or 
- *     modify it under the terms of the GNU General Public License as 
- *     published by the Free Software Foundation; either version 2 of 
+ *
+ *     This program is free software; you can redistribute it and/or
+ *     modify it under the terms of the GNU General Public License as
+ *     published by the Free Software Foundation; either version 2 of
  *     the License, or (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *     GNU General Public License for more details.
- * 
- *     You should have received a copy of the GNU General Public License 
- *     along with this program; if not, write to the Free Software 
- *     Foundation, Inc., 59 Temple Place, Suite 330, Boston, 
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program; if not, write to the Free Software
+ *     Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  *     MA 02111-1307 USA
- *     
+ *
  ********************************************************************/
 
 #include <stdio.h>
@@ -62,7 +62,7 @@ gint get_filesize(const char *filename)
 	fh = CreateFile(filename, 0, 0, NULL, OPEN_EXISTING, 0, NULL);
 	if(fh == INVALID_HANDLE_VALUE) {
 		g_print("Cannot open %s\n", filename);
-		return -1;	
+		return -1;
 	}
 	size = GetFileSize(fh, NULL);
 	g_print("fize size was %d\n", size);
@@ -99,13 +99,13 @@ guint8* easy_readfile(const char *filename, int *file_size)
 	if (fd == -1) {
 		return NULL;
 	}
-	
+
 	if(! (buf = g_malloc(*file_size)) )	{
 		return NULL;
 	}
 
 	actual = read(fd, buf, *file_size);
-	close(fd); 
+	close(fd);
 
 #ifdef _WIN32
 	if(actual != *file_size) {
@@ -139,7 +139,7 @@ obex_object_t *build_object_from_file(obex_t *handle, const char *filename)
 		return NULL;
 
 	/* Set Memopad as the default creator ID */
-	creator_id = MEMO_PAD;	
+	creator_id = MEMO_PAD;
 
 	/* Find the . in the filename */
 	name = strchr(filename, '.');
@@ -231,7 +231,7 @@ gint safe_save_file(gchar *name, const guint8 *buf, gint len, gchar *savedir)
 		perror( filename);
 		return -1;
 	}
-	
+
 	actual = write(fd, buf, len);
 	close(fd);
 

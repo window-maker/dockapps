@@ -29,7 +29,7 @@ DiskList *find_dev(unsigned major, unsigned minor) {
 DiskList *find_id(int hd_id, int part_id) {
   DiskList *dl;
   for (dl = dlist; dl; dl = dl->next) {
-    if (((dl->hd_id == hd_id) || hd_id == -1) && 
+    if (((dl->hd_id == hd_id) || hd_id == -1) &&
         ((dl->part_id == part_id) || part_id == -1)) return dl;
   }
   return NULL;
@@ -89,69 +89,69 @@ static const char *to_num_(unsigned minor) {
 int device_info(unsigned major, unsigned minor, char *name, int *hd_id, int *part_id) {
   switch(major) {
 #ifdef SCSI_DISK0_MAJOR
-    case (SCSI_DISK0_MAJOR): 
+    case (SCSI_DISK0_MAJOR):
 #else
-    case (SCSI_DISK_MAJOR): 
+    case (SCSI_DISK_MAJOR):
 #endif
-      if (name) sprintf(name, "sd%c%s", "abcdefghijklmnop"[(minor)/16], to_num_(minor%16)); 
+      if (name) sprintf(name, "sd%c%s", "abcdefghijklmnop"[(minor)/16], to_num_(minor%16));
       if (hd_id) *hd_id = (minor)/16;
       if (part_id) *part_id = minor%16;
       return 1;
-    case IDE0_MAJOR: 
+    case IDE0_MAJOR:
       if (name) sprintf(name, "hd%c%s", "ab"[(minor)/64], to_num_(minor%64));
       if (hd_id) *hd_id = 100 + (minor)/64;
       if (part_id) *part_id = minor%64;
       return 2;
-    case IDE1_MAJOR: 
-      if (name) sprintf(name, "hd%c%s", "cd"[(minor)/64], to_num_(minor%64)); 
+    case IDE1_MAJOR:
+      if (name) sprintf(name, "hd%c%s", "cd"[(minor)/64], to_num_(minor%64));
       if (hd_id) *hd_id = 200 + (minor)/64;
       if (part_id) *part_id = minor%64;
       return 3;
 #ifdef IDE2_MAJOR
-    case IDE2_MAJOR: 
+    case IDE2_MAJOR:
       if (name) sprintf(name, "hd%c%s", "ef"[(minor)/64], to_num_(minor%64));
       if (hd_id) *hd_id = 300 + (minor)/64;
       if (part_id) *part_id = minor%64;
       return 4;
 #endif
 #ifdef IDE3_MAJOR
-    case IDE3_MAJOR: 
+    case IDE3_MAJOR:
       if (name) sprintf(name, "hd%c%s", "gh"[(minor)/64], to_num_(minor%64));
       if (hd_id) *hd_id = 400 + (minor)/64;
-      if (part_id) *part_id = minor%64;      
+      if (part_id) *part_id = minor%64;
       return 5;
 #endif
 #ifdef IDE4_MAJOR
-    case IDE4_MAJOR: 
+    case IDE4_MAJOR:
       if (name) sprintf(name, "hd%c%s", "ij"[(minor)/64], to_num_(minor%64));
       if (hd_id) *hd_id = 400 + (minor)/64;
-      if (part_id) *part_id = minor%64;      
+      if (part_id) *part_id = minor%64;
       return 6;
 #endif
 
 #ifdef IDE5_MAJOR
-    case IDE5_MAJOR: 
+    case IDE5_MAJOR:
       if (name) sprintf(name, "hd%c%s", "kl"[(minor)/64], to_num_(minor%64));
       if (hd_id) *hd_id = 400 + (minor)/64;
-      if (part_id) *part_id = minor%64;      
+      if (part_id) *part_id = minor%64;
       return 7;
 #endif
 
 #ifdef IDE6_MAJOR
-    case IDE6_MAJOR: 
+    case IDE6_MAJOR:
       if (name) sprintf(name, "hd%c%s", "mn"[(minor)/64], to_num_(minor%64));
       if (hd_id) *hd_id = 400 + (minor)/64;
-      if (part_id) *part_id = minor%64;      
+      if (part_id) *part_id = minor%64;
       return 8;
 #endif
 
 
 #ifdef MD_MAJOR
-    case (MD_MAJOR):       
+    case (MD_MAJOR):
       if (name) sprintf(name, "md%s", to_num_(minor));
       if (hd_id) *hd_id = 400 + minor;
-      if (part_id) *part_id = 0;            
-      return 9;      
+      if (part_id) *part_id = 0;
+      return 9;
 #endif
 
 #ifdef BLOCK_EXT_MAJOR
@@ -181,13 +181,13 @@ int is_partition(unsigned major, unsigned minor) {
 int device_id_from_name(const char *devname__, unsigned *pmajor, unsigned *pminor) {
   if (strlen(devname__)>=512) return -1;
   char *devname_, devname[512];
-  
+
   devname_ = str_substitute(devname__, "/dev/mapper", "/dev");
 
   struct stat stat_buf;
   BLAHBLAH(1,printf("looking for %s in /dev..\n", devname_));
-  
-  if (devname_[0] != '/') snprintf(devname,512,"/dev/%s", devname_); 
+
+  if (devname_[0] != '/') snprintf(devname,512,"/dev/%s", devname_);
   else snprintf(devname,512,"%s",devname_);
 
   free(devname_); devname_ = 0;
@@ -213,7 +213,7 @@ int device_id_from_name(const char *devname__, unsigned *pmajor, unsigned *pmino
 
 /* add a hard-drive if it is a regular ide/scsi/md disk/partition, or return NULL */
 static DiskList *create_device(unsigned major, unsigned minor, const char *mtab_name) {
-  DiskList *dl; 
+  DiskList *dl;
   char dev_path[512];
   ALLOC_OBJ(dl);
   if (mtab_name && strlen(mtab_name)) dl->name = strdup(mtab_name);
@@ -222,11 +222,11 @@ static DiskList *create_device(unsigned major, unsigned minor, const char *mtab_
   }
   BLAHBLAH(1, printf("create_device(major=%d, minor=%d, mtab_name=%s) : name=%s\n", major,minor,mtab_name,dl->name));
   dl->major = major; dl->minor = minor;
-  if (device_info(major,minor,dev_path,&dl->hd_id,&dl->part_id) == 0) { 
+  if (device_info(major,minor,dev_path,&dl->hd_id,&dl->part_id) == 0) {
     BLAHBLAH(1, printf("(%d,%d) is not a known disc type..\n", major,minor));
-    free(dl); return NULL; 
+    free(dl); return NULL;
   }
-  dl->dev_path = malloc(strlen(dev_path)+6); assert(dl->dev_path); 
+  dl->dev_path = malloc(strlen(dev_path)+6); assert(dl->dev_path);
   sprintf(dl->dev_path, "/dev/%s", dev_path);
   dl->next = NULL;
   if (dl->part_id == 0)

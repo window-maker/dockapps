@@ -16,7 +16,7 @@ Some features are:
     * Command line options (-h for help)
     * Customize the program through config file, command line
       options, or on the fly
-       
+
 
 Files
 --------------------------------------------------------------
@@ -24,7 +24,7 @@ README      This file.
 INSTALL     Installation instructions.
 Changelog   Description of changes.
 COPYING     GNU General Public License Version 2.
-     
+
 
 Program Usage
 --------------------------------------------------------------

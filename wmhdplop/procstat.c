@@ -28,7 +28,7 @@ void pstat_add(struct pstat *pst, unsigned long v) {
 void pstat_advance(struct pstat *pst) {
   unsigned long v = pst->slices[pst->cur_slice];
   if (pst->total)
-    pst->slices[pst->cur_slice] -= pst->total; 
+    pst->slices[pst->cur_slice] -= pst->total;
   else pst->slices[pst->cur_slice] = 0;
   pst->total = v;
   if (++pst->cur_slice >= pst->nslice) pst->cur_slice = 0;
@@ -80,7 +80,7 @@ void update_stats() {
   while (fgets(line, sizeof(line), f)) {
     int major, minor;
     unsigned long nr, nw;
-    const char *fmt = use_proc_diskstats ? 
+    const char *fmt = use_proc_diskstats ?
       "%d %d %200s %*d %*d %lu %*d %*d %*d %lu" :
       "%d %d %*u %200s %*d %*d %lu %*d %*d %*d %lu";
     if (sscanf(line, fmt, &major, &minor, hdname, &nr, &nw) == 5 ||
@@ -90,10 +90,10 @@ void update_stats() {
       DiskList *dl;
       if (readok == 0) readok = 1;
       if ((dl=find_dev(major,minor))) {
-        dl->touched_r = (dl->nr - nr) ? 10 : dl->touched_r; 
-        dl->touched_w = (dl->nw - nw) ? 10 : dl->touched_w; 
+        dl->touched_r = (dl->nr - nr) ? 10 : dl->touched_r;
+        dl->touched_w = (dl->nw - nw) ? 10 : dl->touched_w;
         dl->nr = nr; dl->nw = nw;
-        if (is_displayed(dl->hd_id,dl->part_id) && 
+        if (is_displayed(dl->hd_id,dl->part_id) &&
             ((dl->part_id && (!find_id(dl->hd_id, 0) || !is_displayed(dl->hd_id, 0))) || /* partition without host disk */
              (dl->part_id == 0))) /* disk */
           {
@@ -134,8 +134,8 @@ void update_stats() {
   pstat_advance(&ps.swap_in);pstat_advance(&ps.swap_out);
   if (readok == 0) { fprintf(stderr, "warning: could not find any info in %s (kernel too old?)\n", proc_fname); exit(1); }
   else if (readok == 1) { ONLY_ONCE(fprintf(stderr, "warning: could not find any monitored disc in %s\n", proc_fname)); }
-  BLAHBLAH(1,printf("swap: %5.2f,%5.2f disc: %5.2f,%5.2f MB/s\n", 
-                    get_swapin_throughput(), get_swapout_throughput(), 
+  BLAHBLAH(1,printf("swap: %5.2f,%5.2f disc: %5.2f,%5.2f MB/s\n",
+                    get_swapin_throughput(), get_swapout_throughput(),
                     get_read_throughput(), get_write_throughput()));
 }
 
@@ -163,8 +163,8 @@ void init_stats(float update_interval) {
   if (!swap_list()) {
     fprintf(stderr, "Warning: no swap partition found in /proc/swaps !!\n");
   }
-  if ((f=fopen("/proc/diskstats","r"))) { 
-    use_proc_diskstats = 1; fclose(f); 
+  if ((f=fopen("/proc/diskstats","r"))) {
+    use_proc_diskstats = 1; fclose(f);
   }
   else { use_proc_diskstats = 0; }
   BLAHBLAH(1,printf("using %s for disc statistics\n", use_proc_diskstats ? "/proc/diskstats" : "/proc/partitions"));
@@ -196,7 +196,7 @@ void scan_all_hd(int add_partitions) {
     while (fgets(s,512,f)) {
       unsigned major, minor;
       char name[512]; name[0] = 0;
-      if (sscanf(s,"%d %d %*d %500s", &major, &minor, name)==3) {        
+      if (sscanf(s,"%d %d %*d %500s", &major, &minor, name)==3) {
         int hd_id, part_id;
         /* on n'ajoute que les disques dont au moins une partoche etait dans mtab */
         if (device_info(major,minor,NULL,&hd_id,&part_id) != 0 && part_id == 0 && find_id(hd_id,-1)) {

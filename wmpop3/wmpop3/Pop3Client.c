@@ -1,5 +1,5 @@
 /* Author : Scott Holden ( scotth@thezone.net )
- * 
+ *
  * Pop3 Email checker.
  *
  * Last Updated : Mar 20, 1999
@@ -80,7 +80,7 @@ int pop3IsConnected(Pop3 pc){
 
 int pop3Login(Pop3 pc, char *name, char *pass){
 
-      int size; 
+      int size;
       char temp[1024];
 
       if( pc->connected == NOT_CONNECTED ){
@@ -97,7 +97,7 @@ int pop3Login(Pop3 pc, char *name, char *pass){
       }
 
       sprintf(pc->outBuf,"USER %s\r\n",name);
-      send(pc->s, &pc->outBuf,strlen(pc->outBuf),0); 
+      send(pc->s, &pc->outBuf,strlen(pc->outBuf),0);
       size =recv(pc->s,pc->inBuf,1024,0);
       memset(temp,0,1024);
       memcpy(temp,pc->inBuf,size);
@@ -162,7 +162,7 @@ int pop3CheckMail(Pop3 pc){
 int  pop3GetTotalNumberOfMessages( Pop3 pc ){
      if( pc != 0 )
          return pc->numOfMessages;
-     return -1;    
+     return -1;
 }
 
 int  pop3GetNumberOfUnreadMessages( Pop3 pc ){

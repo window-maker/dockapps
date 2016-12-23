@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -152,7 +152,7 @@ find_drive_struct(char *vendor, char *model, char *rev)
 		    ( (d->mod != NULL) && strncmp(d->mod, model, strlen(d->mod)) ) ||
 		    ( (d->rev != NULL) && strncmp(d->rev, rev, strlen(d->rev)) ) )
 			continue;
-		
+
 		if (d->proto->vendor[0] == '\0')
 			strcpy(d->proto->vendor, vendor);
 		if (d->proto->model[0] == '\0')
@@ -255,7 +255,7 @@ read_toc()
 
 	thiscd.length = thiscd.trk[thiscd.ntracks].length;
         thiscd.cddbid = cddb_discid(drive);
-        
+
 	return (&thiscd);
 }
 
@@ -404,13 +404,13 @@ wm_cd_status( void )
 		break;
 	case WM_CDM_FORWARD:
 	case WM_CDM_EJECTED:
-		break;	
+		break;
 	}
 
 	return (ret);
 }
 
-#undef CLIF_VOL 
+#undef CLIF_VOL
 #ifdef CLIF_VOL
 /*
  * cd_volume(vol, bal, max)
@@ -432,7 +432,7 @@ cd_volume(vol, bal, max)
 /*	printf("Vol = %d, Bal = %d, Max = %d\n", vol, bal, max);
 */
 
-        vol  = (vol * 100 + max - 16) / max;  
+        vol  = (vol * 100 + max - 16) / max;
 	scale = (vol + 5) / 10;
 
         if (bal < 9)
@@ -446,7 +446,7 @@ cd_volume(vol, bal, max)
         }
 	else if (bal > 11)
 	{
-#ifdef SYMETRIC_BALANCE		
+#ifdef SYMETRIC_BALANCE
                 right = vol + scale * (bal - 10);
 #else
 		right = vol;
@@ -536,7 +536,7 @@ wm_cd_pause( void )
 			wm_cd_play(cur_track, paused_pos,
 				playlist[cur_listno-1].end);
 	default: /* */
-		break;	
+		break;
 	}
 } /* wm_cd_pause() */
 
@@ -559,7 +559,7 @@ wm_cd_stop( void )
 		cur_track = 1;
 	}
 } /* wm_cd_stop() */
- 
+
 /*
  * wm_cd_play_chunk(start, end)
  *
@@ -641,7 +641,7 @@ wm_cd_eject( void )
 			return (1);
 		}
 	}
-	
+
 	if (exit_on_eject)
 		exit(0);
 

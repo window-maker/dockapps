@@ -42,7 +42,7 @@ typedef struct {
   char *current_bigfont_name, *current_smallfont_name;
   unsigned update_display_delay_ms;
   unsigned update_stats_mult;
-  
+
   unsigned char swap_matrix_luminosity, swap_matrix_lighting;
 
   SwapMatrix sm;
@@ -51,7 +51,7 @@ typedef struct {
   int nb_hd, nb_dev;
   enum {HD_ACTIVE, HD_STANDBY, HD_SLEEP, HD_UNKNOWN} *disk_power_mode;
   int *disk_temperature;
-  
+
   int filter_hd, filter_part;
   int displayed_hd_changed;
   int reshape_cnt;

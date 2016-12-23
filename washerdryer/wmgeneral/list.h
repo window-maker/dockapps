@@ -1,4 +1,4 @@
-/* Generic single linked list to keep various information 
+/* Generic single linked list to keep various information
    Copyright (C) 1993, 1994 Free Software Foundation, Inc.
 
    Author: Kresten Krab Thorup

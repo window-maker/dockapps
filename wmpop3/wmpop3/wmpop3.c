@@ -1,6 +1,6 @@
 /*
  *  wmpop3.c
- *  pop3 mail checker. 
+ *  pop3 mail checker.
  *  by Scott Holden (scotth@thezone.net)
  *
  *  Contains some code from WMInet Dockable app.
@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
 	ProgName = argv[0];
 	if (strlen(ProgName) >= 5)
 		ProgName += (strlen(ProgName) - 5);
-	
+
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
 
@@ -146,13 +146,13 @@ void wmCheckMail_routine(int argc, char **argv){
     pc =pop3Create();     /* initialize Pop3 ADT */
 
     /* Set up timer for checking mail */
-    startTime     = time(0);  
+    startTime     = time(0);
     nextCheckTime = 0; /* Make 0, so it checks for mail on start */
 
-    
+
 	createXBMfromXPM(wminet_mask_bits, wmpop3_xpm
                , wminet_mask_width, wminet_mask_height);
-   
+
     openXwindow(argc, argv, wmpop3_xpm, wminet_mask_bits
                , wminet_mask_width, wminet_mask_height);
 
@@ -164,16 +164,16 @@ void wmCheckMail_routine(int argc, char **argv){
 
     /* Check if Autochecking is on or off */
     if(autoChecking == NO ){
-        copyXPMArea(67, 7 ,4 ,4 ,52 ,7 ); 
+        copyXPMArea(67, 7 ,4 ,4 ,52 ,7 );
     }
 
     RedrawWindow();
 
-    
+
     while (1){
         if( (((time(0) > nextCheckTime) || (nextCheckTime == 0))
-                            && ( autoChecking == YES)) 
-                            || (forcedCheck == YES)){ 
+                            && ( autoChecking == YES))
+                            || (forcedCheck == YES)){
             if(pop3MakeConnection(pc,popserver,serverport) == -1){
                 mailWaiting = -1;
             }
@@ -219,7 +219,7 @@ void wmCheckMail_routine(int argc, char **argv){
 
 
         RedrawWindow();
-        
+
         /* X Events */
         while (XPending(display)){
 			XNextEvent(display, &Event);
@@ -255,13 +255,13 @@ void wmCheckMail_routine(int argc, char **argv){
                         case 3:
                             execCommand(mailclient);
                             /* Recheck mail after 30 seconds,
-                             * This gives time for the mail 
-                             * browser to check the account */ 
+                             * This gives time for the mail
+                             * browser to check the account */
                             nextCheckTime = time(0) + 30;
                             break;
 					}
 				}
-                
+
 				break;
 			case ButtonRelease:
 				i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
@@ -277,10 +277,10 @@ void wmCheckMail_routine(int argc, char **argv){
                              if( autoChecking == YES){
                                  autoChecking = NO;
                                  /* Activate Red Led */
-                                copyXPMArea(67, 7 ,4 ,4 ,52 ,7 ); 
+                                copyXPMArea(67, 7 ,4 ,4 ,52 ,7 );
                              }else{
                                  /* Activate Green Led */
-                                 copyXPMArea(67, 2 ,4 ,4 ,52 ,7 ); 
+                                 copyXPMArea(67, 2 ,4 ,4 ,52 ,7 );
                                  autoChecking = YES;
                              }
                              break;
@@ -335,7 +335,7 @@ void BlitString(char *name, int x, int y)
 	k = x;
     for (i=0; name[i]; i++)
     {
-        c = toupper(name[i]); 
+        c = toupper(name[i]);
         if (c >= 'A' && c <= 'Z')
         {   /* its a letter */
 			c -= 'A';
@@ -385,7 +385,7 @@ void BlitNum(int num, int x, int y)
 
     BlitString(buf, newx, y);
 }
-    
+
 
 int  readConfigFile( char *filename ){
     char buf[256];
@@ -428,7 +428,7 @@ int  readConfigFile( char *filename ){
                     printf("Invalid UserName.\n");
                     return -1;
                 }
-                strcpy(username, ptr); 
+                strcpy(username, ptr);
             }
             else if( !strcmp( ptr, "password") ){
                 ptr = strtok( 0, " \n");
@@ -436,7 +436,7 @@ int  readConfigFile( char *filename ){
                     printf("Invalid password.\n");
                     return -1;
                 }
-                strcpy(password, ptr); 
+                strcpy(password, ptr);
             }
             else if( !strcmp( ptr, "popserver") ){
                 ptr = strtok( 0, " \n");
@@ -444,7 +444,7 @@ int  readConfigFile( char *filename ){
                     printf("Invalid popserver address.\n");
                     return -1;
                 }
-                strcpy(popserver, ptr); 
+                strcpy(popserver, ptr);
             }
             else if( !strcmp( ptr, "mailclient") ){
                 ptr = strtok( 0, " \n");
@@ -452,7 +452,7 @@ int  readConfigFile( char *filename ){
                     printf("Invalid mailclient.\n");
                     return -1;
                 }
-                strcpy(mailclient, ptr); 
+                strcpy(mailclient, ptr);
             }
             else if( !strcmp( ptr, "port") ){
                 ptr = strtok( 0, " \n");

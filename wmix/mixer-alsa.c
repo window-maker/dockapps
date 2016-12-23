@@ -226,7 +226,7 @@ static bool get_mixer_state(void)
         element[e].is_muted = element_is_muted(e);
         element[e].is_recording = element_is_recording(e);
 
-        //printf("Channel %s, has_vol: %d, stereo: %d, muted: %d, max: %ld, min: %ld, left: %ld, right: %ld, vol: %f, bal: %f\n", element[e].name, element[e].has_playback, element[e].is_stereo, element[e].is_muted, element[e].max, element[e].min, left, element[e].is_stereo?right:-1, element[e].volume, element[e].balance);            
+        //printf("Channel %s, has_vol: %d, stereo: %d, muted: %d, max: %ld, min: %ld, left: %ld, right: %ld, vol: %f, bal: %f\n", element[e].name, element[e].has_playback, element[e].is_stereo, element[e].is_muted, element[e].max, element[e].min, left, element[e].is_stereo?right:-1, element[e].volume, element[e].balance);
     }
     return true;
 }

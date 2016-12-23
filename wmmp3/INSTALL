@@ -6,9 +6,9 @@ wmmp3 v0.06 INSTALL -- Patrick Crosby <xb@dotfiles.com>
 
 3. Type 'make install'
 
-The default will probably put it in /usr/local/bin.  Use 
+The default will probably put it in /usr/local/bin.  Use
 
-	./configure --help 
+	./configure --help
 
 to set various options if the default is not right for you.
 

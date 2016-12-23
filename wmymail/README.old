@@ -40,7 +40,7 @@ requirements :
  this application needs libdockapp v0.2 or newer
 
 compile      :
- 
+
  this code is known to work under linux v2.10 and osf v3.2 (tested)
  together with Window Maker v0.60.0 and docklib v0.2. I've provided a simple
  Makefile you can use to build the binary - edit that file to suit your needs.

@@ -120,7 +120,7 @@ static dockapp_rv_t da_receive_selection (XEvent *event)
 
 
     rv = da_selection_cb (da_selection_cbdata, (const char *)data);
-    
+
     XFree (data);
 
     return rv;

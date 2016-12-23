@@ -64,7 +64,7 @@ printf "Bin directory? "
 read BINDIR
 echo
 
-case $BINDIR in 
+case $BINDIR in
     "") echo "#define CBINDIR /usr/local/bin" > dirs.h
         echo "** Ascd will be /usr/local/bin/ascd"
 	;;
@@ -85,9 +85,9 @@ echo "default value (/usr/local/man/man1)."
 echo
 printf "Man directory? "
 read MANDIR
-echo 
+echo
 
-case $MANDIR in 
+case $MANDIR in
     "") echo "#define CMANDIR /usr/local/man/man1" >> dirs.h
         echo "** Man page will be installed in /usr/local/man/man1."
 	;;
@@ -110,7 +110,7 @@ printf "Themes pixmaps directory? "
 read THDIR
 echo
 
-case $THDIR in 
+case $THDIR in
     "") echo "#define THDIR \"/usr/local/share/AScd\"" >> config.h
         echo "#define CTHDIR /usr/local/share/AScd" >> dirs.h
         echo "** Theme dir: /usr/local/share/AScd."
@@ -139,9 +139,9 @@ echo "2) no WINGs support (DEFAULT)"
 echo
 printf "Type 1 or 2: "
 read WINGS
-echo 
+echo
 
-case $WINGS in 
+case $WINGS in
     1)  echo "#define WMK" >> config.h
     	echo "** Compiling with WINGs support."
 	;;
@@ -167,7 +167,7 @@ printf "Type 1 or 2: "
 read WINGS
 echo
 
-case $WINGS in 
+case $WINGS in
     1)  echo "#define MIXER" >> config.h
     	echo "** Compiling with mixer support."
 	;;

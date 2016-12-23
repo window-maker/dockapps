@@ -52,7 +52,7 @@ If you are running AfterStep, you can add it to your Wharf by adding the followi
 .nf
 
         *Wharf wmget \- Swallow "wmget" wmget dock &
-      
+
 .fi
 
 .PP

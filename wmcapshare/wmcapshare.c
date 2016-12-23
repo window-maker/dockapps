@@ -1,5 +1,5 @@
 /*********************************************************************
- *                
+ *
  * Filename:      wmcapshare.c
  * Version:       0.1
  * Description:   Window Maker Dockapp to Control HP Capshare
@@ -8,29 +8,29 @@
  * Created at:    Sun Oct 06 10:00:00 2001
  * Modified at:   Sun Oct 06 10:00:00 2001
  * Modified by:   Ben Moore <ben@netjunki.org>
- * 
+ *
  *     Copyright (c) 2001 Ben Moore, All Rights Reserved.
- *     
- *     This program is free software; you can redistribute it and/or 
- *     modify it under the terms of the GNU General Public License as 
- *     published by the Free Software Foundation; either version 2 of 
+ *
+ *     This program is free software; you can redistribute it and/or
+ *     modify it under the terms of the GNU General Public License as
+ *     published by the Free Software Foundation; either version 2 of
  *     the License, or (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *     GNU General Public License for more details.
- * 
- *     You should have received a copy of the GNU General Public License 
- *     along with this program; if not, write to the Free Software 
- *     Foundation, Inc., 59 Temple Place, Suite 330, Boston, 
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program; if not, write to the Free Software
+ *     Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  *     MA 02111-1307 USA
  *
  *
- *     
+ *
  *     Start with --help to see available options
  *     By default captured pages are put in /tmp
- * 
+ *
  ********************************************************************/
 
 #include <stdio.h>
@@ -99,7 +99,7 @@ static DAProgramOption options[] = {
   {"-d", "--dir", "Directory to save to", DOString, False, {&savedir}}
 }
 ;
-	  
+
 
 
 int charpos(char c) {
@@ -115,7 +115,7 @@ int string2pixmap(char* str, Pixmap *p) {
    for (x = 0; x < strlen(str); x++) {
       XCopyArea(DADisplay, char_buf, *p, gc, charpos(str[x]),0, 6,  8,  x*6,  0);
    }
-   
+
 }
 
 void updateDisplay() {
@@ -131,7 +131,7 @@ void updateDisplay() {
     case CAP_RECIEVE: /* recieve */
       XCopyArea(DADisplay, plane_anim[planeanimpos], pixmap, gc, 0, 0, 60, 29, 0, 15);
       planeanimpos++;
-      if(planeanimpos==20) 
+      if(planeanimpos==20)
 	planeanimpos = 0;
       XCopyArea(DADisplay, connect_pic, pixmap, gc, 0, 0, 14, 15,  0, 45);
       string2pixmap("recieve", &tstatfld_buf);
@@ -146,8 +146,8 @@ void updateDisplay() {
       DASetPixmap(pixmap);
       break;
    }
-   
-   
+
+
 }
 
 /*
@@ -162,23 +162,23 @@ int main(int argc, char *argv[])
    int ret;
    unsigned height,width;
    int i;
-   
+
    DAParseArguments(argc, argv, options,
 		    sizeof(options)/sizeof(DAProgramOption),
 		    "CapShare Document Management Dock Applet\nBen Moore ben@netjunki.org\n",
 		    VERSION);
-   
-   
+
+
    DAInitialize(displayName, "wmcapshare", 60,60, argc, argv);
    DAMakePixmapFromData(lcdchars2_xpm, &char_buf, &char_mask, &height, &width);
    DAMakePixmapFromData(lcdnums_xpm, &num_buf, &num_mask, &height, &width);
    DAMakePixmapFromData(base_xpm, &pixmap, &mask, &height, &width);
    DAMakePixmapFromData(tstatfld_xpm, &tstatfld_buf, &tstatfld_mask, &height, &width);
    DAMakePixmapFromData(tstatfld_xpm, &blank_buf, &blank_mask, &height, &width);
-   DAMakePixmapFromData(capshare_xpm, &capshare_pic, &capshare_mask, &height, &width); 
-   DAMakePixmapFromData(transfering_xpm, &transfer_pic, &transfer_mask, &height, &width); 
-   DAMakePixmapFromData(connected_xpm, &connect_pic, &connect_mask, &height, &width); 
-   DAMakePixmapFromData(disconnected_xpm, &disconnect_pic, &disconnect_mask, &height, &width); 
+   DAMakePixmapFromData(capshare_xpm, &capshare_pic, &capshare_mask, &height, &width);
+   DAMakePixmapFromData(transfering_xpm, &transfer_pic, &transfer_mask, &height, &width);
+   DAMakePixmapFromData(connected_xpm, &connect_pic, &connect_mask, &height, &width);
+   DAMakePixmapFromData(disconnected_xpm, &disconnect_pic, &disconnect_mask, &height, &width);
    DAMakePixmapFromData( plane00_xpm, &plane_anim[0], &plane_animmask[1], &height, &width);
    DAMakePixmapFromData( plane01_xpm, &plane_anim[1], &plane_animmask[2], &height, &width);
    DAMakePixmapFromData( plane02_xpm, &plane_anim[2], &plane_animmask[3], &height, &width);
@@ -199,11 +199,11 @@ int main(int argc, char *argv[])
    DAMakePixmapFromData( plane17_xpm, &plane_anim[17], &plane_animmask[17], &height, &width);
    DAMakePixmapFromData( plane18_xpm, &plane_anim[18], &plane_animmask[18], &height, &width);
    DAMakePixmapFromData( plane19_xpm, &plane_anim[19], &plane_animmask[19], &height, &width);
-   
-   gc = DefaultGC(DADisplay, DefaultScreen(DADisplay));
-   
 
-/* 
+   gc = DefaultGC(DADisplay, DefaultScreen(DADisplay));
+
+
+/*
  string2pixmap("recieve", &tstatfld_buf);
  XCopyArea(DADisplay, plane_pic, pixmap, gc, 0, 0, 60, 29, 0, 15);
  XCopyArea(DADisplay, tstatfld_buf, pixmap, gc, 0, 0, 42,  8, 16, 48);
@@ -211,23 +211,23 @@ int main(int argc, char *argv[])
  XCopyArea(DADisplay, connect_pic, pixmap, gc, 0, 0, 14, 15, 0, 45);
  DASetPixmap(pixmap);
  */
-   
+
    XCopyArea(DADisplay, capshare_pic, pixmap, gc, 0, 0, 60, 29,  0, 15);
-   DAShow();   
-   
+   DAShow();
+
    while(1) {
       handle = OBEX_Init(OBEX_TRANS_IRDA, obex_event, 0);
-   
+
       printf("Waiting for files\n");
       OBEX_ServerRegister(handle, "OBEX");
-      
+
       while (!finished) {
 	 updateDisplay();
 	 OBEX_HandleInput(handle, 1);
       }
-      
+
       finished = FALSE;
    }
-   
+
    return 0;
 }

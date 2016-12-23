@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 12 Jun 2003 Tomas Cermak
- * 
- * This file is part of wmradio program. 
+ *
+ * This file is part of wmradio program.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software 
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
@@ -29,7 +29,7 @@
 char *freqtostr(int freq)
 {
     static char buffer[10];
-    
+
     sprintf(buffer, "%i.%.2i\n", freq / 100,freq % 100);
     return buffer;
 }
@@ -38,7 +38,7 @@ int ato100i(char *str)
 {
     char *p,*q;
     int result,tmp;
-    
+
     p = strstr(str,".");
     if(!p) {
 	return atoi(str) * 100;
@@ -48,7 +48,7 @@ int ato100i(char *str)
     result = atoi(str) * 100;
     tmp = atoi(q);
     *p = '.';
-    
+
     switch(strlen(q)) {
     case 1:
 	result += 10 * tmp;
@@ -70,7 +70,7 @@ IniVariable *station_find_by_freq(int freq)
     IniVariable *variable;
     List *item;
     int cfreq;
-    
+
     section = rc_get_section(SECTION_NAMES);
     if(!section) return NULL;
     for(item = section->variables; item; item = item->next) {
@@ -90,7 +90,7 @@ void station_add(char *name, int freq)
 char *station_get_freq_name(int freq)
 {
     IniVariable *variable;
-    
+
     variable = station_find_by_freq(freq);
     if(!variable) return NULL;
     return variable->name;
@@ -106,8 +106,8 @@ List *station_nearest(int freq)
     IniSection *section;
     List *item,*current;
     IniVariable *item_var;
-    int delta; 
-   
+    int delta;
+
     section = rc_get_section(SECTION_NAMES);
     if(! section ) return NULL;
     item = current = section -> variables;
@@ -129,7 +129,7 @@ int station_next_freq(int freq)
 {
     IniVariable *item_var;
     List *item;
-    
+
     item = station_nearest(freq);
     if(!item) return freq;
     if(item->next) {
@@ -145,7 +145,7 @@ int station_prev_freq(int freq)
 {
     IniVariable *item_var;
     List *item;
-    
+
     item = station_nearest(freq);
     if(!item) return freq;
     if(item->prev) {

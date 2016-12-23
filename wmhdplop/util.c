@@ -12,7 +12,7 @@ str_dup(const char *src) {
 }
 
 /*
-  verifie si la chaine est vide (cad si elle ne contient que des caractères non imprimables 
+  verifie si la chaine est vide (cad si elle ne contient que des caractères non imprimables
 */
 int
 str_is_empty(const char *s) {
@@ -101,7 +101,7 @@ str_substitute(const char *src, const char *key, const char *substitution) {
 }
 
 /* quotage pour les commandes externes.. à priori c'est comme pour open_url
-   mais bon.. je me refuse à donner la moindre garantie sur la sécurité 
+   mais bon.. je me refuse à donner la moindre garantie sur la sécurité
 
    be aware
 */
@@ -143,7 +143,7 @@ void gen_crc_table(void)                /* build the crc table */
 {
   unsigned crc, poly;
   int	i, j;
-  
+
   poly = 0xEDB88320;
   for (i = 0; i < 256; i++)
     {
@@ -164,7 +164,7 @@ unsigned str_hash(const unsigned char *s, int max_len)    /* calculate the crc v
 {
   unsigned crc;
   int i;
-  
+
   if (crc_table == NULL) {
     crc_table = calloc(256, sizeof(unsigned));
     gen_crc_table();
@@ -180,12 +180,12 @@ unsigned str_hash(const unsigned char *s, int max_len)    /* calculate the crc v
 unsigned char char_trans[256];
 static int char_trans_init = 0;
 
-static void 
+static void
 init_char_trans()
 {
-  const unsigned char *trans_accents  = 
+  const unsigned char *trans_accents  =
     (const unsigned char*) "éèëêÊËÉÈàâáäÀÂÁÄûüùÙçÇîïíìÏÎÍÌôóòõÔÓÒÕñ";
-  const unsigned char *trans_accents2 = 
+  const unsigned char *trans_accents2 =
     (const unsigned char*) "eeeeeeeeaaaaaaaauuuucciiiiiiiioooooooon";
   int i;
 
@@ -254,7 +254,7 @@ str_printf(const char *fmt, ...)
       s_sz *= 2;
       assert(s_sz < 100000);
       s = realloc(s, s_sz); assert(s);
-    } else 
+    } else
       break;
   }
   s = realloc(s, strlen(s)+1); assert(s);
@@ -275,7 +275,7 @@ str_fget_line(FILE *f)
   while ((c = fgetc(f)) > 0) {
     if (c >= ' ' || c == '\t') {
       s[i++] = c;
-      if (i == s_sz) { 
+      if (i == s_sz) {
 	s_sz *= 2; assert(s_sz < 100000);
 	s = realloc(s, s_sz); assert(s);
       }
@@ -296,7 +296,7 @@ str_trim(unsigned char *s) {
   j = strlen((char*)s)-1;
   while (j>=0 && s[j] <= ' ') s[j--] = 0;
 
-  i = 0; 
+  i = 0;
   while (s[i] && s[i] <= ' ') i++;
   if (i<=j) {
     memmove(s, s+i, j+2-i);

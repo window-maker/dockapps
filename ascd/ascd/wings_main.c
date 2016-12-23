@@ -24,12 +24,12 @@
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL DENIS BOUREZ, ROB MALDA OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  * ===========================================================================
  */
@@ -64,7 +64,7 @@ void close_dbwin(WMWidget *self, void *data) {
     strcpy(cd->cdname, WMGetTextFieldText(db_title));
     if (strlen(WMGetTextFieldText(db_track)) > 0) {
 	cd->trk[db_curtrack - 1].songname = malloc(strlen(WMGetTextFieldText(db_track)) + 1);
-	strcpy(cd->trk[db_curtrack - 1].songname, WMGetTextFieldText(db_track)); 
+	strcpy(cd->trk[db_curtrack - 1].songname, WMGetTextFieldText(db_track));
     }
 
     save();
@@ -76,19 +76,19 @@ void close_dbwin(WMWidget *self, void *data) {
     } else {
 	strcpy(txt, "unknown artist");
     }
-	    
+
     strcat(txt, "\n");
-    
+
     if (cd->cdname != NULL) {
 	strcpy(txt2, cd->cdname);
 	if (strcmp(txt2, "") == 0) strcpy(txt2, "unknown album");
     } else {
 	strcpy(txt2, "unknown album");
     }
-    
+
     strcat(txt, txt2);
     WMSetButtonText(b_title, txt);
-    
+
     db_en_vue = FALSE;
 }
 
@@ -424,8 +424,8 @@ void db_prev_cb(WMWidget *self, void *data) {
 	WMSetButtonSelected(db_avoid, TRUE);
     } else {
 	WMSetButtonSelected(db_avoid, FALSE);
-    }    
-    
+    }
+
     WMRealizeWidget(dbwin);
 }
 
@@ -460,7 +460,7 @@ void db_next_cb(WMWidget *self, void *data) {
     } else {
 	WMSetButtonSelected(db_avoid, FALSE);
     }
-    
+
     WMRealizeWidget(dbwin);
 }
 
@@ -682,7 +682,7 @@ void create_big_window(WMScreen *scr) {
     WMSetPopUpButtonPullsDown(pop, True);
     WMSetPopUpButtonText(pop, "Tracks");
     WMAddPopUpButtonItem(pop, "1");
-    WMSetPopUpButtonAction(pop, track_select, NULL); 
+    WMSetPopUpButtonAction(pop, track_select, NULL);
 
     fr = WMCreateFrame(win);
     WMMoveWidget(fr, 10, 75);
@@ -750,7 +750,7 @@ void create_big_window(WMScreen *scr) {
     WMMoveWidget(pop2, 140, 185);
     WMSetPopUpButtonText(pop2, theme);
     WMAddPopUpButtonItem(pop2, "1");
-    WMSetPopUpButtonAction(pop2, theme_pick, NULL); 
+    WMSetPopUpButtonAction(pop2, theme_pick, NULL);
 
     b_help = WMCreateButton(win, 0);
     WMResizeWidget(b_help, 80, 18);
@@ -887,7 +887,7 @@ void update_track() {
 	    } else {
 		strcpy(txt, "unknown artist");
 	    }
-	    
+
 	    strcat(txt, "\n");
 
 	    if (cd->cdname != NULL) {
@@ -911,7 +911,7 @@ void update_track() {
 	    }
 
 	    pistes = cur_ntracks;
-	    
+
 	    if (cur_track >= 1) {
 		if (cd->trk[cur_track - 1].songname != NULL) {
 		    sprintf(txt, "%s", cd->trk[cur_track - 1].songname);
@@ -955,7 +955,7 @@ void big_window(WMScreen *scr) {
 	WMSetTextFieldText(b_mutedvol, txt);
 
 	WMSetTextFieldText(b_device, cd_device);
-	
+
 	WMSetSliderMinValue(b_volume, min_volume);
 	WMSetSliderMaxValue(b_volume, max_volume);
 	WMSetSliderValue(b_volume, volume);
@@ -970,7 +970,7 @@ void big_window(WMScreen *scr) {
 	    WMRemovePopUpButtonItem(pop2, i);
 	}
 
-	/* update the database stuff. AScd 0.13: I deleted all this 
+	/* update the database stuff. AScd 0.13: I deleted all this
 	   stuff from this function as update_track() do the same! */
 
 	update_track();

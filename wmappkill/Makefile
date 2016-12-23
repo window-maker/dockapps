@@ -12,9 +12,9 @@ wmAppKill : wmAppKill.c
 
 install: wmAppKill
 	 install -m 755 wmAppKill /usr/bin/wmAppKill
-	
+
 clean:
 	$(RM) *.o core tst *~ \#*
-	
-      
-		
+
+
+

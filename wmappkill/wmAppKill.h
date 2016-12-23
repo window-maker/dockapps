@@ -1,4 +1,4 @@
-#define PROC_DEF "wmaker" 	      
+#define PROC_DEF "wmaker"
 
 #define MAX_CHAR 8
 #define NB_LINE 4

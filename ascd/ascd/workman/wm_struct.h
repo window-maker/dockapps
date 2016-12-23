@@ -7,7 +7,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -31,7 +31,7 @@
  * Structure for a single track.  This is pretty much self-explanatory --
  * one of these exists for each track on the current CD.
  */
-struct wm_trackinfo 
+struct wm_trackinfo
 {
   char	*songname;	/* Name of song, dynamically allocated */
   char	*otherdb;	/* Unrecognized info for this track */
@@ -62,7 +62,7 @@ struct wm_trackinfo
  * the total playing time of the playlist (which will usually be overestimated,
  * since we don't play leadouts in some cases.)
  */
-struct wm_play 
+struct wm_play
 {
   int	start;		/* Start track, or 0 if end of list */
   int	end;		/* last track plus 1 */
@@ -74,7 +74,7 @@ struct wm_play
  * followed by a zero-terminated list of track numbers to play.  The list
  * is terminated by a NULL name.
  */
-struct wm_playlist 
+struct wm_playlist
 {
   char	*name;		/* Name of this playlist */
   int	*list;		/* List of tracks */
@@ -104,7 +104,7 @@ extern struct wm_cdinfo *cd;
 
 struct wm_playlist *new_list();
 
-enum wm_cd_modes	
+enum wm_cd_modes
 {
   WM_CDM_UNKNOWN = -1,
   WM_CDM_BACK = 0, WM_CDM_TRACK_DONE = 0,
@@ -118,7 +118,7 @@ enum wm_cd_modes
 /*
  * Drive descriptor structure.  Used for access to low-level routines.
  */
-struct wm_drive 
+struct wm_drive
 {
   int	fd;		/* File descriptor, if used by platform */
   char	vendor[32];	/* Vendor name */
@@ -126,7 +126,7 @@ struct wm_drive
   char  revision[32];   /* Revision of the drive */
   void	*aux;		/* Pointer to optional platform-specific info */
   void	*daux;		/* Pointer to optional drive-specific info */
-  
+
   int	(*init)();
   int	(*get_trackcount)();
   int	(*get_cdlen)();

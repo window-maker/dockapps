@@ -24,12 +24,12 @@
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL DENIS BOUREZ, ROB MALDA OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  * ===========================================================================
  */
@@ -179,7 +179,7 @@ char th_alpha2[FAK_CMAX];
 char th_background[FAK_CMAX];
 char th_icon_window[FAK_CMAX];
 
-int th_no_minus = FALSE; 
+int th_no_minus = FALSE;
 int th_no_icon_window = FALSE;
 
 struct fak_button thdata[FAK_BMAX];
@@ -200,7 +200,7 @@ struct fak_button thdata[FAK_BMAX];
 
 /*****************************************************************************/
 
-void mouse_events(XEvent Event) 
+void mouse_events(XEvent Event)
 {
     int i;
     int j;
@@ -244,13 +244,13 @@ void mouse_events(XEvent Event)
 	}
     }
 
-} 
+}
 
 /* ------------------------------------------------------------------------
    GUI control
    ------------------------------------------------------------------------ */
 
-Pixel get_color(char *ColorName) 
+Pixel get_color(char *ColorName)
 {
     XColor Color;
     XWindowAttributes Attributes;
@@ -264,9 +264,9 @@ Pixel get_color(char *ColorName)
       fprintf(stderr,"ascd: can't allocate %s\n", ColorName);
 
     return Color.pixel;
-} 
+}
 
-void create_window(int argc, char **argv) 
+void create_window(int argc, char **argv)
 {
     int i;
     unsigned int borderwidth ;
@@ -345,7 +345,7 @@ void create_window(int argc, char **argv)
 				      fore_pix,
 				      back_pix);
     } else {
-	Iconwin = XCreateSimpleWindow(Disp, Win, 
+	Iconwin = XCreateSimpleWindow(Disp, Win,
 				      SizeHints.x,
 				      SizeHints.y,
 				      iconXPM.attributes.width,
@@ -366,7 +366,7 @@ void create_window(int argc, char **argv)
 
     XSelectInput(Disp, Iconwin, (ExposureMask | ButtonPressMask |
 				 StructureNotifyMask));
-    
+
     if (XStringListToTextProperty(&wname, 1, &name) ==0) {
 	fprintf(stderr, "ascd: can't allocate window name\n");
 	exit(-1);
@@ -389,21 +389,21 @@ void create_window(int argc, char **argv)
     WmHints.icon_y = SizeHints.y;
     XSetWMHints(Disp, Win, &WmHints);
     XSetCommand(Disp, Win, argv, argc);
-    
+
     XMapWindow(Disp, Win);
 
-    
+
     if (debug) fprintf(stderr, "-> calling fak_maskset() from create_window()...\n");
     fak_maskset();
     if (debug) fprintf(stderr, "-> calling fak_redraw() from create_window()...\n");
     fak_redraw();
     if (debug) fprintf(stderr, "-> Leaving create_window()\n");
-} 
+}
 
-void newtext(char *txt) { 
+void newtext(char *txt) {
     strcpy(led_text, txt);
     text_start = 0;
-} 
+}
 
 void show_icon_db_f() {
     /* scroll the song title */
@@ -434,7 +434,7 @@ void show_icon_db_f() {
 	}
 
         if (track > cur_ntracks - 1) return;
-       
+
 	if (cd->trk[track].songname != NULL) {
 	    if (show_artist) {
 		if (cd->artist != NULL) {
@@ -483,10 +483,10 @@ void show_db_f() {
 
     if ((theme_select == 0) || (where == DB_PANEL)) {
 
-	/* 
+	/*
 	   there is a message to display, we'll wait for the message
 	   to time-out before handling the track title... (but only if
-	   there is no separate areas) 
+	   there is no separate areas)
 	*/
 
 	if ((strlen(led_text) > 0) && (where == MSG_PANEL)) return;
@@ -505,7 +505,7 @@ void show_db_f() {
 
         if (track > cur_ntracks - 1) return;
 	if (track < 0) return;
-       
+
        	if (debug > 1) fprintf(stderr, "** Show DB TRACK = %d\n", track);
 
 	if (cd->trk[track].songname != NULL) {
@@ -542,20 +542,20 @@ void show_db_f() {
    Loooooooooooooooooping.........
    ------------------------------------------------------------------------ */
 
-void main_loop() 
+void main_loop()
 {
     unsigned int no_disk = 0;
     long int dodo = RDTIME;
     XEvent Event;
 
     while(1) {
-       
+
         if (debug > 1) fprintf(stderr, "** [Main Loop] mode = %02d track = %02d \n", cur_cdmode, cur_track);
-       
+
 	if (cur_cdmode == WM_CDM_EJECTED) no_disk = 1;
 
 	slow_down++;
-	
+
 	if (slow_down > 10) {
 
 #ifdef WMK
@@ -589,13 +589,13 @@ void main_loop()
 		    fak_redraw();
 		}
 	    }
-	    
+
 	    /* The Loop Mode : */
 	    if ( (cur_track == loop_end_track ) && (cur_pos_rel >= loop_2) && (loop_mode) ) {
 		cd_control(LOOP);
 		fak_redraw();
 	    }
-	    
+
 	    /* The Intro Scan Mode : */
 	    if ( (cur_pos_rel > cue_time) && (intro_mode) ) {
 		cd_control(INTRONEXT);
@@ -608,19 +608,19 @@ void main_loop()
 	}
 
 	/* Check events */
-	
+
 	while (XPending(Disp))
 	    {
-		
+
 		XNextEvent(Disp, &Event);
-		
-#ifdef WMK		
+
+#ifdef WMK
 		if (!WMHandleEvent(&Event)) {
 #endif
 		switch(Event.type) {
-		    
+
 		    /* ---------------------- Redraw Window --------------------- */
-		    
+
 		case Expose:
 		    if(Event.xexpose.count == 0) {
 			lasttime=01;
@@ -630,17 +630,17 @@ void main_loop()
 			if (debug > 1) fprintf(stderr, "** XEVent - expose, not handled, count = %d\n", Event.xexpose.count);
 		    }
 		    break;
-		    
+
 		    /* ----------------------- Mouse Click ---------------------- */
-		    
+
 		case ButtonPress:
-		    
+
 		    wm_cd_status();
 		    mouse_events(Event);
 		    break;
-		    
+
 		    /* ------------------------ Destroy Window ------------------- */
-		    
+
 		case DestroyNotify:
 		    XFreeGC(Disp, WinGC);
 		    XDestroyWindow(Disp, Win);
@@ -653,34 +653,34 @@ void main_loop()
 		    break;
 		}
 
-#ifdef WMK		
+#ifdef WMK
 		}
 #endif
 		XFlush(Disp);
 	    } /* check event */
-	
+
 	usleep(dodo);
-	
+
 	/* ----------------- now we have to redraw the screen: ---------------- */
-	
+
 	if ((slow_down > 10) || (has_clicked)) {
 	    fak_redraw();
 	    slow_down = 0;
 	    has_clicked = FALSE;
 	}
     }
-} 
+}
 
 /* ------------------------------------------------------------------------
    So... let's go!
    ------------------------------------------------------------------------ */
 
-int main(int argc, char *argv[]) 
+int main(int argc, char *argv[])
 {
-    extern char *rcfile, *dbfiles;  
+    extern char *rcfile, *dbfiles;
 
     /*printf("AScd %s\n", VERSION);*/
-    
+
     /* CD device: */
 
 #ifndef NO_D_DEVICE
@@ -691,7 +691,7 @@ int main(int argc, char *argv[])
     strcpy(led_text, "");
     strcpy(theme, "default");
     strcpy(xv, "xv");
-    
+
     /* the WorkMan database. It's still not used in ascd, but we need this
        to start the WorkMan code
     */
@@ -723,7 +723,7 @@ int main(int argc, char *argv[])
    create_window(argc, argv);
    if (debug) fprintf(stderr, "** checking CD status...\n");
    wm_cd_status();
-    
+
     if (cur_cdmode != WM_CDM_EJECTED) {
        if (debug) fprintf(stderr, "** reading CD initial volume...\n");
 	volume = wm_cd_read_initial_volume(max_volume);
@@ -749,12 +749,12 @@ int main(int argc, char *argv[])
     }
 
    if (debug) fprintf(stderr, "** checking current CD volume in database\n");
-   
+
     if (((cur_cdmode == WM_CDM_PLAYING) || (cur_cdmode == WM_CDM_PAUSED)) && (cd->volume > 0)) {
 	volume=cd->volume;
 	cd_volume(volume, 10, max_volume);
     }
-   
+
     fak_maskset();
 
     if (debug) fprintf(stderr, "** Init passed. Entering main loop.\n");

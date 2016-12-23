@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -438,7 +438,7 @@ wmcd_open(d)
 	wm_scsi_get_drive_type(d, vendor, model, rev);
 	*d = *(find_drive_struct(vendor, model, rev));
 	wm_drive_settype(vendor, model, rev);
-	
+
 	d->fd = fd;
 
 	(d->init)(d);

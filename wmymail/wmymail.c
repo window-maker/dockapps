@@ -131,7 +131,7 @@ int main(int argc, char **argv) {
 #endif
   sigemptyset(&sa.sa_mask);
   sigaction(SIGCHLD, &sa, NULL);
- 
+
 
   DAParseArguments(argc, argv, options,
                    sizeof(options) / sizeof(DAProgramOption),
@@ -191,7 +191,7 @@ int main(int argc, char **argv) {
   updatePixmap();
 
   DAShow();
-    
+
   checkForNewMail(0);
 
   DAEventLoop();
@@ -254,7 +254,7 @@ void checkForNewMail(int dummy) {
 }
 
   /*
-   * 
+   *
    *  checkfetchmail
    *
    */
@@ -347,7 +347,7 @@ void checkfetchmail (void) {
    numUnread = msgtotal - msgseen;
 }
   /*
-   * 
+   *
    *  checkmbox
    *
    */
@@ -376,7 +376,7 @@ void checkmbox (void) {
 
 void updatePixmap(void) {
   Pixmap outPixmap = flip ? outPixmap1 : outPixmap2;
-    
+
   flip = !flip;
 
   XCopyArea(DADisplay, mainPixmap, outPixmap, defaultGC,
@@ -407,8 +407,8 @@ void updatePixmap(void) {
   } else {
     XCopyArea(DADisplay, mboxthreePixmap, outPixmap, defaultGC,
       0, 0, 40, 34, 14, 6);
-  } 
-    
+  }
+
   DASetPixmap(outPixmap);
 }
 
@@ -479,7 +479,7 @@ void parseMailFile(struct stat *fileStat) {
           * 1) Take note, if the message appears to have been read
           * 2) Locate the end of the header  */
          } else if (inHeader) {
-     
+
             /* A blank line indicates the end of the header */
             if (!strcmp(buf, "\n")) {
                inHeader = 0;
@@ -499,7 +499,7 @@ void parseMailFile(struct stat *fileStat) {
                statusRead = 1;
             }
          }
-  
+
       /* The 1024 byte buffer can easily be exceeded by long lines...
        * when no newline is present, we must enter the state of "skipping
        * over the rest of a very long line".  Else a line inside the body

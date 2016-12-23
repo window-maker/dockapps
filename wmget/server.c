@@ -286,7 +286,7 @@ static int start_job (Job *j)
 
         j->status = J_EMPTY;
         exit (0);
-    } 
+    }
 
     return 0;
 }
@@ -883,7 +883,7 @@ static void process_request (FILE *fp)
             client_error (fp, "Argument missing closing )");
             return;
         }
-        
+
         *arg++ = 0;
 
         arg += strspn (arg, " \t");

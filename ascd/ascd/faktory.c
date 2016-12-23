@@ -24,16 +24,16 @@
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL DENIS BOUREZ, ROB MALDA OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  * ===========================================================================
  */
- 								   
+
 #include "ext.h"
 
 #define MAX_LINE_NAME 16
@@ -150,10 +150,10 @@ void fak_validate_pixmap(char *string, char *name)
     }
 }
 
-void fak_init_theme(int upgrade) 
+void fak_init_theme(int upgrade)
 {
     /* re-init all the buttons structure and globals */
-    
+
     int i;
 
     if (debug) fprintf(stderr, "** Init theme variables.\n   Buttons...\n");
@@ -163,7 +163,7 @@ void fak_init_theme(int upgrade)
 	thdata[i].panel = 0;
 	thdata[i].left = 0;
 	thdata[i].mid = 0;
-	thdata[i].right = 0;	
+	thdata[i].right = 0;
 	thdata[i].x = 0;
 	thdata[i].y = 0;
 	thdata[i].w = 0;
@@ -226,7 +226,7 @@ void fak_init_theme(int upgrade)
 
 }
 
-int fak_load_theme(char *th, int upgrade) 
+int fak_load_theme(char *th, int upgrade)
 {
     char txt[256];
     char key[256];
@@ -308,7 +308,7 @@ struct {
 		    }
 		} else if (key[0] == '}') {
 		    button = FALSE;
-		    
+
 		    /* update the pointers to msg, counter and tracknbr: */
 
 		    switch(thdata[but_max].type) {
@@ -387,9 +387,9 @@ struct {
 		    }
 
 		    i = 0;
-		    if ((strcmp(key, "left") == 0) || 
-			(strcmp(key, "middle") ==0) || 
-			(strcmp(key, "mid") ==0) || 
+		    if ((strcmp(key, "left") == 0) ||
+			(strcmp(key, "middle") ==0) ||
+			(strcmp(key, "mid") ==0) ||
 			(strcmp(key, "right") == 0)) {
 
 			/* --------------- available commands: ---------------- */
@@ -519,7 +519,7 @@ struct {
 	if ((Ret != XpmSuccess) && (debug)) fprintf(stderr, "*!* ");
 
 	/* the fonts: */
-	
+
 	if (debug) fprintf(stderr, "alpha 1 ");
 
 	fak_validate_pixmap(txt, th_alpha1);
@@ -533,7 +533,7 @@ struct {
 	Ret = XpmReadFileToPixmap(Disp, Root, txt, &ralphaXPM.pixmap,
 				  &ralphaXPM.mask, &ralphaXPM.attributes);
 	if ((Ret != XpmSuccess) && (debug)) fprintf(stderr, "*!* ");
-	
+
 	if (debug) fprintf(stderr, "\n-> Loading buttons pixmaps... ");
 	for (i = 1; i <= but_max; i++) {
 	    if (strlen(thdata[i].xpm_file) > 0) {
@@ -569,7 +569,7 @@ struct {
     }
 }
 
-void fak_icon_text(char *string, unsigned int where, unsigned int col, unsigned int red) 
+void fak_icon_text(char *string, unsigned int where, unsigned int col, unsigned int red)
 {
     unsigned int x = 0;
     unsigned int offset = 0;
@@ -614,15 +614,15 @@ void fak_icon_text(char *string, unsigned int where, unsigned int col, unsigned 
 
     if ((strlen(txt) > thdata[icon_msg].w) && (where == MSG_PANEL)) {
 	txt[thdata[icon_msg].w] = 0;
-    
+
     }
-	
+
     if ((strcmp(txt, "") == 0) && (where == MSG_PANEL)) {
 	for (x = 1; x <= thdata[icon_msg].w; x++) {
 	    strcat(txt, " ");
 	}
     }
- 
+
 
     if (red) {
 	char_max = alphaXPM.attributes.width / 6;
@@ -660,16 +660,16 @@ void fak_icon_text(char *string, unsigned int where, unsigned int col, unsigned 
 
 	if (red) {
 	    XCopyArea(Disp, ralphaXPM.pixmap, Iconwin, WinGC,
-		      6 * offset, 0, 6, 9, 
-		      hoffset + (col * 6) + (x * 6), 
+		      6 * offset, 0, 6, 9,
+		      hoffset + (col * 6) + (x * 6),
 		      voffset);
 	} else {
 	    XCopyArea(Disp, alphaXPM.pixmap, Iconwin, WinGC,
-		      6 * offset, 0, 6, 9, 
-		      hoffset + (col * 6) + (x * 6), 
+		      6 * offset, 0, 6, 9,
+		      hoffset + (col * 6) + (x * 6),
 		      voffset);
 	}
-	
+
     }
 }
 
@@ -736,20 +736,20 @@ void fak_text(char *string, unsigned int where, unsigned int col, unsigned int r
 
     if ((strlen(txt) > thdata[but_msg].w) && (where == MSG_PANEL)) {
 	txt[thdata[but_msg].w] = 0;
-    
+
     }
 
     if ((strlen(txt) > thdata[but_db].w) && (where == DB_PANEL)) {
 	txt[thdata[but_msg].w] = 0;
-    
+
     }
-	
+
     if ((strcmp(txt, "") == 0) && (where == MSG_PANEL)) {
 	for (x = 1; x <= thdata[but_msg].w; x++) {
 	    strcat(txt, " ");
 	}
     }
-    
+
     if ((strcmp(txt, "") == 0) && (where == DB_PANEL)) {
 	for (x = 1; x <= thdata[but_db].w; x++) {
 	    strcat(txt, " ");
@@ -792,41 +792,41 @@ void fak_text(char *string, unsigned int where, unsigned int col, unsigned int r
 
 	if (red) {
 	    XCopyArea(Disp, ralphaXPM.pixmap, Win, WinGC,
-		      6 * offset, 0, 6, 9, 
-		      hoffset + (col * 6) + (x * 6), 
+		      6 * offset, 0, 6, 9,
+		      hoffset + (col * 6) + (x * 6),
 		      voffset);
 
 	    if (!th_no_icon_window) {
 		XCopyArea(Disp, ralphaXPM.pixmap, Iconwin, WinGC,
-			  6 * offset, 0, 6, 9, 
-			  hoffset + (col * 6) + (x * 6), 
+			  6 * offset, 0, 6, 9,
+			  hoffset + (col * 6) + (x * 6),
 		      voffset);
 	    }
 	} else {
 	    XCopyArea(Disp, alphaXPM.pixmap, Win, WinGC,
-		      6 * offset, 0, 6, 9, 
-		      hoffset + (col * 6) + (x * 6), 
+		      6 * offset, 0, 6, 9,
+		      hoffset + (col * 6) + (x * 6),
 		      voffset);
 
 	    if (!th_no_icon_window) {
 		XCopyArea(Disp, alphaXPM.pixmap, Iconwin, WinGC,
-			  6 * offset, 0, 6, 9, 
-			  hoffset + (col * 6) + (x * 6), 
+			  6 * offset, 0, 6, 9,
+			  hoffset + (col * 6) + (x * 6),
 		      voffset);
 	    }
 	}
-	
+
     }
 }
 
-int fak_flush_expose(Window w) 
+int fak_flush_expose(Window w)
 {
     XEvent dummy;
     int i=0;
 
     while (XCheckTypedWindowEvent (Disp, w, Expose, &dummy))i++;
     return i;
-} 
+}
 
 void fak_minus(void) {
     if (th_no_minus) return;
@@ -835,20 +835,20 @@ void fak_minus(void) {
 	if (!th_no_icon_window) {
 	    if (but_counter == 0) return;
 	    XCopyArea(Disp, alphaXPM.pixmap, Win, WinGC,
-		      6 * (45 - 32), 0, 6, 7, 
+		      6 * (45 - 32), 0, 6, 7,
 		      thdata[but_counter].x, thdata[but_counter].y);
 	    XCopyArea(Disp, alphaXPM.pixmap, Iconwin, WinGC,
-		      6 * (45 - 32), 0, 6, 7, 
+		      6 * (45 - 32), 0, 6, 7,
 		      thdata[but_counter].x, thdata[but_counter].y);
 	} else {
 	    if (but_counter > 0) {
 		XCopyArea(Disp, alphaXPM.pixmap, Win, WinGC,
-			  6 * (45 - 32), 0, 6, 7, 
+			  6 * (45 - 32), 0, 6, 7,
 			  thdata[but_counter].x, thdata[but_counter].y);
 	    }
 	    if (icon_counter > 0) {
 		XCopyArea(Disp, alphaXPM.pixmap, Iconwin, WinGC,
-			  6 * (45 - 32), 0, 6, 7, 
+			  6 * (45 - 32), 0, 6, 7,
 			  thdata[icon_counter].x, thdata[icon_counter].y);
 	    }
 	}
@@ -856,20 +856,20 @@ void fak_minus(void) {
 	if (!th_no_icon_window) {
 	    if (but_counter == 0) return;
 	    XCopyArea(Disp, alphaXPM.pixmap, Win, WinGC,
-		      588, 0, 4, 7, 
+		      588, 0, 4, 7,
 		      thdata[but_counter].x, thdata[but_counter].y);
 	    XCopyArea(Disp, alphaXPM.pixmap, Iconwin, WinGC,
-		      588, 0, 4, 7, 
+		      588, 0, 4, 7,
 		      thdata[but_counter].x, thdata[but_counter].y);
 	} else {
 	    if (but_counter > 0) {
 		XCopyArea(Disp, alphaXPM.pixmap, Win, WinGC,
-			  588, 0, 4, 7, 
+			  588, 0, 4, 7,
 			  thdata[but_counter].x, thdata[but_counter].y);
 	    }
 	    if (icon_counter > 0) {
 		XCopyArea(Disp, alphaXPM.pixmap, Iconwin, WinGC,
-			  588, 0, 4, 7, 
+			  588, 0, 4, 7,
 			  thdata[icon_counter].x, thdata[icon_counter].y);
 	    }
 	}
@@ -897,7 +897,7 @@ void fak_minus(void) {
 			  582, 0, 4, 4,
 			  thdata[icon_counter].x, thdata[icon_counter].y);
 	    }
-	}	    
+	}
     }
 
 }
@@ -908,16 +908,16 @@ void fak_singlemask(int i)
 
     if (strlen(thdata[i].xpm_file) > 0) {
 	if (!th_no_icon_window) {
-	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].xpm.mask, ShapeSubtract);
-	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].xpm.mask, ShapeSubtract);
 	} else {
 	    if (thdata[i].icon) {
-		XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+		XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 				  thdata[i].xpm.mask, ShapeSubtract);
 	    } else {
-		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 				  thdata[i].xpm.mask, ShapeSubtract);
 	    }
 	}
@@ -925,16 +925,16 @@ void fak_singlemask(int i)
 
     if (strlen(thdata[i].altxpm_file) > 0) {
 	if (!th_no_icon_window) {
-	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].altxpm.mask, ShapeSubtract);
-	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].altxpm.mask, ShapeSubtract);
 	} else {
 	    if (thdata[i].icon) {
-		XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+		XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 				  thdata[i].altxpm.mask, ShapeSubtract);
 	    } else {
-		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 				  thdata[i].altxpm.mask, ShapeSubtract);
 	    }
 	}
@@ -944,31 +944,31 @@ void fak_singlemask(int i)
 
     if ((fak_use_alt(i)) && (strlen(thdata[i].altxpm_file) > 0)) {
 	if (!th_no_icon_window) {
-	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].altxpm.mask, ShapeUnion);
-	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].altxpm.mask, ShapeUnion);
 	} else {
 	    if (thdata[i].icon) {
-		XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+		XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 				  thdata[i].altxpm.mask, ShapeUnion);
 	    } else {
-		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 				  thdata[i].altxpm.mask, ShapeUnion);
 	    }
 	}
     } else {
 	if (!th_no_icon_window) {
-	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].xpm.mask, ShapeUnion);
-	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].xpm.mask, ShapeUnion);
 	} else {
 	    if (thdata[i].icon) {
-	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 			      thdata[i].xpm.mask, ShapeUnion);
 	    } else {
-		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+		XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 				  thdata[i].xpm.mask, ShapeUnion);
 	    }
 	}
@@ -982,15 +982,15 @@ void fak_maskset()
     if (debug) fprintf(stderr, "** Setting pixmaps mask\n");
     if (debug) fprintf(stderr, "-> background\n");
 
-    XShapeCombineMask(Disp, Win, ShapeBounding, 0, 0, 
+    XShapeCombineMask(Disp, Win, ShapeBounding, 0, 0,
 		      backXPM.mask, ShapeSet);
 
     if (!th_no_icon_window) {
-	XShapeCombineMask(Disp, Iconwin, ShapeBounding, 0, 0, 
+	XShapeCombineMask(Disp, Iconwin, ShapeBounding, 0, 0,
 			  backXPM.mask, ShapeSet);
     } else {
 	if (strlen(th_icon_window) > 0) {
-	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, 0, 0, 
+	    XShapeCombineMask(Disp, Iconwin, ShapeBounding, 0, 0,
 			      iconXPM.mask, ShapeSet);
 	}
     }
@@ -1001,31 +1001,31 @@ void fak_maskset()
 		if (debug) fprintf(stderr, "%d ", i);
 		if ((fak_use_alt(i)) && (strlen(thdata[i].altxpm_file) > 0)) {
 		    if (!th_no_icon_window) {
-			XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+			XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 				      thdata[i].altxpm.mask, ShapeUnion);
-			XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+			XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 					  thdata[i].altxpm.mask, ShapeUnion);
 		    } else {
 			if (thdata[i].icon) {
-			    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+			    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 					      thdata[i].altxpm.mask, ShapeUnion);
 			} else {
-			    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+			    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 					      thdata[i].altxpm.mask, ShapeUnion);
 			}
 		    }
 		} else {
 		    if (!th_no_icon_window) {
-			XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+			XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 					  thdata[i].xpm.mask, ShapeUnion);
-			XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+			XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 				      thdata[i].xpm.mask, ShapeUnion);
 		    } else {
 			if (thdata[i].icon) {
-			    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y, 
+			    XShapeCombineMask(Disp, Iconwin, ShapeBounding, thdata[i].x, thdata[i].y,
 					      thdata[i].xpm.mask, ShapeUnion);
 			} else {
-			    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y, 
+			    XShapeCombineMask(Disp, Win, ShapeBounding, thdata[i].x, thdata[i].y,
 					      thdata[i].xpm.mask, ShapeUnion);
 			}
 		    }
@@ -1061,7 +1061,7 @@ void fak_redraw()
     /* ============================================================== */
 
     if (debug) fprintf(stderr, "** Entering redraw routine\n");
-					     
+
     if (!blind_mode) {
 	if ((cur_cdmode == WM_CDM_PLAYING) || (wanna_play)) wm_cd_status();
     }
@@ -1089,7 +1089,7 @@ void fak_redraw()
 	    cur_track = 0;
 	    redraw = TRUE;
 	    fak_maskset();
-	} 
+	}
     }
 
     /* ======================================================= */
@@ -1118,7 +1118,7 @@ void fak_redraw()
     }
 
     /* ======================================================================
-       Do we *really* need to update the counter? If the cur time is the same 
+       Do we *really* need to update the counter? If the cur time is the same
        as last time, we simply exit the redraw function
        ====================================================================== */
 
@@ -1146,7 +1146,7 @@ void fak_redraw()
     /* draw the text if we have a query */
     /* ================================ */
 
-    /* but but but... If we see a "redraw" query, 
+    /* but but but... If we see a "redraw" query,
        we skip the text! It will be displayed next time
        the function is called... 0.13 */
 
@@ -1157,13 +1157,13 @@ void fak_redraw()
 		fak_text("", MSG_PANEL, 0, FALSE);
 		fak_text(led_text, MSG_PANEL, 0, FALSE);
 	    }
-	    
+
 	    if (time(NULL) - text_start > text_timeout) {
 		text_start = 0;
 		redraw = TRUE;
 		strcpy(led_text, "");
 		fak_text("", MSG_PANEL, 0, FALSE);
-	    } else { 
+	    } else {
 		if (!fade_out) return;
 	    }
 	}
@@ -1201,43 +1201,43 @@ void fak_redraw()
 	    }
 	}
     }
-    
+
     /* the buttons: */
-    
+
     for (i = 1; i <= but_max; i++) {
-	
+
 	use_alt = FALSE;
-	
+
 	if ((thdata[i].panel == panel) || (thdata[i].panel == 0)) {
 	    if (thdata[i].type == FAK_VCD_BAR) {
 		if ( (cur_cdmode != WM_CDM_STOPPED) && (cur_cdmode != WM_CDM_EJECTED) ) {
 		    if ((time_mode == 2) || (time_mode == 3)) {
 			if (cur_cdlen > 0) {
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-				      thdata[i].xpm.attributes.width, 
-				      0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.height), 
-				      thdata[i].x, 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+				      thdata[i].xpm.attributes.width,
+				      0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.height),
+				      thdata[i].x,
 				      thdata[i].y);
 			    if (!th_no_icon_window) {
-				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-					  thdata[i].xpm.attributes.width, 
-					  0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.height), 
-					  thdata[i].x, 
+				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+					  thdata[i].xpm.attributes.width,
+					  0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.height),
+					  thdata[i].x,
 					  thdata[i].y);
 			    }
 			}
 		    } else {
 			if (cur_tracklen > 0) {
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-				      thdata[i].xpm.attributes.width, 
-				      0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.height), 
-				      thdata[i].x, 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+				      thdata[i].xpm.attributes.width,
+				      0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.height),
+				      thdata[i].x,
 				      thdata[i].y);
 			    if (!th_no_icon_window) {
-				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-					  thdata[i].xpm.attributes.width, 
-					  0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.height), 
-					  thdata[i].x, 
+				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+					  thdata[i].xpm.attributes.width,
+					  0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.height),
+					  thdata[i].x,
 					  thdata[i].y);
 			    }
 			}
@@ -1251,17 +1251,17 @@ void fak_redraw()
 			    offset = (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.height);
 			    offset = thdata[i].xpm.attributes.height - offset;
 
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-				      thdata[i].xpm.attributes.width, 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+				      thdata[i].xpm.attributes.width,
 				      thdata[i].xpm.attributes.height - offset,
-				      thdata[i].x, 
+				      thdata[i].x,
 				      thdata[i].y +offset);
-			    
+
 			    if (!th_no_icon_window) {
-				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-					  thdata[i].xpm.attributes.width, 
+				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+					  thdata[i].xpm.attributes.width,
 					  thdata[i].xpm.attributes.height - offset,
-					  thdata[i].x, 
+					  thdata[i].x,
 					  thdata[i].y +offset);
 			    }
 			}
@@ -1270,17 +1270,17 @@ void fak_redraw()
 			    offset = (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.height);
 			    offset = thdata[i].xpm.attributes.height - offset;
 
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-				      thdata[i].xpm.attributes.width, 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+				      thdata[i].xpm.attributes.width,
 				      thdata[i].xpm.attributes.height - offset,
-				      thdata[i].x, 
+				      thdata[i].x,
 				      thdata[i].y +offset);
-			    
+
 			    if (!th_no_icon_window) {
-				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-					  thdata[i].xpm.attributes.width, 
+				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+					  thdata[i].xpm.attributes.width,
 					  thdata[i].xpm.attributes.height - offset,
-					  thdata[i].x, 
+					  thdata[i].x,
 					  thdata[i].y +offset);
 			    }
 			}
@@ -1291,23 +1291,23 @@ void fak_redraw()
 		if ( (cur_cdmode != WM_CDM_STOPPED) && (cur_cdmode != WM_CDM_EJECTED) ) {
 		    if ((time_mode == 2) || (time_mode == 3)) {
 			if (cur_cdlen > 0) {
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-				      0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.width), 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+				      0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.width),
 				      thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 			    if (!th_no_icon_window) {
-				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-					  0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.width), 
+				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+					  0 + (int)((float)cur_pos_abs / (float)cur_cdlen * (float)thdata[i].xpm.attributes.width),
 					  thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 			    }
 			}
 		    } else {
 			if (cur_tracklen > 0) {
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-				      0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.width), 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+				      0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.width),
 				      thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 			    if (!th_no_icon_window) {
-				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-					  0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.width), 
+				XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+					  0 + (int)((float)cur_pos_rel / (float)cur_tracklen * (float)thdata[i].xpm.attributes.width),
 					  thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 			    }
 			}
@@ -1320,17 +1320,17 @@ void fak_redraw()
 		    /* erase the old position : */
 
 		    if (thdata[i].ox > 0) {
-			XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 
-				  0, thdata[i].oy, 
+			XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC,
+				  0, thdata[i].oy,
 				  thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				  thdata[i].x, 
+				  thdata[i].x,
 				  thdata[i].oy + thdata[i].y);
-			
+
 			if (!th_no_icon_window) {
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC,
 				      0, thdata[i].oy,
 				      thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				      thdata[i].x, 
+				      thdata[i].x,
 				      thdata[i].oy + thdata[i].y);
 			}
 		    }
@@ -1345,17 +1345,17 @@ void fak_redraw()
 
 		    /* and show it: */
 
-		    XCopyArea(Disp, thdata[i].altxpm.pixmap, Win, WinGC, 
-			      0, 0, 
+		    XCopyArea(Disp, thdata[i].altxpm.pixmap, Win, WinGC,
+			      0, 0,
 			      thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-			      thdata[i].x, 
+			      thdata[i].x,
 			      thdata[i].y + fx);
 
 		    if (!th_no_icon_window) {
-			XCopyArea(Disp, thdata[i].altxpm.pixmap, Iconwin, WinGC, 
-				  0, 0, 
+			XCopyArea(Disp, thdata[i].altxpm.pixmap, Iconwin, WinGC,
+				  0, 0,
 				  thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				  thdata[i].x, 
+				  thdata[i].x,
 				  thdata[i].y + fx);
 		    }
 
@@ -1367,17 +1367,17 @@ void fak_redraw()
 		    /* erase the old position : */
 
 		    if (thdata[i].ox > 0) {
-			XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 
-				  thdata[i].ox, 0, 
+			XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC,
+				  thdata[i].ox, 0,
 				  thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				  thdata[i].ox + thdata[i].x, 
+				  thdata[i].ox + thdata[i].x,
 				  thdata[i].y);
-			
+
 			if (!th_no_icon_window) {
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 
-				      thdata[i].ox, 0, 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC,
+				      thdata[i].ox, 0,
 				      thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				      thdata[i].ox + thdata[i].x, 
+				      thdata[i].ox + thdata[i].x,
 				      thdata[i].y);
 			}
 		    }
@@ -1392,17 +1392,17 @@ void fak_redraw()
 
 		    /* and show it: */
 
-		    XCopyArea(Disp, thdata[i].altxpm.pixmap, Win, WinGC, 
-			      0, 0, 
+		    XCopyArea(Disp, thdata[i].altxpm.pixmap, Win, WinGC,
+			      0, 0,
 			      thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-			      thdata[i].x + fx, 
+			      thdata[i].x + fx,
 			      thdata[i].y);
 
 		    if (!th_no_icon_window) {
-			XCopyArea(Disp, thdata[i].altxpm.pixmap, Iconwin, WinGC, 
-				  0, 0, 
+			XCopyArea(Disp, thdata[i].altxpm.pixmap, Iconwin, WinGC,
+				  0, 0,
 				  thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				  thdata[i].x + fx, 
+				  thdata[i].x + fx,
 				  thdata[i].y);
 		    }
 
@@ -1411,12 +1411,12 @@ void fak_redraw()
 		}
 	    } else if (thdata[i].type == FAK_VOL_BAR) {
 		if ( (cur_cdmode != WM_CDM_STOPPED) && (cur_cdmode != WM_CDM_EJECTED) ) {
-		    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-			      0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.width), 
+		    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+			      0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.width),
 			      thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 		    if (!th_no_icon_window) {
-			XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-				  0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.width), 
+			XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+				  0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.width),
 				  thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 		    }
 		}
@@ -1426,17 +1426,17 @@ void fak_redraw()
 		    /* first erase the old position : */
 
 		    if (thdata[i].ox > 0) {
-			XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 
-				  thdata[i].ox, 0, 
+			XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC,
+				  thdata[i].ox, 0,
 				  thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				  thdata[i].ox + thdata[i].x, 
+				  thdata[i].ox + thdata[i].x,
 				  thdata[i].y);
-			
+
 			if (!th_no_icon_window) {
-			    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 
-				      thdata[i].ox, 0, 
+			    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC,
+				      thdata[i].ox, 0,
 				      thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				      thdata[i].ox + thdata[i].x, 
+				      thdata[i].ox + thdata[i].x,
 				      thdata[i].y);
 			}
 		    }
@@ -1450,17 +1450,17 @@ void fak_redraw()
 
 		    /* and show it: */
 
-		    XCopyArea(Disp, thdata[i].altxpm.pixmap, Win, WinGC, 
-			      0, 0, 
+		    XCopyArea(Disp, thdata[i].altxpm.pixmap, Win, WinGC,
+			      0, 0,
 			      thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-			      thdata[i].x + fx, 
+			      thdata[i].x + fx,
 			      thdata[i].y);
 
 		    if (!th_no_icon_window) {
-			XCopyArea(Disp, thdata[i].altxpm.pixmap, Iconwin, WinGC, 
-				  0, 0, 
+			XCopyArea(Disp, thdata[i].altxpm.pixmap, Iconwin, WinGC,
+				  0, 0,
 				  thdata[i].altxpm.attributes.width, thdata[i].altxpm.attributes.height,
-				  thdata[i].x + fx, 
+				  thdata[i].x + fx,
 				  thdata[i].y);
 		    }
 
@@ -1469,16 +1469,16 @@ void fak_redraw()
 		}
 	    } else if (thdata[i].type == FAK_VVOL_BAR) {
 		if ( (cur_cdmode != WM_CDM_STOPPED) && (cur_cdmode != WM_CDM_EJECTED) ) {
-		    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-			      thdata[i].xpm.attributes.width, 
-			      0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.height), 
-			      thdata[i].x, 
+		    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+			      thdata[i].xpm.attributes.width,
+			      0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.height),
+			      thdata[i].x,
 			      thdata[i].y);
 		    if (!th_no_icon_window) {
-			XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-			      thdata[i].xpm.attributes.width, 
-			      0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.height), 
-			      thdata[i].x, 
+			XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+			      thdata[i].xpm.attributes.width,
+			      0 + (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.height),
+			      thdata[i].x,
 			      thdata[i].y);
 		    }
 		}
@@ -1486,42 +1486,42 @@ void fak_redraw()
 		if ( (cur_cdmode != WM_CDM_STOPPED) && (cur_cdmode != WM_CDM_EJECTED) ) {
 		    offset = (int)((float)volume / (float)max_volume * (float)thdata[i].xpm.attributes.height);
 		    offset = thdata[i].xpm.attributes.height - offset;
-		    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, offset, 
-			      thdata[i].xpm.attributes.width, 
+		    XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, offset,
+			      thdata[i].xpm.attributes.width,
 			      thdata[i].xpm.attributes.height - offset,
-			      thdata[i].x, 
+			      thdata[i].x,
 			      thdata[i].y +offset);
 		    if (!th_no_icon_window) {
-			XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, offset, 
-			      thdata[i].xpm.attributes.width, 
+			XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, offset,
+			      thdata[i].xpm.attributes.width,
 			      thdata[i].xpm.attributes.height - offset,
-			      thdata[i].x, 
+			      thdata[i].x,
 			      thdata[i].y +offset);
 		    }
 		}
 	    } else if (thdata[i].type == FAK_MIXER_BAR) {
 #ifdef MIXER
-		XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-			  0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.width), 
+		XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+			  0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.width),
 			  thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 		if (!th_no_icon_window) {
-		    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-			      0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.width), 
+		    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+			      0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.width),
 			      thdata[i].xpm.attributes.height, thdata[i].x, thdata[i].y);
 		}
 #endif
 	    } else if (thdata[i].type == FAK_VMIXER_BAR) {
 #ifdef MIXER
-		XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0, 
-			  thdata[i].xpm.attributes.width, 
-			  0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.height), 
-			  thdata[i].x, 
+		XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 0, 0,
+			  thdata[i].xpm.attributes.width,
+			  0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.height),
+			  thdata[i].x,
 			  thdata[i].y);
 		if (!th_no_icon_window) {
-		    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0, 
-			      thdata[i].xpm.attributes.width, 
-			      0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.height), 
-			      thdata[i].x, 
+		    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, 0,
+			      thdata[i].xpm.attributes.width,
+			      0 + (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.height),
+			      thdata[i].x,
 			      thdata[i].y);
 		}
 #endif
@@ -1529,18 +1529,18 @@ void fak_redraw()
 #ifdef MIXER
 		offset = (int)((float)getvol(thdata[i].arg) / 100.0 * (float)thdata[i].xpm.attributes.height);
 		offset = thdata[i].xpm.attributes.height - offset;
-		XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC, 
-			  0, 
-			  offset, 
-			  thdata[i].xpm.attributes.width, 
+		XCopyArea(Disp, thdata[i].xpm.pixmap, Win, WinGC,
+			  0,
+			  offset,
+			  thdata[i].xpm.attributes.width,
 			  thdata[i].xpm.attributes.height - offset,
-			  thdata[i].x, 
+			  thdata[i].x,
 			  thdata[i].y + offset);
 		if (!th_no_icon_window) {
-		    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, offset, 
-			      thdata[i].xpm.attributes.width, 
+		    XCopyArea(Disp, thdata[i].xpm.pixmap, Iconwin, WinGC, 0, offset,
+			      thdata[i].xpm.attributes.width,
 			      thdata[i].xpm.attributes.height - offset,
-			      thdata[i].x, 
+			      thdata[i].x,
 			      thdata[i].y + offset);
 		}
 #endif
@@ -1549,7 +1549,7 @@ void fak_redraw()
 		    if (strlen(thdata[i].xpm_file) > 0) {
 			if (strlen(thdata[i].altxpm_file) == 0) use_alt = FALSE;
 			else use_alt = fak_use_alt(i);
-			
+
 			if (use_alt) {
 			    if (!th_no_icon_window) {
 				XCopyArea(Disp, thdata[i].altxpm.pixmap, Win, WinGC, 0, 0, thdata[i].xpm.attributes.width, thdata[i].altxpm.attributes.height, thdata[i].x, thdata[i].y);
@@ -1578,9 +1578,9 @@ void fak_redraw()
 	    }
 	}
     }
-    
+
     redraw = FALSE;
-   
+
    if (debug) fprintf(stderr, "-> Display [last section]\n");
 
     /* The Track number */
@@ -1611,7 +1611,7 @@ void fak_redraw()
 	    fak_text("THEME", COUNTER_PANEL, 0, TRUE);
 	    sprintf(cdtime, "%02d", theme_select);
 	    fak_text(cdtime, TRACK_PANEL, 0, FALSE);
-	    
+
 	    i = 0;
 
 	    sprintf(txt, "%s/Themes", THDIR);

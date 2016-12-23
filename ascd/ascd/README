@@ -31,7 +31,7 @@ AScd 0.1 -> 0.6
 
 The original code was taken by Rob Malda from asclock (Afterstep wharf
 module, by Beat Christen <bchriste@iiic.ethz.ch>) and from workbone (CD
-driver). 
+driver).
 
 AScd 0.7 -> 0.9
 ---------------
@@ -52,7 +52,7 @@ AScd's archive. WorkMan's maintainer is Dirk Foersterling
 AScd >= 0.12
 ------------
 
-AScd no longer includes the pixmaps in the source files. It is now possible 
+AScd no longer includes the pixmaps in the source files. It is now possible
 to change the pixmaps theme at run time. AScd now needs a directory where
 to store the pixmaps. The default is /usr/local/share/AScd.
 
@@ -68,7 +68,7 @@ installed by default in /usr/local/share/AScd/Themes.
 
 You need to download, compile and install the WorkMan library. Please
 use the 99/05/05 snapshot wish can be found on the AScd's home page or
-on the primary ftp site for WorkMan: 
+on the primary ftp site for WorkMan:
 
 ftp://ftp.midwinter.com/WorkMan/snapshots/
 
@@ -91,16 +91,16 @@ everything in the AScd default directory (/usr/local/share/AScd) as the
 theme files are *not* compatible.
 
     make
-  
+
   - If you want to try the program, just type
-    
+
     ./ascd
-    
+
     (try './ascd -help' to see the commandline options)
 
     If everything is ok, you can install the program and the
     man page:
-    
+
     make install
     make install.man
 
@@ -113,7 +113,7 @@ theme files are *not* compatible.
   *Wharf - - Swallow "ascd" /usr/local/bin/ascd -device /dev/wcd0a &
 
   (customized to your system settings of course!)
-  
+
 * installation for Window Maker
   -----------------------------
 
@@ -131,7 +131,7 @@ theme files are *not* compatible.
   clock applet for Window Maker. Wmitime was written by Dave Clark
   (clarkd@skynet.ca) More info at: http://www.neotokyo.org. I added the
   lower case letters.
-  
+
   The new 0.13 default font is fully 8bit compatible! It has been drawn
   by Stefan Zeiger (szeiger@novocode.com).
 ========================================================================

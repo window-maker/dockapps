@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -51,7 +51,7 @@ int gen_init(struct wm_drive *d)
  */
 
 int gen_get_trackcount(struct wm_drive *d,int *tracks)
-{ 
+{
   return (0);
 }
 
@@ -66,7 +66,7 @@ int gen_get_cdlen(struct wm_drive *d,int *frames)
   return (0);
 }
 
-/* 
+/*
  * gen_get_trackinfo()
  *
  */
@@ -77,7 +77,7 @@ gen_get_trackinfo(struct wm_drive *d,int track,int *data,int *startframe)
   return (0);
 }
 
-/* 
+/*
  * gen_get_drive_status()
  *
  */
@@ -88,7 +88,7 @@ int gen_get_drive_status(struct wm_drive *d,
 			 int *pos,
 			 int *track,
 			 int *index)
-{ 
+{
   return (0);
 }
 
@@ -115,7 +115,7 @@ int gen_get_volume(struct wm_drive *d,int *left,int *right)
   return (0);
 }
 
-/* 
+/*
  * gen_set_volume()
  *
  */
@@ -125,7 +125,7 @@ int gen_set_volume(struct wm_drive *d,int left,int right)
   return (0);
 }
 
-/* 
+/*
  * gen_pause()
  *
  */
@@ -150,7 +150,7 @@ int gen_resume(struct wm_drive *d)
  *
  */
 
-int gen_stop(struct wm_drive *d){ 
+int gen_stop(struct wm_drive *d){
   return (0);
 }
 
@@ -234,7 +234,7 @@ int wmcd_open(struct wm_drive *d)
 
   *d = *(find_drive_struct(vendor, model, rev));
   wm_drive_settype(vendor, model, rev);
-  
+
   d->fd = fd;
   d->init(d);
 

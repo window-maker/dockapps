@@ -131,10 +131,10 @@ void jprintf_internal(int color, const char *line) {
 
         if(copy_start) copyXPMArea(
             copy_start,
-            color, 
+            color,
             copy_width,
             char_height,
-            start_x+line_position, 
+            start_x+line_position,
             start_y
         );
 

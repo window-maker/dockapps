@@ -60,7 +60,7 @@ enum {
 static struct pollfd    da_pollfds[da_max_pollfds];
 static da_pollcb        da_pollcbs[da_max_pollfds];
 static int              da_num_pollfds = 0;
-    
+
 
 dockapp_rv_t dockapp_add_pollfd (
         int fd,
@@ -158,7 +158,7 @@ static long da_timer_msec_remaining (void)
 {
     struct timeval right_now;
     int rv;
-    
+
     rv = gettimeofday (&right_now, 0);
 
     return

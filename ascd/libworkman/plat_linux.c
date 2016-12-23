@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -75,7 +75,7 @@ static char plat_linux_id[] = "$Id: plat_linux.c,v 1.8 1999/06/17 06:48:03 dirk 
 #define max(a,b) ((a) > (b) ? (a) : (b))
 
 #define WM_MSG_CLASS WM_MSG_CLASS_PLATFORM
- 
+
 #ifdef LINUX_SCSI_PASSTHROUGH
 /* this is from <scsi/scsi_ioctl.h> */
 # define SCSI_IOCTL_SEND_COMMAND 1
@@ -218,10 +218,10 @@ gen_get_trackcount(struct wm_drive *d, int *tracks)
 
 	if (ioctl(d->fd, CDROMREADTOCHDR, &hdr))
 		return (-1);
-	
+
 	*tracks = hdr.cdth_trk1;
 	return (0);
-} 
+}
 
 /*---------------------------------------------------------*
  * Get the start time and mode (data or audio) of a track.
@@ -236,12 +236,12 @@ gen_get_trackinfo(struct wm_drive *d, int track, int *data, int *startframe)
 
 	if (ioctl(d->fd, CDROMREADTOCENTRY, &entry))
 		return (-1);
-	
+
 	*startframe =	entry.cdte_addr.msf.minute * 60 * 75 +
 			entry.cdte_addr.msf.second * 75 +
 			entry.cdte_addr.msf.frame;
 	*data = entry.cdte_ctrl & CDROM_DATA_TRACK ? 1 : 0;
-	
+
 	return (0);
 }
 
@@ -257,7 +257,7 @@ gen_get_cdlen(struct wm_drive *d, int *frames)
 }
 
 
-/* Alarm signal handler. 
+/* Alarm signal handler.
 static void do_nothing(int x) { x++; }
 */
 
@@ -275,7 +275,7 @@ gen_get_drive_status( struct wm_drive *d, enum wm_cd_modes oldmode,
 #ifdef SBPCD_HACK
 	static int prevpos = 0;
 #endif
-	
+
 	/* If we can't get status, the CD is ejected, so default to that. */
 	*mode = WM_CDM_EJECTED;
 
@@ -314,7 +314,7 @@ gen_get_drive_status( struct wm_drive *d, enum wm_cd_modes oldmode,
                       *mode = WM_CDM_TRACK_DONE;
                     }
                   }
-                  
+
                 prevpos = *pos;
 #endif
 		break;
@@ -361,10 +361,10 @@ scale_volume( int vol, int max )
 {
 #ifdef CURVED_VOLUME
         return ((max * max - (max - vol) * (max - vol)) *
-                        (max_volume - min_volume) / (max * max) + min_volume);                        
+                        (max_volume - min_volume) / (max * max) + min_volume);
 #else
         return ((vol * (max_volume - min_volume)) / max + min_volume);
-#endif        
+#endif
 } /* scale_volume() */
 #endif
 
@@ -391,7 +391,7 @@ gen_set_volume( struct wm_drive *d, int left, int right )
 	  	perror( "MIXER_WRITE" );
 	  	return ( -1 );
 	  }
-	return ( 0 );  
+	return ( 0 );
 #else
 
 /* Adjust the volume to make up for the CD-ROM drive's weirdness. */
@@ -400,9 +400,9 @@ gen_set_volume( struct wm_drive *d, int left, int right )
 
 	v.channel0 = v.channel2 = left < 0 ? 0 : left > 255 ? 255 : left;
 	v.channel1 = v.channel3 = right < 0 ? 0 : right > 255 ? 255 : right;
-	
+
 	return (ioctl(d->fd, CDROMVOLCTRL, &v));
-# endif	
+# endif
 }
 
 /*---------------*
@@ -451,10 +451,10 @@ gen_play(struct wm_drive *d, int start, int end)
 #ifndef FAST_IDE
 	if (ioctl(d->fd, CDROMSTART))
 		return (-1);
-#endif		
+#endif
 	if (ioctl(d->fd, CDROMPLAYMSF, &msf))
 		return (-2);
-	
+
 	return (0);
 }
 
@@ -471,7 +471,7 @@ gen_eject(struct wm_drive *d)
 	struct mntent *mnt;
 	FILE *fp;
 #endif
-	
+
 	if (fstat(d->fd, &stbuf) != 0)
 		return (-2);
 
@@ -484,7 +484,7 @@ gen_eject(struct wm_drive *d)
          * This is the same test as in the WorkBone interface.
          * I should eliminate it there, because there is no need
          * for it in the UI
-	 */ 
+	 */
 	/* check if drive is mounted (from Mark Buckaway's cdplayer code) */
 	/* Changed it again (look at XPLAYCD from ????                    */
 	/* It's better to check the device name rather than one device is */
@@ -517,7 +517,7 @@ gen_eject(struct wm_drive *d)
  * (The tray closed just after ejecting because re-opening the
  * device causes the tray to close)
  *------------------*/
-#ifdef foobar_one 
+#ifdef foobar_one
 extern int intermittent_dev
         /*
 	 * Some drives (drivers?) won't recognize a new CD if we leave the
@@ -527,9 +527,9 @@ extern int intermittent_dev
 	{
 		close(d->fd);
 		d->fd = -1;
-	}			  
+	}
 #endif
-	
+
 	return (0);
 } /* gen_eject() */
 
@@ -634,7 +634,7 @@ gen_get_volume( struct wm_drive *d, int *left, int *right )
 	  	*left = *right = -1;
 	  }
 	*right = 0x007f & ( vol >> 8 );
-	*left = 0x007f & vol;  
+	*left = 0x007f & vol;
 
 #else
 	/* Suns, HPs, Linux, NEWS can't read the volume; oh well */
@@ -738,7 +738,7 @@ wm_scsi( struct wm_drive *d, unsigned char *cdb, int cdblen,
 	    else cmdsize += (cdblen + retbuflen);
 	  }
 	else cmdsize += cdblen;
-	  
+
 	cmd = malloc(cmdsize);
 	if (cmd == NULL)
 	  return (-1);
@@ -749,7 +749,7 @@ wm_scsi( struct wm_drive *d, unsigned char *cdb, int cdblen,
 	memcpy(cmd + 2*sizeof(int), cdb, cdblen);
 	if (retbuf && !getreply)
 	  memcpy(cmd + 2*sizeof(int) + cdblen, retbuf, retbuflen);
-	
+
 	if (ioctl(d->fd, SCSI_IOCTL_SEND_COMMAND, cmd))
 	  {
 	    wm_lib_message(WM_MSG_LEVEL_DEBUG|WM_MSG_CLASS, "%s: ioctl() failure\n", __FILE__);
@@ -759,7 +759,7 @@ wm_scsi( struct wm_drive *d, unsigned char *cdb, int cdblen,
 	    free(cmd);
 	    return (-1);
 	  }
-	
+
 	if (retbuf && getreply)
 	  memcpy(retbuf, cmd + 2*sizeof(int), retbuflen);
 
@@ -781,7 +781,7 @@ wmcd_open( struct wm_drive *d )
 	static int	warned = 0;
 	int		retval = 0;
 	char vendor[32], model[32], rev[32];
- 
+
 	if (cd_device == NULL)
 		cd_device = DEFAULT_CD_DEVICE;
 
@@ -790,7 +790,7 @@ wmcd_open( struct wm_drive *d )
 		wm_lib_message(WM_MSG_LEVEL_DEBUG|WM_MSG_CLASS, "wmcd_open(): [device is open (fd=%d)]\n", d->fd);
 		return (0);
 	}
-	
+
 	d->fd = open(cd_device, O_RDONLY | O_NONBLOCK);
 	if (d->fd < 0)
 	{
@@ -830,7 +830,7 @@ wmcd_open( struct wm_drive *d )
 	/* Can we figure out the drive type? */
 	wm_scsi_get_drive_type(d, vendor, model, rev);
 #endif
-	*d = *(find_drive_struct(vendor, model, rev));	
+	*d = *(find_drive_struct(vendor, model, rev));
 	wm_drive_settype(vendor, model, rev);
 
 	d->fd = fd;

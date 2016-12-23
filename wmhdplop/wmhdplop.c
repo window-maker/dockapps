@@ -11,10 +11,10 @@
 
   You should have received a copy of the GNU General Public License
   along with this program; if not, write to the Free Software
-  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, 
+  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
   USA.
 */
-  
+
 #include "config.h"
 #include <string.h>
 #include <sys/types.h>
@@ -69,7 +69,7 @@ void update_io_matrix_rw(App *app, float mbs, int op) {
     l->next = io->ops;
     l->n = (int)(log2f(1+v*1024)/10.);
     l->op = op;
-    l->i = rand() % io->h; 
+    l->i = rand() % io->h;
     l->j = rand() % io->w;
     io->ops = l;
   }
@@ -97,24 +97,24 @@ void evolve_io_matrix(App *app, DATA32 * __restrict buff) {
     } else po = po->next;
     o = no;
   }
-  
+
   /* brain-dead diffusion */
   pl = io->v[io->h+2];
   int * __restrict l = io->v[io->h+3];
-  for (j=1; j < io->w+1; ++j) pl[j] = 0;  
+  for (j=1; j < io->w+1; ++j) pl[j] = 0;
   for (i=1; i < io->h+1; ++i) {
     /*
     for (j=1; j < io->w+1; ++j) {
       l[j] = io->v[i][j]*0.99 + (io->v[i][j-1] + io->v[i][j+1] + pl[j] + io->v[i+1][j] - 4*io->v[i][j])/5.;
     }
     */
-  /*  
+  /*
     float *__restrict nl = io->v[i+1]+1;
     float *__restrict cl = io->v[i];
     for (j=1; j < io->w+1; ++j, ++cl) {
       l[j] = (cl[1])*0.99 + (cl[0] + cl[2] + pl[j] + *nl++ - 4*cl[1])/5.;
     }
-*/    
+*/
     int *__restrict dest;
     int *__restrict pn = io->v[i+1]+1;
     int *__restrict pc = io->v[i]+1;
@@ -134,7 +134,7 @@ void evolve_io_matrix(App *app, DATA32 * __restrict buff) {
       }
       *buff++ = io->cm.p[v+CMAPSZ/2];
     }
-      
+
     tmp = pl; pl = io->v[i]; io->v[i] = l; l = tmp;
     io->v[io->h+2] = pl; io->v[io->h+3] = l;
   }
@@ -146,10 +146,10 @@ static void draw_io_matrix(App *app, DATA32 * __restrict buff) {
   IOMatrix *io = &app->iom;
   int i,j;
   for (i=0; i < io->h; ++i) {
-    for (j=0; j < io->w; ++j) {  
+    for (j=0; j < io->w; ++j) {
       float vv = io->v[i+1][j+1];
       int v = (int)(vv * 32768); //((int)ldexpf(vv,15)); /* (int)v*(2^15) */
-      //if (v == 0) continue; 
+      //if (v == 0) continue;
       //if (v < 0) v*=3; /* write op are rare, so they are brighter .. */
       if (v > CMAPSZ/4) { /* cheaper than a log(vv) ... */
         v = MIN(CMAPSZ/4  + (v-CMAPSZ/4)/16,CMAPSZ/2-1);
@@ -198,7 +198,7 @@ void draw_swap_matrix(App *app) {
         if (v > 0) imlib_context_set_color(255, 50, 50, MIN(v+80,255));
         else     imlib_context_set_color(50, 255, 50, MIN(v+80,255));
         imlib_image_fill_rectangle(row*sm->w+1,col*sm->w+1,sm->w-1,sm->w-1);
-	
+
 	if (sm->intensity[row][col] > 0) {
 	  sm->intensity[row][col]--;
 	} else if (sm->intensity[row][col] < 0) {
@@ -252,7 +252,7 @@ static void query_hddtemp(App *app) {
     fprintf(stderr,"can't connect to 127.0.0.1:%d : %s\n", Prefs.hddtemp_port, strerror(errno));
 #ifdef GKRELLM
     Prefs.enable_hddtemp = 0;
-#endif 
+#endif
     return;
   }
   int n = 0;
@@ -276,11 +276,11 @@ static void query_hddtemp(App *app) {
           s=strchr(s,'|');
           if (s && ((s=strchr(s+1,'|')))) {
 	    int unit = 'C';
-            char *p = strchr(++s,'|'), oldv=0; 
-	    if (p) { 
-	      oldv = *p; 
+            char *p = strchr(++s,'|'), oldv=0;
+	    if (p) {
+	      oldv = *p;
 	      if (*p && toupper(p[1]) == 'F') unit = 'F';
-	      *p = 0; 
+	      *p = 0;
 	    }
             BLAHBLAH(1,printf("temperature of '%s' : %s %c\n", dl->name, s, unit));
             if (strcmp(s,"SLP") == 0) app->disk_temperature[cnt] = -2;
@@ -300,7 +300,7 @@ static void query_hddtemp(App *app) {
         }
       }
     }
-  } else { fprintf(stderr, "error with hddtemp: %s\n", strerror(errno)); }  
+  } else { fprintf(stderr, "error with hddtemp: %s\n", strerror(errno)); }
   close(fd);
 }
 
@@ -309,7 +309,7 @@ const char *power_mode_str(int m) {
   case HD_ACTIVE: return "active/idle";
   case HD_STANDBY: return "standby";
   case HD_SLEEP: return "sleep";
-  case HD_UNKNOWN: 
+  case HD_UNKNOWN:
   default:
     return "unknown/error";
   }
@@ -340,9 +340,9 @@ int is_displayed(int hd_id, int part_id) {
 
 void change_displayed_hd(int dir) {
   DiskList *dl = find_id(app->filter_hd, app->filter_part);
-  if (dl == NULL) { 
-    app->filter_hd = -1; app->filter_part = -1; 
-    dl = find_id(app->filter_hd, app->filter_part); assert(dl); 
+  if (dl == NULL) {
+    app->filter_hd = -1; app->filter_part = -1;
+    dl = find_id(app->filter_hd, app->filter_part); assert(dl);
   }
   else if (dir > 0) {
     if (app->filter_hd == -1 && app->filter_part == -1) {
@@ -395,7 +395,7 @@ void prev_displayed_hd() {
 const char *shorten_name(DiskList *dl) {
   static char s[8];
   if (dl->name && strlen(dl->name)) {
-    const char *p = dl->name; 
+    const char *p = dl->name;
     if (strchr(p,'/')) p = strrchr(p,'/')+1;
     if (strlen(p) == 0) p = dl->name;
     snprintf(s, sizeof s, "%s%s", dl->part_id ? " " : "", p);
@@ -406,11 +406,11 @@ const char *shorten_name(DiskList *dl) {
 static void draw_hdlist(App *app) {
   if (Prefs.hdlist_pos == AL_NONE) return;
   DiskList *dl;
-  
+
   int dev_cnt, hd_cnt, w;
-  static int lw = -1, lh = -1, lx = -1, ly = -1, h = -1, 
+  static int lw = -1, lh = -1, lx = -1, ly = -1, h = -1,
     reshape_cnt = 0;
-  
+
   if (!app->smallfont) return;
   if (app->displayed_hd_changed) { lx = -1; app->displayed_hd_changed = 0; }
   imlib_context_set_font(app->smallfont);
@@ -433,24 +433,24 @@ static void draw_hdlist(App *app) {
     sethw(app,lw,lh,Prefs.hdlist_pos,&lx,&ly,&lw,&lh);
     reshape_cnt = app->reshape_cnt;
   }
-  
+
   imlib_context_set_color(100, 100, 100, 150);
   imlib_image_fill_rectangle(lx,ly,lw,lh);
   imlib_context_set_color(100, 100, 100, 200);
   imlib_image_draw_rectangle(lx-1,ly-1,lw+2,lh+2);
-  
+
   for (dl = first_dev_in_list(), dev_cnt=hd_cnt=-1; dl; dl = dl->next) {
     if (dl->part_id==0) ++hd_cnt; if (!is_displayed(dl->hd_id, dl->part_id)) continue; ++dev_cnt;
     int x = lx, y = ly + lh - dev_cnt * h;
     if (!Prefs.disable_hd_leds) {
-      if (dl->touched_r) { 
-        imlib_context_set_color(50, 255, 50, 25*dl->touched_r--); 
-        imlib_image_fill_rectangle(lx+1,y-5,3,3); 
+      if (dl->touched_r) {
+        imlib_context_set_color(50, 255, 50, 25*dl->touched_r--);
+        imlib_image_fill_rectangle(lx+1,y-5,3,3);
       }
-      if (dl->touched_w) { 
+      if (dl->touched_w) {
         imlib_context_set_color(255,100-10*dl->touched_w,100-10*dl->touched_w, 25*dl->touched_w - 1);
         dl->touched_w--;
-        imlib_image_fill_rectangle(lx+1,y-9,3,3); 
+        imlib_image_fill_rectangle(lx+1,y-9,3,3);
       }
       x += 5;
     }
@@ -458,9 +458,9 @@ static void draw_hdlist(App *app) {
     my_imlib_text_draw(x,y-h,shorten_name(dl));
     if (dl->part_id==0 && app->disk_temperature[hd_cnt] != -1) {
       char s[200];
-      if (app->disk_temperature[hd_cnt] != -2) { 
-        snprintf(s,200,"%d",app->disk_temperature[hd_cnt]); 
-      } else { 
+      if (app->disk_temperature[hd_cnt] != -2) {
+        snprintf(s,200,"%d",app->disk_temperature[hd_cnt]);
+      } else {
         strcpy(s,"SLP");
       }
       imlib_get_text_size(s,&w,&h);
@@ -510,22 +510,22 @@ static void draw_throughput(App *app) {
   static int lw = -1, lh = -1, lx = -1, ly = -1;
   static int reshape_cnt = 0;
   if (Prefs.popup_throughput_pos == AL_NONE) return;
-  
+
   if (!app->bigfont) return;
   imlib_context_set_font(app->bigfont);
   /* get dimensions (only once) */
-  if (lx == -1 || app->reshape_cnt != reshape_cnt) {    
+  if (lx == -1 || app->reshape_cnt != reshape_cnt) {
     imlib_get_text_size("00.0M/s",&lw,&lh);
     if (lw > (int)(app->dock->w*3/4)) { lw = app->dock->w; }
     sethw(app,lw,lh,Prefs.popup_throughput_pos,&lx,&ly,&lw,&lh);
     reshape_cnt = app->reshape_cnt;
   }
-  
+
   if (get_read_mean_throughput() + get_write_mean_throughput() > Prefs.popup_throughput_threshold) {
     tpstep = MIN(tpstep+1,4);
     snprintf(tpmsg,sizeof tpmsg, "%.1fM/s",get_read_mean_throughput() + get_write_mean_throughput());
     imlib_get_text_size(tpmsg,&tpw,&tph);
-    if (tpw > lw) { 
+    if (tpw > lw) {
       snprintf(tpmsg,sizeof tpmsg, "%.1fM",get_read_mean_throughput() + get_write_mean_throughput());
       imlib_get_text_size(tpmsg,&tpw,&tph);
     }
@@ -598,10 +598,10 @@ static void event_loop(App *app) {
       switch (ev.type) {
       case ClientMessage:
         if (ev.xclient.message_type == app->dock->atom_WM_PROTOCOLS
-            && ev.xclient.format == 32 
+            && ev.xclient.format == 32
             && (Atom)ev.xclient.data.l[0] == app->dock->atom_WM_DELETE_WINDOW) {
           exit(0);
-        } 
+        }
         break;
       case ButtonRelease:
         //exit(0);
@@ -609,19 +609,19 @@ static void event_loop(App *app) {
         else if (ev.xbutton.button == Button5 || ev.xbutton.button == Button1) next_displayed_hd(+1);
         break;
       case ConfigureNotify: {
-        if (app->dock->iconwin == None && 
-            (ev.xconfigure.width != (int)app->dock->win_width || 
+        if (app->dock->iconwin == None &&
+            (ev.xconfigure.width != (int)app->dock->win_width ||
              ev.xconfigure.height != (int)app->dock->win_height)) {
           app->dock->w = app->dock->win_width = ev.xconfigure.width;
           app->dock->h = app->dock->win_height = ev.xconfigure.height;
           reshape(ev.xconfigure.width, ev.xconfigure.height); //app->dock->w, app->dock->h, None);
-          /*printf("ConfigureNotify : %dx%d %dx%d\n", 
-                 ev.xconfigure.width, ev.xconfigure.height, 
+          /*printf("ConfigureNotify : %dx%d %dx%d\n",
+                 ev.xconfigure.width, ev.xconfigure.height,
                  app->sm.nrow, app->sm.ncol);*/
         }
       } break;
       }
-    } 
+    }
     if (tic_cnt % app->update_stats_mult == 0) {
       update_stats();
       if (!Prefs.disable_io_matrix)   update_io_matrix(app);
@@ -655,7 +655,7 @@ static void event_loop(App *app) {
 
 void setup_cmap(cmap *m) {
   struct {
-    float x0; 
+    float x0;
     DATA32 c;
   } colors0[] = {{-128, 0xff8080},
                  {- 70, 0xF00000},
@@ -684,7 +684,7 @@ void setup_cmap(cmap *m) {
                    {  16, 0x000040},
                    {  34, 0x0000ff},
                    {  60, 0x0000A0},
-                   {+128, 0x000040}}, 
+                   {+128, 0x000040}},
       colors3[] = {{-128, 0x500060},
                    { -60, 0x500050},
                    { -34, 0x000000},
@@ -725,7 +725,7 @@ if (Prefs.iomatrix_colormap == n) { sz = sizeof(colors##n)/sizeof(*colors0); cde
     int j;
     for (j=i0; j <= MIN(i1,CMAPSZ-1); ++j) {
       float alpha = (j-i0+.5)/(float)(i1-i0);
-      m->p[j] = 
+      m->p[j] =
         (MIN((int)(r1*(1-alpha) + alpha*r2),255)<<16) +
         (MIN((int)(g1*(1-alpha) + alpha*g2),255)<<8) +
         (MIN((int)(b1*(1-alpha) + alpha*b2),255));
@@ -736,7 +736,7 @@ if (Prefs.iomatrix_colormap == n) { sz = sizeof(colors##n)/sizeof(*colors0); cde
 
 unsigned getpos(const char *pp) {
   char p[2];
-  unsigned v = AL_NONE, i;  
+  unsigned v = AL_NONE, i;
   if (!pp || !pp[0]) return AL_NONE;
   if (strlen(pp) > 2) { fprintf(stderr, "invalid position specification: '%s'\n", pp); exit(1); }
   strncpy(p,pp,2);
@@ -747,7 +747,7 @@ unsigned getpos(const char *pp) {
     else if (p[i] == 't') { v |= AL_TOP; }
     else if (p[i] == 'b') { v |= AL_BOTTOM; }
     else if (p[i] == 'c') {
-      if (v & (AL_LEFT | AL_RIGHT | AL_HCENTER)) v |= AL_VCENTER; else v |= AL_HCENTER; 
+      if (v & (AL_LEFT | AL_RIGHT | AL_HCENTER)) v |= AL_VCENTER; else v |= AL_HCENTER;
     } else {
       fprintf(stderr, "unknown position specifier: '%c'\n", p[i]); exit(1);
     }
@@ -781,7 +781,7 @@ void init_prefs(int argc, char **argv) {
 #ifndef GKRELLM
 void parse_options(int argc, char **argv) {
   int d_opt_used = 0;
-  enum { OPT_DISPLAY=1, OPT_SMALLFONT, OPT_BIGFONT, OPT_FONTPATH, 
+  enum { OPT_DISPLAY=1, OPT_SMALLFONT, OPT_BIGFONT, OPT_FONTPATH,
          OPT_NOSWAP, OPT_NOIO, OPT_NOLEDS, OPT_HDLIST, OPT_THROUGHPUT, OPT_32, OPT_56, OPT_48 };
   static struct option long_options[] = {
     {"help",0,0,'h'},
@@ -806,7 +806,7 @@ void parse_options(int argc, char **argv) {
     {NULL,0,0,0}
   };
   int long_options_index;
-  const char *help = 
+  const char *help =
     "wmhdplop " VERSION " - monitor hard-drive (or partition) activity\n"
     "A recent kernel is required (>2.4.20)\n"
     "Usage: wmhdplop [options]\n"
@@ -836,7 +836,7 @@ void parse_options(int argc, char **argv) {
     "                    * Arial_Black/10, FreeSansBold/11, VeraMoBd/9\n"
     "                    * Vera/7, FreeSans/7, Trebuchet_MS/7\n"
     "  -c n, --colormap=n\n"
-    "                  select colormap number n\n" 
+    "                  select colormap number n\n"
     "  --hdlist[=pos]  hide completely the list of drives with leds and temperatures (if no position given)\n"
     "                  or change its location (default: 'B'). Possible positions are: 't','b','l','bl','bc','br',...\n"
     "                  (t=top, b=bottom, l=left, r=right, c=centered, etc)\n"
@@ -859,7 +859,7 @@ void parse_options(int argc, char **argv) {
       break;
     switch (c) {
       case ':':
-      case '?': 
+      case '?':
         exit(1);
       case OPT_DISPLAY:
         Prefs.xprefs.flags |= DOCKPREF_DISPLAY; Prefs.xprefs.display = strdup(optarg);
@@ -932,7 +932,7 @@ void parse_options(int argc, char **argv) {
           assert(optarg);
           if (p) *p++ = 0;
           BLAHBLAH(1,printf("adding device %s to monitored disc list\n",optarg));
-          if (add_device_by_name(optarg, p) != 0) 
+          if (add_device_by_name(optarg, p) != 0)
             fprintf(stderr, "Warning: device %s not found or not recognized -- try option -v to get additionnal information\n", optarg);
           d_opt_used = 1;
         } break;
@@ -965,10 +965,10 @@ void init_fonts(App *app) {
     imlib_context_set_font(app->smallfont); imlib_free_font(); app->smallfont = NULL;
   }
   app->bigfont = load_font(Prefs.bigfontname, bigfontlist);
-  if (app->bigfont) 
+  if (app->bigfont)
     app->current_bigfont_name = strdup(dockimlib2_last_loaded_font());
   app->smallfont = load_font(Prefs.smallfontname, smallfontlist);
-  if (app->smallfont) 
+  if (app->smallfont)
     app->current_smallfont_name = strdup(dockimlib2_last_loaded_font());
 }
 
@@ -999,7 +999,7 @@ int hdplop_main(int width, int height, GdkDrawable *gkdrawable)
 #else
   app->dock = dockimlib2_gkrellm_setup(0, 0, width, height, &Prefs.xprefs, gkdrawable);
 #endif
-  app->bigfont = app->smallfont = NULL; 
+  app->bigfont = app->smallfont = NULL;
   app->current_bigfont_name = app->current_smallfont_name = NULL;
   app->reshape_cnt = 0;
   if (find_id(-1,0) == 0) {
@@ -1034,7 +1034,7 @@ int hdplop_main(int width, int height, GdkDrawable *gkdrawable)
   BLAHBLAH(1, {
       DiskList *dl = first_dev_in_list();
       for ( ; dl; dl=dl->next) {
-        printf("Monitored: %s (%s) major=%d, minor=%d is_partition=%d\n", 
+        printf("Monitored: %s (%s) major=%d, minor=%d is_partition=%d\n",
                dl->dev_path, dl->name, dl->major, dl->minor, is_partition(dl->major,dl->minor));
       }
     });

@@ -4,10 +4,10 @@
  * This software covered by the GPL.  See COPYING file for details.
  *
  * main.c
- *                                                                
+ *
  * This is the main body of the application.  Handles all initialization
  * plus the X event loop.
- *                                                                
+ *
  * $Id: main.c,v 1.11 1999/10/08 22:21:32 pcrosby Exp $
  */
 
@@ -47,10 +47,10 @@ void stripspace(char *s) {
     t++;
     *t = '\0';
 }
- 
+
 int handle_button_press(int x, int y) {
     int i;
-	
+
     i = CheckMouseRegion(x, y);
     switch (i) {
     case B_STOP:
@@ -92,7 +92,7 @@ int handle_button_press(int x, int y) {
     default:
 	fprintf(stderr, "unknown button pressed\n");
     }
-    RedrawWindow();	
+    RedrawWindow();
 
     return(i);
 }
@@ -101,7 +101,7 @@ void handle_button_release(int i)
 {
     /* play stays down, don't mess with toggles */
     /* ignore song title press too */
-    if (((i != B_PLAY) && (i != B_RAND)) && 
+    if (((i != B_PLAY) && (i != B_RAND)) &&
 	((i != B_REPEAT) && (i != B_TITLE))) {
 	if (!is_playing()) {
 	    button_up(i);
@@ -207,7 +207,7 @@ int check_options(int argc, char *argv[])
     int option_entered = 0;
     int i;
 
-	
+
     for (i = 1; i < argc; i++) {
 	if (streq(argv[i], "-h")) {
 	    option_entered = 1;
@@ -285,7 +285,7 @@ void main(int argc, char *argv[])
 		XCloseDisplay(display);
 		exit(0);
 	    case ButtonPress:
-		btn_num = handle_button_press(Event.xbutton.x, 
+		btn_num = handle_button_press(Event.xbutton.x,
 					      Event.xbutton.y);
 		break;
 	    case ButtonRelease:

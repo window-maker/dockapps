@@ -7,7 +7,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -24,14 +24,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Prototypes for WorkMan database
- * 
+ *
  * This is just one more step to a more modular and understandable code.
  */
 
 
 #define WM_DB_SAVE_ERROR	1
 #define WM_DB_SAVE_DISABLED	2
- 
+
 int wm_db_get_playnew( void );
 void	split_workmandb( void );
 int	save( void );

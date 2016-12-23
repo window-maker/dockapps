@@ -1,4 +1,4 @@
-.TH WMRADIO 1 
+.TH WMRADIO 1
 .SH NAME
 wmradio \- dockable FM radio for WindowMaker.
 .SH SYNOPSIS
@@ -12,15 +12,15 @@ wmradio \- dockable FM radio for WindowMaker.
 .B \-q|\-\-dont\-quit
 Start in "Don't quit" mode.
 .TP
-.B \-m|\-\-start\-muted 
-Start and don't open the radio device.  
+.B \-m|\-\-start\-muted
+Start and don't open the radio device.
 .TP
 .B \-h|\-\-help
 Print help page and quit
 .SH wmradio-remote
 is simple shell script. It writes commands into wmradio's named pipe.
 Example:
-.I wmradio-remote SET_PRESET 3 
+.I wmradio-remote SET_PRESET 3
 .SH wmradio-config.py
 GUI application for setting wmradio
 .SH Tunning
@@ -34,8 +34,8 @@ the ~/.wmradio file.
 .SH Mouse wheel support
 In the diaplay the mouse wheel changes stations with names.
 With <shift-wheel> it change frequency (<shift-control-wheel>
-= fine tuning). In other place the Mouse wheel changes 
-the preset station. 
+= fine tuning). In other place the Mouse wheel changes
+the preset station.
 .SH Normal mode
 In this mode, program mutes the radio, closes the device and quits by clicking
 into <power> button. <control-power> click close the device only, the program
@@ -48,8 +48,8 @@ Every skin is specified in two files. The XPM bitmap file and the text descripti
 There are coordinates and dimensions of skin parts (as buttons and digits) in this
 file. You can change the skin by editing your ~/.wmradio file.
 .P
-In the skin image is the background in left top corner. Default size is 
-56x56 pixels. Buttons and digits are around this. Button is defined by 
+In the skin image is the background in left top corner. Default size is
+56x56 pixels. Buttons and digits are around this. Button is defined by
 6 numbers.
 .P
 name=xdest,ydest,xsource,ysource,width,height

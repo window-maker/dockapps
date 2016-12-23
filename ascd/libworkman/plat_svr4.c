@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -222,7 +222,7 @@ create_cdrom_node(char *dev_name)
 	}
 
 	ccode = access(pass_through, F_OK);
-	
+
 	if (ccode < 0)
 	{
 		if ((file_des = open(dev_name, O_RDONLY)) < 0)
@@ -258,7 +258,7 @@ create_cdrom_node(char *dev_name)
 			return -1;
 		}
 	}
-	
+
 	file_des = open( pass_through, O_RDWR);
 	err = errno;
 
@@ -286,7 +286,7 @@ wmcd_open(d)
 
 	if (d->fd >= 0)		/* Device already open? */
 		return (0);
-	
+
 	if (cd_device == NULL)
 		cd_device = DEFAULT_CD_DEVICE;
 
@@ -329,7 +329,7 @@ wmcd_open(d)
 	}
 	*d = *(find_drive_struct(vendor, model, rev));
 	wm_drive_settype(vendor, model, rev);
-	
+
 	d->fd = fd;
 
 	return (0);
@@ -366,7 +366,7 @@ wmcd_reopen( struct wm_drive *d )
 /*
  * Send a SCSI command out the bus.
  */
-int 
+int
 wm_scsi(d, xcdb, cdblen, retbuf, retbuflen, getreply)
 	struct wm_drive *d;
 	unsigned char *xcdb;
@@ -382,7 +382,7 @@ wm_scsi(d, xcdb, cdblen, retbuf, retbuflen, getreply)
 	int errno_save;
 
 	/* getreply == 1 is read, == 0 is write */
-	
+
 	struct sb sb;
 	struct scs scs;
 

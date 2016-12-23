@@ -7,12 +7,12 @@ struct hash_elt *Table[HASH_TABLE_SIZE];
 int hash_fn(int num);
 void free_elt(struct hash_elt *elt);
 
-int hash_fn(int num) 
+int hash_fn(int num)
 {
 	return (num % HASH_TABLE_SIZE);
 }
 
-void insert_song(int track_num, char *title, char *filename) 
+void insert_song(int track_num, char *title, char *filename)
 {
 	int hash_value;
 	struct hash_elt *hash_list;
@@ -50,7 +50,7 @@ struct hash_elt *get_song(int track_num)
 	hash_value = hash_fn(track_num);
 	hash_list = Table[hash_value];
 	if (hash_list) {
-	    while ((hash_list->track_num != track_num) && 
+	    while ((hash_list->track_num != track_num) &&
 		   (hash_list->next != NULL)) {
 		hash_list = hash_list->next;
 	    }
@@ -66,13 +66,13 @@ struct hash_elt *get_song(int track_num)
 	}
 }
 
-void free_elt(struct hash_elt *elt) 
+void free_elt(struct hash_elt *elt)
 {
 	if (elt != NULL)
 	{
 		if (elt->next != NULL) {
 			free_elt(elt->next);
-		} 
+		}
 		free(elt);
 	}
 }
@@ -80,7 +80,7 @@ void free_elt(struct hash_elt *elt)
 void empty_hash()
 {
 	int i;
-	
+
 	for (i = 0; i < HASH_TABLE_SIZE; i++) {
 		free_elt(Table[i]);
 		Table[i] = NULL;
@@ -102,7 +102,7 @@ void print_hash()
 			hash_list = hash_list->next;
 		}
 	}
-		
+
 }
 
 

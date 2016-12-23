@@ -1,7 +1,7 @@
 
-/*     
+/*
  *      wmAppKill v0.2 - S.Rozange
- * 
+ *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
  * 	the Free Software Foundation; either version 2, or (at your option)
@@ -14,19 +14,19 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  *      Boston, MA  02111-1307, USA
  *
  */
 
 
 #include <unistd.h>
-#include <stdio.h> 
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include <X11/Xlib.h>
-#include <X11/xpm.h> 
+#include <X11/xpm.h>
 #include <X11/Xutil.h>
 #include <X11/extensions/shape.h>
 
@@ -43,15 +43,15 @@
 #include <time.h>
 #include <signal.h>
 
-#include "fond.xbm"  
-#include "wmAppKill.xpm" 
+#include "fond.xbm"
+#include "wmAppKill.xpm"
 #include "wmAppKill.h"
 
 Display *dpy;  			       /* xlib global vars */
 GC gc;
 Window win;
 Window iconWin;
-Pixmap XPM;     
+Pixmap XPM;
 int screen;
 
 _zone *fZone = NULL;
@@ -69,7 +69,7 @@ struct timeval timev;		       /* to detect double-click */
 void ZoneCreate(int x, int y, int width, int height, char no)
 {
    _zone *last;
-     
+
    if (!fZone) {
       fZone = (_zone *)malloc(sizeof(_zone));
       last = fZone;
@@ -93,23 +93,23 @@ char CheckZone(void)
    unsigned int mask;
    Window root_ret, child_ret;
    _zone *curseur = fZone;
-   
+
    XQueryPointer(dpy, iconWin, &root_ret, &child_ret, &popo, &popo, &x, &y, &mask); /* mouse position */
-   
+
    do {
       if ((x >= curseur -> x) && (x <= curseur -> x + curseur -> width) &&  (y >= curseur -> y) && (y <= curseur -> y + curseur -> height))
 	return curseur -> no;
 
    }
    while ((curseur = curseur -> next));
-   
+
    return 0;
 }
-   
+
 void GarbageCollector(_desc *garb)
 {
    _desc *next;
-   
+
    while (garb)  {
       next = garb -> next;
       free(garb);
@@ -121,12 +121,12 @@ int CheckProc(pid_t pid)
 {
    glibtop_proclist bof;
    unsigned int *n;
-   
+
    if ((n = glibtop_get_proclist (&bof, GLIBTOP_KERN_PROC_PID , (int64_t)pid)) == NULL) {
       glibtop_free(n);
       return -1;
    }
-   
+
    glibtop_free(n);
    return 0;
 }
@@ -140,43 +140,43 @@ _desc *GetProcList(void) 		       /* create a double linked list */
    _desc *lastOne;
    _desc *glump;
    _desc *res;
-   
+
    if ((n = glibtop_get_proclist (&buf, GLIBTOP_KERN_PROC_UID, (int64_t)getuid())) == NULL) {
       fprintf(stderr, "Problem using libgtop\n");
       exit(1);
    };
-   
+
    nbPr = (int)buf.number;
-    
+
    glump = (_desc *)malloc(sizeof(_desc));
    res = glump;
    lastOne = NULL;
-   
+
    for (i = nbPr; i; i--){
       char *bof;
       glibtop_proc_state buf;
       glump -> previous = lastOne;
       glump -> next = (_desc *)malloc(sizeof(_desc));
-      
+
       glibtop_get_proc_state(&buf, glump -> pid = n[i - 1]);
       strcpy(glump -> name, bof = buf.cmd);
-      if (strlen(glump -> name) > MAX_CHAR) 
+      if (strlen(glump -> name) > MAX_CHAR)
 	glump -> name[MAX_CHAR] = 0;
-      
+
       lastOne = glump;
       glump = glump -> next;
-      
+
       if (procBaseName && !strcmp(bof, procBaseName)) {
 	 procBasePos = i - 1;
 	 procBasePid = n[i - 1];
-	 break; 
+	 break;
       }
    }
-   
+
    lastOne -> next = NULL;
-   lastProcPid = n[nbPr - 1]; 
+   lastProcPid = n[nbPr - 1];
    glibtop_free(n);
-   
+
    if (procBaseName && i) gNbProc = nbPr - i + 1;   /* procBase has been found */
    else {			       /* procBaseName is null or hasn't been found */
       procBaseName = NULL;
@@ -184,9 +184,9 @@ _desc *GetProcList(void) 		       /* create a double linked list */
       procBasePid = n[0];
       gNbProc = nbPr;
    }
-   
+
    gNbProcTotal = nbPr;
-  
+
    return res;
 }
 
@@ -194,21 +194,21 @@ int CheckProcToRemove(unsigned int *procList, unsigned int procListSize)
 {
    _desc *curseur = pList, *temp;
    int nbProcRemoved = 0, i;
-   
+
    while (curseur) {
       for (i = procListSize; i; i--)
 	if (curseur -> pid == procList[i - 1]) break;
-            
+
       temp = curseur;
       curseur = curseur -> next;
-      
+
 	   if (!i) {  /* we didn't find it in proclist, let's remove it */
-	      RemoveProc(temp); 
+	      RemoveProc(temp);
 	      gNbProc--;
 	      nbProcRemoved++;
 	   }
 	}
-   
+
    return nbProcRemoved;
 }
 
@@ -217,73 +217,73 @@ int CheckProcToAdd(int pos, unsigned int *procList, unsigned int procListSize)
    _desc *glump;
    int i, compteur = 0;
    glibtop_proc_state buf;
-   
+
    for (i = pos; i < procListSize ; i++){
-      
+
       compteur++;
       glump = (_desc *)malloc(sizeof(_desc));
       usleep(20000); /* libgtop seems to need a little bit of time */
       if (CheckProc(procList[i])) continue; /* checking if the process isn't already dead */
-            
+
       glibtop_get_proc_state(&buf, glump -> pid = procList[i]);
       strcpy(glump -> name, buf.cmd);
-      if (strlen(glump -> name) > MAX_CHAR) 
+      if (strlen(glump -> name) > MAX_CHAR)
 	glump -> name[MAX_CHAR] = 0;
-              
+
       pList -> previous = glump;
       glump -> next = pList;
       glump -> previous = NULL;
       if (posProc == pList) posProc = glump;
       pList = glump;
-      gNbProc++;     
+      gNbProc++;
       gNbProcTotal++;
-     
+
       lastProcPid = glump -> pid;
    }
 
    return compteur;
 }
-   
+
 int CheckProcChange(void)
 {
    glibtop_proclist buf;
    unsigned int *n;
    unsigned int nbPr;
    int diffNbProc;
-   
+
    if ((n = glibtop_get_proclist (&buf, GLIBTOP_KERN_PROC_UID, (int64_t)getuid())) == NULL) return -1;
    nbPr = (int)buf.number;
-   
+
    if ((nbPr == gNbProcTotal) && (n[nbPr - 1] == lastProcPid)) return 0; /* nothing changed */
-   
+
    if (procBaseName && (n[procBasePos] != procBasePid))       /* some proc killed before the baseproc (=oldest proc) */
-     {  
+     {
 	if (CheckProc(procBasePid)) {   /*  baseproc doesn't exist anymore */
 	   GarbageCollector(pList);
 	   pList = GetProcList(); 	       /* so we create a whole new list */
 	   posProc = pList;
 	   return 1;
 	}
-	else 
+	else
 	  while (n[--procBasePos] != procBasePid); /* here we find what's the new pos. of baseproc */
      }
-   
-     
+
+
    diffNbProc = (nbPr - procBasePos) - gNbProc; /* nb of changes after baseproc */
-   
+
    if (diffNbProc == 0 && (n[nbPr - 1] == lastProcPid)){  /* only changes before baseproc */
       gNbProcTotal = nbPr;
       glibtop_free(n);
       return 0;
    }
-   
+
    if (diffNbProc > 0 && n[nbPr - diffNbProc - 1] == lastProcPid)  /* only proc to add */
      CheckProcToAdd(nbPr - diffNbProc, n, nbPr);
-     
+
    else {  /* to remove [and to add] */
       int nb;
       nb = CheckProcToRemove(n, nbPr);
-      if (nb != -diffNbProc) 
+      if (nb != -diffNbProc)
 	CheckProcToAdd(nbPr - diffNbProc - 1, n, nbPr);
    }
 
@@ -294,15 +294,15 @@ int CheckProcChange(void)
 void RemoveProc(_desc *cible)
 {
    _desc *temp1, *temp2;
-   
+
    _desc *curseur;
    int i;
-   
+
    temp1 = cible -> previous;
    temp2 = cible -> next;
-      
-   for (curseur = cible, i = 0; curseur && i != NB_LINE + 1; curseur = curseur -> next, ++i);  
-   
+
+   for (curseur = cible, i = 0; curseur && i != NB_LINE + 1; curseur = curseur -> next, ++i);
+
    if (!(gNbProc - 1 < NB_LINE) && (i == 2 || i == 3)) { 	       /* the killed proc is near the start of the list */
       for (--i, curseur = posProc; i && curseur -> previous; curseur = curseur -> previous, --i);
       posProc = curseur;
@@ -310,11 +310,11 @@ void RemoveProc(_desc *cible)
    else if ((cible == posProc) && (cible -> previous)) {
       posProc = cible -> previous;
    }
-   else if ((cible == posProc) && (cible -> next)) {  
+   else if ((cible == posProc) && (cible -> next)) {
       posProc = cible -> next;
    }
-   
-   if (temp1) temp1 -> next = temp2; 
+
+   if (temp1) temp1 -> next = temp2;
    else {
       pList = temp2;
       temp2 -> previous = NULL;
@@ -323,14 +323,14 @@ void RemoveProc(_desc *cible)
       free(cible);
       return;
    }
-   
+
    if (temp2) temp2 -> previous = temp1;
-   else 
+   else
       temp1 -> next = NULL;
-      
+
    free(cible);
    gNbProcTotal--;
-   
+
 }
 
 void ShowString (int x, int y, char *doudou)
@@ -339,7 +339,7 @@ void ShowString (int x, int y, char *doudou)
    char c;
 
    while ((c = tolower(doudou[i++]))){
-      if (c >= 'a' && c <= 'z') {   
+      if (c >= 'a' && c <= 'z') {
 	 XCopyArea(dpy,XPM, win,gc, 1 + (c - 'a') * 6, 10, 5, 8, x, y) ;
 	 XCopyArea(dpy,XPM, iconWin,gc, 1 + (c - 'a') * 6, 10, 5, 8, x, y) ;
 	 x += 6;
@@ -348,10 +348,10 @@ void ShowString (int x, int y, char *doudou)
 }
 
 void DoExp(){
-   
+
    XClearWindow(dpy, win);
    XClearWindow(dpy, iconWin);
-   
+
    XCopyArea(dpy, XPM ,win, gc, 1 + (26) * 6, 10, 6, 8, 5, 51);
    XCopyArea(dpy, XPM, iconWin, gc, 1 + (26) * 6, 10, 6, 8, 5, 51);
    XCopyArea(dpy, XPM, win, gc, 1 + (27) * 6, 10, 6, 8, 53, 51);
@@ -359,12 +359,12 @@ void DoExp(){
 
    XCopyArea(dpy, XPM, win, gc, 106, 0, 28, 8, 17, 50);
    XCopyArea(dpy, XPM, iconWin, gc, 106, 0, 28, 8, 17, 50);
-   
+
    DoExpose();
 }
 
 void DoExpose() {
-  
+
    int i;
    _desc *curseur;
 
@@ -379,7 +379,7 @@ void DoExpose() {
       for (y = NB_LINE; y != gNbProc; y--) tabNoProc[y - 1] = -1;
    }
    else i = NB_LINE;
-      
+
    for (curseur = posProc; i; curseur = curseur -> next, i--)
      {
 	ShowString(X_PROC + 1, Y_PROC + (i - 1) * 10, curseur -> name);
@@ -393,36 +393,36 @@ void DoClick(XEvent ev)
    static unsigned char firstClick = 0;
    _desc *curseur;
    char zone, i;
-   
+
    zone = CheckZone();
-      
-   if (ev.xbutton.button == CLICK_TWO) { 
+
+   if (ev.xbutton.button == CLICK_TWO) {
       DoExpose() ;
    }
 
    /* Mouse wheel patch by Mathieu Cuny */
-   
+
    if (ev.xbutton.button == WHEEL_UP && gNbProc > NB_LINE) {
       for (i = NB_LINE, curseur = posProc; i; curseur = curseur -> next, i--);
       if (curseur) posProc = posProc -> next;
       DoExpose();
    }
-   
+
    if (ev.xbutton.button == WHEEL_DOWN && posProc -> previous && gNbProc > NB_LINE) {
       	   posProc = posProc -> previous;
 	   DoExpose();
    }
-   
+
    /* Mouse wheel patch end */
-   
+
    if (ev.xbutton.button == CLICK_ONE) {
-      
+
       struct timeval temp;
       long long nms1;
-                 
+
       gettimeofday(&temp, NULL);
       nms1 = temp.tv_sec - timev.tv_sec; /* nb sec since last click */
-      
+
       if  ((!nms1 || nms1 == 1)){
 	 long long yop = (nms1 * 1000000L) + (temp.tv_usec - timev.tv_usec); /* nb mlsec since last click */
 	 if (firstClick && (yop < DOUBLE_CLICK_DELAY)){  /* we got double click */
@@ -430,62 +430,62 @@ void DoClick(XEvent ev)
 	    firstClick = 0;
 	 } else firstClick = 1;
       } else firstClick = 1;
-      
+
        timev = temp;
-           
+
       if (zone == UP && !doubleClick && gNbProc > NB_LINE)
 	{
 	   for (i = NB_LINE, curseur = posProc; i; curseur = curseur -> next, i--);
 	   if (curseur) posProc = posProc -> next;
 	   DoExpose();
 	}
-      
+
       else if (zone == DOWN && posProc -> previous && !doubleClick && gNbProc > NB_LINE)
 	{
 	   posProc = posProc -> previous;
 	   DoExpose();
 	}
-      
-      else if (zone == UP && doubleClick && gNbProc > NB_LINE)   
+
+      else if (zone == UP && doubleClick && gNbProc > NB_LINE)
 	{
 
 	   for (curseur = pList; curseur -> next; curseur = curseur -> next);    /* curseur = end of list */
-	   
+
 	   for (i = NB_LINE - 1; i; curseur = curseur -> previous, i--);
 	   posProc = curseur;
 	   DoExpose();
 	}
-      
-      else if (zone == DOWN && doubleClick && gNbProc > NB_LINE) 
+
+      else if (zone == DOWN && doubleClick && gNbProc > NB_LINE)
 	{
 	   posProc = pList;
 	   DoExpose();
 	}
-      
+
       else if (zone > 0 && zone <= NB_LINE && doubleClick && tabNoProc[zone - 1] != -1)
 	{
 	   kill(tabNoProc[zone - 1], SIGKILL); /* let's kill the mofo */
 	   waitpid(tabNoProc[zone - 1], NULL, 0);
 	}
-      
+
       if (doubleClick) doubleClick = 0;
-      
+
    }
 }
 
 void DoEvents() {
 
    unsigned long long compteur = 0;
-   
-   XEvent ev ; 
+
+   XEvent ev ;
 
    for (;;){
       if (!compteur){
 	 if (CheckProcChange()) DoExpose();
 	 compteur = UPDATE_NB * DELAY;
       }
-      while(XPending(dpy)){   
-	 XNextEvent(dpy,&ev); 
+      while(XPending(dpy)){
+	 XNextEvent(dpy,&ev);
 	 switch(ev.type) {
 	  case Expose : DoExp(); break;
 	  case ButtonPress : DoClick(ev); break;
@@ -507,13 +507,13 @@ void PrintUsage(void)
 void GetArg(int argc, char *argv[])
 {
    if (argc == 1) return;
-   
+
    else if (argc == 3 && !strcmp(argv[1], "-n") && argv[2][0] != '-')
      procBaseName = strdup(argv[2]);
-   
+
    else if (argc == 2 && !strcmp(argv[1], "-a"))
      procBaseName = NULL;
-   
+
    else if (argc == 2 && !strcmp(argv[1], "-h"))
      {
 	PrintUsage();
@@ -524,11 +524,11 @@ void GetArg(int argc, char *argv[])
       exit(1);
    }
 }
-      
+
 void CreateDock(int argc, char *argv[])    /* this part comes from http://www.linuxmag-france.org/ */
 {
    Window root;
-   XWMHints wmHints; 
+   XWMHints wmHints;
    XSizeHints sizeHints;
    XClassHint classHint;
    Pixmap pixmask;
@@ -536,34 +536,34 @@ void CreateDock(int argc, char *argv[])    /* this part comes from http://www.li
    unsigned long p_noir;
    unsigned int borderWidth = 2;
    char *wname = argv[0] ;
-   
+
    dpy = XOpenDisplay(NULL) ;
-   
+
    if(dpy == NULL)
 	  {
 	     fprintf(stderr, "Can't open display\n") ;
 	     exit(1) ;
 	  }
-   
+
    root = RootWindow(dpy,screen);
    p_blanc = WhitePixel(dpy,screen) ;
    p_noir = BlackPixel(dpy,screen) ;
    gc = XDefaultGC(dpy,screen) ;
    XSetForeground(dpy, gc, p_noir);
    XSetBackground(dpy, gc,p_noir);
-   
+
    sizeHints.x = 0 ;
    sizeHints.y = 0 ;
    sizeHints.width = 64 ;
    sizeHints.height = 64 ;
-   
+
    win = XCreateSimpleWindow(dpy,root,sizeHints.x,sizeHints.y , sizeHints.width, sizeHints.height, borderWidth, p_noir,p_noir) ;
    iconWin = XCreateSimpleWindow(dpy,root,sizeHints.x,sizeHints.y,sizeHints.width, sizeHints.height, borderWidth, p_noir,p_noir ) ;
-   
+
    sizeHints.flags = USSize | USPosition ;
    XSetWMNormalHints(dpy,win,&sizeHints) ;
    wmHints.initial_state = WithdrawnState ;
-   wmHints.icon_window = iconWin ;         
+   wmHints.icon_window = iconWin ;
    wmHints.icon_x = sizeHints.x ;
    wmHints.icon_y = sizeHints.y ;
    wmHints.window_group = win ;
@@ -571,41 +571,41 @@ void CreateDock(int argc, char *argv[])    /* this part comes from http://www.li
    XSetWMHints(dpy, win, &wmHints) ;
    classHint.res_name = wname ;
    classHint.res_class = wname ;
-	
+
    XSetClassHint(dpy, win, &classHint) ;
    XSetCommand(dpy,win, argv, argc) ;
-	
+
    pixmask = XCreateBitmapFromData(dpy,win,fond_bits, fond_width, fond_height) ;
    XShapeCombineMask(dpy,win,ShapeBounding,0,0,pixmask,ShapeSet) ;
    XShapeCombineMask(dpy,iconWin,ShapeBounding, 0, 0, pixmask, ShapeSet) ;
    XpmCreatePixmapFromData(dpy,root,wmAppKill_xpm, &XPM, NULL,NULL) ;
-   
+
    XSelectInput(dpy,win, ExposureMask | ButtonPressMask) ;
    XSelectInput(dpy,iconWin, ExposureMask | ButtonPressMask) ;
-	
+
    XMapWindow(dpy,win) ;
 }
 
 int main(int argc, char *argv[])
 {
    int i;
-   
+
    GetArg(argc, argv);
    glibtop_init();
    CreateDock(argc, argv);
-   gettimeofday(&timev, NULL); 
-   
-   pList = GetProcList(); 
+   gettimeofday(&timev, NULL);
+
+   pList = GetProcList();
    posProc = pList;
-   
+
    ZoneCreate(4, 50, 8, 8, UP);
    ZoneCreate(54, 50, 8, 8, DOWN);
-   
+
    for (i = NB_LINE; i; i--)
      ZoneCreate(X_PROC + 1, Y_PROC + (i - 1) * 10 + 2, 48, 7, i);
-	
+
    DoEvents();
-	
+
    return 0;
 }
-	 
+

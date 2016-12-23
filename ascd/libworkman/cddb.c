@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -124,14 +124,14 @@ cddb_discid(void)
 
 	/* For backward compatibility this algorithm must not change */
 	for (i = 0; i < thiscd.ntracks; i++) {
-	    
+
 		n += cddb_sum(thiscd.trk[i].start / 75);
-	/* 
+	/*
 	 * Just for demonstration (See below)
-	 * 
+	 *
 	 *	t += (thiscd.trk[i+1].start / 75) -
 	 *	     (thiscd.trk[i  ].start / 75);
-	 */	    
+	 */
 	}
 
 	/*
@@ -174,10 +174,10 @@ void
 string_makehello(char *line,char delim)
 {
 	char mail[84],*host;
-	
+
 	strcpy(mail,cddb.mail_adress);
 	host=string_split(mail,'@');
-	
+
 	sprintf(line,"%shello%c%s%c%s%c%s%c%s",
 		delim == ' ' ? "cddb " : "&",
 		delim == ' ' ? ' ' : '=',
@@ -197,13 +197,13 @@ connect_open(void)
 	struct hostent *hp;
 	struct sockaddr_in soc_in;
 	int port;
-	
+
 	if(cddb.protocol == 3) /* http proxy */
 	  host = strdup(cddb.proxy_server);
 	else
 	  host = strdup(cddb.cddb_server);
-	/*	
-	 * t=string_split(host,':'); 
+	/*
+	 * t=string_split(host,':');
 	 */
 	port=atoi(string_split(host,':'));
 	if(!port)
@@ -211,7 +211,7 @@ connect_open(void)
 
 	printf("%s:%d\n",host,port);
 	hp  =gethostbyname(host);
-  
+
 	if (hp == NULL)
 	{
 		static struct hostent def;
@@ -219,9 +219,9 @@ connect_open(void)
 		static char *alist[1];
 		static char namebuf[128];
 		int inet_addr();
-		
+
 		defaddr.s_addr = inet_addr(host);
-		if (defaddr.s_addr == -1) 
+		if (defaddr.s_addr == -1)
 		{
 			printf("unknown host: %s\n", host);
 			return (-1);
@@ -238,19 +238,19 @@ connect_open(void)
 	bcopy(hp->h_addr, (char *)&soc_in.sin_addr, hp->h_length);
 	soc_in.sin_port = htons(port);
 	Socket = socket(hp->h_addrtype, SOCK_STREAM, 0);
-	if (Socket < 0) 
-	{ 
+	if (Socket < 0)
+	{
 		perror("socket");
 		return (-1);
 	}
 	fflush(stdout);
-	if (connect(Socket, (struct sockaddr *)&soc_in, sizeof (soc_in)) < 0) 
-	{   
+	if (connect(Socket, (struct sockaddr *)&soc_in, sizeof (soc_in)) < 0)
+	{
 		perror("connect");
 		close(Socket);
 		return (-1);
 	}
-	
+
 	Connection = fdopen(Socket, "r");
 	return (0);
 } /* connect_open() */
@@ -261,7 +261,7 @@ connect_open(void)
  */
 void
 connect_close(void)
-{	   
+{
 	(void)fclose(Connection);
 	close(Socket);
 } /* connect_close() */
@@ -273,7 +273,7 @@ void
 connect_getline(char *line)
 {
 	char c;
-    
+
 	while ((c = getc(Connection)) != '\n')
 	{
 		*line = c;
@@ -291,21 +291,21 @@ connect_read_entry(void)
 {
 	char type;
 	int trknr;
-	
+
 	char *t,*t2,tempbuf[2000];
-	
+
 	while(strcmp(tempbuf,"."))
 	{
 		connect_getline(tempbuf);
-		
+
 		t=string_split(tempbuf,'=');
 		if(t != NULL)
 		{
 			type=tempbuf[0];
-			
+
 			if(strncmp("TITLE",tempbuf+1,5))
 			  continue;
-			
+
 			if('D' == type)
 			{
 				/*
@@ -318,7 +318,7 @@ connect_read_entry(void)
 				if(*t2 == ' ')
 				  t2++;
 				strcpy(cd->cdname,t2);
-				
+
 				for(t2=t;*t2;t2++)
 				{
 					if((*t2 == ' ') && (*(t2+1) == 0))
@@ -326,7 +326,7 @@ connect_read_entry(void)
 				}
 				strcpy(cd->artist,t);
 			}
-			
+
 			if('T' == type)
 			{
 				trknr=atoi(tempbuf+6);
@@ -370,7 +370,7 @@ void
 http_send(char* line)
 {
 	char tempbuf[2000];
-	
+
 	write(Socket, "GET ", 4);
 	printf("GET ");
 	if(cddb.protocol == 3)
@@ -413,18 +413,18 @@ cddb_request(void)
 	int i;
 	char tempbuf[2000];
 	extern int cur_ntracks;
-	
+
 	int status;
 	char category[20];
 	unsigned int id;
-	
+
 	strcpy(cddb.cddb_server,"localhost:888");
 	strcpy(cddb.mail_adress,"svolli@bigfoot.com");
 	/*
 	 * cddb.protocol = 1;
 	 */
 	wipe_cdinfo();
-	
+
 	switch(cddb.protocol)
 	{
 	 case 1: /* cddbp */
@@ -445,7 +445,7 @@ cddb_request(void)
 		cddbp_send(tempbuf);
 		connect_getline(tempbuf);
 		printf("[%s]\n",tempbuf);
-		
+
 		printf("query\n");
 		sprintf(tempbuf, "cddb query %08x %d",thiscd.cddbid,thiscd.ntracks);
 		for (i = 0; i < cur_ntracks; i++)
@@ -457,7 +457,7 @@ cddb_request(void)
 		cddbp_send(tempbuf);
 		connect_getline(tempbuf);
 		printf("[%s]\n",tempbuf);
-		
+
 		status=atoi(tempbuf);
 		/*
 		 * fprintf(stderr, "status:%d\n",status);
@@ -470,7 +470,7 @@ cddb_request(void)
 			cddbp_read(category,id);
 			connect_read_entry();
 		}
-		
+
 		if(status == 211) /* Unexact match, multiple possible
 				   * Hack: always use first. */
 		{
@@ -481,7 +481,7 @@ cddb_request(void)
 			cddbp_read(category,id);
 			connect_read_entry();
 		}
-		
+
 		cddbp_send("quit");
 		connect_close();
 		printf("close\n");
@@ -502,7 +502,7 @@ cddb_request(void)
 		http_send(tempbuf);
 		connect_getline(tempbuf);
 		printf("[%s]\n",tempbuf);
-		
+
 		status=atoi(tempbuf);
 		/*
 		 * fprintf(stderr, "status:%d\n",status);
@@ -518,7 +518,7 @@ cddb_request(void)
 			http_read(category,id);
 			connect_read_entry();
 		}
-		
+
 		if(status == 211) /* Unexact match, multiple possible
 				   * Hack: always use first. */
 		{

@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -107,7 +107,7 @@ split_workmandb( void )
 	int	ndbs, i;
 	char	*home, *wmdb;
 	int	no_rc = 0, no_db = 0;
-	
+
 	if (rcfile == NULL)
 	{
 		if ((home = getenv("HOME")) != NULL)
@@ -115,7 +115,7 @@ split_workmandb( void )
 			rcfile = malloc(strlen(home) + sizeof(RCFILE));
 			if (rcfile == NULL)
 			{
-			
+
 nomem:
 				perror("split_workmandb()");
 				exit(1);
@@ -149,7 +149,7 @@ nomem:
 		else
 		{
 			static char *emptydb = NULL;
-		
+
 			databases = &emptydb;
 			no_db = 1;
 		}
@@ -163,11 +163,11 @@ nomem:
 				*home = '\0';
 				ndbs++;
 			}
-		
+
 		databases = malloc((ndbs + 1) * sizeof(databases[0]));
 		if (databases == NULL)
 			goto nomem;
-		
+
 		for (i = 0; i < ndbs; i++)
 		{
 			databases[i] = wmdb;
@@ -571,7 +571,7 @@ chomp:
 				if (scratch != cd->trk[track].start)
                                 {
                                     sizediff = abs(scratch - cd->trk[track].start);
-                                    if (sizediff > fuzz_frames || 
+                                    if (sizediff > fuzz_frames ||
                                         (sizediff && scan))
                                       break;
                                     fudge += sizediff;
@@ -615,7 +615,7 @@ chomp:
 		{
 			getc(fp);
 			i = getc(fp);	/* only first letter is used */
-		        cddb.protocol = i == 'c' ? 1 : 
+		        cddb.protocol = i == 'c' ? 1 :
 		                        i == 'h' ? 2 : 3 ;
 			do
 				i = getc(fp);
@@ -631,7 +631,7 @@ chomp:
 				while (i != '\n' && i != EOF);
 			else
 			{
-				fgets(cddb.cddb_server, 
+				fgets(cddb.cddb_server,
 				      sizeof(cddb.cddb_server), fp);
 				if ((i = strlen(cddb.cddb_server)))
 					cddb.cddb_server[i - 1] = '\0';
@@ -647,7 +647,7 @@ chomp:
 				while (i != '\n' && i != EOF);
 			else
 			{
-				fgets(cddb.mail_adress, 
+				fgets(cddb.mail_adress,
 				      sizeof(cddb.mail_adress), fp);
 				if ((i = strlen(cddb.mail_adress)))
 					cddb.mail_adress[i - 1] = '\0';
@@ -663,7 +663,7 @@ chomp:
 				while (i != '\n' && i != EOF);
 			else
 			{
-				fgets(cddb.path_to_cgi, 
+				fgets(cddb.path_to_cgi,
 				      sizeof(cddb.path_to_cgi), fp);
 				if ((i = strlen(cddb.path_to_cgi)))
 					cddb.path_to_cgi[i - 1] = '\0';
@@ -679,7 +679,7 @@ chomp:
 				while (i != '\n' && i != EOF);
 			else
 			{
-				fgets(cddb.proxy_server, 
+				fgets(cddb.proxy_server,
 				      sizeof(cddb.proxy_server), fp);
 				if ((i = strlen(cddb.proxy_server)))
 					cddb.proxy_server[i - 1] = '\0';
@@ -705,7 +705,7 @@ chomp:
 		}
 
 		/* If we're searching, skip to the next "tracks" line. */
-		else if (((searching & 1)|| scan) 
+		else if (((searching & 1)|| scan)
                          && !(prefs && firstpos == -1))
 			SWALLOW_LINE(fp)
 
@@ -759,7 +759,7 @@ chomp:
 						trackmap[i++] = track++;
 					else
 						trackmap[i++] = -1;
-					
+
 					if (track == cur_ntracks)
 						break;
 				}
@@ -838,7 +838,7 @@ chomp:
 /*
  * nasty bug was here. Was it? BUGBUGBUG
  *
- *			 wipe_cdinfo(); 
+ *			 wipe_cdinfo();
  */			 trackmap = reset_tracks();
 
 			getc(fp);	/* lose the space */
@@ -853,11 +853,11 @@ chomp:
                                 {
                                     strcpy(cd->cdname, "Probably://");
 				    fgets(cd->cdname + strlen(cd->cdname), sizeof(cd->cdname), fp);
-                                } 
-                                else 
+                                }
+                                else
                                 {
 				    fgets(cd->cdname, sizeof(cd->cdname), fp);
-                                } 
+                                }
 				if ( (i = strlen(cd->cdname)) )
 					cd->cdname[i - 1] = '\0';
 			}
@@ -1092,7 +1092,7 @@ load( void )
 		time(&t1);
 		printf("%s (%d): search start = %ld\n", __FILE__, __LINE__, t1);
 		fflush(stdout);
-	  }	
+	  }
 #endif
 
 	dbfile = databases;
@@ -1139,7 +1139,7 @@ load( void )
 		time(&t2);
 		printf("%s (%d): db search end = %ld, elapsed = %ld\n", __FILE__, __LINE__, t2, t2 - t1);
 		fflush(stdout);
-	  }	
+	  }
 #endif
 
 	fp = rcfile ? open_rcfile(rcfile, "r") : NULL;
@@ -1173,7 +1173,7 @@ load( void )
 		time(&t2);
 		printf("%s (%d): search end = %ld, elapsed = %ld\n", __FILE__, __LINE__, t2, t2 - t1);
 		fflush(stdout);
-	  }	
+	  }
 #endif
 } /* load() */
 
@@ -1242,7 +1242,7 @@ save_globals(FILE *fp)
 		    break;
 		}
 		wm_strmcat(&globes, temp);
-	    
+
 		if(cddb.mail_adress[0])
 	 	{
 			sprintf(temp,"cddbmailadress %s\n",
@@ -1340,7 +1340,7 @@ save_globals(FILE *fp)
 				wm_strmcat(&cdentry, temp);
 				curpos += strlen(temp);
 			}
-		} 
+		}
 
 		if (cdentry != NULL)
 		{

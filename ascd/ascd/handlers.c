@@ -24,16 +24,16 @@
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
  * ARE DISCLAIMED. IN NO EVENT SHALL DENIS BOUREZ, ROB MALDA OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
  * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  * ===========================================================================
  */
- 								   
+
 #include "ext.h"
 #include "faktory_prot.h"
 
@@ -52,7 +52,7 @@ void theme_select_init()
 	while((dir_pt = readdir(dir_fd)) != NULL) if (dir_pt->d_name[0] != '.') theme_select_nbr++;
 	closedir(dir_fd);
     }
-    
+
     sprintf(txt, "%s/Themes", THDIR);
     if ((dir_fd = opendir(txt)) != NULL) {
 	i = 0;
@@ -290,7 +290,7 @@ void cd_event_handle(int event, XEvent Event)
 	newtext("Eject");
 	cd_control(EJECT);
 	redraw = TRUE;
-	fak_redraw();	
+	fak_redraw();
 	break;
     case FAK_CD_EJECTQUIT:
 	fast_track = 0;
@@ -325,9 +325,9 @@ void cd_event_handle(int event, XEvent Event)
 	/* Direct Access:
 	   we have to compute the offset to pass it to cd_control. We also have to
 	   check if we want to move inside the current track or in the whole CD */
-	
+
 	if (cur_track < 1) cur_track = 1;
-	
+
 	if ((time_mode == 2) || (time_mode == 3)) {
 	    if ((thdata[but_current].type == FAK_CD_BAR) || (thdata[but_current].type == FAK_CD_PIX)) {
 		direct_access = (int)((float)(Event.xbutton.x - thdata[but_current].x) / (float)thdata[but_current].xpm.attributes.width * (float)cur_cdlen);

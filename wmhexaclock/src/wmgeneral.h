@@ -18,8 +18,8 @@ XpmIcon		wmempty;
 
 /* Function Prototypes */
 void openXwindow(int argc, char *argv[], char **, char **, char *, int, int);
-void RedrawWindow(void);						
-void copyXPMArea(int, int, int, int, int, int);			
-void cleanXPMArea();					
+void RedrawWindow(void);
+void copyXPMArea(int, int, int, int, int, int);
+void cleanXPMArea();
 
 #endif

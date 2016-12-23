@@ -1,6 +1,6 @@
 /*
  *  wmpop3.c
- *  multi pop3 mail checker. 
+ *  multi pop3 mail checker.
  *  written by Louis-Benoit JOURDAIN (lb@jourdain.org)
  *  based on the original work by Scott Holden (scotth@thezone.net)
  *
@@ -78,7 +78,7 @@ int	pop3VerifStats(Pop3 pc);
 /********************************
  *           Main Program
  ********************************/
-void	deleteoldtmpfiles() 
+void	deleteoldtmpfiles()
 {
   char	buf[1024];
   DIR	*dir;
@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
 	ProgName = argv[0];
 	if (strlen(ProgName) >= 5)
 		ProgName += (strlen(ProgName) - 5);
-	
+
 	for (i=1; i<argc; i++) {
 		char *arg = argv[i];
 
@@ -149,12 +149,12 @@ int main(int argc, char *argv[]) {
 	return 0;
 }
 
-void		build_line(char *buf, int num, int index, Pop3 pc) 
+void		build_line(char *buf, int num, int index, Pop3 pc)
 {
   int		len;
   int		pos;
   char		tmp[256];
-  
+
   /* display spaces in case alias is less than 3 char long */
   memset(tmp, ' ', sizeof(char) * 3);
   memset(tmp + 3, 0, sizeof(char) * (256 - 3));
@@ -216,7 +216,7 @@ int	DeleteMail(Pop3 pc)
   int	etat = 0;
   int	old_sizeOfAllMessages;
   int	i;
-  
+
   old_sizeOfAllMessages = pc->sizeOfAllMessages;
   BlitString(pc->alias, 10, TOP_MARGIN, 0);
   BlitString("connect", 10, 6*2 + TOP_MARGIN, 0);
@@ -257,7 +257,7 @@ int	DeleteMail(Pop3 pc)
   }
   pop3Quit(pc);
   return (etat);
-}  
+}
 
 /*
 void		launch_mail_client(int iS)
@@ -301,19 +301,19 @@ void		launch_mail_client(int iS)
 }
 */
 
-void		display_scrollbar(int index, int totalmessages, 
+void		display_scrollbar(int index, int totalmessages,
 				  int maxlines, int scrollmode)
 {
   int		delta;
   int		scrollen;
   int		vertpos;
-  
+
   if (totalmessages <= maxlines) {
 #ifdef _DEBUG
     if (haspassed)
       printf("  full scrollbar\n");
 #endif
-    copyXPMArea((scrollmode) ? 68 : 65, 18, SCROLL_W, 
+    copyXPMArea((scrollmode) ? 68 : 65, 18, SCROLL_W,
 		SCROLL_H + (2 * SCROLL_EXT), SCROLL_LX, SCROLL_TY);
     scrollbar.top = SCROLL_TY;
     scrollbar.bottom = SCROLL_TY + SCROLL_H;
@@ -331,7 +331,7 @@ void		display_scrollbar(int index, int totalmessages,
 		SCROLL_LX, vertpos + SCROLL_TY);
     copyXPMArea((scrollmode) ? 68 : 65, 18 + SCROLL_EXT, SCROLL_W, scrollen,
 		SCROLL_LX, vertpos + SCROLL_TY + SCROLL_EXT);
-    copyXPMArea((scrollmode) ? 68 : 65, 18 + SCROLL_EXT + SCROLL_H, 
+    copyXPMArea((scrollmode) ? 68 : 65, 18 + SCROLL_EXT + SCROLL_H,
 		SCROLL_W, SCROLL_EXT,
 		SCROLL_LX, vertpos + SCROLL_TY + SCROLL_EXT + scrollen);
     scrollbar.top = vertpos + SCROLL_TY;
@@ -340,7 +340,7 @@ void		display_scrollbar(int index, int totalmessages,
 #ifdef _DEBUG
     if (haspassed) {
       printf("  index: %d, totalmess:%d, mxli: %d, delta: %d, vertpos: %d, allowedspace: %d, sl:%d\n",
-	     index, totalmessages, maxlines, delta, vertpos, 
+	     index, totalmessages, maxlines, delta, vertpos,
 	     scrollbar.allowedspace, scrollen);
     }
 #endif
@@ -348,10 +348,10 @@ void		display_scrollbar(int index, int totalmessages,
   /*  RedrawWindow(); */
 }
 
-int		is_for_each_mail(char **command) 
+int		is_for_each_mail(char **command)
 {
   int		i;
-  
+
   if (command) {
     for (i = 0; command[i]; i++) {
       if ('%' == command[i][0]) {
@@ -366,7 +366,7 @@ int		is_for_each_mail(char **command)
   return (0);
 }
 
-char		*quotify(char *str) 
+char		*quotify(char *str)
 {
   char		*retour;
   int		len;
@@ -387,8 +387,8 @@ char		*quotify(char *str)
    onlyselected: only for selected messages
    pc: main struct.
    on success return 0 */
-int		writemailstofile(int nb, char *path, int newonly, 
-				 int onlyselected, Pop3 pc) 
+int		writemailstofile(int nb, char *path, int newonly,
+				 int onlyselected, Pop3 pc)
 {
   int		fd;
   int		len;
@@ -396,7 +396,7 @@ int		writemailstofile(int nb, char *path, int newonly,
   int		retour = 0;
   int		goforwritemail = 0;
   int		mustdisconnect = 0;
-  
+
   len = strlen(tempdir);
   if (len) {
     path[0] = '\0';
@@ -440,22 +440,22 @@ int		writemailstofile(int nb, char *path, int newonly,
 	  if (!newonly && !onlyselected) {
 #ifdef _DEBUG
 	    printf("  !newonly && !onlyselected\n");
-#endif	   
+#endif
 	    goforwritemail = 1;
 	  }
 	  else if (newonly) {
-	    if (pc->mails[i].new && 
+	    if (pc->mails[i].new &&
 		(!onlyselected || (onlyselected && pc->mails[i].todelete))) {
 #ifdef _DEBUG
 	      printf("  newonly\n");
-#endif	   
+#endif
 	      goforwritemail = 1;
 	    }
 	  }
 	  else if (onlyselected && pc->mails[i].todelete) {
 #ifdef _DEBUG
 	    printf("  onlyselected\n");
-#endif	   
+#endif
 	    goforwritemail = 1;
 	  }
 	  if (goforwritemail) {
@@ -469,7 +469,7 @@ int		writemailstofile(int nb, char *path, int newonly,
 	    else {
 #ifdef _DEBUG
 	      printf("  TXT_SEPARATOR: [%s]\n", TXT_SEPARATOR);
-#endif      
+#endif
 	      write(fd, TXT_SEPARATOR, strlen(TXT_SEPARATOR));
 	    }
 	    if (pop3WriteOneMail(i + 1, fd, pc)) {
@@ -500,19 +500,19 @@ int		writemailstofile(int nb, char *path, int newonly,
   return (retour);
 }
 
-/* 
+/*
  * do_command_completion
  * returned array should be freed by calling function
- * if nbnewmail == 0, for %c option concatenate _all_ the messages 
+ * if nbnewmail == 0, for %c option concatenate _all_ the messages
  */
-char		**do_command_completion(int num, char **command, 
-					int nbnewmail, Pop3 pc) 
+char		**do_command_completion(int num, char **command,
+					int nbnewmail, Pop3 pc)
 {
   char		**retour;
   int		i;
   int		yaerreur = 0;
   char		path[1024];
-  
+
   for (i = 0; command[i]; i++);
 #ifdef _DEBUG
   printf("  %d args to the command, mail num %d\n", i, num);
@@ -530,13 +530,13 @@ char		**do_command_completion(int num, char **command,
       case 'T': /* total nb of mails */
 	if (NULL != (retour[i] = (char *) malloc(sizeof(char) * 8)))
 	  sprintf(retour[i], "%d", pc->numOfMessages);
-	else 
+	else
 	  yaerreur = 1;
 	break;
       case 't': /* total nb of new mails */
 	if (NULL != (retour[i] = (char *) malloc(sizeof(char) * 8)))
 	  sprintf(retour[i], "%d", (nbnewmail < 0) ? 0 : 1);
-	else 
+	else
 	  yaerreur = 1;
 	break;
       case 'C': /* concatenate all the selected mails in 1 file */
@@ -548,9 +548,9 @@ char		**do_command_completion(int num, char **command,
 	  }
 	break;
       case 'c': /* concatenate all the mails in 1 file */
-	if (writemailstofile(-1, path, (nbnewmail > 0), NOSELECTONLY, pc)) 
+	if (writemailstofile(-1, path, (nbnewmail > 0), NOSELECTONLY, pc))
 	  yaerreur = 1;
-	else 
+	else
 	  if (NULL == (retour[i] = strdup(path))) {
 	    yaerreur = 1;
 	  }
@@ -565,15 +565,15 @@ char		**do_command_completion(int num, char **command,
       case 's': /* subject of the mail */
 #ifdef _DEBUG
 	printf("  subject field: [%s]\n", pc->mails[num].subject);
-#endif	
+#endif
 	if (NULL == (retour[i] = quotify(pc->mails[num].subject)))
 	  yaerreur = 1;
 	break;
       case 'm': /* copy the mail to tmp file */
 	if (0 <= num) {
-	  if (writemailstofile(num, path, (nbnewmail > 0), NOSELECTONLY, pc)) 
+	  if (writemailstofile(num, path, (nbnewmail > 0), NOSELECTONLY, pc))
 	    yaerreur = 1;
-	  else 
+	  else
 	    if (NULL == (retour[i] = strdup(path))) {
 	      yaerreur = 1;
 	  }
@@ -608,10 +608,10 @@ char		**do_command_completion(int num, char **command,
 	  yaerreur = 1;
 	break;
       case '%': /* % character, leave in place */
-	 if (NULL == (retour[i] = strdup(command[i]))) 
+	 if (NULL == (retour[i] = strdup(command[i])))
 	   yaerreur = 1;
 	break;
-      default: 
+      default:
 	break;
       }
     }
@@ -619,7 +619,7 @@ char		**do_command_completion(int num, char **command,
 #ifdef _DEBUG
       printf("    just copying arg [%s]\n", command[i]);
 #endif
-      if (NULL == (retour[i] = strdup(command[i]))) 
+      if (NULL == (retour[i] = strdup(command[i])))
 	yaerreur = 1;
     }
   }
@@ -633,17 +633,17 @@ char		**do_command_completion(int num, char **command,
     return (NULL);
 }
 
-/* num is the index of the mail in the mail array 
+/* num is the index of the mail in the mail array
    if num == -1, means that the command isn't for each mail */
 
 
-void		spawn_command(int num, char **command, int nbnewmail, 
+void		spawn_command(int num, char **command, int nbnewmail,
 			      char *display, Pop3 pc)
 {
   char		**tmpcommand;
   char		str[16];
   int		i, j;
-  
+
   if (display) {
     ClearDisplay();
     if (!command) {
@@ -702,7 +702,7 @@ void		spawn_command(int num, char **command, int nbnewmail,
 	BlitString(display, 10, 6*6 + TOP_MARGIN, 0);
 	fprintf(stderr, "Error while parsing %s\n", display);
       }
-      else 
+      else
 	fprintf(stderr, "Error while parsing command\n");
     }
   }
@@ -718,7 +718,7 @@ void		spawn_command(int num, char **command, int nbnewmail,
  */
 
 void		wmCheckMail_routine(int argc, char **argv){
-  
+
   int		buttonStatus   = -1;
   int		iS;
   Pop3		pc;
@@ -739,33 +739,33 @@ void		wmCheckMail_routine(int argc, char **argv){
   int		scrollmode = 0;
   int		nbnewmail;
   char		separ;
-    
+
   if( !strcmp( config_file, "not-defined") )
     sprintf(config_file, "%s/.wmpop3rc", getenv("HOME"));
-  
+
   if( readConfigFile(config_file) == -1){
     exit(0);
   }
   /* Set up timer for checking mail */
   createXBMfromXPM(wminet_mask_bits, wmpop3_xpm
 		   , wminet_mask_width, wminet_mask_height);
-  
+
   openXwindow(argc, argv, wmpop3_xpm, wminet_mask_bits
 	      , wminet_mask_width, wminet_mask_height);
-  
+
   AddMouseRegion(0, 19, 49, 30, 58); /* check button */
   AddMouseRegion(1, 46, 49, 50, 58 ); /* autocheck button   */
   AddMouseRegion(2, 53, 49, 57, 58 ); /* switch display button  */
-  AddMouseRegion(3, 5, 49, 16, 58 ); /* delete button */ 
+  AddMouseRegion(3, 5, 49, 16, 58 ); /* delete button */
   AddMouseRegion(4, 33, 49, 44, 53); /* top arrow */
   AddMouseRegion(5, 33, 54, 44, 58); /* botton arrow */
   /* add the mouse regions for each line */
   for (i = 0; i < NB_LINE; i++) {
-    AddMouseRegion(6 + i, 9, (i*6) + TOP_MARGIN, 
+    AddMouseRegion(6 + i, 9, (i*6) + TOP_MARGIN,
 		   58, (i*6) + TOP_MARGIN + CHAR_HEIGHT);
   }
-  
-  
+
+
   /* Check if Autochecking is on or off */
   if(autoChecking == NO ){
     copyXPMArea(142, 38, 7, 11, 45, 48);
@@ -773,9 +773,9 @@ void		wmCheckMail_routine(int argc, char **argv){
   else {
     copyXPMArea(142, 49, 7, 11, 45, 48);
   }
-  
+
   RedrawWindow();
-  
+
   summess = 0;
 
   deleteoldtmpfiles();
@@ -785,9 +785,9 @@ void		wmCheckMail_routine(int argc, char **argv){
     RSET_COLOR;
     for (iS = 0; iS < nb_conf; iS++) {
       pc = conf[iS];
-      if( (((time(0) > pc->nextCheckTime) || 
-	    (pc->nextCheckTime == 0)) && ( autoChecking == YES)) 
-	  || (pc->forcedCheck == YES)){ 
+      if( (((time(0) > pc->nextCheckTime) ||
+	    (pc->nextCheckTime == 0)) && ( autoChecking == YES))
+	  || (pc->forcedCheck == YES)){
 	justreloaded = 1;
 	ClearDisplay();
 	BlitString(pc->alias, 10, TOP_MARGIN, 0);
@@ -800,7 +800,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	if (!pc->status) {
 	  BlitString("login", 10, (6*3) + TOP_MARGIN, 0);
 	  RedrawWindow();
-	  if (pop3Login(pc, pc->username, pc->password) == -1 ) 
+	  if (pop3Login(pc, pc->username, pc->password) == -1 )
 	    pc->status = 2;
 	}
 	if (!pc->status) {
@@ -823,7 +823,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	    printf("  %d New mail(s) ha(s)(ve) arrived!\n", nbnewmail);
 #endif
 	    if (is_for_each_mail(pc->newmailcommand)) {
-	      for (i = 0; i < pc->numOfMessages; i++) 
+	      for (i = 0; i < pc->numOfMessages; i++)
 		if (pc->mails[i].new)
 		  spawn_command(i, pc->newmailcommand, nbnewmail, NULL, pc);
 	    }
@@ -865,13 +865,13 @@ void		wmCheckMail_routine(int argc, char **argv){
       for (i = 0; i < summess && i < pc->numOfMessages; i++) {
 #ifdef _DEBUG
 	if (haspassed) {
-	  printf("  %s, mails[%d], todelete=%d\n", 
+	  printf("  %s, mails[%d], todelete=%d\n",
 	       pc->alias, i, pc->mails[i].todelete);
 	}
 #endif
 	nbsel += pc->mails[i].todelete;
-      }   
-    } 
+      }
+    }
     if (justreloaded) {
       /* make sure we display the correct buttons */
       justreloaded = 0;
@@ -887,7 +887,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	pc = conf[iS];
 	if (pc->countunreadonly)
 	  separ = '-';
-	else 
+	else
 	  separ = ':';
 	switch(pc->status) {
 	case 1:
@@ -901,7 +901,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	  break;
 	default:
 	  sprintf(str, "%-3s%c %3d", pc->alias, separ,
-		  (pc->countunreadonly) ? pc->numOfUnreadMessages : 
+		  (pc->countunreadonly) ? pc->numOfUnreadMessages :
 		  pc->numOfMessages);
 	  break;
 	}
@@ -910,7 +910,7 @@ void		wmCheckMail_routine(int argc, char **argv){
       }
       RSET_COLOR;
       sprintf(str, "sel.: %2d", nbsel);
-      BlitString(str, 10, (int) (6*6) + TOP_MARGIN, 0);	  
+      BlitString(str, 10, (int) (6*6) + TOP_MARGIN, 0);
     }
     else {
       RSET_COLOR;
@@ -924,7 +924,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	if (autoChecking == YES) {
 	  BlitString("  next", 10, 6*2 + TOP_MARGIN, 0);
 	  BlitString(" update", 10, 6*3 + TOP_MARGIN, 0);
-	  j = SEC_IN_MIN * 1000; 
+	  j = SEC_IN_MIN * 1000;
 	  thistime = time(0);
 	  for (i = 0, k = 0; i < nb_conf; i++) {
 	    if ((conf[i]->nextCheckTime - thistime) < j) {
@@ -942,16 +942,16 @@ void		wmCheckMail_routine(int argc, char **argv){
       else {
 	RSET_COLOR;
 	/* iS = index in the conf struct
-	   i = index of the mail 
+	   i = index of the mail
 	   j = line nb on display */
 	memset(linestodel, 0, sizeof(char *));
 	for (iS = 0, j = 0; iS < nb_conf && j < NB_LINE + index_vert; iS++) {
 	  pc = conf[iS];
-	  for (i = 0; (j < NB_LINE + index_vert) && i < pc->numOfMessages; 
+	  for (i = 0; (j < NB_LINE + index_vert) && i < pc->numOfMessages;
 	       j++, i++) {
 	    if (j >= index_vert) {
 	      build_line(str, i, index, pc);
-	      BlitString(str, 10, ((j - index_vert) * 6) + TOP_MARGIN, 
+	      BlitString(str, 10, ((j - index_vert) * 6) + TOP_MARGIN,
 			 fragment);
 	      display_index(i, (j - index_vert), pc);
 	      /* store the address of the delete flag, so that it will */
@@ -973,9 +973,9 @@ void		wmCheckMail_routine(int argc, char **argv){
 #ifdef _DEBUG
     haspassed = 0;
 #endif
-    
+
     RedrawWindow();
-    
+
     RSET_COLOR;
     /* X Events */
     while (XPending(display)){
@@ -999,8 +999,8 @@ void		wmCheckMail_routine(int argc, char **argv){
 
 #endif
 	  if (summess > NB_LINE) {
-	    index_vert = scrollbar.orig_index_vert + 
-	      ((Event.xbutton.y  - scrollbar.orig_y) * (summess - NB_LINE) / 
+	    index_vert = scrollbar.orig_index_vert +
+	      ((Event.xbutton.y  - scrollbar.orig_y) * (summess - NB_LINE) /
 	       scrollbar.allowedspace);
 	    if (0 > index_vert)
 	      index_vert = 0;
@@ -1008,7 +1008,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	      index_vert = summess - NB_LINE;
 	  }
 #ifdef _DEBUG
-	  printf("  deplacement de %d pixels --> index_vert = %d\n", 
+	  printf("  deplacement de %d pixels --> index_vert = %d\n",
 		 Event.xbutton.y  - scrollbar.orig_y, index_vert);
 #endif
 	}
@@ -1018,7 +1018,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	if (buttonStatus >= 0){
 	  switch (buttonStatus){
 	  case 0 : /* check / open button pressed */
-	    if ((NO == newMessagesOnly) && nbsel) 
+	    if ((NO == newMessagesOnly) && nbsel)
 	      copyXPMArea(128, 60 ,14 ,11 ,18 ,48 );
 	    else
 	      copyXPMArea(128,38 ,14 ,11 ,18 ,48 );
@@ -1040,7 +1040,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	  RedrawWindow();
 	}
 	else if (SCROLL_LX <= Event.xbutton.x && SCROLL_RX >= Event.xbutton.x
-		 && scrollbar.top <= Event.xbutton.y && 
+		 && scrollbar.top <= Event.xbutton.y &&
 		 scrollbar.bottom >= Event.xbutton.y) {
 	  scrollbar.orig_y = Event.xbutton.y;
 	  scrollbar.orig_index_vert = index_vert;
@@ -1049,12 +1049,12 @@ void		wmCheckMail_routine(int argc, char **argv){
 	break;
       case ButtonRelease:
 	i = CheckMouseRegion(Event.xbutton.x, Event.xbutton.y);
-	
+
 	if (buttonStatus == i && buttonStatus >= 0){
 	  switch (buttonStatus){
 	  case 0 :   /* check button */
 	    if (nbsel && !newMessagesOnly) {
-	      copyXPMArea(128,49 ,14 ,11 ,18 ,48 );	
+	      copyXPMArea(128,49 ,14 ,11 ,18 ,48 );
 	      /* this is where you launch the open mail command */
 	      for (iS = 0; iS < nb_conf; iS++) {
 		pc = conf[iS];
@@ -1069,7 +1069,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 		  printf("  launching selectedmesgcommand command for conf %d\n",
 			 iS);
 #endif
-		  
+
 		  if (is_for_each_mail(pc->selectedmesgcommand)) {
 #ifdef _DEBUG
 		    if (!pc->numOfMessages) {
@@ -1078,19 +1078,19 @@ void		wmCheckMail_routine(int argc, char **argv){
 		    else
 		      printf("  command is for each mail\n");
 #endif
-		    for (i = 0; i < pc->numOfMessages; i++) 
-		      spawn_command(i, pc->selectedmesgcommand, 0, 
+		    for (i = 0; i < pc->numOfMessages; i++)
+		      spawn_command(i, pc->selectedmesgcommand, 0,
 				    "selectm.", pc);
 		  }
 		  else {
-		    spawn_command(-1, pc->selectedmesgcommand, 0, 
+		    spawn_command(-1, pc->selectedmesgcommand, 0,
 				  "selectm.", pc);
 		  }
 		}
 	      }
 	    }
 	    else {
-	      copyXPMArea(128,27 ,14 ,11 ,18 ,48 );	
+	      copyXPMArea(128,27 ,14 ,11 ,18 ,48 );
 	      for (iS = 0; iS < nb_conf; iS++)
 		conf[iS]->forcedCheck = YES;
 	    }
@@ -1098,12 +1098,12 @@ void		wmCheckMail_routine(int argc, char **argv){
 	  case 1 :   /* autocheck Button */
 	    if (autoChecking == YES){
 	      autoChecking = NO;
-	      copyXPMArea(142, 38, 7, 11, 45, 48);		  
+	      copyXPMArea(142, 38, 7, 11, 45, 48);
 	    }
 	    else {
 	      autoChecking = YES;
 	      for (iS = 0; iS < nb_conf; iS++)
-		conf[iS]->nextCheckTime = time(0) + 
+		conf[iS]->nextCheckTime = time(0) +
 		  (conf[iS]->mailCheckDelay * SEC_IN_MIN);
 	      copyXPMArea(142, 49, 7, 11, 45, 48);
 	    }
@@ -1120,7 +1120,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	      else {
 		copyXPMArea(128,27,14,11,18,48);
 	      }
-	    } 
+	    }
 	    else {
 	      newMessagesOnly = YES;
 	      copyXPMArea(149,49 , 7 , 11, 52, 48);
@@ -1136,7 +1136,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	    RSET_COLOR;
 	    for (iS = 0; iS < nb_conf; iS++) {
 	      pc = conf[iS];
-	      for (i = 0, k = 0; i < pc->numOfMessages; i++) 
+	      for (i = 0, k = 0; i < pc->numOfMessages; i++)
 		k += pc->mails[i].todelete;
 	      if (k) {
 		/* clear the display */
@@ -1148,7 +1148,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 		else if (k > 0) {
 		  sprintf(pc->delstatus, "%-3s/D:%2d", pc->alias, k);
 		}
-		else 
+		else
 		  sprintf(pc->delstatus, "%-3s:  ok", pc->alias);
 		pc->forcedCheck = YES;
 	      }
@@ -1189,10 +1189,10 @@ void		wmCheckMail_routine(int argc, char **argv){
 	      if ((5 < buttonStatus) && (buttonStatus <= 5 + NB_LINE)) {
 		if ((buttonStatus - 6 + index_vert) < summess) {
 		  /* first update lines to del */
-		  *(linestodel[buttonStatus - 6]) = 
+		  *(linestodel[buttonStatus - 6]) =
 		    1 - *(linestodel[buttonStatus - 6]);
 #ifdef _DEBUG
-		  printf("  button %d pressed, j'update lines to del\n", 
+		  printf("  button %d pressed, j'update lines to del\n",
 			 buttonStatus - 6);
 		  haspassed = 1;
 #endif
@@ -1219,7 +1219,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 	    }
 	    else { /* summary view mode */
 	      if ((5 < buttonStatus) && (buttonStatus <= 5 + nb_conf)) {
-		if ((Event.xbutton.x > 10) && 
+		if ((Event.xbutton.x > 10) &&
 		    (Event.xbutton.x < (10 + (4 * (CHAR_WIDTH + 1))))) {
 #ifdef _DEBUG
 		  printf("  launching command for conf %d\n",
@@ -1232,32 +1232,32 @@ void		wmCheckMail_routine(int argc, char **argv){
 		      printf("  command is for each mail but there's no mail\n");
 		    }
 #endif
-		    for (i = 0; i < pc->numOfMessages; i++) 
-		      spawn_command(i, pc->mailclient, nbnewmail, 
+		    for (i = 0; i < pc->numOfMessages; i++)
+		      spawn_command(i, pc->mailclient, nbnewmail,
 				    "mailcli.", pc);
 		  }
 		  else {
-		    spawn_command(-1, pc->mailclient, nbnewmail, 
+		    spawn_command(-1, pc->mailclient, nbnewmail,
 				  "mailcli.", pc);
 		  }
 		}
-		else if ((Event.xbutton.x > (10 + (4 * (CHAR_WIDTH + 1)))) && 
+		else if ((Event.xbutton.x > (10 + (4 * (CHAR_WIDTH + 1)))) &&
 			 (Event.xbutton.x < (10 + (8 * (CHAR_WIDTH + 1))))) {
 		  /* swap view mode */
-		  conf[buttonStatus - 6]->countunreadonly = 
+		  conf[buttonStatus - 6]->countunreadonly =
 		    1 - conf[buttonStatus - 6]->countunreadonly;
 #ifdef _DEBUG
 		  printf("  swapping view mode for conf %d: %s\n",
 			 buttonStatus - 6,
 			 (conf[buttonStatus - 6]->countunreadonly) ?
 			 "UnreadMessages" : "TotalMessages");
-		  
-#endif		  
+
+#endif
 		}
 	      }
-	      else if ((5 + NB_LINE) == buttonStatus) { 
+	      else if ((5 + NB_LINE) == buttonStatus) {
 		/* status summary line pressed */
-		if ((Event.xbutton.x > 10) && 
+		if ((Event.xbutton.x > 10) &&
 		    (Event.xbutton.x < (10 + (4 * (CHAR_WIDTH + 1))))) {
 		  /* select all messages */
 		  for (iS = 0; iS < nb_conf; iS++) {
@@ -1266,7 +1266,7 @@ void		wmCheckMail_routine(int argc, char **argv){
 		    }
 		  }
 		}
-		else if ((Event.xbutton.x > (10 + (4 * (CHAR_WIDTH + 1)))) && 
+		else if ((Event.xbutton.x > (10 + (4 * (CHAR_WIDTH + 1)))) &&
 			 (Event.xbutton.x < (10 + (8 * (CHAR_WIDTH + 1))))) {
 		  /* unselect all messages */
 		  for (iS = 0; iS < nb_conf; iS++) {
@@ -1335,10 +1335,10 @@ void BlitString(char *name, int x, int y, int fragment)
   int		c;
   int		k;
   int		row;
-  
+
   /*  printf("--name: [%s] \n", name); */
   for (i = 0, k = x; name[i]; i++) {
-    c = toupper(name[i]); 
+    c = toupper(name[i]);
     if (c >= 'A' && c <= 'Z') {   /* its a letter */
       c -= 'A';
       row = LETTERS;
@@ -1356,7 +1356,7 @@ void BlitString(char *name, int x, int y, int fragment)
       c = 27;
       row = LETTERS;
       break;
-    case ':': 
+    case ':':
       c = 10;
       row = NUMBERS;
       break;
@@ -1385,23 +1385,23 @@ void BlitString(char *name, int x, int y, int fragment)
        row = NUMBERS;
        break;
     }
-    /*    printf("c:%2d (%c), fragment: %d, i:%d, k=%d ", 
+    /*    printf("c:%2d (%c), fragment: %d, i:%d, k=%d ",
 	  c, name[i], fragment, i, k); */
     if (i > 0 && i < NB_DISP) {
-      copyXPMArea(c * CHAR_WIDTH, CH_COLOR(row), CHAR_WIDTH + 1, CHAR_HEIGHT, 
+      copyXPMArea(c * CHAR_WIDTH, CH_COLOR(row), CHAR_WIDTH + 1, CHAR_HEIGHT,
 		  k, y);
       /*      printf(" - k1: %d += %d + 1", k, CHAR_WIDTH); */
       k += CHAR_WIDTH + 1;
     }
     else if (0 == i) {
-      copyXPMArea(c * CHAR_WIDTH + fragment, CH_COLOR(row), 
-		  CHAR_WIDTH + 1 - fragment, CHAR_HEIGHT, 
+      copyXPMArea(c * CHAR_WIDTH + fragment, CH_COLOR(row),
+		  CHAR_WIDTH + 1 - fragment, CHAR_HEIGHT,
 		  k, y);
       /*      printf(" - k2: %d += %d + 1 - %d", k, CHAR_WIDTH, fragment); */
       k += CHAR_WIDTH + 1 - fragment;
     }
     else if (fragment && (NB_DISP == i)) {
-      copyXPMArea(c * CHAR_WIDTH, CH_COLOR(row), fragment + 1, CHAR_HEIGHT, 
+      copyXPMArea(c * CHAR_WIDTH, CH_COLOR(row), fragment + 1, CHAR_HEIGHT,
 		  k, y);
       /*       printf(" - k3: %d += %d ", k, fragment); */
       k += fragment;
@@ -1417,11 +1417,11 @@ void BlitNum(int num, int x, int y, int todelete)
 {
   if (todelete)
     num += 19;
-  copyXPMArea(((num - 1) * (SN_CHAR_W + 1)) + 1, CH_COLOR(SMALL_NUM), 
+  copyXPMArea(((num - 1) * (SN_CHAR_W + 1)) + 1, CH_COLOR(SMALL_NUM),
 	      SN_CHAR_W, CHAR_HEIGHT + 1, x, y);
 }
 
-int	parsestring(char *buf, char *data, int max, FILE *fp) 
+int	parsestring(char *buf, char *data, int max, FILE *fp)
 {
   char	*deb;
   char	*end;
@@ -1582,18 +1582,18 @@ int		readConfigFile( char *filename ){
         fclose(fp);
         return -1;
     }
-    
+
     nb_conf = 0;
     tempdir[0] = '\0';
-    
+
     while ((nb_conf < 7) && fgets(buf, CONF_BUFLEN, fp) != 0) {
       if (buf[0] != '#') {
 	if (!nb_conf && !strncasecmp( buf, "autochecking", 12) ){
-	  if (parsenum(buf + 12, &autoChecking)) 
+	  if (parsenum(buf + 12, &autoChecking))
 	    fprintf(stderr, "syntax error for parameter autochecking\n");
 	}
 	else if (!nb_conf && !strncasecmp( buf, "scrollspeed", 11) ){
-	  if (parsenum(buf + 11, &scrollspeed)) 
+	  if (parsenum(buf + 11, &scrollspeed))
 	    fprintf(stderr, "syntax error for parameter scrollspeed\n");
 	}
 	else if (!nb_conf && !strncasecmp( buf, "displaydelay", 12) ){
@@ -1614,12 +1614,12 @@ int		readConfigFile( char *filename ){
 	}
 	else if (nb_conf && !strncasecmp(buf, "username", 8) ) {
 	  if (parsestring(buf + 8, conf[nb_conf -1]->username, 256, fp))
-	    fprintf(stderr, "section %d: invalid syntax for username\n", 
+	    fprintf(stderr, "section %d: invalid syntax for username\n",
 		    nb_conf);
 	}
 	else if (nb_conf && !strncasecmp( buf, "password", 8) ){
 	  if (parsestring(buf + 8, conf[nb_conf - 1]->password, 256, fp))
-	    fprintf(stderr, "section %d: invalid syntax for password\n", 
+	    fprintf(stderr, "section %d: invalid syntax for password\n",
 		    nb_conf);
 	}
 	else if (nb_conf && !strncasecmp(buf, "alias", 5) ) {
@@ -1628,12 +1628,12 @@ int		readConfigFile( char *filename ){
 	}
 	else if (nb_conf && !strncasecmp( buf, "popserver", 9) ){
 	  if (parsestring(buf + 9, conf[nb_conf - 1]->popserver, 128, fp))
-	    fprintf(stderr, "section %d: invalid syntax for popserver\n", 
+	    fprintf(stderr, "section %d: invalid syntax for popserver\n",
 		    nb_conf);
 	}
 	else if (nb_conf && !strncasecmp( buf, "port", 4) ){
 	  if (parsenum(buf + 4, &(conf[nb_conf - 1]->serverport)))
-	    fprintf(stderr, "section %d: Invalid popserver port number.\n", 
+	    fprintf(stderr, "section %d: Invalid popserver port number.\n",
 		    nb_conf);
 	}
 	else if (!nb_conf && !strncasecmp( buf, "viewallmessages", 15) ){
@@ -1652,26 +1652,26 @@ int		readConfigFile( char *filename ){
 	}
 	else if (nb_conf && !strncasecmp(buf, "mailclient", 10)) {
 	  if (parsestring(buf + 10, tmp, 256, fp))
-	    fprintf(stderr, "section %d: Invalid syntax for mailclient.\n", 
+	    fprintf(stderr, "section %d: Invalid syntax for mailclient.\n",
 		    nb_conf);
 	  else
 	    conf[nb_conf - 1]->mailclient = build_arg_list(tmp, strlen(tmp));
 	}
 	else if (nb_conf && !strncasecmp(buf, "newmailcommand", 14)) {
 	  if (parsestring(buf + 14, tmp, 256, fp))
-	    fprintf(stderr,"section %d: Invalid syntax for newmailcommand.\n", 
+	    fprintf(stderr,"section %d: Invalid syntax for newmailcommand.\n",
 		    nb_conf);
-	  else 
-	    conf[nb_conf - 1]->newmailcommand = 
+	  else
+	    conf[nb_conf - 1]->newmailcommand =
 	      build_arg_list(tmp, strlen(tmp));
 	}
 	else if (nb_conf && !strncasecmp(buf, "selectedmesgcommand", 19)) {
 	  if (parsestring(buf + 19, tmp, 256, fp))
 	    fprintf(stderr,
-		    "section %d: Invalid syntax for selectedmesgcommand.\n", 
+		    "section %d: Invalid syntax for selectedmesgcommand.\n",
 		    nb_conf);
 	  else
-	    conf[nb_conf - 1]->selectedmesgcommand = 
+	    conf[nb_conf - 1]->selectedmesgcommand =
 	      build_arg_list(tmp, strlen(tmp));
 	}
 	else if (nb_conf && !strncasecmp(buf, "mailseparator", 13)) {
@@ -1683,9 +1683,9 @@ int		readConfigFile( char *filename ){
 	  if (parsenum(buf + 9, &(conf[nb_conf -1]->maxdlsize)))
 	    fprintf(stderr, "section %d: Invalid maxdlsize.\n", nb_conf);
 	}
-	else if (nb_conf) { 
+	else if (nb_conf) {
 	  if (*buf && (isalpha(*buf) || isalnum(*buf)))
-	    fprintf(stderr, "section %d: Unknown indentifier : [%s]\n", 
+	    fprintf(stderr, "section %d: Unknown indentifier : [%s]\n",
 		    nb_conf, buf);
 	}
 	else {
@@ -1693,7 +1693,7 @@ int		readConfigFile( char *filename ){
 	  if (*bal)
 	    fprintf(stderr, "identifier outside Server section: [%s]\n", buf);
 	}
-      } 
+      }
     }
     fclose(fp);
     return 0;

@@ -1,4 +1,4 @@
-/* Generic single linked list to keep various information 
+/* Generic single linked list to keep various information
    Copyright (C) 1993, 1994 Free Software Foundation, Inc.
 
 
@@ -61,7 +61,7 @@ INLINE int list_length (LinkedList * list)
   return i;
 }
 
-/* Return the Nth element of LIST, where N count from zero.  If N 
+/* Return the Nth element of LIST, where N count from zero.  If N
    larger than the list length, NULL is returned  */
 
 INLINE void * list_nth (int index, LinkedList * list)

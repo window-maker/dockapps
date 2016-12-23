@@ -39,7 +39,7 @@ void do_update() {
 
     jpprintf(0, 0, YELLOW, "    J-mail");
 
-    jpprintf(1, 2, BLUE, "New", new); 
+    jpprintf(1, 2, BLUE, "New", new);
     jprintf(GREEN, ":");
     if(new) {
         jpprintf(7, 2, RED,  "%i", new);
@@ -61,7 +61,7 @@ void do_update() {
 void do_expose() {
     do_update();
 }
-    
+
 void do_button_release() {
     do_update();
 }

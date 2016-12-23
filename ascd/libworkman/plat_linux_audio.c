@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -77,7 +77,7 @@ extern int playing;
 static int	aufd, aucfd;
 static int	raw_audio = 1;	/* Can /dev/audio take 44.1KHz stereo? */
 
-/* 
+/*
  * For fast linear-to-ulaw mapping, we use a lookup table that's generated
  * at startup.
  */
@@ -408,7 +408,7 @@ wmaudio_state(struct cdda_block *blk)
 #define ZEROTRAP    /* turn on the trap as per the MIL-STD */
 #define BIAS 0x84               /* define the add-in bias for 16 bit samples */
 #define CLIP 32635
- 
+
 unsigned char
 linear_to_ulaw( sample )
 int sample;
@@ -431,12 +431,12 @@ int sample;
 				   7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7};
 	int sign, exponent, mantissa;
 	unsigned char ulawbyte;
- 
+
 	/* Get the sample into sign-magnitude. */
 	sign = (sample >> 8) & 0x80;            /* set aside the sign */
 	if ( sign != 0 ) sample = -sample;              /* get magnitude */
 	if ( sample > CLIP ) sample = CLIP;             /* clip the magnitude */
- 
+
 	/* Convert from 16 bit linear to ulaw. */
 	sample = sample + BIAS;
 	exponent = exp_lut[( sample >> 7 ) & 0xFF];
@@ -445,7 +445,7 @@ int sample;
 #ifdef ZEROTRAP
 	if ( ulawbyte == 0 ) ulawbyte = 0x02;   /* optional CCITT trap */
 #endif
- 
+
 	return ulawbyte;
 }
 

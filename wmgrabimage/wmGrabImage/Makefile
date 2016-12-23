@@ -18,7 +18,7 @@ OBJS   = wmGrabImage.o \
 all:	wmGrabImage.o wmGrabImage
 
 wmGrabImage.o: wmGrabImage_master.xpm wmGrabImage_mask.xbm
-wmGrabImage:	$(OBJS) 
+wmGrabImage:	$(OBJS)
 	$(CC) $(CFLAGS) $(SYSTEM) -o wmGrabImage $^ $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:
@@ -30,5 +30,5 @@ clean:
 install:: wmGrabImage
 	install -s -m 0755 wmGrabImage $(DESTDIR)/bin
 	install    -m 0755 GrabImage $(DESTDIR)/bin
-	install    -m 0644 wmGrabImage.1 $(DESTDIR)/man/man1 
+	install    -m 0644 wmGrabImage.1 $(DESTDIR)/man/man1
 

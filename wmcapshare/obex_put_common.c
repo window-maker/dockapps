@@ -1,5 +1,5 @@
 /*********************************************************************
- *                
+ *
  * Filename:      obex_common.c
  * Version:       0.4
  * Description:   Utility-functions to act as a PUT server and client
@@ -10,24 +10,24 @@
  * Modified by:   Pontus Fuchs <pontus.fuchs@tactel.se>
  * Modified at:   Sun Oct 06 10:00:00 2001
  * Modified by:   Ben Moore <ben@netjunki.org>
- * 
+ *
  *     Copyright (c) 1999, 2000 Pontus Fuchs, All Rights Reserved.
- *     
- *     This program is free software; you can redistribute it and/or 
- *     modify it under the terms of the GNU General Public License as 
- *     published by the Free Software Foundation; either version 2 of 
+ *
+ *     This program is free software; you can redistribute it and/or
+ *     modify it under the terms of the GNU General Public License as
+ *     published by the Free Software Foundation; either version 2 of
  *     the License, or (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *     GNU General Public License for more details.
- * 
- *     You should have received a copy of the GNU General Public License 
- *     along with this program; if not, write to the Free Software 
- *     Foundation, Inc., 59 Temple Place, Suite 330, Boston, 
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with this program; if not, write to the Free Software
+ *     Foundation, Inc., 59 Temple Place, Suite 330, Boston,
  *     MA 02111-1307 USA
- *     
+ *
  ********************************************************************/
 
 #include <stdio.h>
@@ -62,7 +62,7 @@ void put_done(obex_object_t *object)
 	gint body_len = 0;
 	gchar *name = NULL;
 	gchar *namebuf = NULL;
-   
+
 	while(OBEX_ObjectGetNextHeader(handle, object, &hi, &hv, &hlen))	{
 		switch(hi)	{
 		case OBEX_HDR_BODY:
@@ -83,7 +83,7 @@ void put_done(obex_object_t *object)
 		case HEADER_CREATOR_ID:
 			g_print("CREATORID = %#x\n", hv.bq4);
 			break;
-		
+
 		default:
 			g_print(G_GNUC_FUNCTION "() Skipped header %02x\n", hi);
 		}

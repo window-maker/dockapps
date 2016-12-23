@@ -7,8 +7,8 @@ considering this code as beta stage one.)
 
 * Visual Themes:
 
-  Visual themes are now 100% configurable. A theme consist in a description 
-  file and various pixmaps. You can place any screen element anywhere in the 
+  Visual themes are now 100% configurable. A theme consist in a description
+  file and various pixmaps. You can place any screen element anywhere in the
   window and the icon. Available screen elements:
 
   - pixmaps
@@ -24,8 +24,8 @@ considering this code as beta stage one.)
   buttons. AScd provides commands to control the general options, the CD
   player and the mixer.
 
-  AScd is no longer restricted to a "dockable" size. More: In -w mode, it's 
-  now possible to have different screen layouts for the main window and the 
+  AScd is no longer restricted to a "dockable" size. More: In -w mode, it's
+  now possible to have different screen layouts for the main window and the
   icon one
 
 * Mixer support is back (FreeBSD and Linux are the only supported platforms)
@@ -115,13 +115,13 @@ New features in ascd 0.9:
 * REWRITE of the command line parsing function. Added a few
   new options. See the man page or type ascd -help.
 * ascd can save and load its settings in ~/.ascdrc file. It
-  is also possible to save the 17 mixer settings in this file. The 
+  is also possible to save the 17 mixer settings in this file. The
   .ascdrc settings can be overidden with the commandline options.
 * added drive volume control with a "mute" switch (values
   can be changed with commandline options). Note that mute
-  function controls the CD Drive Volume, and is independant 
+  function controls the CD Drive Volume, and is independant
   from the mixer module.
-* The LED colors can be changed for the mixer (Config file, 
+* The LED colors can be changed for the mixer (Config file,
   commandline & ~/.ascdrc)
 * Autoplay and autorepeat modes redesigned. They should ok now.
   (still a few little problems with autoplay detecting)

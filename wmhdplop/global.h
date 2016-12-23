@@ -27,8 +27,8 @@
 #ifndef NO_BITFIELDS
 #  define BITFIELD(n) :n
 #else
-#  define BITFIELD(n) 
-#endif 
+#  define BITFIELD(n)
+#endif
 
 #include "dockapp_imlib2.h"
 

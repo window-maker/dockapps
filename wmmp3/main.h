@@ -4,9 +4,9 @@
  * This software covered by the GPL.  See COPYING file for details.
  *
  * main.h
- *                                                                
- * Header file for main.c 
- *                                                                
+ *
+ * Header file for main.c
+ *
  * $Id: main.h,v 1.4 1999/10/08 22:21:32 pcrosby Exp $
  */
 

@@ -1,11 +1,11 @@
 /*
  *
  *  	wmGrabImage-1.00 (C) 1999 Mike Henderson (mghenderson@lanl.gov)
- * 
+ *
  *  		- Monitors an image on the WWW in a WindowMaker DockApp
- * 
- * 
- * 
+ *
+ *
+ *
  *
  * 	This program is free software; you can redistribute it and/or modify
  * 	it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  *
  * 	You should have received a copy of the GNU General Public License
  * 	along with this program (see the file COPYING); if not, write to the
- * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330, 
+ * 	Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  *      Boston, MA  02111-1307, USA
  *
  *
@@ -41,8 +41,8 @@
  *			Fixed resource leak (XFreeColors)
  *
  *	Version 0.71  - May 24, 2001
- *			Added support for "zooming" the icon display 
- *			on a region 
+ *			Added support for "zooming" the icon display
+ *			on a region
  *
  *	Version 0.70  - March 28, 1999.
  *			Added support for local images (e.g. file:///home/mgh/junk.gif.)
@@ -57,7 +57,7 @@
  *                      Added command-line option for "Time between updates"
  *
  *	Version 0.63  - February 9, 1999.
- *			Fixed (potential) memory leak in the ShapeMask Pixmap 
+ *			Fixed (potential) memory leak in the ShapeMask Pixmap
  *                      (gets returned only if color None is used in xpm file)
  *			Added XFreeColors call.
  *
@@ -79,7 +79,7 @@
  *
  *				Button2: send another URL (specified with the -http
  *			        	 command line option) to netscape.
- * 
+ *
  *				Button3: Force Update.
  *
  *
@@ -92,8 +92,8 @@
 
 
 
-/*  
- *   Includes  
+/*
+ *   Includes
  */
 #include <stdio.h>
 #include <unistd.h>
@@ -111,8 +111,8 @@
 
 
 
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000L
 #define WMGRABIMAGE_VERSION "0.72"
@@ -143,8 +143,8 @@ long int	UpdateDELAY = 600;
 
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
 
@@ -171,12 +171,12 @@ int           havePixmap= 0;
 
 
 
-	  
+
     /*
      *  Parse any command line arguments.
      */
     ParseCMDLine(argc, argv);
-	   
+
 
     /*
      *  Figure out what the name of the image xpm file should be...
@@ -187,13 +187,13 @@ int           havePixmap= 0;
     sprintf(XpmFileName, "%s/.wmGrabImage/%s.xpm", getenv("HOME"), ImageName);
     sprintf(ImageFileName, "%s/.wmGrabImage/%s", getenv("HOME"), ImageName);
 
-	   
+
     openXwindow(argc, argv, wmGrabImage_master, wmGrabImage_mask_bits, wmGrabImage_mask_width, wmGrabImage_mask_height);
 
     cmap = DefaultColormap(display, DefaultScreen(display));
 
 
-	   
+
     /*
      *  Loop until we die
      */
@@ -218,19 +218,19 @@ int           havePixmap= 0;
 	 *  Keep track of # of seconds
 	 */
 	if (m > 100){
-	
+
 	    m = 0;
 	    ++dt1;
 	    ++dt2;
 	    ++dt3;
-	
+
 	} else {
-	
+
 	    /*
 	     *  Increment counter
 	     */
 	    ++m;
-	
+
 	}
 
 
@@ -242,12 +242,12 @@ int           havePixmap= 0;
 	 *  Double Click Delays
 	 *  Keep track of click events. If Delay too long, set GotFirstClick's to False.
 	 */
-	if (DblClkDelay > 15) { 
+	if (DblClkDelay > 15) {
 
-	    DblClkDelay = 0; 
-	    GotFirstClick1 = 0; GotDoubleClick1 = 0; 
-	    GotFirstClick2 = 0; GotDoubleClick2 = 0; 
-	    GotFirstClick3 = 0; GotDoubleClick3 = 0; 
+	    DblClkDelay = 0;
+	    GotFirstClick1 = 0; GotDoubleClick1 = 0;
+	    GotFirstClick2 = 0; GotDoubleClick2 = 0;
+	    GotFirstClick3 = 0; GotDoubleClick3 = 0;
 
 	} else {
 
@@ -268,7 +268,7 @@ int           havePixmap= 0;
 
 
 
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -293,14 +293,14 @@ int           havePixmap= 0;
 
 
 
-	
+
 
 
 	/*
 	 *  Draw window.
 	 */
 	if (ForceUpdate||Flag){
-	    
+
 
 
             /*
@@ -326,11 +326,11 @@ int           havePixmap= 0;
 
 
 	    if (havePixmap) {
-	      /* 
-	       * free up the colors, if we alloc'd some before 
+	      /*
+	       * free up the colors, if we alloc'd some before
 	       */
-	      if (Attributes.nalloc_pixels > 0) 
-		XFreeColors(display, cmap,  Attributes.alloc_pixels, 
+	      if (Attributes.nalloc_pixels > 0)
+		XFreeColors(display, cmap,  Attributes.alloc_pixels,
 			    Attributes.nalloc_pixels, 0);
 		/*
 		 *  Free last pixmap -- we dont need it anymore...
@@ -338,7 +338,7 @@ int           havePixmap= 0;
 		 *  We could probably change Transparent to None to make use of this, but for now,
 		 *  lets just ignore it...
 		 */
-		if ( NewShapeMask != 0 ) 
+		if ( NewShapeMask != 0 )
 		  XFreePixmap(display, NewShapeMask);
 		XFreePixmap(display, NewPixmap);
 
@@ -440,8 +440,8 @@ int           havePixmap= 0;
 
 
 
-	/* 
-	 *  Wait for next update 
+	/*
+	 *  Wait for next update
 	 */
 	usleep(DELAY);
 
@@ -460,7 +460,7 @@ int           havePixmap= 0;
 void ParseCMDLine(int argc, char *argv[]) {
 
     int  i;
- 
+
     ImageURL[0] = '\0';
     for (i = 1; i < argc; i++) {
 
@@ -568,9 +568,9 @@ double UT;
 
 
 /*
- *  This routine handles button presses. 
+ *  This routine handles button presses.
  *
- *   Double click on 
+ *   Double click on
  *		Mouse Button 1: Display full size image with xv.
  *		Mouse Button 2: Send HttpURL to netscape.
  *		Mouse Button 3: Update image right away (i.e. grab a new one).
@@ -589,7 +589,7 @@ void pressEvent(XButtonEvent *xev){
     if ((xev->button == Button1) && (xev->type == ButtonPress)){
 	if (GotFirstClick1) GotDoubleClick1 = 1;
 	else GotFirstClick1 = 1;
-    } else if ((xev->button == Button2) && (xev->type == ButtonPress)){ 
+    } else if ((xev->button == Button2) && (xev->type == ButtonPress)){
 	if (GotFirstClick2) GotDoubleClick2 = 1;
 	else GotFirstClick2 = 1;
     } else if ((xev->button == Button3) && (xev->type == ButtonPress)){

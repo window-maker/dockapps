@@ -6,7 +6,7 @@ tested and compiled on a i386 Linux machine.
 
     There are two methods to install WMPop3, either a system install
 where all users have access to this file, OR a single user install
-which installs WMPop3 in the users home directory, this is useful 
+which installs WMPop3 in the users home directory, this is useful
 if you have an account on someone else's computer.
 
     First thing you should do is the following:
@@ -18,11 +18,11 @@ if you have an account on someone else's computer.
 
 Method 1.    System install
 
-A system install will place the WMPop3 binary in "/usr/local/pub", 
+A system install will place the WMPop3 binary in "/usr/local/pub",
 this can be done as follows (must be root for this ) :
-        
+
             make install1
-            
+
 Method 2.   Single user install
 
 A single user install will create a directory called wmpop3 in the users

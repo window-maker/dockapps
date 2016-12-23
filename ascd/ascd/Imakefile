@@ -43,7 +43,7 @@ OBJS = 	cdcontrol.o misc.o faktory.o handlers.o \
 #ifdef WMK
 WM_LIB = -lm -lz -lpng -ljpeg -ltiff -lgif -lPropList -lwraster -lWINGs
 #else
-WM_LIB = 
+WM_LIB =
 #endif
 
 AllTarget($(NAME))

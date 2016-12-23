@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -24,7 +24,7 @@
  *
  * plat_aix - AIX 4.x IDE and SCSI support  16 Dec 1998
  *
- * AIX 4.x Port: Erik O'Shaughnessy 
+ * AIX 4.x Port: Erik O'Shaughnessy
  * Original AIX IDE Code: Cloyce Spradling (xmcd libdi_d/aixioc.c )
  *
  * Taken from the ascd distribution.
@@ -64,7 +64,7 @@ int max_volume = 255;
  *
  * FUNCTION:
  *
- * RETURNS: 
+ * RETURNS:
  */
 
 int gen_init(struct wm_drive *d){
@@ -79,7 +79,7 @@ int gen_init(struct wm_drive *d){
  * RETURNS:
  */
 
-int gen_get_trackcount(struct wm_drive *d,int *tracks){ 
+int gen_get_trackcount(struct wm_drive *d,int *tracks){
   struct cd_audio_cmd cmd;
 
   cmd.audio_cmds = CD_TRK_INFO_AUDIO;
@@ -103,7 +103,7 @@ int gen_get_trackcount(struct wm_drive *d,int *tracks){
  * RETURNS:
  */
 
-int gen_get_cdlen(struct wm_drive *d,int *frames){ 
+int gen_get_cdlen(struct wm_drive *d,int *frames){
   int tmp;
 
   return gen_get_trackinfo(d,LEADOUT,&tmp,frames);
@@ -123,10 +123,10 @@ int gen_get_trackinfo(struct wm_drive *d,int track,int *data,int *startframe){
   cmd.msf_flag = 1;
 
   cmd.indexing.track_msf.track = track;
-  
+
   if( ioctl(d->fd,DKAUDIO,&cmd) < 0)
     return -1;
-  
+
   *startframe = cmd.indexing.track_msf.mins * 60 * 75 +
                 cmd.indexing.track_msf.secs * 75 +
                 cmd.indexing.track_msf.frames;
@@ -148,7 +148,7 @@ int gen_get_drive_status(struct wm_drive *d,
 			 enum wm_cd_modes *mode,
 			 int *pos,
 			 int *track,
-			 int *index){ 
+			 int *index){
   struct cd_audio_cmd cmd;
 
   *mode = WM_CDM_EJECTED;
@@ -216,7 +216,7 @@ int unscale_volume(int vol,int max){
  * RETURNS:
  */
 
-int gen_get_volume(struct wm_drive *d,int *left,int *right){ 
+int gen_get_volume(struct wm_drive *d,int *left,int *right){
   struct cd_audio_cmd cmd;
   int l,r;
 
@@ -239,12 +239,12 @@ int gen_get_volume(struct wm_drive *d,int *left,int *right){
  * RETURNS:
  */
 
-int gen_set_volume(struct wm_drive *d,int left,int right){ 
+int gen_set_volume(struct wm_drive *d,int left,int right){
   struct cd_audio_cmd cmd;
 
   cmd.audio_cmds = CD_SET_VOLUME;
   cmd.volume_type = CD_VOLUME_CHNLS;
-  
+
   cmd.out_port_0_vol = scale_volume(left,100);
   cmd.out_port_1_vol = scale_volume(right,100);
 
@@ -263,9 +263,9 @@ int gen_set_volume(struct wm_drive *d,int left,int right){
  * RETURNS:
  */
 
-int gen_pause(struct wm_drive *d){ 
+int gen_pause(struct wm_drive *d){
   struct cd_audio_cmd cmd;
-  
+
   cmd.audio_cmds = CD_PAUSE_AUDIO;
 
   return ioctl(d->fd,DKAUDIO,&cmd);
@@ -278,7 +278,7 @@ int gen_pause(struct wm_drive *d){
  * RETURNS:
  */
 
-int gen_resume(struct wm_drive *d){ 
+int gen_resume(struct wm_drive *d){
   struct cd_audio_cmd cmd;
 
   cmd.audio_cmds = CD_RESUME_AUDIO;
@@ -292,7 +292,7 @@ int gen_resume(struct wm_drive *d){
  * RETURNS:
  */
 
-int gen_stop(struct wm_drive *d){ 
+int gen_stop(struct wm_drive *d){
   struct cd_audio_cmd cmd;
 
   cmd.audio_cmds = CD_STOP_AUDIO;
@@ -306,7 +306,7 @@ int gen_stop(struct wm_drive *d){
  * RETURNS:
  */
 
-int gen_play(struct wm_drive *d,int start,int end){ 
+int gen_play(struct wm_drive *d,int start,int end){
   struct cd_audio_cmd cmd;
 
   cmd.audio_cmds = CD_PLAY_AUDIO;
@@ -335,7 +335,7 @@ int gen_play(struct wm_drive *d,int start,int end){
  * RETURNS:
  */
 
-int gen_eject(struct wm_drive *d){ 
+int gen_eject(struct wm_drive *d){
 
   return ioctl(d->fd,DKEJECT,NULL);
 }
@@ -408,7 +408,7 @@ int wmcd_open(struct wm_drive *d){
 
   *d = *(find_drive_struct(vendor, model, rev));
   wm_drive_settype(vendor, model, rev);
-  
+
   d->fd = fd;
   d->init(d);
 

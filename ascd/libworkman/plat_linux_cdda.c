@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -26,7 +26,7 @@
  */
 
 #include "include/wm_config.h"
- 
+
 #if defined(linux) && defined(BUILD_CDDA) /* { */
 
 static char plat_linux_cdda_id[] = "$Id: plat_linux_cdda.c,v 1.3 1999/03/07 08:36:40 dirk Exp $";
@@ -133,7 +133,7 @@ wmcdda_open(char *devname)
 {
     int fd;
 
-    fd = open(devname, 0); 
+    fd = open(devname, 0);
     if (fd == -1)
 	fd = open("/dev/rdsk/c0t6d0s2", 0);
 

@@ -109,7 +109,7 @@ wmget 0.2.0 - Rewrite of the client/server ipc.  Renaming.
 
     Also, with this version, I renamed it from ``wmcurl'' to ``wmget''.
     The old name was sorta a poor choice: while I still rely on, and want
-    to give full credit to, the cURL guys, the name ``wmcurl'' is 
+    to give full credit to, the cURL guys, the name ``wmcurl'' is
     not very intuitive.  Plus I didn't want people thinking it was part
     of the cURL project proper.  Plus this saves me a keystroke when
     typing it :)

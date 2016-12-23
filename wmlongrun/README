@@ -50,7 +50,7 @@ For AfterStep users
 ===================
 Add this line to your ~/GNUstep/Library/AfterStep/wharf:
 
-  *Wharf wmlongrun - Swallow "wmlongrun" wmlongrun -w & 
+  *Wharf wmlongrun - Swallow "wmlongrun" wmlongrun -w &
 
 
 For Enlightenment users

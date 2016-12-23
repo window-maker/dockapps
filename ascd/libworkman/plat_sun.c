@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -267,7 +267,7 @@ gen_get_trackcount( struct wm_drive *d, int *tracks )
 
 	if (ioctl(d->fd, CDROMREADTOCHDR, &hdr))
 		return (-1);
-	
+
 	*tracks = hdr.cdth_trk1;
 	return (0);
 }
@@ -285,12 +285,12 @@ gen_get_trackinfo( struct wm_drive *d, int track, int *data, int *startframe)
 
 	if (ioctl(d->fd, CDROMREADTOCENTRY, &entry))
 		return (-1);
-	
+
 	*startframe =	entry.cdte_addr.msf.minute * 60 * 75 +
 			entry.cdte_addr.msf.second * 75 +
 			entry.cdte_addr.msf.frame;
 	*data = entry.cdte_ctrl & CDROM_DATA_TRACK ? 1 : 0;
-	
+
 	return (0);
 }
 
@@ -487,7 +487,7 @@ gen_get_drive_status( struct wm_drive *d,
 		*mode = WM_CDM_TRACK_DONE; /* waiting for next track. */
 		break;
 
-	default: 
+	default:
 		*mode = WM_CDM_UNKNOWN;
 		break;
 	}
@@ -509,7 +509,7 @@ gen_set_volume( struct wm_drive *d, int left, int right )
 	last_right = right;
 	thecd = d;
 #endif
-	
+
 	if (cdda_slave > -1)
 	{
 		int		bal, vol;
@@ -854,13 +854,13 @@ wm_scsi( struct wm_drive *d,
 	cmd.uscsi_flags = USCSI_ISOLATE | USCSI_SILENT;
 	if (getreply)
 		cmd.uscsi_flags |= USCSI_READ;
-	
+
 	if (ioctl(d->fd, USCSICMD, &cmd))
 		return (-1);
-	
+
 	if (cmd.uscsi_status)
 		return (-1);
-	
+
 	return (0);
 }
 #else
@@ -886,7 +886,7 @@ wmcd_open( struct wm_drive *d )
 
 	if (d->fd >= 0)		/* Device already open? */
 		return (0);
-	
+
 	d->fd = open(cd_device, 0);
 	if (d->fd < 0)
 	{
@@ -1050,7 +1050,7 @@ codec_init( void )
         ctl_fd = -1;
         return(0);
     }
-    
+
     if (!(devname = getenv("AUDIODEV"))) devname = "/dev/audio";
     ctlname = strcat(strcpy(malloc(strlen(devname) + 4), devname), "ctl");
     if ((ctl_fd = open(ctlname, O_WRONLY, 0)) < 0) {
@@ -1099,7 +1099,7 @@ codec_init( void )
 /*
  * now set it up to use it. See audio(7I)
  */
-    
+
     AUDIO_INITINFO(&foo);
     foo.record.port = port;
     foo.record.balance = foo.play.balance = AUDIO_MID_BALANCE;
@@ -1119,7 +1119,7 @@ codec_init( void )
 */
     foo.record.gain = (AUDIO_MAX_GAIN * 80) / 100;
     foo.play.gain = (AUDIO_MAX_GAIN * 40) / 100;
-    	
+
     ioctl(ctl_fd, AUDIO_SETINFO, &foo);
     return 0;
 }
@@ -1133,7 +1133,7 @@ static kick_codec( void ) {
  * Open the audio device, not the control device. This
  * will fail if someone else has taken it.
  */
-      
+
     if ((dev_fd = open(devname, O_WRONLY|O_NDELAY, 0)) < 0) {
 	perror(devname);
 	return -1;
@@ -1142,13 +1142,13 @@ static kick_codec( void ) {
     AUDIO_INITINFO(&foo);
     foo.record.port = port;
     foo.monitor_gain = AUDIO_MAX_GAIN;
-    
+
 /* These can only be set on the real device */
     foo.play.sample_rate = 44100;
     foo.play.channels = 2;
     foo.play.precision = 16;
     foo.play.encoding = AUDIO_ENCODING_LINEAR;
-    
+
     if ((retval = ioctl(dev_fd, AUDIO_SETINFO, &foo)) < 0)
     	perror(devname);
 

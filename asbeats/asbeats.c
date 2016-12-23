@@ -46,7 +46,7 @@ int main(int argc,char *argv[])
 {
 	int i;
 	unsigned int borderwidth;
-	char *display_name=NULL; 
+	char *display_name=NULL;
 	char *wname="asbeats";
 	XGCValues gcv;
 	unsigned long gcm;
@@ -55,12 +55,12 @@ int main(int argc,char *argv[])
 	XClassHint classHint;
 	Pixmap pixmask;
 	char *Geometry="";
-	if (!(dpy = XOpenDisplay(display_name)))  
-	{ 
-		fprintf(stderr,"asbeats: can't open display %s\n", 
-		XDisplayName(display_name)); 
-		exit (1); 
-	} 
+	if (!(dpy = XOpenDisplay(display_name)))
+	{
+		fprintf(stderr,"asbeats: can't open display %s\n",
+		XDisplayName(display_name));
+		exit (1);
+	}
 	screen=DefaultScreen(dpy);
 	Root=RootWindow(dpy,screen);
 	d_depth=DefaultDepth(dpy,screen);
@@ -73,7 +73,7 @@ int main(int argc,char *argv[])
 	fore_pix=GetColor("black");
 	XWMGeometry(dpy,screen,Geometry,NULL,(borderwidth =1),
 		&mysizehints,&mysizehints.x,&mysizehints.y,
-		&mysizehints.width,&mysizehints.height,&i); 
+		&mysizehints.width,&mysizehints.height,&i);
 	mysizehints.width=wmclock.attributes.width;
 	mysizehints.height=wmclock.attributes.height;
 	win=XCreateSimpleWindow(dpy,Root,mysizehints.x,mysizehints.y,
@@ -98,8 +98,8 @@ int main(int argc,char *argv[])
 	gcv.foreground = fore_pix;
 	gcv.background = back_pix;
 	gcv.graphics_exposures = FALSE;
-	NormalGC = XCreateGC(dpy, Root, gcm, &gcv);  
-	pixmask = XCreateBitmapFromData(dpy, win, mask_bits, mask_width, 
+	NormalGC = XCreateGC(dpy, Root, gcm, &gcv);
+	pixmask = XCreateBitmapFromData(dpy, win, mask_bits, mask_width,
 	mask_height);
 	XShapeCombineMask(dpy, win, ShapeBounding, 0, 0, pixmask, ShapeSet);
 	XShapeCombineMask(dpy, iconwin, ShapeBounding, 0, 0, pixmask, ShapeSet);
@@ -110,7 +110,7 @@ int main(int argc,char *argv[])
 	mywmhints.window_group = win;
 	mywmhints.flags = StateHint | IconWindowHint |
 		IconPositionHint | WindowGroupHint;
-	XSetWMHints(dpy, win, &mywmhints); 
+	XSetWMHints(dpy, win, &mywmhints);
 	XSetCommand(dpy, win, argv, argc);
 	XMapWindow(dpy,win);
 	InsertTime();
@@ -134,9 +134,9 @@ int main(int argc,char *argv[])
 					break;
 				case DestroyNotify:
 					XCloseDisplay(dpy);
-					exit(0); 
+					exit(0);
 				default:
-					break;      
+					break;
 			}
 		}
 		XFlush(dpy);
@@ -158,7 +158,7 @@ void GetXPM(void)
 	char led2[22];
 	int ret;
 	XGetWindowAttributes(dpy,Root,&attributes);
-	if(!XParseColor(dpy,attributes.colormap,LedColor,&col)) 
+	if(!XParseColor(dpy,attributes.colormap,LedColor,&col))
 	{
 		nocolor("parse",LedColor);
 	}
@@ -178,7 +178,7 @@ void GetXPM(void)
 	CreatePixmap(dpy,Root,mask_xpm,&wmclock);
 	CreatePixmap(dpy,Root,mask_xpm,&visible);
 	CreatePixmap(dpy,Root,led_xpm,&led);
-} 
+}
 
 static void CreatePixmap(Display *dpy, Window Root, char **data, XpmIcon* icon)
 {
@@ -221,9 +221,9 @@ Pixel GetColor(char *name)
 	XWindowAttributes attributes;
 	XGetWindowAttributes(dpy,Root,&attributes);
 	color.pixel=0;
-	if (!XParseColor(dpy,attributes.colormap,name,&color)) 
+	if (!XParseColor(dpy,attributes.colormap,name,&color))
 		nocolor("parse",name);
-	else if(!XAllocColor (dpy,attributes.colormap,&color)) 
+	else if(!XAllocColor (dpy,attributes.colormap,&color))
 		nocolor("alloc",name);
 	return color.pixel;
 }
@@ -242,7 +242,7 @@ void Beat()
 	else
 		if (fTime < 0)
 			fTime+=1000;
-	
+
 	XCopyArea(dpy,led.pixmap,visible.pixmap,NormalGC,
 			90,0,9,11,posx[0],15);
 	XCopyArea(dpy,led.pixmap,visible.pixmap,NormalGC,
@@ -253,7 +253,7 @@ void Beat()
 			9*((int)fTime % 10),0,9,11,posx[3],15);
 
 	fTime = abs(((fTime - abs(fTime)) * 1000) + 0.5);
-	
+
 	XCopyArea(dpy,led.pixmap,visible.pixmap,NormalGC,
 			99,0,9,11,posx[0],32);
 	XCopyArea(dpy,led.pixmap,visible.pixmap,NormalGC,
@@ -262,7 +262,7 @@ void Beat()
 			9*((((int)fTime) / 10) % 10),0,9,11,posx[2],32);
 	XCopyArea(dpy,led.pixmap,visible.pixmap,NormalGC,
 			9*((int)fTime % 10),0,9,11,posx[3],32);
-	
+
 	return;
 }
 

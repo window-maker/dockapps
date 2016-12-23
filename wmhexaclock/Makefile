@@ -36,9 +36,9 @@ all : $(MAINSRC)
 
 install :
 	install -c -s -m 755 $(BIN) $(INSPATH)
-		
-clean : 
+
+clean :
 	rm -f $(SOURCEPATH)$(BIN)
 
-uninstall : 
+uninstall :
 	rm -f $(INSPATH)wmHexaClock

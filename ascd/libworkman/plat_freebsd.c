@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -370,15 +370,15 @@ gen_eject( struct wm_drive *d )
 		return (-3);
 
 	rval = ioctl(d->fd, CDIOCALLOW);
-   
+
 	if (rval == 0)
 	    rval = ioctl(d->fd, CDIOCEJECT);
-   
+
 	if (rval == 0)
 	    rval = ioctl(d->fd, CDIOCPREVENT);
-   
+
 	(void) close(d->fd);
-   
+
 	return rval;
 }
 
@@ -428,7 +428,7 @@ unscale_volume( int cd_vol, int max )
 		else
 			bot = vol + 1;
 	}
-	
+
 	if (vol < 0)
 		vol = 0;
 	else if (vol > max)
@@ -529,7 +529,7 @@ wmcd_open( struct wm_drive *d )
 
 	*d = *(find_drive_struct(vendor, model, rev));
 	wm_drive_settype(vendor, model, rev);
-	
+
 	(d->init)(d);
 
 	d->fd = fd;

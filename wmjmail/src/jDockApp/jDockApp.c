@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
 
     initXwindow(argc, argv);
     openXwindow(argc, argv, jDockApp_main_xpm, jDockApp_mask_xpm,
-        mask_width, mask_height, "#000000", "#000000", "#000000", 
+        mask_width, mask_height, "#000000", "#000000", "#000000",
         "#000000", "#000000"
     );
 
@@ -37,11 +37,11 @@ int main(int argc, char **argv) {
                     RedrawWindow();
                     break;
                 case EnterNotify:
-                    XSetInputFocus(display, 
+                    XSetInputFocus(display,
                         PointerRoot, RevertToParent, CurrentTime);
                     break;
                 case LeaveNotify:
-                    XSetInputFocus(display, 
+                    XSetInputFocus(display,
                         PointerRoot, RevertToParent, CurrentTime);
                 break;
             }

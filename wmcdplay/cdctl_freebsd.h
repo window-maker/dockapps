@@ -310,7 +310,7 @@ private:
       cd_trklist=(struct CDTrack *)malloc(cd_tracks*sizeof(struct CDTrack));
 #if defined(__FreeBSD__) || defined(__FreeBSD_kernel__)
 	struct ioc_read_toc_entry te;
-      
+
 	te.data_len = (cd_tracks + 1) * sizeof(struct cd_toc_entry);
 	te.data = (struct cd_toc_entry *)malloc(te.data_len);
 	te.address_format = CD_LBA_FORMAT;
@@ -327,7 +327,7 @@ private:
 #else
       struct cdrom_tocentry te;
       int prev_addr=0;
-      
+
       for(int i=0;i<=cd_tracks;i++){
          if(i==cd_tracks)
             te.cdte_track=CDROM_LEADOUT;

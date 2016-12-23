@@ -3,11 +3,11 @@
  * Copyright (c)1999 Patrick Crosby <xb@dotfiles.com>.
  * This software covered by the GPL.  See COPYING file for details.
  *
- * mpg123ctl.c                                                    
- *                                                                
- * This file contains all the functions for controlling the       
- * mpg123 backend processes.                                      
- *                                                                
+ * mpg123ctl.c
+ *
+ * This file contains all the functions for controlling the
+ * mpg123 backend processes.
+ *
  * Random play functionality courtesy of:
  *       Matthew D. Campbell <matt@campbellhome.dhs.org>
  *
@@ -74,7 +74,7 @@ int is_playing()
 }
 
 /*
- * patch received from Steven Jorgensen to fix following function 
+ * patch received from Steven Jorgensen to fix following function
  */
 
 void set_playlist()
@@ -88,7 +88,7 @@ void set_playlist()
 
     directory = (char *) current_mp3dir();
 
-    if (directory) 
+    if (directory)
     {
     dp = opendir(directory);
     if (dp == NULL) {
@@ -124,7 +124,7 @@ void set_playlist()
 	rand_song_num = (int *)malloc(sizeof(int)*num_songs);
 	if (!rand_song_num) {
 	    /* This shouldn't happen - the list isn't that big */
-	    fprintf(stderr, 
+	    fprintf(stderr,
 		    "Error: cannot allocate randomized list\n");
 	    exit(1);
 	}
@@ -144,7 +144,7 @@ void set_playlist()
  * functions that actually control mpg123
  */
 
-void signal_play() 
+void signal_play()
 {
     int status;
 
@@ -153,7 +153,7 @@ void signal_play()
     play_next();
 }
 
-void play(char *song_name) 
+void play(char *song_name)
 {
     if ((play_pid = fork()) == 0) {
 	execl(mpg123_cmd, mpg123_cmd, "-q",
@@ -162,7 +162,7 @@ void play(char *song_name)
     }
 }
 
-void play_next() 
+void play_next()
 {
     struct hash_elt *song;
 
@@ -183,7 +183,7 @@ void play_next()
 	scroll_pos = 0;
 	do_scroll = 1;
 	scroll_title();
-	
+
 	play(song->filename);
 	next_song++;
 	signal(SIGCHLD, signal_play);
@@ -192,7 +192,7 @@ void play_next()
     }
 }
 
-void play_prev() 
+void play_prev()
 {
     struct hash_elt *song;
 
@@ -245,7 +245,7 @@ void back()
  * initialization functions
  */
 
-void init_ctl() 
+void init_ctl()
 {
     signal(SIGINT, finish);
     signal(SIGCHLD, dostuff);
@@ -297,7 +297,7 @@ void push_dirname(char *s)
     if ((strlen(s) + 1) < 10)
 	dirnames[ntop] = (char *) malloc(10);
     else
-	dirnames[ntop] = (char *) malloc(strlen(s) + 1);	
+	dirnames[ntop] = (char *) malloc(strlen(s) + 1);
     strcpy(dirnames[ntop], s);
     ntop++;
     nmax_dirs++;
@@ -372,13 +372,13 @@ void dir_down(int button_num)
     }
 }
 
-void load_next_dir() 
+void load_next_dir()
 {
     next_mp3dir();
     set_playlist();
 }
 
-void load_prev_dir() 
+void load_prev_dir()
 {
     prev_mp3dir();
     set_playlist();
@@ -444,7 +444,7 @@ void random_toggle(int button_num)
 	button_down(button_num);
 	random_flag = 1;
     } else {
-	button_up(button_num); 
+	button_up(button_num);
 	random_flag = 0;
     }
 }
@@ -464,7 +464,7 @@ void repeat_toggle(int button_num)
  * cleanup
  */
 
-void finish() 
+void finish()
 {
     stop();
 }
@@ -472,7 +472,7 @@ void finish()
 /*
  * misc
  */
-void dostuff() 
+void dostuff()
 {
 				/* empty */
 }

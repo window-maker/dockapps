@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -27,7 +27,7 @@
  */
 
 static char buildindex_id[] = "$Id: buildindex.c,v 1.2 1999/02/14 09:50:42 dirk Exp $";
- 
+
 #include <stdio.h>
 #include <db.h>
 #include <fcntl.h>
@@ -140,7 +140,7 @@ main(argc, argv)
 				/* End of file? */
 				if (feof(fp))
 					break;
-				
+
 				/* Nope.  A read error.  Unlink the database. */
 				perror(argv[i]);
 				(void) unlink(indname);
@@ -149,7 +149,7 @@ main(argc, argv)
 
 			if (strncmp(buf, "tracks ", 7))
 				continue;
-			
+
 			/*
 			 * Found the start of a record.  Figure out the start
 			 * time of the last track and put an entry in the

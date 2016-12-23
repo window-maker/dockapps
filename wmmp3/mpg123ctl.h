@@ -4,9 +4,9 @@
  * This software covered by the GPL.  See COPYING file for details.
  *
  * mpg123ctl.h
- *                                                                
- * Header file for mpg123ctl.c 
- *                                                                
+ *
+ * Header file for mpg123ctl.c
+ *
  * $Id: mpg123ctl.h,v 1.6 1999/10/12 03:03:33 pcrosby Exp $
  */
 

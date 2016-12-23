@@ -17,11 +17,11 @@ dnl ===============================================
 AC_ARG_WITH(libs-from,
                 [  --with-libs-from        pass compiler flags to look for libraries],
                         [lib_search_path="$withval $lib_search_path"])
-			
+
 AC_ARG_WITH(incs-from,
                 [  --with-incs-from        pass compiler flags to look for header files],
                         [inc_search_path="$withval $inc_search_path"])
-			
+
 
 dnl ===========================================
 dnl             Stuff that uses X

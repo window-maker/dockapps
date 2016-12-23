@@ -3,19 +3,19 @@
 @@ -11,41 +11,56 @@
  #include <sys/time.h>
  #include <sys/types.h>
- 
+
 +#define AUDIOPLAYER "/usr/bin/play"
 +#define AUDIOFILE   "/usr/share/audio/clink.au"
  #define SPOOLDIR    "/var/spool/mail/"
  #define APPLICATION "xterm -sb -sl 2000 +si +sk -title XTerm -fg black -bg wheat -geometry 71x50-0-0  -e mutt &"
- 
+
  int            dontread = 0;
  static char    my_folder[256];
  static char    my_app[256];
 +static char    my_audio[512];
  static int     my_new, my_tot, my_read;
  static off_t   size;
- 
+
  void show_help() {
 -    printf("-s <sec>:  Seconds between executions of mailchk\n");
 -    printf("-r      :  Don't show the read mail stat.\n");
@@ -25,10 +25,10 @@
 +    printf("-f <folder>:  Mail folder to watch                 \n");
 +    printf("-P <player>:  Audio player to use for notification \n");
 +    printf("-p <afile> :  Audio file to play for notification  \n");
- 
+
      exit(0);
  }
- 
+
  void setup(int argc, char** argv) {
 -    char c;
 -    int  i;
@@ -41,7 +41,7 @@
 +    snprintf (my_folder,  255, "%s/%s", SPOOLDIR, getenv("USER"));
 +    snprintf (my_aplayer, 255, "%s",    AUDIOPLAYER);
 +    snprintf (my_afile,   255, "%s",    AUDIOFILE);
- 
+
 -    snprintf (my_app,    255, "%s", APPLICATION);
 -    snprintf (my_folder, 255, "%s/%s", SPOOLDIR, getenv("USER"));
 -
@@ -50,7 +50,7 @@
          switch(c) {
              case '?': exit(1);
              case 'h': show_help();
- 
+
              case 'r': dontread = 1;   break;
              case 's': i=atoi(optarg); break;
 -            case 'x': snprintf (my_app,    255, "%s", optarg); break;
@@ -61,16 +61,16 @@
 +            case 'P': snprintf (my_aplayer, 255, "%s", optarg); break;
          }
      }
- 
+
 +    snprintf (my_audio, 511, "%s %s &", my_aplayer, my_afile);
-+    
++
      set_update_delay((i) ? i : 15); /* seconds */
      set_loop_delay(1000); /* mu seconds */
  }
 @@ -55,7 +70,6 @@
      int           in;
      struct stat   buf;
- 
+
 -    fprintf (stderr, "Stat '%s'\n", my_folder);
      if ( stat (my_folder, &buf) != 0 )
      {
@@ -86,6 +86,6 @@
 +        {
 +            system (my_audio);
 +        }
- 
+
          size = buf.st_size;
      }

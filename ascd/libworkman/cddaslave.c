@@ -5,7 +5,7 @@
  * (c) 1991-1997 by Steven Grimm (original author)
  * (c) by Dirk Försterling (current 'author' = maintainer)
  * The maintainer can be contacted by his e-mail address:
- * milliByte@DeathsDoor.com 
+ * milliByte@DeathsDoor.com
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -45,7 +45,7 @@
 #include "config.h"
 
 #ifdef BUILD_CDDA
- 
+
 static char cddaslave_id[] = "$Id: cddaslave.c,v 1.3 1999/02/14 22:10:24 dirk Exp $";
 
 #include <stdio.h>
@@ -509,7 +509,7 @@ main(argc, argv)
 			 */
 			continue;
 		}
-		
+
 		if (playing)
 		{
 			result = wmcdda_read(cd_fd, cddabuf, cddabuflen,
