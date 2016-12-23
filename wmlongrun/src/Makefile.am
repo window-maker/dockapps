@@ -16,11 +16,9 @@ EXTRA_wmlongrun_SOURCES = \
 	longrun_linux.c \
 	longrun_freebsd.c
 
-CPPFLAGS = \
+AM_CPPFLAGS = \
 	@CPPFLAGS@ \
-	@DFLAGS@
-
-INCLUDES = \
+	@DFLAGS@ \
         @HEADER_SEARCH_PATH@
 
 wmlongrun_LDADD = \
