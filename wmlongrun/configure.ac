@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([wmlongrun], [0.3.0pre1], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmlongrun], [0.3.1], [wmaker-dev@lists.windowmaker.org])
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(config.h)

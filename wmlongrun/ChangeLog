@@ -1,3 +1,14 @@
+2016 December 23
+  * Version 0.3.1 released.
+  * Now maintained by the Window Maker Developers Team.
+  * Rename configure.in to configure.ac.
+  * Remove trailing whitespace.
+  * Add template to AC_DEFINE to avoid autoheader warning.
+  * Modernize AM_INIT_AUTOMAKE call.
+  * Replace INCLUDES and CPPFLAGS with AM_CPPFLAGS to fix warnings.
+  * Detect GNU/kFreeBSD during build.
+  * Update README with new contact info and url.
+
 2002 March 23
   * version 0.2.0 released
   * longrun_linux.c longrun_freebsd.c: renamed get_longrun_stat() as
