@@ -83,7 +83,7 @@ AC_CANONICAL_HOST
 
 arch=""
 case ${host_os} in
-linux*)
+linux* | *-gnu | gnu*)
   SETUID_FLAGS="-m 4755 -o root -g root"
   OS=linux
   AC_DEFINE([LINUX], [1], [use Linux specific code])
