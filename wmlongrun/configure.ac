@@ -86,7 +86,7 @@ case ${host_os} in
 linux*)
   SETUID_FLAGS="-m 4755 -o root -g root"
   OS=linux
-  AC_DEFINE(LINUX)
+  AC_DEFINE([LINUX], [1], [use Linux specific code])
   ;;
 freebsd*)
   OS=freebsd
