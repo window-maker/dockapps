@@ -8,6 +8,27 @@ images:
  - libdockapp.png
 versions:
  -
+  number: 0.0
+  download: docklib-0.0.tar.gz
+ -
+  number: 0.2
+  download: docklib-0.2.tar.gz
+ -
+  number: 0.4.0
+  download: libdockapp-0.4.0.tar.bz2
+ -
+  number: 0.5.0
+  download: libdockapp-0.5.0.tar.bz2
+ -
+  number: 0.6.0
+  download: libdockapp-0.6.0.tar.bz2
+ -
+  number: 0.6.1
+  download: libdockapp-0.6.1.tar.bz2
+ -
+  number: 0.6.2
+  download: libdockapp-0.6.2.tar.bz2
+ -
   number: 0.6.3
   download: libdockapp-0.6.3.tar.gz
  -
