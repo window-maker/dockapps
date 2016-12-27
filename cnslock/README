@@ -1,0 +1,37 @@
+Description
+------------------------------------------------------------
+
+cnslock is a dock application (dockapp) which provides a
+visual indication of the states of the three "lock" buttons
+(caps, num, and scroll).
+
+It was written so that I could see the state of those keys
+as I have a wireless keyboard with no leds on it.
+
+Bugs
+------------------------------------------------------------
+If you discover any bug in this software, please send a 
+bugreport to lists@sprig.dyn.dhs.org and describe the
+problem with as many details as possible.
+
+Copyright
+-------------------------------------------------------------
+cnslock is Copyright (C) 2002 by Simon Hunter,
+SPRIG Positive Research Intelligent Gizmos.
+
+cnslock is licensed through the GNU General Public License.
+Read the COPYING file for the complete GNU license.
+
+Usage
+-------------------------------------------------------------
+
+Simply launch:
+	cnslock
+
+If you have problems running it under a different window
+manager, such as fvwm or enlightenment, there is a command
+line argument that may help:
+	cnslock -w
+
+
+

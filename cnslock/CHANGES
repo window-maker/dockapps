@@ -1,0 +1,8 @@
+cnslock 1.02 (27th October 2002)
+
+	* Added feature to allow applet to be run in window managers such as
+	  enlightenment, fvwm, etc.
+	  
+cnslock 1.01 (11th October 2002)
+
+	* First public release.
