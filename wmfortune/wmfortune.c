@@ -25,7 +25,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
-#include "dockapp.h"
+#include <libdockapp/dockapp.h>
 #include "XPM/panel.xpm"
 #include "XPM/panel_button_pressed.xpm"
 #include "XPM/panel_window.xpm"

@@ -12,15 +12,11 @@ UNINSTALL_PROGRAM = rm -f
 CC = gcc
 OPTIMIZE = -O2
 XLIBDIR = /usr/X11R6/lib
-#XLIB = -ldockapp -lXpm -lXext -lX11
-XLIB = -lXpm -lXext -lX11
-OBJ = wmfortune.o dockapp.o
+XLIB = -ldockapp -lXpm -lXext -lX11
+OBJ = wmfortune.o
 
 $(DEST) : $(OBJ)
 	$(CC) $(OBJ) -L$(XLIBDIR) $(XLIB) -o $(DEST)
-
-dockapp.o: dockapp.c
-	$(CC) $(OPTIMIZE) $< -c
 
 wmfortune.o: wmfortune.c
 	$(CC) $(OPTIMIZE) $< -c
