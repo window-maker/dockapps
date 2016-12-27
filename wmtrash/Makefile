@@ -1,20 +1,20 @@
 
 
-# this makefile is part of the "wmtrash" project. 
+# this makefile is part of the "wmtrash" project.
 # Copyright (C) 2003 by Jean Philippe GUILLEMIN <jp.guillemin@free.fr>
 # license: This software is under GPL version 2 of license
 
 
-HEADERS = 
+HEADERS =
 
-OBJECTS = 
+OBJECTS =
 
 # customize install path as you need
 SRC = wmtrash.c
 BIN = wmtrash
 PREFIX = /usr
 CONFDIR = /etc/wmtrash
-DESTDIR = 
+DESTDIR =
 SHAREDIR = /share/wmtrash
 
 SRCPATH = .

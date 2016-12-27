@@ -44,35 +44,35 @@ GtkWidget *create_main_dockapp_icon_window
 		unsigned int size);
 
 void launchonclick
-		(GtkWidget *event_box, 
+		(GtkWidget *event_box,
 		GdkEventButton *event,
 		struct wmtrash *data);
 
 int parse_from_config
-		(char *filename, 
+		(char *filename,
 		char *param,
 		char *value);
 
 int replace_value_in_config
-		(char *filename, 
-		char *param, 
+		(char *filename,
+		char *param,
 		char *new_value);
-		
-void enter_callback1( 
-		GtkWidget *entry1,
-		struct wmtrash *data);
-		
-void enter_callback2( 
+
+void enter_callback1(
 		GtkWidget *entry1,
 		struct wmtrash *data);
 
-void close_callback( 
+void enter_callback2(
+		GtkWidget *entry1,
+		struct wmtrash *data);
+
+void close_callback(
 		GtkWidget *entry,
 		struct wmtrash *data);
 
 int usage(char *homecf, char *defaultcf);
 
-int fcopy(	char *sfile, 
+int fcopy(	char *sfile,
 	char *dfile);
 
 
