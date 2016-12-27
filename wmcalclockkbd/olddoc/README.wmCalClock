@@ -1,0 +1,32 @@
+wmCalClock-1.24 release
+-----------------------
+Author....: Michael G. Henderson <mghenderson@lanl.gov>
+		
+  
+Description
+-----------
+wmCalClock is a simple Calendar Clock that uses anti-aliased characters and
+drop shadows. Doesnt do much except tell time...
+
+
+Files
+-----
+README		This file.
+INSTALL		Installation instructions.
+HINTS 		Hints about what you can do with wmCalClock.
+BUGS		Bug reports
+CHANGES 	Change history.
+COPYING		GNU General Public License Version 2.
+TODO		Wish list.
+	
+
+Bugs
+-----
+Send bug reports to mghenderson@lanl.gov
+
+
+Copyright
+----------
+wmCalClock is copyright (c) 1998, 1999 by Michael G. Henderson and licensed
+through the GNU General Public License. Read the COPYING file for the complete
+GNU license.

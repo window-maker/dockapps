@@ -1,0 +1,8 @@
+
+* Try to find some more effective way to put two images together (flag and
+  actual date), current way using XGetPixel and XPutPixel seems to be rather
+  slow.
+* Create or collect from users more flag images.
+* Create some autoconf installation, but I afraid, that the tar.gz package
+  size will grow of 200 KB.
+* Add some check, that we really use XFree86 >= 4.3.0.

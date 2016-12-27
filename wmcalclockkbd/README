@@ -1,0 +1,87 @@
+What is wmCalClock?
+-------------------
+
+wmCalClock is a simple Calendar Clock that uses anti-aliased characters and
+drop shadows. Doesn't do much except tell time...
+
+
+What is wmCalClockKbd?
+----------------------
+
+wmCalClockKbd has all features of wmCalClock and add very simple actual
+keyboard group indicator (for XFree86 >= 4.3.0).
+In another way, it's dockable application for WindowMaker (but you can also
+use it in AfterStep, BlackBox, ...) window manager. wmCalClockKbd can show
+actual time, date and keyboard group. This application was written, because I
+could not find any application such wmkbd, which I use with previous versions
+of XFree86. I could not think out any nice looking app using the whole dock
+icon, so I modified one of the app in my dock. The inspiration was also
+gSwitchIt applet and its libxklavier.
+
+
+Installation
+-----------
+
+You also need to have installed devel packages of XFree86 and libxpm in order
+to compile this application. Then unpack the application and run
+
+  make
+  make install (as root)
+
+to compile and install. You shouldn't have any problem with it, application was
+tested on Mandrake Linux 9.1. There might be also some .rpm packages on
+project web pages.
+The wmCalClockKbd should also run on other un*x systems too, but I don't test
+it. If you have any good experience of running it on such system, please send
+me some report describing this system.
+
+
+Usage
+-----
+
+If you want to use the keyboard indicator, you really need to have
+XFree86 >= 4.3.0! If you use more keyboard maps, it should be set properly.
+There is example of my X86Config-4 InputDevice section:
+
+  Section "InputDevice"
+    Identifier "Keyboard1"`		# keyboard name
+    Driver "Keyboard"
+    Option "XkbModel" "pc102"		# you might use pc105, if you have Win keys on your keyboard
+    Option "XkbLayout" "us,cz_qwerty"	# most important! I have configured two keyboard layouts (groups) - US/ASCII and Czech(qwerty), you can use up to 4 layouts
+    Option "XkbCompat" ""
+    Option "XkbOptions" "default,grp_led:scroll,grp:alt_shift_toggle,grp:switch"
+  #			    ^^^ use some default options to avoid Mandrake bug
+  #					^^^ indicate alternative groups by switching the scroll led
+  #							^^^ switch groups by pressing Alt+Shift (left)
+  #									^^^ use right alt to set second group, while it is pressed down
+  EndSection
+
+you can also use setxkbmap, if you don't want to edit you XF86Config-4:
+
+  setxkbmap -layout "us,cz_qwerty,de" -option "default,grp:alt_shift_toogle"
+
+for example. Once, when you have configured your keyboard properly, you can
+run wmCalClockKbd with -kb option:
+
+  wmCalClockKbd -kb "us.xpm,cz.xpm"
+
+which tells to wmCalClockKbd to use us.xpm file for first group and cz.xpm for
+the second group. Images are taken from the default location specified in
+PREFIX file. You can use up to 4 images, but the number of images must be the
+same as number of configured layouts (groups), otherwise app disable keyboard
+indicator functions. Please make also sure, that there is your national image
+in pixmaps directory. If not, you can make new one (dimension are 54x35
+pixels, color depth depends on you system) and send it to me (I will add it to
+source files, but please don't break any Copyrights when making it).
+There is another one new option -kbt, which sets how much will be the keyboard
+image transparent when merging with date sign (default options is 0.25, you
+can you any number from 0.0-1.0, but useful values are 0.1-0.5).
+All wmCalClock options works like in the original version, you can read about
+them in olddoc/ dir of source codes or use -help switch.
+
+
+Copyright
+---------
+wmCalClock is copyright (c) 1998, 1999, 2003 by Michael G. Henderson, Petr
+Hlavka and licensed through the GNU General Public License. Read the COPYING
+file for the complete GNU license.

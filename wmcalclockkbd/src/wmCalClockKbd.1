@@ -1,0 +1,72 @@
+.TH WMCALCLOCK 1 "12 September 2003" 
+.SH NAME
+WMCALCLOCK \- Dockable Calendar Clock Keyboard Indicator
+.SH SYNOPSIS
+.B wmCalClock
+[-h] [-display <Display>] [-b <Volume>] [-e <Command>] [-24] [-s] [-S] [-L <Longitude>] [-l] [-tc <color>] [-bc <color>] [-tekton] [-comicsans] [-arial] [-luggerbug] [-jazz] [-kb <Images>] [-kbt <0.0-1.0>]
+.SH DESCRIPTION
+.PP
+wmCalClock is a simple Calendar Clock with anti-aliased text and drop-shadows, which can also indicate your keyboard group 
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-display [display]
+Use an alternate X Display.
+.TP
+.B \-b <Volume>
+Beep on the hour with specified volume (between -100 and 100).
+.TP
+.B \-e <Command>
+Command to execute via double click of mouse button 1. (Use quotes if your command 
+has white space in it).
+.TP
+.B \-24
+Show time in 24-hour format instead of default 12-hour AM/PM format.
+.TP
+.B \-s
+Show Greenwich Mean Sidereal Time (GMST) in 24-hour format. 
+.TP
+.B \-S
+Dont show seconds.
+.TP
+.B \-L <Longitude>
+Show Local Sidereal Time (LST) in 24-hour format. Longitude is in degrees 
+(- for West + for East).
+.TP
+.B \-l 
+Force use of lower color pixmap to conserve colors. On displays with <= 8 bits,
+the low color Pixmap will always be used.
+.TP
+.B \-tc <color>
+Change color of time-field digits. 
+.TP
+.B \-bc <color>
+Change color of time-field background. 
+.TP
+.B \-tekton
+Use the Tekton font for time field.
+.TP
+.B \-arial
+Use the Arial (i.e. Helvetica)  font for time field.
+.TP
+.B \-jazz
+Use the JazzPoster font for time field.
+.TP
+.B \-luggerbug
+Use the LuggerBug font for time field.
+.TP
+.B \-comicsans
+Use the ComicSans font for time field.
+.TP
+.B \-kb <Images>
+Enable keyboard layout indication. <Images> = up to 4 filenames (e.g. "us.xpm,cz.xpm"), the file count must be the same as number of configured groups of your XServer.
+.TP
+.B \-kbt <0.0-1.0>
+Set transparency of keyboard image to float number (0.0-1.0 = 0%-100%). Useful values are 0.1-0.5.
+.SH BUGS
+Who knows? (Let me know if you find any).
+.SH AUTHOR
+Petr Hlavka <xhlavk00@stud.fit.vutbr.cz>
+Michael G. Henderson <mghenderson@lanl.gov>
