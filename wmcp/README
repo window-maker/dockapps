@@ -1,0 +1,158 @@
+
+
+wmcp ( Window Maker Crappy Pager )
+
+Version 1.2.8
+
+	Origional Author: 
+		Ben Cohen <buddog@aztec.asu.edu>
+
+    Contributors: ( ** Thanks alot to them !! ** )
+       Thomas Nemeth <tnemeth@multimania.com>  -- Pushed button highlighting
+       Craig Maloney <craig@ic.net>            -- CTRL + ALT + key option
+       Gert Beumer <Gert@scintilla.utwente.nl> -- Dynamic button sizes
+
+
+
+A simple dockable pager for use in Window Maker.
+---------------------------------------------------------------------------
+
+
+INSTALL:
+--------
+
+	Unzip the file: gunzip wmcp-1.2.8.tar.gz
+	Untar the file: tar xvf wmcp-1.2.8.tar
+	CD to src dir:  cd wmcp-1.2.8
+
+	do one of these makes:
+	make            -- make wmcp using the default button scheme (scalpel)
+    make scalpel    -- make wmcp using the scalpel style button colors
+    make gv         -- make wmcp using the ghostview style button colors
+
+	copy wmcp to some directory in your $PATH.
+	( ie: cp wmcp /usr/local/bin ) 
+
+	type wmcp 
+
+	Grab the appicon and move it to the dock. 
+
+	If make doesn't work, you may need to fiddle with the settings in 
+	the Makefile.
+
+	Tested on:
+		WindowMaker-0.20.3
+		WindowMaker-0.50.2
+		X Clients: Red Hat 5.0, Red Hat 6.0, HP-UX 10.20
+		X Servers: XFree86, Exceed, AccelX
+
+
+
+USAGE:
+------
+
+usage: wmcp [-g geometry] [-d dpy] [-n workspaces] [-a alt key] [-v] 
+            [-c] [-w i/n/w] [-s y/n] [-x #] [-y #] [-h] 
+
+-g    geometry:    ie: 64x64+10+10
+-d    dpy:         Display. ie: 127.0.0.1:0.0
+-n    workspaces:  How many buttons to start with.
+-a    alt key:     integer 1-4 defining ModXMask (default 1 Mod1Mask).
+-w    i/n/w:       Window State: Iconic, Normal, Withdrawn (default Withdrawn)
+-s    y/n:         Shaped window: yes or no (default y)
+-c                 Sends CTRL + ALT + Key (default only sends ALT + key)
+-v                 Verbose. 0=off, 1=on (default 0) 
+-x    #            Number of buttons on the x-direction (1,2,3 or 4)
+-y    #            Number of buttons in the y-direction (1,2,3 or 4)
+-h                 Help. This screen.
+
+
+Left mouse button:
+	Selects the workspace to switch to.
+
+Right / Middle mouse buttons:
+	Change the number of buttons displayed.
+
+
+EXAMPLES:
+---------
+    Use all defaults. Good for WindowMaker.
+    mwdl
+
+	Normal X window, non shaped window, send CTRL + ALT + key
+    wmdl -w n -s n -c
+
+	2x2 button grid:
+	wmdl -x 2 -y 2
+
+	2x3 button grid:
+	wmdl -x 2 -y 3
+	
+
+NOTES:
+------
+
+This pager works by sending synthetic ALT + number key press events to the 
+root window.  The "-c" command line switch makes the application send
+a CNTRL + ALT + number key which might be of use in another window manager.
+
+Because the ALT key may have different key codes on different X servers,
+you can use the -a command line switch to change which meta key is used.
+I doubt anyone will ever have to do this though. The Mod1Mask which is the
+program's default seems to work on most if not all systems.
+
+I don't know of any Window Maker hooks for determining things like how
+may workspaces are actually in use. If any one know about this stuff, please
+let me know.
+
+It is very easy to change the look of wmcp by editing the colors in the 
+pixmap files. Someday we'll add an official 'skins' ability but for now
+just edit the xpm files to change the colors etc.
+
+This program is released under the GPL license and has been created by looking
+a lot at the code for wmppp, wmtime, wmload and various other Window Maker
+resources and info on the Web and Usenet.
+
+
+BTW, the one true enlightened way is "Sloppy Focus."
+
+
+CHANGE LOG:
+-----------
+
+1.2.8  May 25, 1999 -- Gert Beumer
+       Added -x and -y functionality to configure the amount of buttons.
+       Changed the rendering of the buttons from the pixmap 
+       (to suport multiple button startup)
+
+1.2.6  Feb 11, 1999
+       Once again changed the button XPM styling.
+       Added window state = Iconic, Normal, or Withdrawn.
+       Added shaped window = yes or no.
+       CTRL + ALT code added by -- Craig Maloney <craig@ic.net>.
+
+1.2.5  Jan 25, 1999
+		Made buttons flat style ala Ghostview 3.5.8
+	
+1.2    Jan 24, 1999
+	   Pushed button images added by Thomas Nemeth <tnemeth@multimania.com>
+
+1.1    Dec 24ish, 1998
+	   Origional version.
+
+TODO:
+-----
+
+Add a simple method for changing 'skins' other than just editing the XPM 
+files by hand.
+
+Add catching Window Maker's events to know how to refresh the pager when
+the current workspace is changed via the clip, and how to get the number
+of workspaces actually in use.
+
+
+Please send comments, flames, etc to buddog@aztec.asu.edu
+
+- Ben Cohen
+
+
