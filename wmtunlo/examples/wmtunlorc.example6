@@ -1,0 +1,25 @@
+shade_switch=1
+persp_switch=1
+
+t_shade_level=3.300000
+t_persp=5112.000000
+t_mov_step=-1.810000
+t_rot_step=-2.200000
+
+tex_block_w=16
+tex_block_h=16
+
+t_col_add_R=2.000000
+t_col_add_G=19.000000
+t_col_add_B=-0.600000
+
+t_col_mul_R=3.100000
+t_col_mul_G=1.000000
+t_col_mul_B=0.200000
+
+t_color_1=82
+t_color_2=140
+
+command1=xlock
+command2=xlock -mode thornbird
+command3=xlock -mode blank

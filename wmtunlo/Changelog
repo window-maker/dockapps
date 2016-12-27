@@ -1,0 +1,12 @@
+
+0.1.2 (25-06-2003)
+	* command line options was replaced by a config file
+	* now, we can run up to 3 programs on double-click 
+	  (based on patch by Alan Jurgensen)
+
+0.1.1 (14-04-2002)
+	* more parameters and examples
+
+0.1.0 (somewhere in the past)
+	* first release
+
