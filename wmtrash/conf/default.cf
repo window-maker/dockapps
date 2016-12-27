@@ -1,0 +1,6 @@
+# Config file for wmtrash
+
+filemanager = konqueror
+trashpath = ~/Desktop/Trash
+trashicon = trash.xpm
+
