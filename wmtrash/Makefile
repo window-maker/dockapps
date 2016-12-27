@@ -25,7 +25,7 @@ CONFIGFILE = default.cf
 CFLAGS = -g -Wall
 DEFINE = -D__CONFPATH='"$(CONFDIR)"' -D__CONFFILE='"$(CONFIGFILE)"' -D__ICONPATH='"$(PREFIX)$(SHAREDIR)"'
 
-LIBCONFIG = `gtk-config --cflags --libs`
+LIBCONFIG = `pkg-config x11 gtk+-2.0 --cflags --libs`
 
 
 $(BIN) : $(SRC)
