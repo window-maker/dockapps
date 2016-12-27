@@ -23,7 +23,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <time.h>
-#include "./dockapp.h"
+#include <libdockapp/dockapp.h>
 
 #include "XPM/back.xpm"
 #include "XPM/button_pressed.xpm"

@@ -12,15 +12,11 @@ UNINSTALL_PROGRAM = rm -rf
 CC = gcc
 OPTIMIZE = -O2
 XLIBDIR = /usr/X11R6/lib
-#XLIB = -ldockapp -lXpm -lXext -lX11
-XLIB = -lXpm -lXext -lX11
+XLIB = -ldockapp -lXpm -lXext -lX11
 OBJ = wmomikuzi.o dockapp.o
 
 $(DEST) : $(OBJ)
 	$(CC) $(OBJ) -L$(XLIBDIR) $(XLIB) -o $(DEST)
-
-dockapp.o: dockapp.c
-	$(CC) $(OPTIMIZE) $< -c
 
 wmomikuzi.o: wmomikuzi.c
 	$(CC) $(OPTIMIZE) $< -c
