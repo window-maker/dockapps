@@ -1,0 +1,349 @@
+WMGlobe 0.5  -  The Whole Earth spinning on you desktop... as a dockable app
+Copyright (C) 1998,99 Jerome Dumonteil <jerome.dumonteil@capway.com>
+This program is licensed under the terms of the GNU GPL, see below.
+
+
+
+Description
+----------------------------------------
+WMGlobe is a WindowMaker dock.app that displays the earth on an icon. It's
+an adaptation of XGlobe to WMaker environnement. WMGlobe uses a map which is
+rendered on a sphere by raytracing. Yes, for a 64x64 pixel result :-)
+
+It's still a beta version...
+
+
+
+Installation
+----------------------------------------
+You need WindowMaker to build WMGlobe. WMGlobe needs libwraster to compile,
+this lib is built by WindowMaker. No more need at run time if statically 
+linked, but then, you need WindowMaker to get the full magic :-)
+
+ 
+	tar -xvzf wmglobe-0.5.tar.gz
+	cd wmglobe-0.5
+	make
+	
+	then move wmglobe in /usr/local/bin and man page somewhere or do 
+	(as root) :
+	make install
+
+
+If it doesn't work, look for the graphic libraries. 
+
+The Makefile is quite crude...
+
+WMGlobe is developped on Linux (WMaker 0.51.0 and linux 2.0.36/ix86).
+If you are successful on other platforms, please tell me so.
+
+
+platforms with successfull built reported : 
+
+NetBSD 1.3.2 / SPARC    (wmaker 0.20.3) , with Makefile adaptations for libs 
+Linux 2.0.36 / RedHat 5.1 
+Linux 2.0.36 / SuSE 5.3 (wmaker 0.20.3)  ,  -lungif -> -lgif 
+Linux 2.2.0-pre4 / Debian    :-)
+FreeBSD-3.0     with -ltiff -> -ltiff34 and -lungif -> -lgif 
+Solaris 2.6  / Sun Sparc (wmaker 0.20.3) , with Makefile adaptations for libs
+AIX 4.2.1    / IBM RS/6000-250 (wmaker 0.50.2)
+
+
+
+RPM & DEBIAN linux packages coming soon. Or you can directly use the binary.
+
+compile time problems :
+
+Xlib.h, Xpm.h ... : 
+If you compile wmglobe on a computer installed with packages (.rpm), you may 
+lack of these header files. Just install the "xxx-dev.rpm" packages for XFree86
+and graphics libs, or install a rpm version of wmglobe.
+
+libwraster :
+WindowMaker 0.20.3 uses a libwraster.a , so if you use it, you can execute 
+the binary on a computer without WindowMaker on it, and displaying on a 
+remote computer (this one using WindowMaker). WM 0.51.0 creates a dynamic
+libwraster.so, so it's necessary to have it on the computer running wmglobe 
+if you buit WMGlobe with this one. Both versions of WMGlobe run on WM 0.20.3 
+and 0.51.0
+
+graphic libs : 
+you can use libgif or libungif. If your version of WindowMaker is built 
+without support for some graphic type, you don't need it (just remove it
+from the makefile). 
+This problem may happen with RedHat 5.2, if you get this kind of message, 
+just add a libtiff to your system :
+/usr/local/lib/libwraster.so: undefined reference to `TIFFReadDirectory'
+...
+make: *** [wmglobe] Error 1
+
+
+compile time options : 
+You can modify the file wmgoption.h where many options are set up in defines :
+
+To disable the builtin default map, just comment out the line in wmgoptions.h :
+#define DEFMAPOK
+to supprim the shift+left/left method of rotate earth, uncomment the lines
+#define MOUSE_LAT_FULL 
+
+you can also suppress some options screen in wmgoption.h
+
+
+
+Maps 
+----------------------------------------
+Like XGlobe, WMGlobe needs a longitude/latitude map to work. By default, 
+it uses a low quality built-in map of earth. But you will probably want 
+to use better ones.
+
+You can get maps usable with WMGlobe on the net. See the LINKS chapter.
+
+using custom maps :
+- For the image to be mapped correctly, position 0°North 0°West must be in
+  the center of the image and the latitude must be linear from 90°N to 90°S.
+- When using a night map, make sure that day and night map have the same
+  dimensions.
+
+By the way, you can use maps of Mars, Luna ... and text.
+
+
+
+Configuration options
+----------------------------------------
+
+Configuration is done through command line options.
+	
+-v			version
+-h			short help
+
+-zoom zoom_value	Value > 1 to magnify the view, value < 1 to lower.
+			Default : 1.0	
+
+-pos latitude long.	Initial viewing fixed at this position, don't follow
+			the sun rotation. Accepted values in the form 
+			45°12'36 or 45.21 or 45:12:36 
+			Default : the initial position is "under" the sun, and
+			the point of view follows the sun
+			
+-rand			New random position at every refresh of screen
+
+-map     map_file	Map used for the rendering. Can be JPEG, GIG, XPM
+			PNM, TIFF but none BMP 
+			Default : use internal map of earth.
+			
+-nimap   night_file	Map used for the dark side of the earth. Must be of
+			the same width x height as the day side map. 
+			Default : if the default internal day map is used, use
+			a default internal night file (see -nonimap option). 
+			If a custom day map is provided, and no night map, the
+			dark side is computed via the -light option.
+			
+-nonimap		Don't use the default night map.			
+
+-delay   seconds	Time in seconds between each calculation of a new 
+			position. Limited to 0.04 at compile time (25 frames
+			per second should be enough). The sun position move 
+			only once per minute, so if you use wmglobe without
+			-dlong or -accel option, the CPU cost of WMGlobe is
+			*very* low. The use of very low value for -delay plus
+			-dlong and -accel can be CPU costly (but very nice...)
+			Default : 1.0 sec.
+
+-dlat   delta_latitude	Move the point of view by delta_lat degrees per second,
+			with a value of 6 the earth make a full rotation in 
+			one minute. The value can be formated as -pos option.
+			Default : 0°0'0
+			
+-dlong  delta_long	Move the point of view by delta_long degrees per 
+			second. With a value of -0°0'15" the earth make a full 
+			rotation in 24 hours toward the west. By default, 
+			-dlong and -dlat are null. If they are used, the view
+			follow their values. Going back to "follow sun" mode
+			in parameters screen put -dlat and -dlong to zero.
+
+-light  light_value	Level of light of the dark side when there is no
+			night map, from 0 to 1. 
+			Default : 0.25 		
+
+-dawn   dawn_value	Level of continuity for dawn limit, from 0 to 1. With
+			a value of 1, the border line between night and day is
+			at maximum contrast.
+			Default : 0.2
+
+-bord   border_num	0 1 or 2. There are 3 different borders for the icon. 
+			Default : 0
+			
+-accel  time_multi	Time warp factor. With -accel 24, the sun make a full
+			rotation in one hour (or the earth, I'm not sure).
+			Default : 1.0
+
+-time   seconds		Time to display in seconds since 01-01-1970 (see the
+			date command). Necessary if you need to be sure that
+			WMGlobe is Y2K compliant without changing system time.
+			Negative values for dates before 1970 accepted.
+			Default : not set, use current time.
+
+-fun dx dy		Move the earth image by dx dy pixels in the icon. See
+			puzzle.sh to understand why.
+
+-oz			Start in "austral" mode (for "down under" people) 
+
+-d display		Select another display
+
+-w  -shape		Useless, since it is set by default (WMaker dockable 
+			application)
+
+mouse :
+left button		Change longitude while pressed, change longitude &
+			latitude if shift+left button.
+
+middle button		Zoom in, shift + middle button : zoom out
+
+right button		Displays 7 screens of parameters. On every screen, just
+			clic with left or right button on the figures to change
+			their value. The TIME screen shows an approximation
+			of date and time of the earth zone currently displayed,
+			using GMT time + longitude offset, it's close to the 
+			real local time by one or two hours. Others options 
+			don't need more help. Intuitive they said...
+			
+
+
+Links : Some sites dealing with WindowMaker 
+-------------------------------------------
+
+Official Window Maker Website :
+http://www.windowmaker.org/
+
+The Dock App Warehouse :
+http://www.bensinclair.com/dockapp/
+
+
+
+Links : Where to find maps and similar softs
+--------------------------------------------
+where to find the sources of wmglobe :
+http://www.capway.com/dumonte1/wm/wmglobe-0.5.tar.gz
+
+the web page of WMGlobe (made by Sylvestre Taburet) :
+http://www.capway.com/dumonte1/wm/wmg.html
+
+
+where to find maps and similar softs :
+
+Earth image by a cgi :
+http://www.fourmilab.ch/cgi-bin/uncgi/Earth
+
+two softs running under X :
+XGlobe Homepage: http://www.uni-karlsruhe.de/~uddn/xglobe
+(the recent 0.2 version brings a very nice map of earth)
+
+Xearth Homepage: http://www.cs.colorado.edu/~tuna/xearth/
+
+
+For the maps XGlobe doc says :
+
+« WHERE TO GET MAPS:
+
+1. LivingEarth Inc.
+
+http://livingearth.com/LE/LivEarthImg.html
+http://livingearth.com/LE/BrillEarthImg.html
+
+Livingearth Inc. has some nice (day and night) images on their web pages.
+With these you can test the -nightmap option of XEarth. Unfortunately
+they are pretty low-res (400x200).
+You can find a higher-resolution (but heavily compressed) version of this
+day map at the "Earth View" page: 
+
+http://www.fourmilab.ch/cgi-bin/uncgi/Earth
+
+Check "No night" and set display to "map", then save the image.
+
+
+2. NOAA NGDC Marine Geology & Geophysics
+
+http://www.ngdc.noaa.gov:80/mgg/image/mggd.gif
+
+This image is definitely not "photo-realistic" but nonetheless pretty
+interesting. It also has a rather high resolution. »
+
+
+
+Todo
+----------------------------------------
+- test on different platforms, better makefile
+- changing map "on the fly", map generator, clouds generator...
+- must work on every current WindowMaker platform
+- see how to minimize CPU load
+- feature : load a local detailed map of some part of the globe when zooming
+  (country maps, city maps)
+- maybe port to other window manager
+
+
+
+Bugs
+----------------------------------------
+- The Makefile
+- if you use the  --enable-single-icon compile time option of WindowMaker,
+  you can not display more than one WMGlobe.
+- WMGlobe hopes that an overflow of a long integer dont generate an error
+  and that LONG_MAX +1 = LONG_MIN . This happens with high values of -accel 
+  when the date go over year 2038. The expected result is wmglobe
+  continuing smoothly from 1901.
+
+
+
+License
+----------------------------------------
+WMGlobe is Copyright (C) 1998,99 by Jerome Dumonteil and licensed through 
+the GNU General Public License. 
+Read the COPYING file for the complete GNU license.
+
+
+
+Credits
+----------------------------------------
+Original idea, tests, logos : Sylvestre Taburet <staburet@consort.fr>
+
+The code in 'sunpos.cpp' is taken from Xearth by Kirk Lauritz Johnson.
+
+/*
+ * sunpos.c
+ * kirk johnson
+ * july 1993
+ *
+ * code for calculating the position on the earth's surface for which
+ * the sun is directly overhead (adapted from _practical astronomy
+ * with your calculator, third edition_, peter duffett-smith,
+ * cambridge university press, 1988.)
+ *
+ *
+ * Copyright (C) 1989, 1990, 1993, 1994, 1995 Kirk Lauritz Johnson
+ *
+ * Parts of the source code (as marked) are:
+ *   Copyright (C) 1989, 1990, 1991 by Jim Frost
+ *   Copyright (C) 1992 by Jamie Zawinski <jwz@lucid.com>
+ *
+ * Permission to use, copy, modify and freely distribute xearth for
+ * non-commercial and not-for-profit purposes is hereby granted
+ * without fee, provided that both the above copyright notice and this
+ * permission notice appear in all copies and in supporting
+ * documentation.
+ */
+
+The rendering engine is taken from XGlobe by Thorsten Scheuermann
+XGlobe Homepage: http://www.uni-karlsruhe.de/~uddn/xglobe
+
+Raster graphics library by Alfredo K. Kojima, & stuff of Window Maker 
+<http://windowmaker.org> by A. K. Kojima, Dan Pascu, Matthew Hawkins & team
+
+
+
+Feedback
+----------------------------------------
+For your questions, bugs, remarks, please contact our representative on 
+planet Earth : jerome dumonteil <jerome.dumonteil@capway.com>
+
+
+

@@ -1,0 +1,45 @@
+VMGlobe
+0.5        released  6/02/99
+           - floating point exception bug solved
+           - many minor bugs solved (earth displaying, mouse, time management)
+           - compile time options in header
+           - night map option available in parameter screen
+           - option -time only available in command line
+           - new default map
+
+0.5.pre1   released  20/01/99
+           - option selection through parameters screens (right button)
+           - approximation of date & time of view point
+           - new default map (bigger, better)
+           - display of time uses setlocale() 
+           - option -dawn value : enhance dawn borderline
+           - option -time : change date displayed
+           - option -nonimap
+           - reorganize sources, little CPU gain, better earth displaying
+           - rename -austral to -oz
+           - modify comportment of -rand option when zooming
+           - change left button comportment : only change longitude
+           - shift+left button : change longitude & latitude
+           - man page	   
+
+0.3.1      released  5/02/99
+           - option -austral
+           - solved bug about colors 24 and 32 bit per pixel
+
+0.3        released  3/02/99
+           - right button : screen of digital modification of latitude/long.
+
+0.2.1      released  3/02/99
+           - change & enhance mouse operations (longitude/latitude/zoom)
+           - minor bugs, CPU optimization
+
+0.2        released  1/01/99
+           - bug about ipc & shared memory solved.
+           - new functionnality :
+              left click   = change longitude
+              middle click = zoom in / zoom out
+              right click  = change latitude
+           - a few hints for compile on *BSD    
+
+0.1        released 31/12/98
+
