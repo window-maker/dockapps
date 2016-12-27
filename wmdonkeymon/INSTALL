@@ -1,0 +1,14 @@
+Installation instructions for wmdonkeymon.
+
+Requirements
+--------------------------------------------------------------
+X11
+
+Installation
+--------------------------------------------------------------
+1) % tar -zxvf wmdonkeymon-0.9.tar.gz
+2) % cd wmdonkeymon/wmdonkeymon
+3) % make
+4) become root. "su"
+5) % make install
+6) % wmdonkeymon -h (follow instructions)
