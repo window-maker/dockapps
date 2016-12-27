@@ -1,0 +1,9 @@
+- man page
+- homogeneous stock icons at least for themes.freshmeat.net themes topics
+- add support for custom themes directories
+- add possibility to recover the last selected category on startup
+- "wmThemeCh.db" should be able to de-register theme
+	from a category it was registered to by inheritance
+- theme weighting to allow preferred themes to be chosen more frequently
+- support for user database (when it isn't possible to write a "wmThemeCh.db"
+	file in a theme directory due to restrictive permissions)

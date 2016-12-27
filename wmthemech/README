@@ -1,0 +1,53 @@
+wmThemeCh is a WindowMaker theme (and background) changer dockapp.
+
+Left-click  selects another theme/background.
+Right-click selects another category.
+
+Themes are collected from the standard WindowMaker themes and background
+directories.
+
+You can define categories in ~/.wmThemeCh/categories ,
+each line defining a category name.
+The icon corresponding to that category will be ~/.wmThemeCh/<name>.xpm
+Icons are 56 x 56 pixels.
+
+A theme belongs to a category if either :
+1) a valid "wmThemeCh.cat.db" file lies in theme's directory
+   (for .themed format only), and a line of that file is category's name.
+   Note that ".wmThemeCh.cat.db" also is supported.
+2) a valid ".wmThemeCh.cat.db" file lies in a parent directory
+   and a line of that file is category's name.
+
+Example
+-------
+
+File /usr/local/share/wmthemech/categories :
+
+People
+
+/usr/local/share/wmthemech/People.xpm
+
+File ~/.wmThemeCh/categories :
+
+Anime
+Cartoons
+
+~/.wmThemeCh/Anime.xpm
+~/.wmThemeCh/People.xpm
+
+~/GNUstep/Library/WindowMaker/Themes/.wmThemeCh.cat.db :
+
+# wmThemeCh categories database file version 1.0
+Anime
+Misc
+
+~/GNUstep/Library/WindowMaker/Themes/MyTheme.themed/wmThemeCh.cat.db :
+
+# wmThemeCh categories database file version 1.0
+People
+Art
+
+MyTheme belongs to Anime and People categories.
+It would also belong to Art and Misc if those were defined.
+People category icon would be the one in ~/.wmThemeCh , overriding
+the default one.

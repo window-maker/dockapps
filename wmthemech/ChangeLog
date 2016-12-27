@@ -1,0 +1,21 @@
+wmThemeCh
+
+Version	Changes
+---------------
+0.3	* Support for not only WindowMaker themes but also backgrounds.
+	* Added feature asked and implemented by Andreas Bunten :
+	  -a <time> option peridically changing current theme.
+	* In themes and backgrounds directories, wmThemeCh database file
+	  changed from name "categories" to "wmThemeCh.cat.db" in *.themed and
+	  ".wmThemeCh.cat.db" elsewhere. That way, categories entries do not
+	  show up in WindowMaker menus.
+	* Database files now have a signature :
+		"# wmThemeCh categories database file version 1.0"
+	* autoconf scripts enhaced, now exits when a dependancy is missing,
+	  support for FreeBSD.
+	* Database model rewritten. Now more space efficient, extensible.
+0.2	* Some default categories have been added.
+	* Fixed a bug causing crash if GNUSTEP_USER_ROOT wasn't defined,
+	  effectively crashing if the window manager wasn't Window Maker.
+	* Compiling directives now use autotools.
+0.1	* Initial public release
