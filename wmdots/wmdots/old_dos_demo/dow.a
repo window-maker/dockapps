@@ -1,0 +1,860 @@
+;Dogs of war demo by OnlyMe (now called I440r :)
+;-------------------------------------------------------------------------
+
+        ;Assembles with A386.COM (Registered A86).
+
+;-------------------------------------------------------------------------
+;Equates
+
+MaxPoints       equ 125         ;Maximum number of points in an object
+BumpMap         equ Bumps+320   ;Pointer to second scan line of bump map
+SpotX           equ 160         ;Position of static bump map spotlight
+SpotY           equ 80
+
+;-------------------------------------------------------------------------
+;A based structure (See A86 documentation for explanation)
+
+ struc [bx]             ;Structure does NOT need a name
+Counter         dw ?    ;Countdown to change
+Reset           dw ?    ;Counter reset value
+Position        dw ?    ;Points to item being modified
+Delta           dw ?    ;Speed of change (also direction)
+Upper           dw ?    ;Upper limit for position
+Lower           dw ?    ;Lower limit for position
+ ends
+
+;-------------------------------------------------------------------------
+;Un-Initialised data
+
+ data segment
+
+XAngle          dw ?    ;Angles of rotation for each axis
+YAngle          dw ?    ;  higher numbers rotate faster
+ZAngle          dw ?
+
+X               dw ?    ;Coordinates of point being calculated
+Y               dw ?
+Z               dw ?
+
+XSin            dw ?    ;Sin and Cos for each axis angle of rotation
+YSin            dw ?
+ZSin            dw ?
+XCos            dw ?
+YCos            dw ?
+ZCos            dw ?
+
+NumPoints       dw ?    ;Number of points in current object
+
+;           V---MaxPoints
+Trail1: dw 125 dup ?    ;Display address of previous 8 positions for
+Trail2: dw 125 dup ?    ; each point being rotated.  We only erase a
+Trail3: dw 125 dup ?    ; points 8'th previous position.  This makes
+Trail4: dw 125 dup ?    ; the points leave a trail 7 pixles long
+Trail5: dw 125 dup ?
+Trail6: dw 125 dup ?
+Trail7: dw 125 dup ?
+Trail8: dw 125 dup ?
+
+CharP           dw ?    ;Pointer to font def for scrollie char
+BumpX           dw ?    ;Bump map coordinates being calculated
+BumpY           dw ?
+
+;-------------------------------------------------------------------------
+;A copy of the ROM font moved here so we can reference it using DS
+
+Font:           db 256*8 dup ?
+
+;-------------------------------------------------------------------------
+;Note:
+;
+; The following buffer is the whole of the bump map.  There is 1 scan
+;line of ZERO data above and below the area that will contain the bumps.
+;
+;Therefore the bumpmap is at Bumps+320 (See Equates Above)
+
+Bumps:          db 320*18 dup ?
+
+;-------------------------------------------------------------------------
+;Da Beeph (moo)
+
+ code segment
+
+Start:
+ jmp Main               ;Do it...
+
+;-------------------------------------------------------------------------
+;Pre initialised data...
+
+Shape           dw Cube ;Pointer to current object
+
+HalfH           dw 160  ;Screen coordinates for centre of object
+HalfV           dw 100
+
+XOff            dw 150  ;Position of object in world space
+YOff            dw 150
+ZOff            dw 800
+
+DeltaX          dw 5    ;Rotational speeds on each axis
+DeltaY          dw 4
+DeltaZ          dw 7
+
+;-------------------------------------------------------------------------
+;Modifiers: Tables follows this format:  (as per above based structure)
+;
+; Counter          Count down to next speed/position change
+; Retet            Value to reset counter to
+; Position         Pointer to data item to modify
+; Delta            Ammount to change item (also direction)
+; Upper            Upper limit fot item
+; Lower            Lower limit for item
+
+W1:     dw 30,30,offset DeltaX,2,15,2   ;Modifies X Rotational speed
+W2:     dw 20,20,offset DeltaY,-2,12,4  ;Modifies Y Rotational speed
+W3:     dw 40,40,offset DeltaZ,2,10,7   ;Modifies Z Rotational speed
+W4:     dw 02,02,offset ZOff,-3,800,180 ;Zooms object in and out of screen
+
+;-------------------------------------------------------------------------
+;Bump mapped scrollie banner text stuffz
+
+Bannerp         dw Banner       ;Points to next character
+CharColumn      db 080          ;Mask for next colunn of font def
+
+Banner:
+ db ' *** The Dogs Of WAR demo by OnlyMe! ***          '
+ db 'Begin!                 '
+
+Begin:
+ db 'Oh the dogs they had a meeting     '
+ db 'They came from near and far     '
+ db 'And some dogs came by motor bus     '
+ db 'And some by motor car          '
+
+ db 0
+ dw Flies,Hall
+
+Hall:
+ db 'On entering the meeting hall     '
+ db 'Each dog could take a look     '
+ db 'Where he had to hang his asshole     '
+ db 'Up high upon a hook          '
+
+ db 0
+ dw Cross,Fire
+
+Fire:
+ db 'And when they were assembled     '
+ db 'Each canine son and sire     '
+ db 'Some dirty bulldog son of a bitch     '
+ db 'Jumped up and hollared FIRE          '
+
+ db 0
+ dw Square,Panic
+
+Panic:
+ db 'All was in a panic     '
+ db 'Twas hell upon to look     '
+ db 'Each doggie grabbed at random     '
+ db 'An asshole from a hook          '
+
+ db 0
+ dw Cube,Sore
+
+Sore:
+ db 'Now the assholes were all mixed up     '
+ db 'Which made each doggie sore     '
+ db 'To have to wear another dogs ass     '
+ db 'He''d never worn before          '
+
+ db 0
+ dw Star,Bone
+
+Bone:
+ db 'And that is why until this day     '
+ db 'A dog will drop a bone     '
+ db 'To go and smell another dogs ass     '
+ db 'To see if it''s his OWN!            '
+
+ db '*** THE END ***                       ???          '
+ db 'Now what have i forgotz ????                 '
+ db 'ERM.....                Oh Yea....         '
+
+ db 'Greetings *** ROTATE *** Out To ~~~~~~         '
+
+ db 0
+ dw Heart,Catgirl
+
+Catgirl:
+ db 'Catgirl - Jeg Elsker DEG - Purrrrrrrrrrrrr :)     '
+ db 'Myriaam - Cute Sexy BABE Princess DOLL :) - heheheheheh - '
+ db 'okokokokokokokokokokokokokokokokokokokokokokokokokok     '
+ db 'LuvrsCrs - Manager''ess and savior''ess of UnderNUT #CODERS     '
+ db '-->     '
+
+ db 0
+ dw Square,Unf
+
+Unf:
+ db 'Unf - Fatar - Debonaire - Isomer - Hexsane & MrsHex - '
+ db 'nop - mole - oreo - RatKing - \hatred\ - KBerg - '
+ db 'RyanT - Mafia - Yosha - Jungle - Fid - Binary - '
+ db 'PRIM8 - IiTM - Topanga - Tig2 - deRanged - RuneStar - '
+ db '_RyAn_ - DaParasit - Spansh - CodeX - Wicked - '
+ db 'Likwid - KingTroll - tpanther - ED_Lead - Reptile - '
+
+ db 0
+ dw Cross,NoIdea
+
+NoIdea:
+ db 'Noidea - ^Para^ - Wh0is - Chiew - [QWORD] - LoneWolf - '
+ db 'DaveDavis - PsYkOtIk - ^Ion^ - Weathros - LittleLoc - '
+ db 'MissMilla - Centmo - Entlin - CreepGuy - eom - Xico - '
+ db '^Axe^ & Sturnella - Almighty - o - Zyklon - hammr - '
+ db '|Geo| - '
+ db 'MarkIII (Hi Dad) - Diamond1 & Mermaid1 (Hi Sis1 and Sis2 :) - '
+
+ db 0
+ dw Flies,Snoo
+
+Snoo:
+ db 'Snoo - Queen1 & Truely - Shama - Pink^Rose - Divebum - '
+ db 'DEWDROP - KaDaM2 - Freakmama - mr007 - SIOK - Alih - '
+ db 'Asterix - MoKie - Rats - RoadRoach - masdale - mystie - '
+
+ db 'e|ectricTom - Techa^ - TX-Cowboy - buch - luth - '
+
+ db 0
+ dw Cross,Eche
+
+Eche:
+ db 'BaBs - Ratty - Lexzy - PJ - Blondii - dew - Kittie - '
+ db '^Kristi - strawbery - grlafraid - Krystal1 - ortho - '
+ db 'Danni_ - Anne^ - brokngrl - keldog - AnGelDevo - '
+ db '^DE^ - Avantyful & Niece babe :) - mauddib - lil_miss - '
+ db 'Eche & Godis^ hehehehe - lowlife - X & W -                 '
+ db '******** And Everyone else OnlyMe! dun MISSED            '
+ db '*** THE END IS NOT NEIGH ***                    '
+ db '---====*** Begin Again --->                               ',0
+
+ dw Cube,Begin
+
+;-------------------------------------------------------------------------
+;Do IT!
+
+Main:
+ mov ax,013             ;VGA GFX mode = 320 x 200 x 256
+ int 010
+
+ mov cx,(320*18)/2      ;Erase bump map buffer
+ mov di,Bumps
+ xor ax,ax
+ rep stosw
+
+ call GetPalette        ;Create shaded palette
+ call GetFont           ;Read font data out of ROM into current DS
+ call InitScroll        ;Point to font data for first char of banner
+
+ mov ax,0a000           ;Point ES at video segment
+ mov es,ax
+
+L0:
+ call ChangeAngles      ;Get next angle of rotation for all axis
+ call GetSinCos         ;Calculate Sin and Cos for all rotation angles
+ call DoFrame           ;Rotate all points of shape and display
+ call DoScroll          ;Scroll text through bump map buffer
+ call DoBump            ;Bump map scrolly text and display it
+ call Retrace           ;Wait for next raster frame
+ call ErasePoints       ;Erase all pixles that are 8 frames old
+ call DoDeltas          ;Modify rotational speeds etc
+
+ in al,060              ;Read keyboard port
+ cmp al,081             ;Escape key released?
+ jne L0
+
+;-------------------------------------------------------------------------
+;Exit nicely
+
+ mov ax,3               ;Back to textmode
+ int 010
+ mov ah,2               ;Place cursor at bottom left of display
+ mov dx,01700
+ xor bx,bx
+ int 010
+ mov dx,AuRevoir
+ mov ah,9
+ int 021
+ mov ah,04c             ;Return control to dos
+ int 021
+
+;-------------------------------------------------------------------------
+;Do one frame of rotating object. Calculate and plot all points
+
+;DI points to first trail buffer.  We store the address of every pixle
+;we write into this buffer.  When it comes time to erase these pixles we
+;do not need to recalculat them.  We just collect the address!
+
+DoFrame:
+ xor ch,ch              ;Clear hi byte of loop counter
+ xor di,di              ;Point to start of trail buffer
+ mov si,[Shape]         ;Point to object to be rotated
+ mov cl,[si]            ;Get number of points
+ mov NumPoints,cx       ;We need this count later too...
+ inc si
+L0:
+ movsx ax,[si]          ;Get X coordinate of point
+ mov [X],ax
+ movsx ax,[si+1]        ;Get Y coordinate
+ mov [Y],ax
+ movsx ax,[si+2]        ;Get Z coordinate
+ mov [Z],ax
+ call Rotate            ;Rotate point in 3d
+ call Draw              ;Draw this point
+ add si,3               ;Point to next point
+ add di,2               ;point to next slot of trail buffer
+ dec cx
+ jne L0
+ ret
+
+;-------------------------------------------------------------------------
+;Project a single XYZ point into 2D space on screen
+
+Draw:
+ mov ax,[YOff]          ;YOff * Y / Z+ZOff = Screen Y
+ imul [Y]
+ mov bx,[Z]
+ add bx,[ZOff]
+ idiv bx
+ add ax,[HalfV]         ;Centre object on screen
+
+ cmp dx,0               ;Clip this pixle if outside display area
+ jb short ret
+ cmp ax,200
+ ja short ret
+
+ mov bx,320             ;Calculate 320 * Y...
+ imul bx
+
+ mov bx,ax
+
+ mov ax,[XOff]          ;XOff * X / Z+ ZOff = Screen X
+ mov bp,[X]
+ imul bp
+ mov bp,[Z]
+ add bp,[ZOff]          ;Distance
+ idiv bp
+ add ax,[HalfH]
+
+ cmp dx,0               ;Clip pixle if outside display area
+ jb short ret
+ cmp ax,320
+ ja short ret
+
+ add bx,ax
+
+ mov ax,-1              ;Generate colour for point based on X Y and Z axis
+ sub ax,[Z]             ; of dot
+ xor ax,[X]             ;Divides cube into 8 smaller cubes and alternates
+ or ax,[Y]              ; light/dark (opposite corners same shade)
+ shr ax,4
+ add ax,[X]             ;This addition makes the cube stripey man :)
+ add ax,[Y]
+
+ es mov [bx],al         ;Place a dot with color al
+ mov Trail8[di],bx      ;Save address for erase
+ ret
+
+;-------------------------------------------------------------------------
+;Erase pixles that are 8 frames old.
+
+;Every time a pixles is drawn to the display we remember its video
+;offset (address).  This saves time when we want to erase that dot
+;because we dont need to recalculate the address given an XYZ
+
+ErasePoints:
+ xor di,di
+ mov cx,MaxPoints
+L0:
+ mov bx,Trail8[di]      ;Pixles added to display on THIS frame
+; es dec b[bx]           ; Make them less bright
+ xchg bx,Trail7[di]     ;Pixles one frame old
+; es dec b[bx]           ; Make them less bright
+ xchg bx,Trail6[di]     ;Etc...
+; es dec b[bx]
+ xchg bx,Trail5[di]
+; es dec b[bx]
+ xchg bx,Trail4[di]
+; es dec b[bx]
+ xchg bx,Trail3[di]
+; es dec b[bx]
+ xchg bx,Trail2[di]
+; es dec b[bx]
+ xchg bx,Trail1[di]     ;Pixles 8 frames old
+ es mov b[bx],0         ;Erase them
+ inc di,2
+ dec cx
+ jne L0
+ ret
+
+;-------------------------------------------------------------------------
+;Rotate a single point in 3D space
+
+Rotate:
+ push cx                        ;Need to keep this....
+
+;Rotate object about X axis  (changes Y and Z)
+;
+;Y' = Y * Cos(Xang) - Z. Sin(Xang)
+;Z' = Y * Sin(Xang) + Z. Cos(Xang)
+
+ movsx eax,[Z]          ;Get Z * Sin(X)
+ movsx ebx,[XSin]
+ mul ebx
+ mov ecx,eax            ;Save in cx...
+ movsx eax,[Y]          ;Get Y * Cos(x)
+ movsx ebx,[XCos]
+ imul ebx
+ sub eax,ecx            ;Get Y * Cos(X) - Z * Sin(X)
+ sar eax,14             ;Sin and Cos Table values are scaled up
+ mov bp,ax              ; by 16384.  SHR scales results back down
+
+;We just calculated our new Y coordinate.  We cant yet overwrite the old
+;Y because we still need it to calculated the new Z
+
+ movsx eax,[Z]          ;Get Z * Cos(X)  Exact opposite of above!
+ movsx ebx,[XCos]
+ imul ebx
+ mov ecx,eax            ;Save value...
+ movsx eax,[Y]          ;Get Y * Sin(X)
+ movsx ebx,[XSin]
+ imul ebx
+ add eax,ecx            ;Get Y * Sin(X) + Z * Cos(X)
+ sar eax,14             ;Scale results down by 16384
+
+ mov [Y],bp             ;Set newly calculated Y and Z coordinates
+ mov [Z],ax
+
+;Rotate point in Y axis
+;
+;X' = X * Cos(Yang) - Z * Sin(Yang)
+;Z' = X * Sin(Yang) + Z * Cos(Yang)
+
+ movsx eax,[Z]          ;Following code is very similar to above.
+ movsx ebx,[YSin]       ;It rotates the point in the Y axis
+ imul ebx               ;I.E. It calculates new X and Z
+ mov ecx,eax
+ movsx eax,[X]
+ movsx ebx,[YCos]
+ imul ebx
+ sub eax,ecx
+ sar eax,14
+ mov bp,ax              ;Save new X coord
+
+ movsx eax,[Z]          ;Calculate Z
+ movsx ebx,[YCos]
+ imul ebx
+ mov ecx,eax
+ movsx eax,[X]
+ movsx ebx,[YSin]
+ imul ebx
+ add eax,ecx
+ sar eax,14
+
+ mov [X],bp             ;Set new X and Z for point
+ mov [Z],ax
+
+;Rotate objecct along Z axis
+;
+;X' = X * Cos(Zang) - Y * Sin(Zang)
+;Y' = X * Sin(Zang) + Y * Cos(Zang)
+
+ movsx eax,[Y]          ;Hmmm isnt this... the same, arent we just
+ movsx ebx,[ZSin]       ;doing the same, calculations on in exactly
+ imul ebx               ;The same, way but using different
+ mov ecx,eax            ;Variables?  Couldnt we optimise here ???
+ movsx eax,[X]
+ movsx ebx,[ZCos]       ;Answer...
+ imul ebx               ;
+ sub eax,ecx            ;Yes!  But that is a space optimisation
+ sar eax,14             ;Not a speed optimisation.  The INLINE
+ mov bp,ax              ;method is faster
+
+ movsx eax,[Y]          ;There is also a much better way to do this
+ movsx ebx,[ZCos]       ;that is both smaller and faster.
+ imul ebx
+ mov ecx,eax            ;I.E. Use a Matrix to rotates points
+ movsx eax,[X]          ;This however is much easier to follow
+ movsx ebx,[ZSin]       ;and MAFFZ wuzz never my strong suit :)
+ imul ebx
+ add eax,ecx            ;Maybe if this gets too.. slow ill use
+ sar eax,14             ;matricies tho :)
+
+ mov [X],bp
+ mov [Y],ax
+ pop cx
+ ret
+
+;-------------------------------------------------------------------------
+;calculate new angles of rotation for all points (to angles)
+
+;We do NOT rotate a point by 1 degree on one frame and then rotate that
+;rotated point by 1 degree in the next.  We rotate by 1 degree in the
+;first frame,  by 2 in the next, by 3 in the next etc.
+
+;Every time a point is rotated there is a slight ammount of error in our
+;calculation.  If we rotated previously rotated points we would accumulate
+;errors on each rotation of the point and our object would distort.
+
+;By rotating the SAME points (i.e the original shape) on every frame but
+;by different ammounts each time, we never distort our shape by more
+;than ONE rotations worth of error (which u cant see :)
+
+ChangeAngles:
+ mov ax,[DeltaX]        ;Adjust X angles of rotation
+ add [XAngle],ax
+ mov ax,[DeltaY]        ;And Y
+ add [YAngle],ax
+ mov ax,[DeltaZ]        ;And Z
+ add [ZAngle],ax
+ ret
+
+;-------------------------------------------------------------------------
+;Get Sin and Cos of all 3 angles of rotation.
+
+GetSinCos:
+ mov ax,[XAngle]        ;Get angle
+ call SinCos            ;Get Sin and Cos
+ mov [XSin],ax          ;Save em!
+ mov [XCos],bx
+
+ mov ax,[YAngle]        ;Same but different :)
+ call SinCos
+ mov [YSin],ax
+ mov [YCos],bx
+
+ mov ax,[ZAngle]        ;Same but different :)
+ call SinCos
+ mov [ZSin],ax
+ mov [ZCos],bx
+ ret
+
+;-------------------------------------------------------------------------
+;This moves a value between two limits at a specific rate.
+
+;This code uses the structure defined at the top of the source file.
+
+;The structure is defined as...
+;
+; struc [bx]
+;
+;This makes the address in BX the base of the structure.  A86 now allows
+;us to just name the structure element without reference to BX,  This makes
+;the code easier to read if you understand the mechanism but impossible to
+;follow if you dont :)
+
+;Where you see a something like
+;
+; dec Counter
+;
+;read....
+;
+; dec Counter[bx]
+;
+
+DoDeltas:
+ mov bx,W1              ;Modify X rotation
+ call >L0
+ mov bx,W2              ;Modify Y rotation
+ call >L0
+ mov bx,W3              ;Modify Z rotation
+ call >L0
+ mov bx,W4              ;Zoom in and out
+
+L0:
+ dec Counter            ;Count down to next change
+ jne ret
+ mov ax,Reset           ;Counter hit ZERO.  Reset it
+ mov Counter,ax
+ mov ax,Delta           ;Get rate. of change (also direction)
+ mov si,Position        ;Get pointer to variable to modify
+ add ax,[si]            ;Add delta to variable
+ mov [si],ax            ;Store back
+ cmp ax,Upper           ;Did variable reach upper limit?
+ jl >L2
+L1:
+ neg Delta              ;Change direction!
+ ret
+L2:
+ cmp ax,Lower           ;Did variable reach lower limit?
+ jl L1
+ ret
+
+;-------------------------------------------------------------------------
+;MOA's bump mapping routine. (Yea im uzing this again hehe I like it :)
+;-------------------------------------------------------------------------
+
+DoBump:
+ mov ax,0a000           ;Point to video
+ mov es,ax
+
+ mov si,BumpMap+320*16  ;Point to end of last line of bumpmap
+
+ mov di,16              ;16 scan lines
+ mov ax,di
+ sub ax,SpotY
+ mov BumpY,ax
+
+;-------------------------------------------------------------------------
+
+L0:
+ mov ax,320-2           ;320 Pels per scan
+ mov cx,ax
+ sub ax,SpotX
+ mov BumpX,ax
+
+L1:
+ mov ax,-1[si]          ;Look... No spotlight :) (Addition by OnlyMe)
+ or al,1[si]
+ or ax,-321[si]
+ or al,321[si]
+ test ax
+ jz >L9
+
+ xor ah,ah              ;Clear scratch registers
+ xor bh,bh
+ mov al,[si+1]          ;Read bump heights to left and right of this bump
+ mov bl,[si-1]
+ sub ax,bx              ;Compute differenct
+ sub ax,BumpX           ;I think this gets a 2D normal (erm)
+ cwd
+ xor ax,dx
+ sub ax,dx              ;But Maff izznt my strong suit
+ mov bx,07f
+ sub bx,ax
+ mov ax,bx
+ cwd
+ not dx
+ and bx,dx
+ push bx
+
+ xor ah,ah              ;When i understand how this code actually
+ xor bh,bh              ; works ill add propper comments.  Maybe someone
+ mov al,[si+0141]       ; can fill me in eh
+ mov bl,[si-0140]
+ sub ax,bx
+ sub ax,BumpY
+ cwd
+ xor ax,dx
+ sub ax,dx
+ mov bx,07F
+ sub bx,ax
+ mov ax,bx
+ cwd
+ not dx
+ and bx,dx
+
+ pop ax
+ mul bl
+ shr ax,6+2
+
+L9:
+; shr ax,2
+; add ax,5
+ es mov 0e600-BumpMap[si],al
+
+ dec BumpX
+ dec si
+ loop L1
+
+ dec BumpY
+ sub si,2
+ dec di
+ jnz L0
+ ret
+
+;-------------------------------------------------------------------------
+
+DoScroll:
+ xor si,si              ;First pixle row in current column
+
+ mov bx,BumpMap         ;Erm... Actually.... This is wrong... hehehe
+ mov bp,[CharP]         ;Point to characters font data
+ mov dh,b[CharColumn]   ;Get column mask
+L0:
+ xor cx,cx              ;Assume no bumps (0 pixle)
+ mov al,[bp+si]         ;Get character row from font
+ and al,dh              ;Mask out all but current column
+ if nz mov cx,03030     ;Raise bumps
+ mov [bx],cx            ;Write double width pixle
+ mov 320[bx],cx         ;Double height too!
+ add bx,2*320
+ inc si                 ;Add 1 to row
+ cmp si,8               ;Font is 8 by 8
+ jne L0
+
+ mov ax,ds
+ mov es,ax
+
+ mov si,BumpMap         ;Scroll bumpmap 2 pixles left
+ mov di,si              ;pixles at far left move to far right hehehe
+ add si,2
+ mov cx,320*16/2
+ rep movsw
+
+ ror CharColumn,1       ;Shift row mask 1
+ jnc short ret          ;Wrap round and compute next char
+
+InitScroll:
+ mov si,[BannerP]       ;Get pointer to next char in banner
+ test b[si]             ;End of text?
+ jnz >L0
+
+ inc si
+ lodsw
+ mov [Shape],ax
+ lodsw
+ mov si,ax
+
+L0:
+ xor ah,ah
+ lodsb                  ;Get text character
+ mov [BannerP],si
+ shl ax,3               ;Compute chars ROM offset
+ add ax,Font
+ mov CharP,ax           ;Points to font data for character
+ ret
+
+;-------------------------------------------------------------------------
+;Get a copy of the font data out of ROM into default DS
+
+GetFont:
+ mov ax,0f000           ;Point to ROM
+ mov ds,ax
+ mov si,0fa6e           ;Offset to font data in ROM
+ mov di,Font
+ mov cx,256*2
+ rep movsw
+ mov ax,cs
+ mov ds,ax
+ ret
+
+;-------------------------------------------------------------------------
+;Write a KEWL purple palette (Shut Up! I like PuRplE :P)
+
+GetPalette:
+ mov dx,03C8            ;Write new palette
+ xor cx,cx
+ xor ax,ax
+ out dx,al
+ inc dx
+L0:
+ mov al,cl              ;Select colour number to updata
+ out dx,al              ;Write Red
+ xchg ah,al
+ out dx,al              ;Write Green (Zero)
+ xchg ah,al
+ out dx,al              ;Write Blue
+ inc cl
+ jnz L0
+ ret
+
+;-------------------------------------------------------------------------
+;Shape structure defined as....
+;
+; db number-of-points
+; db x,y,z      of first point
+; db x,y,z ...  of rest
+
+Cube:
+ db 125
+ db -35,-35,-35,-35,-35,-15,-35,-35, 05,-35,-35, 25,-35,-35, 45
+ db -35,-15,-35,-35,-15,-15,-35,-15, 05,-35,-15, 25,-35,-15, 45
+ db -35, 05,-35,-35, 05,-15,-35, 05, 05,-35, 05, 25,-35, 05, 45
+ db -35, 25,-35,-35, 25,-15,-35, 25, 05,-35, 25, 25,-35, 25, 45
+ db -35, 45,-35,-35, 45,-15,-35, 45, 05,-35, 45, 25,-35, 45, 45
+ db -15,-35,-35,-15,-35,-15,-15,-35, 05,-15,-35, 25,-15,-35, 45
+ db -15,-15,-35,-15,-15,-15,-15,-15, 05,-15,-15, 25,-15,-15, 45
+ db -15, 05,-35,-15, 05,-15,-15, 05, 05,-15, 05, 25,-15, 05, 45
+ db -15, 25,-35,-15, 25,-15,-15, 25, 05,-15, 25, 25,-15, 25, 45
+ db -15, 45,-35,-15, 45,-15,-15, 45, 05,-15, 45, 25,-15, 45, 45
+ db  05,-35,-35, 05,-35,-15, 05,-35, 05, 05,-35, 25, 05,-35, 45
+ db  05,-15,-35, 05,-15,-15, 05,-15, 05, 05,-15, 25, 05,-15, 45
+ db  05, 05,-35, 05, 05,-15, 05, 05, 05, 05, 05, 25, 05, 05, 45
+ db  05, 25,-35, 05, 25,-15, 05, 25, 05, 05, 25, 25, 05, 25, 45
+ db  05, 45,-35, 05, 45,-15, 05, 45, 05, 05, 45, 25, 05, 45, 45
+ db  25,-35,-35, 25,-35,-15, 25,-35, 05, 25,-35, 25, 25,-35, 45
+ db  25,-15,-35, 25,-15,-15, 25,-15, 05, 25,-15, 25, 25,-15, 45
+ db  25, 05,-35, 25, 05,-15, 25, 05, 05, 25, 05, 25, 25, 05, 45
+ db  25, 25,-35, 25, 25,-15, 25, 25, 05, 25, 25, 25, 25, 25, 45
+ db  25, 45,-35, 25, 45,-15, 25, 45, 05, 25, 45, 25, 25, 45, 45
+ db  45,-35,-35, 45,-35,-15, 45,-35, 05, 45,-35, 25, 45,-35, 45
+ db  45,-15,-35, 45,-15,-15, 45,-15, 05, 45,-15, 25, 45,-15, 45
+ db  45, 05,-35, 45, 05,-15, 45, 05, 05, 45, 05, 25, 45, 05, 45
+ db  45, 25,-35, 45, 25,-15, 45, 25, 05, 45, 25, 25, 45, 25, 45
+ db  45, 45,-35, 45, 45,-15, 45, 45, 05, 45, 45, 25, 45, 45, 45
+
+Star:
+ db 65
+ db -35,-35, 05,-35,-15, 05,-35, 05, 05,-35, 25, 05,-35, 45, 05
+ db -15,-35, 05,-15,-15, 05,-15, 05, 05,-15, 25, 05,-15, 45, 05
+ db  05,-35, 05, 05,-15, 05, 05, 05, 05, 05, 25, 05, 05, 45, 05
+ db  25,-35, 05, 25,-15, 05, 25, 05, 05, 25, 25, 05, 25, 45, 05
+ db  45,-35, 05, 45,-15, 05, 45, 05, 05, 45, 25, 05, 45, 45, 05
+ db  05,-35,-35, 05,-35,-15, 05,-35, 25, 05,-35, 45,-35, 05,-35
+ db  05,-15,-35, 05,-15,-15, 05,-15, 25, 05,-15, 45,-15, 05,-35
+ db  05, 05,-35, 05, 05,-15, 05, 05, 25, 05, 05, 45, 05, 05,-35
+ db  05, 25,-35, 05, 25,-15, 05, 25, 25, 05, 25, 45, 25, 05,-35
+ db  05, 45,-35, 05, 45,-15, 05, 45, 25, 05, 45, 45, 45, 05,-35
+ db -35, 05,-15,-35, 05, 25,-35, 05, 45,-15, 05,-15,-15, 05, 25
+ db -15, 05, 45, 05, 05,-15, 05, 05, 25, 05, 05, 45, 25, 05,-15
+ db  25, 05, 25, 25, 05, 45, 45, 05,-15, 45, 05, 25, 45, 05, 45
+
+Flies:
+ db 6
+ db -35,-35,-35,-35,-35, 45, 45, 45,-35, 45, 45, 45,  5,-35,  5
+ db   5, 45,  5
+
+Square:
+ db 25
+ db -35,-35,-35,-35,-15,-35,-35, 05,-35,-35, 25,-35,-35, 45,-35
+ db -15,-35,-35,-15,-15,-35,-15, 05,-35,-15, 25,-35,-15, 45,-35
+ db  05,-35,-35, 05,-15,-35, 05, 05,-35, 05, 25,-35, 05, 45,-35
+ db  25,-35,-35, 25,-15,-35, 25, 05,-35, 25, 25,-35, 25, 45,-35
+ db  45,-35,-35, 45,-15,-35, 45, 05,-35, 45, 25,-35, 45, 45,-35
+
+Heart:
+ db 32
+ db -35,-15,-35,-35, 25,-35,-15,-35,-35,-15,-15,-35,-15, 05,-35
+ db -15, 25,-35,-15, 45,-35, 05,-35,-35, 05,-15,-35, 05, 05,-35
+ db  05, 25,-35, 05, 45,-35, 25,-15,-35, 25, 05,-35, 25, 25,-35
+ db  45, 05,-35
+ db -30,-10,-30,-30, 20,-30,-10,-30,-30,-10,-10,-30,-10, 00,-30
+ db -10, 20,-30,-10, 40,-30, 00,-30,-30, 00,-10,-30, 00, 00,-30
+ db  00, 20,-30, 00, 40,-30, 20,-10,-30, 20, 00,-30, 20, 20,-30
+ db  40, 00,-30
+
+;-------------------------------------------------------------------------
+;I discovered this one completely by accident.  I moved a table from the
+;end of this file to somewhere up there... but forgot to move the label
+;(hehehe).  I was therfor referencing a table that is INCLUDED here by my
+;assembler.  It had lotsa junk in with it at first but i cleaned that out
+;and this was the result.  I love this object :) its KEWKL hehehe!
+
+Cross:
+ db 75
+ db 000,000,019,000,005,019,000,014,001,000,032,000,000,07D,000
+ db 000,0C9,000,001,05F,001,001,0AB,001,001,0F6,001,002,041,002
+ db 002,08D,002,002,0D8,002,003,023,003,003,005,004,003,06F,003
+ db 003,0BA,003,004,051,004,004,09C,004,004,0E7,004,005,013,006
+ db 005,032,005,005,07D,005,005,0C8,005,006,05E,006,006,0A9,006
+ db 006,0F4,006,007,03F,007,007,08A,007,007,0D5,007,008,000,009
+ db 008,020,008,008,06B,008,008,0B5,008,009,04B,009,009,095,009
+ db 009,0E0,009,00A,009,00B,00A,02A,00A,00A,075,00A,00A,0BF,00A
+ db 00B,054,00B,00D,007,026,00F,002,028,019,009,032,01E,004,037
+ db 022,00B,03B,02C,006,045,02D,001,046,039,008,052,03D,003,056
+ db 043,00A,05C,04B,000,064,04B,005,064,058,007,071,05B,002,074
+ db 064,009,07C,084,008,09C,088,003,0A1,08D,00A,0A6,096,000,0AF
+ db 096,005,0AF,0A3,007,0BC,0A6,002,0BF,0AE,009,0C7,0B5,004,0CE
+ db 0C2,006,0DB,0C4,001,0DD,0CE,008,0E7,0D3,003,0EC,0D8,00A,0F1
+ db 0E1,005,0FA,0E2,000,0FB,0EE,007,007,0F1,002,00A,0F9,009,011
+
+;=========================================================================
+
