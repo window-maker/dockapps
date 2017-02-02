@@ -663,11 +663,15 @@ int init_sensors() {
   FILE *config_file;
   int res;
 
-  config_file = fopen(rc_config, "r");
+  if (rc_config) {
+    config_file = fopen(rc_config, "r");
 
-  if(config_file == NULL) {
-    fprintf(stderr, "Error opening %s\n", rc_config);
-    return 0;
+    if(config_file == NULL) {
+      fprintf(stderr, "Error opening %s\n", rc_config);
+      return 0;
+    }
+  } else {
+    config_file = NULL; /* Use libsensors default */
   }
 
   res = sensors_init(config_file);
@@ -677,7 +681,7 @@ int init_sensors() {
     return 0;
   }
 
-  if(fclose(config_file))
+  if(config_file && fclose(config_file))
     perror("Error closing sensors config");
 
   return 1;
@@ -688,7 +692,7 @@ void display_usage() {
 	 "Usage: wmgtemp [options]\n" \
 	 "Options:\n" \
 	 "   -S, --sensorconf=PATH  Specify sensors config file PATH\n" \
-	 "                          [Default: /etc/sensors.conf]\n" \
+	 "                          [Default: autodetect]\n" \
 	 "   -s, --scale=SCALE      Display temperatures in SCALE\n" \
 	 "                          SCALE=kelvin, fahrenheit\n" \
 	 "                          [Default: celcius]\n" \
@@ -949,9 +953,6 @@ int process_config(int argc, char **argv) {
   }
   if(rc_chip != NULL) {
     sensor_chip = strdup(rc_chip);
-  }
-  if(rc_config == NULL) {
-    rc_config = "/etc/sensors.conf";
   }
 
   if(rc_graph != NULL) {
