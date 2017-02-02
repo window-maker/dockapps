@@ -428,7 +428,7 @@ void update_sensor_data() {
   double sys_high = highest_temp(sys_history);
 
   /* Shift the arrays */
-  for(i = 0; i < 59; i++) {
+  for(i = 0; i < 58; i++) {
     cpu_history[i] = cpu_history[i + 1];
     sys_history[i] = sys_history[i + 1];
   }
