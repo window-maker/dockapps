@@ -1,2 +1,1 @@
-wmgtemp.o: wmgtemp.c wmgeneral/wmgeneral.h wmgeneral/misc.h \
- wmgtemp-interface.xpm wmgtemp-interface-mask.xbm
+wmgtemp.o: wmgtemp.c wmgtemp-interface.xpm wmgtemp-interface-mask.xbm

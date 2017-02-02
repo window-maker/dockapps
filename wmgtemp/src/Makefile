@@ -1,15 +1,12 @@
 CC      = gcc
 INSTALL = /usr/bin/install
 LIB     = lib
-LDFLAGS = -L/usr/X11R6/$(LIB) -lXpm -lXext -lX11 -lsensors
+LDFLAGS = -L/usr/X11R6/$(LIB) -lXpm -lXext -lX11 -lsensors -ldockapp
 BINARY  = wmgtemp
 CCFLAGS = -Wall -g
 INSTDIR = /usr/local/bin
 
-OFILES  = wmgtemp.o \
-	./wmgeneral/wmgeneral.o \
-	./wmgeneral/misc.o \
-	./wmgeneral/list.o
+OFILES  = wmgtemp.o
 
 %.o:
 	$(CC) $(CCFLAGS) -c $*.c -o $*.o

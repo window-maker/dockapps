@@ -12,8 +12,8 @@
 #include <X11/extensions/shape.h>
 #include <sensors/sensors.h>
 #include <sensors/error.h>
-#include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
+#include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 #include "wmgtemp-interface.xpm"
 #include "wmgtemp-interface-mask.xbm"
 #include <math.h>
