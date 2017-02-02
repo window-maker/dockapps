@@ -1,4 +1,56 @@
-Project Version : rel-1_1
+2017-02-01  Doug Torrance <dtorrance@piedmont.edu>
+
+	* CREDITS, ChangeLog, README, configure.ac: Bump to version 1.2.
+
+2017-02-01  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/wmgtemp-interface-mask.xbm: Use 'char' instead of 'unsigned char'
+	  for bit mask.  Avoids compiler warning:
+
+2017-02-01  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/wmgtemp.c: Remove unused variable 'chipname'
+
+2017-02-01  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/wmgtemp.c: Drop all inline functions.  Too many issues when
+	  compiling with different C standards.
+
+2017-01-31  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Makefile, Makefile.am, configure.ac, src/.deps, src/Makefile,
+	  src/wmgtemp.c: Switch to autotools for build.
+
+2017-01-31  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/.deps, src/Makefile, src/wmgeneral/list.c, src/wmgeneral/list.h,
+	  src/wmgeneral/misc.c, src/wmgeneral/misc.h, src/wmgeneral/wmgeneral.c,
+	  src/wmgeneral/wmgeneral.h, src/wmgtemp.c: Use wmgeneral from
+	  libdockapp.
+
+2017-01-31  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/wmgtemp.c: Fix -Waggressive-loop-optimizations compiler warning.
+	  In particular, the cpu_history array has length 59, so when i = 58,
+	  cpu_history[i+1] is undefined.  From:
+	    http://sources.debian.net/src/1.1-3/debian/patches/
+	     fix_-Waggressive-loop-optimizations.patch/
+
+2017-01-31  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/wmgtemp.c: Autodetect sensors.conf instead of providing default
+	  value.  Patch by Aurelien Jarno <aurel32@debian.org>.  From:
+	    http://sources.debian.net/src/wmgtemp/1.1-3/debian/patches/
+	     sensors.conf.patch/
+
+2017-01-31  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmgtemp.1: Fix hyphen in manpage.  Patch by Dario Minnucci
+	  <midget@debian.org>.  From:
+	    http://sources.debian.net/src/wmgtemp/1.1-3/debian/patches/
+	     fix_hyphens_in_wmgtemp.1.patch/
+
+
 2010-06-21 11:54  kronos
 
 	* src/: wmgtemp-interface.xpm, wmgtemp.c: applied patch from Ludwig
