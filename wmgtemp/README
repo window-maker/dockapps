@@ -1,0 +1,42 @@
+-------------------------------------------------------------------------
+You may distribute this program under the terms of the Artistic
+License.
+                                                                           
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the Artistic
+License for more details.
+-------------------------------------------------------------------------
+
+wmgtemp is a dock app intended for use with WindowMaker.
+It displays the CPU and SYS temperatures (both in numerically and 
+graphically) of motherboards that use the VIA686A chipset. Currently 
+this is the only chipset that is supported but I have the intention of
+adding support for other chipsets in the future.
+
+Interface Features:
+	Clicking on the temperature toggles displaying of maximum reached
+	temperature. This mode is indicated by a green upward pointing
+	arrow to the left of the temperature.
+
+	Clicking on CPU or SYS toggles displaying of that temperature
+	type on the graph. The temperature value will still be displayed
+	numerically however.
+
+	Clicking on the Graph area will cycle through the graph types.
+
+	When the bounds of the graph are exceeded the graph will be rescaled
+	the show the current temperature and a line will be drawn to indicate
+	the bound(red for upper bound, blue for lower bound). As soon as
+	all temperatures being displayed are within a bound, the graph will
+	be rescaled back to normal size.
+
+Supported Sensors:
+	  Unlike other versions, this version tries to auto detects sensors.
+	  This means it should work with any sensors that lm_sensors supports.
+
+
+
+Send any bug reports and ideas to:
+
+Roger Dunce (kronos@fluxcode.net)

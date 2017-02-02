@@ -1,0 +1,5 @@
+1.	make depend
+2.	make
+3.	su root
+4.	make install
+5.	make install.man (optional)

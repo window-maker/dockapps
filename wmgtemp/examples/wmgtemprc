@@ -1,0 +1,22 @@
+# Graph style, 'block' or 'line', 'b' and 'l' for the lazy
+graph: block
+# Scale type, 'celcius', 'fahrenheit' or 'kelvin', 'c', 'f' or 'k' for the lazy.
+scale: celcius
+# High CPU temperature (red light)
+high: 50
+# Warning CPU temperature(amber light)
+warn: 45
+# Upper bound of graph
+max: 35
+# Lower bound of graph
+min: 20
+# Execute a command at this temperature
+execat: 80
+# What to execute at the above temperature.
+exec: xmessage "Ouch, I'm HOT!"
+# Update delay in seconds
+update: 2
+# Use temp3 for second sensor
+feature2:temp3
+# Be quiet
+quiet:y

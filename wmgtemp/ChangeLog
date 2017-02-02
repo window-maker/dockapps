@@ -1,0 +1,323 @@
+Project Version : rel-1_1
+2010-06-21 11:54  kronos
+
+	* src/: wmgtemp-interface.xpm, wmgtemp.c: applied patch from Ludwig
+	  Nussell re: t flag and degree drawing
+
+2010-06-21 11:54  kronos
+
+	* CREDITS: applied path from Ludwig Nussell re: t flag and degree
+	  drawing
+
+2010-03-26 21:27  kronos
+
+	* CREDITS: dev
+
+2010-03-26 21:22  kronos
+
+	* BUGS: rc segfault bug fixed
+
+2010-03-26 21:21  kronos
+
+	* CREDITS: minor update
+
+2010-03-26 21:15  kronos
+
+	* wmgtemp.1: update man page
+
+2010-03-26 21:09  kronos
+
+	* CREDITS, src/wmgtemp.c, src/wmgeneral/wmgeneral.c: fixed segfault
+	  in wmgeneral. compiles with lm_sensors3, can now specify the
+	  sensors config. added chip selection option
+
+2007-06-14 11:01  kronos
+
+	* Makefile, wmgtemp.1, src/Makefile, src/wmgtemp.c: merged patch
+	  from Josip Rodin and Lugwig Nussel
+
+2003-06-10 19:33  kronos
+
+	* src/wmgtemp.c: added version to help screen
+
+2003-06-10 19:29  kronos
+
+	* README, wmgtemp.1, examples/wmgtemprc, src/wmgtemp.c: added
+	  feature1/2 options, added quiet option
+
+2003-03-12 00:57  kronos
+
+	* CREDITS, src/wmgtemp.c: removed multiline string literal,
+	  deprecated in gcc-3.2
+
+2002-06-14 02:21  kronos
+
+	* README, src/Makefile: now usiing dynamic chipset detection
+
+2002-02-24 21:27  kronos
+
+	* wmgtemp.1: removed suported sensors stuff
+
+2002-02-24 21:24  kronos
+
+	* CREDITS: fixed typo in email
+
+2002-02-24 21:19  kronos
+
+	* src/wmgtemp.c: switched t autodetection of chips
+
+2001-06-09 03:49  kronos
+
+	* CREDITS, README, wmgtemp.1, src/wmgtemp.c: merged in ADM1021
+	  support re Dennis Schneider <sdans@wed.de>. Added temperature
+	  swapping
+
+2001-04-17 01:53  kronos
+
+	* README: added AS99127F to sensor  lis
+
+2001-04-17 01:48  kronos
+
+	* src/wmgtemp.1x: removed coz i wrote a better one and added it
+	  somewhere else and forgot about this one
+
+2001-04-17 01:45  kronos
+
+	* Makefile: Modified manpage install - actually works this time,
+	  that'll teach me for doing it at work and not testing it ;)
+
+2001-04-17 01:45  kronos
+
+	* wmgtemp.1: HELP for ckable tempscale indicator - cycling.
+
+2001-04-17 01:44  kronos
+
+	* src/wmgtemp.c: Added clickable tempscale indicator - cycling.
+
+2001-04-13 15:29  kronos
+
+	* INSTALL, Makefile: Added manpage install
+
+2001-04-13 02:04  kronos
+
+	* wmgtemp.1: Initial add of manpage
+
+2001-04-13 02:02  kronos
+
+	* CREDITS, src/wmgtemp.c: Added support for AS99127F and fixed the
+	  bug that stopped the temps being displayed in other scales
+
+2001-02-28 20:55  kronos
+
+	* src/wmgtemp.c: Corrected help screen defailt temps for min and
+	  max
+
+2001-02-28 20:53  kronos
+
+	* TODO: updated with doneness
+
+2001-02-28 20:41  kronos
+
+	* src/wmgtemp-interface.xpm: Changed high temp viewing indicator
+	  light to amber
+
+2001-02-28 20:34  kronos
+
+	* src/wmgtemp.c: Fixed typo in help, removed extra -h flag on help
+	  screen, correct processing of -u flag.
+
+2001-02-28 16:50  kronos
+
+	* src/wmgtemp.c: Changed summink to test email notification
+
+2001-02-28 16:47  kronos
+
+	* src/wmgtemp.c: testing email notifications
+
+2001-02-28 14:48  kronos
+
+	* src/wmgtemp.c: Fixed lagging screen drawing
+
+2001-02-28 14:47  kronos
+
+	* examples/wmgtemprc: Initial add
+
+2001-02-28 14:46  kronos
+
+	* BUGS: added blurb
+
+2001-02-27 20:57  kronos
+
+	* README: Added guff
+
+2001-02-27 20:34  kronos
+
+	* BUGS: Added
+
+2001-02-27 20:28  kronos
+
+	* src/: wmgtemp-interface.xpm, wmgtemp.c: Changed commandline
+	  processing to getopt, Added rcfile processing, Added MAX temp
+	  viewing indicator light
+
+2001-02-26 20:45  kronos
+
+	* src/: wmgtemp-interface.xpm, wmgtemp.c: Last commit added support
+	  for W83781D and W83627HF. This: Added support for optional
+	  displaying of CPU/SYS temp on graph.
+
+2001-02-26 17:15  kronos
+
+	* src/: wmgtemp-interface.xpm, wmgtemp.c: Added HIGH temp
+	  displaying, execing of command at given temp
+
+2001-02-26 14:15  kronos
+
+	* CREDITS: Added note for Jon Kinred <compart@one.net.au>
+
+2001-02-26 14:14  kronos
+
+	* src/wmgtemp.c: W83781D, W83627HF support.
+
+2001-02-23 21:01  kronos
+
+	* src/wmgtemp.1x: Added manpage
+
+2001-02-22 21:13  kronos
+
+	* INSTALL: updated instructions
+
+2001-02-22 21:12  kronos
+
+	* Makefile: Added missing install option
+
+2001-02-22 21:08  kronos
+
+	* TODO: checked off completed ideas
+
+2001-02-22 20:57  kronos
+
+	* src/wmgtemp.c: Converted to use signals - xevents weren't being
+	  handled in a timely manner
+
+2001-02-22 20:22  kronos
+
+	* src/wmgtemp.c: Code cleanup
+
+2001-02-21 20:38  kronos
+
+	* src/wmgtemp.c: moved drawing of range lines
+
+2001-02-21 20:05  kronos
+
+	* src/: wmgtemp-interface.xpm, wmgtemp.c: Revamped graph rescaling,
+	  not so zoomy
+
+2001-02-16 19:42  kronos
+
+	* src/wmgtemp.c: Updated usage
+
+2001-02-16 19:40  kronos
+
+	* src/Makefile: Added 'depend' back in, oops!
+
+2001-02-16 19:40  kronos
+
+	* src/.deps: New
+
+2001-02-16 19:33  kronos
+
+	* src/wmgtemp.c: tidied a few things
+
+2001-02-16 19:29  kronos
+
+	* src/Makefile: removed 'depend', not needed
+
+2001-02-16 19:23  kronos
+
+	* src/: .xvpics/wmgtemp-interface.xpm, .xvpics/wmlm_master.xpm,
+	  .deps: Removed, shouldn't be maintained by cvs
+
+2001-02-16 19:06  kronos
+
+	* CREDITS: Initial
+
+2001-02-16 18:56  kronos
+
+	* TODO: Checked off completed items
+
+2001-02-16 18:53  kronos
+
+	* src/wmgtemp.h: Removed coz it ain't needed
+
+2001-02-16 18:48  kronos
+
+	* src/: wmgtemp.c: Added CPU temp warning lights
+
+2001-02-16 14:55  kronos
+
+	* src/wmgtemp.c: Got rid of a few of the if's in temperature
+	  scaling
+
+2001-02-16 14:46  kronos
+
+	* src/: wmgtemp.c, wmgtemp.h: Modified graph to scale on the fly
+	  depending on temperature ranges of displayed values.
+
+2001-02-09 21:52  kronos
+
+	* src/wmgtemp.c: added checking for invalid delay
+
+2001-02-09 21:50  kronos
+
+	* src/wmgtemp.c: corrected update delay message
+
+2001-02-09 21:46  kronos
+
+	* src/wmgtemp.c: changed error message for unsupported chip
+
+2001-02-09 21:40  kronos
+
+	* src/: wmgtemp-interface.xpm, wmgtemp.c, wmgtemp.h: Adding
+	  structure to make supporting other chipssets easier
+
+2001-02-07 18:58  kronos
+
+	* TODO: added ideas while i still remember them
+
+2001-02-07 18:52  kronos
+
+	* src/wmgtemp.c: added usage for block and line
+
+2001-02-07 18:51  kronos
+
+	* TODO: added ideas while i still remember them
+
+2001-02-07 18:47  kronos
+
+	* Artistic, INSTALL, README, TODO: Initial
+
+2001-02-07 18:34  kronos
+
+	* src/: wmgtemp.c, wmgtemp.h: added rudimentary graph drawing
+
+2001-02-07 17:28  kronos
+
+	* Makefile, src/.deps, src/Makefile,
+	  src/wmgtemp-interface-mask.xbm, src/wmgtemp-interface.xpm,
+	  src/wmgtemp.c, src/wmgtemp.h, src/wmgeneral/misc.c,
+	  src/wmgeneral/misc.h, src/wmgeneral/wmgeneral.c,
+	  src/wmgeneral/wmgeneral.h, src/wmgeneral/list.c,
+	  src/wmgeneral/list.h, src/.xvpics/wmgtemp-interface.xpm,
+	  src/.xvpics/wmlm_master.xpm: Initial revision
+
+2001-02-07 17:28  kronos
+
+	* Makefile, src/.deps, src/Makefile,
+	  src/wmgtemp-interface-mask.xbm, src/wmgtemp-interface.xpm,
+	  src/wmgtemp.c, src/wmgtemp.h, src/wmgeneral/misc.c,
+	  src/wmgeneral/misc.h, src/wmgeneral/wmgeneral.c,
+	  src/wmgeneral/wmgeneral.h, src/wmgeneral/list.c,
+	  src/wmgeneral/list.h, src/.xvpics/wmgtemp-interface.xpm,
+	  src/.xvpics/wmlm_master.xpm: initial import of tidied up version
+

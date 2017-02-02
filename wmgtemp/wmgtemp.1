@@ -1,0 +1,153 @@
+.\" Hey, Emacs!  This is an -*- nroff -*- source file.
+.TH "wmgtemp" 1 "February 2001" ""
+.SH NAME
+wmgtemp \- Temperature sensor dock app for Window Maker
+.SH SYNOPSIS
+.B wmgtemp
+.I "[options]"
+.SH "DESCRIPTION"
+wmgtemp is a dock-app for Window Maker that graphically displays the CPU and
+System temperatures using the lm_sensors package. It displays the CPU and
+System temperature values, a scaling graph of temperature history,
+high-temperature warning lights and temperatures in degrees Celsius,
+Fahrenheit or Kelvin.
+.PP
+The temperature graph is auto scaling, meaning that if the max or min temperature boundary is crossed the graph will be scaled to display the temperature. A red line marks the upper boundary whereas a blue line indicates the lower boundary. When all the temperatures being displayed are within the boundaries the graph will be scaled back to the preset values for min/max and the boundary indicator lines will be removed.
+.PP
+The high temperature warning lights located on the left of the temperature type indicators show amber or red when the warning or high temperatures are reached respectively. Normal operating temperature is indicated by no light.
+.SH "OPTIONS"
+.TP
+.B \-h, \-\-help
+display the usage information
+.TP
+.B \-s, \-\-scale=SCALE
+show temperatures using SCALE temperature scale. SCALE=celcius, fahrenheit or kelvin.
+.br
+\fBDefault\fP: celcius
+.TP
+.B \-S, \-\-sensorconf=PATH
+specify the PATH to the lm_sensors config
+.br
+\fBDefault\fP: /etc/sensors.conf
+.TP
+.B \-g, \-\-graph=STYLE
+display graph as STYLE. STYLE=line or block.
+.br
+\fBDefault\fP: line
+.TP
+
+.B \-H, \-\-high=TEMP
+display red warning light at TEMP degrees celcius.
+.br
+\fBDefault\fP: 50
+.TP
+
+.B \-w, \-\-warn=TEMP
+display amber warning light at TEMP degrees celcius.
+.br
+\fBDefault\fP: 45
+
+.TP
+.B \-u, \-\-update=SEC
+update the display every SEC seconds.
+.br
+\fBDefault\fP: 1
+
+.TP
+.B \-m, \-\-min=TEMP
+set the lower bound of the graph to TEMP degrees celcius.
+.br
+\fBDefault\fP: 20
+
+.TP
+.B \-M, \-\-max=TEMP
+set the upper bound of the graph to TEMP degrees celcius.
+.br
+\fBDefault\fP: 35
+
+.TP
+.B \-1, \-\-feature1=F1
+set the feature for CPU
+.br
+\fBDefault\fP: temp1
+
+.TP
+.B \-2, \-\-feature2=F2
+set the feature for SYS
+.br
+\fBDefault\fP: temp2
+
+.TP
+.B \-c, \-\-chip=CHIP
+specify the chip sensor to use
+.br
+\fBDefault\fP: auto
+
+.TP
+.B \-a, \-\-execat=TEMP
+execute a command at TEMP degrees celcius.
+.br
+\fBDefault\fP: none
+
+.TP
+.B \-e, \-\-exec=COMMAND
+execute COMMAND when the 'execat' temperature is reached.
+.br
+\fBDefault\fP: none
+
+.TP
+.B \-t, \-\-swap
+swap/transpose temperature values
+
+.TP
+.B \-q, \-\-quiet
+Don't display any messages
+
+.PP
+.SH FILES
+~/.wmgtemprc	User configuration.
+.PP
+The format of this file is:
+.nf
+.IP
+# wmgtemp example config
+scale:celcius
+graph:line
+high:50
+warn:45
+update:1
+min:25
+max:35
+execat:80
+exec:shutdown -h 10
+swap:n
+quiet:y
+feature1:temp1
+feature2:temp2
+.PP
+.SH USAGE
+.SS Graph
+You can cycle through the graph types by clicking on the graph display area.
+.PP
+.SS High Temperature Toggle
+You can toggle the displaying of high temperatures by click on the temperature for the corrosponding temperature. The viewing of high temperatures is indicated by an amber arrow to the left of the temperature. The current temperatures will continue to be displayed on the graph.
+.PP
+.SH
+.SS Temperature display TOGGLE
+You may toggle the displaying of a temperature on the graph by clicking on the corrosponding type. e.g To toggle the display of the CPU temperature click on CPU. The type indicator (CPU or SYS) will disappear and the temperature will not be displayed on the graph, although the temperature value will continue to be displayed.
+.PP
+.SH
+.SS Temperature Scale Cycling
+You may change the scale the temperatures are displayed in by clicking on either of the CPU or SYS scale indicators. The cycle order is \fBC\fP -> \fBK\fP -> \fBF\fP
+.PP
+.SH BUGS
+Blank lines in the config file cause a Segmentation Fault.
+.PP
+.SH SEE ALSO
+.BR sensors.conf (5),
+.BR libsensors (3),
+.BR wmaker (1x)
+.SH AUTHOR
+wmgtemp was written by Roger Dunce <kronos@fluxcode.net>
+
+

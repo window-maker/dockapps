@@ -1,0 +1,13 @@
+Here are a list of people that have contributed to the project
+and whose help and advice is greatly appreciated.
+
+Damian Kramer <psiren@hibernaculum.demon.co.uk>
+Jon Kinred <compart@one.net.au> - W83781D, W83627HF support.
+William Martin <bill@dunfoamin.org> - AS99127F support.
+Dennis Schneider <sdans@web.de> - ADM1021 support.
+Per Larsson <albatorsk@comatosehitmen.com> IT87 support.
+Antti Pyykko <pyksy@pyksy.fi> - lm_sensors3 support, -c option.
+Ben Spencer <dangerous.ben@gmail.com> - drawing fix.
+Robert Cernansky <hslists@zoznam.sk> - testing.
+Ludwig Nussel <lugwig.nussell@web.de> - removed usleep, bugfixes.
+
