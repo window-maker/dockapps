@@ -688,7 +688,7 @@ int init_sensors() {
 }
 
 void display_usage() {
-  printf("wmgtemp v0.9\n" \
+  printf("wmgtemp v"PACKAGE_VERSION"\n" \
 	 "Usage: wmgtemp [options]\n" \
 	 "Options:\n" \
 	 "   -S, --sensorconf=PATH  Specify sensors config file PATH\n" \
