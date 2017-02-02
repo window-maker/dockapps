@@ -70,15 +70,15 @@ void draw_range_line(double temp, double range, short type);
 void update_display();
 void update_sensor_data();
 void do_sensors(int val);
-inline double highest_temp(double *temp_array);
-inline double lowest_temp(double *temp_array);
-inline void draw_temp(short value, int type);
-inline void draw_warning_lights(double current_temp);
-inline void draw_max(int type);
-inline void blank_max(int type);
-inline void draw_type(int type);
-inline void blank_type(int type);
-inline void cycle_temptype();
+double highest_temp(double *temp_array);
+double lowest_temp(double *temp_array);
+void draw_temp(short value, int type);
+void draw_warning_lights(double current_temp);
+void draw_max(int type);
+void blank_max(int type);
+void draw_type(int type);
+void blank_type(int type);
+void cycle_temptype();
 
 /* Globals */
 int delay      = 1;
@@ -572,7 +572,7 @@ int recompute_range(double cpu_high, double cpu_low, double sys_high, double sys
   return modified;
 }
 
-inline double highest_temp(double *temp_array) {
+double highest_temp(double *temp_array) {
   int i = 0;
   double high = 0;
   for(i = 0; i < 59; i++) {
@@ -582,7 +582,7 @@ inline double highest_temp(double *temp_array) {
   return high;
 }
 
-inline double lowest_temp(double *temp_array) {
+double lowest_temp(double *temp_array) {
   int i = 0;
   double low = 500;
   for(i = 0; i < 59; i++) {
@@ -620,7 +620,7 @@ void add_to_graph(double temp, int type, short blank, double range, int pos) {
 }
 
 
-inline void draw_temp(short value, int type) {
+void draw_temp(short value, int type) {
   short digit;
 
   if(value > 0) {
@@ -638,7 +638,7 @@ inline void draw_temp(short value, int type) {
 }
 
 
-inline void draw_clear_temps() {
+void draw_clear_temps() {
   if(IsOn(SENSOR_DISP, CPU)) {
     copyXPMArea(78, 65, 5, 7, 34, CPU_YPOS);
     copyXPMArea(78, 65, 5, 7, 40, CPU_YPOS);
@@ -749,7 +749,7 @@ void draw_warning_lights(double current_temp) {
   }
 }
 
-inline void blank_type(int type) {
+void blank_type(int type) {
   switch(type) {
   case CPU:
     copyXPMArea(78, 65, 5, 7, 11, CPU_YPOS);
@@ -780,17 +780,17 @@ inline void blank_type(int type) {
   }
 }
 
-inline void draw_max(int type) {
+void draw_max(int type) {
   //  copyXPMArea(1, 81, 17, 7, 11, type == CPU ? CPU_YPOS : SYS_YPOS);
   copyXPMArea(24, 75, 4, 3, 29, type == CPU ? CPU_YPOS : SYS_YPOS);
 }
 
-inline void blank_max(int type) {
+void blank_max(int type) {
   //  copyXPMArea(1, 81, 17, 7, 11, type == CPU ? CPU_YPOS : SYS_YPOS);
   copyXPMArea(20, 75, 4, 3, 29, type == CPU ? CPU_YPOS : SYS_YPOS);
 }
 
-inline void draw_type(int type) {
+void draw_type(int type) {
   switch(type) {
   case CPU:
     copyXPMArea(65, 40, 17, 7, 11, CPU_YPOS);
@@ -801,7 +801,7 @@ inline void draw_type(int type) {
   }
 }
 
-inline void cycle_temptype() {
+void cycle_temptype() {
   if(IsOn(SENSOR_DISP, TSCALE_CELCIUS)) {
     BitOff(SENSOR_DISP, TSCALE_CELCIUS);
     BitOn(SENSOR_DISP, TSCALE_KELVIN);
