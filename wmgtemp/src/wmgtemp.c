@@ -117,7 +117,6 @@ char *sensor_chip = NULL;
 short quiet = 0;
 
 int main(int argc, char **argv) {
-  char *chipname = NULL;
   int chip_nr = 0;
   int i = 0;
   int tmp_swap;
@@ -162,10 +161,7 @@ int main(int argc, char **argv) {
       }
     }
 
-    if(chip_found == 1) {
-      chipname = name->prefix;
-    }
-    else {
+    if(chip_found == -1) {
       name = sensors_get_detected_chips(NULL, &chip_nr);
     }
   }
