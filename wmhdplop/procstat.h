@@ -4,7 +4,7 @@
 
 struct pstat {
   unsigned long total;
-  int nslice, cur_slice;
+  long nslice, cur_slice;
   unsigned long *slices;
   float update_interval;
 };
@@ -15,7 +15,7 @@ typedef struct {
   struct pstat disk_read, disk_write;
 } ProcStats;
 
-void pstat_init(struct pstat *pst, int nslice, float update_interval);
+void pstat_init(struct pstat *pst, long nslice, float update_interval);
 float pstat_current(struct pstat *pst);
 void pstat_add(struct pstat *pst, unsigned long v);
 void pstat_advance(struct pstat *pst);

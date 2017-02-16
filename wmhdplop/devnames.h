@@ -9,7 +9,7 @@ typedef struct DiskList {
   unsigned major, minor;
   int hd_id, part_id; /* part_id = 0 for disks */
   int enable_hddtemp;
-  int nr, nw, touched_r, touched_w;
+  long nr, nw, touched_r, touched_w;
   struct DiskList *next;
 } DiskList;
 

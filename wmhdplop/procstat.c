@@ -8,7 +8,7 @@
 static ProcStats ps;
 int use_proc_diskstats;
 
-void pstat_init(struct pstat *pst, int nslice, float update_interval) {
+void pstat_init(struct pstat *pst, long nslice, float update_interval) {
   pst->nslice = nslice;
   ALLOC_VEC(pst->slices, nslice);
   pst->cur_slice = 0;
@@ -17,7 +17,7 @@ void pstat_init(struct pstat *pst, int nslice, float update_interval) {
 }
 
 float pstat_current(struct pstat *pst) {
-  int idx = pst->cur_slice ? pst->cur_slice-1 : pst->nslice-1;
+  long idx = pst->cur_slice ? pst->cur_slice-1 : pst->nslice-1;
   return pst->slices[idx]/pst->update_interval;
 }
 
@@ -100,13 +100,13 @@ void update_stats() {
             if (!Prefs.debug_disk_rd) {
               pstat_add(&ps.disk_read, nr);
             } else {
-              static int cntr = 0; cntr+=(rand()%30) == 0 ? Prefs.debug_disk_rd : 0;
+              static long cntr = 0; cntr+=(rand()%30) == 0 ? Prefs.debug_disk_rd : 0;
               pstat_add(&ps.disk_read, nr + cntr);
             }
             if (!Prefs.debug_disk_wr) {
               pstat_add(&ps.disk_write, nw);
             } else {
-              static int cntw = 0; cntw+=(rand()%30) == 0 ? Prefs.debug_disk_wr : 0;
+              static long cntw = 0; cntw+=(rand()%30) == 0 ? Prefs.debug_disk_wr : 0;
               pstat_add(&ps.disk_write, nw + cntw);
             }
             readok = 2;
@@ -120,7 +120,7 @@ void update_stats() {
               pstat_add(&ps.swap_in, nr);
               pstat_add(&ps.swap_out, nw);
             } else {
-              static int cnt = 0; cnt+=Prefs.debug_swapio;
+              static long cnt = 0; cnt+=Prefs.debug_swapio;
               pstat_add(&ps.swap_in, nr + cnt);
               pstat_add(&ps.swap_out, nw + cnt);
             }
@@ -143,10 +143,10 @@ void init_stats(float update_interval) {
   char s[512];
   FILE *f;
 
-  pstat_init(&ps.swap_in, (int)(0.5/update_interval)+1, update_interval);
-  pstat_init(&ps.swap_out, (int)(0.5/update_interval)+1, update_interval);
-  pstat_init(&ps.disk_read, (int)(0.5/update_interval)+1, update_interval);
-  pstat_init(&ps.disk_write, (int)(0.5/update_interval)+1, update_interval);
+  pstat_init(&ps.swap_in, (long)(0.5/update_interval)+1, update_interval);
+  pstat_init(&ps.swap_out, (long)(0.5/update_interval)+1, update_interval);
+  pstat_init(&ps.disk_read, (long)(0.5/update_interval)+1, update_interval);
+  pstat_init(&ps.disk_write, (long)(0.5/update_interval)+1, update_interval);
   f = fopen("/proc/swaps","r");
   //if (!f) { perror("/proc/swaps"); exit(1); }
   if (f) {
