@@ -20,11 +20,11 @@
 
 #define VERSION "Ver 1.2.8 -- May 25, 1999"
 
-#include <Xlib.h>
-#include <Xutil.h>
-#include <xpm.h>
-#include <extensions/shape.h>
-#include <keysym.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/xpm.h>
+#include <X11/extensions/shape.h>
+#include <X11/keysym.h>
 #include <stdio.h>
 #include <math.h>
 
