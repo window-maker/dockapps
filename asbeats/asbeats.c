@@ -193,7 +193,7 @@ static void CreatePixmap(Display *dpy, Window Root, char **data, XpmIcon* icon)
 		&(icon->mask),&(icon->attributes));
 	if(ret != XpmSuccess)
 	{
-		fprintf(stderr,ERR_colorcells);
+		fprintf(stderr,"%s",ERR_colorcells);
 		exit(1);
 	}
 }
