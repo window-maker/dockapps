@@ -69,7 +69,6 @@ int main(int argc, char *argv[]) {
 		fig_x, fig_y, new_figure=1, figure_type, next_figure_type;
 	int figure[4][2] = { {0, 0}, {0, 0}, {0, 0}, {0, 0} },
 		next_figure[4][2] = { {0, 0}, {0, 0}, {0, 0}, {0, 0} };
-	unsigned long delay = INITIAL_DELAY, start_time;
 	XEvent event;
 
 	srand(time(NULL));
