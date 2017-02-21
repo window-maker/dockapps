@@ -4,11 +4,10 @@ INCDIR = -I/usr/X11R6/include/X11
 DESTDIR= /usr/X11R6
 LIBDIR = -L/usr/X11R6/lib
 # for linux
-LIBS   = -lXpm -lX11 -lXext
+LIBS   = -lXpm -lX11 -lXext -ldockapp
 # for Solaris
 # LIBS   = -lXpm -lX11 -lXext -lsocket
-OBJS   = wmSpaceWeather.o \
-         ../wmgeneral/wmgeneral.o
+OBJS   = wmSpaceWeather.o
 
 
 .c.o:

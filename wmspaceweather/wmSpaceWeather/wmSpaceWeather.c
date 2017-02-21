@@ -72,7 +72,7 @@
 #include <time.h>
 #include <X11/X.h>
 #include <X11/xpm.h>
-#include "../wmgeneral/wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 #include "wmSpaceWeather_master.xpm"
 #include "wmSpaceWeather_mask.xbm"
 
