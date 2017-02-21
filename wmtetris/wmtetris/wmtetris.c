@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
@@ -71,7 +72,7 @@ int main(int argc, char *argv[]) {
 	unsigned long delay = INITIAL_DELAY, start_time;
 	XEvent event;
 
-	srand(time());
+	srand(time(NULL));
 
 	for (y = 0; y < BOARD_HEIGHT; y++)
 		for (x = 0; x < BOARD_WIDTH; x++)
