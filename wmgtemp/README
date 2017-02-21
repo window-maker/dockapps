@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------
 You may distribute this program under the terms of the Artistic
 License.
-                                                                           
+
 This program is distributed in the hope that it will be useful, but
 WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the Artistic
@@ -9,8 +9,8 @@ License for more details.
 -------------------------------------------------------------------------
 
 wmgtemp is a dock app intended for use with WindowMaker.
-It displays the CPU and SYS temperatures (both in numerically and 
-graphically) of motherboards that use the VIA686A chipset. Currently 
+It displays the CPU and SYS temperatures (both in numerically and
+graphically) of motherboards that use the VIA686A chipset. Currently
 this is the only chipset that is supported but I have the intention of
 adding support for other chipsets in the future.
 

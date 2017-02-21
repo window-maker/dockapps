@@ -22,8 +22,8 @@
 
 
 
-/* 
- *  Delay between refreshes (in microseconds) 
+/*
+ *  Delay between refreshes (in microseconds)
  */
 #define DELAY 10000L
 
@@ -311,7 +311,7 @@ theme_specific_cat (char * path, LIST * cat_list)
 }
 
 /* Read "categories" file in path.
- * Themes in path and its subdirs are belonging to categories listed 
+ * Themes in path and its subdirs are belonging to categories listed
  * in that file if these categories are defined by user profile.
  * Updates cat_list accordingly.
  */
@@ -487,7 +487,7 @@ BuildDatabase ()
 
 	for (dir_idx=0; dir_idx < 4; dir_idx++) {
 		get_themes     (    themes_dir[dir_idx], NULL);
-		get_wallpapers (wallpapers_dir[dir_idx], NULL); 
+		get_wallpapers (wallpapers_dir[dir_idx], NULL);
 	}
 
 	return 0;
@@ -546,11 +546,11 @@ DrawPixmap (char * XpmFileName)
 	copyXPMArea(4, 4, 56, 56, 4, 4); /* Clear window */
 
 	if (havePixmap) {
-		/* 
-		* free up the colors, if we alloc'd some before 
+		/*
+		* free up the colors, if we alloc'd some before
 		*/
-		if (Attributes.nalloc_pixels > 0) 
-			XFreeColors(display, cmap,  Attributes.alloc_pixels, 
+		if (Attributes.nalloc_pixels > 0)
+			XFreeColors(display, cmap,  Attributes.alloc_pixels,
 				Attributes.nalloc_pixels, 0);
 		/*
 		 *  Free last pixmap -- we dont need it anymore...
@@ -653,7 +653,7 @@ ChangeTheme ()
 	case  1 : val = 0; break;
 	default :
 		fd = open ("/dev/random", O_RDONLY);
-		
+
 		/* We're disallowing "changing" to the same */
 		read (fd, &val, sizeof (int) );
 		val = val % (i - 1);
@@ -664,7 +664,7 @@ ChangeTheme ()
 	}
 
 	switch ( ( (struct theme *) get_item (cur_cat->themes, val) ) -> type) {
-	case THEME : 
+	case THEME :
 		sprintf (Command, "setstyle \"%s\"", ( (struct theme *)
 			get_item (cur_cat->themes, val) ) -> path);
 		break;
@@ -805,7 +805,7 @@ main (int argc, char *argv[])
 	}
 
 	/* TODO : use sigsuspend */
-	
+
 	while (1) {
 		ProcessXEvents ();
 		delay_timer += DELAY;

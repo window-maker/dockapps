@@ -1,6 +1,6 @@
 .TH WMGlobe 1   "fevrier 1999"
 .SH NAME
-WMGlobe - The Whole Earth spinning on you desktop... 
+WMGlobe - The Whole Earth spinning on you desktop...
 as a dockable app for WindowMaker
 .SH SYNOPSIS
 .B wmglobe
@@ -23,9 +23,9 @@ short help
 Value > 1 to magnify the view, value < 1 to lower. Default: 1.0
 .TP
 .B \-pos \fI latitude longitude\fP
-Initial viewing fixed at this position, don't follow 
+Initial viewing fixed at this position, don't follow
 the sun rotation. Accepted values in the form 45°12'36 or 45.21 or 45:12:36 .
-Default: the initial position is "under" the sun, and 
+Default: the initial position is "under" the sun, and
 the point of view follows the sun.
 .TP
 .B \-rand
@@ -33,48 +33,48 @@ New random position at every refresh of screen.
 .TP
 .B \-map \fI map_file\fP
 Map used for the rendering. Can be JPEG, GIG, XPM
-PNM, TIFF but none BMP.   
+PNM, TIFF but none BMP.
 Default: use internal map of earth.
 .TP
 .B \-nimap \fI night_file\fP
 Map used for the dark side of the earth. Must be of
-the same width x height as the day side map. 
+the same width x height as the day side map.
 Default: if the default internal day map is used, use
-a default internal night file (see -nonimap option). 
+a default internal night file (see -nonimap option).
 If a custom day map is provided, and no night map, the
 dark side is computed via the -light option.
 .TP
 .B \-nonimap
-Don't use the default night map.   
+Don't use the default night map.
 .TP
 .B \-delay \fI seconds\fP
-Time in seconds between each calculation of a new 
+Time in seconds between each calculation of a new
 position. Limited to 0.04 at compile time (25 frames
-per second should be enough). The sun position move 
+per second should be enough). The sun position move
 only once per minute, so if you use wmglobe without
 -dlong or -accel option, the CPU cost of WMGlobe is
 *very* low. The use of very low value for -delay plus
--dlong and -accel can be CPU costly (but very nice...). 
+-dlong and -accel can be CPU costly (but very nice...).
 Default: 1.0 sec.
 .TP
 .B \-dlat \fI delta_latitude\fP
 Move the point of view by delta_lat degrees per second,
-with a value of 6 the earth make a full rotation in 
+with a value of 6 the earth make a full rotation in
 one minute. The value can be formated as -pos option.
 Default: 0°0'0
 .TP
-.B \-dlong \fI delta_long\fP 
-Move the point of view by delta_long degrees per 
-second. With a value of -0°0'15" the earth make a full 
-rotation in 24 hours toward the west. By default, 
+.B \-dlong \fI delta_long\fP
+Move the point of view by delta_long degrees per
+second. With a value of -0°0'15" the earth make a full
+rotation in 24 hours toward the west. By default,
 -dlong and -dlat are null. If they are used, the view
 follow their values. Going back to "follow sun" mode
 in parameters screen put -dlat and -dlong to zero.
 .TP
 .B \-light \fI light_value\fP
 Level of light of the dark side when there is no
-night map, from 0 to 1. 
-Default: 0.25	
+night map, from 0 to 1.
+Default: 0.25
 .TP
 .B \-dawn \fI dawn_value\fP
 Level of continuity for dawn limit, from 0 to 1. With
@@ -83,9 +83,9 @@ at maximum contrast.
 Default: 0.2
 .TP
 .B \-bord \fI border_num\fP
-0 1 or 2. There are 3 different borders for the icon. 
+0 1 or 2. There are 3 different borders for the icon.
 Default: 0
-.TP   
+.TP
 .B \-accel \fI time_multi\fP
 Time warp factor. With -accel 24, the sun make a full
 rotation in one hour (or the earth, I'm not sure). Default: 1.0
@@ -102,13 +102,13 @@ Move the earth image by dx dy pixels in the icon. See
 puzzle.sh to understand why.
 .TP
 .B \-oz
-Start in "austral" mode (for "down under" people) 
+Start in "austral" mode (for "down under" people)
 .TP
 .B \-d \fI display\fP
 Select another display
 .TP
-.B \-w  \-shape 
-Useless, since it is set by default (WMaker dockable 
+.B \-w  \-shape
+Useless, since it is set by default (WMaker dockable
 application)
 .SH "MOUSE OPTIONS"
 .TP
@@ -124,27 +124,27 @@ Displays 7 screens of parameters. On every screen, just
 clic with left or right button on the figures to change
 their value. The TIME screen shows an approximation
 of date and time of the earth zone currently displayed,
-using GMT time + longitude offset, it's close to the 
-real local time by one or two hours. Others options 
+using GMT time + longitude offset, it's close to the
+real local time by one or two hours. Others options
 don't need more help. Intuitive they said...
 .SH "FILES"
 .TP
 .B MAPS
-Like XGlobe, WMGlobe needs a longitude/latitude map to work. By default, 
-it uses a low quality built-in map of earth. But you will probably want 
+Like XGlobe, WMGlobe needs a longitude/latitude map to work. By default,
+it uses a low quality built-in map of earth. But you will probably want
 to use better ones.
 You can get maps usable with WMGlobe on the net. See the links below.
 
 using custom maps:
 
-For the image to be mapped correctly, position 0°North 0°West must be in 
+For the image to be mapped correctly, position 0°North 0°West must be in
 the center of the image and the latitude must be linear from 90°N to 90°S.
 When using a night map, make sure that day and night map have the same
 dimensions.
 .TP
 .B Links: Where to find maps and similar softs
 
-where to find the sources of wmglobe: 
+where to find the sources of wmglobe:
 the web page of WMGlobe (made by Sylvestre Taburet):
 
 <http://www.capway.com/dumonte1/wm/wmg.html>
@@ -163,7 +163,7 @@ XGlobe Homepage: (many links to map of earth)
 <http://www.uni-karlsruhe.de/~uddn/xglobe>
 
 
-Xearth Homepage: 
+Xearth Homepage:
 
 <http://www.cs.colorado.edu/~tuna/xearth/>
 
@@ -181,16 +181,16 @@ The Window Maker User Guide
 The Window Maker FAQ
 
 .SH "AUTHOR"
-jerome dumonteil  <jerome.dumonteil@capway.com> 
+jerome dumonteil  <jerome.dumonteil@capway.com>
 
 Patches,  bug  reports, and suggestions are welcome.
 
 .SH "CREDITS"
-WMGlobe is Copyright (C) 1998,99 by Jerome Dumonteil and licensed through 
-the GNU General Public License. 
+WMGlobe is Copyright (C) 1998,99 by Jerome Dumonteil and licensed through
+the GNU General Public License.
 Read the COPYING file for the complete GNU license.
 
-Original idea, tests, logos: 
+Original idea, tests, logos:
 
 Sylvestre Taburet <staburet@consort.fr>
 
@@ -224,7 +224,7 @@ documentation.
 The rendering engine is taken from XGlobe by Thorsten Scheuermann
 XGlobe Homepage: http://www.uni-karlsruhe.de/~uddn/xglobe
 
-Raster graphics library by Alfredo K. Kojima, & stuff of Window Maker 
+Raster graphics library by Alfredo K. Kojima, & stuff of Window Maker
 <http://windowmaker.org> by A. K. Kojima, Dan Pascu, Matthew Hawkins & team
 
 
@@ -234,7 +234,7 @@ If you use the  --enable-single-icon compile time option of WindowMaker,
 you can not display more than one WMGlobe.
 
 WMGlobe hopes that an overflow of a long integer dont generate an error
-and that LONG_MAX +1 = LONG_MIN . This happens with high values of -accel 
+and that LONG_MAX +1 = LONG_MIN . This happens with high values of -accel
 when the date go over year 2038. The expected result is wmglobe
 continuing smoothly from 1901.
 

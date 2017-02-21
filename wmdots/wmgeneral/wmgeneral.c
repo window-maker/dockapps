@@ -17,7 +17,7 @@
         * Now supports >256 colors
 	11/09/1998 (Martijn Pieterse, pieterse@xs4all.nl)
 		* Removed a bug from parse_rcfile. You could
-		  not use "start" in a command if a label was 
+		  not use "start" in a command if a label was
 		  also start.
 		* Changed the needed geometry string.
 		  We don't use window size, and don't support
@@ -175,7 +175,7 @@ static void GetXPM(XpmIcon *wmgen, char *pixmap_bytes[]) {
 
 	err = XpmCreatePixmapFromData(display, Root, pixmap_bytes, &(wmgen->pixmap),
 					&(wmgen->mask), &(wmgen->attributes));
-	
+
 	if (err != XpmSuccess) {
 		fprintf(stderr, "Not enough free colorcells.\n");
 		exit(1);
@@ -222,9 +222,9 @@ static int flush_expose(Window w) {
 \*******************************************************************************/
 
 void RedrawWindow(void) {
-	
+
 	flush_expose(iconwin);
-	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 
+	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC,
 				0,0, wmgen.attributes.width, wmgen.attributes.height, 0,0);
 	flush_expose(win);
 	XCopyArea(display, wmgen.pixmap, win, NormalGC,
@@ -236,9 +236,9 @@ void RedrawWindow(void) {
 \*******************************************************************************/
 
 void RedrawWindowXY(int x, int y) {
-	
+
 	flush_expose(iconwin);
-	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 
+	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC,
 				x,y, wmgen.attributes.width, wmgen.attributes.height, 0,0);
 	flush_expose(win);
 	XCopyArea(display, wmgen.pixmap, win, NormalGC,
@@ -294,7 +294,7 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
 	unsigned char	bwrite;
     int		bcount;
     int     curpixel;
-	
+
 	sscanf(*xpm, "%d %d %d %d", &width, &height, &numcol, &depth);
 
 
@@ -303,7 +303,7 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
         zero <<=8;
         zero |= xpm[1][k];
     }
-        
+
 	for (i=numcol+1; i < numcol+sy+1; i++) {
 		bcount = 0;
 		bwrite = 0;
@@ -316,7 +316,7 @@ void createXBMfromXPM(char *xbm, char **xpm, int sx, int sy) {
                 curpixel <<=8;
                 curpixel |= xpm[i][j+k];
             }
-                
+
             if ( curpixel != zero ) {
 				bwrite += 128;
 			}
@@ -392,7 +392,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	}
 
 	if (!(display = XOpenDisplay(display_name))) {
-		fprintf(stderr, "%s: can't open display %s\n", 
+		fprintf(stderr, "%s: can't open display %s\n",
 						wname, XDisplayName(display_name));
 		exit(1);
 	}
@@ -417,10 +417,10 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 	mysizehints.width = 64;
 	mysizehints.height = 64;
-		
+
 	win = XCreateSimpleWindow(display, Root, mysizehints.x, mysizehints.y,
 				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
-	
+
 	iconwin = XCreateSimpleWindow(display, win, mysizehints.x, mysizehints.y,
 				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
 
@@ -441,7 +441,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XSetWMName(display, win, &name);
 
 	/* Create GC for drawing */
-	
+
 	gcm = GCForeground | GCBackground | GCGraphicsExposures;
 	gcv.foreground = fore_pix;
 	gcv.background = back_pix;

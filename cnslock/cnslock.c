@@ -151,7 +151,7 @@ int main(int argc, char **argv)
 
 		if (manager_style==0)
 			gdk_draw_rgb_image(ad.iconwin, ad.gc, XMIN, YMIN, XMAX, YMAX, GDK_RGB_DITHER_NONE, ad.rgb, XMAX * 3);
-		else		
+		else
 			gdk_draw_rgb_image(ad.win, ad.gc, XMIN, YMIN, XMAX, YMAX, GDK_RGB_DITHER_NONE, ad.rgb, XMAX * 3);
 	}
     return 0;
@@ -188,7 +188,7 @@ void cnslock_update(void)
 void prepare_backbuffer(int solid)
 {
 	make_rgb_buffer256(ad.rgb,none_data,none_width,none_height,1, *none_cmap);
-    
+
 	/* copy it to the "frequent use" buffer */
 	memcpy(&ad.bgr, &ad.rgb, RGBSIZE);
 
@@ -238,7 +238,7 @@ void parse_options(int argc, char *argv[])
 				manager_style = 1;
 				break;
 		}
-    }    
+    }
 }
 
 void do_version(void)

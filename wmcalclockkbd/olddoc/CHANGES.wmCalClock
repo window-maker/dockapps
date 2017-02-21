@@ -32,10 +32,10 @@ Version 1.23  	- released March 20, 1999.
 
 Version 1.22 	- released February 24, 1999.
 		  Added double click detection and -e command-line option.
- 
+
 Version 1.21 	- released February 4, 1999.
 		  cosmetic for AfterStep users. removed spurious black line at RHS edge an mask.
- 
+
 Version 1.2 	- released January 14, 1999.
 		  Changed support for LowColor Pixmap. Now, check for Depth
 		  automatically. If its <= 8, then use LowColor.

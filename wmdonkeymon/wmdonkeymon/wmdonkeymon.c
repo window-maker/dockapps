@@ -2,10 +2,10 @@
  /*
  *
  *  	wmdonkeymon 0.9 (C) 2002 Marcelo Burgos Morgade Cortizo (marcelomorgade@ig.com.br)
- * 
+ *
  *  		- Show status of edonkey downloads based on '*.part.met' files
- *  		
- * 
+ *
+ *
  *
  */
 
@@ -23,7 +23,7 @@
 #include "../wmgeneral/wmgeneral.h"
 #include "wmdonkeymon_master.xpm"
 #include "wmdonkeymon_mask.xbm"
- 
+
 
 #define SLOT_SIZE 52
 #define REF_RATE 5
@@ -138,13 +138,13 @@ int main(int argc, char *argv[])
 	       }
 	}
 	if (!tmpdir) { usage(); exit(-1);}
-	
+
 	openXwindow(argc, argv, wmdonkeymon_master_xpm, wmdonkeymon_mask_bits, wmdonkeymon_mask_width, wmdonkeymon_mask_height);
 		copyXPMArea(5,60,52,54,5,3);
 		RedrawWindow();
 		splash();
 
-	
+
 	r = 0;
 	while (1) {
          if (!r) {
@@ -155,7 +155,7 @@ int main(int argc, char *argv[])
 	        long int fileSize=0, num =0;
 	        char nvalue[516],value[516];
 		j =0;
-		metnum=0;	
+		metnum=0;
 		// Search for files in temp directory
 		ls = scandir(tmpdir, &namelist, 0, alphasort);
 		if (ls < 0){
@@ -182,37 +182,37 @@ int main(int argc, char *argv[])
 			if(debug)printf("opening %s\n",buf);
 		        if ( (met = fopen(buf,"rb")) != NULL) {}
 		        else {printf("Nada\n");};
-		
+
 		        // Version
 		        i += fread(buf,1,1,met);
 		        if(debug){ printf("Version: %x\n",buf[0]); }
-		
+
 			// Date ??
 		        i += fread(buf,1,4,met);
 		        if(debug) { printf("Date: %x %x %x %x \n",buf[0],buf[1],buf[2],buf[3]); }
-		
+
 			// Hash
 		        i += fread(buf,1,16,met);
 		        if(debug){ printf("Hash: ");  for (j=0;j<16;j++)  printf("%x ",buf[j]); 	 printf("\n");  }
-	
-		
+
+
 			// Partial Hashes
 		        i += fread(buf,1,2,met);
 		        memcpy(&j,buf,2);
 		        if(debug)  printf("Num of Hashes: %d\n",j);
-		
+
 			// Hashes
 		        for (i=0;i<j;i++){
 		              fread(buf,1,16,met);
 		              if(debug){printf("Hash %d: ",i+1);    for (x=0;x<16;x++) printf("%x ",buf[x]);     printf("\n");}
 		       }
-		
+
 		        // Num of Meta Tags
 		        i = fread(buf,1,4,met);
 		        memcpy(&num,buf,4);
 		        if(debug){printf("Num of Meta Tags: %ld\n",num);}
 		        x = 0;
-		
+
 			// Meta Tags
 			for (i=0;i<num;i++){
 				fread(&type,1,1,met);
@@ -240,9 +240,9 @@ int main(int argc, char *argv[])
 					       case 18:
 						    if(debug){printf("Temp file: %s\n",value);}
 					       break;
-		
+
 					     }
-		
+
 				    } else if (debug)printf("Unknow String Tag %d: %s",nvalue[0],value);
 				}else	if (type==3){
 				    fread(&fsize,1,4,met);
@@ -287,15 +287,15 @@ int main(int argc, char *argv[])
 					    	   if(debug)printf(" to %10d = %10d  Size(%d) Gaprel: %d-%d\n",fsize,miss,9728000,files[metnum].gappos[x][0],files[metnum].gappos[x][1]);
 					    }
 		                   }
-	
+
 			     }
 		        }
-	
-		files[metnum].gapnum = x;	
+
+		files[metnum].gapnum = x;
 		files[metnum].firstgap = firstgap;
 		files[metnum].lastsize = files[metnum].copied;
 		files[metnum].size = fileSize;
-	
+
 	// sort gaps
 	/*	don'n needed
 	 * 	for (i=0; i<x; i++)
@@ -311,11 +311,11 @@ int main(int argc, char *argv[])
 			 }
 		if(debug)for (i=0; i<x; i++){	printf("[%d-%d]",files[0].gappos[i][0],files[0].gappos[i][1]);	}
 	*/
-	
+
 		if(debug)printf("%d bytes = %.2f mb missing\n", files[metnum].t_miss, (double)files[metnum].t_miss/(1024*1024));
 		if(debug)if (firstgap < 0x7fffffff) printf("first gap starts at %d (%d blocks are complete)\n", firstgap, firstgap/(9500*1024));
-	
-	
+
+
 		fclose(met);
 	     }
 	}
@@ -340,7 +340,7 @@ int main(int argc, char *argv[])
 				break;
 			}
 		}
-		
+
 		for (j=0;j<15;j++) DelMouseRegion(j);
 
 		if (metnum==0){
@@ -356,35 +356,35 @@ int main(int argc, char *argv[])
 			copyXPMArea(5,60,52,54,5,3);
 			AddMouseRegion(0,5,5,54,54);
 			showString(files[selected].name,1);
-			
+
 			s=files[selected].size;
 			while (s>1024){s/=1024;sk++;}
 			c=files[selected].copied;
 			while (c>1024){c/=1024;ck++;}
-			
+
 			sprintf(out,"%ld%c/%ld%c",c,unit[ck],s,unit[sk]);
 			showString(out,4);
 
 			sprintf(out,"%s",files[selected].type);
 			showString(out,5);
-		
+
 			// **************
 			// Donwload Rate
 			// Don't work unless edonkey update met files more frequently
-			// 
+			//
 			//  s = (files[selected].copied) - (files[selected].lastsize);
 			//  sprintf(out,"%ld B/S",(s/REF_RATE));
 			//  showString(out,8);
 
 			//************************
-			//STATUS 
+			//STATUS
 			//status tag is always "Looking..."      :(
 			//
-			//getStatus(files[selected].status,out);	
+			//getStatus(files[selected].status,out);
 			//showString(out,9);
 			sprintf(out,"%.3f%%", (( 1.0 *  files[selected].copied / files[selected].size))*100);
 			showString(out,8);
-			
+
 			copyXPMArea(66,colord,52,5,5,11);
 			for (i=0; i < files[selected].gapnum ; i++) {
 				copyXPMArea(66,colorg,files[selected].gappos[i][1]-files[selected].gappos[i][0],5,files[selected].gappos[i][0]+5 ,11);
@@ -406,7 +406,7 @@ int main(int argc, char *argv[])
 		sleep(1);
       		r++;
 		if (r==REF_RATE) r=0;
-      
+
     }
 }
 
@@ -444,15 +444,15 @@ void strcaseup(char * str){
 }
 
 void showString(char * buf, int row){
-	int i; 	
+	int i;
 	strcaseup(buf);
 	for (i=0; buf[i] && i<10;i++){
 		if (buf[i]>='0' && buf[i]<='9') copyXPMArea(xpos[buf[i]-18],ypos[buf[i]-18],5,5,(i+1)*5,(row*5));
 		else if((buf[i]>='A' && buf[i]<='Z')) copyXPMArea(xpos[buf[i]-65],ypos[buf[i]-65],5,5,(i+1)*5,(row*5));
 		else if((buf[i]==' ')) copyXPMArea(66,44,5,5,(i+1)*5,(row*5));
-		else if((buf[i]=='/')) copyXPMArea(76,24,5,5,(i+1)*5,(row*5)); 
-		else if((buf[i]=='.')) copyXPMArea(91,24,5,5,(i+1)*5,(row*5)); 
-		else if((buf[i]=='%')) copyXPMArea(106,24,5,5,(i+1)*5,(row*5)); 
+		else if((buf[i]=='/')) copyXPMArea(76,24,5,5,(i+1)*5,(row*5));
+		else if((buf[i]=='.')) copyXPMArea(91,24,5,5,(i+1)*5,(row*5));
+		else if((buf[i]=='%')) copyXPMArea(106,24,5,5,(i+1)*5,(row*5));
 	 	else copyXPMArea(xpos[28],ypos[28],5,5,(i+1)*5,(row*5));
 	}
 }
@@ -469,11 +469,11 @@ void splash(){
 	char * s= ".WMDONKEY.";
 	while (i<4){
 		RedrawWindow();
-		showString(s,1);					     
+		showString(s,1);
 		copyXPMArea(70,47,47,19,9,20);
 		RedrawWindow();
 		sleep(1);
 		i++;
 	}
-	
+
 }

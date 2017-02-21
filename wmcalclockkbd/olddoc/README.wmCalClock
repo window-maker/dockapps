@@ -1,8 +1,8 @@
 wmCalClock-1.24 release
 -----------------------
 Author....: Michael G. Henderson <mghenderson@lanl.gov>
-		
-  
+
+
 Description
 -----------
 wmCalClock is a simple Calendar Clock that uses anti-aliased characters and
@@ -18,7 +18,7 @@ BUGS		Bug reports
 CHANGES 	Change history.
 COPYING		GNU General Public License Version 2.
 TODO		Wish list.
-	
+
 
 Bugs
 -----

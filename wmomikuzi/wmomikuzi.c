@@ -91,9 +91,9 @@ main(int argc, char **argv)
 		    sizeof(options)/sizeof(DAProgramOption),
 		    "dockapp that predict your luck", "wmomikuzi 0.122");
 
-   DAInitialize(displayName, "wmomikuzi", 64, 64, argc, argv);   
+   DAInitialize(displayName, "wmomikuzi", 64, 64, argc, argv);
    pixmap = DAMakePixmap();
-   
+
    /* making pixmaps for the panel */
    DAMakePixmapFromData(back_xpm, &back_pixmap, &back_mask, &w, &h);
    DAMakePixmapFromData(button_pressed_xpm, &button_pressed_pixmap, NULL, &w, &h);
@@ -118,7 +118,7 @@ main(int argc, char **argv)
    srand(time(0L) * (getpid()));
    i = 0;
    j = rand() / (RAND_MAX / 6 + 1) + 18;
-   
+
    /* draws the button part */
    XCopyArea(DADisplay, back_pixmap, pixmap, gc, 0, 44, 64, 64, 0, 44);
 
@@ -142,7 +142,7 @@ main(int argc, char **argv)
 	 XCopyArea(DADisplay, daikyou_pixmap, pixmap, gc, 0, 0, 64, 39, 5, 5);
       }
       DASetPixmap(pixmap);
-      
+
       usleep(USLEEP);
 
       /* j is the destination number */

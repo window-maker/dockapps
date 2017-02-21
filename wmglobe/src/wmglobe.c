@@ -1,27 +1,27 @@
 /*     WMGlobe 0.5  -  All the Earth on a WMaker Icon
  *     copyright (C) 1998,99 Jerome Dumonteil <jerome.dumonteil@capway.com>
- * 
+ *
  *     This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- * 
+ *
  *     You should have received a copy of the GNU General Public License
  *     along with this program; if not, write to the Free Software
  *     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  ***************************************************************************/
-/* 
+/*
  * I used many functions  of wmgeneral.c ("openXwindow")
- * for the main function of wmglobe.c 
+ * for the main function of wmglobe.c
  * wmgeneral.c was taken from wmaker applet wmtune-1.0 :
  * Author: Martijn Pieterse (pieterse@xs4all.nl)
  *
- * wmglobe.c uses functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib 
+ * wmglobe.c uses functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib
  ***************************************************************************/
 
 #include "wmglobe.h"
@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
 
 /*
  * loading maps .............
- * 
+ *
  */
 
 	if (dayfile != NULL) {

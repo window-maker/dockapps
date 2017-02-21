@@ -1,7 +1,7 @@
-wmdonkeymon-0.9 
+wmdonkeymon-0.9
 --------------------------------------------------------------
 Authors...: Marcelo Morgade (marcelomorgade@ig.com.br)
-		
+
 
 Description
 --------------------------------------------------------------
@@ -11,7 +11,7 @@ Click on a file name to show details.
 Click again to return to list.
 Plz, don't hack uploads ...
 
-wmisdnmon is being developped on a machine running 
+wmisdnmon is being developped on a machine running
 Conectiva Linux 7.0 (Brazilian RedHat like distro)
 
 Files
@@ -21,19 +21,19 @@ INSTALL		Installation instructions.
 BUGS		Things you don't want to know ;-)
 COPYING		GNU General Public License Version 2.
 TODO		FFF (Features For the Future).
-	
+
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please send a 
+If you discover any bugs in this software, please send a
 bugreport to marcelomorgade@ig.com.br  and describe
 the problem as detailed as you can.
 
 
 Copyright
 --------------------------------------------------------------
-wmdonkeymon is copyright (c) 2002 by Marcelo Morgade and 
-licensed through the GNU General Public License. 
+wmdonkeymon is copyright (c) 2002 by Marcelo Morgade and
+licensed through the GNU General Public License.
 Read the COPYING file for the complete GNU license.
 
 

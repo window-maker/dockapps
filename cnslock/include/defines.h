@@ -2,7 +2,7 @@
 #define DEFINES_H
 
 /* Below this line, there are only defines that users don't have to
-   care about normally. 
+   care about normally.
 -----------------------------------------------------------------------------*/
 
 /* perform clipping outside this range, also this is the size of the

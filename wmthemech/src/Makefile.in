@@ -195,7 +195,7 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-wmThemeCh$(EXEEXT): $(wmThemeCh_OBJECTS) $(wmThemeCh_DEPENDENCIES) 
+wmThemeCh$(EXEEXT): $(wmThemeCh_OBJECTS) $(wmThemeCh_DEPENDENCIES)
 	@rm -f wmThemeCh$(EXEEXT)
 	$(LINK) $(wmThemeCh_LDFLAGS) $(wmThemeCh_OBJECTS) $(wmThemeCh_LDADD) $(LIBS)
 

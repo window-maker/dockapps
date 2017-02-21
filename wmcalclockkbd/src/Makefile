@@ -22,7 +22,7 @@ OBJS   = wmCalClock.o \
 all:	wmCalClock.o wmCalClockKbd
 
 wmCalClock.o: wmCalClock_master.xpm wmCalClock_mask.xbm
-wmCalClockKbd:	$(OBJS) 
+wmCalClockKbd:	$(OBJS)
 	$(CC) $(COPTS) $(SYSTEM) -o wmCalClockKbd $^ $(INCDIR) $(LIBDIR) $(LIBS)
 
 clean:
@@ -33,5 +33,5 @@ clean:
 
 install: wmCalClockKbd
 	install -c -s -m 0755 wmCalClockKbd $(DESTDIR)/bin
-	install -c -m 0644 wmCalClockKbd.1 $(DESTDIR)/share/man/man1 
+	install -c -m 0644 wmCalClockKbd.1 $(DESTDIR)/share/man/man1
 

@@ -78,6 +78,6 @@ void make_new_cnslock_dockapp(int manager_style)
 
     if(posx!=-1 && posy!=-1)
 		gdk_window_move(ad.win, posx, posy);
-		
+
 #undef MASK
 }

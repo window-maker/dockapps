@@ -18,17 +18,17 @@ BuildRoot: /var/tmp/%{name}-root
 #Patch: %{name}-%{ver}.patch
 %description
 -    wmswallow was mainly created to swallow coolmail in the WindowMaker dock, but it can
-     swallow about any X-window you conceive. 
--    The window may receive mouseclicks, 
+     swallow about any X-window you conceive.
+-    The window may receive mouseclicks,
 -    for windows that do not get mouseclicks (like xload or xeyes), you can specify a
-     shell-command to execute on a click. 
+     shell-command to execute on a click.
 -    The geometry for the swallowed app can be specified. Only HEIGHTxWIDTH are used,
-     however.  
+     however.
 -    Applications can be started on wmswallows commandline. An already running window
-     can be swallowed, either by name, class or directly by window-id 
--    The window may receive keyboard-focus, if you specify the "-focus" switch. 
+     can be swallowed, either by name, class or directly by window-id
+-    The window may receive keyboard-focus, if you specify the "-focus" switch.
 -    Even windows (like xteddy or wine) that hide from the windowmanager can be
-     swallowed with the -unmanaged switch 
+     swallowed with the -unmanaged switch
 %changelog
 
 %prep

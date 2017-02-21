@@ -2,7 +2,7 @@
 Time-stamp: <00/05/15 23:33:49 friedel>
 
 (Note: don't get confused, the dates in this file are in german-locale (de_DE),
-       because i was too lazy to use something else than 
+       because i was too lazy to use something else than
        ctrl-u meta-! date... but the timestamp is in C locale...)
 
 0.6.1: <Mon Mai 15 23:15:29 CEST 2000>

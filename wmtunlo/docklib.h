@@ -3,7 +3,7 @@
 /* made from scratch              */
 /*--------------------------------*/
 
-/* 
+/*
 	functions were written by following People:
 
 		--- linked list

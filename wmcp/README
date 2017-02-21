@@ -4,7 +4,7 @@ wmcp ( Window Maker Crappy Pager )
 
 Version 1.2.8
 
-	Origional Author: 
+	Origional Author:
 		Ben Cohen <buddog@aztec.asu.edu>
 
     Contributors: ( ** Thanks alot to them !! ** )
@@ -31,13 +31,13 @@ INSTALL:
     make gv         -- make wmcp using the ghostview style button colors
 
 	copy wmcp to some directory in your $PATH.
-	( ie: cp wmcp /usr/local/bin ) 
+	( ie: cp wmcp /usr/local/bin )
 
-	type wmcp 
+	type wmcp
 
-	Grab the appicon and move it to the dock. 
+	Grab the appicon and move it to the dock.
 
-	If make doesn't work, you may need to fiddle with the settings in 
+	If make doesn't work, you may need to fiddle with the settings in
 	the Makefile.
 
 	Tested on:
@@ -51,8 +51,8 @@ INSTALL:
 USAGE:
 ------
 
-usage: wmcp [-g geometry] [-d dpy] [-n workspaces] [-a alt key] [-v] 
-            [-c] [-w i/n/w] [-s y/n] [-x #] [-y #] [-h] 
+usage: wmcp [-g geometry] [-d dpy] [-n workspaces] [-a alt key] [-v]
+            [-c] [-w i/n/w] [-s y/n] [-x #] [-y #] [-h]
 
 -g    geometry:    ie: 64x64+10+10
 -d    dpy:         Display. ie: 127.0.0.1:0.0
@@ -61,7 +61,7 @@ usage: wmcp [-g geometry] [-d dpy] [-n workspaces] [-a alt key] [-v]
 -w    i/n/w:       Window State: Iconic, Normal, Withdrawn (default Withdrawn)
 -s    y/n:         Shaped window: yes or no (default y)
 -c                 Sends CTRL + ALT + Key (default only sends ALT + key)
--v                 Verbose. 0=off, 1=on (default 0) 
+-v                 Verbose. 0=off, 1=on (default 0)
 -x    #            Number of buttons on the x-direction (1,2,3 or 4)
 -y    #            Number of buttons in the y-direction (1,2,3 or 4)
 -h                 Help. This screen.
@@ -87,12 +87,12 @@ EXAMPLES:
 
 	2x3 button grid:
 	wmdl -x 2 -y 3
-	
+
 
 NOTES:
 ------
 
-This pager works by sending synthetic ALT + number key press events to the 
+This pager works by sending synthetic ALT + number key press events to the
 root window.  The "-c" command line switch makes the application send
 a CNTRL + ALT + number key which might be of use in another window manager.
 
@@ -105,7 +105,7 @@ I don't know of any Window Maker hooks for determining things like how
 may workspaces are actually in use. If any one know about this stuff, please
 let me know.
 
-It is very easy to change the look of wmcp by editing the colors in the 
+It is very easy to change the look of wmcp by editing the colors in the
 pixmap files. Someday we'll add an official 'skins' ability but for now
 just edit the xpm files to change the colors etc.
 
@@ -122,7 +122,7 @@ CHANGE LOG:
 
 1.2.8  May 25, 1999 -- Gert Beumer
        Added -x and -y functionality to configure the amount of buttons.
-       Changed the rendering of the buttons from the pixmap 
+       Changed the rendering of the buttons from the pixmap
        (to suport multiple button startup)
 
 1.2.6  Feb 11, 1999
@@ -133,7 +133,7 @@ CHANGE LOG:
 
 1.2.5  Jan 25, 1999
 		Made buttons flat style ala Ghostview 3.5.8
-	
+
 1.2    Jan 24, 1999
 	   Pushed button images added by Thomas Nemeth <tnemeth@multimania.com>
 
@@ -143,7 +143,7 @@ CHANGE LOG:
 TODO:
 -----
 
-Add a simple method for changing 'skins' other than just editing the XPM 
+Add a simple method for changing 'skins' other than just editing the XPM
 files by hand.
 
 Add catching Window Maker's events to know how to refresh the pager when

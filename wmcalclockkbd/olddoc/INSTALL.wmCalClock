@@ -10,8 +10,8 @@ Installation
 1) gunzip wmCalClock-x.xx.tar.gz
 1) tar -xvf wmCalClock-x.xx.tar
 2) cd wmCalClock-x.xx/Src/
-3) make 
-4) make install (must be root) 
+3) make
+4) make install (must be root)
 5) wmCalClock & (or 'wmCalClock -h' for help, or 'man wmCalClock' for the man page)
 
 

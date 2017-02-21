@@ -159,7 +159,7 @@ void minirgb_draw(Window drawable, GC gc, int x, int y, int width,
     }
 #ifdef VERBOSE
     printf("minirgb: image %p %dx%d (bpp: %d, bpl: %d)\n", image, width, height, bpp, image->bytes_per_line);
-#endif 
+#endif
     image->data = malloc(image->bytes_per_line * height);
     if (!image->data) {
 	fprintf(stderr, "minirgb: allocation error\n");

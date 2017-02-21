@@ -88,7 +88,7 @@ unsigned char *Image, *Texture, *Tunnel_map;
 
 
     /* Read preferences */
-	wmtunlo_read_prefs(); 
+	wmtunlo_read_prefs();
 
     /* Open window */
     openXwindow(argc, argv, dock_master, dock_mask_bits, dock_mask_width, dock_mask_height);
@@ -175,7 +175,7 @@ unsigned char *Image, *Texture, *Tunnel_map;
 		        px = atan2(yz,xz) * 128.0 / M_PI;
 		        result = (int)py * 256 + (int)px;
 
-		        Tunnel_map[k++]= result&0xff; 
+		        Tunnel_map[k++]= result&0xff;
 				Tunnel_map[k++]= result>>8;
 		        Tunnel_map[k++]= shade&0xff;
 		    }
@@ -184,13 +184,13 @@ unsigned char *Image, *Texture, *Tunnel_map;
     Texture = (unsigned char *)malloc(sizeof(unsigned char)*256*256);
 
 	for(i=0,q=1;i<256;i+=tex_block_h, q*=-1)
-		for(j=0,p=q;j<256;j+=tex_block_w, p*=-1) 
+		for(j=0,p=q;j<256;j+=tex_block_w, p*=-1)
 	       	for(l=0;l<tex_block_h;l++)
 		    	for(k=0;k<tex_block_w;k++)
 					if((j+k < 256) && (i+l < 256)) {
 						if(p>0)
 							Texture[(i+l)*256+j+k] = t_color_1;
-						else 
+						else
 							Texture[(i+l)*256+j+k] = t_color_2;
 						}
 
@@ -331,7 +331,7 @@ void ButtonPressEvent(XButtonEvent *xev){
 /*----------------------------------------------------------------------*/
 /* Write preferences */
 
-void wmtunlo_write_prefs(void) 
+void wmtunlo_write_prefs(void)
 {
 	if (p_prefs_openfile (p_getfilename_config (".clay", "wmtunlorc"), P_WRITE)) {
 
@@ -362,14 +362,14 @@ void wmtunlo_write_prefs(void)
 		p_prefs_put_string("command3", ClickCommand3);
 
 	}
-        
+
 	p_prefs_closefile ();
 }
 
 /*----------------------------------------------------------------------*/
 /* Read preferences */
 
-void wmtunlo_read_prefs(void) 
+void wmtunlo_read_prefs(void)
 {
 	if (p_prefs_openfile (p_getfilename_config(".clay", "wmtunlorc"), P_READ)) {
 
@@ -398,9 +398,9 @@ void wmtunlo_read_prefs(void)
 		strcpy(ClickCommand1, p_prefs_get_string ("command1"));
 		strcpy(ClickCommand2, p_prefs_get_string ("command2"));
 		strcpy(ClickCommand3, p_prefs_get_string ("command3"));
-    
+
 		p_prefs_closefile ();
-        
+
 	} else {
 
 		shade_switch = 1;

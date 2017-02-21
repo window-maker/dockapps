@@ -6,9 +6,9 @@ o  Put proper installation together.
 o  Add support for more chipsets
 o  Add abitily to change graph types by clicking on graph area. - DONE
 o  Add max reached temps, eg click CPU and temp is displayed in a different
-   colour and displays the maximum temp.(possibly draws a horizontal line in 
+   colour and displays the maximum temp.(possibly draws a horizontal line in
    the graph too to indcate where that lies on current graph) - DONE:
      Simply changes the colour of the temperature value to red.
      Independant clicking of CPU and SYS temps.
-   
+
 o  Add ability to exec a program when a given temp is reached. - DONE

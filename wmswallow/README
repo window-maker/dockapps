@@ -45,13 +45,13 @@ INSTALLATION:
 	and in case you want to delete the Sourcetree, you might want to copy the
 	README to /usr/doc/wmswallow
 
-	Now try 
+	Now try
 		wmswallow -h
 	to get a basic idea how it works.
 
 USE:
 ++++
-	Then some things you might try out are: 
+	Then some things you might try out are:
 	(i.e. lots of)
 	EXAMPLES:
 	=========
@@ -93,7 +93,7 @@ USE:
 		little annoying, so wmload is a better choice)
 
 -------	wmswallow -focus XTerm
-		(Weeelll... 
+		(Weeelll...
 	1. wmswallow can swallow apps without starting them
 	2. it takes the first it gets
 	3. swallowed apps can take keyboard focus now! (Is that useful? I doubt

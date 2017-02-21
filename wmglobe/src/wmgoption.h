@@ -1,16 +1,16 @@
 /*     WMGlobe 0.5  -  All the Earth on a WMaker Icon
  *     copyright (C) 1998,99 Jerome Dumonteil <jerome.dumonteil@capway.com>
- * 
+ *
  *     This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- * 
+ *
  *     You should have received a copy of the GNU General Public License
  *     along with this program; if not, write to the Free Software
  *     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -82,6 +82,6 @@
 #define DEFAULT_DAWN 	0.9
 
 /* change this if not 64x64 icons (not deep tested) you will need to change
-   the cadrex.xbm too and a few other things for the parameters menus 
+   the cadrex.xbm too and a few other things for the parameters menus
    --- DIAMETRE must be a multiple of 2 ---                  */
 #define DIAMETRE 	64

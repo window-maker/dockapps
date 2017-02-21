@@ -18,7 +18,7 @@ scalpel:
 	make clean
 	make ${TARGET}
 
-gv: 
+gv:
 	if [ -e buttons.xpm ];             then rm buttons.xpm; fi
 	if [ -e pushed_buttons.xpm ];      then rm pushed_buttons.xpm; fi
 	if [ -e backdrop.xpm ];            then rm backdrop.xpm; fi
@@ -37,5 +37,5 @@ ${TARGET}: ${OBJECTS}
 	gcc -g -o ${TARGET} ${OBJECTS} ${LIBINC} ${LIBS}
 
 clean::
-	for i in ${OBJECTS}; do if [ -e $$i ] ; then rm $$i; fi; done 
+	for i in ${OBJECTS}; do if [ -e $$i ] ; then rm $$i; fi; done
 	if [ -e ${TARGET} ] ; then rm ${TARGET}; fi

@@ -135,11 +135,11 @@ int main(int argc, char **argv) {
   if(!process_config(argc, argv)) {
     exit(-1);
   }
-  
+
   if(!init_sensors()) {
     exit(-1);
   }
-  
+
   /* Get the chip name */
   name = sensors_get_detected_chips(NULL, &chip_nr);
   while(name != NULL && chip_found == -1) {
@@ -173,7 +173,7 @@ int main(int argc, char **argv) {
   /* output the name of the sensor if found. */
   if(quiet == 0)
     printf("wmgtemp: Primary Sensor - %s on %s\n", name->prefix, sensors_get_adapter_name(&name->bus));
-  
+
   if(swap_types) {
     if(quiet == 0)
       printf("wmgtemp: swapping temps\n");
@@ -205,7 +205,7 @@ int main(int argc, char **argv) {
   AddMouseRegion(4, 10, SYS_YPOS, 28, SYS_YPOS + 7); /* SYS label area */
   AddMouseRegion(5, 55, CPU_YPOS, 60, CPU_YPOS + 7); /* CPU C/K/F scale indicator */
   AddMouseRegion(6, 55, SYS_YPOS, 60, SYS_YPOS + 7); /* SYS C/K/F scale indicator */
-  
+
   // Add blanking of SYS and CPU for chip type.
   // <<==---
   if(!IsOn(SENSOR_DISP, CPU)) {
@@ -225,9 +225,9 @@ int main(int argc, char **argv) {
 
   do_sensors(0);
   RedrawWindow();
-    
+
   process_xevents();
-  
+
   return 0;
 }
 
@@ -272,7 +272,7 @@ void process_xevents() {
   XEvent Event;
   Status ret;
   time_t lastupdate = 0;
-    
+
   ret = XInternalConnectionNumbers(display, &xfds, &fdcount);
   if(!ret) {
     fdcount = 0;
@@ -281,34 +281,34 @@ void process_xevents() {
     }
     xfds = NULL;
   }
-  
+
   int i;
   pfds = (struct pollfd*)malloc((fdcount+1)*sizeof(struct pollfd));
   if(!pfds) {
     perror("malloc");
     exit(EXIT_FAILURE);
   }
-  
+
   for(i=0; i < fdcount; ++i) {
     pfds[i].fd = xfds[i];
     pfds[i].events = POLLIN | POLLPRI;
   }
-  
+
   if(xfds) {
     XFree(xfds);
   }
-  
+
   pfds[fdcount].fd = ConnectionNumber(display);
   pfds[fdcount].events = POLLIN | POLLPRI;
-  
+
   while(1) {
     poll(pfds, fdcount + 1, delay * 1000);
-    
+
     if(time(NULL) - lastupdate >= delay) {
       lastupdate = time(NULL);
       do_sensors(0);
     }
-    
+
     while(XPending(display)) {
       XNextEvent(display, &Event);
       switch(Event.type) {
@@ -338,7 +338,7 @@ void process_xevents() {
 	  if(IsOn(SENSOR_DISP, HIGH_CPU)) {
 	    BitOff(SENSOR_DISP, HIGH_CPU);
 	    blank_max(CPU);
-	  } 
+	  }
 	  else {
 	    BitOn(SENSOR_DISP, HIGH_CPU);
 	    draw_max(CPU);
@@ -350,7 +350,7 @@ void process_xevents() {
 	  if(IsOn(SENSOR_DISP, HIGH_SYS)) {
 	    BitOff(SENSOR_DISP, HIGH_SYS);
 	    blank_max(SYS);
-	  } 
+	  }
 	  else {
 	    BitOn(SENSOR_DISP, HIGH_SYS);
 	    draw_max(SYS);
@@ -361,7 +361,7 @@ void process_xevents() {
 	case 3:
 	  if(SUBFEAT_NUM_CPU) {
 	    if(IsOn(SENSOR_DISP, CPU)) {
-	      BitOff(SENSOR_DISP, CPU); 
+	      BitOff(SENSOR_DISP, CPU);
 	      blank_type(CPU);
 	    }
 	    else {
@@ -378,7 +378,7 @@ void process_xevents() {
 	    if(IsOn(SENSOR_DISP, SYS)) {
 	      BitOff(SENSOR_DISP, SYS);
 	      blank_type(SYS);
-	    } 
+	    }
 	    else {
 	      BitOn(SENSOR_DISP, SYS);
 	      draw_type(SYS);
@@ -407,7 +407,7 @@ void do_sensors(int val) {
   update_sensor_data();
   update_display();
   RedrawWindow();
-  
+
   if(execat != 0 && cpu_history[58] >= execat && !execed) {
     execed = 1;
     execCommand(exec_app);
@@ -428,7 +428,7 @@ void update_sensor_data() {
     cpu_history[i] = cpu_history[i + 1];
     sys_history[i] = sys_history[i + 1];
   }
-  
+
   // Read the new values from the sensors into the temperature arrays.
   if(IsOn(SENSOR_DISP, SYS)) sensors_get_value(name, SUBFEAT_NUM_SYS, &sys_history[58]);
   if(IsOn(SENSOR_DISP, CPU)) sensors_get_value(name, SUBFEAT_NUM_CPU, &cpu_history[58]);
@@ -451,7 +451,7 @@ void update_display() {
 
   // Display warning.
   draw_warning_lights(cpu_history[58]);
-  
+
   // ReDraw temperature numbers
   if(IsOn(SENSOR_DISP, CPU)) {
     copyXPMArea(78, 65, 5, 7, 34, CPU_YPOS);
@@ -471,7 +471,7 @@ void update_display() {
   for(j = 0; j < 59; j++) {
     // Clear a line
     copyXPMArea(65, 0, 1, 39, j + 2, 12);
-    
+
     if(sys_history[j] < cpu_history[j]) {
       // Draw the temperatures on the graph.
       if(IsOn(SENSOR_DISP, CPU)) {
@@ -490,7 +490,7 @@ void update_display() {
       }
     }
   }
-  
+
   // Draw range lines if needed
   if(range_upper > display_max) {
     draw_range_line(display_max, range_upper - range_lower, D_MAX);
@@ -503,65 +503,65 @@ void update_display() {
 int recompute_range(double cpu_high, double cpu_low, double sys_high, double sys_low)
 {
   short modified = 0;
-  
+
   if(IsOn(SENSOR_DISP, CPU)) {
     if(cpu_high > range_upper) {
       range_upper += range_step;
       modified = 1;
     }
-    if(cpu_low < range_lower) { 
-      range_lower -= range_step;  
-      modified = 1;  
-    }  
+    if(cpu_low < range_lower) {
+      range_lower -= range_step;
+      modified = 1;
+    }
   }
   if(IsOn(SENSOR_DISP, SYS)) {
     if(sys_high > range_upper) {
       range_upper += range_step;
       modified = 1;
     }
-    if(sys_low < range_lower) {  
-      range_lower -= range_step;  
-      modified = 1;  
-    }  
+    if(sys_low < range_lower) {
+      range_lower -= range_step;
+      modified = 1;
+    }
   }
-  
+
   // --------
   if(IsOn(SENSOR_DISP, CPU) && IsOn(SENSOR_DISP, SYS)) {
-    if((cpu_high < (range_upper - range_step) && 
-	sys_high < (range_upper - range_step)) && 
+    if((cpu_high < (range_upper - range_step) &&
+	sys_high < (range_upper - range_step)) &&
        (range_upper - range_step) >= display_max) {
       range_upper -= range_step;
       modified = 1;
     }
-    if((cpu_low > (range_lower + range_step) && 
-	sys_low > (range_lower + range_step)) && 
-       (range_lower + range_step) <= display_min ) {  
-      range_lower += range_step;  
-      modified = 1;  
-    }  
+    if((cpu_low > (range_lower + range_step) &&
+	sys_low > (range_lower + range_step)) &&
+       (range_lower + range_step) <= display_min ) {
+      range_lower += range_step;
+      modified = 1;
+    }
   }
   else if(IsOn(SENSOR_DISP, CPU) && !IsOn(SENSOR_DISP, SYS)) {
-    if(cpu_high < (range_upper - range_step) && 
+    if(cpu_high < (range_upper - range_step) &&
        (range_upper - range_step) >= display_max) {
       range_upper -= range_step;
       modified = 1;
-    }    
-    if(cpu_low > (range_lower + range_step) && 
-       (range_lower + range_step) <= display_min) { 
-      range_lower += range_step;  
-      modified = 1;  
-    } 
+    }
+    if(cpu_low > (range_lower + range_step) &&
+       (range_lower + range_step) <= display_min) {
+      range_lower += range_step;
+      modified = 1;
+    }
   }
   else if(!IsOn(SENSOR_DISP, CPU) && IsOn(SENSOR_DISP, SYS)) {
-    if(sys_high < (range_upper - range_step) && 
+    if(sys_high < (range_upper - range_step) &&
        (range_upper - range_step) >= display_max) {
       range_upper -= range_step;
       modified = 1;
-    }    
-    if(sys_low > (range_lower + range_step) && 
-       (range_lower + range_step) <= display_min) { 
-      range_lower += range_step;  
-      modified = 1;  
+    }
+    if(sys_low > (range_lower + range_step) &&
+       (range_lower + range_step) <= display_min) {
+      range_lower += range_step;
+      modified = 1;
     }
   }
 
@@ -630,7 +630,7 @@ void draw_temp(short value, int type) {
 	copyXPMArea((digit * 6) + 1, 65, 5, 7, 34, type == CPU ? CPU_YPOS : SYS_YPOS);
       }
     }
-  } 
+  }
 }
 
 
@@ -852,7 +852,7 @@ int process_config(int argc, char **argv) {
     { "sensorconf", &rc_config },
     { NULL, NULL }
   };
-  
+
   static struct option long_options[] = {
     {"graph",  required_argument, 0, 'g'},
     {"scale",  required_argument, 0, 's'},
@@ -872,7 +872,7 @@ int process_config(int argc, char **argv) {
     {"help",   no_argument,       0, 'h'},
     {0, 0, 0, 0}
   };
-  
+
   p = getenv("HOME");
   strcpy(temp, p);
   strcat(temp, "/.wmgtemprc");

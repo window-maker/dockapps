@@ -21,7 +21,7 @@ create_list ()
 	list->item = malloc (BASE_SIZE * sizeof (int) );
 	list->size = BASE_SIZE;
 	list->used = 0;
-	
+
 	return list;
 }
 

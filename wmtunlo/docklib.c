@@ -3,7 +3,7 @@
 /* made from scratch              */
 /*--------------------------------*/
 
-/* 
+/*
 	functions were written by following People:
 
 		--- linked list
@@ -37,7 +37,7 @@
 
 /* Return a cons cell produced from (head . tail) */
 
-INLINE LinkedList* 
+INLINE LinkedList*
 list_cons(void* head, LinkedList* tail)
 {
   LinkedList* cell;
@@ -62,7 +62,7 @@ list_length(LinkedList* list)
   return i;
 }
 
-/* Return the Nth element of LIST, where N count from zero.  If N 
+/* Return the Nth element of LIST, where N count from zero.  If N
    larger than the list length, NULL is returned  */
 
 INLINE void*
@@ -83,7 +83,7 @@ list_nth(int index, LinkedList* list)
 INLINE void
 list_remove_head(LinkedList** list)
 {
-  if (!*list) return;  
+  if (!*list) return;
   if ((*list)->tail)
     {
       LinkedList* tail = (*list)->tail; /* fetch next */
@@ -101,7 +101,7 @@ INLINE LinkedList *
 list_remove_elem(LinkedList* list, void* elem)
 {
     LinkedList *tmp;
-    
+
     if (list) {
 	if (list->head == elem) {
 	    tmp = list->tail;
@@ -158,7 +158,7 @@ list_mapcar(LinkedList* list, void(*function)(void*))
  *----------------------------------------------------------------------
  * parse_command--
  * 	Divides a command line into a argv/argc pair.
- *---------------------------------------------------------------------- 
+ *----------------------------------------------------------------------
  */
 #define PRC_ALPHA	0
 #define PRC_BLANK	1
@@ -194,11 +194,11 @@ next_token(char *word, char **next)
 
     t = ret = malloc(strlen(word)+1);
     ptr = word;
-    
+
     state = 0;
     *t = 0;
     while (1) {
-	if (*ptr==0) 
+	if (*ptr==0)
 	    ctype = PRC_EOS;
 	else if (*ptr=='\\')
 	    ctype = PRC_ESCAPE;
@@ -228,12 +228,12 @@ next_token(char *word, char **next)
 	t = strdup(ret);
 
     free(ret);
-    
+
     if (ctype==PRC_EOS)
 	*next = NULL;
     else
 	*next = ptr;
-    
+
     return t;
 }
 
@@ -248,7 +248,7 @@ parse_command(char *command, char ***argv, int *argc)
     line = command;
     do {
 	token = next_token(line, &line);
-	if (token) {	    
+	if (token) {
 	    list = list_cons(token, list);
 	}
     } while (token!=NULL && line!=NULL);
@@ -271,15 +271,15 @@ execCommand(char *command)
     int argc;
 
     parse_command(command, &argv, &argc);
-    
+
     if (argv==NULL) {
         return 0;
     }
-    
+
     if ((pid=fork())==0) {
         char **args;
         int i;
-        
+
         args = malloc(sizeof(char*)*(argc+1));
         if (!args)
           exit(10);
@@ -385,7 +385,7 @@ static void GetXPM(XpmIcon *wmgen, char *pixmap_bytes[]) {
 
 	err = XpmCreatePixmapFromData(display, Root, pixmap_bytes, &(wmgen->pixmap),
 					&(wmgen->mask), &(wmgen->attributes));
-	
+
 	if (err != XpmSuccess) {
 		fprintf(stderr, "Not enough free colorcells.\n");
 		exit(1);
@@ -432,9 +432,9 @@ static int flush_expose(Window w) {
 \*******************************************************************************/
 
 void RedrawWindow(void) {
-	
+
 	flush_expose(iconwin);
-	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 
+	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC,
 				0,0, wmgen.attributes.width, wmgen.attributes.height, 0,0);
 	flush_expose(win);
 	XCopyArea(display, wmgen.pixmap, win, NormalGC,
@@ -446,9 +446,9 @@ void RedrawWindow(void) {
 \*******************************************************************************/
 
 void RedrawWindowXY(int x, int y) {
-	
+
 	flush_expose(iconwin);
-	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 
+	XCopyArea(display, wmgen.pixmap, iconwin, NormalGC,
 				x,y, wmgen.attributes.width, wmgen.attributes.height, 0,0);
 	flush_expose(win);
 	XCopyArea(display, wmgen.pixmap, win, NormalGC,
@@ -542,12 +542,12 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	int				i;
 
 	for (i=1; argv[i]; i++) {
-		if (!strcmp(argv[i], "-display")) 
+		if (!strcmp(argv[i], "-display"))
 			display_name = argv[i+1];
 	}
 
 	if (!(display = XOpenDisplay(display_name))) {
-		fprintf(stderr, "%s: can't open display %s\n", 
+		fprintf(stderr, "%s: can't open display %s\n",
 						wname, XDisplayName(display_name));
 		exit(1);
 	}
@@ -572,10 +572,10 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 
 	mysizehints.width = 64;
 	mysizehints.height = 64;
-		
+
 	win = XCreateSimpleWindow(display, Root, mysizehints.x, mysizehints.y,
 				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
-	
+
 	iconwin = XCreateSimpleWindow(display, win, mysizehints.x, mysizehints.y,
 				mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
 
@@ -596,7 +596,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	XSetWMName(display, win, &name);
 
 	/* Create GC for drawing */
-	
+
 	gcm = GCForeground | GCBackground | GCGraphicsExposures;
 	gcv.foreground = fore_pix;
 	gcv.background = back_pix;
@@ -671,7 +671,7 @@ void* p_prefs_openfile (char *filename, int openmode)
 		prefs_filehandle = fopen (filename, "rb");
 	else if (openmode == P_WRITE)
 		prefs_filehandle = fopen (filename, "wb");
-    
+
 	return prefs_filehandle;
 }
 
@@ -724,20 +724,20 @@ static char prfline[MAX_LINE_LEN];
 int i;
 char c;
 
-	fseek (prefs_filehandle, 0, SEEK_SET);	
-    
+	fseek (prefs_filehandle, 0, SEEK_SET);
+
 	while (!feof (prefs_filehandle)) {
 		i = 0;
 
 		while (((c = fgetc (prefs_filehandle)) != crlf_char) && c!= EOF && i < MAX_LINE_LEN)
 			prfline[i++] = c;
-            
+
 		prfline[i] = null_char;
-        
+
 		if (prfline[0] != '#')
 			if (!strncmp (tagname, prfline, strlen (tagname))) break;
 	}
-        
+
 	return prfline;
 }
 
@@ -753,7 +753,7 @@ int i;
 	if ((valpos = strchr (p_prefs_get_line_with_tag (tagname), '='))) {
 		while((c = valpos[i+1]) != null_char && i < MAX_VALUE_LEN) valuestr[i++] = c;
 	}
-    
+
 	valuestr[i] = null_char;
 	return valuestr;
 }
@@ -802,7 +802,7 @@ int len;
 				(int)(len-maxlength), src);
 		len = maxlength;
 	}
-      
+
 	memcpy(dest, src, len);
 	dest[len] = 0;
 	return dest;
@@ -831,7 +831,7 @@ int src_len, dest_len;
 				(int)(src_len + dest_len - maxlength), src);
 		src_len = maxlength - dest_len;
 	}
-      
+
 	memcpy(&dest[dest_len], src, src_len);
 	dest[dest_len + src_len] = 0;
 	return dest;

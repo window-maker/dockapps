@@ -1,7 +1,7 @@
 /* wmswallow.c */
 
 /* #define DEBUG 1 */
-          /* Sometimes i want to get quick access to this flag :-)*/ 
+          /* Sometimes i want to get quick access to this flag :-)*/
 
 /* Time-stamp: <00/05/15 23:13:43 friedel> */
 
@@ -38,7 +38,7 @@ typedef unsigned long Pixel;    /* Index into colormap */
 /* Now we got rid of that stupid libXpm dependency :-) */
 
 #define WIDTH 55
-#define HEIGHT 57 
+#define HEIGHT 57
 /* 55x57 seems to be the default size for a WindowMaker dockapp */
 /* settable by "-geometry" switch */
 
@@ -83,7 +83,7 @@ int shape=TRUE;
 int focus=FALSE;
 int unmanaged=FALSE;
 int winid=0;
-char *display_name=NULL; 
+char *display_name=NULL;
 
 int main(int argc,char *argv[])
 {
@@ -110,11 +110,11 @@ int main(int argc,char *argv[])
   fflush(stderr);
 #endif
 
-  if (!(dpy = XOpenDisplay(display_name))) { 
-    fprintf(stderr,"wmswallow: can't open display %s\n", 
-	    XDisplayName(display_name)); 
-    exit (1); 
-  } 
+  if (!(dpy = XOpenDisplay(display_name))) {
+    fprintf(stderr,"wmswallow: can't open display %s\n",
+	    XDisplayName(display_name));
+    exit (1);
+  }
   screen=DefaultScreen(dpy);
   Root=RootWindow(dpy, screen);
 
@@ -122,7 +122,7 @@ int main(int argc,char *argv[])
   if (remainargc>1) {
     winid=startandfind(remainargc-1, argv+remainarg+1, argv[remainarg]);
     if (winid==0) {
-      perror("wmswallow: startandfind failed"); 
+      perror("wmswallow: startandfind failed");
       /* Real error handling in execstuff()*/
       exit (1);
     }
@@ -137,7 +137,7 @@ int main(int argc,char *argv[])
   fore_pix=GetColor("black");
   XWMGeometry(dpy, screen, geometry, NULL, (borderwidth =1),
 	      &mysizehints, &mysizehints.x, &mysizehints.y,
-	      &mysizehints.width, &mysizehints.height, &i); 
+	      &mysizehints.width, &mysizehints.height, &i);
   mysizehints.width=WIDTH;
   mysizehints.height=HEIGHT;
   if (geometry!=NULL) {
@@ -145,10 +145,10 @@ int main(int argc,char *argv[])
     fprintf(stderr,"Setting geometry to: %s\n",geometry);
     fflush(stderr);
 #endif
-    XParseGeometry(geometry, &mysizehints.x, &mysizehints.y, 
+    XParseGeometry(geometry, &mysizehints.x, &mysizehints.y,
 		   &mysizehints.width, &mysizehints.height);
   }
-  
+
   win=XCreateSimpleWindow(dpy, Root, mysizehints.x, mysizehints.y,
 			  mysizehints.width, mysizehints.height, borderwidth,
 			  fore_pix, back_pix);
@@ -174,21 +174,21 @@ int main(int argc,char *argv[])
   mywmhints.window_group = win;
   mywmhints.flags = StateHint | IconWindowHint |
     IconPositionHint | WindowGroupHint;
-  XSetWMHints(dpy, win, &mywmhints); 
+  XSetWMHints(dpy, win, &mywmhints);
   XSetCommand(dpy, win, argv, argc);
 
   if (winid==0) {
     swallowed=findnamedwindow(argv[remainarg]); /* Find which window to
 						   swallow*/
 #ifdef DEBUG
-    fprintf(stderr,"%s has Window-id 0x%lx\n", argv[remainarg], swallowed); 
+    fprintf(stderr,"%s has Window-id 0x%lx\n", argv[remainarg], swallowed);
     fflush(stderr);
-#endif  
+#endif
   }
   else
     swallowed=winid;
 
-  
+
   /* "Swallow" it */
   XReparentWindow(dpy, swallowed, iconwin, 0, 0);
   if (getclick) {
@@ -246,7 +246,7 @@ int main(int argc,char *argv[])
 		FlushWindow();
 	        XMapRaised(dpy,swallowed);
 		/* the following Produces "focus-flicker" */
-		/* XMapSubwindows(dpy,win); */ 
+		/* XMapSubwindows(dpy,win); */
 		/* XMapWindow(dpy,win); */
 	      }
 	      break;
@@ -263,13 +263,13 @@ int main(int argc,char *argv[])
 
 	    case DestroyNotify:
 	      XCloseDisplay(dpy);
-	      exit(0); 
+	      exit(0);
 	    default:
 #ifdef DEBUG
 	      /* fprintf (stderr, "wmswallow: Got Some Other Event\n");
 			      fflush(stderr); */
 #endif
-	      break;      
+	      break;
 	    }
 	}
       XFlush(dpy);
@@ -284,7 +284,7 @@ int main(int argc,char *argv[])
 /*   attributes.override_redirect=FALSE; */
 /*   attributes.event_mask=SW_EVENTS|MW_EVENTS; */
 /*   attributes.do_not_propagate_mask=0; */
-  
+
 /*   XChangeWindowAttributes(dpy, w, */
 /*   CWOverrideRedirect|CWEventMask|CWDontPropagate, */
 /* 			  &attributes); */
@@ -316,11 +316,11 @@ int sendexpose (Window w) {
 }
 
 void stealshape(Window w) {
-  XShapeCombineShape (dpy, iconwin, ShapeBounding, 0, 0, w, 
+  XShapeCombineShape (dpy, iconwin, ShapeBounding, 0, 0, w,
 		      ShapeBounding, ShapeSet);
   /* XShapeCombineShape (dpy, win, ShapeBounding, 0, 0, w,  */
   /* 		      ShapeBounding, ShapeSet); */
-  /*Re-read specs! */ 
+  /*Re-read specs! */
   /*   XShapeCombineShape (dpy, win, ShapeClip, 0, 0, w,  */
   /* 		      ShapeClip, ShapeSet); */
   /*   XShapeCombineShape (dpy, iconwin, ShapeClip, 0, 0, w, */
@@ -355,9 +355,9 @@ Pixel GetColor(char *name)
   XWindowAttributes attributes;
   XGetWindowAttributes(dpy,Root,&attributes);
   color.pixel=0;
-  if (!XParseColor(dpy,attributes.colormap,name,&color)) 
+  if (!XParseColor(dpy,attributes.colormap,name,&color))
     nocolor("parse",name);
-  else if(!XAllocColor (dpy,attributes.colormap,&color)) 
+  else if(!XAllocColor (dpy,attributes.colormap,&color))
     nocolor("alloc",name);
   return color.pixel;
 }
@@ -382,9 +382,9 @@ void usage(char *progname){
 	 " -focus:              Window should take focus\n"
 	 " -nofocus:            Window shouldn't take focus(default)\n"
 	 " -managed:            Assume window is managed by the\n"
-	 "                      windowmanager (default)\n" 
+	 "                      windowmanager (default)\n"
 	 " -unmanaged:          Assume window is not managed by the\n"
-	 "                      windowmanager\n" 
+	 "                      windowmanager\n"
 	 " -getclick <string>:  on mouseclick, execute <string>\n"
 	 "                      instead of passing the Event to the\n"
 	 "                      swallowed window.\n"
@@ -407,7 +407,7 @@ int parseargs(int argc, char *argv[]){
 	!strncmp(argv[argnum],"--",2)) {
       usage(argv[0]);
       exit(0);
-    } else if (!strcmp(argv[argnum],"-geometry")|| 
+    } else if (!strcmp(argv[argnum],"-geometry")||
 	       !strcmp(argv[argnum],"-geom"))
       geometry=argv[++argnum];
     else if (!strcmp(argv[argnum],"-display"))
@@ -524,13 +524,13 @@ Window startandfind (int argc, char *oldargv[], char* class) {
 	   "0x%lx\n", wintmp);
   fflush(stderr);
 #endif
-  
+
   waitformap(winreturn);
   /* Ok, the window has been created, Reparented by WindowMaker and mapped */
   /* What else can we do to make sure the window was created? */
 
   sleep(1); /* doze just a sec, should be more than enough in any case */
-  
+
   return winreturn;
 }
 
@@ -540,12 +540,12 @@ int execstuff (int argc, char *oldargv[]) {
   int i, success, forked;
 
   argv=(char **)malloc((argc+1)*sizeof(char *));
-  
+
   for (i=0; i<argc; i++) {
     argv[i]=oldargv[i];
   }
   argv[i]=NULL;
-  
+
   forked=fork();
   if (forked==-1) {
     perror("Could not fork");
@@ -561,7 +561,7 @@ int execstuff (int argc, char *oldargv[]) {
       printlist(stderr, "Could not execute:", argv);
       fprintf(stderr, "\n");
       exit(1);
-    } 
+    }
   } /* Removed the sleep, since it keeps us from getting the Create Event */
   free(argv);
   return(TRUE);
@@ -617,7 +617,7 @@ Window findnamedwindowacc (char *class, Window window) {
 
   if (checkwindow(window, class))
     return window;
-  
+
   if (XQueryTree (dpy, window, &root_return, &parent_return,
 		  &children_return, &nchildren_return)&&nchildren_return>0) {
     for
@@ -638,9 +638,9 @@ Window findnamedwindowacc (char *class, Window window) {
 int checkwindow (Window window, char *class) {
   XClassHint class_hints;
   XTextProperty prop;
-  
+
   int found=0;
-  
+
   class_hints.res_name = class_hints.res_class = prop.value =(char *) NULL;
 
   /* Check WM_CLASS properties name and class */
@@ -666,7 +666,7 @@ int checkwindow (Window window, char *class) {
 	   prop.value);
   fflush(stderr);
 #endif
-  
+
   /* Clean up */
   if (prop.value)
     XFree(prop.value);

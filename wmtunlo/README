@@ -1,5 +1,5 @@
 
-WMTUNLO 
+WMTUNLO
 ========
 
 It is one of the useless dockapp ever made, so use it or not....
@@ -7,7 +7,7 @@ It is one of the useless dockapp ever made, so use it or not....
 The configuration file is stored in $HOME/.clay/ directory.
 
 There are 8 examples named 'wmtunlorc.example1' thru 'wmtunlorc.example8'.
-To test these examples rename selected file to 'wmtunlorc' and put it into 
+To test these examples rename selected file to 'wmtunlorc' and put it into
 $HOME/.clay/ directory, then run wmtunlo.
 
 You can assign three programs to run when double-click is performed (look at

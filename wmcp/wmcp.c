@@ -1,22 +1,22 @@
 
 /***********************************************************************
- *   Code is stol^H^H^H^Hbased on wmppp, wmload, and wmtme  
+ *   Code is stol^H^H^H^Hbased on wmppp, wmload, and wmtme
  *
  *   Author: Ben Cohen <buddog@aztec.asu.edu>
  *
  *   Contributors:
  *        Thomas Nemeth <tnemeth@multimania.com> -- Pushed button highlighting
- *      Craig Maloney <craig@ic.net> -- CTRL + ALT + key option 
+ *      Craig Maloney <craig@ic.net> -- CTRL + ALT + key option
  *
  *
  *   This program is distributed under the GPL license.
  *
  *
  *   Best viewed with tab = 4 ( in vi set ts=4 )
- * 
+ *
  ***********************************************************************/
 
-    
+
 
 #define VERSION "Ver 1.2.8 -- May 25, 1999"
 
@@ -29,7 +29,7 @@
 #include <math.h>
 
 #include "backdrop.xpm"
-#include "buttons.xpm" 
+#include "buttons.xpm"
 #include "pushed_buttons.xpm"
 #include "mask.xbm"
 
@@ -74,7 +74,7 @@ ButtonArea button_region[16];
 
 XpmIcon template, visible, buttons, pbuttons;
 
-unsigned int control = 0;        
+unsigned int control = 0;
 
 int numb_of_workspaces = 16;   /* Number of buttons to display.
                                   Initially set high. Changed by
@@ -82,7 +82,7 @@ int numb_of_workspaces = 16;   /* Number of buttons to display.
 
 int N = 1;                    /* Button number pressed to goto WS     */
 int B = 1;                    /* Button number pressed to number WS's */
-int alt_key_type = 1;            
+int alt_key_type = 1;
 int border = 5;
 int Verbose = 0;
 
@@ -113,7 +113,7 @@ void show_usage();
 int main( int argc, char ** argv )
 {
     XEvent report;
-    XGCValues xgcValues;    
+    XGCValues xgcValues;
 
     XTextProperty app_name_atom;
 
@@ -150,7 +150,7 @@ int main( int argc, char ** argv )
                 case 'n':
                     if ( ++i >= argc ) show_usage();
                     sscanf(argv[i], "%d", &numb_of_workspaces);
-                    if ( Verbose ) 
+                    if ( Verbose )
                         printf("Numb of Workspaces: %d\n", numb_of_workspaces);
                     break;
                 case 's':
@@ -178,14 +178,14 @@ int main( int argc, char ** argv )
                 case 'x':
                     if ( ++i >= argc ) show_usage();
                     sscanf(argv[i], "%d", &xbut);
-                    if ( xbut < 1 || xbut > MAX_X_BUT ) xbut = 3; 
-                    if ( Verbose ) printf("Num X buttons=%d\n", xbut); 
+                    if ( xbut < 1 || xbut > MAX_X_BUT ) xbut = 3;
+                    if ( Verbose ) printf("Num X buttons=%d\n", xbut);
                     break;
                 case 'y':
                     if ( ++i >= argc ) show_usage();
                     sscanf(argv[i], "%d", &ybut);
                     if ( ybut < 1 || ybut > MAX_Y_BUT ) ybut = 3;
-                    if ( Verbose ) printf("Num Y buttons=%d\n", ybut); 
+                    if ( Verbose ) printf("Num Y buttons=%d\n", ybut);
                     break;
                 case 'a':
                     if ( ++i >= argc ) show_usage();
@@ -210,7 +210,7 @@ int main( int argc, char ** argv )
 
 
     if ( (display = XOpenDisplay(Display_str)) == NULL ) {
-        fprintf(stderr,"Fail: XOpenDisplay for %s\n", Display_str);    
+        fprintf(stderr,"Fail: XOpenDisplay for %s\n", Display_str);
         exit(-1);
     }
 
@@ -219,8 +219,8 @@ int main( int argc, char ** argv )
     rootwin = RootWindow(display,screen);
     depth = DefaultDepth(display, screen);
 
-    bg_pixel = WhitePixel(display, screen ); 
-    fg_pixel = BlackPixel(display, screen ); 
+    bg_pixel = WhitePixel(display, screen );
+    fg_pixel = BlackPixel(display, screen );
 
 
 
@@ -231,19 +231,19 @@ int main( int argc, char ** argv )
 
     /* Parse Geometry string and fill in sizehints fields */
 
-    XWMGeometry(display, screen, 
-                Geometry_str, 
-                NULL,     
-                border, 
+    XWMGeometry(display, screen,
+                Geometry_str,
+                NULL,
+                border,
                 &xsizehints,
-                &xsizehints.x, 
+                &xsizehints.x,
                 &xsizehints.y,
                 &xsizehints.width,
-                &xsizehints.height, 
+                &xsizehints.height,
                 &dummy);
 
 
-    if ( (win = XCreateSimpleWindow( 
+    if ( (win = XCreateSimpleWindow(
         display,
         rootwin,
         xsizehints.x,
@@ -252,11 +252,11 @@ int main( int argc, char ** argv )
         xsizehints.height,
         border,
         fg_pixel, bg_pixel) ) == 0 ) {
-            fprintf(stderr,"Fail: XCreateSimpleWindow\n");    
+            fprintf(stderr,"Fail: XCreateSimpleWindow\n");
             exit(-1);
     }
 
-    if ( (iconwin = XCreateSimpleWindow( 
+    if ( (iconwin = XCreateSimpleWindow(
         display,
         win,
         xsizehints.x,
@@ -265,7 +265,7 @@ int main( int argc, char ** argv )
         xsizehints.height,
         border,
         fg_pixel, bg_pixel) ) == 0 ) {
-            fprintf(stderr,"Fail: XCreateSimpleWindow\n");    
+            fprintf(stderr,"Fail: XCreateSimpleWindow\n");
             exit(-1);
     }
 
@@ -290,21 +290,21 @@ int main( int argc, char ** argv )
     /* Convert in pixmaps from .xpm includes. */
     getPixmaps();
 
-    
+
 
 
     /* Interclient Communication stuff */
     /* Appicons don't work with out this stuff */
 
     xwmhints = XAllocWMHints();
-    xwmhints->flags = WindowGroupHint | IconWindowHint | StateHint;    
+    xwmhints->flags = WindowGroupHint | IconWindowHint | StateHint;
     xwmhints->icon_window = iconwin;
     xwmhints->window_group = win;
     xwmhints->initial_state = window_state;
 
 
     XSetWMHints( display, win, xwmhints );
-    
+
     xclasshint.res_name = "wmcp";
     xclasshint.res_class = "WMcp";
     XSetClassHint( display, win, &xclasshint );
@@ -323,17 +323,17 @@ int main( int argc, char ** argv )
         exit(-1);
     }
     XSetWMName( display, win, &app_name_atom );
-            
+
 
 
     /* Create Graphic Context */
-    
-    if ( (gc = XCreateGC( 
+
+    if ( (gc = XCreateGC(
         display,
         win,
         (GCForeground | GCBackground),
         &xgcValues)) == NULL ) {
-            fprintf(stderr,"Fail: XCreateGC\n");    
+            fprintf(stderr,"Fail: XCreateGC\n");
             exit(-1);
     }
 
@@ -346,16 +346,16 @@ int main( int argc, char ** argv )
     XSelectInput(
         display,
         win,
-        ExposureMask | 
-        ButtonPressMask | 
+        ExposureMask |
+        ButtonPressMask |
         PointerMotionMask |
         StructureNotifyMask );
 
     XSelectInput(
         display,
         iconwin,
-        ExposureMask | 
-        ButtonPressMask | 
+        ExposureMask |
+        ButtonPressMask |
         PointerMotionMask |
         StructureNotifyMask );
 
@@ -363,7 +363,7 @@ int main( int argc, char ** argv )
 
     /* Store the 'state' of the application for restarting */
 
-    XSetCommand( display, win, argv, argc );    
+    XSetCommand( display, win, argv, argc );
 
 
     /* Window won't ever show up until it is mapped.. then drawn after a     */
@@ -381,22 +381,22 @@ int main( int argc, char ** argv )
 
 
             case Expose:
-                if (report.xexpose.count != 0) {    
+                if (report.xexpose.count != 0) {
                     break;
                 }
-                if ( Verbose ) fprintf(stdout,"Event: Expose\n");    
+                if ( Verbose ) fprintf(stdout,"Event: Expose\n");
                 redraw( xbut, ybut );
                 break;
 
 
             case ConfigureNotify:
-                if ( Verbose ) fprintf(stdout,"Event: ConfigureNotify\n");    
+                if ( Verbose ) fprintf(stdout,"Event: ConfigureNotify\n");
                 redraw( xbut, ybut );
                 break;
 
 
             case ButtonPress:
-	            if ( Verbose ) 
+	            if ( Verbose )
                     printf ("numb_of_workspaces=%d\n", numb_of_workspaces);
                 switch (report.xbutton.button) {
                     case Button1:
@@ -405,9 +405,9 @@ int main( int argc, char ** argv )
                             switchToWorkspaceN( N );
                             redraw(xbut, ybut);
                         }
-                        if ( Verbose ) 
-                            fprintf(stdout,"Button 1:x=%d y=%d N=%d\n", 
-                                report.xbutton.x, report.xbutton.y, N);    
+                        if ( Verbose )
+                            fprintf(stdout,"Button 1:x=%d y=%d N=%d\n",
+                                report.xbutton.x, report.xbutton.y, N);
                         break;
 
                     case Button2:
@@ -417,9 +417,9 @@ int main( int argc, char ** argv )
                             numb_of_workspaces = B;
                             redraw(xbut, ybut);
                         }
-                        if ( Verbose ) 
-                            fprintf(stdout,"Button 2or3:x=%d y=%d B=%d\n", 
-                                report.xbutton.x, report.xbutton.y, B);    
+                        if ( Verbose )
+                            fprintf(stdout,"Button 2or3:x=%d y=%d B=%d\n",
+                                report.xbutton.x, report.xbutton.y, B);
                         break;
                     }
 
@@ -427,13 +427,13 @@ int main( int argc, char ** argv )
 
 
             case DestroyNotify:
-                if ( Verbose ) 
+                if ( Verbose )
                     fprintf(stdout, "Bye\n");
                 XFreeGC(display, gc);
                 XDestroyWindow(display,win);
                 XDestroyWindow(display,iconwin);
                 XCloseDisplay(display);
-                if ( Verbose ) 
+                if ( Verbose )
                     fprintf(stdout, "Bye\n");
                 exit(0);
                 break;
@@ -452,7 +452,7 @@ return (0);
  *
  *     Map the button region coordinates.
  *
- *   Draw the appropriate number of buttons on the 'visible' Pixmap 
+ *   Draw the appropriate number of buttons on the 'visible' Pixmap
  *   using data from the 'buttons' pixmap.
  *
  *   Then, copy the 'visible' pixmap to the two windows ( the withdrawn
@@ -477,15 +477,15 @@ void redraw( int xbut, int ybut )
 	ybut_size = 48 / ybut;
 
 
-    XCopyArea(     display, 
-            template.pixmap, visible.pixmap, 
-            gc, 
+    XCopyArea(     display,
+            template.pixmap, visible.pixmap,
+            gc,
             0, 0,
-            template.attributes.width, 
+            template.attributes.width,
             template.attributes.height,
-            0, 0 ); 
+            0, 0 );
 
- 
+
     for ( j=0; j < ybut; j++ ) {
         for ( i=0; i < xbut; i++ ) {
             n = i + j * xbut;
@@ -500,7 +500,7 @@ void redraw( int xbut, int ybut )
             button_region[n].x = dest_x;
             button_region[n].y = dest_y;
             button_region[n].i = dest_x + xbut_size - 1;
-            button_region[n].j = dest_y + ybut_size - 1; 
+            button_region[n].j = dest_y + ybut_size - 1;
 
 
             /* Copy button images for valid workspaces */
@@ -510,56 +510,56 @@ void redraw( int xbut, int ybut )
                 /* Draw normal button */
                 /* Edited by Gert Beumer */
                 if ( (n + 1) != N ) {
-                
+
                     /* upper left */
                     XCopyArea(    display,
-                            buttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            buttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             0,0,
                             step_x, step_y,
                             dest_x,
                             dest_y);
                     /* lowwer left */
                     XCopyArea(    display,
-                            buttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            buttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             0,48 - step_y,
-                            step_x, step_y, 
+                            step_x, step_y,
                             dest_x,
                             dest_y + step_y);
                     /* lowwer right */
                     XCopyArea(    display,
-                            buttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            buttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             48 - step_x,48 - step_y,
-                            step_x, step_y, 
+                            step_x, step_y,
                             dest_x + step_x,
                             dest_y + step_y);
                     /* upper right */
                     XCopyArea(    display,
-                            buttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            buttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             48 - step_x,0,
-                            step_x, step_y, 
+                            step_x, step_y,
                             dest_x + step_x,
                             dest_y);
-                    
+
                     /* Draw the numbers */
                     XCopyArea(    display,
-                            buttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            buttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             n * 5,
                             48,
                             5,5,
                             dest_x + (48 - xbut * 5) / (2 * xbut),
                             dest_y + (48 - ybut * 5) / (2 * ybut));
                     }
-    
+
                 /* Draw pushed button */
                 /* Added by Thomas Nemeth, Edited by Gert Beumer */
                 if ( (n + 1) == N ) {
@@ -567,46 +567,46 @@ void redraw( int xbut, int ybut )
 
                     /* upper left */
                     XCopyArea(    display,
-                            pbuttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            pbuttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             0,0,
                             step_x, step_y,
                             dest_x,
                             dest_y);
                     /* lowwer left */
                     XCopyArea(    display,
-                            pbuttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            pbuttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             0,48 - step_y,
-                            step_x, step_y, 
+                            step_x, step_y,
                             dest_x,
                             dest_y + step_y);
                     /* lowwer right */
                     XCopyArea(    display,
-                            pbuttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            pbuttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             48 - step_x,48 - step_y,
-                            step_x, step_y, 
+                            step_x, step_y,
                             dest_x + step_x,
                             dest_y + step_y);
                     /* upper right */
                     XCopyArea(    display,
-                            pbuttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            pbuttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             48 - step_x,0,
-                            step_x, step_y, 
+                            step_x, step_y,
                             dest_x + step_x,
                             dest_y);
-                    
+
                     /* Draw the numbers */
                     XCopyArea(    display,
-                            pbuttons.pixmap, 
-                            visible.pixmap, 
-                            gc, 
+                            pbuttons.pixmap,
+                            visible.pixmap,
+                            gc,
                             n * 5,
                             48,
                             5,5,
@@ -619,25 +619,25 @@ void redraw( int xbut, int ybut )
         }
     }
 
-    flush_expose( win ); 
-    XCopyArea(     display, 
-            visible.pixmap, win, gc, 
+    flush_expose( win );
+    XCopyArea(     display,
+            visible.pixmap, win, gc,
             0, 0,
-            visible.attributes.width, 
+            visible.attributes.width,
             visible.attributes.height,
-            0, 0 ); 
+            0, 0 );
 
-    flush_expose( iconwin ); 
-    XCopyArea(     display, 
-            visible.pixmap, iconwin, gc, 
+    flush_expose( iconwin );
+    XCopyArea(     display,
+            visible.pixmap, iconwin, gc,
             0, 0,
-            visible.attributes.width, 
+            visible.attributes.width,
             visible.attributes.height,
             0, 0 );
 
 
-    if ( Verbose ) 
-            fprintf(stdout,"In Redraw()\n");    
+    if ( Verbose )
+            fprintf(stdout,"In Redraw()\n");
 }
 
 
@@ -651,7 +651,7 @@ void redraw( int xbut, int ybut )
  *  be visible ( drawn ). Return -1 if no button match.
  *
  ***********************************************************************/
-    
+
 int whichButton( int x, int y, int xbut, int ybut )
 {
     int index;
@@ -674,7 +674,7 @@ int whichButton( int x, int y, int xbut, int ybut )
 /***********************************************************************
  * switchToWorkspaceN()
  *
- * Send the Synthetic Key Press event with the appropriate 
+ * Send the Synthetic Key Press event with the appropriate
  * [ meta key + 1-4 key ] combo.  Alt seems to usualy be Mod1Mask.
  *
  ***********************************************************************/
@@ -685,7 +685,7 @@ void switchToWorkspaceN( int workspace ) {
 
     sendEvent.xkey.type = KeyPress;
     sendEvent.xkey.window = rootwin;
-    sendEvent.xkey.root = rootwin; 
+    sendEvent.xkey.root = rootwin;
     sendEvent.xkey.subwindow = 0x0;
     switch ( alt_key_type ) {
         case 1:
@@ -712,9 +712,9 @@ void switchToWorkspaceN( int workspace ) {
 
 /***********************************************************************
  *   getPixmaps
- *    
+ *
  *   Load XPM data into X Pixmaps.
- *  
+ *
  *   Pixmap template contains the untouched window backdrop image.
  *   Pixmap visible is the template pixmap with buttons drawn on it.
  *          -- what is seen by the user.
@@ -736,40 +736,40 @@ void getPixmaps()
                     rootwin,
                     backdrop_xpm,
                     &template.pixmap,
-                       &template.mask, 
+                       &template.mask,
                     &template.attributes) != XpmSuccess ) {
         fprintf(stderr, "Can't Create 'template' Pixmap");
         exit(1);
     }
 
     /* Visible Pixmap. Copied from template Pixmap and then drawn to. */
-        if ( XpmCreatePixmapFromData(    display, 
-                    rootwin,                                     
+        if ( XpmCreatePixmapFromData(    display,
+                    rootwin,
                     backdrop_xpm,
                     &visible.pixmap,
-                    &visible.mask, 
+                    &visible.mask,
                     &visible.attributes) != XpmSuccess ) {
         fprintf(stderr, "Can't Create 'visible' Pixmap");
         exit(1);
     }
 
     /* Buttons Pixmap.  */
-        if ( XpmCreatePixmapFromData(    display, 
+        if ( XpmCreatePixmapFromData(    display,
                     rootwin,
                     buttons_xpm,
                     &buttons.pixmap,
-                    &buttons.mask, 
+                    &buttons.mask,
                     &buttons.attributes) != XpmSuccess ) {
         fprintf(stderr, "Can't Create 'buttons' Pixmap");
         exit(1);
     }
 
     /* Pushed Buttons Pixmap.  */
-        if ( XpmCreatePixmapFromData(    display, 
+        if ( XpmCreatePixmapFromData(    display,
                     rootwin,
                     pushed_buttons_xpm,
                     &pbuttons.pixmap,
-                    &pbuttons.mask, 
+                    &pbuttons.mask,
                     &pbuttons.attributes) != XpmSuccess ) {
         fprintf(stderr, "Can't Create 'pbuttons' Pixmap");
         exit(1);

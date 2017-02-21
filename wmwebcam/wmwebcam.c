@@ -203,11 +203,11 @@ get_image (int dev, int width, int height,int *size)
 
 void
 put_image_jpeg (char *image, int width, int height, int quality)
-{ 
+{
 
 	FILE *output;
-        int y, x, line_width; 
-        JSAMPROW row_ptr[1];   
+        int y, x, line_width;
+        JSAMPROW row_ptr[1];
         struct jpeg_compress_struct cjpeg;
         struct jpeg_error_mgr jerr;
         char *line;

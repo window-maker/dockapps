@@ -1,5 +1,5 @@
 /*
-   This code is based upon some lines(actually two lines :-) 
+   This code is based upon some lines(actually two lines :-)
    in E-Leds by Mathias Meisfjordskar<mathiasm@ifi.uio.no>
    Released under GPL.
 */

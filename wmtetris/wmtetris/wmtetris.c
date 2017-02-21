@@ -221,7 +221,7 @@ int main(int argc, char *argv[]) {
 
 int which_button(int x, int y) {
 	int i;
-	
+
 	for (i = BUTTONC - 1; i >= 0; i--) {
 		if ((buttons[i][0] <= x && x < buttons[i][2]) &&
 			(buttons[i][1] <= y && y < buttons[i][3]))
@@ -282,8 +282,8 @@ void full_refresh() {
 				copyXPMArea(0, 64 + BLOCK_SIZE * (board[x][y] - 1), BLOCK_SIZE, BLOCK_SIZE,
 							BOARD_POS_X + BLOCK_SIZE * x, BOARD_POS_Y + BLOCK_SIZE * y);
 			else
-				copyXPMArea(64 + BOARD_POS_X + BLOCK_SIZE * x, BOARD_POS_Y + BLOCK_SIZE * y, 
-							BLOCK_SIZE, BLOCK_SIZE, 
+				copyXPMArea(64 + BOARD_POS_X + BLOCK_SIZE * x, BOARD_POS_Y + BLOCK_SIZE * y,
+							BLOCK_SIZE, BLOCK_SIZE,
 							BOARD_POS_X + BLOCK_SIZE * x, BOARD_POS_Y + BLOCK_SIZE * y);
 }
 

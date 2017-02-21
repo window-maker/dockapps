@@ -4,7 +4,7 @@
 
 
 /*
- *   Typedefs 
+ *   Typedefs
  */
 typedef struct {
 	Pixmap		pixmap;
@@ -21,7 +21,7 @@ typedef struct {
 Display		*display;
 Window          Root;
 Window          iconwin, win;
-int             screen; 
+int             screen;
 int             DisplayDepth;
 
 
@@ -43,7 +43,7 @@ void  		setMaskXY(int, int);
 unsigned long 	getColor(char *, float, int *, int *, int *);
 unsigned long 	getBlendedColor(char *, float, int, int, int);
 void 		RedrawWindow(void);
-int LoadKbImg(char *names); 
+int LoadKbImg(char *names);
 void CreateKbTranImgs(void);
 void ShowGroupImage(int group);
 
