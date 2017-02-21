@@ -6,7 +6,7 @@
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
 
-#include "../wmgeneral/wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 
 #include "wmtetris.xpm"
 #include "wmtetris-mask.xbm"
