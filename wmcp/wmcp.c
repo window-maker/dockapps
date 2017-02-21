@@ -26,6 +26,7 @@
 #include <X11/extensions/shape.h>
 #include <X11/keysym.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 #include "backdrop.xpm"
