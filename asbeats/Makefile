@@ -1,7 +1,7 @@
 GCC=gcc
 RM=rm -f
 LIBPATHS=-L/usr/X11R6/lib
-LIBS=-lXpm -lXext
+LIBS=-lXpm -lXext -lX11
 PROG=asbeats
 OBJS=asbeats.o
 
