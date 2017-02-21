@@ -1,5 +1,5 @@
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext
+LIBS   = -lXpm -lXext -lX11
 OBJS   =  wmtetris.o \
 	  ../wmgeneral/wmgeneral.o \
 
