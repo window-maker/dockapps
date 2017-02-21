@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
 		for (x = 0; x < BOARD_WIDTH; x++)
 			board[x][y] = 0;
 
-	openXwindow(argc, argv, wmtetris_xpm, wmtetris_mask_bits,
+	openXwindow(argc, argv, wmtetris_xpm, (char *)wmtetris_mask_bits,
 				wmtetris_mask_width, wmtetris_mask_height);
 	copyXPMArea(64, 0, 64, 64, 0, 0);
 	RedrawWindow();
