@@ -3,7 +3,6 @@ AC_CONFIG_SRCDIR(main.c)
 AM_INIT_AUTOMAKE(foreign)
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_PATH_XTRA
 
 if test "$x_includes" != "NONE"; then
         CFLAGS="$CFLAGS -I$x_includes"
