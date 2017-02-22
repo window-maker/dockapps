@@ -48,7 +48,7 @@ void move2(GtkWidget *widget, GdkEventMotion *event)
 
 
 
-void kill (GtkWidget * widget)
+void widget_kill (GtkWidget * widget)
 {
     gtk_widget_destroy ((GtkWidget*)gtk_widget_get_toplevel(widget));
     gtk_main_quit ();
@@ -193,7 +193,7 @@ void showDay(struct icaltimetype dt){
 	gtk_signal_connect(GTK_OBJECT (event_box), "button_press_event",
 			   GTK_SIGNAL_FUNC (move), NULL);
 	gtk_signal_connect(GTK_OBJECT (event_box2), "button_press_event",
-			   (GtkSignalFunc) kill, GTK_OBJECT(dayView));
+			   (GtkSignalFunc) widget_kill, GTK_OBJECT(dayView));
 
 	gtk_widget_realize(dayView);
 	//	gtk_window_set_position(GTK_WINDOW (dayView),GTK_WIN_POS_CENTER_ON_PARENT);
