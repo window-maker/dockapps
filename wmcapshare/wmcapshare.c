@@ -43,7 +43,7 @@
 #include "obex_put_common.h"
 #include "obex_io.h"
 
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 #include "xpm/base.xpm"
 #include "xpm/tstatfld.xpm"
 #include "xpm/capshare.xpm"
