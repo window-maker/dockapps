@@ -1,6 +1,8 @@
 #ifndef OBEX_IO_H
 #define OBEX_IO_H
 
+#include <glib.h>
+
 /* Application defined headers */
 #define HEADER_CREATOR_ID  0xcf
 

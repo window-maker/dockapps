@@ -31,6 +31,8 @@
 #ifndef OBEX_PUT_COMMON_H
 #define OBEX_PUT_COMMON_H
 
+#include <glib.h>
+
 int do_sync_request(obex_t *handle, obex_object_t *object, gint async);
 void obex_event(obex_t *handle, obex_object_t *object, gint mode, gint event, gint obex_cmd, gint obex_rsp);
 
