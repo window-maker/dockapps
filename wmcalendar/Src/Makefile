@@ -13,7 +13,7 @@ LIBDIR = -L/usr/lib -L${X11BASE}/lib -L/usr/local/lib
 PACKAGE = wmCalendar
 
 # for Linux
-LIBS   = $(LIBDIR) -lXpm -lical -lpthread
+LIBS   = $(LIBDIR) -lXpm -lX11 -lXext -lical -lpthread  -lm
 # for Solaris (untested!!!)
 # LIBS   = -lXpm -lX11 -lXext -lsocket -lnsl -lical
 
@@ -30,7 +30,7 @@ OBJECTS   = 	wmCalendar.o \
 all:	wmCalendar.o wmCalendar
 
 wmCalendar: $(OBJECTS)
-	 $(CC) $(COPTS)  $(SYSTEM) $(LFLAGS) -o $@ $(OBJECTS) -o wmCalendar $(INCDIR)$(LIBDIR) $(LIBS)
+	 $(CC) $(COPTS)  $(SYSTEM) -o $@ $(OBJECTS) -o wmCalendar $(INCDIR)$(LIBDIR) $(LIBS) $(LFLAGS)
 
 wmCalendar.o: wmCalendar_master.xpm   wmCalendar_master2.xpm
 clean:
