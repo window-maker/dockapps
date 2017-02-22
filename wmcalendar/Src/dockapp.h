@@ -23,55 +23,12 @@
  * modified by Seiichi SATO <ssato@sh.rim.or.jp>
  */
 
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
-
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
 #include <stdio.h>
-
-#if STDC_HEADERS
-# include <stdlib.h>
-# include <stddef.h>
-#else
-# if HAVE_STDLIB_H
-#  include <stdlib.h>
-# endif
-#endif
-
-#if HAVE_STRING_H
-# if !STDC_HEADERS && HAVE_MEMORY_H
-#  include <memory.h>
-# endif
-# include <string.h>
-#endif
-#if HAVE_STRINGS_H
-# include <strings.h>
-#endif
-
-#if HAVE_SELECT
-# include <sys/select.h>
-#endif
-
-#if TIME_WITH_SYS_TIME
-# include <sys/time.h>
-# include <time.h>
-#else
-# if HAVE_SYS_TIME_H
-#  include <sys/time.h>
-# else
-#  include <time.h>
-# endif
-#endif
-
-#if HAVE_UNISTD_H
-# include <unistd.h>
-#else
-/* We are in trouble. */
-#endif
+#include <stdlib.h>
 
 extern Display *display;
 extern Bool dockapp_iswindowed;
