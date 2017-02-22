@@ -1,4 +1,4 @@
-#include <ical.h>
+#include <libical/ical.h>
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <string.h>
