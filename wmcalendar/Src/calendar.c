@@ -11,7 +11,7 @@ void checkicalversion()
     GtkWidget* label;
     char* msg = "\n\nWARNING:\nIt is highly recommended to upgrade to libical 0.24!\nOtherwise wmCalendar will not work stable!\n";
     if(!strcmp(ICAL_VERSION, "0.23")){
-	printf(msg);
+	printf("%s",msg);
      	dialog = gtk_dialog_new_with_buttons ("Warning",
 					      NULL,
 					      GTK_DIALOG_DESTROY_WITH_PARENT,
