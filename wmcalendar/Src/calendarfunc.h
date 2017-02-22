@@ -23,6 +23,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <libical/ical.h>
+#include <math.h>
 #define TIMZ 3.0
 #define MINAGE 13.5
 #define SUNSET 19.5 /*approximate */
