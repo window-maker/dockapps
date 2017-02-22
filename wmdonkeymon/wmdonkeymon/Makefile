@@ -1,10 +1,6 @@
 LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lXpm -lXext -lX11
-OBJS =  wmdonkeymon.o \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
-
+OBJS =  wmdonkeymon.o ../wmgeneral/wmgeneral.o
 
 .c.o:
 	cc -c -O2 -Wall $< -o $*.o
