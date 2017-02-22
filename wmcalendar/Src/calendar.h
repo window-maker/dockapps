@@ -3,6 +3,8 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include <sys/stat.h>
+#include "calendarfunc.h"
+#include "settings.h"
 
 
 time_t  modtime;              /* modified time of icalendar file */
@@ -30,6 +32,7 @@ void deleteCalObjs();
 void addCalObj(struct icaltimetype start, struct icaltimetype end,
 	       int type, const char *text, icalcomponent * d);
 int  getDayType(struct icaltimetype dt);
+int eventOnDay(struct icaltimetype dt, struct calobj* it);
 int  calcDayType(struct icaltimetype dt);
 char* read_stream(char *s, size_t size, void *d);
 void checkicalversion();
