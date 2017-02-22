@@ -3,7 +3,7 @@ CC = gcc
 bindir = /usr/local/bin
 
 OPENOBEX_CONFIG = /usr/local/bin/openobex-config
-GLIB_CONFIG = /usr/bin/glib-config
+GLIB_CONFIG = pkg-config glib-2.0
 
 all: wmcapshare
 
