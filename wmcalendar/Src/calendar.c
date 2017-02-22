@@ -313,9 +313,9 @@ int dayevents(struct icaltimetype dt, GtkWidget *table){
  -----------------------------------------------------*/
 void deleteCalObjs(){
     int i;
-    struct calObj* help;
+    struct calobj* help;
     while(calRoot){
-	help = (struct calObj*) calRoot->next;
+	help = (struct calobj*) calRoot->next;
 	free(calRoot->text);
 	free(calRoot->comp);
 	free(calRoot);
