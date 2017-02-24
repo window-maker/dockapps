@@ -73,7 +73,7 @@ static DAProgramOption options[] = {
    {"-d", "--displayname", "display to use.", DOString, False, {&displayName}},
 };
 
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
    Pixmap daikichi_pixmap;
    Pixmap chukichi_pixmap;
