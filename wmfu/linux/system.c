@@ -26,7 +26,7 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include <wireless.h>
+#include <linux/wireless.h>
 
 #include "../list.h"
 #include "../sensors.h"
