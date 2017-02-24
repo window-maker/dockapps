@@ -28,8 +28,8 @@
 #include <X11/Xlib.h>
 #include <X11/extensions/shape.h>
 
-#include "../wmgeneral/misc.h"
-#include "../wmgeneral/wmgeneral.h"
+#include <libdockapp/misc.h>
+#include <libdockapp/wmgeneral.h>
 #include "Pop3Client.h"
 
 #include "wmpop3.xpm"

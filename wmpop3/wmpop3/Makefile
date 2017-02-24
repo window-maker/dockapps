@@ -1,12 +1,7 @@
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11
+LIBS   = -lXpm -lXext -lX11 -ldockapp
 FLAGS  = -O2
-OBJS   =	wmpop3.o \
-    	    Pop3Client.o \
-		    ../wmgeneral/wmgeneral.o \
-		    ../wmgeneral/misc.o \
-		    ../wmgeneral/list.o
-
+OBJS   = wmpop3.o Pop3Client.o
 
 .c.o:
 	cc -I/usr/X11R6/share/include $(FLAGS) -c -Wall $< -o $*.o
