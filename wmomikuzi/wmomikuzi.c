@@ -82,7 +82,7 @@ main(int argc, char **argv)
    Pixmap kyou_pixmap;
    Pixmap daikyou_pixmap;
 
-   int w = 64, h = 64;
+   short unsigned int w = 64, h = 64;
 
    DACallbacks callbacks = {NULL,buttonPressCallback
 	,buttonReleaseCallback,NULL,NULL,NULL,NULL};
