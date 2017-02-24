@@ -13,7 +13,7 @@ CC = gcc
 OPTIMIZE = -O2
 XLIBDIR = /usr/X11R6/lib
 XLIB = -ldockapp -lXpm -lXext -lX11
-OBJ = wmomikuzi.o dockapp.o
+OBJ = wmomikuzi.o
 
 $(DEST) : $(OBJ)
 	$(CC) $(OBJ) -L$(XLIBDIR) $(XLIB) -o $(DEST)
