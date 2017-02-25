@@ -1,6 +1,6 @@
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11
-OBJS =	wmdots.o ../wmgeneral/wmgeneral.o
+LIBS   = -lXpm -lXext -lX11 -ldockapp
+OBJS =	wmdots.o
 
 .c.o:
 	cc -c -g -O2 -Wall $< -o $*.o
