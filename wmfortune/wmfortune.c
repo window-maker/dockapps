@@ -25,6 +25,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 #include <libdockapp/dockapp.h>
 #include "XPM/panel.xpm"
 #include "XPM/panel_button_pressed.xpm"
@@ -145,7 +146,7 @@ main(int argc, char **argv)
 {
    Pixmap panel_window_pixmap;
 
-   int w = 64, h = 64;
+   short unsigned int w = 64, h = 64;
 
    DACallbacks callbacks = {NULL,buttonPressCallback
 	,buttonReleaseCallback,NULL,NULL,NULL,NULL};
