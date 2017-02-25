@@ -5,7 +5,7 @@ OBJS =	wmdots.o
 .c.o:
 	cc -c -g -O2 -Wall $< -o $*.o
 
-wmifs: $(OBJS)
+wmdots: $(OBJS)
 	cc -o wmdots $^ -lXext $(LIBDIR) $(LIBS)
 
 all:: wmdots
