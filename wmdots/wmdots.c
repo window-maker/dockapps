@@ -410,7 +410,7 @@ void do_trails(void)
 // -----------------------------------------------------------------------
 // pre calculate sin and cosine values for x y and z angles of rotation
 
-void sincos(void)
+void wmdots_sincos(void)
 {
   sin_x = sin_tab[x_angle];
   sin_y = sin_tab[y_angle];
@@ -502,7 +502,7 @@ void do_frame(void)
   }
 
   do_trails();                  // clear pels that are 3 frames old
-  sincos();                     // calculate all sin/cos values
+  wmdots_sincos();                     // calculate all sin/cos values
 
   while(i--)
   {
