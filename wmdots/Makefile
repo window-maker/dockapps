@@ -12,9 +12,9 @@ all:: wmdots
 
 clean::
 	for i in $(OBJS) ; do \
-		rm $$i ; \
+		rm -f $$i ; \
 	done
-	rm wmdots
+	rm -f wmdots
 
 install::
 	cp -f wmdots /usr/local/bin/
