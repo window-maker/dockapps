@@ -83,7 +83,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-
+#include <string.h>
 #include <X11/xpm.h>
 #include <libdockapp/wmgeneral.h>
 #include "master.xpm"
