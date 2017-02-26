@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <X11/Xlib.h>
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 
 #include "xpm/main.xpm"
 #include "xpm/numbers.xpm"
