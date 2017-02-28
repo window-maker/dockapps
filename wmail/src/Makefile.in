@@ -10,7 +10,7 @@ CFLAGS  = @CFLAGS@ @XCFLAGS@
 default all target: wmail
 
 wmail: wmail.o common.o config.o
-	$(CC) $(CFLAGS) $(LIBS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 wmail.o: wmail.c common.h config.h xpm/main.xpm xpm/symbols.xpm xpm/numbers.xpm xpm/button.xpm xpm/chars.xpm
 	$(CC) $(CFLAGS) -o $@ -c $<
