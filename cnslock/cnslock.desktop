@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=cnslock
+Comment=Displays the current state of the caps/num/scroll lock keys
+Exec=cnslock
+Categories=System;Monitor
+Keywords=keyboard;caps lock;num lock;scroll lock;dockapp;window maker
