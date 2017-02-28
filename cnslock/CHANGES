@@ -1,3 +1,10 @@
+cnslock 1.03 (27th February 2017)
+	* Complete rewrite using libdockapp.  No longer functioned as a dockapp
+	  using modern GDK 2.0.
+	* Switch to autotools.
+	* Add manpage.
+	* Add desktop entry file.
+
 cnslock 1.02 (27th October 2002)
 
 	* Added feature to allow applet to be run in window managers such as
