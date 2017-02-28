@@ -1,5 +1,6 @@
-GTOP_LIBS = -lgtop -lgtop_sysdeps -lgtop_common -lXau
-GCCOPTS = -O2 -Wall -g
+GTOP_LIBS = -lgtop-2.0 `pkg-config glib-2.0 --libs`
+GCCOPTS = -O2 -Wall -g -I/usr/include/libgtop-2.0 \
+	`pkg-config glib-2.0 --cflags`
 CFLAGS=  -Wall
 LDLIBS = -lX11 -lXpm -lXext
 LDFLAGS= -L/usr/X/lib -L/usr/X11R6/lib -L/usr/X11/lib -L/usr/local/lib/X11
