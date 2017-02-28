@@ -45,7 +45,7 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <X11/Xlib.h>
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 #include "common.h"
 #include "config.h"
 
