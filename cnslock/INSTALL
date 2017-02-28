@@ -1,7 +1,7 @@
 Requirements
 ------------------------------------------------------
-	- gtk+ ( >= 2.1.x )
-	- Xlib, Xpm, gdk-pixbuf
+	- libdockapp
+	- Xlib
 	- root access for install
 
 Installation
@@ -10,6 +10,7 @@ Installation
 	$ tar zxvf cnslock-x.x.x.tar.gz
 
 2) Compilation
+	'./configure'
 	'make'
 	become root (via 'su')
 	'make install'
