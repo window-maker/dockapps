@@ -1,6 +1,6 @@
 LIBDIR = -L/usr/X11R6/lib -L/usr/lib -L/opt/gnome/lib
-LIBS   = -lXpm -lXext -lX11 -lm  -lgtk -lgdk -rdynamic -lgmodule -lglib -ldl
-CFLAGS = -I/usr/X11R6/include -I/usr/lib/glib/include -I/opt/gnome/include/gtk-1.2 -I/opt/gnome/include/glib-1.2 -I/opt/gnome/lib/glib/include
+LIBS   = -lXpm -lXext -lX11 `pkg-config gtk+-2.0 --libs`
+CFLAGS = `pkg-config gtk+-2.0 --cflags`
 OBJS =	washerDryer.o \
 		../wmgeneral/wmgeneral.o \
 		../wmgeneral/misc.o \
