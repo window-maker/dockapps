@@ -38,7 +38,6 @@
 #include <glibtop.h>
 #include <glibtop/proclist.h>
 #include <glibtop/procstate.h>
-#include <glibtop/xmalloc.h>
 
 #include <time.h>
 #include <signal.h>
@@ -123,11 +122,11 @@ int CheckProc(pid_t pid)
    unsigned int *n;
 
    if ((n = glibtop_get_proclist (&bof, GLIBTOP_KERN_PROC_PID , (int64_t)pid)) == NULL) {
-      glibtop_free(n);
+      g_free(n);
       return -1;
    }
 
-   glibtop_free(n);
+   g_free(n);
    return 0;
 }
 
@@ -175,7 +174,7 @@ _desc *GetProcList(void) 		       /* create a double linked list */
 
    lastOne -> next = NULL;
    lastProcPid = n[nbPr - 1];
-   glibtop_free(n);
+   g_free(n);
 
    if (procBaseName && i) gNbProc = nbPr - i + 1;   /* procBase has been found */
    else {			       /* procBaseName is null or hasn't been found */
@@ -273,7 +272,7 @@ int CheckProcChange(void)
 
    if (diffNbProc == 0 && (n[nbPr - 1] == lastProcPid)){  /* only changes before baseproc */
       gNbProcTotal = nbPr;
-      glibtop_free(n);
+      g_free(n);
       return 0;
    }
 
@@ -287,7 +286,7 @@ int CheckProcChange(void)
 	CheckProcToAdd(nbPr - diffNbProc - 1, n, nbPr);
    }
 
-   glibtop_free(n);
+   g_free(n);
    return 1;
 }
 
