@@ -2,21 +2,18 @@ INSTALL = /usr/bin/install -m 755
 PREFIX = /usr/local
 
 VERSION = 1.02
-CFLAGS = -O3 -Wall `gtk-config --cflags` -DVERSION=$(VERSION) ${EXTRA}
+CFLAGS = -O3 -Wall -DVERSION=\"$(VERSION)\" ${EXTRA}
 CC = gcc
-OBJS = cnslock.o kleds.o applet.o
+OBJS = cnslock.o kleds.o
 
-LIBS = `gtk-config --libs | sed "s/-lgtk//g"`
+LIBS = -lX11 -ldockapp
 
 all: cnslock
 
-cnslock.o: cnslock.c include/cnslock.h include/defines.h
+cnslock.o: cnslock.c
 	$(CC) $(CFLAGS) -c cnslock.c -o cnslock.o
 
-applet.o: applet.c include/applet.h include/defines.h
-	gcc $(CFLAGS) -c applet.c -o applet.o
-
-kleds.o: kleds.c include/kleds.h include/defines.h
+kleds.o: kleds.c include/kleds.h
 	$(CC) -Wall -I/usr/X11R6/include -c kleds.c -o kleds.o
 
 cnslock: $(OBJS)

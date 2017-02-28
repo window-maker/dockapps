@@ -6,11 +6,9 @@
 
 #include <stdio.h>
 #include <X11/XKBlib.h>
+#include <libdockapp/dockapp.h>
 
-#include "include/defines.h"
 #include "include/kleds.h"
-
-Display *display;
 
 /*
   Returns the turned on leds:
@@ -23,15 +21,10 @@ int check_kleds()
 {
     unsigned int states;
 
-    if (XkbGetIndicatorState(display, XkbUseCoreKbd, &states) != Success)
+    if (XkbGetIndicatorState(DADisplay, XkbUseCoreKbd, &states) != Success)
 	{
 		perror("Error while reading Indicator status\n");
 		return -1;
     }
     return (states & 0x7);
-}
-
-void init_kleds()
-{
-    display = XOpenDisplay(NULL);
 }
