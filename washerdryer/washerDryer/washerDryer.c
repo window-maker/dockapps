@@ -6,8 +6,8 @@
 #include <X11/xpm.h>
 #include <gtk/gtk.h>
 
-#include "../wmgeneral/wmgeneral.h"
-#include "../wmgeneral/misc.h"
+#include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 #include "wdryer.xpm"
 
 #define CHAR_WIDTH 5

@@ -1,10 +1,7 @@
 LIBDIR = -L/usr/X11R6/lib -L/usr/lib -L/opt/gnome/lib
-LIBS   = -lXpm -lXext -lX11 `pkg-config gtk+-2.0 --libs`
+LIBS   = -lXpm -lXext -lX11 `pkg-config gtk+-2.0 --libs` -ldockapp
 CFLAGS = `pkg-config gtk+-2.0 --cflags`
-OBJS =	washerDryer.o \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
+OBJS =	washerDryer.o
 
 .c.o:
 	cc -c -O2 -Wall $< -o $*.o $(CFLAGS)
