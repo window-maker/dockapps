@@ -1,16 +1,16 @@
 ---
 layout: dockapp
-title: wmWeather
+title: wmweather
 permalink: wmweather
-hosted: 1
-website: https://web.archive.org/web/20040722180350/http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml
-dockapps: 17
+hosted: 0
+dockapps: 186
+# dockapps: 17
+website: https://people.debian.org/~godisch/wmweather/
 images:
  - wmWeather.gif
-versions:
- -
-  number: 1.3.1
-  download: wmWeather-1.31.tar.gz
-category: weather
+ - wmweather.2.gif
+categories: weather
 ---
-Shows local weather conditions.
+wmweather provides a monitor on a 64x64 mini window that displays the current
+weather. The weather reports are received from NOAA's National Weather Service,
+that is the same source that pilots use.
