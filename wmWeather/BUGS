@@ -1,9 +1,0 @@
-Please send bug reports to mghenderson@lanl.gov
-
-Ones I know about;
-
-	The wind speed is decoded only when it is listed in units of KT or MPS for the time being.
-
-	The Station code needs to be 4 characters. This is a bug because some stations have
-	numbers as well, and while not standard METAR, some stations have 5 characters.
-
