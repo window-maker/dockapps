@@ -3,6 +3,7 @@ layout: dockapp
 title: wmsupermon
 permalink: wmsupermon
 hosted: 1
+dockapps: 320
 images:
  - wmsupermon1.png
  - wms122.gif
