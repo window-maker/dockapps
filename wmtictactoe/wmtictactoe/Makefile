@@ -1,6 +1,6 @@
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11
-OBJS =  wmtictactoe.o ../wmgeneral/wmgeneral.o
+LIBS   = -lXpm -lXext -lX11 -ldockapp
+OBJS =  wmtictactoe.o
 
 .c.o:
 	cc -c -g -O2 -Wall $< -o $*.o

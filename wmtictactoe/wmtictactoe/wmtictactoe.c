@@ -37,7 +37,7 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
-#include "../wmgeneral/wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 #include "wmtictactoe-master.xpm"
 
 // ---------------------------------------------------------------
