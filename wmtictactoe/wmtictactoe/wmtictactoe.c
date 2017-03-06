@@ -544,7 +544,7 @@ escreve_placar ()
         int coluna_xpm = 65;
 	int coluna_score[6] = 
 	{8, 15, 26, 33, 43, 50 };
-        char placar[6];
+        char placar[7];
 
   	if (isDeadmatch){
     		copyXPMArea(97, 74, 13, 9, 43, 88);
