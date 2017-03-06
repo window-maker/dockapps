@@ -3,13 +3,19 @@ layout: default
 ---
 
 <div class="home">
-  An archive for <a href="http://windowmaker.org">Window Maker</a> dockapps.
+  An archive of
+  {{ site.posts.size | minus: site.categories.size }}
+  <a href="http://windowmaker.org">Window Maker</a> dockapps.
   <br><br>
   <h1>categories</h1>
   <ul>
     {% assign sorted_cats = site.categories | sort %}
     {% for category in sorted_cats %}
-      <li><a href="/category/{{ category | first }}">{{ category | first }}</a></li>
+    <li>
+      <a href="/category/{{ category | first }}">
+	{{ category | first }} ({{ category | last | size }})
+      </a>
+    </li>
     {% endfor %}
   </ul>
 
