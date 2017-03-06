@@ -1,0 +1,17 @@
+Installation instructions for wmTicTacToe.
+
+Requirements
+--------------------------------------------------------------
+To know read... :)
+
+Installation
+--------------------------------------------------------------
+1) % tar -zxvf wmtictactoe-1.1.tar.gz
+2) % cd wmtictactoe-1.1/wmtictactoe
+3) % make
+as root type:
+4) % make install
+or copy 'wmtictactoe' somewhere in your $PATH like /usr/local/bin;
+5) % wmtictactoe & (or wmtictactoe -h for help)
+
+Be sure to read the TODO file too!

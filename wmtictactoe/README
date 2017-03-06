@@ -1,0 +1,142 @@
+==========================--- wmTicTacToe-1.1 ---=========================
+
+
+Author
+===================================---------------------------------------
+
+	André Ribeiro Camargo (acamargo@conesul.com.br)
+	I'm 22 years old and I live on Brazil.
+	Well, there are not many things to say...	
+
+
+Description
+-----------------------------------=======================================
+
+	wmTicTacToe, as you can imagine, is a dock application game for
+Window Maker(but it will be run on others window managers too.  You can
+test it... and after, give me your feedback...) 
+
+	wmTicTacToe is being developped on Pentium 133 machine running
+Linux/Conectiva Guarani, and I can't test on other machines 'cos I don't
+know people that have one... If YOU test it, give me your feedback,
+please...
+
+
+Why write a game so... useless!? :P
+===================================----------------------------------------
+
+	Well, it's a short history... :)
+	I wanna programming for linux, but I didn't know how... Then, I
+have a class called "Prática de Programação", where, pupil have that
+create a software(any kind of software), immediatelly I thought: - WhY nOt
+cReaTE a SmaLL gAme fOr mY faVoriTe wInDoW mAnAgeR!? Five days after, here
+it is... version 0.1, of course... :)
+
+	ps.: I take 10 points... great :)
+
+
+How do I play wmTicTacToe?
+-----------------------------------========================================
+
+	It's very simple!
+	You can play versus XFree(computer) or versus GNUstep(a friend, etc).
+	To active _deadmatch_ game mode, it run wmtictactoe with option:
+	-deadmatch
+	Click with right button change between scoreboard and gameboard.
+        In scoreboard, click with middle button reset the score, with
+right button go to gameboard screen and click with left button change the 
+game mode.
+        In gameboard, click with left button to play, right button go to 
+scoreboard screen and middle button to reset the game...
+        ... and, don't forget, the game has Offensive and Defensive mode!
+	
+Deadmatch!
+===================================----------------------------------------
+
+	In the version 1.1 was added one more game mode, where you can play
+versus other human player...
+
+
+Files
+-----------------------------------========================================
+
+README		 This file.
+INSTALL		 Installation instructions.
+BUGS		 Things you don't want to know ;-)
+CHANGES 	 Description of changes.
+COPYING		 GNU General Public License Version 2.
+TODO		 Stuff I've planned for future wmTicTacToe releases.
+licenca_gnu.html GNU General Public License Version 2 translated to Portuguese.
+
+
+Bugs 
+===================================----------------------------------------
+
+	If you discover any bugs in this software, please send a bugreport
+to acamargo@conesul.com.br and describe the problem as detailed as you
+can.
+
+
+Copyright 
+-----------------------------------========================================
+
+	wmTicTacToe is copyright (c) 1999 by André Ribeiro Camargo and
+licensed through the GNU General Public License 2. Read the COPYING or 
+licenca_gnu.html files for the complete GNU license.
+
+
+Thanks
+===================================----------------------------------------
+
+	Thanks to:
+	
+	- creator of asclock: Beat Christen
+	- creator of wmbreak: Adam Hunter
+	- creators of wmmon.app: Martijn Pieterse and Antoine Nulle
+	- creator of wmmail: Per Liden
+
+	without this guys with yours dock applications, I can't write
+wmTicTacToe... 
+
+	- Adriel Ziesemer Júnior(adriel@atlas.ucpel.tche.br)
+
+	for yours many ideas, C help and bug fixes... :)
+	ps.: when do you port your "sonic" game to linux?
+
+	- my mom and dad...
+
+	of course... hehehehehhe :)
+
+
+	- XMMS developers team...
+
+	yeah... *it runs better than WinAmp!*
+
+	- my poor PC!
+
+	someday I throw away my Pentium(TM) and I buy a RISC
+machine... ;))) I'm accepting donations of machines(like silicon Octane, suns
+sparcStations or digital Alphas... etc :)
+
+	- and... *tchan tchan* xiiiiiiiiiiiiiiiiiibengue!
+
+	"dazed and confused"
+	ps.: thanks so much to Rodrigo Gruppelli(GRUPIS/OpIvy @ #mundo 
+		brasNet ircnet)... 
+             ...For reminder me of xibengue, linux help and to be my official
+	        beta tester... :)))
+		
+	- Jeff Mottishaw(jmottishaw@gmcorp.net)
+	
+	for to suggest "deadmatch" game mode...
+	thank you mottie :)
+
+
+        Enjoy it! 
+	'cos "Space: the final frontier"
+	Pato Fu rulez!
+	urbana legio omnia vincit!
+	Força Sempre!
+
+
+
