@@ -34,7 +34,8 @@
 
 	<ul>
             <li><a href="installation.php">Installation Basics</a></li>
-
+            <li><a href="wmaker_install.php">Window Maker Compilation and Installation</a></li>
+            <li><a href="wmaker_i18n.php">Window Maker Internationalisation</a></li>
             <li><a href="guidedtour/index.html">Guided Tour</a></li>
             <li><a href="guide_toc.php">User Guide</a></li>
 <!--            <li><a href="desktop.php">Desktop/X Integration</a></li> -->
