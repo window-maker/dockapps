@@ -16,6 +16,48 @@
       <tr>
         <td content="content" colspan="2" valign="top">
 
+	<h3>Version 0.95.8 released</h3>
+	  <p> Window Maker 0.95.8 was released on March 11th 2017.</p>
+	<ul>
+	<li>
+	<p> See the 
+<a href="http://repo.or.cz/wmaker-crm.git/blob/HEAD:/NEWS"> NEWS </a>file and/or the git logs for an overview of 
+	the changes.
+	</p>
+	</li>
+	</ul>
+
+
+	<h3>Version 0.95.7 released</h3>
+	  <p> Window Maker 0.95.7 was released on August 2nd 2015.</p>
+
+	<ul>
+	<li>
+	<p> Window <a href="http://repo.or.cz/w/wmaker-crm.git/commit/df4906186525c25781320c58a4d22168eae0c39c"> snapping </a> feature has
+ 	been added, which allows one to "snap" a window to one side of the screen by
+    	dragging it to that side (Doug Torrance).
+	</p>
+	</li>
+
+	<li>
+	<p> New mouse actions configuration were
+<a href="http://repo.or.cz/w/wmaker-crm.git/commit/0d0169a41376cf667fb0b10c4ced46ecba6e08cf"> added </a> to WPrefs
+(David Maciejak).</p>
+	</li>
+
+	<li>
+	<p> New button and wheel mouse
+<a href="http://repo.or.cz/w/wmaker-crm.git/commit/f40095ac9e6e1c27b9d50d4a05a2e08d44758f48"> actions </a>
+(David Maciejak).</p>
+	</li>
+
+	<li>
+	<p> Many code cleanups and refactoring by Christophe Curris.</p>
+	</li>
+
+	</ul>
+
+
 	<h3>Version 0.95.6 released</h3>
 	  <p> Window Maker 0.95.6 was released on August 30th 2014.</p>
 
