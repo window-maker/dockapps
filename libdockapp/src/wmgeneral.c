@@ -69,6 +69,7 @@
 #include <stdio.h>                      /* for fprintf, stderr, NULL, etc */
 #include <stdlib.h>                     /* for exit, free */
 #include <string.h>                     /* for strcmp, strdup, strcspn, etc */
+#include <libgen.h>			/* for basename */
 
   /*****************/
  /* X11 Variables */
@@ -396,7 +397,7 @@ void openXwindow(int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bit
 	unsigned int	borderwidth = 1;
 	XClassHint		classHint;
 	char			*display_name = NULL;
-	char			*wname = argv[0];
+	char			*wname = basename (argv[0]);
 	XTextProperty	name;
 
 	XGCValues		gcv;
