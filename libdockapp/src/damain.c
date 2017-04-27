@@ -23,6 +23,7 @@
 #include "dockapp.h"
 #include "daargs.h"
 #include "dautil.h"
+#include <ctype.h>
 
 #define MIN(a, b)       (a < b ? a : b)
 
@@ -154,7 +155,13 @@ DACreateIcon(char *name, unsigned width, unsigned height, int argc, char **argv)
 	if (!classHint)
 		printf("%s: can't allocate memory for class hints!\n",
 		       _daContext->programName), exit(1);
-	classHint->res_class = RES_CLASSNAME;
+	if (!_daContext->windowed) {
+		classHint->res_class = RES_CLASSNAME;
+	} else {
+		char class[100];
+		snprintf(class, 100, "%c%s", toupper(name[0]), name + 1);
+		classHint->res_class = class;
+	}
 	classHint->res_name = name;
 
 	XSetClassHint(DADisplay, DALeader, classHint);
