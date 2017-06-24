@@ -21,8 +21,6 @@
    again. This might be poor if the askpass program is
    replaced with something non-interactive. */
 
-#define _GNU_SOURCE
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif

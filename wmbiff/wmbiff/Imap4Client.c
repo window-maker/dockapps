@@ -7,8 +7,6 @@
  * modified by Jay Francis (jtf@u880.org) to support
  * CRAM-MD5 */
 
-#define _GNU_SOURCE
-
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
