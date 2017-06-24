@@ -1,3 +1,22 @@
+2017-06-23  Doug Torrance <dtorrance@piedmont.edu>
+
+	* ChangeLog, NEWS, configure.ac: Bump to version 0.4.31.
+
+2017-06-23  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/Imap4Client.c, wmbiff/ShellClient.c,
+	wmbiff/passwordMgr.c, wmbiff/test_wmbiff.c:
+	Remove #define _GNU_SOURCE; already defined in CFLAGS.
+
+
+2017-06-23  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/maildirClient.c: Manually copy mailbox path.
+
+	Patch by Demi <m@tfiu.de> to fix Debian bug #621690 [1].
+
+	[1] https://bugs.debian.org/621690
+
 2016-11-30  Doug Torrance <dtorrance@piedmont.edu>
 
         * ChangeLog, NEWS, configure.ac: Bump to verson 0.4.30.
