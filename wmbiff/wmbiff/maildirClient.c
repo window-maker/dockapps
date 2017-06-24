@@ -168,7 +168,13 @@ int maildirCreate(Pop3 pc, const char *str)
 		DM(pc, DEBUG_ERROR, "maildir '%s' is too long.\n", str + 8 + i);
 		memset(pc->path, 0, BUF_BIG);
 	} else {
-		strncpy(pc->path, str + 8 + i, BUF_BIG - 1);	/* cut off ``maildir:'' */
+		const char *sp = str + 8 + i;
+		char *dp = pc->path;
+
+		while (*sp && sp-str<BUF_BIG-1) {
+			*dp++ = *sp++;
+		}
+		*dp = 0;
 	}
 
 	DM(pc, DEBUG_INFO, "maildir: str = '%s'\n", str);
