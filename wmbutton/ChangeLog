@@ -1,5 +1,37 @@
 CHANGE LOG:
 -----------
+0.7.1	Makefile install rewritten
+	  The current Makefile script doesn't work properly, because the path
+	  for /etc doesn't use DESTDIR and the installation path for
+	  $(DESTDIR)/usr/bin is not created before installing the binary file
+	  in the folder.
+	Escape minus sign in manpage
+	  The minus signs should be escaped to avoid problems with the parsers.
+	fail early on missing config
+	  wmbutton will happily start and display what otherwise looks like a
+	  functioning display even if none of the possible configuration files
+	  exist. However, the application promptly exits as soon as it has to
+	  show a tooltip. This isn't nice. It looks like a crash to an
+	  unsuspecting user. Terminal output is shown, of course, leading to a
+	  decently quick diagnostic, but the fail isn't early enough to be
+	  useable.
+	  The trivial fix is to check if the local configuration file (specified
+	  as a command line argument or defaulting to ~/.wmbutton) or the global
+	  configuration file can be open. If neither can be open, we bail out
+	  early.
+	  This *still* has the problem of only really being functional in a
+	  terminal. A graphical error box would definitely be preferable and is
+	  a possible improvement.
+	Remove trailing whitespace.
+	Use autotools for build.
+	Split ChangeLog off from README into its own file.
+	  This will fix the 'no-upstream-changelog' Lintian warning in the
+	  Debian package.
+	Use version number from autoconf.
+	Remove version number from README and source code comment.
+	Add freedesktop.org desktop entry file.
+	Update contact information.
+
 0.7.0	Correct path for X11 libs
 	  The X11 libraries are now in include/X11 folder, instead of include
 	  folder. Now is possible to compile the application in new systems.
