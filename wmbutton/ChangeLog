@@ -1,7 +1,66 @@
 CHANGE LOG:
 -----------
+0.7.0	Correct path for X11 libs
+	  The X11 libraries are now in include/X11 folder, instead of include
+	  folder. Now is possible to compile the application in new systems.
+	  This patch changes the wmbutton version in the README file too.
+	  Based on Christian Aichinger's patch.
+	.wmbutton file renamed
+	  The file .wmbutton is a hidden file, and is better to distribute
+	  it as sample configuration file (sample.wmbutton).
+	  Based on Christian Aichinger's patch.
+	Support for global conf file
+	  This patch is based in the code wrote by Christian Aichinger
+	  for the Debian distribution.
+	  The patch includes the /etc/wmbutton.conf as global configuration
+	  file. This file is readed if $home/.wmbutton don't exists.
+	Version simplification
+	  This patch is based in the code wrote by Christian Aichinger
+	  for the Debian distribution.
+	  The patch simplify the version number in the code.
+	Better Makefile
+	  This patch is based in the code wrote by Christian Aichinger
+	  for the Debian distribution.
+	  Changes are:
+	  - Removed the compilation of ctags by default
+	  - Changed the include /usr/X11R6/include/X11 to /usr/include
+	  - Created install option
+	wmbutton.c code clean
+	  This patch is a code clean patch:
+	  - Removes spaces and tabs at end of line.
+	  - Remove curly brackets not needed.
+	  - Change spaces by tabs.
+	  - Add spaces after and before operators.
+	  - Removes spaces not needed.
+	  - Better code style.
+	Added manpage
+	  The manpage is added. This manpage was initially written for Debian,
+	  but now is adapted to upstream (I removed a paragraph... nothing
+	  more).
+	Middle button enabled by default
+	  The mouse middle button should be enabled by default (see the help
+	  and the manpage). This patch solves this bug.
+	  The MIDMOUSE definition is removed because the value of MIDMOUSE
+	  changes the middle button behaviour. Now, the middle button always
+	  works, except if the user uses the -m argument.
+	  Now the manpage and the help show the same info.
+	wmbutton.h and wmb_libs.c code clean
+	  This patch is a code clean patch:
+	  - Removes spaces and tabs at end of line.
+	  - Remove curly brackets not needed.
+	  - Change spaces by tabs.
+	  - Add spaces after and before operators.
+	  - Removes spaces not needed.
+	  - Better code style.
+	  - Added void as function argument.
+	initTooltip has no argument
+	  The function initTooltip don't have arguments, so their can be
+	  removed.  Now the function prototype has the void argument set.
+
 0.6.1 Minor changes to the Makefile.
+
 0.6 Code cleanup and fixes for memory leaks by Christian 'Greek0' Aichinger.
+
 0.5	Added Modifications submitted by Ralf Horstmann.
 	  Load different pixmaps at start-up time, rather than having
 	  to compile them in.  This also makes it much easier to run
