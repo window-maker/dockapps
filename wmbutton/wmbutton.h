@@ -19,9 +19,6 @@
 #define CONFIGGLOBAL "/etc/wmbutton.conf" /* system configuration */
 #define BUTTONFILENAME "/.wmbutton.xpm"
 
-/******  Version Number *************************************************/
-#define VER_STR       "0.7.0"     /* Version Number String */
-
 /******  Define Error Codes *********************************************/
 #define FAILDISP      20
 #define FAILSWIN      21
