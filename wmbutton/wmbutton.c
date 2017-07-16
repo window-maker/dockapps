@@ -1,7 +1,6 @@
 /***********************************************************************
  *   Code is based on wmppp, wmload, wmtime, wmcp, and asbutton
  *   Author: Edward H. Flora <ehflora@ksu.edu>
- *   Ver 0 Rel 6.1    Jan 23, 2005
  *
  *   Contributors:
  *              Christian 'Greek0' Aichinger <Greek0@gmx.net>

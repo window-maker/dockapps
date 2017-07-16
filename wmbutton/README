@@ -1,10 +1,9 @@
-wmbutton Ver. 0 Rel 6.1
+wmbutton
 -------------------------------------------------------------
    Code is based on wmppp, wmload, wmtime, wmcp, and asbutton
    Author: Edward H. Flora <ehf_dockapps@cox.net>
 	   This version is released by:
 	   Christian 'Greek0' Aichinger <Greek0@gmx.net>
-   Ver 0 Rel 6.1    Jan 23, 2005
 
 DESCRIPTION:
 ------------
@@ -52,10 +51,10 @@ helping out, catching bugs in the code, etc.
 INSTALLATION:
 -------------
 	Untar the file:
-		tar xvzf wmbutton-0.6.1.tar.gz
+		tar xvzf wmbutton-*.tar.gz
 
 	CD to source directory:
-		cd wmbutton-0.6.1
+		cd wmbutton-*
 
 	Edit background xpm, and buttons.xpm to your preferences
 	There are icon files in ./icons to work from
@@ -96,8 +95,6 @@ USAGE:
 ------
 wmbutton [-g geom] [-d dpy] [-f cfgfile] [-b btnfile] [-F <font>]
 	 [-v] [-s] [-n]
-
- wmbutton Ver 0 Rel 6.1
 
 -g <geometry>  Window Geometry - ie: 64x64+10+10
 -d <display>   Display -  ie: 127.0.0.1:0.0
