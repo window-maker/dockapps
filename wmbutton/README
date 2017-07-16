@@ -3,7 +3,7 @@ wmbutton
    Code is based on wmppp, wmload, wmtime, wmcp, and asbutton
    Author: Edward H. Flora <ehf_dockapps@cox.net>
 	   This version is released by:
-	   Christian 'Greek0' Aichinger <Greek0@gmx.net>
+	   Window Maker Team <wmaker-dev@lists.windowmaker.org>
 
 DESCRIPTION:
 ------------
@@ -154,7 +154,7 @@ BUGS:
 Remember, they're just undocumented FEATURES!!!
 
 Probably Lots.  Send comments (preferably with fixes) to
-<ehf_dockapps@cox.net>
+<wmaker-dev@lists.windowmaker.org>
 
 
 Good Luck.
