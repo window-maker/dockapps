@@ -7,3 +7,6 @@ wmbutton_SOURCES = backdrop.xpm buttons.xpm mask.xbm wmb_libs.c wmbutton.c \
 
 AM_CFLAGS = $(x11_CFLAGS) $(xpm_CFLAGS) $(xext_CFLAGS)
 LIBS += $(x11_LIBS) $(xpm_LIBS) $(xext_LIBS)
+
+desktopdir = @datadir@/applications
+dist_desktop_DATA = wmbutton.desktop

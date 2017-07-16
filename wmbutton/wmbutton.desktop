@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=wmbutton
+Comment=Dockapp displaying nine configurable buttons
+Exec=wmbutton
+Categories=Utility
+Keywords=launcher;dockapp;window maker
