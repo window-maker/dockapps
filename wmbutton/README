@@ -145,45 +145,6 @@ the upper left 54x54 pixel corner.
 
 An example file is included, related to the the buttons.xpm graphic file.
 
-
-CHANGE LOG:
------------
-0.6.1 Minor changes to the Makefile.
-0.6 Code cleanup and fixes for memory leaks by Christian 'Greek0' Aichinger.
-0.5	Added Modifications submitted by Ralf Horstmann.
-	  Load different pixmaps at start-up time, rather than having
-	  to compile them in.  This also makes it much easier to run
-	  multiple copies.
-	Added Modifications submitted by Michael Cohrs.
-	  Added Tool-Tips
-	Updated default buttons.xpm graphics
-	General Code clean-up, including export must functions to
-	  seperate C file, to reduce clutter.
-
-0.4	Added Modifications submitted by Casey Harkins.
-	  Start application on mouse button release,
-	  Only start app if cursor is still on application button
-	  Added 3-D button press look
-	Added new .wmbutton configuration file
-
-0.3	Graphics changed to incorporate most changes made by asbutton
-	Removed Middle/Right mouse click on button to turn off buttons
-	  after it.
-	Added Middle and Right mouse buttons to run more Applications
-	  (Yes, you can now really run 27 different Apps from a single
-	  instance of wmbuttons, if you would want too...)
-	Fixed bug for finding config file .wmbutton.
-	  It used to not look in the home directory, but in the
-	  startup directory.  Thanks to Casey harkins for the fix.
-	Included the icons directory from the asbutton distribution,
-	  plus a few more.
-
-0.2	Added single configuration file, user selectable.
-
-0.1	Origional version.
-	  Shamelessly taken from wmcp 1.2.5,
-	  by Ben Cohen <buddog@aztec.asu.edu>
-
 TODO:
 -----
 Add ability (via config file) to use discrete 16x16 pixel icons for
