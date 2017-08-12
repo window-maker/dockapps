@@ -19,7 +19,7 @@ dockapp.pc: Makefile
 	@echo 'Description: Window Maker dockapp support' >> $@
 	@echo 'URL: http://windowmaker.org/dockapps/?name=libdockapp' >> $@
 	@echo 'Version: $(VERSION)' >> $@
-	@echo 'Requires: x11 xext xpm' >> $@
+	@echo 'Requires.private: x11 xext xpm' >> $@
 	@echo 'Libs: -L${libdir} -ldockapp' >> $@
 	@echo 'Cflags: -I${includedir}' >> $@
 
