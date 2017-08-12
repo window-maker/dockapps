@@ -117,7 +117,6 @@
   /***********/
  /* Defines */
 /***********/
-#define WMMON_VERSION "1.2.b2"
 #define HISTORY_ENTRIES 55
 #define HISTORY_ENTRIES 55
 #define MAX_CPU (10) /* depends on graph height */
@@ -1015,7 +1014,7 @@ void usage(char *name)
 \*******************************************************************************/
 void printversion(void)
 {
-	printf("WMMon version %s\n", WMMON_VERSION);
+	printf("WMMon version %s\n", PACKAGE_VERSION);
 }
 /* vim: sw=4 ts=4 columns=82
  */
