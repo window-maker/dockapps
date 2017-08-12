@@ -115,7 +115,6 @@
  /* Defines */
 /***********/
 #define HISTORY_ENTRIES 55
-#define HISTORY_ENTRIES 55
 #define MAX_CPU (10) /* depends on graph height */
 #define MAX_STAT_DEVICES (4)
 
