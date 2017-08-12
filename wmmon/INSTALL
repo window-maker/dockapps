@@ -2,15 +2,14 @@ Installation instructions for WMMon.
 
 Requirements
 --------------------------------------------------------------
-Nothing particular :)
+* libdockapp (http://www.dockapps.net/libdockapp)
 
 
 Installation
 --------------------------------------------------------------
-1) % tar -zxvf wmmon-1.0b.tar.gz
-2) % cd wmmon.app/wmmon
-3) % make
-4) copy 'wmmon' somewhere in your $PATH like /usr/local/bin;
-5) % wmmon & (or wmmon -h for help)
+1) % ./configure
+2) % make
+3) % sudo make install
+4) % wmmon & (or wmmon -h for help)
 
 Be sure to read the HINTS and TODO files too!
