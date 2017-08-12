@@ -232,7 +232,7 @@ void wmmon_routine(int argc, char **argv)
 		{ NULL, NULL }
 	};
 
-	unsigned long i, j;
+	int i, j;
 	long k;
 	XEvent Event;
 	int but_stat = -1;
@@ -325,7 +325,7 @@ void wmmon_routine(int argc, char **argv)
 		exit(1);
 	}
 
-	openXwindow(argc, argv, wmmon_master_xpm, wmmon_mask_bits,
+	openXwindow(argc, argv, wmmon_master_xpm, (char *)wmmon_mask_bits,
 		    wmmon_mask_width, wmmon_mask_height);
 
 	/* add mouse region */
@@ -678,17 +678,17 @@ void update_stat_mem(stat_dev *st, stat_dev *st2)
 		if (strstr(line, "MemTotal:"))
 			sscanf(line, "MemTotal: %ld", &st->rt_idle);
 		else if (strstr(line, "MemFree:"))
-			sscanf(line, "MemFree: %ld", &free);
+			sscanf(line, "MemFree: %lu", &free);
 		else if (strstr(line, "MemShared:"))
-			sscanf(line, "MemShared: %ld", &shared);
+			sscanf(line, "MemShared: %lu", &shared);
 		else if (strstr(line, "Buffers:"))
-			sscanf(line, "Buffers: %ld", &buffers);
+			sscanf(line, "Buffers: %lu", &buffers);
 		else if (strstr(line, "Cached:"))
-			sscanf(line, "Cached: %ld", &cached);
+			sscanf(line, "Cached: %lu", &cached);
 		else if (strstr(line, "SwapTotal:"))
 			sscanf(line, "SwapTotal: %ld", &st2->rt_idle);
 		else if (strstr(line, "SwapFree:"))
-			sscanf(line, "SwapFree: %ld", &swapfree);
+			sscanf(line, "SwapFree: %lu", &swapfree);
 	}
 
 	/* memory use - rt_stat is the amount used, it seems, and this isn't
@@ -719,7 +719,7 @@ void update_stat_swp(stat_dev *st)
 		if (strstr(line, "SwapTotal:"))
 			sscanf(line, "SwapTotal: %ld", &st->rt_idle);
 		else if (strstr(line, "SwapFree:"))
-			sscanf(line, "SwapFree: %ld", &swapfree);
+			sscanf(line, "SwapFree: %lu", &swapfree);
 	}
 	st->rt_stat = st->rt_idle - swapfree;
 }
