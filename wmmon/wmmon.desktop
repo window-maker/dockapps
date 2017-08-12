@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=wmmon
+Comment=Window Maker dockapp for monitoring system information
+Exec=wmmon
+Categories=System;Monitor;
+Keywords=cpu;system load;monitor;dockapp;window maker;

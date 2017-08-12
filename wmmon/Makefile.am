@@ -5,3 +5,6 @@ EXTRA_DIST = BUGS CHANGES HINTS
 
 AM_CFLAGS = $(x11_CFLAGS) $(dockapp_CFLAGS)
 LIBS += $(x11_LIBS) $(dockapp_LIBS)
+
+desktopdir = $(datadir)/applications
+dist_desktop_DATA = wmmon.desktop
