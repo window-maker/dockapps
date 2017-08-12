@@ -28,6 +28,8 @@
 	Changes:
 	----
 
+	17/03/2014 (Pedro Gimeno Fortea)
+		* Fix jiffy counter overflowing long on 32-bit systems.
 	17/06/2012 (Rodolfo García Peñas (kix), <kix@kix.es>)
 		* Code style.
 	13/3/2012 (Barry Kelly (wbk), <coydog@devio.us>)
@@ -108,6 +110,7 @@
 #include <libdockapp/wmgeneral.h>
 #include <libdockapp/misc.h>
 
+#include "ulllib.h"
 #include "wmmon-master.xpm"
 #include "wmmon-mask.xbm"
 
@@ -197,14 +200,14 @@ typedef struct {
 	int his[HISTORY_ENTRIES];
 	int hisaddcnt;
 	long rt_stat;
-	long statlast;
+	ullong statlast;
 	long rt_idle;
-	long idlelast;
+	ullong idlelast;
 	/* Processors stats */
 	long *cpu_stat;
-	long *cpu_last;
+	ullong *cpu_last;
 	long *idle_stat;
-	long *idle_last;
+	ullong *idle_last;
 } stat_dev;
 
 stat_dev stat_device[MAX_STAT_DEVICES];
@@ -215,10 +218,10 @@ int nb_cpu, cpu_max;
 int getNbCPU(void);
 unsigned long getWidth(long, long);
 int checksysdevs(void);
-void get_statistics(char *, long *, long *, long *, long *, long *);
+void get_statistics(char *, long *, ullong *, ullong *, ullong *, ullong *);
 void DrawActive(char *);
 
-void update_stat_cpu(stat_dev *, long *, long *);
+void update_stat_cpu(stat_dev *, ullong *, ullong *);
 void update_stat_io(stat_dev *);
 void update_stat_mem(stat_dev *st, stat_dev *st2);
 void update_stat_swp(stat_dev *);
@@ -240,7 +243,7 @@ void wmmon_routine(int argc, char **argv)
 	int stat_online;
 
 	long starttime, curtime, nexttime;
-	long istat, idle, *istat2, *idle2;
+	ullong istat, idle, *istat2, *idle2;
 
 	FILE *fp;
 	char *conffile = NULL;
@@ -307,9 +310,9 @@ void wmmon_routine(int argc, char **argv)
 
 	nb_cpu = getNbCPU();
 	stat_device[0].cpu_stat = calloc(nb_cpu, sizeof(long));
-	stat_device[0].cpu_last = calloc(nb_cpu, sizeof(long));
+	stat_device[0].cpu_last = calloc(nb_cpu, sizeof(ullong));
 	stat_device[0].idle_stat = calloc(nb_cpu, sizeof(long));
-	stat_device[0].idle_last = calloc(nb_cpu, sizeof(long));
+	stat_device[0].idle_last = calloc(nb_cpu, sizeof(ullong));
 	if (!stat_device[0].cpu_stat ||
 	    !stat_device[0].cpu_last ||
 	    !stat_device[0].idle_stat ||
@@ -318,8 +321,8 @@ void wmmon_routine(int argc, char **argv)
 		exit(1);
 	}
 
-	istat2 = calloc(nb_cpu, sizeof(long));
-	idle2 = calloc(nb_cpu, sizeof(long));
+	istat2 = calloc(nb_cpu, sizeof(ullong));
+	idle2 = calloc(nb_cpu, sizeof(ullong));
 	if (!istat2 || !idle2) {
 		fprintf(stderr, "%s: Unable to alloc memory !!\n", argv[0]);
 		exit(1);
@@ -570,16 +573,17 @@ void wmmon_routine(int argc, char **argv)
 }
 
 
-void update_stat_cpu(stat_dev *st, long *istat2, long *idle2)
+void update_stat_cpu(stat_dev *st, ullong *istat2, ullong *idle2)
 {
-	long k, istat, idle;
+	long k;
+	ullong istat, idle;
 
 	get_statistics(st->name, &k, &istat, &idle, istat2, idle2);
 
-	st->rt_idle = idle - st->idlelast;
+	st->rt_idle = ullsub(&idle, &st->idlelast);
 	st->idlelast = idle;
 
-	st->rt_stat = istat - st->statlast;
+	st->rt_stat = ullsub(&istat, &st->statlast);
 	st->statlast = istat;
 
 	if (nb_cpu > 1) {
@@ -587,10 +591,10 @@ void update_stat_cpu(stat_dev *st, long *istat2, long *idle2)
 		unsigned long  max, j;
 		cpu_max = 0; max = 0;
 		for (cpu = 0; cpu < nb_cpu; cpu++) {
-			st->idle_stat[cpu] = idle2[cpu] - st->idle_last[cpu];
+			st->idle_stat[cpu] = ullsub(&idle2[cpu], &st->idle_last[cpu]);
 			st->idle_last[cpu] = idle2[cpu];
 
-			st->cpu_stat[cpu] = istat2[cpu] - st->cpu_last[cpu];
+			st->cpu_stat[cpu] = ullsub(&istat2[cpu], &st->cpu_last[cpu]);
 			st->cpu_last[cpu] = istat2[cpu];
 
 			j = st->cpu_stat[cpu] + st->idle_stat[cpu];
@@ -612,7 +616,8 @@ void update_stat_cpu(stat_dev *st, long *istat2, long *idle2)
 
 void update_stat_io(stat_dev *st)
 {
-	long j, k, istat, idle;
+	long j, k;
+	ullong istat, idle;
 
 	/* Periodically re-sample. Sometimes we get anomalously high readings;
 	 * this discards them. */
@@ -625,10 +630,10 @@ void update_stat_io(stat_dev *st)
 
 	get_statistics(st->name, &k, &istat, &idle, NULL, NULL);
 
-	st->rt_idle = idle - st->idlelast;
+	st->rt_idle = ullsub(&idle, &st->idlelast);
 	st->idlelast = idle;
 
-	st->rt_stat = istat - st->statlast;
+	st->rt_stat = ullsub(&istat, &st->statlast);
 	st->statlast = istat;
 
 	/* remember peak for scaling of upper-right meter. */
@@ -727,7 +732,7 @@ void update_stat_swp(stat_dev *st)
 /*******************************************************************************\
 |* get_statistics								*|
 \*******************************************************************************/
-void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, long *idle2)
+void get_statistics(char *devname, long *is, ullong *ds, ullong *idle, ullong *ds2, ullong *idle2)
 {
 	int i;
 	static char *line = NULL;
@@ -735,10 +740,11 @@ void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, lo
 	char *p;
 	char *tokens = " \t\n";
 	float f;
+	ullong ulltmp;
 
 	*is = 0;
-	*ds = 0;
-	*idle = 0;
+	ullreset(ds);
+	ullreset(idle);
 
 	if (!strncmp(devname, "cpu", 3)) {
 		fseek(fp_stat, 0, SEEK_SET);
@@ -747,23 +753,24 @@ void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, lo
 				int cpu = -1;	/* by default, cumul stats => average */
 				if (!strstr(line, "cpu ")) {
 					sscanf(line, "cpu%d", &cpu);
-					ds2[cpu] = 0;
-					idle2[cpu] = 0;
+					ullreset(&ds2[cpu]);
+					ullreset(&idle2[cpu]);
 				}
 				p = strtok(line, tokens);
 				/* 1..3, 4 == idle, we don't want idle! */
 				for (i=0; i<3; i++) {
 					p = strtok(NULL, tokens);
+					ullparse(&ulltmp, p);
 					if (cpu == -1)
-						*ds += atol(p);
+						ulladd(ds, &ulltmp);
 					else
-						ds2[cpu] += atol(p);
+						ulladd(&ds2[cpu], &ulltmp);
 				}
 				p = strtok(NULL, tokens);
 				if (cpu == -1)
-					*idle = atol(p);
+					ullparse(idle, p);
 				else
-					idle2[cpu] = atol(p);
+					ullparse(&idle2[cpu], p);
 			}
 		}
 		if ((fp_loadavg = freopen("/proc/loadavg", "r", fp_loadavg)) == NULL)
@@ -800,11 +807,13 @@ void get_statistics(char *devname, long *is, long *ds, long *idle, long *ds2, lo
 				for (i = 1; i <= 6; i++)
 					p = strtok(NULL, tokens);
 
-				*ds += atol(p);
+				ullparse(&ulltmp, p);
+				ulladd(ds, &ulltmp);
 				for (i = 7; i <= 10; i++)
 					p = strtok(NULL, tokens);
 
-				*ds += atol(p);
+				ullparse(&ulltmp, p);
+				ulladd(ds, &ulltmp);
 			}
 		}
 	}
