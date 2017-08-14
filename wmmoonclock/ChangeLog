@@ -1,4 +1,16 @@
 Changes:
+Version 1.29 -  released August 14, 2017
+		Update GPLv2 license text.
+		Update FSF address.
+		Remove trailing whitespace.
+		Use autotools for build.
+		Rename changelog to ChangeLog; clean up and split off TODO.
+		Correct bug report email address.
+		Remove unused variables.
+		Use unsigned char in mask bitmap to avoid overflow warnings.
+		Use correct includes for each file.
+		Add desktop entry file.
+
 Version 1.28 -	released September 20, 2011.
 		Debian patches added to the upstream version. These patches
 		are included:
