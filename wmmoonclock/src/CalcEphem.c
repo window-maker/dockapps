@@ -1,6 +1,6 @@
-#include <string.h>
 #include "CalcEphem.h"
-
+#include <math.h>
+#include <string.h>
 
 void CalcEphem(date, UT, c)
 long int     	 date;	/* integer containing the date (e.g. 960829) */

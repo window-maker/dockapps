@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <math.h>
 #include "MoonRise.h"
 #include "Moon.h"

@@ -31,12 +31,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
-#include <ctype.h>
-#include <stdarg.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
+#include <X11/extensions/shapeconst.h>
 #include "xutils.h"
 
 

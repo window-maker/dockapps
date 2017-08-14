@@ -1,7 +1,9 @@
 #ifndef WMGENERAL_H_INCLUDED
 #define WMGENERAL_H_INCLUDED
 
-
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/xpm.h>
 
 /*
  *   Typedefs

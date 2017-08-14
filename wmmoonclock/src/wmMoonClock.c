@@ -104,13 +104,14 @@
 /*
  *   Includes
  */
+#include <math.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/select.h>
 #include <time.h>
 #include <X11/X.h>
-#include <X11/xpm.h>
+#include <X11/Xlib.h>
 #include "CalcEphem.h"
 #include "MoonRise.h"
 #include "xutils.h"

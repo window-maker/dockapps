@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <math.h>
-
 #define DegPerRad       57.29577951308232087680
 #define RadPerDeg        0.01745329251994329576
 #define FALSE 0
