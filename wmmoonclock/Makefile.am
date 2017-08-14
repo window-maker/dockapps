@@ -10,3 +10,6 @@ EXTRA_DIST = BUGS
 
 AM_CFLAGS = $(x11_CFLAGS) $(xext_CFLAGS) $(xpm_CFLAGS)
 LIBS += $(x11_LIBS) $(xext_LIBS) $(xpm_LIBS) -lm
+
+desktopdir = $(datadir)/applications
+dist_desktop_DATA = wmmoonclock.desktop

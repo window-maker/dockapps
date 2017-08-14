@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=wmmoonclock
+Comment=Window Maker dockapp for showing the phase of the moon
+Exec=wmmoonclock
+Categories=Science;Astronomy;
+Keywords=moon;dockapp;window maker;
