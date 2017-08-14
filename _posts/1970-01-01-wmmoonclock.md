@@ -14,6 +14,9 @@ versions:
  -
   number: 1.28
   download: wmmoonclock-1.28.tar.gz
+ -
+  number: 1.29
+  download: wmmoonclock-1.29.tar.gz
 categories: time
 ---
 Shows lunar ephemeris to fairly high accuracy.
