@@ -9,7 +9,7 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
 {
 
     int    year, month, day;
-    double TU, TU2, TU3, T0, gmst;
+    double TU, TU2, TU3, T0;
     double varep, varpi;
     double eccen, epsilon;
     double days, M, E, nu, lambnew;
@@ -18,7 +18,7 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
     double TDT, AGE, LambdaMoon, BetaMoon, R;
     double jd(), hour24(), angle2pi(), angle360(), kepler(), Moon(), NewMoon();
     double Ta, Tb, Tc, frac();
-    double SinGlat, CosGlat, SinGlon, CosGlon, Tau, lmst, x, y, z;
+    double SinGlat, CosGlat, Tau, lmst, x, y, z;
     double SinTau, CosTau, SinDec, CosDec;
 
 
@@ -51,10 +51,6 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
             + 0.093104/3600.0*TU2 - 6.2e-6/3600.0*TU3;
     T0 = hour24(T0);
     c->gmst = hour24(T0 + UT*1.002737909);
-
-
-    /* convert to radians for ease later on */
-    gmst = c->gmst*15.0*M_PI/180.0;
 
     lmst = 24.0*frac( (c->gmst - c->Glon/15.0) / 24.0 );
 
@@ -160,7 +156,6 @@ CTrans 		*c;	/* structure containing all the relevent coord trans info */
      */
     Tau = (15.0*lmst - RA_Moon)*RadPerDeg;
     CosGlat = cos(c->Glat*RadPerDeg); SinGlat = sin(c->Glat*RadPerDeg);
-    CosGlon = cos(c->Glon*RadPerDeg); SinGlon = sin(c->Glon*RadPerDeg);
     CosTau = cos(Tau); SinTau = sin(Tau);
     SinDec = sin(DEC_Moon*RadPerDeg); CosDec = cos(DEC_Moon*RadPerDeg);
     x = CosDec*CosTau*SinGlat - SinDec*CosGlat;
