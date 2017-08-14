@@ -180,9 +180,9 @@ int main(int argc, char *argv[]) {
 
     initXwindow(argc, argv);
     if ((DisplayDepth <= 8)||UseLowColorPixmap)
-        openXwindow(argc, argv, wmMoonClock_masterLow, wmMoonClock_mask_bits, wmMoonClock_mask_width, wmMoonClock_mask_height, BackColor, LabelColor, DataColor);
+        openXwindow(argc, argv, wmMoonClock_masterLow, (char *)wmMoonClock_mask_bits, wmMoonClock_mask_width, wmMoonClock_mask_height, BackColor, LabelColor, DataColor);
     else
-        openXwindow(argc, argv, wmMoonClock_master, wmMoonClock_mask_bits, wmMoonClock_mask_width, wmMoonClock_mask_height, BackColor, LabelColor, DataColor);
+        openXwindow(argc, argv, wmMoonClock_master, (char *)wmMoonClock_mask_bits, wmMoonClock_mask_width, wmMoonClock_mask_height, BackColor, LabelColor, DataColor);
 
 
 
