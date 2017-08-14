@@ -124,11 +124,6 @@
  *  Delay between refreshes (in microseconds)
  */
 #define DELAY 1000000L
-#define WMMOONCLOCK_VERSION "1.27"
-
-
-
-
 
 void ParseCMDLine(int argc, char *argv[]);
 void pressEvent(XButtonEvent *xev);
@@ -847,7 +842,7 @@ void ParseCMDLine(int argc, char *argv[]) {
 
 void print_usage(){
 
-    printf("\nwmMoonClock version: %s\n", WMMOONCLOCK_VERSION);
+    printf("\nwmMoonClock version: %s\n", PACKAGE_VERSION);
     printf("\nusage: wmMoonClock [-display <Display>] [-lat <Latitude>] [-lon <Longitude>] [-h]\n");
     printf("                   [-bc <Color>] [-lc <Color>] [-dc <Color>]\n\n");
     printf("\t-display <Display>\tUse alternate X display.\n");
