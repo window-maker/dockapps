@@ -1,0 +1,13 @@
+Things TODO:
+            - clean up code!
+            - more detailed documentation.
+            - reduce size of pixmap! Dont need it in one pixmap.
+              Also, does the hi-color pixmap really need all those colors?
+            - add rotation of moon so user sees it as they would in reality?
+            - eclipses. The calcs are quite acurate so this should be
+              easily doable.
+              (Note the Sun position calcs in CalcEphem are low
+              precision -- high is not as costly as the Moon calcs.)
+              Sun posiiton is calculated but not used yet...
+            - Next new moons, next full moons, next quarters, etc...
+            - Moon name. I.e. Harvest, Blue, etc...

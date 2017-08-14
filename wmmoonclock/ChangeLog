@@ -1,0 +1,61 @@
+Changes:
+Version 1.28 -	released September 20, 2011.
+		Debian patches added to the upstream version. These patches
+		are included:
+		01_all_previous_diff.diff, 02_update_time.diff,
+		03_add_southern_hemisphere_support.diff and
+		04_fix_hyphen_used_as_minus_sign.diff
+		BUGS file updated to report to wmaker-dev@lists.windowmaker.info
+		Source is now at http://repo.or.cz/w/dockapps.git
+		Updated by Rodolfo García Peñas (kix) <kix@kix.es>
+
+Version 1.27 -	released June 7, 1999.
+		fixed a minor bug in computation of azimuth (A in Horizon
+		Coords). Thanks to Dan Moraru for spotting this one. (There were
+		two SinGlat factors instead of one).
+
+Version 1.26 -	released April 22, 1999 (?).
+Version 1.25 -	released March 22, 1999.
+		Now auto-detects 8-bit display and forces the LowColor pixmap to
+		be used. The -low option still works if you need to conserve
+		colors even on high-color displays.
+
+		Added 3 command line options + code to change colors of the data
+		entries:
+
+			-bc <Color> to change background color.
+			-lc <Color> to change color of labels and headers.
+			-dc <Color> to change color of data values.
+
+Version 1.24 -	released February 9, 1999.
+		Added low color support via the -low command line option.
+
+Version 1.23 -	released February 4, 1999.
+		cosmetic for AfterStep users. removed spurious black line at
+		RHS edge an mask.
+
+Version 1.22 -	released January 8, 1999.
+		+ Changed PI2 to TwoPi in Moon.c -- Linux Pyth. had probs
+		  because PI2 was defined in <math.h>.
+
+Version 1.21 -	released January 7, 1999.
+		+ minor bug fixes in Makefile and manpage.
+
+Version 1.2 - released January 3, 1999.
+	      Added:
+		+ Local Time/ Universal Time display.
+		+ Visible: Yes/No to indicate if Moon is up or not.
+		+ Frac (percent through orbit -- this is NOT a simple
+		  conversion of AGE....).
+		+ Horizon Coords. Altitude is measured up from horizon to
+		  Moon in degrees. Azimuth is in degrees from due south.
+
+	      Also shuffled things around a bit...
+
+Version 1.1 - released December 24, 1998.
+	      Fixed bug in AGE calculation. It now should be highly accurate.
+	      Note that AGE is not the same as Phase*29.530589 ...
+	      I have checked with the Astronomical Almanac and it agrees very
+	      well....
+
+Version 1.0 - released December 16, 1998.
