@@ -1,0 +1,52 @@
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* ChangeLog, NEWS, configure.ac: Bump to version 0.2.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/arg_parser.c: Add --version command line option.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/Makefile.am: Make sure xpm/xbm files will be included in tarball.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/Makefile.am: Remove reference to nonexisting config.h.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/draw_text.h: Add includes and declarations to avoid implicit
+	declarations.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* configure.ac, src/Makefile.am: Use pkg-config to check for libraries.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* configure.ac: Remove obselete AM_PROG_CC_C_O macro.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* configure.ac: Update call to AM_INIT_AUTOMAKE.
+	Also take the opportunity to include the Window Maker dev mailing
+	list in AC_INIT.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* {configure.in => configure.ac}: Rename configure.in to configure.ac.
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* .hg_archival.txt, INSTALL, Makefile.in, aclocal.m4,
+	autom4te.cache/output.0, autom4te.cache/output.1,
+	autom4te.cache/requests, autom4te.cache/traces.0,
+	autom4te.cache/traces.1, compile,configure, depcomp, install-sh,
+	missing, src/Makefile.in: Remove generated autotools and mercurial
+	files
+
+2017-08-20  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Add version 0.1 to the repository.
+

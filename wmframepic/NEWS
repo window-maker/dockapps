@@ -1,0 +1,9 @@
+[0.2] - 2017-08-20
+* Now maintained by the Window Maker Team.
+* Update autotools files.
+* Use pkg-config to locate libraries.
+* Fix compiler warnings.
+* Add --version command line option.
+
+[0.1] - 2010-05-11
+* Initial release.
