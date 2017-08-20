@@ -11,9 +11,6 @@ draw_text.c \
 arg_parser.c \
 arg_parser.h
 
-wmframepic_CPPFLAGS = 
-wmframepic_CFLAGS = $(X_CFLAGS)
-wmframepic_LDFLAGS = $(X_LIBS)
 
-wmframepic_LDADD = $(X_PRE_LIBS) -lX11 -lXpm -largtable2 $(X_EXTRA_LIBS)
- 
+AM_CFLAGS = $(Xlib_CFLAGS) $(libXpm_CFLAGS) $(argtable_CFLAGS)
+LIBS += $(Xlib_LIBS) $(libXpm_LIBS) $(argtable_LIBS)
