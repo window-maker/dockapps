@@ -16,9 +16,10 @@ int get_values_from_command_line(int argc, char **argv,
 	struct arg_int 	*day		= arg_int1("d", "day", "int", "the day of birth");
 	struct arg_int 	*month		= arg_int1("m", "month", "int", "the month of birth");
 	struct arg_int 	*year		= arg_int1("y", "year", "int", "the year of birth");
+	struct arg_lit  *version        = arg_lit0("v", "version", "print the version and exit");
     struct arg_lit  *help    	= arg_lit0(NULL, "help", "print this help and exit");
     struct arg_end  *end     	= arg_end(20);
-    void* argtable[] = {name, xpm_file, day, month, year, help, end};
+    void* argtable[] = {name, xpm_file, day, month, year, help, version, end};
     const char* progname = "wmframepic";
     int nerrors;
     int exitcode = COMMAND_LINE_SUCCESS;
@@ -53,6 +54,12 @@ I'm sure you will enjoy!\n\n");
 		exitcode = COMMAND_LINE_HELP;
 		goto exit;
 	}
+
+    if (version->count > 0) {
+	    printf("%s\n", PACKAGE_STRING);
+	    exitcode = COMMAND_LINE_HELP;
+	    goto exit;
+    }
 
     /* If the parser returned any errors then display them and exit */
     if (nerrors > 0) {
