@@ -8,7 +8,11 @@ main.h \
 age_calc.c \
 draw_text.c \
 arg_parser.c \
-arg_parser.h
+arg_parser.h \
+font.xpm \
+display_text.xpm \
+frame_mask.xbm \
+core_mask.xbm
 
 
 AM_CFLAGS = $(Xlib_CFLAGS) $(libXpm_CFLAGS) $(argtable_CFLAGS)
