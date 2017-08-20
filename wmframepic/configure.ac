@@ -1,9 +1,6 @@
-AC_INIT(src/main.c)
-
-PACKAGE=wmframepic
-VERSION=0.1
-
-AM_INIT_AUTOMAKE($PACKAGE, $VERSION)
+AC_INIT([wmframepic], [0.1], [wmaker-dev@lists.windowmaker.org])
+AC_CONFIG_SRCDIR([src/main.c])
+AM_INIT_AUTOMAKE
 
 AC_PROG_CC
 AM_PROG_CC_C_O
