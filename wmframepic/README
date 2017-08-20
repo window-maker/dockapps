@@ -1,0 +1,36 @@
+Quick install guide:
+
+0) Install the dependencies:
+It depends on argtable and libXpm. To install in Gentoo, do
+emerge dev-libs/argtable x11-libs/libXpm
+
+In Ubuntu, execute
+sudo apt-get install libargtable2-0 libargtable2-dev libargtable2-docs libxpm-dev
+
+
+1) Compile the project:
+./configure --prefix=/usr
+make
+make install
+
+
+2) Create the picture you are going to use:
+a) get a picture of someone like your son or daughter.
+b) crop a square containing his/her face.
+c) resize-it so its 58x58 pixels.
+d) save it in xpm format.
+
+3) Run the application:
+wmframepic -n augusto -f /path/to/xpm/file.xpm -d 23 -m 2 -y 2007
+
+where
+-n = name
+-f = path to xpm file
+-d = day of birth
+-m = month of birth
+-y = year of birth
+
+when the dockapp is clicked, it will show how old your son/daughter is.
+
+have fun!
+
