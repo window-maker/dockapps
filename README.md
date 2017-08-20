@@ -113,3 +113,17 @@ category which wmfoo and wmbar both belong to corresponds to a file
 Either [create an issue](https://github.com/d-torrance/dockapps/issues/new)
 or [email the Window Maker developers](mailto:wmaker-dev@lists.windowmaker.org).
 
+# Missing dockapps
+
+The following dockapps appear to have disappeared from the internet.  If you
+have the source code lying around somewhere, please let us know!
+
+* pyhada
+* shutdown-gdm
+* weewar announcer
+* wmblobgest
+* wmmldmon
+* wmgest
+* wmstpu
+* wmsvn
+* wmweatherapp
