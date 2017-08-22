@@ -1,0 +1,36 @@
+#
+# thinppp: non-docked PPP applet
+#
+
+CC = @CC@
+CFLAGS = -Wall -O2
+GTKLIB = @GTK_LIBS@
+GTKFLAG = @GTK_FLAGS@
+RLFLAG = -DVERSION=\"@MK_YAWMPPP_RELEASE@\" -DIPREFIX=\"@prefix@\" -D@SYSDEF@
+PROGINST = @INSTALL@
+
+ALLDOTOS = thinppp.o
+ALLDOTHS = thinppp.h ../isprc.h ../misc.h ../list.h ../ycommon.h
+EOBJS = ../isprc.o ../ycommon.o ../misc.o ../list.o
+
+all: build_thinppp
+
+build_thinppp: $(ALLDOTOS)
+	$(CC) $(ALLDOTOS) $(EOBJS) -o yawmppp.thin $(GTKLIB)
+
+$(ALLDOTOS): %.o : %.c $(ALLDOTHS)
+	$(CC) $(CFLAGS) $(RLFLAG) $(GTKFLAG) -I.. -c $< -o $@
+
+install:
+	$(PROGINST) -m 0755 yawmppp.thin @prefix@/bin/yawmppp.thin
+
+install-strip:
+	$(PROGINST) -s -m 0755 yawmppp.thin @prefix@/bin/yawmppp.thin
+
+
+clean:
+	rm -f $(ALLDOTOS) yawmppp.thin
+
+distclean:
+	rm -f Makefile *~
+

@@ -1,0 +1,179 @@
+dnl configure.in for yawmppp
+dnl by Felipe Bergo (bergo@seul.org)
+
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(src/gtksetup/applet.c)
+AC_PREREQ(2.0)
+
+AC_CHECK_PROG(GNU_MAKE,make,yes)
+AC_CHECK_PROG(GOTSED,sed,yes,no)
+AC_PROG_CC
+AC_PROG_INSTALL
+
+AC_HEADER_STDC
+AC_HEADER_CHECK(unistd.h,,AC_MSG_ERROR(required header file missing))
+AC_HEADER_CHECK(sys/wait.h,,AC_MSG_ERROR(required header file missing))
+AC_HEADER_CHECK(sys/stat.h,,AC_MSG_ERROR(required header file missing))
+AC_HEADER_CHECK(sys/param.h,,AC_MSG_ERROR(required header file missing))
+AC_HEADER_CHECK(sys/types.h,,AC_MSG_ERROR(required header file missing))
+AC_HEADER_CHECK(sys/ioctl.h,,AC_MSG_ERROR(required header file missing))
+AC_HEADER_CHECK(sys/socket.h,,AC_MSG_ERROR(required header file missing))
+
+AC_PATH_X
+
+XINC="$x_includes"
+XLIB="$x_libraries"
+
+if test "tmp$no_x" = "tmpyes" ; then
+	AC_MSG_ERROR(
+[
+** You must have the X11R6 system. If you have an X11R6 system installed
+   and are seeing this message, try using the --x-includes and --x-libraries
+   options with configure. Use the --help option for help.
+]
+)
+fi
+
+AC_HEADER_CHECK(X11/Xlib.h,,AC_MSG_WARN(required header file missing ?))
+AC_HEADER_CHECK(X11/xpm.h,,AC_MSG_WARN(required header file missing ?))
+AC_HEADER_CHECK(X11/extensions/shape.h,,AC_MSG_WARN(required header file missing ?))
+
+AC_SUBST(XINC)
+AC_SUBST(XLIB)
+
+AC_MSG_CHECKING(Operating System)
+OSTYPE=`uname -s`
+AC_MSG_RESULT("$OSTYPE")
+
+SYSDEF="UNKNOWN"
+
+case $OSTYPE in
+  Linux)
+    AC_HEADER_CHECK(asm/types.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(linux/if.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(linux/ppp_defs.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(linux/if_ppp.h,,AC_MSG_ERROR(required header file missing))
+    SYSDEF="LINUX"
+    ;;
+  FreeBSD)
+    AC_HEADER_CHECK(net/if.h,,AC_MSG_ERROR(required header file missing))
+dnl AC_HEADER_CHECK(net/if_ppp.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(net/ppp_defs.h,,AC_MSG_ERROR(required header file missing))
+    SYSDEF="FREEBSD"
+    ;;
+  OpenBSD)
+    AC_MSG_WARN(*************************************************)
+    AC_MSG_WARN(*                                               *)
+    AC_MSG_WARN(* OpenBSD support not tested - if it works      *)
+    AC_MSG_WARN(* please report to bergo@seul.org. Good Luck.   *)
+    AC_MSG_WARN(*                                               *)
+    AC_MSG_WARN(*************************************************)
+    sleep 2
+    AC_HEADER_CHECK(net/if.h,,AC_MSG_ERROR(required header file missing))
+dnl AC_HEADER_CHECK(net/if_ppp.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(net/ppp_defs.h,,AC_MSG_ERROR(required header file missing))
+    SYSDEF="OPENBSD"
+    ;;
+  NetBSD)
+    AC_MSG_WARN(*************************************************)
+    AC_MSG_WARN(*                                               *)
+    AC_MSG_WARN(* NetBSD support not tested - if it works       *)
+    AC_MSG_WARN(* please report to bergo@seul.org. Good Luck.   *)
+    AC_MSG_WARN(*                                               *)
+    AC_MSG_WARN(*************************************************)
+    sleep 2
+    AC_HEADER_CHECK(net/if.h,,AC_MSG_ERROR(required header file missing))
+dnl AC_HEADER_CHECK(net/if_ppp.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(net/ppp_defs.h,,AC_MSG_ERROR(required header file missing))
+    SYSDEF="NETBSD"
+    ;;
+esac
+
+if test "$SYSDEF" = "UNKNOWN" ; then
+    AC_HEADER_CHECK(net/if.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(net/if_ppp.h,,AC_MSG_ERROR(required header file missing))
+    AC_HEADER_CHECK(net/ppp_defs.h,,AC_MSG_ERROR(required header file missing))
+    AC_MSG_WARN(*************************************************)
+    AC_MSG_WARN(*                                               *)
+    AC_MSG_WARN(* This system has not been tested. I will try   *)
+    AC_MSG_WARN(* compiling with BSDish settings. If it works   *)
+    AC_MSG_WARN(* please report to bergo@seul.org. Good Luck!   *)
+    AC_MSG_WARN(*                                               *)
+    AC_MSG_WARN(*************************************************)
+    sleep 2
+    SYSDEF="BSDISH"
+fi
+
+AC_SUBST(SYSDEF)
+
+dnl now gtk
+
+AC_PATH_PROG(GTKCONFIG,gtk-config,no)
+
+if test "$GTKCONFIG" = "no" ; then
+AC_MSG_ERROR(
+[
+-(GTK >= 1.2.1 NOT FOUND)---------------------------------------
+ The config application requires the GTK libary. See the
+ README for information on how to install GTK.
+----------------------------------------------------------------
+])
+else
+  dnl check for gtk-version
+  GTK_LIBS=`$GTKCONFIG --libs`
+  GTK_FLAGS=`$GTKCONFIG --cflags`
+
+  dnl test for Gtk+ >= 1.2.1
+  AC_MSG_CHECKING(for gtk+ >=1.2.1)
+
+  dnl copied from gtk+'s aclocal.m4. These guys must love sed
+  GTK_MAJOR=`$GTKCONFIG --version | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
+  GTK_MINOR=`$GTKCONFIG --version | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+  GTK_MICRO=`$GTKCONFIG --version | \
+           sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
+
+  GTK121_FINE=1
+
+  if test $GTK_MAJOR -lt 1 ; then
+    GTK121_FINE=0
+  else
+    if test $GTK_MAJOR -eq 1 ; then
+      if test $GTK_MINOR -lt 2 ; then
+	  GTK121_FINE=0
+      fi
+      if test $GTK_MINOR -eq 2 ; then
+	  if test $GTK_MICRO -lt 1 ; then
+	      GTK121_FINE=0
+       	  fi
+      fi
+    fi  
+  fi
+
+  if test "$GTK121_FINE" = "1" ; then
+      AC_MSG_RESULT(yes)
+  else
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR(
+[
+-(GTK >= 1.2.1 NOT FOUND)---------------------------------------
+ The config application requires the GTK libary. See the
+ README for information on how to install GTK.
+----------------------------------------------------------------
+]
+)
+  fi
+fi
+
+AC_SUBST(GTK_LIBS)
+AC_SUBST(GTK_FLAGS)
+
+MK_YAWMPPP_RELEASE="2.0.2"
+AC_SUBST(MK_YAWMPPP_RELEASE)
+
+AC_OUTPUT(Makefile src/Makefile src/dockapp/Makefile src/gtksetup/Makefile src/gtklog/Makefile src/thinppp/Makefile)
+
+echo
+echo "--> type make to compile yawmppp"
+echo

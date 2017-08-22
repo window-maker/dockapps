@@ -1,0 +1,89 @@
+
+CHANGELOG for YAWMPPP
+$Id: CHANGELOG,v 1.2 2001/04/21 18:29:33 bergo Exp $
+
+2.0.2 (Apr 21 2001)
+ * fixed minor bug when generating files with the
+   "don't generate login password pairs" option
+   turned on (a CONNECT line was not being added)
+
+2.0.1 (Mar 3 2001)
+ * fixed minor bug: the installation script now creates
+   the /etc/ppp/peers directory if it is missing.
+
+2.0.0 (Feb 22 2001)
+ * Revamped the way the GUI manages config files, now pppd
+   files go under /etc/ppp/peers (and you'll have to
+   exercise your root password sometimes when configuring
+   ISP info). Configuration now goes under ~/.yawmppp2
+ * Changed RX/TX leds for arrows in the Window Maker applet.
+ * Dropped old named-based DNS support
+ * Added support for the usepeerdns option in pppd.
+
+1.2.1 (Apr 12 2000)
+ * Increased Modem Init Strings maximum size from 64 to
+   256 characters.
+
+1.2.0 (Apr 3 2000)
+ * Fixed bug regarding user names made up of digits
+   only.
+ * Added the yawmppp.thin applet.
+ * Made the -caution option default.
+ * Bug fix: now modem init strings may contain spaces.
+ * Bug fix: the config applet wasn't recognizing the first
+   init string, it was putting ATZ always. As no one has
+   complained about it, I'm surprised to know that ATZ is
+   good for everyone :)
+
+1.1.3 (Mar 24 2000)
+ * Fixed bug in Help system (memory buffer for man pages was too
+   small and the Configuration program dumped core). Now the
+   buffers are initialized with 128K instead of 64K and will grow
+   on demand. Thanks to Thomas Hood for reporting this one.
+ * Added the -caution and -paranoid command line options, meant to
+   help PCMCIA & APM users.
+ * Minor documentation fixes.
+
+1.1.2 (Mar 20 2000)
+ * Added the online help (er... man) system.
+ * Tried to fix a compilation bug that happened with Debian regarding the
+   double inclusion of linux/socket.h and sys/socket.h. I don't have
+   a Debian system to test, so I don't know for sure if it will work
+   right now (Debian only).
+ * Added the --with-x-include-dirs= option to the configure script. This
+   should be helpful for FreeBSD users.
+ * Due to the change below, changed the caption on the
+   "Post-login conversation" button to "Additional conversation".
+ * Added the "Don't generate login/password pairs" checkbox to help people
+   with even stranger ISP conversations. I can't keep it simple if ISPs can't.
+ * Fixed bug in expect/send pair parsing, now usernames, passwords,
+   and all expected/sent strings may contain spaces and escaped
+   quotes (\").
+ * Fixed stop.* script generation (missing space between
+   quote and bracket, thanks to Igor Marinovic for reporting
+   it)
+ * Fixed W,X,Y,Z characters which were apeearing swapped on the
+   dock applet display.
+
+1.1.1 (Mar 11 2000)
+ * Fixed small bug in configure script that would prevent
+   yawmppp from building in some FreeBSD systems.
+
+1.1.0 (Mar 7 2000)
+ * Added tooltips to most widgets in the PPP page.
+ * Added capability for more multiple expect/send pairs in the
+   entries.
+ * Added support for PAP/CHAP related options in the pppd
+   command line (the secrets must still be set manually in
+   the secret files, read the FAQ for furhter information)
+
+1.0.1 (Feb 29 2000)
+
+ * Added "user <username>" to command line of pppd,
+   which may help PAPers and CHAPers.
+
+ * Some of the options shown with yawmppp -h were
+   bogus. Took them out.
+
+1.0.0 (Feb 14 2000)
+ * First public release

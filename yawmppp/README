@@ -1,0 +1,278 @@
+
+                               YAWMPPP
+                            version 2.0.2
+               Yet Another PPP Window Maker dock applet
+                       (C) 2000 Felipe Bergo
+
+Table of Contents
+
+Overview
+Requirements
+Installing
+Features
+Files
+Reporting Bugs
+Usage Hints
+  Programs
+  Interface Guide
+  Window Manager Placement
+  Configuration
+    DNS Servers
+    Modem Ports
+    Login/Password expects
+  Trouble?    
+More Documentation
+
+Overview
+--------
+
+YAWMPPP sits in Window Maker's dock (or AfterStep's Wharf, or keeps
+standing as a 64x64 window with other Window Managers) and manages
+PPP connections. For window managers not capable of docking
+yawmppp also provides a bar shaped version (yawmppp.thin).
+
+It includes a GUI to easily setup your ISP entries, so that you
+don't need to edit CHAT scripts.
+
+YAWMPPP is distributed under the terms of the GNU General Public
+License, version 2 or later (at your choice). A copy of the
+license is provided in the file COPYING in this same directory.
+
+Requirements
+------------
+
+YAWMPPP is known to run on Linux (tested with 2.2 kernels) and FreeBSD
+(tested with 3.4-RELEASE) and has been reported to work with NetBSD 1.5.
+
+You'll need:
+
+- root access to install YAWMPPP
+
+- A kernel with PPP support compiled in.
+
+- pppd, the ppp daemon, installed in /usr/sbin/pppd
+  (currently this path mandatory for the builtin scripts to
+  work). If you wish to use YAWMPPP as non-root pppd must
+  have the setuid bit set. The RedHat installation already
+  brings this set.
+  Version 2.3.11 or newer is recommended.
+
+- the "chat" program (usually included in the pppd package, comes
+  with the FreeBSD distribution too).
+
+- GTK+ 1.2.1 or greater. 1.2.6 recommended.
+  If you don't have it you can grab it from
+
+  http://www.gtk.org
+
+  Remember to get the GLib too (needed by GTK+).
+
+  On RedHat-based systems (RedHat itself, Mandrake, Conectiva,
+  Independence, etc.) you'll need these packages installed to
+  compile YAWMPPP:
+
+  glib-1.2.x
+  glib-devel-1.2.x
+  gtk+-1.2.x
+  gtk+-devel-1.2.x
+
+Author: Felipe Bergo <bergo@seul.org>, who built YAWMPPP
+        using code from the WMPPP application developed by
+        Martijn Pieterse and Antoine Nulle.
+
+        YAWMPPP's web page is located at
+        http://yawmppp.seul.org
+
+        For more information on WMPPP see
+        http://windowmaker.mezaway.org
+
+Installing
+----------
+
+Read the file INSTALL for instructions. Be sure to read this file
+entirely before using YAWMPPP
+
+Features
+--------
+YAWMPPP features all things the standard pppd offers and gives
+you some additional amusements:
+
+        * Integrated online timer;
+        * Integrated modem RX/TX LED's; 
+        * Integrated YAWMPPP status LED; 
+        * Integrated autoscaling PPP transfer statistics;
+        * Integrated bytes/second Speed-O-Meter;
+        * Automatic detection of active ppp interfaces;
+        * Several commandline options (try '-h' for help);
+        * Easy ISP configuration GUI
+        * Multiple ISP entries support
+        * Logging facility with GUI viewer
+
+Files
+-----
+README          This file.
+INSTALL         Installation instructions.
+CHANGELOG       Description of changes.
+COPYING         GNU General Public License Version 2.
+FAQ             Frequently Asked Questions
+        
+
+Reporting Bugs
+--------------
+If you discover any bugs in this software, please send a 
+bug report to bergo@seul.org and describe the
+problem as detailed as you can.
+
+
+Usage Hints
+-----------
+
+First of all: you can type "man yawmppp" for help at the command line.
+
+Programs:
+---------
+
+yawmppp         - The PPP dock applet
+yawmppp.thin    - A PPP applet for non dock-capable window managers
+                  (e.g. Enlightenment, Sapphire...)
+yawmppp.pref    - The Dialing setup tool (can be run from
+                  yawmppp by clicking the left mouse
+                  button in the display area)
+yawmppp.log     - The log view tool (can be run from yawmppp
+                  by clicking the middle or right mouse buttons
+                  in the display area)
+
+Interface guide (yawmppp)
+-------------------------
+Please, don't laugh at the drawing.
+
++-----------------------------+ A : Connection timer
+|+---------------------------+|
+||AAAAAAAAAAA     BB  CC  DD || B : RX LED (blinks when PPP packets
+||AAAAAAAAAAA     BB  CC  DD ||             are received)
+||                           ||
+||EEEEEEEEEEEEEEEEEEEEEEEEEEE|| C : TX LED (blinks when PPP packets
+||EEEEEEEEEEEEEEEEEEEEEEEEEEE||             are sent)
+||EEEEEEEEEEEEEEEEEEEEEEEEEEE||
+||EEEEEEEEEEEEEEEEEEEEEEEEEEE|| D : ON/OFF LED: dark when there is no
+||                           ||            active connection, GREEN if
+||FFFFFFFFFF    GGGGGGGGGGGGG||            the connection is up, YELLOW
+||FFFFFFFFFF    GGGGGGGGGGGGG||            while dialing, RED on error.
+|+---------------------------+|
+|+-----++-----+ +-----++-----+| E : Speed history
+||     ||     | |     ||     ||
+||  <  ||  >  | |  V  ||  X  || F : ISP entry name (short)
+||     ||     | |     ||     ||
+|+-----++-----+ +-----++-----|| G : Connection speed, speed-o-meter,
++-----------------------------+     error messages
+
+                                < : selects prior ISP. You can't change
+                                    the ISP entry while online
+
+                                > : selects next ISP.
+
+                                V : connects to currently selected ISP
+
+                                X : closes current connection.
+
+You can click the display area with the left mouse button to open the
+ISP configuration tool (yawmppp.pref) or with any other mouse button
+to open the connection log viewer (yawmppp.log).
+
+Window Manager Placement
+------------------------ 
+Window Maker: Window Maker users simply drag and drop YAWMPPP on
+              the WindowMaker Dock or the Clip.
+              Press the right mouse button on YAWMPPP's outer edges and
+              select "Settings..." from the popup menu that appears.
+              Enable the 'Start when WindowMaker is started' option,
+              then click on the 'OK' button in the Docked Applications
+              Panel.
+
+AfterStep:    Afterstep users put something like this in their Wharf rc
+              file "Wharf yawmppp - MaxSwallow "yawmppp" yawmppp &"
+              (this should be somewhere under ~/GNUstep/Library/AfterStep)
+
+Elsewhere:    For other windowmanagers, YAWMPPP runs nicely as a 64x64
+              pixel shaped icon on your desktop. You may prefer to run
+              yawmppp.thin when not using Window Maker or AfterStep.
+
+Configuration
+-------------
+
+YAWMPPP's configuration files stay beneath ~/.yawmppp2, which will
+be created as soon as you run yawmppp for the first time. The main
+configuration file is yawmppprc. You should use the yawmppp.pref
+application to create your entries. If you're willing to edit entries
+by hand, create some bogus entries with yawmppp.pref and take a look
+at the generated files for hints. It should be easy to figure out.
+
+The format has changed since YAWMPPP 1.x.x, thus the
+directory has changed (from ~/.yawmppp to ~/.yawmppp2).
+
+Don't try copying files between 1.x.x and 2.x.x versions.
+
+Modem ports
+-----------
+On Linux the serial ports are (or at least should be :-) ):
+
+/dev/cua0  _or_  /dev/ttyS0  : DOS' COM1
+/dev/cua1  _or_  /dev/ttyS1  :  "   COM2
+/dev/cua2  _or_  /dev/ttyS2  :  "   COM3
+/dev/cua3  _or_  /dev/ttyS3  :  "   COM4
+
+If you don't know where your modem is, type
+
+  dmesg | grep tty
+
+It should print something like
+
+  ttyS00 at 0x03f8 (irq = 4) is a 16550A
+  ttyS01 at 0x02f8 (irq = 3) is a 16550A
+  ttyS02 at 0x03e8 (irq = 4) is a 16550A
+
+If it shows the wrong irq to you, add a setserial command
+to one of your boot time scripts (maybe /etc/rc.d/rc.local)
+like:
+
+  /bin/setserial /dev/ttyS2 irq 10
+
+See "man setserial" for more information.
+
+On FreeBSD the dialout serial ports are
+
+  /dev/cuaa0 (kernel interface sio0)
+  /dev/cuaa1 (kernel interface sio1)
+  /dev/cuaa2 (kernel interface sio2)
+  /dev/cuaa3 (kernel interface sio3)
+
+If it fails to recognize your modem's port, or gives it the wrong
+IRQ, you have to compile a new kernel with the correct settings.
+Read the FreeBSD handbook if don't know how to do this
+(/usr/share/doc/books/handbook)
+
+Login/Password Expects
+----------------------
+The supplied expects for login and password are rather common,
+but if it fails, connect to your ISP using a standard communication
+program (like minicom) and watch what the ISP sends to ask for
+login and password.
+
+Trouble?
+--------
+Read the FAQ in this same directory.
+
+More Documentation
+------------------
+Linux users can read the ISP-Hookup and PPP howtos. These howtos
+are available from
+
+  http://sunsite.unc.edu/LDP/HOWTO/
+
+If you are on a major Linux distribution the HOWTOs should be
+installed. Try looking beneath /usr/doc.
+
+You may also get the ppp source and read the FAQ included, it is
+at
+
+  ftp://cs.anu.edu.au/pub/software/ppp

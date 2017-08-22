@@ -1,0 +1,37 @@
+#
+# gtksetup: a setup applet for yawmppp
+#
+
+CC = @CC@
+CFLAGS = -Wall -O2
+GTKLIB = @GTK_LIBS@
+GTKFLAG = @GTK_FLAGS@
+RLFLAG = -DVERSION=\"@MK_YAWMPPP_RELEASE@\" -DIPREFIX=\"@prefix@\" -D@SYSDEF@
+PROGINST = @INSTALL@
+
+ALLDOTOS = applet.o msgbox.o
+ALLDOTHS = applet.h msgbox.h ../isprc.h
+EOBJS = ../isprc.o ../about.o
+
+all: build_gtksetup
+
+build_gtksetup: $(ALLDOTOS)
+	$(CC) $(ALLDOTOS) $(EOBJS) -o yawmppp.pref $(GTKLIB)
+
+$(ALLDOTOS): %.o : %.c $(ALLDOTHS)
+	$(CC) $(CFLAGS) $(RLFLAG) $(GTKFLAG) -I.. -c $< -o $@
+
+install:
+	$(PROGINST) -m 0755 yawmppp.pref @prefix@/bin/yawmppp.pref
+	$(PROGINST) -m 0644 pppdoc.xpm @prefix@/share/icons/pppdoc.xpm
+
+install-strip:
+	$(PROGINST) -s -m 0755 yawmppp.pref @prefix@/bin/yawmppp.pref
+	$(PROGINST) -m 0644 pppdoc.xpm @prefix@/share/icons/pppdoc.xpm
+
+clean:
+	rm -f $(ALLDOTOS) yawmppp.pref
+
+distclean:
+	rm -f Makefile *~
+

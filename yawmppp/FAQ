@@ -1,0 +1,164 @@
+
+YAWMPPP FAQ
+$Id: FAQ,v 1.2 2001/04/21 18:29:33 bergo Exp $
+
+1 Generic
+1.1 How can I see what is going on with my connection ?
+
+1.2 Nothing happens when I hit the "V" button.
+
+1.3 Yawmppp/pppd complain about not having root privileges.
+
+1.4 Why doesn't it shows with the NeXTSTEP(tm) look
+    in my system as it does in the screenshots ?
+
+1.X Where can I get more info ?
+
+
+2 Specific
+2.1 How do I setup PAP/CHAP ?
+
+2.2 My modem dials, connects, but hangs up some seconds later.
+    What is happening ?
+
+---------------------------------------------------------------------------
+
+Q1.1: How can I see what is going on with my connection ?
+
+A1.1: The ppp daemon throws lots of logging information (if asked to),
+      but some of this information may get lost.
+      Change your /etc/syslog.conf file so that is has a line
+
+        daemon,local2.debug,daemon.notice          /etc/ppp/log
+
+      (the separation is made out of *tabs*, NOT spaces!)
+
+      and create a zero-sized log file:
+
+        touch /etc/ppp/log
+
+      Then restart the syslog daemon (e.g.: send a SIGHUP to it as root).
+      Then enable the debug and kdebug options at yawmppp.pref's PPP options
+      notebook page.
+
+      The log file should give more information than you actually need.
+      Even if you don't want to change your logging configuration, some of
+      pppd's log output may go to /var/log/messages.
+
+
+
+Q1.2: Nothing happens when I hit the "V" button.
+
+A1.2: The pppd daemon requires root privileges to run. The solution here is
+      to set the setuid bit on pppd's executable:
+
+        chmod 4755 `which pppd`
+
+      You must run this as root. Notice that the quotes are backticks.
+
+
+
+Q1.3: Yawmppp/pppd complain about not having root privileges.
+
+A1.3: Maybe you're trying a noauth connection with a non-setuid pppd. If you
+      really need to keep pppd non-setuid root, add the
+
+       noauth
+
+      line to your
+
+       /etc/ppp/options
+
+      file.
+
+Q1.4: Why doesn't it shows with the NeXTSTEP(tm) look
+      in my system as it does in the screenshots ?
+
+A1.4: The GTK+ GUI toolkit allows themeing. It means that you may turn
+      your GTK+ applications to look like Macintosh(tm), Aqua(tm),
+      NeXT(tm) or whatever you want. Even Windows(tm) if you're sick
+      enough for it.
+      You can make your themes or download ready ones (faster).
+
+      There are lots of GTK+ themes at
+
+      http://gtk.themes.org
+
+      You can browse documentation on how to add the themes at the same
+      site. To use gtk.themes.org pixmap themes you'll probably need
+      the gtk-engines and imlib packages, you can find them perusing
+      the site.
+
+      The NeXT look seen in the screenshots at yawmppp.seul.org is
+      provided by the Xenophilia engine:
+
+      http://www.obsession.se/johan/gtk.html
+
+      (if this link ever gets broken, search for Xenophilia at
+       freshmeat.net)
+
+Q1.X: Where can I get more info ?
+
+A1.X: You can read the PPP-HOWTO and ISP-Hookup-HOWTO from the LDP
+      (Linux Documentation Project), available from
+
+       http://sunsite.unc.edu/LDP/HOWTO/
+
+      (Linux distributions may have it installed under /usr/doc/HOWTO)
+
+
+      You can also read the ppp FAQ that comes with ppp's source, which
+      can be downloaded from:
+
+       ftp://cs.anu.edu.au/pub/software/ppp
+
+
+Q2.1: How do I setup PAP/CHAP ?
+
+A2.1: PAP and CHAP are authentication protocols and some ISPs require them to
+      be used. Their purpose is to confirm identity throughout the connection.
+      Unless you're afraid of someone tapping your phone line and transmitting
+      "bogus" data through YOUR PPP link, you should not worry about it, unless
+      your ISP does.
+
+      First, you'll have to set yawmppp.pref's local PPP options on your
+      ISP entry to reflect the desired behaviour about CHAP/PAP.
+      If your ISP doesn't even present a login prompt, you'll want to
+      check the "don't generate login/password pairs" in the "More Settings"
+      dialog.
+
+      Then, as root, edit /etc/ppp/chap-secrets and/or /etc/ppp/pap-secrets
+      as desired.
+      The ppp FAQ (included in the source distribution of ppp) tells the nitty
+      gritty, but basically you'll have a set of lines, one for each ISP that
+      reads like this:
+
+        username * password
+
+      where username is your username, password is your password. The
+      first * means the server (any) and the second * means the allowed IPs
+      (any). The log output of ppp may help you if you still can't get a
+      conection. Read Q1.1 for instructions to get the most of ppp's log.
+
+
+
+Q2.2: My modem dials, connects, but hangs up some seconds later.
+      What is happening ?
+
+A2.2: There are several possibilities, which you will only be sure by reading the
+      logs. Here they are:
+
+      1. bad login/password, or your ISP is under maintenance and refused login
+
+      2. the ISP required CHAP/PAP authentication and you either didn't have
+         a proper secret to give in the secret files (read Q2.1), or
+         has the refuse-chap/refuse-pap options on, or had a bad (wrong) secret.
+         If this is the case, asking help from your ISP is a good idea.
+
+      3. your ISP is taking too long to answer for the initial PPP requests.
+         It may be busy, buggy, bad configured, or gone BSOD (Q2.3).
+         You can try setting on the "passive" option or increase the
+         lcp-max-configure number.
+
+
+---

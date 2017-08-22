@@ -1,0 +1,42 @@
+# YAWMPPP toplevel Makefile
+
+#GTKLIB = @GTK_LIBS@
+#GTKFLAG = @GTK_FLAGS@
+#RLFLAG = -DVERSION=\"@MK_YAWMPPP_RELEASE@\"
+PROGINST = @INSTALL@
+
+all: build_src
+
+build_src:
+	@$(MAKE) -C src
+
+install:
+	@$(MAKE) -C src install
+	$(PROGINST) -d -g 0 -o 0 -m 0755 @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 README @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 COPYING @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 CHANGELOG @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 INSTALL @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 FAQ @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+
+install-strip:
+	@$(MAKE) -C src install-strip
+	$(PROGINST) -d -g 0 -o 0 -m 0755 @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 README @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 COPYING @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 CHANGELOG @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 INSTALL @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -g 0 -o 0 -m 0644 FAQ @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+
+uninstall:
+	@echo "----> Uninstalling YAWMPPP from prefix @prefix@"
+	rm -f @prefix@/bin/yawmppp @prefix@/bin/yawmppp.pref @prefix@/bin/yawmppp.log /etc/ppp/managednsonthefly /etc/ppp/yagetmodemspeed @prefix@/share/icons/redphone.xpm @prefix@/share/icons/pppdoc.xpm @prefix@/share/icons/pedestal.xpm @prefix@/man/man1/yawmppp.1x
+	rm -rf @prefix@/doc/yawmppp*
+	@echo "----> done."
+
+clean:
+	@$(MAKE) -C src clean
+
+distclean:
+	@$(MAKE) -C src distclean
+	rm -f config.* Makefile *~

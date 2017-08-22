@@ -1,0 +1,8 @@
+
+Yawmppp TODO
+
+
+- Provide an easy way for the user to browse the chat/ppp logs. This
+  is tough because of security guards put around the log files, I'm
+  wondering a way to make it (securely).
+

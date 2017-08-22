@@ -1,0 +1,82 @@
+Installation instructions for YAWMPPP. 
+
+Upgrading ?
+-----------
+If so, just follow the usual INSTALL instructions, run
+yawmppp.pref and click Ok or Apply. It will not
+damage your previous versions' ISP entries or log, and will write the
+new pppd command line to your ~/.yawmppp scripts.
+
+Upgrading from 1.x.x to 2.x.x:
+------------------------------
+The configuration files of 2.x.x are placed separated from 1.x.x
+files. You are can uninstall 1.x.x before installing 2.x.x, but it
+isn't necessary. (to do so, unpack the 1.x.x tar.gz, configure and
+make uninstall).
+
+
+Just notice that if you chmod'ed the files in ~/.yawmppp to
+prevent yawmppp from overwriting your manual changes, the
+new version will not be able to add new data to them, ok ?
+
+NOTE!
+--------------------------------------------------------------
+Installing this program requires root privileges, ask your 
+local system/network administrator kindly if she/he wants
+to install this software for you ;-)
+
+you need root access for installation.
+
+What the installation will do
+----------------------------------------------------------
+
+	The installation requires a program
+        be copied to /etc/ppp:
+
+        /etc/ppp/yagetmodemspeed
+
+        and will also copy an icon to /usr/local/share/icons
+
+        the yawmppp binaries will be installed in
+        /usr/local/bin (you can change the /usr/local prefix,
+        see below)
+
+        /usr/local/bin/yawmppp
+        /usr/local/bin/yawmppp.pref
+        /usr/local/bin/yawmppp.log
+
+        the documentation will be installed in
+        /usr/local/doc/yawmppp-<version>
+
+        and yawmppp's man page will be placed in
+        /usr/local/man/man1 
+
+Installation
+--------------------------------------------------------------
+1) % tar zxvf yawmppp-2.x.x.tar.gz
+2) % cd yawmppp-2.x.x
+3) % ./configure
+4) % make
+5) % su
+6) # make install
+
+As non-privileged user:
+
+7) % yawmppp & (try 'yawmppp -h &' for help) 
+
+If you have no ISP entries configured you'll see the yawmppp.pref
+GUI.
+
+FreeBSD note: if configure fails to find the X11 includes you may have
+to use the --with-x-includes=DIR option, type "configure --help" for
+information.
+
+Extras
+--------------------------------------------------------------
+
+Changing the prefix: if you want the binaries to be installed
+somewhere else than /usr/local, do a
+
+./configure --prefix=/where/I/want/the/prefix/to/be
+
+in the 3) step above.

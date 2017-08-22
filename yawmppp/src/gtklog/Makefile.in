@@ -1,0 +1,35 @@
+#
+# gtklog: shows yawmppp log files
+#
+
+CC = @CC@
+CFLAGS = -Wall -O2
+GTKLIB = @GTK_LIBS@
+GTKFLAG = @GTK_FLAGS@
+RLFLAG = -DVERSION=\"@MK_YAWMPPP_RELEASE@\"
+PROGINST = @INSTALL@
+EOBJS = ../about.o
+
+ALLDOTOS = loglist.o
+ALLDOTHS = loglist.h
+
+all: build_gtklog
+
+build_gtklog: $(ALLDOTOS)
+	$(CC) $(ALLDOTOS) $(EOBJS) -o yawmppp.log $(GTKLIB)
+
+$(ALLDOTOS): %.o : %.c $(ALLDOTHS)
+	$(CC) $(CFLAGS) $(RLFLAG) $(GTKFLAG) -I.. -c $< -o $@
+
+install:
+	$(PROGINST) -m 0755 yawmppp.log @prefix@/bin/yawmppp.log
+
+install-strip:
+	$(PROGINST) -s -m 0755 yawmppp.log @prefix@/bin/yawmppp.log
+
+clean:
+	rm -f $(ALLDOTOS) yawmppp.log
+
+distclean:
+	rm -f Makefile *~
+

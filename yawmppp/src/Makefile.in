@@ -1,0 +1,71 @@
+# yawmppp/src
+
+CC = @CC@
+CFLAGS = -O2 -Wall
+OBJS = isprc.o ycommon.o misc.o list.o
+RLFLAG = -DVERSION=\"@MK_YAWMPPP_RELEASE@\" -D@SYSDEF@
+PROGINST = @INSTALL@
+GTKLIB = @GTK_LIBS@
+GTKFLAG = @GTK_FLAGS@
+
+all: isprc.o ycommon.o misc.o list.o about_obj \
+     build_dockapp build_gtksetup build_gtklog \
+     build_thinppp
+
+$(OBJS): %.o : %.c %.h
+	$(CC) $(CFLAGS) $(RLFLAG) -o $@ -c $<
+
+about_obj: about.c about.h
+	$(CC) $(GTKFLAG) $(RLFLAG) -c about.c -o about.o
+
+build_gtklog:
+	@$(MAKE) -C gtklog
+
+build_dockapp:
+	@$(MAKE) -C dockapp
+
+build_thinppp:
+	@$(MAKE) -C thinppp
+
+build_gtksetup:
+	@$(MAKE) -C gtksetup
+
+install:
+	$(PROGINST) -m 0755 -d @prefix@/share/icons
+	$(PROGINST) -m 0755 -d @prefix@/man/man1
+	$(PROGINST) -m 0755 -d @prefix@/bin
+	$(PROGINST) -m 0755 -d /etc/ppp
+	$(PROGINST) -m 0755 -d @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -m 0644 stepphone.xpm @prefix@/share/icons/stepphone.xpm
+	$(PROGINST) -m 0644 yawmppp.1x @prefix@/man/man1/yawmppp.1x
+	@$(MAKE) -C dockapp  install
+	@$(MAKE) -C thinppp  install
+	@$(MAKE) -C gtksetup install
+	@$(MAKE) -C gtklog   install
+
+install-strip:
+	$(PROGINST) -m 0755 -d @prefix@/share/icons
+	$(PROGINST) -m 0755 -d @prefix@/bin
+	$(PROGINST) -m 0755 -d /etc/ppp
+	$(PROGINST) -m 0755 -d @prefix@/doc/yawmppp-@MK_YAWMPPP_RELEASE@
+	$(PROGINST) -m 0644 stepphone.xpm @prefix@/share/icons/stepphone.xpm
+	$(PROGINST) -m 0644 yawmppp.1x @prefix@/man/man1/yawmppp.1x
+	@$(MAKE) -C dockapp  install-strip
+	@$(MAKE) -C thinppp  install-strip
+	@$(MAKE) -C gtksetup install-strip
+	@$(MAKE) -C gtklog   install-strip
+
+clean:
+	@$(MAKE) -C dockapp  clean
+	@$(MAKE) -C thinppp  clean
+	@$(MAKE) -C gtksetup clean
+	@$(MAKE) -C gtklog   clean
+	rm -f $(OBJS) about.o *~
+
+distclean:
+	@$(MAKE) -C dockapp  distclean
+	@$(MAKE) -C thinppp  distclean
+	@$(MAKE) -C gtksetup distclean
+	@$(MAKE) -C gtklog   distclean
+	rm -f Makefile
+

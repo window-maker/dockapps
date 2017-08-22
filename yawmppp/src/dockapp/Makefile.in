@@ -1,0 +1,35 @@
+CC = @CC@
+LIBDIR = -L/usr/X11R6/lib -L@XLIB@
+LIBS   = -lXpm -lXext -lX11
+CFLAGS = -O2 -Wall -I.. -I@XINC@
+RLFLAG = -DVERSION=\"@MK_YAWMPPP_RELEASE@\" -D@SYSDEF@
+OBJS  = yawmppp.o wmgeneral.o
+DOTHS = yawmppp.h wmgeneral.h ../misc.h ../list.h ../isprc.h ../ycommon.h
+EOBJS = ../isprc.o ../ycommon.o ../misc.o ../list.o
+PROGINST = @INSTALL@
+PIXMAPS = dockxpm.xpm
+
+all: yawmppp_bin getmodemspeed_bin 
+
+$(OBJS): %.o : %.c $(DOTHS) $(PIXMAPS)
+	$(CC) -c $(CFLAGS) $(RLFLAG) $< -o $*.o
+
+yawmppp_bin: $(OBJS) 
+	$(CC) -o yawmppp $^ $(EOBJS) -lXext $(LIBDIR) $(LIBS)
+
+getmodemspeed_bin: getmodemspeed.c
+	$(CC) $(CFLAGS) getmodemspeed.c -o yagetmodemspeed
+
+clean:
+	rm -f $(OBJS) yawmppp yagetmodemspeed 
+
+distclean:
+	rm -f Makefile *~
+
+install:
+	$(PROGINST) -m 0755 yawmppp @prefix@/bin/yawmppp
+	$(PROGINST) -m 0755 yagetmodemspeed /etc/ppp/yagetmodemspeed
+
+install-strip:
+	$(PROGINST) -s -m 0755 yawmppp @prefix@/bin/yawmppp
+	$(PROGINST) -s -m 0755 yagetmodemspeed /etc/ppp/yagetmodemspeed
