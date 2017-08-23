@@ -18,7 +18,7 @@ layout: default
 	       style="float: left; margin: 5px;">
 	  <a href="{{ dockapp.url }}">{{ dockapp.title }}</a>
 	  <br>
-	  {{ dockapp.content}}
+	  {{ dockapp.content | markdownify }}
 	  </div>
 	  {% endfor %}
       </div>
