@@ -255,7 +255,7 @@ void create_popup(int selected_screen)
 			sprintf(label_str, "Screen %i",i);
 			menuitem_ptr = gtk_menu_item_new_with_label(label_str);
 			gtk_menu_item_set_submenu(GTK_MENU_ITEM (menuitem_ptr), submenu_ptr);
-			gtk_menu_append(GTK_MENU (menu_ptr), menuitem_ptr);
+			gtk_menu_shell_append(GTK_MENU_SHELL (menu_ptr), menuitem_ptr);
 			gtk_widget_show(menuitem_ptr);
 			gtk_widget_show(submenu_ptr);
         }
@@ -263,7 +263,9 @@ void create_popup(int selected_screen)
 		menu_ptr = create_screen_submenu(selected_screen);
 	}
 
-	gtk_signal_connect (GTK_OBJECT (menu_ptr), "deactivate", GTK_SIGNAL_FUNC (on_deactivate), NULL);
+	g_signal_connect (G_OBJECT (menu_ptr), "deactivate", G_CALLBACK (on_deactivate), NULL);
+	/* gtk_menu_popup() is deprecated, but we need a GdkWindow to
+	   use any of its replacements, so keeping for now */
 	gtk_menu_popup(GTK_MENU(menu_ptr), NULL, NULL, NULL, NULL, 0, 0);
 }
 
@@ -369,8 +371,8 @@ GtkWidget *create_screen_submenu (int screen)
 		menu_choice->mode=i;
 
 		menuitem_ptr = gtk_menu_item_new_with_label(label_str);
-		gtk_signal_connect(GTK_OBJECT (menuitem_ptr), "activate", GTK_SIGNAL_FUNC (MenuEvent), (gpointer)menu_choice);
-		gtk_menu_append(GTK_MENU (menu_ptr), menuitem_ptr);
+		g_signal_connect(G_OBJECT (menuitem_ptr), "activate", G_CALLBACK (MenuEvent), (gpointer)menu_choice);
+		gtk_menu_shell_append(GTK_MENU_SHELL (menu_ptr), menuitem_ptr);
 		gtk_widget_show(menuitem_ptr);
 		free(label_str);
 	}
