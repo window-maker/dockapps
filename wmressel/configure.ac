@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([wmressel], [0.8], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmressel], [0.9], [wmaker-dev@lists.windowmaker.org])
 AC_CONFIG_SRCDIR([src/wmressel.c])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 

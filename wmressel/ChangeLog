@@ -1,0 +1,13 @@
+[0.9] 2017-08-27
+ - Now maintained by the Window Maker Team.
+ - Rename configure.in -> configure.ac.
+ - Remove obselete AC_C_CONST macro.
+ - Use pkg-config to find libraries.
+ - Use automake.
+ - Use wmgeneral from libdockapp.
+ - Port to GTK+3.
+ - Update GPL2 text.
+ - Remove trailing whitespace.
+ - Update documentation.
+
+(The original author did not keep a changelog for previous versions.)
