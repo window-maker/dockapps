@@ -40,8 +40,8 @@ Read the COPYING file for the complete GNU license.
 
 #include <gtk/gtk.h>
 
-#include "wmgeneral/wmgeneral.h"
-#include "wmgeneral/misc.h"
+#include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 
 #include "wmressel-master.xpm"
 #include "wmressel-mask.xbm"

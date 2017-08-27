@@ -15,8 +15,6 @@ PKG_CHECK_MODULES(Xinerama, xinerama,
         [AC_DEFINE(HAVE_LIBXINERAMA)],
 	[AC_MSG_NOTICE(compiling without Xinerama support)])
 PKG_CHECK_MODULES(GTK,gtk+-3.0)
-
-dnl Checks for typedefs, structures, and compiler characteristics.
-AC_TYPE_PID_T
+PKG_CHECK_MODULES(libdockapp, dockapp)
 
 AC_OUTPUT([Makefile])
