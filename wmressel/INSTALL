@@ -1,0 +1,35 @@
+Installation instructions for wmressel. 
+
+
+Requirements
+----------------------------------------------------------
+- Xfree (3.3.x, 4.x)
+
+- XF86VidMode extension
+
+- root access
+
+	To be able to complete the installation you'll need
+	root privileges...
+
+Installation
+--------------------------------------------------------------
+1)  $ tar -zxvf wmressel-0.8.tar.gz
+2)  $ cd wmressel-0.8
+3)  $ ./configure
+4)  $ make 
+5)  $ su root
+6)  # make install
+7)  $ wmressel & (or wmressel -h for brief help).
+
+Usage
+-------------------------------------------------------------
+wmressel support (at the moment) the following commandline options:
+
+	-r			Show refresh rates in menu
+	-d			Show in menu if mode is a Doublescan mode (D)
+	-s <number>		Show information about this screen
+	-o			Only show menu for selected screen
+	--display <display>	Set display
+	-h			the help screen
+	-v			print the version number

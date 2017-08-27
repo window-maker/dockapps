@@ -1,0 +1,50 @@
+wmressel 0.8 (http://team.gcu-squad.org/~slix/wmressel/)
+--------------------------------------------------------------
+Author...:  Sébastien Liénard (slix@gcu-squad.org)
+            from GCU (http://gcu-squad.org)
+		
+	I'm french, excuse me for my poor english :)
+
+Credits..:  Thanks to all guys from GCU
+
+Description
+--------------------------------------------------------------
+wmressel is a simple dockable X11 Resolution Selector for Window Maker
+that display current X11 resolution and lets you change it through a
+popup menu.
+
+Features are:
+             * Display current resolution and refresh rate
+             * GTK popup menu to select resolution
+	     * Command line options to optionally show refresh rates
+	       and doublescan in menu
+	     * Multiple screens support
+	     * Xinerama support
+    
+wmressel is developped on an x86 machine running Debian/GNU Linux 3.0
+
+Files
+--------------------------------------------------------------
+README		This file.
+INSTALL		Installation instructions.
+HINTS 		Hints about what you can do with wmressel.
+BUGS		Things you don't want to know ;-)
+TODO		Things I've already planned for wmressel.
+COPYING		GNU General Public License Version 2.
+	
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to slix@gcu-squad.org and describe
+the problem as detailed as you can.
+
+
+Copyright
+--------------------------------------------------------------
+wmressel is copyright (c) 2002 Sébastien Liénard
+and licensed through the GNU General Public License. 
+
+Read the COPYING file for the complete GNU license.
+
+

@@ -1,0 +1,47 @@
+.TH wmressel 1x "March 2002"
+.SH NAME
+wmressel \- Dockable X11 Resolution Selector
+.SH SYNOPSIS
+.B wmressel
+[-h] [-v] [---display display] [-r] [-d] [-s <screen number> [-o]]
+.SH DESCRIPTION
+.PP
+wmressel is a simple dockable X11 Resolution Selector for Window Maker
+that displays current X11 resolution and lets you change it through a
+popup menu.
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-v
+Display version.
+.TP
+.B \--display <display>
+Use the designated X display.
+.TP
+.B \-r
+Show refresh rates in menu
+.TP
+.B \-d
+Show in menu if a mode is a Doublescan mode (D)
+.TP
+.B \-s <screen number>
+Show information about this screen
+.TP
+.B \-o
+Only show menu for selected screen
+.SH BUGS
+.PD 0
+Displayed resolution isn't refreshed if it is changed by another application
+or through the use of Crtl-Alt-(+|-) shortcuts
+.PD 1
+.SH TODO
+.PD 0
+Add realtime update of displayed resolution
+.PD 1
+.SH AUTHOR
+.PP
+wmressel was written by Sébastien Liénard <slix@gcu-squad.org>
+.PP
+It is based on gvidm by Matthew Mueller and wmtimer by Josh King <jking@dwave.net>

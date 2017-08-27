@@ -1,0 +1,4 @@
+wmressel bugs file.
+
+	* Displayed resolution isn't refreshed if it is changed by another application
+	  or through the use of Crtl-Alt-(+|-) shortcuts

@@ -1,0 +1,30 @@
+Hints for wmressel
+
+Generic
+--------------------------------------------------------------
+wmressel supports commandline options, 'wmressel -h' prints
+help about them.
+
+
+WindowMaker
+--------------------------------------------------------------
+WindowMaker users simply drag and drop the wmressel dockapp on
+the WindowMaker Dock (preferred) or near the Clip, and then 
+press the rightmouse button on the outer edges of wmressel,
+select "Settings..." and enable the "Start when WindowMaker
+is started" option.
+
+
+Afterstep
+--------------------------------------------------------------
+Afterstep users put the following in their
+~/GNUstep/Library/AfterStep/wharf
+
+*Wharf wmressel nil Swallow "wmressel" wmressel &
+
+Other WindowManagers
+--------------------------------------------------------------
+For other windowmanagers, wmressel runs nicely as 64x64 pixel
+shaped icon on your desktop.
+
+p.s. FVWM can swallow it too, so we've heard ;-)
