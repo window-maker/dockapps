@@ -1,8 +1,9 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(src/wmressel.c)
+AC_INIT([wmressel], [0.8], [wmaker-dev@lists.windowmaker.org])
+AC_CONFIG_SRCDIR([src/wmressel.c])
+AM_INIT_AUTOMAKE([foreign subdir-objects])
 
 dnl Checks for programs.
-AC_PROG_INSTALL
 AC_PROG_CC
 
 dnl Checks for libraries.
@@ -18,4 +19,4 @@ PKG_CHECK_MODULES(GTK,gtk+-3.0)
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_PID_T
 
-AC_OUTPUT(Makefile src/Makefile)
+AC_OUTPUT([Makefile])

@@ -48,7 +48,6 @@ Read the COPYING file for the complete GNU license.
 
 #define MY_EMAIL "slix@gcu-squad.org"
 #define GCU_HOME "http://gcu-squad.org/"
-#define WMRESSEL_VERSION "0.8"
 
 typedef struct {
 	int screen;
@@ -471,7 +470,7 @@ void BlitNum(int num, int x, int y)
 
 void usage(void)
 {
-	printf ("\n wmressel version %s -- X11 resolution selector for Window Maker\n", WMRESSEL_VERSION );
+	printf ("\n wmressel version %s -- X11 resolution selector for Window Maker\n", PACKAGE_VERSION );
 	printf (" Copyright (C) 2002 Sébastien Liénard <%s>\n", MY_EMAIL);
 	printf (" from GCU (%s)\n",GCU_HOME);
 	printf (" This software comes with NO WARRANTY.\n\n");
@@ -491,5 +490,5 @@ void usage(void)
 \*******************************************************************************/
 
 void printVersion(void) {
-	fprintf(stderr, "wmressel v%s\n", WMRESSEL_VERSION);
+	fprintf(stderr, "wmressel v%s\n", PACKAGE_VERSION);
 }
