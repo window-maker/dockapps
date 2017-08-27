@@ -42,7 +42,7 @@ void mainloop() {
       XCopyArea(display, *background_pixmap, iconwin, gc_border, 0, 0, 64, 64, offset_w, offset_h);
       XCopyArea(display, pic_pixmap, iconwin, gc_core, 0, 0, 64, 64, offset_w, offset_h);
       break;
-    case ButtonPress:			
+    case ButtonPress:
       bevent = (XButtonPressedEvent *) &event;
       switch (bevent->button & 0xff) {
       case Button1:
@@ -64,7 +64,7 @@ void mainloop() {
 	  flush_background();
 	  show_pic = True;
 	}
-	
+
 	break;
       default:
 	break;
@@ -158,7 +158,7 @@ int main(int argc, char **argv) {
 
 
   XSetWMNormalHints(display, win, &sizehints);
-  
+
   wmHints = XAllocWMHints();
   if (wmHints == NULL) {
     fprintf(stderr, "%s: can't allocate memory for wm hints!\n", argv[0]);
@@ -186,7 +186,7 @@ int main(int argc, char **argv) {
   XFree(classHint);
   // Let the window manager know about the link of commands
   XSetCommand(display, win, argv, argc);
-  
+
   //XpmCreatePixmapFromData(display, root, kid_xpm, &pic_pixmap,NULL,NULL);
   char **xpm_file_data;
   if(-1 == XpmReadFileToData(file, &xpm_file_data)) {
@@ -198,12 +198,12 @@ int main(int argc, char **argv) {
   XSelectInput(display, win, eventmask);
   XSelectInput(display,iconwin, eventmask);
   XMapWindow(display, win);
-  
+
   init_variables(display, gc_core, iconwin, offset_w, offset_h, &background_pixmap);
 
   draw_screen_with_mask();
   show_pic = False;
-  
+
   mainloop();
   return 0;
 }

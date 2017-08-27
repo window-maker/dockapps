@@ -148,7 +148,7 @@ else
 	      GTK121_FINE=0
        	  fi
       fi
-    fi  
+    fi
   fi
 
   if test "$GTK121_FINE" = "1" ; then

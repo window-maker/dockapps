@@ -245,7 +245,7 @@ yawmppp_routine (int argc, char **argv)
       close_ppp();
 
     grab_isp_info(1);
- 
+
     /* Open the display */
 
     createXBMfromXPM (dock_mask_bits, dockxpm_xpm,
@@ -652,7 +652,7 @@ DrawStats (int num, int size, int x_left, int y_bottom)
 
     for (k = 0; k < num; k++)
       for (j = 0; j < size; j++)
-	{	    
+	{
 	  if (j < (ppp_history[k][0] / pixels_per_byte))
 	    copyXPMArea (58 + 2, 92, 1, 1, k + x_left, y_bottom - j);
 	  else if (j < (ppp_history[k][0] + ppp_history[k][1]) / pixels_per_byte)
@@ -753,9 +753,9 @@ DrawLoadInd (int speed)
 void
 usage (void)
 {
-    fprintf (stderr, 
+    fprintf (stderr,
 	     "\nyawmppp - Yet Another Window Maker PPP dock applet\n\n");
-    fprintf (stderr, 
+    fprintf (stderr,
 	     "version %s\n\n",VERSION);
     fprintf (stderr, "usage:\n");
     fprintf (stderr, "-h                   this help screen\n");

@@ -4,11 +4,11 @@ Version         Description
 ----------------------------------------------------------------
 1.1             - Released 990830
 		- Added "deadmatch" game mode
-		
+
 1.0-2           - Released 990601
-                - Added "quiet mode"... 
+                - Added "quiet mode"...
 		- hey! today is lupy's birthday... congratulations my friend!
-		
+
 1.0             - Released 990508
                 - Now, you can change the game mode on the fly and...
 			I GOTTA GO! it's 10:55PM and I wanna go to night!
@@ -18,7 +18,7 @@ Version         Description
 0.4             - Released 990422
                 - Implemented scoreboard
 		- I tried to improve the X play algorithm...
-		
+
 0.3		- Released 990331
 		- bugs fixed by Adriel Ziesemer Júnior
 		- Adriel improved the X play algorithm...

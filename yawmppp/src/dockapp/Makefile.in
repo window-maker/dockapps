@@ -9,19 +9,19 @@ EOBJS = ../isprc.o ../ycommon.o ../misc.o ../list.o
 PROGINST = @INSTALL@
 PIXMAPS = dockxpm.xpm
 
-all: yawmppp_bin getmodemspeed_bin 
+all: yawmppp_bin getmodemspeed_bin
 
 $(OBJS): %.o : %.c $(DOTHS) $(PIXMAPS)
 	$(CC) -c $(CFLAGS) $(RLFLAG) $< -o $*.o
 
-yawmppp_bin: $(OBJS) 
+yawmppp_bin: $(OBJS)
 	$(CC) -o yawmppp $^ $(EOBJS) -lXext $(LIBDIR) $(LIBS)
 
 getmodemspeed_bin: getmodemspeed.c
 	$(CC) $(CFLAGS) getmodemspeed.c -o yagetmodemspeed
 
 clean:
-	rm -f $(OBJS) yawmppp yagetmodemspeed 
+	rm -f $(OBJS) yawmppp yagetmodemspeed
 
 distclean:
 	rm -f Makefile *~

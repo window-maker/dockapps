@@ -1,9 +1,9 @@
 /* GPL'd (C) 1999-2000 Felipe Bergo -- bergo@seul.org */
 
-/* 
+/*
 
    This module is built up of the following files:
-   
+
    msgbox.h
    msgbox.cc _OR_ msgbox.c
    question.xpm
@@ -49,7 +49,7 @@ typedef enum
 
 /* prototype */
 
-/* 
+/*
    obs 1: this call blocks until the user picks a choice.
    obs 2: parent can be NULL.
    obs 3: you must have a gtk_main loop running before calling it.
@@ -61,12 +61,12 @@ MsgBoxResult message_box(GtkWindow *parent,
 			 MsgBoxType mbt,
 			 MsgBoxIcon mbi);
 
-/* 
+/*
    excerpt from my 900-page book
 
    "The Ultimate Guide to Message Box Icons
     Felipe Bergo - 0th edition
-    Prentice Room publishers,    
+    Prentice Room publishers,
     ISBN 6666-6666-6666"
 
    MSGBOX_ICON_NONE          No icon.
@@ -78,7 +78,7 @@ MsgBoxResult message_box(GtkWindow *parent,
 
    MSGBOX_ICON_QUESTION      Should be used on any questions, like
                              confirmations. Currently included
-                             icon is a white question mark in a 
+                             icon is a white question mark in a
                              green circle. "question.xpm"
 
    MSGBOX_ICON_EXCLAMATION   Should be used on warnings, like when

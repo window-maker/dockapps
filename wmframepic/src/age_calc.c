@@ -7,30 +7,30 @@ static void calc_day_year_month(time_t today, int day_birth, int month_birth, in
 	struct tm *struct_today;
 
 	struct_today = localtime(&today);
-	
+
 	day_curr = struct_today->tm_mday;
 	month_curr = struct_today->tm_mon + 1;
 	year_curr = struct_today->tm_year + 1900;
-	
+
 	if((year_curr%4==0 && year_curr%100 !=0) || year_curr%400==0)
 		months_table[2] = 29;
 	else
 		months_table[2] = 28;
-	
+
 	total_years = year_curr - year_birth;
 	total_months = month_curr - month_birth;
 	total_days = day_curr - day_birth;
-	
+
 	if(total_days < 0) {
 		total_days += months_table[month_curr==1 ? 12 : month_curr-1];
 		total_months--;
 	}
-	
+
 	if(total_months < 0) {
 		total_months += 12;
 		total_years--;
 	}
-	
+
 	result[0] = total_days;
 	result[1] = total_months;
 	result[2] = total_years;

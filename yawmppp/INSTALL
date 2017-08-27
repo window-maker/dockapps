@@ -1,4 +1,4 @@
-Installation instructions for YAWMPPP. 
+Installation instructions for YAWMPPP.
 
 Upgrading ?
 -----------
@@ -21,7 +21,7 @@ new version will not be able to add new data to them, ok ?
 
 NOTE!
 --------------------------------------------------------------
-Installing this program requires root privileges, ask your 
+Installing this program requires root privileges, ask your
 local system/network administrator kindly if she/he wants
 to install this software for you ;-)
 
@@ -49,7 +49,7 @@ What the installation will do
         /usr/local/doc/yawmppp-<version>
 
         and yawmppp's man page will be placed in
-        /usr/local/man/man1 
+        /usr/local/man/man1
 
 Installation
 --------------------------------------------------------------
@@ -62,7 +62,7 @@ Installation
 
 As non-privileged user:
 
-7) % yawmppp & (try 'yawmppp -h &' for help) 
+7) % yawmppp & (try 'yawmppp -h &' for help)
 
 If you have no ISP entries configured you'll see the yawmppp.pref
 GUI.

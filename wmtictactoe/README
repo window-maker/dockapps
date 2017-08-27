@@ -6,7 +6,7 @@ Author
 
 	André Ribeiro Camargo (acamargo@conesul.com.br)
 	I'm 22 years old and I live on Brazil.
-	Well, there are not many things to say...	
+	Well, there are not many things to say...
 
 
 Description
@@ -14,7 +14,7 @@ Description
 
 	wmTicTacToe, as you can imagine, is a dock application game for
 Window Maker(but it will be run on others window managers too.  You can
-test it... and after, give me your feedback...) 
+test it... and after, give me your feedback...)
 
 	wmTicTacToe is being developped on Pentium 133 machine running
 Linux/Conectiva Guarani, and I can't test on other machines 'cos I don't
@@ -44,12 +44,12 @@ How do I play wmTicTacToe?
 	-deadmatch
 	Click with right button change between scoreboard and gameboard.
         In scoreboard, click with middle button reset the score, with
-right button go to gameboard screen and click with left button change the 
+right button go to gameboard screen and click with left button change the
 game mode.
-        In gameboard, click with left button to play, right button go to 
+        In gameboard, click with left button to play, right button go to
 scoreboard screen and middle button to reset the game...
         ... and, don't forget, the game has Offensive and Defensive mode!
-	
+
 Deadmatch!
 ===================================----------------------------------------
 
@@ -69,7 +69,7 @@ TODO		 Stuff I've planned for future wmTicTacToe releases.
 licenca_gnu.html GNU General Public License Version 2 translated to Portuguese.
 
 
-Bugs 
+Bugs
 ===================================----------------------------------------
 
 	If you discover any bugs in this software, please send a bugreport
@@ -77,11 +77,11 @@ to acamargo@conesul.com.br and describe the problem as detailed as you
 can.
 
 
-Copyright 
+Copyright
 -----------------------------------========================================
 
 	wmTicTacToe is copyright (c) 1999 by André Ribeiro Camargo and
-licensed through the GNU General Public License 2. Read the COPYING or 
+licensed through the GNU General Public License 2. Read the COPYING or
 licenca_gnu.html files for the complete GNU license.
 
 
@@ -89,14 +89,14 @@ Thanks
 ===================================----------------------------------------
 
 	Thanks to:
-	
+
 	- creator of asclock: Beat Christen
 	- creator of wmbreak: Adam Hunter
 	- creators of wmmon.app: Martijn Pieterse and Antoine Nulle
 	- creator of wmmail: Per Liden
 
 	without this guys with yours dock applications, I can't write
-wmTicTacToe... 
+wmTicTacToe...
 
 	- Adriel Ziesemer Júnior(adriel@atlas.ucpel.tche.br)
 
@@ -121,18 +121,18 @@ sparcStations or digital Alphas... etc :)
 	- and... *tchan tchan* xiiiiiiiiiiiiiiiiiibengue!
 
 	"dazed and confused"
-	ps.: thanks so much to Rodrigo Gruppelli(GRUPIS/OpIvy @ #mundo 
-		brasNet ircnet)... 
+	ps.: thanks so much to Rodrigo Gruppelli(GRUPIS/OpIvy @ #mundo
+		brasNet ircnet)...
              ...For reminder me of xibengue, linux help and to be my official
 	        beta tester... :)))
-		
+
 	- Jeff Mottishaw(jmottishaw@gmcorp.net)
-	
+
 	for to suggest "deadmatch" game mode...
 	thank you mottie :)
 
 
-        Enjoy it! 
+        Enjoy it!
 	'cos "Space: the final frontier"
 	Pato Fu rulez!
 	urbana legio omnia vincit!

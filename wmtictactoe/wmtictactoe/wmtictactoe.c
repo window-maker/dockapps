@@ -1,23 +1,23 @@
 /*
-   wmtictactoe - the ultimate tictactoe for WindowMaker 
-   =-=-=-=-=-=   ====================================== 
+   wmtictactoe - the ultimate tictactoe for WindowMaker
+   =-=-=-=-=-=   ======================================
                   Copyright (C) 1999 André R. Camargo
 
-   Este programa é um software de livre distribuição, que pode ser copiado e 
-   distribuído sob os termos da Licença Pública Geral GNU, conforme publicada 
+   Este programa é um software de livre distribuição, que pode ser copiado e
+   distribuído sob os termos da Licença Pública Geral GNU, conforme publicada
    pela Free Software Foundation, versão 2 da licença ou (a critério do autor)
-   qualquer versão posterior. 
+   qualquer versão posterior.
 
-   Este programa é distribuído na expectativa de ser útil aos seus usuários, 
+   Este programa é distribuído na expectativa de ser útil aos seus usuários,
    porém  NÃO TEM NENHUMA GARANTIA, EXPLÍCITAS OU IMPLÍCITAS, COMERCIAIS OU DE
    ATENDIMENTO A UMA DETERMINADA FINALIDADE. Consulte a Licença Pública Geral
-   GNU para maiores detalhes. 
+   GNU para maiores detalhes.
 
-   Deve haver uma cópia da Licença Pública Geral GNU junto com este software 
-   em inglês ou português. Caso não haja escreva para 
+   Deve haver uma cópia da Licença Pública Geral GNU junto com este software
+   em inglês ou português. Caso não haja escreva para
    Free Software Foundation, Inc.
    675 Mass Ave,
-   Cambridge, MA 02139, USA. 
+   Cambridge, MA 02139, USA.
 
    acamargo@conesul.com.br
    André Ribeiro Camargo
@@ -171,14 +171,14 @@ void    game_over (void);
 void main (int argc, char *argv[])
 {
 	int     i;
-     
+
 	ProgName = argv[0];
 	if (strlen (ProgName) >= 11)
 		ProgName += (strlen (ProgName) - 11);
 
 	game_mode = JOGO_DEFENSIVO;
 	mute_mode = FALSE;
-	
+
 	for (i = 1; i < argc; i++) {
 		char   *arg = argv[i];
 
@@ -193,7 +193,7 @@ void main (int argc, char *argv[])
 				  		isDeadmatch = TRUE;
 						break;
 					}
-		  			if (strcmp (arg + 1, "display") == 0) 
+		  			if (strcmp (arg + 1, "display") == 0)
 				  		break;
 					usage ();
 					exit (1);
@@ -219,7 +219,7 @@ void main (int argc, char *argv[])
 
 		fprintf (stderr, "\nPlaying on %s mode... %s", isDeadmatch ? "deadmatch" : (game_mode == JOGO_DEFENSIVO) ? "DEFENSIVE" : "OFFENSIVE", isDeadmatch ? ":) <-> (:" : (game_mode == JOGO_DEFENSIVO) ? ":(" : ":)");
 	}
-	
+
 	principal (argc, argv);
 }
 
@@ -447,7 +447,7 @@ game_over ()
 
 // -------------------------------------------------------------------------------------
 //    funcao: piscaVencedor
-// descricao: pisca as jogadas da sequencia especifica vencedora 
+// descricao: pisca as jogadas da sequencia especifica vencedora
 //        in: nada
 //       out: nada
 void
@@ -542,21 +542,21 @@ escreve_placar ()
 {
         int i;
         int coluna_xpm = 65;
-	int coluna_score[6] = 
+	int coluna_score[6] =
 	{8, 15, 26, 33, 43, 50 };
         char placar[7];
 
   	if (isDeadmatch){
     		copyXPMArea(97, 74, 13, 9, 43, 88);
 		if (!mute_mode)
-		  sprintf(placar, 
-			  "%.2d%.2d%.2d", 
-			  game_mode == JOGO_OFENSIVO ? score_user_offensive : score_user_defensive, 
+		  sprintf(placar,
+			  "%.2d%.2d%.2d",
+			  game_mode == JOGO_OFENSIVO ? score_user_offensive : score_user_defensive,
 			  game_mode == JOGO_OFENSIVO ? score_deuce_offensive : score_deuce_defensive,
 			  game_mode == JOGO_OFENSIVO ? score_X_offensive : score_X_defensive);
 	}
 	else
-	// desenha o glyph do X modo ofensivo no placar 
+	// desenha o glyph do X modo ofensivo no placar
 		if (game_mode == JOGO_OFENSIVO) {
 		        copyXPMArea (110, 4, 13, 8, 43, 88);
                 	if (!mute_mode)
@@ -566,7 +566,7 @@ escreve_placar ()
 			if (!mute_mode)
 	                	sprintf(placar, "%.2d%.2d%.2d", score_user_defensive, score_deuce_defensive, score_X_defensive);
 		}
-	
+
 	for (i = 0; i < 6; i++)
        		copyXPMArea (coluna_xpm+((placar[i]-48)*6), 65, 6, 9, coluna_score[i], 100);
 }
@@ -843,8 +843,8 @@ analisa_jogo (void)
         }
 
         // estima a chance de jogo em cada _quadrante_ para cada jogador
-        for (i = 0; i < 8; i++) 
-                for (i2 = 0; i2 < 3; i2++) {    
+        for (i = 0; i < 8; i++)
+                for (i2 = 0; i2 < 3; i2++) {
                         if (tabuleiro[sequencias[i][i2]] == LEGENDA_VAZIO && status_jogo[i][0] > 0 && status_jogo[i][1] == 0)
                                 chance[sequencias[i][i2]][0]++;
                         if (tabuleiro[sequencias[i][i2]] == LEGENDA_VAZIO && status_jogo[i][1] > 0 && status_jogo[i][0] == 0)
@@ -873,13 +873,13 @@ analisa_jogo (void)
                                 if ( game_mode == JOGO_DEFENSIVO ? chance[i][0] > maior_chance_X : chance[i][1] > maior_chance_usuario) {
                                         limite_possibilidades = 0;
                                         possibilidades_de_jogadas[limite_possibilidades] = i;
-                                        if (game_mode == JOGO_DEFENSIVO) 
+                                        if (game_mode == JOGO_DEFENSIVO)
 					        maior_chance_X = chance[i][0];
 					else
 					        maior_chance_usuario = chance[i][1];
                                 } else if ( game_mode == JOGO_DEFENSIVO ? chance[i][0] == maior_chance_X : chance[i][1] == maior_chance_usuario) {
                                         limite_possibilidades++;
-                                        possibilidades_de_jogadas[limite_possibilidades] = i; 
+                                        possibilidades_de_jogadas[limite_possibilidades] = i;
                                 }
                         }
                 }
@@ -1044,7 +1044,7 @@ printversion (void)
 // descricao: lê o arquivo de configuracao da aplicação
 //        in: nada
 //       out: nada
-void 
+void
 readfile (void)
 {
         FILE *rcfile;
@@ -1083,7 +1083,7 @@ readfile (void)
 // descricao: grava o arquivo de configuracao da aplicação
 //        in: nada
 //       out: nada
-void 
+void
 writefile (void)
 {
         FILE *rcfile;
@@ -1103,7 +1103,7 @@ writefile (void)
 // descricao: troca o modo de jogo
 //        in: nada
 //       out: nada
-void 
+void
 troca_game_mode (void)
 {
         game_mode = !game_mode;

@@ -97,9 +97,9 @@ int
 main(int argc,char **argv) {
 
   int i;
-  
+
   /* Parse Command Line */
-  
+
   ProgName = argv[0];
   if (strlen (ProgName) >= 5)
     ProgName += (strlen (ProgName) - 5);
@@ -182,7 +182,7 @@ main(int argc,char **argv) {
   gdk_pixmap_unref(origback);
   gdk_pixmap_unref(datasrc);
   gdk_pixmap_unref(myback);
-  
+
   return 0;
 }
 
@@ -340,13 +340,13 @@ init_ppp(void)
   int i;
   for (i = 0; i < MAX_ISPS; i++)
     memset(&IspData[i],0,sizeof(struct YAWMPPP_ISP_INFO));
-  
+
   make_config_dir();
   signal(SIGUSR1,sigusr_handler);
   signal(SIGHUP,sigusr_handler);
   signal(SIGINT,sigusr_handler);
   signal(SIGTERM,sigusr_handler);
-  
+
   write_pid_file();
   clean_guards();
   grab_isp_info(1);
@@ -370,7 +370,7 @@ thinppp(gpointer data)
   static struct stat st;
   static int isonline = 0;
   static int speed_ind = 10;
-  
+
   int i,j;
 
   if (like_a_virgin) {
@@ -420,31 +420,31 @@ thinppp(gpointer data)
       start_child = 0;
     }
   }
-  
+
   /* On-line detectie! 1x per second */
-  
+
   if (currenttime != lasttime) {
     i = 0;
-      
+
     if (stillonline (active_interface)) {
 	i = 1;
 	if (!starttime) {
 	  starttime = currenttime;
-	  
+
 	  if (stat (STAMP_FILE, &st) == 0)
 	    starttime = st.st_mtime;
-	  
+
 	  setled(LED_PPP_POWER,LED_GREEN);
 	  waittime = 0;
-	      
+
 	  /* 88k8 on bottom */
 	  paste_xpm(ERR_DEST_X,ERR_DEST_Y,ERR_SRC_X+28,ERR_SRC_Y+9,25,8);
-	    
+
 	  if (IspData[current_isp].SpeedAction)
 	    DrawSpeedInd (IspData[current_isp].SpeedAction);
-	    
+
 	  speed_ind = currenttime + 10;
-	  refresh();  
+	  refresh();
 	}
     }
     if (!i && starttime) {
@@ -458,23 +458,23 @@ thinppp(gpointer data)
 	refresh();
       }
   }
-  
+
   if (waittime && waittime <= currenttime) {
     setled(LED_PPP_POWER,LED_RED);
     refresh();
     waittime = 0;
   }
-  
+
   if ((starttime)&&(!isonline)) {
     isonline=1;
-    
+
     logconn.start=time(NULL);
     logconn.status=0;
     strcpy(logconn.longname,IspData[current_isp].LongName);
     strcpy(logconn.shortname,IspData[current_isp].ShortName);
     strcpy(logconn.user,IspData[current_isp].User);
     strcpy(logconn.phone,IspData[current_isp].Phone);
-    
+
     if (!strlen(logconn.shortname))
       strcpy(logconn.shortname,"empty");
     if (!strlen(logconn.longname))
@@ -483,7 +483,7 @@ thinppp(gpointer data)
       strcpy(logconn.user,"empty");
     if (!strlen(logconn.phone))
       strcpy(logconn.phone,"empty");
-    
+
     make_guards();
   }
   if ((!starttime)&&(isonline)) {
@@ -495,59 +495,59 @@ thinppp(gpointer data)
     if (caution>0)
       close_ppp();
   }
-  
+
   /* If we are on-line. Print the time we are */
   if (starttime) {
-    i = currenttime - starttime;      
+    i = currenttime - starttime;
     i /= TimerDivisor;
-      
+
     if (TimerDivisor == 1)
       if (i > 59 * 60 + 59)
 	i /= 60;
-    
+
     minute = i % 60;
     hour = (i / 60) % 100;
     i = hour * 100 + minute;
-    
+
     DrawTime (i, currenttime % 2);
     /* We are online, so we can check for send/recv packets */
-      
+
     get_statistics (active_interface, &ppp_recv, &ppp_send,
 		    &ppp_rbytes, &ppp_sbytes);
     if (caution>1)
       close_ppp();
-      
+
     if (ppp_send != ppp_sl)
       setled(LED_PPP_TX,LED_GREEN);
     else
       setled(LED_PPP_TX,LED_DARK);
-    
+
     if (ppp_recv != ppp_rl)
       setled(LED_PPP_RX,LED_GREEN);
     else
       setled(LED_PPP_RX,LED_DARK);
-    
+
     ppp_sl = ppp_send;
     ppp_rl = ppp_recv;
-    
+
     /* Every five seconds we check to load on the line */
-    
+
     if (currenttime - timetolog >= 0) {
       timetolog=currenttime + 60;
       make_guards();
     }
-    
-    if ((currenttime - ppptime >= 0) || (ppptime == 0)) {	
+
+    if ((currenttime - ppptime >= 0) || (ppptime == 0)) {
       ppptime = currenttime + updaterate;
-      
+
       ppp_history[PPP_STATS_HIS][0] = ppp_rbytes - ppp_orbytes;
       ppp_history[PPP_STATS_HIS][1] = ppp_sbytes - ppp_osbytes;
-      
+
       ppp_orbytes = ppp_rbytes;
       ppp_osbytes = ppp_sbytes;
-      
+
       DrawStats (23, 9, 170, 13);
-      
+
       for (j = 1; j < 24; j++) {
 	ppp_history[j - 1][0] = ppp_history[j][0];
 	ppp_history[j - 1][1] = ppp_history[j][1];
@@ -556,7 +556,7 @@ thinppp(gpointer data)
 	DrawLoadInd ((ppp_history[23][0] + ppp_history[23][1]) / updaterate);
       }
     }
-    
+
     refresh();
   }
 
@@ -570,7 +570,7 @@ thinppp(gpointer data)
       setled(LED_PPP_POWER,LED_YELLOW);
       waittime = ORANGE_LED_TIMEOUT + currenttime;
       refresh();
-    }    
+    }
     break;
   case BUT_X:
     if (stop_child == 0)
@@ -614,7 +614,7 @@ thinppp(gpointer data)
 }
 
 gboolean
-wdestroy(GtkWidget *w,GdkEvent *ev,gpointer data) 
+wdestroy(GtkWidget *w,GdkEvent *ev,gpointer data)
 {
   int i;
   while (start_child | stop_child) {
@@ -904,7 +904,7 @@ DrawTime (int i, int j)
   paste_xpm(TIMER_DES_X + 6 * 1, TIMER_DES_Y,
 	    TIMER_SZE_X * ((i/k)%10)+1, TIMER_SRC_Y,5,7);
   k=k/10;
-  
+
   /* colon */
   if (j)
     paste_xpm(TIMER_DES_X + 6 * 2 + 1, TIMER_DES_Y,
@@ -912,7 +912,7 @@ DrawTime (int i, int j)
   else
     paste_xpm(TIMER_DES_X + 6 * 2 + 1, TIMER_DES_Y,
 	      63, TIMER_SRC_Y,1,7);
-  
+
   paste_xpm(TIMER_DES_X + 6 * 2 + 4, TIMER_DES_Y,
 	    TIMER_SZE_X * ((i/k)%10)+1, TIMER_SRC_Y,5,7);
   k=k/10;
@@ -926,16 +926,16 @@ DrawStats (int num, int size, int x_left, int y_bottom)
 {
   int pixels_per_byte;
   int j, k;
-  
+
   pixels_per_byte = size;
   for (j = 0; j < num; j++)
     if ((ppp_history[j][0]+ppp_history[j][1]) > pixels_per_byte)
       pixels_per_byte = ppp_history[j][0] + ppp_history[j][1];
-  
+
   pixels_per_byte /= size;
-  
+
   for (k = 0; k < num; k++)
-    for (j = 0; j < size; j++) {	    
+    for (j = 0; j < size; j++) {
       if (j < (ppp_history[k][0] / pixels_per_byte))
 	paste_xpm(k+x_left, y_bottom-j,HIST_SRC_X+2,HIST_SRC_Y,1,1);
       else if (j < (ppp_history[k][0] + ppp_history[k][1]) / pixels_per_byte)
@@ -971,29 +971,29 @@ DrawSpeedInd (char *speed_action)
   FILE *fp;
   char *p;
   char temp[128];
-  
+
   fp = popen (speed_action, "r");
-  
+
   if (fp) {
     linespeed = 0;
-      
+
     while (fgets (temp, 128, fp))
       ;
-    
+
     pclose (fp);
-    
+
     if ((p = strstr (temp, "CONNECT")))
       linespeed = atoi (p + 8);
-      
+
     k = ERR_DEST_X+25;
-      
+
     i = (linespeed % 1000) / 100;
     linespeed /= 1000;
     PrintLittle (i, &k);
-      
+
     k -= 5;
     paste_xpm(k,ERR_DEST_Y,ERR_SRC_X+50,ERR_SRC_Y,5,8);
-      
+
     do {
       PrintLittle (linespeed % 10, &k);
       linespeed /= 10;
@@ -1011,7 +1011,7 @@ DrawLoadInd (int speed)
     PrintLittle (-1, &k);
 
   k = ERR_DEST_X+25;
-  
+
   do {
     PrintLittle (speed % 10, &k);
     speed /= 10;
@@ -1032,9 +1032,9 @@ make_delayed_update(void)
 
 void
 usage (void) {
-  fprintf (stderr, 
+  fprintf (stderr,
 	   "\nyawmppp.thin\nYet Another Window Maker PPP dock applet,\nfor non-Window Maker window managers\n\n");
-  fprintf (stderr, 
+  fprintf (stderr,
 	   "version %s\n\n",VERSION);
   fprintf (stderr, "usage:\n");
   fprintf (stderr, "-h                     this help screen\n");
@@ -1065,7 +1065,7 @@ read_initial_position(void)
   fgets(z,255,f);
   ipx=atoi(strtok(z," \t\n"));
   ipy=atoi(strtok(NULL," \t\n"));
-  fclose(f);  
+  fclose(f);
 }
 
 void

@@ -67,7 +67,7 @@ void RedrawWindow (void);
 void AddMouseRegion (int, int, int, int, int);
 int CheckMouseRegion (int, int);
 
-static void 
+static void
 GetXPM (XpmIcon * wmgen, char *pixmap_bytes[])
 {
 
@@ -89,7 +89,7 @@ GetXPM (XpmIcon * wmgen, char *pixmap_bytes[])
       }
 }
 
-static Pixel 
+static Pixel
 GetColor (char *name)
 {
 
@@ -110,7 +110,7 @@ GetColor (char *name)
     return color.pixel;
 }
 
-static int 
+static int
 flush_expose (Window w)
 {
 
@@ -123,7 +123,7 @@ flush_expose (Window w)
     return i;
 }
 
-void 
+void
 RedrawWindow (void)
 {
 
@@ -135,7 +135,7 @@ RedrawWindow (void)
 	       0, 0, wmgen.attributes.width, wmgen.attributes.height, 0, 0);
 }
 
-void 
+void
 RedrawWindowXY (int x, int y)
 {
 
@@ -147,7 +147,7 @@ RedrawWindowXY (int x, int y)
 	       x, y, wmgen.attributes.width, wmgen.attributes.height, 0, 0);
 }
 
-void 
+void
 AddMouseRegion (int index, int left, int top, int right, int bottom)
 {
 
@@ -161,7 +161,7 @@ AddMouseRegion (int index, int left, int top, int right, int bottom)
       }
 }
 
-int 
+int
 CheckMouseRegion (int x, int y)
 {
 
@@ -184,7 +184,7 @@ CheckMouseRegion (int x, int y)
     return (i - 1);
 }
 
-void 
+void
 createXBMfromXPM (char *xbm, char **xpm, int sx, int sy)
 {
 
@@ -221,7 +221,7 @@ createXBMfromXPM (char *xbm, char **xpm, int sx, int sy)
       }
 }
 
-void 
+void
 copyXPMArea (int x, int y, int sx, int sy, int dx, int dy)
 {
 
@@ -229,14 +229,14 @@ copyXPMArea (int x, int y, int sx, int sy, int dx, int dy)
 
 }
 
-void 
+void
 copyXBMArea (int x, int y, int sx, int sy, int dx, int dy)
 {
 
     XCopyArea (display, wmgen.mask, wmgen.pixmap, NormalGC, x, y, sx, sy, dx, dy);
 }
 
-void 
+void
 setMaskXY (int x, int y)
 {
 
@@ -244,7 +244,7 @@ setMaskXY (int x, int y)
     XShapeCombineMask (display, iconwin, ShapeBounding, x, y, pixmask, ShapeSet);
 }
 
-void 
+void
 openXwindow (int argc, char *argv[], char *pixmap_bytes[], char *pixmask_bits, int pixmask_width, int pixmask_height)
 {
 

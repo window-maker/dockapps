@@ -48,17 +48,17 @@ GetISPInfo(char *rcname,struct YAWMPPP_ISP_INFO *wii,int max)
   num_isps=0;
 
   /* level 0 */
-  while( fgets(temp,128,f) ) {    
+  while( fgets(temp,128,f) ) {
     strcpy(work,temp);
     q=work;
     q=strtok(q,tokens);
     if (!q) continue;
     if (!strcmp(q,"ISP.BEGIN")) {
       if (num_isps>=max) continue;
-	
+
       /* enter ISP.BEGIN block */
       memset(&wii[num_isps],0,sizeof(struct YAWMPPP_ISP_INFO));
-      
+
       wii[num_isps].ppp.override=0;
       wii[num_isps].ppp.noipdefault=1;
       wii[num_isps].ppp.noauth=1;
@@ -71,7 +71,7 @@ GetISPInfo(char *rcname,struct YAWMPPP_ISP_INFO *wii,int max)
 	strcpy(work,temp);
 	q=work;
 	q=strtok(q,tokens);
-	
+
 	if (!strcmp(q,KEY_LONGNAME)) {
 	  q=strtok(NULL,tokens2);
 	  if (q) strncpy(wii[num_isps].LongName,q,128);

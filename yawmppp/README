@@ -20,7 +20,7 @@ Usage Hints
     DNS Servers
     Modem Ports
     Login/Password expects
-  Trouble?    
+  Trouble?
 More Documentation
 
 Overview
@@ -98,8 +98,8 @@ YAWMPPP features all things the standard pppd offers and gives
 you some additional amusements:
 
         * Integrated online timer;
-        * Integrated modem RX/TX LED's; 
-        * Integrated YAWMPPP status LED; 
+        * Integrated modem RX/TX LED's;
+        * Integrated YAWMPPP status LED;
         * Integrated autoscaling PPP transfer statistics;
         * Integrated bytes/second Speed-O-Meter;
         * Automatic detection of active ppp interfaces;
@@ -115,11 +115,11 @@ INSTALL         Installation instructions.
 CHANGELOG       Description of changes.
 COPYING         GNU General Public License Version 2.
 FAQ             Frequently Asked Questions
-        
+
 
 Reporting Bugs
 --------------
-If you discover any bugs in this software, please send a 
+If you discover any bugs in this software, please send a
 bug report to bergo@seul.org and describe the
 problem as detailed as you can.
 
@@ -180,7 +180,7 @@ ISP configuration tool (yawmppp.pref) or with any other mouse button
 to open the connection log viewer (yawmppp.log).
 
 Window Manager Placement
------------------------- 
+------------------------
 Window Maker: Window Maker users simply drag and drop YAWMPPP on
               the WindowMaker Dock or the Clip.
               Press the right mouse button on YAWMPPP's outer edges and

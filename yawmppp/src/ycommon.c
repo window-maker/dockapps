@@ -141,9 +141,9 @@ make_guards(void)
   p = getenv ("HOME");
   strcpy (temp, p);
   strcat (temp, "/.yawmppp2/.floatlog");
-  f=fopen(temp,"w");  
+  f=fopen(temp,"w");
   if (!f) return;
-  
+
   logconn.end=time(NULL);
   fprintf(f,"%lu\n%lu\n%d\n",logconn.start,logconn.end,logconn.status);
   fprintf(f,"%s\n%s\n%s\n",logconn.longname,logconn.shortname,logconn.phone);
@@ -162,7 +162,7 @@ write_log(void)
   p = getenv ("HOME");
   strcpy (temp, p);
   strcat (temp, "/.yawmppp2/logfile");
-  f=fopen(temp,"a");  
+  f=fopen(temp,"a");
   if (!f) return;
 
   s=strlen(logconn.phone);
@@ -229,7 +229,7 @@ open_ppp(void)
     return;
 
   if ((ppp_h = socket (AF_INET, SOCK_DGRAM, 0)) >= 0)
-    ppp_open = 1;  
+    ppp_open = 1;
 }
 
 void
@@ -399,7 +399,7 @@ stillonline (char *ifs)
 #ifdef FREEBSD
 	strcpy(req.ifr_name,active_interface);
 	open_ppp();
-	if (!ppp_open) 
+	if (!ppp_open)
 	  return 0;
 	if (ioctl(ppp_h,SIOCGIFFLAGS,&req)>=0) {
 		if (req.ifr_flags&IFF_UP)

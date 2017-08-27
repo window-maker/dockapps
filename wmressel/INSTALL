@@ -1,4 +1,4 @@
-Installation instructions for wmressel. 
+Installation instructions for wmressel.
 
 
 Requirements
@@ -17,7 +17,7 @@ Installation
 1)  $ tar -zxvf wmressel-0.8.tar.gz
 2)  $ cd wmressel-0.8
 3)  $ ./configure
-4)  $ make 
+4)  $ make
 5)  $ su root
 6)  # make install
 7)  $ wmressel & (or wmressel -h for brief help).

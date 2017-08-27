@@ -68,7 +68,7 @@ message_box(GtkWindow *parent,char *txt,char *title,MsgBoxType mbt,MsgBoxIcon mb
   gtk_container_set_border_width(GTK_CONTAINER(msgbox),4);
   gtk_window_set_position(GTK_WINDOW(msgbox),GTK_WIN_POS_CENTER);
   gtk_window_set_policy(GTK_WINDOW(msgbox),TRUE,TRUE,TRUE);
-  gtk_widget_realize(msgbox); 
+  gtk_widget_realize(msgbox);
 
   style=gtk_widget_get_style(msgbox);
   if (mbi!=MSGBOX_ICON_NONE) {

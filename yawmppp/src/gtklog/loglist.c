@@ -240,7 +240,7 @@ create_loglist(void)
 
   dhw[9]=gtk_hbox_new(FALSE,2);
   dhw[10]=gtk_label_new("Raw log listing (unfiltered):");
-  
+
   gtk_box_pack_start(GTK_BOX(mvb),dhw[9],FALSE,FALSE,4);
   gtk_box_pack_start(GTK_BOX(dhw[9]),dhw[10],FALSE,FALSE,2);
 
@@ -376,7 +376,7 @@ prepend_log_entry(char *logline)
   struct logentry *le;
 
   le=(struct logentry *)g_malloc0(sizeof(struct logentry));
-  
+
   if ((p=strtok(logline,"\t\n"))==NULL) { g_free(le); return; }
   le->start=(time_t)atol(p);
 
@@ -394,7 +394,7 @@ prepend_log_entry(char *logline)
 
   if ((p=strtok(NULL,"\t\n"))==NULL) { g_free(le); return; }
   strncpy(le->phone,p,32);
-  
+
   if ((p=strtok(NULL,"\t\n"))==NULL) { g_free(le); return; }
   strncpy(le->user,p,32);
 
@@ -538,7 +538,7 @@ make_resume(void)
   strcat(temp,aux);
 
   gtk_label_set_text(GTK_LABEL(lresume[0]),temp);
-  
+
   if (ec)
     avg=olt/ec;
   else
@@ -634,12 +634,12 @@ hgra_configure(GtkWidget *widget,GdkEventConfigure *ee,gpointer data)
   float fac;
   GdkFont *fn;
   char tmp[64];
-  
+
   if (hcanvas!=NULL)
     gdk_pixmap_unref(hcanvas);
-  
+
   mygc=gdk_gc_new(widget->window);
-  
+
   hcanvas=gdk_pixmap_new(widget->window,x=widget->allocation.width,
 			 y=widget->allocation.height,-1);
   gdk_draw_rectangle(hcanvas,widget->style->white_gc,TRUE,0,0,x,y);
@@ -672,7 +672,7 @@ hgra_configure(GtkWidget *widget,GdkEventConfigure *ee,gpointer data)
     cx+=2*xs;
   }
 
-  gdk_draw_line(hcanvas,widget->style->black_gc,0,y-18,x-1,y-18);  
+  gdk_draw_line(hcanvas,widget->style->black_gc,0,y-18,x-1,y-18);
 
   gdk_rgb_gc_set_foreground(mygc,0xffffff);
   gdk_draw_rectangle(hcanvas,mygc,TRUE,0,0,22*4,13);
@@ -711,12 +711,12 @@ wgra_configure(GtkWidget *widget,GdkEventConfigure *ee,gpointer data)
   long max;
   float fac;
   GdkFont *fn;
-  
+
   if (wcanvas!=NULL)
     gdk_pixmap_unref(wcanvas);
-  
+
   mygc=gdk_gc_new(widget->window);
-  
+
   wcanvas=gdk_pixmap_new(widget->window,x=widget->allocation.width,
 			 y=widget->allocation.height,-1);
   gdk_draw_rectangle(wcanvas,widget->style->white_gc,TRUE,0,0,x,y);
@@ -744,7 +744,7 @@ wgra_configure(GtkWidget *widget,GdkEventConfigure *ee,gpointer data)
     cx+=xs;
   }
 
-  gdk_draw_line(wcanvas,widget->style->black_gc,0,y-18,x-1,y-18);  
+  gdk_draw_line(wcanvas,widget->style->black_gc,0,y-18,x-1,y-18);
 
   gdk_rgb_gc_set_foreground(mygc,0xffffff);
   gdk_draw_rectangle(wcanvas,mygc,TRUE,0,0,23*4,13);
@@ -770,7 +770,7 @@ time_menu(GtkMenuItem *gmi,gpointer data)
   time_t t;
 
   x=*((int *)data);
-  
+
   t=time(NULL);
   his=localtime(&t);
 
