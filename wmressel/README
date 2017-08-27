@@ -1,9 +1,11 @@
-wmressel 0.8 (http://team.gcu-squad.org/~slix/wmressel/)
+wmressel (http://www.dockapps.net/wmressel)
 --------------------------------------------------------------
 Author...:  Sébastien Liénard (slix@gcu-squad.org)
             from GCU (http://gcu-squad.org)
 
 	I'm french, excuse me for my poor english :)
+
+Now maintained by the Window Maker team (wmaker-dev@lists.windowmaker.org)
 
 Credits..:  Thanks to all guys from GCU
 
@@ -36,7 +38,7 @@ COPYING		GNU General Public License Version 2.
 Bugs
 --------------------------------------------------------------
 If you discover any bugs in this software, please send a
-bugreport to slix@gcu-squad.org and describe
+bugreport to wmaker-dev@lists.windowmaker.org and describe
 the problem as detailed as you can.
 
 
@@ -46,5 +48,3 @@ wmressel is copyright (c) 2002 Sébastien Liénard
 and licensed through the GNU General Public License.
 
 Read the COPYING file for the complete GNU license.
-
-
