@@ -435,7 +435,7 @@ void WMMixer::displayUsage(const char* name)
 //--------------------------------------------------------------------
 void WMMixer::displayVersion()
 {
-  std::cout << "wmmixer version 1.5" << std::endl;
+  std::cout << "wmmixer version " PACKAGE_VERSION << std::endl;
   exit(0);
 }
 
