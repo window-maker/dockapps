@@ -1,8 +1,0 @@
-#!/usr/bin/make -f
-# GNU Copyright 2011 Rodolfo García Peñas (kix) <kix@kix.es>
-
-# export DH_VERBOSE=1
-
-%:
-	dh $@
-
