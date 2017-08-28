@@ -93,3 +93,10 @@ Release 1.6   13 Jul 2011 Support of multiple config files to run multiple
 
 Release 1.7   19 Sep 2011 Fix FTBFS with ld --as-needed
                           Patch sent by Angel Abad <angelabad@ubuntu.com>
+
+Release 1.8   28 Aug 2017 Update GPLv2 text
+			  Update Free Software Foundation address.
+			  Remove trailing whitespace.
+			  Use autotools for build.
+			  Add desktop entry file.
+			  Update documentation.

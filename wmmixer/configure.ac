@@ -1,4 +1,4 @@
-AC_INIT([wmmixer], [1.7], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmmixer], [1.8], [wmaker-dev@lists.windowmaker.org])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CXX
