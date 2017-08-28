@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=wmmixer
+Comment=A mixer designed for Window Maker
+Exec=wmmixer
+Categories=Audio;Mixer
+Keywords=sound;mixer;dockapp;window maker

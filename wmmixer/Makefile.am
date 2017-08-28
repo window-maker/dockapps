@@ -7,3 +7,6 @@ EXTRA_DIST = CHANGES
 
 AM_CFLAGS = $(Xlib_CFLAGS) $(Xext_CFLAGS) $(libXpm_CFLAGS)
 LIBS += $(Xlib_LIBS) $(Xext_LIBS) $(libXpm_LIBS)
+
+desktopdir = @datadir@/applications
+dist_desktop_DATA = wmmixer.desktop
