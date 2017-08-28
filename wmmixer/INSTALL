@@ -3,6 +3,7 @@ wmmixer - A mixer designed for WindowMaker
 INSTALLING:
 ===========
 
+./configure
 make
 make install
 
