@@ -1,0 +1,28 @@
+
+[Anjuta]
+Geometry=1374x802+0+0
+
+[File Loader]
+Files=file:///home/hellupline/Desktop/ButtonMaker/src/main.c#133
+
+[Document Manager]
+bookmarks=<?xml version="1.0" encoding="UTF-8"?>\n<bookmarks/>\n
+
+[Execution]
+Run in terminal=2
+Working directories=file:///home/hellupline/Desktop/ButtonMaker
+
+[Project Manager]
+Shortcut=ButtonMaker//ButtonMaker//src//buttonmaker
+Expand=ButtonMaker%%%ButtonMaker//ButtonMaker%%%ButtonMaker//ButtonMaker//src%%%ButtonMaker//ButtonMaker//src//buttonmaker%%%ButtonMaker//BUTTONMAKER
+
+[Build]
+Configuration list=1:Default:%%%1:Debug:Debug%%%1:Profiling:Profiling%%%1:Optimized:Optimized
+Selected Configuration=Debug
+BuildArgs/Default=--enable-maintainer-mode
+BuildArgs/Debug=--enable-maintainer-mode 'CFLAGS=-g -O0' 'CXXFLAGS=-g -O0' 'JFLAGS=-g -O0' 'FFLAGS=-g -O0'
+BuildArgs/Profiling=--enable-maintainer-mode 'CFLAGS=-g -pg' 'CXXFLAGS=-g -pg' 'JFLAGS=-g -pg' 'FFLAGS=-g -pg'
+BuildArgs/Optimized=--enable-maintainer-mode 'CFLAGS=-O2' 'CXXFLAGS=-O2' 'JFLAGS=-O2' 'FFLAGS=-O2'
+
+[Debugger]
+Stop at beginning=2
