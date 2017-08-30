@@ -58,11 +58,7 @@ DAParseArguments(
 	int i, j, size;
 	int found = 0;
 
-	_daContext = DAContextInit();
-
-	_daContext->argc            = argc;
-	_daContext->argv            = argv;
-	_daContext->programName     = argv[0];
+	_daContext = DAContextInit(argc, argv);
 
 	size = (count + DEFAULT_OPTION_COUNT) * sizeof(DAProgramOption *);
 	_daContext->options         = malloc(size);
@@ -207,11 +203,15 @@ DAGetProgramName()
  */
 
 struct DAContext *
-DAContextInit(void)
+DAContextInit(int argc, char **argv)
 {
 	struct DAContext *context = malloc(sizeof(struct DAContext));
 
 	memset(context, 0, sizeof(struct DAContext));
+
+	context->argc            = argc;
+	context->argv            = argv;
+	context->programName     = argv[0];
 
 	return context;
 }

@@ -134,6 +134,9 @@ DACreateIcon(char *name, unsigned width, unsigned height, int argc, char **argv)
 	unsigned long valueMask;
 	char                *resourceValue;
 
+	if (!_daContext)
+		_daContext = DAContextInit(argc, argv);
+
 	_daContext->width  = width;
 	_daContext->height = height;
 

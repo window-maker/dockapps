@@ -42,6 +42,6 @@ struct DAContext {
 };
 
 
-struct DAContext *DAContextInit(void);
+struct DAContext *DAContextInit(int argc, char **argv);
 void DAFreeContext(void);
 
