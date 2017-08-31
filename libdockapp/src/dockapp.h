@@ -264,6 +264,18 @@ Pixmap DAMakePixmap(void);
  */
 Pixmap DAMakeShape(void);
 
+/*
+ * DAMakeShapeFromData-
+ *	Creates a shape pixmap suitable for use with DASetShape() from XBM data.
+ */
+Pixmap DAMakeShapeFromData(char *data, unsigned int width, unsigned int height);
+
+/*
+ * DAMakeShapeFromFile-
+ *	Creates a shape pixmap suitable for use with DASetShape() from an
+ *	XBM file.
+ */
+Pixmap DAMakeShapeFromFile(char *filename);
 
 /*
  * DAMakePixmapFromData-

@@ -88,6 +88,41 @@ DAMakeShape(void)
 			      1));
 }
 
+Pixmap
+DAMakeShapeFromData(char *data, unsigned int width, unsigned int height)
+{
+	return (XCreateBitmapFromData(DADisplay, DAWindow, data,
+				      width, height));
+}
+
+Pixmap
+DAMakeShapeFromFile(char *filename)
+{
+	Pixmap shape;
+	unsigned int width, height;
+	int result, x_hot, y_hot;
+
+	result = XReadBitmapFile(DADisplay, DAWindow, filename, &width, &height,
+				 &shape, &x_hot, &y_hot);
+
+	switch (result) {
+	case BitmapOpenFailed:
+		DAWarning("bitmap file %s cannot be opened.", filename);
+		break;
+
+	case BitmapFileInvalid:
+		DAWarning("bitmap file %s not valid.", filename);
+		break;
+
+	case BitmapNoMemory:
+		DAWarning("insufficient memory to open bitmap file %s.",
+			  filename);
+		break;
+	}
+
+	return shape;
+}
+
 Bool
 DAMakePixmapFromData(char **data, Pixmap *pixmap, Pixmap *mask,
 		     unsigned short *width, unsigned short *height)
