@@ -9,4 +9,4 @@ AM_CFLAGS = $(Xlib_CFLAGS) $(libXpm_CFLAGS) $(WUtil_CFLAGS) -DHAVE_WINGS_WUTIL_H
 LIBS += $(Xlib_LIBS) $(libXpm_LIBS) $(WUtil_LIBS)
 
 EXTRA_DIST = copyright fookb.cf KNOWN_BUGS LICENSE README.russian.koi8-r \
-	README.russian.utf-8 VERSION
+	README.russian.utf-8
