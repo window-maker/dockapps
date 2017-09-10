@@ -5,7 +5,7 @@
 .\" This manual is distributed in the hope that it will be useful,
 .\" but WITHOUT ANY WARRANTY; without even the implied warranty of
 .\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-.TH fookb 1 "10 Jan 2002" "fookb" "FOOcrosoft"
+.TH fookb 1 "September 2017"
 .SH NAME
 fookb \- Xkb state indicator with optional Window Maker support
 .SH SYNOPSIS
@@ -26,26 +26,31 @@ with Window Maker support).
 
 .SH OPTIONS
 .TP
-NB! Command line parameters take precedence over config file or X resources!
+NB! Command line parameters take precedence over config file!
 .TP
-All the icons should be of the same size or fookb will refuse to run. If you
-use Windowmaker-enabled version of fookb (windowmaker dockable applet) then
+All the icons should be of the same size or fookb will refuse to run.
 fookb will warn you if you use icons of size more than 64x64, but it will try
 to run anyway.
 .TP
-.B -icon1
+.B --icon1
+Icon to show for the 1st Xkb group
 .TP
-.B -icon2
+.B --icon2
+Icon to show for the 2nd Xkb group
 .TP
-.B -icon3
+.B --icon3
+Icon to show for the 3rd Xkb group
 .TP
-.B -icon4
+.B --icon4
+Icon to show for the 4th Xkb group
 .TP
-.B -iconboom
+.B --iconboom
+Icon to show when Xkb system goes crazy
 .TP
-.B -display
+.B -d,--display
+X display to use (normally not needed)
 
-.SH CONFIGURATION FILE (for libWUtil-enabled version)
+.SH CONFIGURATION FILE
 The configuration file consist of a single PropList dictionary, which
 in turn is composed of several PropList key\-value pairs. The
 recognized keys is:
@@ -76,24 +81,6 @@ run.
 This command will be run if XKB locked group is changed and "Sound" is
 set to "Yes".
 
-.SH X resources
-.TP
-NB! Parameters in PropList config file take precedence over X resources!
-.TP
-.B fookb.icon1 Filename
-.TP
-.B fookb.icon2 Filename
-.TP
-.B fookb.icon3 Filename
-.TP
-.B fookb.icon4 Filename
-.TP
-.B fookb.iconBoom Filename
-.TP
-.B fookb.sound Yes/No
-.TP
-.B fookb.command Command
-
 .SH EXAMPLES
 Here is an example of configuration file.
 .P
@@ -109,25 +96,10 @@ Here is an example of configuration file.
 }
 .fi
 
-Here is an example of app-defaults file.
-.P
-.nf
-fookb.icon1: /usr/local/share/fookb/icon1.xpm
-fookb.icon2: /usr/local/share/fookb/icon2.xpm
-fookb.icon3: /usr/local/share/fookb/icon3.xpm
-fookb.icon4: /usr/local/share/fookb/icon4.xpm
-fookb.iconBoom: /usr/local/share/fookb/crash.xpm
-fookb.sound: Yes
-fookb.command: /home/bgates/bin/playmssound
-.fi
-
 .SH FILES
 .TP
-.B ~/GNUstep/Defaults/FOOkb
-\fBfookb\fP defaults (for Window Maker enabled version).
-.TP
 .B ~/.fookb
-\fBfookb\fP defaults (for Window Maker disabled version).
+\fBfookb\fP defaults
 
 .SH BUGS
 Sometimes \fBfookb\fP receives message about changing XKB group, but
@@ -137,7 +109,7 @@ case \fBfookb\fP will show IconBoom (from config file) picture.
 As far as I know the only way to look at this bug is to run vmware.
 
 .SH VERSION
-This man page is [hopefully] up-to-date for version 3.1 of \fBfookb\fP.
+This man page is [hopefully] up-to-date for version @PACKAGE_VERSION@ of \fBfookb\fP.
 
 .SH AUTHORS
 .P

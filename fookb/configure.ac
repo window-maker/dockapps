@@ -19,4 +19,4 @@ PKG_CHECK_MODULES([libXpm], [xpm])
 PKG_CHECK_MODULES([WUtil], [WUtil])
 PKG_CHECK_MODULES([libdockapp], [dockapp])
 
-AC_OUTPUT(Makefile)
+AC_OUTPUT(Makefile fookb.1)
