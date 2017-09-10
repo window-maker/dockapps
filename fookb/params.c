@@ -12,41 +12,19 @@ char *read_param(char *string)
 {
 	XrmValue xvalue;
 
-#ifdef HAVE_WINGS_WUTIL_H
 	WMPropList *pl;
 	WMPropList *value;
 	WMPropList *tmp;
 	char *path;
-#endif
-
 	char *newstring;
 	char *newString;
 	char *result;
-	char *str_type[20];
 	
 	/* Let's make lint happy */
 	xvalue.size = 0;
 
-#ifndef HAVE_WINGS_WUTIL_H
-	newstring = (char *) malloc(7 + strlen(string));
-	newString = (char *) malloc(7 + strlen(string));
-	/* 7 is strlen("fookb.") + 1 */
-	
-	if ((NULL == newstring) || (NULL == newString)) {
-		lputs("Not enough memory");
-		exit(EXIT_FAILURE);
-	}
-
-	strcpy(newstring, "fookb.");
-	strcpy(newString, "Fookb.");
-
-	strcat(newstring, string);
-	strcat(newString, string);
-#else
-	/* libWUtil contains handy function */
 	newstring = wstrconcat("fookb.", string);
 	newString = wstrconcat("Fookb.", string);
-#endif
 	newstring[6] = tolower((unsigned char)newstring[6]);
 	newString[6] = toupper((unsigned char)newString[6]);
 
@@ -65,17 +43,10 @@ char *read_param(char *string)
 		strncpy(result, xvalue.addr, (size_t)xvalue.size);
 		result[(int) xvalue.size + 1] = '\0';
 
-#ifdef HAVE_WINGS_WUTIL_H
 		wfree(newstring);
 		wfree(newString);
-#else
-		free(newstring);
-		free(newString);
-#endif
 		return result;
 	}
-
-#ifdef HAVE_WINGS_WUTIL_H
 
 	wfree(newstring);
 	wfree(newString);
@@ -129,27 +100,5 @@ char *read_param(char *string)
 	}
 
 	return result;
-
-#else				/* HAVE_WINGS_WUTIL_H */
-
-	if (XrmGetResource(finalDB, newstring, newString, str_type,
-			   &xvalue) == True) {
-		result = (char *) malloc(xvalue.size + 1);
-		if (NULL == result) {
-			lputs("Not enough memory");
-			exit(EXIT_FAILURE);
-		}
-		strncpy(result, xvalue.addr, (size_t)xvalue.size);
-		result[(int) xvalue.size + 1] = '\0';
-		free(newstring);
-		free(newString);
-		return result;
-	} else {
-		(void)printf("Fatal error: cannot find configuration parameter %s\n",
-				newstring);
-		exit(EXIT_FAILURE);
-	}
-
-#endif
 
 }

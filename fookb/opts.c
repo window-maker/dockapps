@@ -61,16 +61,12 @@ void ParseOptions(int *argc, register char *argv[])
 		puts("-iconboom xpm_file\tIcon to show when Xkb system goes crazy");
 		puts("-display X_display\tX display to use (normally not needed)");
 		puts("");
-#ifdef HAVE_WINGS_WUTIL_H
 		puts("Command line parameters takes precedence over X resources or configuration file!");
 		printf("Configuration file location: ");
 #ifdef WMAKER
 		puts("~/GNUstep/Defaults/FOOkb");
 #else
 		puts("~/.fookb");
-#endif
-#else
-		puts("Command line paramaters takes precedence over X resources!");
 #endif
 		exit(0);
 	}
