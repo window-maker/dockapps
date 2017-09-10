@@ -9,11 +9,7 @@
 #define PARAMS_H
 
 
-#ifdef WMAKER
-#define DEFAULTS_FILE "~/GNUstep/Defaults/FOOkb"
-#else
 #define DEFAULTS_FILE "~/.fookb"
-#endif				/* WMAKER */
 
 char *read_param(char *);
 

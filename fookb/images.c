@@ -47,11 +47,9 @@ static int get_one_image(char *name, int index, Display *dpy)
 			lputs("FATAL: Icon1 has zero width!");
 			exit(EXIT_FAILURE);
 		}
-#ifdef WMAKER
 		if (w > 64) {
-			lputs("Warning: Icon width is more than 64. Strange things may happen.");
+			lputs("Warning: Icon width is more than 64. Strange things may happen if using Window Maker.");
 		}
-#endif
 	}
 
 	if (0 == h) {
@@ -60,11 +58,9 @@ static int get_one_image(char *name, int index, Display *dpy)
 			lputs("FATAL: Icon1 had zero height!");
 			exit(EXIT_FAILURE);
 		}
-#ifdef WMAKER
 		if (h > 64) {
-			lputs("Warning: Icon height is more than 64. Strange things may happen.");
+			lputs("Warning: Icon height is more than 64. Strange things may happen if using Window Maker.");
 		}
-#endif
 	}
 
 	if (w != stupid_picture[index]->width) {
