@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=fookb
+Comment=XKB state indicator for Window Maker
+Exec=fookb
+Categories=Settings
+Keywords=keyboard;dockapp;window maker
