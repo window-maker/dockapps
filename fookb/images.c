@@ -150,7 +150,7 @@ void read_images(Display *dpy)
 
 }
 
-void update_window(Window win, GC gc, unsigned int whattodo, Display *dpy)
+void update_window(Drawable win, GC gc, unsigned int whattodo, Display *dpy)
 {
 	int err;
 
