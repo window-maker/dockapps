@@ -1,0 +1,12 @@
+# ALL THE ICONS SHOULD OF THE SAME SIZE!
+{
+#	Icon1 = "/usr/local/share/fookb/1.xpm";
+#	Icon2 = "/usr/local/share/fookb/2.xpm";
+	Icon1 = "/usr/local/share/fookb/lat.xpm";
+	Icon2 = "/usr/local/share/fookb/rus.xpm";
+	Icon3 = "/usr/local/share/fookb/3.xpm";
+	Icon4 = "/usr/local/share/fookb/4.xpm";
+	IconBoom = "/usr/local/share/fookb/boom.xpm";
+	Sound = "Yes";
+	Command = "/usr/bin/play /usr/local/share/fookb/beep_spring.au";
+}

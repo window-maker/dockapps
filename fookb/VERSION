@@ -1,0 +1,70 @@
+3.1
+
+An idea (icon size is now configurable) and two icons from "Andrei M. Soukharev"
+<A.M.Suharev@inp.nsk.su>.
+
+Now I use subversion.
+
+3.0-unstable
+
+configure.in rewritten almost from scratch.
+
+Starting from version 0.70 Window Maker does not contain libproplist anymore;
+so fookb now DOES NOT SUPPORT libproplist. You will get the same functionality
+with libWUtil (part of Window Maker).
+
+lint is still unhappy.
+
+And the most important thing -- author's email was changed everywhere.
+
+2.21-unstable
+
+One more step to the lint happiness.
+Some #include:s added. Why did it work before???
+
+2.20-unstable
+
+LICENSE was changed! Please read.
+
+--enable/disable-libproplist/wmaker options for configure.
+Some cosmetic changes to make lint happy (he's still very sad).
+Makefile.in was simplified (of course configure.in has some complex changes).
+
+2.13
+
+Seems to be stable version. Minor cosmetic changes.
+
+2.12-unstable
+
+Final (I hope) fixes in Makefile.in for non-proplist version.
+
+2.11-unstable
+
+Small error in Makefine.in for non-proplist version was fixed.
+
+2.1-unstable
+
+libPropList-free version. Command line parameters. X resource
+management. ``configure'' script. I hope non-WindowMaker version still 
+work?
+
+0.9
+New icons for Xkb groups. Nasty bug was fixed: fookb plays sound twice 
+if you change locked Xkb group with mouse. Documentation updates.
+0.8
+Fookb now can play sounds.
+0.7
+No more #define pixmaps. Configuration file in use.
+0.6
+No more #define NUMG
+0.5
+XpmReadFileToImage error check added.
+0.4
+No more ass. Window Maker support happened. I hope fookb still work 
+w/o -DWMAKER.
+0.3
+The ass. Intended to be Window Maker support.
+0.2
+Support for all 4 Xkb groups
+0.1
+Basic functionality

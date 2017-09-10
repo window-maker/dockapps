@@ -1,0 +1,146 @@
+.\" Copyright (c) 1998-2004 Alexey Vyskubov <alexey@mawhrin.net>
+.\"
+.\" This is free documentation; you can redistribute it and/or
+.\" modify it under the terms of the Artistic License
+.\" This manual is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.TH fookb 1 "10 Jan 2002" "fookb" "FOOcrosoft"
+.SH NAME
+fookb \- Xkb state indicator with optional Window Maker support
+.SH SYNOPSIS
+.B fookb [options]
+
+.SH DESCRIPTION
+\fBfookb\fP is a Xkb state indicator. It displays
+the icon corresponding to the number of Xkb locked group. You may use
+mouse-clicks to change Xkb locked group with mouse. Additionally,
+\fBfookb\fP can be configured to execute a program on changing group.
+.P
+\fBfookb\fP man page is based on \fBWMMail.app\fP man page. Program
+was written from scratch.
+.P
+To use \fBfookb\fP with the Window Maker Dock, simply drag the
+\fBfookb\fP icon to the Window Maker Dock (if \fBfookb\fP was compiled 
+with Window Maker support).
+
+.SH OPTIONS
+.TP
+NB! Command line parameters take precedence over config file or X resources!
+.TP
+All the icons should be of the same size or fookb will refuse to run. If you
+use Windowmaker-enabled version of fookb (windowmaker dockable applet) then
+fookb will warn you if you use icons of size more than 64x64, but it will try
+to run anyway.
+.TP
+.B -icon1
+.TP
+.B -icon2
+.TP
+.B -icon3
+.TP
+.B -icon4
+.TP
+.B -iconboom
+.TP
+.B -display
+
+.SH CONFIGURATION FILE (for libWUtil-enabled version)
+The configuration file consist of a single PropList dictionary, which
+in turn is composed of several PropList key\-value pairs. The
+recognized keys is:
+.TP
+.B Icon1 Filename (mandatory)
+XPM file contains an icon for 1st XKB group.
+.TP
+.B Icon2 Filename (mandatory)
+XPM file contains an icon for 2nd XKB group.
+.TP
+.B Icon3 Filename (mandatory)
+XPM file contains an icon for 3rd XKB group.
+.TP
+.B Icon4 Filename (mandatory)
+XPM file contains an icon for 4th XKB group.
+.TP
+.B IconBoom Filename (mandatory)
+XPM file contains an icon for "broken Xkb". Please look in
+BUGS section.
+.TP
+.B Sound (Yes|No)
+\fBfookb\fP will run command from "Command" value (see below), if this 
+parameter is set to "Yes". You'll receive (non-fatal) error message if 
+this parameter is not defined. In any other case command will not be
+run.
+.TP
+.B Command command_to_run
+This command will be run if XKB locked group is changed and "Sound" is 
+set to "Yes".
+
+.SH X resources
+.TP
+NB! Parameters in PropList config file take precedence over X resources!
+.TP
+.B fookb.icon1 Filename
+.TP
+.B fookb.icon2 Filename
+.TP
+.B fookb.icon3 Filename
+.TP
+.B fookb.icon4 Filename
+.TP
+.B fookb.iconBoom Filename
+.TP
+.B fookb.sound Yes/No
+.TP
+.B fookb.command Command
+
+.SH EXAMPLES
+Here is an example of configuration file.
+.P
+.nf
+{
+  Icon1 = "/usr/local/share/fookb/icon1.xpm";
+  Icon2 = "/usr/local/share/fookb/icon2.xpm";
+  Icon3 = "/usr/local/share/fookb/icon3.xpm";
+  Icon4 = "/usr/local/share/fookb/icon4.xpm";
+  IconBoom = "/usr/local/share/fookb/crash.xpm";
+  Sound = "Yes";
+  Command = "/usr/bin/play /usr/local/share/fookb/click.au";
+}
+.fi
+
+Here is an example of app-defaults file.
+.P
+.nf
+fookb.icon1: /usr/local/share/fookb/icon1.xpm
+fookb.icon2: /usr/local/share/fookb/icon2.xpm
+fookb.icon3: /usr/local/share/fookb/icon3.xpm
+fookb.icon4: /usr/local/share/fookb/icon4.xpm
+fookb.iconBoom: /usr/local/share/fookb/crash.xpm
+fookb.sound: Yes
+fookb.command: /home/bgates/bin/playmssound
+.fi
+
+.SH FILES
+.TP
+.B ~/GNUstep/Defaults/FOOkb
+\fBfookb\fP defaults (for Window Maker enabled version).
+.TP
+.B ~/.fookb
+\fBfookb\fP defaults (for Window Maker disabled version).
+
+.SH BUGS
+Sometimes \fBfookb\fP receives message about changing XKB group, but
+message.state.group does not point to any existing XKB group. In this
+case \fBfookb\fP will show IconBoom (from config file) picture.
+.P
+As far as I know the only way to look at this bug is to run vmware.
+
+.SH VERSION
+This man page is [hopefully] up-to-date for version 3.1 of \fBfookb\fP.
+
+.SH AUTHORS
+.P
+\fBfookb\fP is (c) 1998-2004 Alexey Vyskubov <alexey@mawhrin.net>.
+.P
+This manpage was written by Alexey Vyskubov <alexey@mawhrin.net>.

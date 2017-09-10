@@ -1,0 +1,8 @@
+* If configuration parameter 'sound' is not defined, fookb will not die, but
+will print error message and kill new-born child every time you switch
+keyboard layout. Well, it's not a bug, it's a feature.
+
+* Sometimes fookb receives message about changing XKB group, but
+message.state.group does not point to any existing XKB group. In this
+case fookb will show IconBoom (from config file) picture.
+As far as I know the only way to look at this bug is to run vmware.

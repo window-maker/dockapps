@@ -1,0 +1,81 @@
+How to compile and install fookb:
+
+0. The best way
+
+The best way is to install Debian Linux and use apt-get to install precompiled
+version of fookb :)
+
+1. Generating Makefile.
+
+./configure
+
+You may use ``./configure --prefix some_dir'' if you wish to install fookb in
+``some_dir'' -- not in ``/usr/local''. Icons will be placed under
+``some_dir/share/fookb'', manual page under ``some_dir/man/man1'', fookb
+itself under ``some_dir/bin''.
+
+E.g.: ./configure --prefix /usr/local/stow/fookb
+
+2. Fine tuning.
+
+[Read this section only if compilation process was unsuccessful]
+
+configure tries automagically decide: do you wish to compile WindowMaker
+dockable version of fookb and would you like use PropList-like configuration
+file or X resources for configuring fookb (using libWUtil).
+
+If you have libWUtil AND WINGs/WUtil.h we will try to compile
+libWUtil-enabled version of fookb. If you want to compile libWUtil-free
+version of fookb, run configure with --disable-libWUtil argument.
+
+If you have wmaker in your $PATH, we will compile WindowMaker dockable verison
+of fookb. Run configure with --disable-wmaker to disable this behaviour.
+
+If you have no wmaker in your $PATH you still can compile WindowMaker dockable
+version of fookb. Run configure with --enable-wmaker.
+
+3. Compiling
+
+make
+
+If compilation was unsuccessful or you can get no satisfaction, read previous
+section.
+
+4. Installing
+
+make install
+
+5. Configuring fookb
+
+IF YOU COMPILED libWUtil-version of fookb:
+
+Copy fookb.cf to ~/GNUstep/Defaults/FOOkb (for Window Maker enabled) or to
+~/.fookb (for Window Maker disabled version) and edit this file according to
+your desire.
+
+IF YOU COMPILED non-libWUtil version of fookb:
+
+You should put the following resources in your
+/usr/X11R6/lib/X11/app-defaults/Fookb (or in other file which will be read by
+xrdb -- such as ~/.Xresources):
+
+fookb.icon1: xpm_file_with_full_path
+fookb.icon2: the same
+fookb.icon3: the same
+fookb.icon4: the same
+fookb.iconBoom: the same
+fookb.sound: Yes/No
+fookb.command: some_command (for playing sound)
+
+BOTH WAYS:
+
+Instead of putting parameter in config file you may use the following command
+line parameters:
+
+-icon1 xpm_file_with_full_path
+-icon2 the same
+-icon3 the same
+-icon4 the same
+-iconboom the same
+
+You may also use -display command line parameter.
