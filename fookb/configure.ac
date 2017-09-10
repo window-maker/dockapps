@@ -5,7 +5,9 @@ dnl
 dnl vim:ts=8:sts=2:shiftwidth=2:expandtab:foldmethod=marker
 
 dnl {{{1
-AC_INIT(fookb.c)
+AC_INIT([fookb], [3.1], [wmaker-dev@lists.windowmaker.org])
+AM_INIT_AUTOMAKE([foreign])
+AC_CONFIG_SRCDIR([fookb.c])
 
 dnl Checks for programs.
 AC_PROG_CC
