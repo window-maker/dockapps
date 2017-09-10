@@ -45,11 +45,11 @@ Small error in Makefine.in for non-proplist version was fixed.
 2.1-unstable
 
 libPropList-free version. Command line parameters. X resource
-management. ``configure'' script. I hope non-WindowMaker version still 
+management. ``configure'' script. I hope non-WindowMaker version still
 work?
 
 0.9
-New icons for Xkb groups. Nasty bug was fixed: fookb plays sound twice 
+New icons for Xkb groups. Nasty bug was fixed: fookb plays sound twice
 if you change locked Xkb group with mouse. Documentation updates.
 0.8
 Fookb now can play sounds.
@@ -60,7 +60,7 @@ No more #define NUMG
 0.5
 XpmReadFileToImage error check added.
 0.4
-No more ass. Window Maker support happened. I hope fookb still work 
+No more ass. Window Maker support happened. I hope fookb still work
 w/o -DWMAKER.
 0.3
 The ass. Intended to be Window Maker support.

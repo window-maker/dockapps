@@ -11,7 +11,7 @@
 /* X Window resource management */
 #include <X11/Xlib.h>
 #include <X11/Xresource.h>
-extern XrmDatabase cmdlineDB;	/* Database for resources from command 
+extern XrmDatabase cmdlineDB;	/* Database for resources from command
 				   line */
 
 extern XrmDatabase finalDB;	/* Database for resources from other

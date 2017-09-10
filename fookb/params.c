@@ -19,7 +19,7 @@ char *read_param(char *string)
 	char *newstring;
 	char *newString;
 	char *result;
-	
+
 	/* Let's make lint happy */
 	xvalue.size = 0;
 

@@ -17,7 +17,7 @@ buttonmaker_SOURCES = \
 	main.c \
 	wmgeneral.c
 
-buttonmaker_LDFLAGS = 
+buttonmaker_LDFLAGS =
 
 buttonmaker_LDADD = \
 	$(BUTTONMAKER_LIBS) \

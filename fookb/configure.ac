@@ -21,14 +21,14 @@ PKG_CHECK_MODULES([WUtil], [WUtil])
 AC_ARG_ENABLE(
   [wmaker],
   [  --enable-wmaker         create windowmaker dockable application],
-  [ 
+  [
     if test $enable_wmaker = yes ; then
       AC_DEFINE(WMAKER)
     fi
   ],
   [
     AC_CHECK_PROG(HAVE_WMAKER, wmaker, yes, no)
-  
+
     if test $HAVE_WMAKER = yes ; then
       AC_DEFINE(WMAKER)
     fi

@@ -150,7 +150,7 @@ void read_images(Display *dpy)
 void update_window(Window win, GC gc, unsigned int whattodo, Display *dpy)
 {
 	int err;
-	
+
 	err = XPutImage(dpy, win, gc, stupid_picture[whattodo],
 			0, 0, 0, 0, w, h);
 

@@ -83,7 +83,7 @@ int main(int argc, register char *argv[])
 	*/
 
 	XrmInitialize();	/* We should initialize X resource
-				   manager before doing something else 
+				   manager before doing something else
 				 */
 
 	ParseOptions(&argc, argv);	/* We should parse command line
@@ -126,8 +126,8 @@ int main(int argc, register char *argv[])
 				XkbGroupLockMask)) {
 		sterror("Cannot XkbSelectEventDetails. It's your problem -- not mine.");
 		exit(EXIT_FAILURE);
-	} /* Select XkbStateNotify/XkbgroupLock */ 
-	
+	} /* Select XkbStateNotify/XkbgroupLock */
+
 	read_images(dpy);		/* Let's read icon images */
 
 /* Run out! */

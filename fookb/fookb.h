@@ -1,6 +1,6 @@
 /*
  * fookb.h
- * 
+ *
  * (c) 1998-2004 Alexey Vyskubov <alexey@mawhrin.net>
  *
  */
