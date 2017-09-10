@@ -38,6 +38,9 @@ static int get_one_image(char *name, int index, Display *dpy)
 	foo = XpmReadFileToImage(dpy, name, &stupid_picture[index],
 				 NULL, NULL);
 
+	if (foo < 0)
+		return foo;
+
 	if (0 == w) {
 		w = stupid_picture[index]->width;
 		if (0 == w) {
