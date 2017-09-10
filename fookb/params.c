@@ -2,6 +2,7 @@
 #include <string.h>		/* strlen & strcat */
 #include <ctype.h>		/* toupper */
 #include <stdlib.h>
+#include <WINGs/WUtil.h>
 #include "params.h"
 #include "opts.h"
 
@@ -10,46 +11,24 @@
 
 char *read_param(char *string)
 {
-	XrmValue xvalue;
-
 	WMPropList *pl;
 	WMPropList *value;
 	WMPropList *tmp;
 	char *path;
-	char *newstring;
-	char *newString;
 	char *result;
-
-	/* Let's make lint happy */
-	xvalue.size = 0;
-
-	newstring = wstrconcat("fookb.", string);
-	newString = wstrconcat("Fookb.", string);
-	newstring[6] = tolower((unsigned char)newstring[6]);
-	newString[6] = toupper((unsigned char)newString[6]);
 
 /* Command line parameters take precedence over all */
 
-	if (XrmGetResource(cmdlineDB,
-				newstring,
-				newString,
-				str_type,
-				&xvalue) == True) {
-		result = (char *) malloc(xvalue.size + 1);
-		if (NULL == result) {
-			lputs("Not enough memory");
-			exit(EXIT_FAILURE);
-		}
-		strncpy(result, xvalue.addr, (size_t)xvalue.size);
-		result[(int) xvalue.size + 1] = '\0';
-
-		wfree(newstring);
-		wfree(newString);
-		return result;
-	}
-
-	wfree(newstring);
-	wfree(newString);
+	if (!strcmp(string, "Icon1") && icon1)
+		return icon1;
+	if (!strcmp(string, "Icon2") && icon2)
+		return icon2;
+	if (!strcmp(string, "Icon3") && icon3)
+		return icon3;
+	if (!strcmp(string, "Icon4") && icon4)
+		return icon4;
+	if (!strcmp(string, "IconBoom") && iconboom)
+		return iconboom;
 
 	/*
 	 * Here we start the game with property lists.

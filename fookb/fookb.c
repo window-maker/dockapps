@@ -11,9 +11,6 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 
-/* Command line parsing and X resource manager */
-#include <X11/Xresource.h>
-
 /* XKB fun */
 #include <X11/XKBlib.h>
 
@@ -25,6 +22,13 @@
 #include "sound.h"
 #include "opts.h"
 
+char *icon1 = NULL;
+char *icon2 = NULL;
+char *icon3 = NULL;
+char *icon4 = NULL;
+char *iconboom = NULL;
+char *display = NULL;
+
 #define sterror(x) (void)printf("Strange error, please report! %s:%d, %s\n",\
 		__FILE__, __LINE__, x)
 
@@ -34,13 +38,33 @@ int main(int argc, register char *argv[])
 	int state = 0;		/* We suppose that latin keyboard is the
 				   primal state FIXME */
 	Pixmap pixmap;
+	DAProgramOption options[] = {
+		{NULL, "--icon1",
+		 "Icon to show for the 1st Xkb group",
+		 DOString, False, {&icon1}},
+		{NULL, "--icon2",
+		 "Icon to show for the 2nd Xkb group",
+		 DOString, False, {&icon2}},
+		{NULL, "--icon3",
+		 "Icon to show for the 3rd Xkb group",
+		 DOString, False, {&icon3}},
+		{NULL, "--icon4",
+		 "Icon to show for the 4th Xkb group",
+		 DOString, False, {&icon4}},
+		{NULL, "--iconboom",
+		 "Icon to show when Xkb system goes crazy",
+		 DOString, False, {&iconboom}},
+		{"-d", "--display",
+		 "X display to use (normally not needed)",
+		 DOString, False, {&display}},
+	};
 
 
-	DAParseArguments(argc, argv, NULL, 0,
+	DAParseArguments(argc, argv, options, 6,
 			 "XKB state indicator for Window Maker",
 			 PACKAGE_STRING);
 
-	DAOpenDisplay(NULL, argc, argv);
+	DAOpenDisplay(display, argc, argv);
 	read_images(DADisplay);		/* Let's read icon images */
 	DACreateIcon(PACKAGE_NAME, get_width(), get_height(), argc, argv);
 	XSelectInput(DADisplay, DAWindow, ButtonPressMask);
