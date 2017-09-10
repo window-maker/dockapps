@@ -1,3 +1,49 @@
+4.0
+
+Now maintained by the Window Maker Team.
+
+Rename configure.in -> configure.ac.
+
+Use pkg-config to check for libraries.
+
+Use automake
+
+Rename VERSION to more standard ChangeLog.
+
+Make WUtil required instead of optional.
+
+Remove trailing whitespace.
+
+Fix error handling when reading XPM files.  Previously, we would try and read
+the width and height of images read from an XPM file *before* doing any error
+handling to determine whether we successfully read the file in the first place.
+If there had been an error, then there would be a segfault.
+
+Port to libdockapp.  In addition to the obvious simplification to the code by
+removing all the window creation stuff, this also allows us to let users pick
+whether they want to run fookb as a dockapp or as a normal windowed application
+at runtime using libdockapp's --windowed command line option.  Previously, this
+was done during build using configure's --enable-wmaker option.
+
+Use libdockapp instead of X resource manager for command line options.
+
+Remove --enable-wmaker compile-time option.  Now that we use libdockapp's
+--windowed option to allow users to choose whether to run fookb as a dockapp or
+as a normal windowed application at runtime, the --enable-wmaker option compile
+~/GNUstep/Defaults and it printed a warning message when users used large icon
+files.  We now use the ~/.fookb config file in all instances and always print
+the warning message.
+
+Add desktop entry file.
+
+Remove out-of-date check.sh script and empty test/foo file.
+
+Update INSTALL.
+
+Update manpage.  In addition to accounting for the various changes in the new
+version, we also rename from the deprecated 1x section to just 1 and get the
+current version number from autoconf.
+
 3.1
 
 An idea (icon size is now configurable) and two icons from "Andrei M. Soukharev"
