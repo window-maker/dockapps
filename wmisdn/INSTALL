@@ -1,0 +1,52 @@
+Compiling and installing wmisdn:
+--------------------------------
+
+1. Change to the directory containing the wmisdn source
+2. Type "make"
+3. Copy the wmisdn binary to a directory of your choice
+or
+   Type "make install" - this puts wmisdn into /usr/local/sbin 
+4. Type "make clean" to clean the source directory
+
+NOTE : In order to operate properly, wmisdn must have access to
+/dev/isdnctrl and /dev/isdninfo. There are two ways to grant this access, both
+of which require root privileges:
+
+I. The simple method:
+  1. Login as root
+  2. Change to the directory where the wmisdn binary resides
+  3. Type "chown root.root wmisdn"
+  4. Type "chmod +s wmisdn"
+
+II. The secure method:
+  1. Login as root
+  2. Create a group called net (or whatever name you like)
+  3. Add the accounts, that should be able to use wmisdn (and generally dial out or controll the isdn connection in some other way), to this group
+  4. Type "chgrp net /dev/isdninfo /dev/isdnctrl* /sbin/isdnctrl"
+  5. Type "chmod g=rw /dev/isdninfo /dev/isdnctrl*"
+  
+I recommend the second method, since it protects your systems against bug 
+exploits in wmisdn (I hope they don't exist, but I can't guarantee that to 100%). 
+It is the method recommended by Tom Berger on his site "www.mandrakeuser.org"
+(/connect/cisdn2.html). 
+
+
+wmisdn currently compiles only under Linux. I have tested it on 
+* SuSE 6.0 - Kernel 2.0.36, glibc 2.0.7, XFree 3.3.4
+* SuSE 6.2 - Kernel 2.2.10, glibc 2.1, XFree 3.3.4
+It has been reported to work on RedHat and Mandrake systems too and should 
+actually compile and run on every Linux system with the kernel includes and
+isdn4linux on it. 
+
+If you use WindowMaker, useful options for the info panel of the extended 
+look are:
+	NoTitlebar = Yes;
+	NoResizebar = Yes;
+	NoCloseButton = Yes;
+	NoMiniaturizeButton = Yes;
+	Omnipresent = Yes;
+	SkipWindowList = Yes;
+
+You can set those in Windowmaker or in any other window manager that
+supports them. Quite a shame, but I still haven't found an X function that
+sets those attributes. I'd appreciate a mail if there is such function.

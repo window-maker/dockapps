@@ -1,0 +1,63 @@
+1.81
+----
+
+* Removed problems with the Makefile occuring on newer systems
+* minor bugfix in the command line argument scanning
+
+1.8
+---
+
+* Scripting modes (read the SCRIPTS file)
+* Channel bundling (aka MPPP) support (details in the README).
+* -font cmd line option for replacing the LED-font.
+* I have a new email-address: tasho.kaletha@gmx.de :))))
+
+1.7p3 (by Kalus Steven: klaus.steven@gmx.net)
+-----
+
+* Script support (read the SCRIPTS file).
+* Important bugfix for Alpha workstations.
+* Connection control (Online<->Offline) by clicking anywhere on the display
+  with the middle mouse button.
+
+1.7
+---
+
+* separated the look&feel code from the main code. Creating different
+  skins is now much easier. Expect them in the next version :)) (sorry, I'm 
+  completely out of time for now).
+
+1.6
+---
+
+* fixed a very nasty bug which caused the handling of any device except
+  ippp0 to fail (ooops! sorry)
+* added support for handling multiple devices (see -device option)
+* wmisdn now understands all connection modes of the ippp device
+  - fax, voice, etc...
+* extended the information showed on the info panel
+
+1.51
+---
+
+* fixed a small bug in the interface code, causing a highlited
+  button to remain selected if the mouse pointer is removed out of
+  the window quickly
+
+1.5
+---
+
+* major rewrite of the interface code
+* look and feel change: connection control buttons and info panel
+  can now be toggled separately using the new switches at the lower
+  left corner.
+
+1.2
+---
+
+* added a new connection state: Dialing, which denotes the
+  dialing phase between Offline and Online
+* fixed some compilation problems with gcc 2.9.x
+* cleaned up the isdn code
+* switched to a meaningful versioning. 0.1 is now 1.0 :))
+
