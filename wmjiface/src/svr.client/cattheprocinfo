@@ -1,0 +1,44 @@
+#!/usr/bin/perl
+
+use IO::Socket;
+
+$port = 7654;
+
+## This could really do anything you want...
+sub print_stuff {
+    open in, "/proc/net/dev";
+    while(<in>) {
+        print $client "$_" if /eth[01]:/ or /ppp[01]:/;
+    }
+    close in;
+}
+
+
+## Run the farqin thing:
+$bn = `basename $0`; 
+`killall -v -q -1 $bn`;
+
+if (fork) {
+    print "Forkin away...\n";
+    exit 0;
+} else {
+    $0 = "$bn [$port]";
+    &open_it;
+    &listen_to_it;
+}
+
+sub open_it {
+    $sock = new IO::Socket::INET (
+        LocalPort  => "$port",
+        Proto     => tcp,
+        Reuse     =>   1,
+        Listen    =>   1
+    ) or die "Could not create socket: $!\n";
+}
+
+sub listen_to_it {
+    while($client = $sock->accept) {
+        &print_stuff;
+        shutdown $client, 2;
+    }
+}

@@ -1,0 +1,48 @@
+
+I based jDockApp-lib on wmstock.  So I attached the original credits.
+
+
+
+Jettero Heller
+
+
+------------------------------ Attachment -------------------------------------
+
+The inspiration and some of the code for wmstock came from wmWeather (v1.30),
+an excellent dock application.  wmWeather was written by Mike Henderson
+and it is available from: 
+
+	http://nis-www.lanl.gov/~mgh/WindowMaker/DockApps.shtml
+
+*** I no longer use this PERL package, but I did take some code from it,
+and used it for versions 0.01 and 0.02 ***
+
+I also used some code from the Finance::YahooQuotes PERL Module, which is 
+written by Dj Padzensky <djpadz@padz.net> The Finance::YahooQuote home page can
+ be found at http://www.padz.net/~djpadz/YahooQuote/
+
+
+--------------------------------------------------------------------------------
+
+As I learned more about writing dock apps, I produced more and more of 
+my own code, and fixed what I believe were engineering flaws in wmWeather,
+however, I recommend to anyone who wants to get started in dock app programming
+to start with wmWeather, and perhaps also check out this page:
+	
+	http://www.inria.fr/koala/lehors/xpm.html (info about XPMs)
+
+Also, for those of you using XPMs in your code, I found its easier to start
+with someone elses XPM, use your favorite text editor to rename the
+variables in the structure, and then a picture editor (xpaint) to edit the
+image.  For me, I had to work with the image as a ppm in xpaint, and then
+run ppmtoxpm to convert the image.
+
+--------------------------------------------------------------------------------
+
+Thanks to these people for helping fix/identify bugs
+
+Bug			Date		Credit
+No ticker name		06/21/99	Keldon Jones (keldon@umr.edu) - my
+					roommate, wrote a 20 byte patch.
+Various fixes           06/24/99        Thomas Ribbrock - wrote a large patch
+					to fix lots of stuff!

@@ -1,0 +1,35 @@
+Installation instructions for wmjiface.
+
+Requirements
+---------------------------------------------------------------------------
+wmjiface requires the Xpm library (which should be available on most machines
+with XFree86 installed).   You'll also need some version of perl 5+ running. 
+
+
+Installation
+---------------------------------------------------------------------------
+1) tar -zxf wmjiface-#.#
+
+2) cd wmjiface/src
+
+3) edit the Makefile to change the prefix variable and the
+   owner and group variables.
+   prefix describes where the files go during install.
+   owner and group describe who owns it after install.
+   You must uncomment owner and group if you use them.
+
+4) make install
+
+5) edit ifacechk as necessary to make it go...
+   As it stands, ifacechk will not work on SunOS/Solaris.
+   I used /proc to get my net info.  Most likely, it won't even
+   work on some familiar linux boxes.
+
+--------------------------------------------------------------------------
+
+
+If you have problems, please contact me.
+Especially if you can make ifacechk work on SunOS.
+
+Jettero Heller
+jettero@yakko.cs.wmich.edu

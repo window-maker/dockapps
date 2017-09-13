@@ -1,0 +1,5 @@
+I needed a cpu-non-intensive way to monitor my network ifaces.  I only have 3
+(non-loopback), so I designed this whimpy little thing.
+
+
+Jet (jettero@yakko.cs.wmich.edu)

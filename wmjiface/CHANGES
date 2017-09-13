@@ -1,0 +1,61 @@
+Wed Sep 15 00:29:10 EDT 1999
+  I tuned ifacechk to be able to handle _huge_ numbers of packets.  Perl was
+  maxin' out at some point ... who cares.  I fixed it with line #113:
+  s/([0-9]+)([0-9]{9})/$2/g := just gimme the last 9 digits... work on that.
+  This forces a rollover on 9 digits, simultaneously causing correct operation
+  999999999 out of 10000000000 times (assuming a 1 byte per second xfer rate and
+  an update delay of 1 second).  It also causes an error on the rollover (fixed 
+  after the next update.  This is not an elegant solution, but, it is
+  satisfactory for now.
+
+Tue Aug 24 12:14:38 EDT 1999
+  I just noticed a bug in ifacechk.  The code that reverses the logical/physical
+  devices doesn't work quite right.  Apparently if /var/run/ppp-ppp0.dev
+  contains 'ppp1', then it means that the physical device 'ppp0' is acting as
+  the logical device 'ppp1'.  That's news to me.  The reversal was working
+  before, because if both devices are up, the reversal is correct even counting
+  my error.  Did you know that Keppler made two glaring errors in his calculus,
+  and the second cancled out the first?  I guess I'm up there with greatness. ;)
+
+Tue Aug 24 12:07:07 EDT 1999
+  I added some better error checking.  When one of my devices would go down,
+  wmjiface would start showing me non-sense while the device is coming back
+  up.  If an error is detected, the exponential averaging get's cleared out.
+  That helps to keep it from holding on to negative speeds for long periods.
+
+Wed Aug 18 02:22:43 EDT 1999
+  I finnally installed the weighted averaging I was talking about!  exp_avg =
+  (alpha*current_bps) + ((1-alpha)*last_average).  This method is called
+  exponetial averaging.  I had to install a "beta pulldown," where alpha is
+  equals beta iff the xfer_rate exactly equals 0.  It gives a more realistic
+  feel to the end of the xfer, rather than a drawn out approach to 0.  That
+  limit could go on for tens of minutes, since I used doubles (so the history
+  will contain a more accurate approximation).
+
+Tue Aug 17 22:48:18 EDT 1999
+  Made a minor change that reverses my ppp devices when needed.  The ppp devices
+  are fcfs btw, I don't want the imaginary device, I want the real device.
+
+Tue Aug 17 03:47:06 EDT 1999
+  Somewhat drunkenly completed a change to ifacechk to remove the old tmp files.
+  Ended up using a system() if ... /proc/dir exists check ... how ugly.
+  but hey... I was already using /proc  *smirk*
+
+Mon Aug 16 22:07:05 EDT 1999
+  noticed an ugly flaw in ifacechk.  Every instance of ifacechk was overwriting
+  every other's data ...  I used perl's '$$' variable to seperate it out.  The
+  only trouble is that there will now be a huge buildup of the stat files after
+  a while.  How to resolve that?
+
+Mon Aug 16 22:06:15 EDT 1999
+  added a new switch (and the support for it).  -D: now lists in/out at the
+  same time.
+
+Mon Aug 16 20:06:18 EDT 1999
+  huge changes to the update loop in the form of more modularization.
+
+Tue Jul 20 11:08:38 EDT 1999
+  installed new date and version stuff in the makefile, and the print_help()
+
+Wed Jul 14 19:08:20 EDT 1999
+  It's new... There's no changes... besides it's existance.

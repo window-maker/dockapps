@@ -1,0 +1,8 @@
+If your copy of wmjiface won't compile, then e-mail me what
+happened.  Please include all the compiler output you can
+think to capture.  I won't be able to figure it out without
+your help. ;)
+
+Before you e-mail me though, try uncommenting the
+-I/usr/i386-glibc20-linux/include in the makefile.
+You might be having egcs trouble.

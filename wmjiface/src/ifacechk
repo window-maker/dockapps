@@ -1,0 +1,140 @@
+#!/usr/bin/perl
+################
+# cat /proc/net/dev
+#Inter-|   Receive                                                |  Transmit
+# face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed
+#    lo:22905347   39915    0    0    0     0          0         0 22905347   39915    0    0    0     0       0          0
+#  eth0:  923454    7885    0    0    0     0          0       347  1987558    6791    0    0    0     0       0          0
+#  ppp0: 7080806    7876    2    0    0     2          0         0   314121    5267    0    0    0     0       0          0
+#  ppp1:  331265    7810    0    0    0     0          0         0   233915    8563    0    0    0     0       0          0
+#########################
+
+$ppid=getppid();
+
+$iface="/proc/net/dev";
+$staname="$ENV{HOME}/.wmjiface.stat.$ppid";
+
+@statusFiles=`ls $ENV{HOME}/.wmjiface.stat.* 2>/dev/null`;
+
+foreach (@statusFiles) {
+    s/^.*[.]wmjiface[.]stat[.]//; 
+    chomp;
+    system("rm $ENV{HOME}/.wmjiface.stat.$_") if not ( -d "/proc/$_" );
+}
+
+$now=time();
+
+$then;  # aquired during read_stat;
+
+%statso; # aquired during read_stat;
+%statsc; # aquired during read_proc;
+
+&read_proc();
+
+if(&read_stat()) {
+    $tdiff = $now - $then;
+
+    foreach (keys %statsc) {
+        if($statso{$_}) {
+            $bytesin  = $statsc{$_}{bytesi} - $statso{$_}{bytesi};
+            $bytesout = $statsc{$_}{byteso} - $statso{$_}{byteso};
+
+            #$packetsin  = $statsc{$_}{packetsi} - $statso{$_}{packetsi};
+            #$packetsout = $statsc{$_}{packetso} - $statso{$_}{packetso};
+
+            $bytesin_ps  =  $bytesin/$tdiff if $tdiff > 0;
+            $bytesout_ps = $bytesout/$tdiff if $tdiff > 0;
+
+            #$packetsin_ps  =  $packetsin/$tdiff if $tdiff > 0;
+            #$packetsout_ps = $packetsout/$tdiff if $tdiff > 0;
+
+            printf "%s %i %i\n", $_, $bytesin_ps, $bytesout_ps;
+        }
+    }
+
+}
+
+&write_stat();
+exit;
+
+
+##################################################################3
+
+sub write_stat() {
+    open sta, ">$staname" or die;
+
+    printf sta "%i\n", $now;
+
+    foreach (keys %statsc) {
+        printf sta "%s:%i:%i:%i:%i:%i\n", 
+            $_, 
+            $statsc{$_}{bytesi},
+            $statsc{$_}{byteso},
+            $statsc{$_}{packetsi},
+            $statsc{$_}{packetso};
+    }
+
+    close sta;
+}
+
+sub read_stat() {
+    open sta, "$staname" or return ();
+
+    $then = <sta>; 
+    chomp $then;
+
+    while(<sta>) {
+        chomp;
+
+        ($face, $bytesi, $byteso, $packetsi, $packetso) = split ":";
+
+        $statso{$face} = { bytesi   => $bytesi,
+                           byteso   => $byteso,
+                           packetsi => $byteso,
+                           packetso => $byteso  };
+    }
+
+    close sta;
+    return 1;
+}
+
+sub read_proc() {
+    open dev, "$iface" or die;
+
+    $waste = <dev>; # title
+    $waste = <dev>; # title
+    $waste = <dev>; # lo
+
+    $devfilesexist = `ls /var/run/ppp*.dev 2>/dev/null`; chomp $devfilesexist;
+
+    while(<dev>) {
+        chomp; s/[ ]+/:/g; s/^://; s/:$//; s/[:]+/:/g;
+
+        s/([0-9]+)([0-9]{9})/$2/g;
+
+        ($face,
+           $bytesi, $packetsi, $errsi, $dropi, $fifoi, $frame,           $compressedi,   $multicast, 
+           $byteso, $packetso, $errso, $dropo, $fifoo, $colls, $carrier, $compressedo
+        ) = split ":";
+
+        if($devfilesexist !~ /^$/ and $face =~ /ppp/) {
+            $tosser = `grep $face /var/run/*.dev /dev/null | head -1`; 
+            chomp $tosser;
+            $tosser =~ s/^[^-]*-//;
+            $tosser =~ s/.dev:.*//;
+            if($tosser !~ /^$/) {
+                $statsc{$tosser} = { bytesi   => $bytesi,
+                                     byteso   => $byteso,
+                                     packetsi => $byteso,
+                                     packetso => $byteso  };
+            }
+        } else {
+            $statsc{$face} = { bytesi   => $bytesi,
+                               byteso   => $byteso,
+                               packetsi => $byteso,
+                               packetso => $byteso  };
+        }
+    }
+
+    close dev;
+}
