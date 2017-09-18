@@ -1,0 +1,81 @@
+WMAPM-3.1 release
+--------------------------------------------------------------
+Authors....: wmapm was originally written by Chris D. Faulhaber 
+	     <jedgar@fxp.org>. Version 3.0 modifications due to
+	     Michael G. Henderson <mghenderson@lanl.gov>
+		
+Credits...:  Rik Faith <faith@cs.unc.edu> for his implementation
+             of libapm with respect to Linux APM support.
+             Martijm Pieterse <pieterse@xs4all.nl> and
+             Antoine Nulle <warp@xs4all.nl> for a great (and
+             somewhat standardised interface) which I used
+             as a template (wmmon.app and wmgeneral).
+
+Thanx to..:  Brice Ruth <bruth@ltic.com> for the corrections
+             pertaining to the 100% bug (err...feature).
+             Timecop <timecop@linuxwarez.com> for corrections to
+             fix the meter mismatch.
+	     William M. Perry - Added Solaris support.
+	     
+Also, thanks to the following for various
+bug fixes, patches and/or suggestions;
+
+	     ObiTuarY 
+	     MATSUBAYASHI 'Shaolin' Kohji"
+	     Fumihiko Nishio
+	     
+
+
+  
+Description
+--------------------------------------------------------------
+WMAPM monitors the APM statistics through the APM support in
+the Linux and FreeBSD Kernels.  This information, presented in
+a nice visual format, can be invaluable on laptops (as I have
+found in my recent/continual travels as a Field Engineer for a
+small computer hardware manufacturer).
+
+WMAPM compiles successfully on both 2.0.x and 2.1.1xx kernels
+using libc5 and libc6 (glibc2), and on FreeBSD 3.x-RELEASE/
+FreeBSD-3.x-STABLE.
+
+WMAPM currently provides:
+
+        * Status of power supply (battery or AC);
+        * Percentage of battery remaining (numeric and meter);
+        * Battery charging status;
+	* Time left to battery depletion;
+	* High/Low/Critical battery status (Red/Yellow/Green);
+
+Files
+--------------------------------------------------------------
+README		This file.
+INSTALL		Installation instructions.
+HINTS 		Hints about what you can do with WMAPM.
+BUGS		Things you don't want to know ;-)
+CHANGES 	Description of changes.
+COPYING		GNU General Public License Version 2.
+TODO		Stuff I've planned for future WMAPM releases.
+	
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to jedgar@fxp.org and describe the problem as
+as detailed as you can.
+
+
+Copyright
+--------------------------------------------------------------
+WMAPM.app is copyright (c)1998,1999 by Chris D. Faulhaber and
+licensed through the GNU General Public License. Read the 
+COPYING file for the complete GNU license.
+
+
+Other
+--------------------------------------------------------------
+You are free to distribute this application per the GNU
+General Public License; however, if this package is
+distributed (through source and/or binary) in a larger
+package (e.g. Linux distribution), I would appreciate a copy
+(mostly to gloat as to where my apps have been distributed :).

@@ -1,0 +1,39 @@
+Hints for WMAPM
+
+Generic
+--------------------------------------------------------------
+WMAPM supports 7 commandline options:
+
+	-h (help); 
+	-C (Critical Percent Threshold);
+	-L (Low Percent Threshold);
+	-b (BlinkRate for red LED);
+	-B (Beep Volume when at critical level);
+	-A <T1 T2>;
+	-display (display);
+
+
+WindowMaker
+--------------------------------------------------------------
+WindowMaker users simply drag and drop the WMAPM dock.app on
+the WindowMaker Dock (preferred) or on the Fiend and select
+'autolaunch' from the rightmouse button popupmenu.
+
+
+Afterstep
+--------------------------------------------------------------
+Afterstep users put the following in their .steprc
+"Wharf wmapm - MaxSwallow "wmapm" wmapm &".
+
+Note: AfterStep's Wharf has a problem with pixmaps that are
+larger than 60x60 pixels. Please tell the AfterStep authors
+to fix this, this is not our fault, but a Wharf problem!
+ 
+
+Other WindowManagers
+--------------------------------------------------------------
+For other windowmanagers, WMAPM runs nicely as a 64x64 shaped
+icon on your desktop.
+
+
+

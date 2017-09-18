@@ -1,0 +1,13 @@
+None that I know of... :)
+
+Please send bug reports to mghenderson@lanl.gov or jedgar@fxp.org and
+describe the problem as detailed as you can.
+
+Note: all apm statistics are taken directly from
+/proc/apm (in Linux) or /dev/apm (in FreeBSD).  If 
+you see odd behavior with WMAPM (such as
+displaying battery time remaining without a
+corresponding percentage), please first check the
+statistics in /proc/apm (or using your system's
+'apm' program to see if the computer/kernel are 
+properly reporting the applicable statistics.

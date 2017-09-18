@@ -1,0 +1,20 @@
+Installation instructions for WMAPM.
+
+Requirements
+--------------------------------------------------------------
+  WMAPM requires the Xpm library (which should be available on
+most machines with XFree86 installed).
+  In order to compile WMAPM using the Makefile, GNU make must
+be used (FreeBSD users, the default BSD 'make' does not work).
+
+Installation
+--------------------------------------------------------------
+1) % tar -zxvf wmapm-3.1.tar.gz
+2) % cd wmapm-3.1/wmapm/
+3) % make (or gmake on most *BSD systems)
+4) % make install (must be root) or simply copy and binary (and
+     optionally the man page) to a directory in your path.
+     (Makefile does an suid on apm; you must be root to do this.)
+5) % wmapm & (or 'wmapm -h' for help, or 'man wmapm' for the man page)
+
+Be sure to read the HINTS and TODO files too!

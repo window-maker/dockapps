@@ -1,0 +1,49 @@
+.TH WMAPM 1 "15 December 1998" 
+.SH NAME
+WMAPM \- Dockable APM/Battery Monitor
+.SH SYNOPSIS
+.B wmapm
+[-h] [-display display] [-C CriticalLevel] [-L LowLevel] [-b BlinkRate] [-B BeepVolume] [-A T1 T2]
+.SH DESCRIPTION
+.PP
+WMAPM is an APM/Battery Monitor.  It is used to visually display and
+interpret details of APM/Battery status from the system's BIOS via
+Linux and FreeBSD kernels.
+.PP
+WMAPM is dockable using WindowMaker and AfterStep window-managers;
+under other window-managers, WMAPM appears as a nicely-sized 64x64
+application.
+.PP
+WMAPM provides the following information: battery or AC operation, battery
+life remaining (both in percentage and bar), time left until
+battery-depletion (Linux only), charging status, and battery status 
+(high - green, low - yellow, or critical - red) as reported by the
+the APM BIOS.
+.SH OPTIONS
+.TP
+.B \-h
+Display list of command-line options.
+.TP
+.B \-C CriticalPercent
+Set Critical threshold to specified (integer) percent.
+.TP
+.B \-L LowPercent
+Set Low threshold to specified (integer) percent.
+.TP
+.B \-b BlinkRate
+Set blink rate of red LED to given (float) value.
+.TP
+.B \-B BeepVolume
+Make wmapm beep at the specified volume (integer between -100 and 100) when critical level is reached.
+.TP
+.B \-A Time1 Time2
+Make wmapm warn all users via wall of Low and Critical status. Time1 and Time2 are times in seconds between updates
+when in Low and Critical States respectively.
+.TP
+.B \-display [display]
+Use the designated X display.
+.SH BUGS
+None are known
+.SH AUTHORS
+Chris D. Faulhaber <jedgar@speck.ml.org>
+Michael G. Henderson <mghenderson@lanl.gov>
