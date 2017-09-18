@@ -164,7 +164,7 @@
 #include <X11/X.h>
 #include <X11/xpm.h>
 #include "wmapm.h"
-#include "../wmgeneral/wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 #include "wmapm_master.xpm"
 #include "wmapm_master_LowColor.xpm"
 #include "wmapm_mask.xbm"

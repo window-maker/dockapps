@@ -3,9 +3,8 @@ CFLAGS = -O2 -Wall
 INCDIR = -I/usr/X11R6/include
 DESTDIR= /usr/X11R6
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lX11 -lXext
-OBJS   = wmapm.o \
-         ../wmgeneral/wmgeneral.o
+LIBS   = -lXpm -lX11 -lXext -ldockapp
+OBJS   = wmapm.o
 
 .c.o:
 	$(CC) $(COPTS) -D$(shell echo `uname -s`) -c $< -o $*.o $(INCDIR)

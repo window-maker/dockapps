@@ -3,7 +3,8 @@ Installation instructions for WMAPM.
 Requirements
 --------------------------------------------------------------
   WMAPM requires the Xpm library (which should be available on
-most machines with XFree86 installed).
+most machines with XFree86 installed) and libdockapp (which is
+available from http://dockapps.net/libdockapp).
   In order to compile WMAPM using the Makefile, GNU make must
 be used (FreeBSD users, the default BSD 'make' does not work).
 
