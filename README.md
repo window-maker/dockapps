@@ -127,3 +127,5 @@ have the source code lying around somewhere, please let us know!
 * wmstpu
 * wmsvn
 * wmweatherapp
+* wmisdncid
+* wmisdnmon
