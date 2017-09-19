@@ -1,0 +1,18 @@
+---
+layout: dockapp
+title: wmnetload
+permalink: wmnetload
+hosted: 0
+website: https://github.com/bbidulock/wmnetload
+dockapps: 78
+images:
+ - wmnetload.gif
+ - wmnetload2.gif
+categories: network
+---
+wmnetload is a network interface monitor dockapp for Window Maker. It is
+designed to fit well with dockapps like wmcpuload and wmmemmon. It tracks
+whether the interface is functioning and displays current network interface
+throughput, along with an auto-scaling graph of recent network activity (the
+graph separates upstream and downstream traffic load cleanly without resorting
+to colors).
