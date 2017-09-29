@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=wmix
+Comment=A mixer dockapp using the OSS mixer API
+Exec=wmix
+Categories=Audio;Mixer
+Keywords=sound;mixer;dockapp;window maker

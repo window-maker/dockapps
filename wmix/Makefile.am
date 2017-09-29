@@ -7,3 +7,6 @@ wmix_SOURCES = misc.c config.c mixer-alsa.c mixer-oss.c ui_x.c mmkeys.c wmix.c \
 
 dist_man_MANS = wmix.1x
 EXTRA_DIST = BUGS sample.wmixrc
+
+desktopdir = @datadir@/applications
+dist_desktop_DATA = wmix.desktop
