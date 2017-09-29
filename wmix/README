@@ -1,8 +1,8 @@
-                    _        _____  ___
-__      ___ __ ___ (_)_  __ |___ / /__ \    timecop@japan.co.jp
-\ \ /\ / / '_ ` _ \| \ \/ /   |_ \   _| |   skunk@mit.edu
- \ V  V /| | | | | | |>  <   ___) | / _/
-  \_/\_/ |_| |_| |_|_/_/\_\ |____(_)____|
+                    _
+__      ___ __ ___ (_)_  __        timecop@japan.co.jp
+\ \ /\ / / '_ ` _ \| \ \/ /        skunk@mit.edu
+ \ V  V /| | | | | | |>  <         current maintainer:
+  \_/\_/ |_| |_| |_|_/_/\_\          wmaker-dev@lists.windowmaker.org
 ______________________________________________________________________________
 
 * This is a complete dockapp mixer utilizing the OSS mixer API

@@ -1,4 +1,4 @@
-AC_INIT([wmix], [3.2], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmix], [3.3], [wmaker-dev@lists.windowmaker.org])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([wmix.c])
 

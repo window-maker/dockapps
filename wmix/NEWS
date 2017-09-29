@@ -1,3 +1,21 @@
+3.3 NEWS:
+Remove trailing whitespace.
+Fix a buffer overflow (how did this ever work?)
+Add native ALSA mixer support
+Improve the osd update code
+    - More logical relationship between volume level and bar length
+    - No unnecessary drawing
+    - Volume bar shrinks properly even when volume is lowered very quickly
+Draw osd only on the primary monitor if randr extensions are available
+Add a command line option for choosing a monitor for osd display
+Improve monitor selection code
+    - Default to monitor 0 instead of failing if a crazy number is given
+    - Allow monitor to be specified by osdmonitor in the config file
+Better handling of configuration defaults for the new settings
+Allow sound api to be specified in the config file
+Use autotools for build.
+Add desktop entry file.
+
 3.2 NEWS:
 Added support for volume control keys found on all modern keyboards.
 Added plenty of information to the man page on invocation and configuration.
