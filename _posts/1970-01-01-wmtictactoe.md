@@ -11,6 +11,6 @@ versions:
  -
   number: 1.1
   download: wmtictactoe-1.1-1.tar.gz
-categories: system
+categories: misc
 ---
 Tic Tac Toe on the dock!  By André Ribeiro Camargo.
