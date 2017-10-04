@@ -1,0 +1,12 @@
+
+cputnik - a simple cpu and memory monitor
+-------------------------------------------
+
+This is small WindowMaker dockapp which displays cpu and memory usage.
+
+Configuration can be changed via ~/.clay/cputnik.rc using text editor.
+
+Patches, sugesstions are welcome...
+
+   enjoy :)
+
