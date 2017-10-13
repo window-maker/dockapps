@@ -122,10 +122,11 @@ have the source code lying around somewhere, please let us know!
 * shutdown-gdm
 * weewar announcer
 * wmblobgest
-* wmmldmon
+* wmchart
 * wmgest
+* wmisdncid
+* wmisdnmon
+* wmmldmon
 * wmstpu
 * wmsvn
 * wmweatherapp
-* wmisdncid
-* wmisdnmon
