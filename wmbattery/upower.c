@@ -6,12 +6,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/wait.h>
 #include <upower.h>
 #include "apm.h"
 
 #define MAX_RETRIES 3
-
-static UpClient * up;
 
 struct context {
 	int current;
@@ -54,29 +56,11 @@ static void get_devinfo(gpointer device, gpointer result)
 	}
 }
 
-int upower_supported(void)
-{
-	up = up_client_new();
-
-	if (!up) {
-		return 0;
-	} else {
-		GPtrArray *devices = up_client_get_devices(up);
-
-		if (!devices) {
-			return 0;
-		} else {
-			g_ptr_array_unref(devices);
-			return 1;
-		}
-	}
-}
-
 /* Fill the passed apm_info struct. */
-int upower_read(int battery, apm_info *info)
+static int upower_read_child(int battery, apm_info *info)
 {
+	UpClient * up;
 	GPtrArray *devices = NULL;
-	static int retries = 0;
 
 	up = up_client_new();
 
@@ -90,15 +74,9 @@ int upower_read(int battery, apm_info *info)
 
 	devices = up_client_get_devices(up);
 
-	if (!devices) {
-		retries++;
-		if (retries < MAX_RETRIES)
-			return 0; /* fine immediately after hibernation */
-		else
-			return -1;
-	}
+	if (!devices)
+		return -1;
 
-	retries = 0;
 	info->battery_flags = 0;
 	info->using_minutes = 0;
 
@@ -143,6 +121,92 @@ int upower_read(int battery, apm_info *info)
 		info->battery_status = BATTERY_STATUS_ABSENT;
 	}
 
-	g_ptr_array_free(devices, TRUE);
+	g_ptr_array_unref(devices);
+	return 0;
+}
+
+static int upower_read_work(int battery, apm_info *info)
+{
+	int sp[2];
+	int child;
+	int status;
+	ssize_t cv;
+
+	if (socketpair(AF_UNIX, SOCK_DGRAM, 0, sp) < 0) {
+		fprintf(stderr, "socketpair: %s", strerror(errno));
+		goto fail;
+	}
+
+	child = fork();
+	if (child < 0) {
+		fprintf(stderr, "fork: %s", strerror(errno));
+		goto fail_close;
+	}
+
+	if (child == 0) {
+		/* child process does work, writes failure or result back to parent */
+		close(sp[0]);
+		status = upower_read_child(battery, info);
+		if (status < 0) {
+			cv = send(sp[1], &status, sizeof(status), 0);
+		}
+		else {
+			cv = send(sp[1], info, sizeof(*info), 0);
+		}
+		exit(cv < 0);
+	}
+	close(sp[1]);
+
+	child = waitpid(child, &status, 0);
+	if (child < 0) {
+		fprintf(stderr, "waitpid: %s status=%d", strerror(errno), status);
+		goto fail_close0;
+	}
+
+	cv = recv(sp[0], info, sizeof(*info), 0);
+	if (cv < 0) {
+		fprintf(stderr, "recv: %s", strerror(errno));
+		goto fail_close0;
+	}
+	else if (cv == sizeof(status)) {
+		memcpy(&status, info, sizeof(status));
+		goto fail_close0;
+	}
+	else if (cv != sizeof(*info)) {
+		fprintf(stderr, "recv: unexpected size %d", cv);
+		goto fail_close0;
+	}
+
+	close(sp[0]);
+	return 0;
+
+	fail_close:
+	close(sp[1]);
+	fail_close0:
+	close(sp[0]);
+	fail:
+	return -1;
+}
+
+int upower_supported(void)
+{
+	apm_info info;
+	return !(upower_read_work(1, &info) < 0);
+}
+
+
+int upower_read(int battery, apm_info *info)
+{
+	static int retries = 0;
+
+	if (upower_read_work(battery, info) < 0) {
+		retries++;
+		if (retries < MAX_RETRIES)
+			return 0; /* fine immediately after hibernation */
+		else
+			return -1;
+	}
+
+	retries = 0;
 	return 0;
 }
