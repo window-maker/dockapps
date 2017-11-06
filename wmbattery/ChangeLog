@@ -1,3 +1,7 @@
+wmbattery (2.51)
+  * Fix memory leak (Debian bug #816872).
+    Thanks to David Johnson <davijoh3@cisco.com> for the patch.
+
 wmbattery (2.50)
   * Free memory allocated by strdup.  This corrects a mistake in [1] noticed by
     Andrew Shadura [2].
