@@ -2,14 +2,10 @@
 layout: dockapp
 title: wmbatteries
 permalink: wmbatteries
-hosted: 1
-website: https://sourceforge.net/projects/wmbatteries/
+hosted: 0
+website: https://github.com/tarjanm-movidius/wmbatteries
 images:
  - wmbatteries.gif
-versions:
- -
-  number: 0.1.3
-  download: wmbatteries-0.1.3.tar.bz2
 categories: power
 ---
 wmbatteries - a dockapp based on wmacpiload.
