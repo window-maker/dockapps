@@ -89,7 +89,7 @@ enum {          /* don't change the order! */
     RED,
     MAGENTA,
     BROWN,
-    WHITE   
+    WHITE
 } led_colors;
 
 enum {

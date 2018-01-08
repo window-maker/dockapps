@@ -4,7 +4,7 @@ Wed Sep 15 00:29:10 EDT 1999
   s/([0-9]+)([0-9]{9})/$2/g := just gimme the last 9 digits... work on that.
   This forces a rollover on 9 digits, simultaneously causing correct operation
   999999999 out of 10000000000 times (assuming a 1 byte per second xfer rate and
-  an update delay of 1 second).  It also causes an error on the rollover (fixed 
+  an update delay of 1 second).  It also causes an error on the rollover (fixed
   after the next update.  This is not an elegant solution, but, it is
   satisfactory for now.
 

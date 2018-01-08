@@ -204,10 +204,10 @@ static double sun_ecliptic_longitude(time_t ssue)
 static void ecliptic_to_equatorial(double lambda, double beta,
 				   double *alpha, double *delta)
 /*
- *    double  lambda;            ecliptic longitude       
- *    double  beta;               ecliptic latitude       
- *    double *alpha;              (return) right ascension 
- *    double *delta;           (return) declination     
+ *    double  lambda;            ecliptic longitude
+ *    double  beta;               ecliptic latitude
+ *    double *alpha;              (return) right ascension
+ *    double *delta;           (return) declination
  */
 {
     double sin_e, cos_e;
@@ -227,9 +227,9 @@ static void ecliptic_to_equatorial(double lambda, double beta,
  */
 static double julian_date(int y, int m, int d)
 /*
- *     int y;                     year (e.g. 19xx)          
- *     int m;                      month (jan=1, feb=2, ...) 
- *     int d;                      day of month              
+ *     int y;                     year (e.g. 19xx)
+ *     int m;                      month (jan=1, feb=2, ...)
+ *     int d;                      day of month
  */
 {
     int A, B, C, D;

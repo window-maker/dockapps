@@ -6,7 +6,7 @@
 
 void region_init( Display *dpy );
 
-void region_add( Window win, int id, int x, int y, int w, int h, 
+void region_add( Window win, int id, int x, int y, int w, int h,
 				void (*mouse_in)(int), void (*mouse_out)(int), void (*mouse_click)(int, unsigned int) );
 
 void region_enable( Window win, int id );

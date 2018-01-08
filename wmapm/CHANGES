@@ -2,7 +2,7 @@ WMAPM changes.
 
       Version                   Description
 ---------------------------------------------------------------------------------------------
-   
+
 	3.1 -Released: Jan 11, 2000.
 			+ Added support for time left on FreeBSD 3.x/4.x
 			  (Chris D. Faulhaber <jedgar@fxp.org>)
@@ -12,87 +12,87 @@ WMAPM changes.
 
   	3.0	-Released: December 15, 1998.
    		 A Major overhaul performed. Changes include;
-  
-  			+ Added buttons to place laptop into "Suspend" (button labeled `Z') 
+
+  			+ Added buttons to place laptop into "Suspend" (button labeled `Z')
   			  or "Standby" (button labeled `S') mode. Buttons are separated
   			  by status LEDs to minimize accidentally clicking on the wrong
-  			  one. I used `Z' for suspend because its like the laptop is 
+  			  one. I used `Z' for suspend because its like the laptop is
   			  catching some Zs (i.e. going to sleep).
-  
+
   			+ Replaced the 3 rectangular red/yellow/green status indicators
-  			  with 3 small round LEDs and moved them to a viewport at the 
+  			  with 3 small round LEDs and moved them to a viewport at the
   			  bottom between the two buttons. This array of LEDs could in future
   			  be moved to a single LED in the main viewport to make room for
   			  other things at this location (perhaps more buttons if apm supports
   			  more things like truning off LCD, etc).
-  
+
   			+ Created user-definable LowLevel and CriticalLevel thresholds. Yellow LED
   			  comes on when Battery Percentage hits the LowLevel threshold. Red comes on
   			  when you reach CriticalLevel threshold.
-  
+
   			+ Made red status LED blink for extra noticability. User can define blink rate.
   			  A BlinkRate of 0 turns off blinking.
-  
+
   			+ Moved all of the other indicators into a single viewport above the
   			  buttons and status LEDs.
-  
+
   			+ Changed the red-dark-green colorbar to a banded blue LED bar that is tipped
   			  with a color indicating capacity level. The tip color goes through
   			  green-yellow-orange-red. A series of single-pixel dots is always present
   			  below the bar to indicate its range. This is needed now, because
   			  the bar is free-floating in the viewport. The single-pixel dots can be
   			  seen easily on an LCD - the type of monitor wmapm is likely to be used.
-  
+
   			+ Changed the `CHARGING' indicator with a single red `C' indicator at the
   			  upper left of the APP.
-  
+
   			+ Changed percentage indicator so that it can display 100%. (Used to only go
   			  up to 99% max).
-  
+
   			+ Changed time indicator to have a +/- sign depending on whether you are
   			  charging up or draining down. (+ means you have that much battery life
   			  left before its discharged. - means you have that much time to wait until
   			  the battery is fully charged.)
-  			
-  			+ Fixed a problem with very large "TimeLeft" values. If the time is greater 
-  			  than the maximum time displayable 99 hours and 59 minutes, a ---:-- is 
-  			  listed instead.  Since the time is based on measured charge/discharge rates, 
-  			  when the battery is doing neither, the time is essentially infinite. On my 
+
+  			+ Fixed a problem with very large "TimeLeft" values. If the time is greater
+  			  than the maximum time displayable 99 hours and 59 minutes, a ---:-- is
+  			  listed instead.  Since the time is based on measured charge/discharge rates,
+  			  when the battery is doing neither, the time is essentially infinite. On my
   			  (M Henderson's) laptop, the time left indicated 32766 when this happened.
      			  FreeBSD systems should also show a ---:-- indicator. Dont have FreeBSD though
   			  so I couldnt test it....
-  
+
   			+ Changed Makefile to suid the apm program. This is needed to allow users to
   			  invoke the standby and suspend capabilities in apm.
-  
+
   			+ Sped up the loop to catch button press and expose events. But the querying of
   			  /proc/apm is still done about once a second...
- 
+
                         + Added alert feature. User can use command line option -A <T1 T2> to turn on alerts
                           via wall. T1 and T2 are the time in seconds between updates for Low and Critical
                           status. By default the alerts are turned off.
-  
+
    			+ Various sundry code cleanups.
-  
-   
+
+
    	2.0	- Added FreeBSD support.
-   
+
    	1.3	- Fixed an annoying little problem with the the meter
   		  not properly lowering as the battery is depleted.
   		  Also did some code cleanup, enhanced the Makefile which
   		  now includes 'make install'.
   		  Released 980826
-  
+
    	1.2	- Fixed bug that showed 100% battery capacity
   		  as 90% (I never noticed since my battery seems
   		  to max out at 98%).
   		  Thanx to Brice Ruth <bruth@ltic.com> for pointing out/helping fix the
   		  100% bug (err...feature).
   		  Released 980731
-   
+
    	1.1	- Removed libapm dependency; tweaked some code.
   		  Released 980729
-  
+
    	1.0	- Initial release version.
   		  Released 980725
-  
+

@@ -1,7 +1,7 @@
 #!/bin/sh
 #just for the fun, solve the puzzle and put it on the clip :)
 
-if [ -x ./wmglobe ] 
+if [ -x ./wmglobe ]
 then
 WMG="nice ./wmglobe"
 else

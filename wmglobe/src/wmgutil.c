@@ -1,27 +1,27 @@
 /*     WMGlobe 1.3  -  All the Earth on a WMaker Icon
  *     copyright (C) 1998,99,2000,01 Jerome Dumonteil <jerome.dumonteil@linuxfr.org>
- * 
+ *
  *     This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- * 
+ *
  *     You should have received a copy of the GNU General Public License
  *     along with this program; if not, write to the Free Software
  *     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  ***************************************************************************/
-/* 
+/*
  * I used many functions  of wmgeneral.c ("openXwindow")
- * for the main function of wmglobe.c 
+ * for the main function of wmglobe.c
  * wmgeneral.c was taken from wmaker applet wmtune-1.0 :
  * Author: Martijn Pieterse (pieterse@xs4all.nl)
  *
- * wmglobe.c uses functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib 
+ * wmglobe.c uses functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib
  ***************************************************************************/
 
 #include "wmglobe.h"
@@ -64,7 +64,7 @@ static void move_dlat(int factor);
 static void move_dlong(int factor);
 
 /**************************************************************************
- *       TIME FUNCTIONS 
+ *       TIME FUNCTIONS
  *************************************************************************/
 
 struct timeval diftimev(struct timeval t1, struct timeval t2)
@@ -103,7 +103,7 @@ struct timeval getimev()
 }
 
 
-/*************************************************************************** 
+/***************************************************************************
  *     INIT FUNCTIONS
  *
  *  defaults, commandline
@@ -663,7 +663,7 @@ void cmdline(int argc, char *argv[])
 
 /****************************************************************************
  * X functions, mouse selection
- * 
+ *
  ****************************************************************************/
 
 
@@ -727,7 +727,7 @@ int CheckMouseRegion(int x, int y)
 
 /****************************************************************************
  * GRAPHIC : pixmap writing of letters & numbers
- * 
+ *
  ****************************************************************************/
 
 static void chiffre(int ch, int xx, int yy)
@@ -1166,7 +1166,7 @@ static void display_pos(double la, double lo)
 void rotation_terre(int x, int y, int lat_flag)
 {
 /*
- * earth rotate after (while) a clic                                                     
+ * earth rotate after (while) a clic
  */
     double mx, my;
     mx =

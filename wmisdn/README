@@ -9,9 +9,9 @@ What it is about and how to use it:
 
 wmisdn is a small isdn monitor that can be docked on the WindowMaker dock,
 the Afterstep Wharf or KDE2 kappdock, or used in any other window manager as a
-standalone window app. It gives some information about a specified ippp 
+standalone window app. It gives some information about a specified ippp
 device and lets the user control the connection.
-wmisdn supports all current connection modes of an ippp device 
+wmisdn supports all current connection modes of an ippp device
 (as of Kernel 2.2.10)
 
 off            - the ippp defice has no connection and dialing is disabled
@@ -24,11 +24,11 @@ voice          - ippp serving voice call
 modem          - ippp working as a modem device
 raw            - ippp working as a raw device
 
-Every of the 5 connection states that indicate a connection mode has two 
+Every of the 5 connection states that indicate a connection mode has two
 modes - incoming and outgoing.
 
 Additional information about the connection is displayed on a panel toggled
-by the small horizontal arrow located on the lower left corner of the main 
+by the small horizontal arrow located on the lower left corner of the main
 window. It containts the local and remote ip of the connection, the peer phone
 number and channel bundling information.
 
@@ -38,26 +38,26 @@ The connection can be controlled using the three buttons on the upper side of
 the main window. The can be toggled either using the small vertical arrow on
 the lower left corner or using the -lamps command line option (see below).
 The buttons are green, yellow and red. The yellow one cuts the current connection.
-The red one does the same, as well as disabling the dialing for the specified 
+The red one does the same, as well as disabling the dialing for the specified
 device. The green one triggers the dialing for the specified device.
 
 For those of you who find the lamps to be too small and hard to hit :)) - use
-the middle mouse button anywhere on the status display to trigger the 
+the middle mouse button anywhere on the status display to trigger the
 connection on/off.
 
 Channel bundling (aka MPPP):
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If the device shown is a master mppp device (for channel bundling), then the
 left mouse button is used to control the master connection and the right mouse
-button is used to control the slave connection, i.e. if ippp1 is shown and it 
+button is used to control the slave connection, i.e. if ippp1 is shown and it
 is the master device of ippp2, then pressing the green lamp with the left
 mouse button starts the connection of ippp1 (master) while the right mouse
 button starts the connection of ippp2 (slave). The same applies to the yellow
-lamp. 
+lamp.
 Please note that starting a slave connection while the master is offline
 automatically starts the master connection too. Respectively: stopping the
 master connection while the slave is on autimatically stops the slave too.
-Another useful thing to know is that you can start/stop your slave connection 
+Another useful thing to know is that you can start/stop your slave connection
 while the master connection is on without corrupting any downloads in progress.
 The only effect you notice is that your connection becomes faster or slower,
 and a small label "bundled" beneath the status display.
@@ -68,13 +68,13 @@ NOTE: You must have configured your ISDN system for channel bundling for these
 
 Multiple devices:
 ~~~~~~~~~~~~~~~~~
-As of version 1.7, wmisdn can handle different devices, which can be toggled 
+As of version 1.7, wmisdn can handle different devices, which can be toggled
 by pressing on the device name at the lower right corner of the main window.
 
 
 Compiling and installing:
 -------------------------
-If you downloaded wmisdn as a binary, just put it anywhere you want. I'd 
+If you downloaded wmisdn as a binary, just put it anywhere you want. I'd
 recommend /usr/local/bin, but it's only a matter of taste, as long as your
 system knows where it is. Please note, that as wmisdn highly depends on the
 kernel (especially on the isdn4linux subsystem), a downloaded binary may not
@@ -99,13 +99,13 @@ defualt setting 'auto' is assumed.
 
 The -device option tells which ippp devices should be monitored. The devices
 are expected as a comma separated list of device names with NO BLANKS in it,
-i.e. "-device ippp0,ippp1,ippp5". The order of the device names is not 
-important. On most systems the only configured device is ippp0 and this is 
-the default setting if none specified. 
-If you want to monitor a slave device (for mppp), you should also specify 
-it using this option. 
+i.e. "-device ippp0,ippp1,ippp5". The order of the device names is not
+important. On most systems the only configured device is ippp0 and this is
+the default setting if none specified.
+If you want to monitor a slave device (for mppp), you should also specify
+it using this option.
 
-The -lamps option causes the connection control buttons to be displayed 
+The -lamps option causes the connection control buttons to be displayed
 directly upon startup, as if some magic hand has pressed the
 vertical-arrow-button that toggles them. It is intended for users who need
 them permanently. If you have set the hangup timeouts and the default routes
@@ -116,7 +116,7 @@ better without them, they don't appear on the default display mode.
 The -font option can be used to specify a different font for the info window
 and the device display (the default font is the LED-builtin). The font name
 must follow the X11 font naming conventions and must be placed in quotation
-marks (take a look at xfontsel if you don't know the font names on your 
+marks (take a look at xfontsel if you don't know the font names on your
 system).
 
 The -usescripts and -path options deal with the scripting feature of wmisdn.
@@ -145,16 +145,16 @@ uname -a
 as well as the name of the Linux distribution you are using.
 
 If you are missing features like real time packet flow graphs or load
-diagrams then take a look at wmifs or wmnd. These are really fine applets 
-that implement these features for any network device, not only ippp and 
-since they work fine and look good, I'm not planning to implement the same 
+diagrams then take a look at wmifs or wmnd. These are really fine applets
+that implement these features for any network device, not only ippp and
+since they work fine and look good, I'm not planning to implement the same
 things in wmisdn.
 
 Credits:
 --------
 
 Klaus Steven     - he did a lot of work for bringing 1.7 to 1.8, especially
-                   an importang bugfix for wmisdn/aplha and the scripting 
+                   an importang bugfix for wmisdn/aplha and the scripting
                    feature, and gave me good ideas and advises throughout
 Tom Berger       - for helping me with the very early version of wmisdn (0.1 :))
                    and giving good ideas (Dialing mode, etc)
@@ -174,7 +174,7 @@ I should keep maintaining it.
 ---------------------------------
 
                                     Tasho
-									
+
                                     tasho.kaletha@gmx.de
-									
-									
+
+

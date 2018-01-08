@@ -23,6 +23,6 @@ clean:
 
 install:: wmapm
 	install -s -m 0755 wmapm $(DESTDIR)/bin
-	install    -m 0644 wmapm.1 $(DESTDIR)/man/man1 
+	install    -m 0644 wmapm.1 $(DESTDIR)/man/man1
 	chmod +s $(DESTDIR)/bin/wmapm
 

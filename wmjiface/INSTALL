@@ -3,7 +3,7 @@ Installation instructions for wmjiface.
 Requirements
 ---------------------------------------------------------------------------
 wmjiface requires the Xpm library (which should be available on most machines
-with XFree86 installed).   You'll also need some version of perl 5+ running. 
+with XFree86 installed).   You'll also need some version of perl 5+ running.
 
 
 Installation

@@ -1,13 +1,13 @@
-This file concerns the usage of scripts with wmisdn. 
+This file concerns the usage of scripts with wmisdn.
 ----------------------------------------------------
 
 
 NOTE: The wmisdn scripting is ONLY for ADVANCED unix users. I can't give any
       support for user-made scripts.
-	  
 
-Ok, if you're still here, then you know what you're doing, so I won't go into 
-details explaining well known things about Linux. 
+
+Ok, if you're still here, then you know what you're doing, so I won't go into
+details explaining well known things about Linux.
 
 As of version 1.8, wmisdn can use scripts to control the connection instead of
 direct ioctl calls. If you want to use scripts, then put the "-usescripts"
@@ -21,8 +21,8 @@ They must be located in /etc/isdn/, or in a directory specified by the
 "-path" command line option.
 
 The first two are called when the green resp. yellow lamp is pressed. These
-two scripts recieve two parameters. The first one is the name of the 
-ippp-device and the second is the script mode. 
+two scripts recieve two parameters. The first one is the name of the
+ippp-device and the second is the script mode.
 
 The script mode is an integer, which corresponds to a line in the file
 wmisdn-scriptmodes. Every line in this file defines one script mode - the first
@@ -40,12 +40,12 @@ update web-page
 where the wmisdn-up script uses the second command line argument to differ
 between these modes (0,1 or 2 resp.). The -up/-down scripts should contain
 the line
-/usr/sbin/isdnctrl dial $1 
+/usr/sbin/isdnctrl dial $1
 or
 /usr/sbin/isdnctrl hangup $1
 respectively.
 
-I might consider putting some scripts on my web-page in the near future. I'd 
+I might consider putting some scripts on my web-page in the near future. I'd
 also wellcome any user-made working scripts.
 
 Good luck and have fun!

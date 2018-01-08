@@ -1,21 +1,21 @@
 /*     WMGlobe 1.3  -  All the Earth on a WMaker Icon
  *     copyright (C) 1998,99,2000,01 Jerome Dumonteil <jerome.dumonteil@linuxfr.org>
- * 
+ *
  *     This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- * 
+ *
  *     You should have received a copy of the GNU General Public License
  *     along with this program; if not, write to the Free Software
  *     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  ***************************************************************************/
-/* it uses some functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib 
+/* it uses some functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib
  ***************************************************************************/
 
 
@@ -131,7 +131,7 @@ double delay, time_multi;
 /*
  * struct timeval delta_tim, last_tim, next_tim, render_tim, base_tim,
  *  vec_tim;
- * 
+ *
  * time_t beg_time, ini_time,t1901;
  */
 struct timeval tlast, tnext, trend, tdelay, tini, tbase;
@@ -139,7 +139,7 @@ time_t tsunpos;
 
 int sens, fun, funx, funy, oknimap, mratiox, mratioy, gotoscr;
 
-int typecadre, p_type, use_nightmap, use_default_nightmap, use_nmap_ini, 
+int typecadre, p_type, use_nightmap, use_default_nightmap, use_nmap_ini,
 firstTime, stoprand, do_something, iop;
 
 double v_lat, v_long, old_dvlat, old_dvlong, dv_lat, dv_long;
@@ -205,7 +205,7 @@ void setViewPos(double lat, double lon);
 int ripalpha(RImage * image);
 RImage*
 RScaleImage(RImage *image, unsigned new_width, unsigned new_height);
-void 
+void
 RReleaseImage(RImage *image);
 
 #endif

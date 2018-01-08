@@ -47,7 +47,7 @@ char            *fonts_xpm[], *leds_xpm[];
  *
  ******************************************************************************/
 
-void dcl_get_xpm (XpmIcon *wmgen, char *pixmap_bytes[]) 
+void dcl_get_xpm (XpmIcon *wmgen, char *pixmap_bytes[])
 {
 XWindowAttributes   attributes;
 int                 err;
@@ -59,7 +59,7 @@ int                 err;
 
     err = XpmCreatePixmapFromData(display, Root, pixmap_bytes, &(wmgen->pixmap),
                     &(wmgen->mask), &(wmgen->attributes));
-    
+
     if (err != XpmSuccess) {
         fprintf(stderr, "ERROR: Not enough free colorcells.\n");
         exit(1);
@@ -73,7 +73,7 @@ int                 err;
  *
  ******************************************************************************/
 
-Pixel dcl_get_color (char *name) 
+Pixel dcl_get_color (char *name)
 {
 XColor              color;
 XWindowAttributes   attributes;
@@ -96,7 +96,7 @@ XWindowAttributes   attributes;
  *
  ******************************************************************************/
 
-int dcl_flush_expose (Window w) 
+int dcl_flush_expose (Window w)
 {
 XEvent  dummy;
 int     i=0;
@@ -113,11 +113,11 @@ int     i=0;
  *
  ******************************************************************************/
 
-void dcl_redraw_window (void) 
+void dcl_redraw_window (void)
 {
-    
+
     dcl_flush_expose(iconwin);
-    XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 
+    XCopyArea(display, wmgen.pixmap, iconwin, NormalGC,
                 0,0, wmgen.attributes.width, wmgen.attributes.height, 0,0);
     dcl_flush_expose(win);
     XCopyArea(display, wmgen.pixmap, win, NormalGC,
@@ -130,11 +130,11 @@ void dcl_redraw_window (void)
  *
  ******************************************************************************/
 
-void dcl_redraw_window_xy (int x, int y) 
+void dcl_redraw_window_xy (int x, int y)
 {
-   
+
     dcl_flush_expose(iconwin);
-    XCopyArea(display, wmgen.pixmap, iconwin, NormalGC, 
+    XCopyArea(display, wmgen.pixmap, iconwin, NormalGC,
                 x,y, wmgen.attributes.width, wmgen.attributes.height, 0,0);
     dcl_flush_expose(win);
     XCopyArea(display, wmgen.pixmap, win, NormalGC,
@@ -147,7 +147,7 @@ void dcl_redraw_window_xy (int x, int y)
  *
  ******************************************************************************/
 
-void dcl_add_mouse_region (int index, int left, int top, int right, int bottom) 
+void dcl_add_mouse_region (int index, int left, int top, int right, int bottom)
 {
     if (index < MAX_MOUSE_REGION) {
         mouse_region[index].enable = 1;
@@ -164,7 +164,7 @@ void dcl_add_mouse_region (int index, int left, int top, int right, int bottom)
  *
  ******************************************************************************/
 
-int dcl_check_mouse_region (int x, int y) 
+int dcl_check_mouse_region (int x, int y)
 {
 int i, found;
 
@@ -265,7 +265,7 @@ unsigned long   gcm;
 int             dummy=0, i, flags;
 
     for (i=1; argv[i]; i++) {
-        if (!strcmp(argv[i], "-display")) 
+        if (!strcmp(argv[i], "-display"))
             display_name = argv[i+1];
     }
 
@@ -297,10 +297,10 @@ int             dummy=0, i, flags;
 
     mysizehints.width = 64;
     mysizehints.height = 64;
-        
+
     win = XCreateSimpleWindow(display, Root, mysizehints.x, mysizehints.y,
                 mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
-    
+
     iconwin = XCreateSimpleWindow(display, win, mysizehints.x, mysizehints.y,
                 mysizehints.width, mysizehints.height, borderwidth, fore_pix, back_pix);
 
@@ -323,7 +323,7 @@ int             dummy=0, i, flags;
     XSetWMName(display, win, &name);
 
     /* Create GC for drawing */
-    
+
     gcm = GCForeground | GCBackground | GCGraphicsExposures;
     gcv.foreground = fore_pix;
     gcv.background = back_pix;
@@ -408,7 +408,7 @@ void* dcl_prefs_openfile (char *filename, int openmode)
         prefs_filehandle = fopen (filename, "rb");
     else if (openmode == P_WRITE)
         prefs_filehandle = fopen (filename, "wb");
-    
+
     return prefs_filehandle;
 }
 
@@ -501,20 +501,20 @@ static char prfline[MAX_LINE_LEN];
 int i;
 char c;
 
-    fseek (prefs_filehandle, 0, SEEK_SET);  
-    
+    fseek (prefs_filehandle, 0, SEEK_SET);
+
     while (!feof (prefs_filehandle)) {
         i = 0;
 
         while (((c = fgetc (prefs_filehandle)) != '\n') && c!= EOF && i < MAX_LINE_LEN)
             prfline[i++] = c;
-            
+
         prfline[i] = '\0';
-        
+
         if (prfline[0] != '#')
             if (!strncmp (tagname, prfline, strlen (tagname))) break;
     }
-        
+
     return prfline;
 }
 
@@ -536,7 +536,7 @@ int i;
     if ((valpos = strchr (dcl_prefs_get_line_with_tag (tagname), '='))) {
         while((c = valpos[i+1]) != '\0' && i < MAX_VALUE_LEN) valuestr[i++] = c;
     }
-    
+
     valuestr[i] = '\0';
     return valuestr;
 }
@@ -605,7 +605,7 @@ int len;
                 (int)(len-maxlength), src);
         len = maxlength;
     }
-      
+
     memcpy(dest, src, len);
     dest[len] = 0;
     return dest;
@@ -639,7 +639,7 @@ int src_len, dest_len;
                 (int)(src_len + dest_len - maxlength), src);
         src_len = maxlength - dest_len;
     }
-      
+
     memcpy(&dest[dest_len], src, src_len);
     dest[dest_len + src_len] = 0;
     return dest;
@@ -687,7 +687,7 @@ int k, font_line, font_width, font_height;
         if(toupper(z)==ctable[k]) {
 
             dcl_copy_font_xpm_area(k*font_width, font_line, font_width, font_height, x, y);
-            break; 
+            break;
 
         }
 
@@ -707,7 +707,7 @@ char a;
 
     if(length == -1)
         len = strlen(string);
-    else 
+    else
         len = length;
 
     if(len <= 0 || len > MAX_STRING_LEN) {
@@ -745,7 +745,7 @@ char a;
 
     return true;
 }
-    
+
 
 /******************************************************************************
  *

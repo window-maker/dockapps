@@ -1,9 +1,9 @@
 WMAPM-3.1 release
 --------------------------------------------------------------
-Authors....: wmapm was originally written by Chris D. Faulhaber 
+Authors....: wmapm was originally written by Chris D. Faulhaber
 	     <jedgar@fxp.org>. Version 3.0 modifications due to
 	     Michael G. Henderson <mghenderson@lanl.gov>
-		
+
 Credits...:  Rik Faith <faith@cs.unc.edu> for his implementation
              of libapm with respect to Linux APM support.
              Martijm Pieterse <pieterse@xs4all.nl> and
@@ -16,17 +16,17 @@ Thanx to..:  Brice Ruth <bruth@ltic.com> for the corrections
              Timecop <timecop@linuxwarez.com> for corrections to
              fix the meter mismatch.
 	     William M. Perry - Added Solaris support.
-	     
+
 Also, thanks to the following for various
 bug fixes, patches and/or suggestions;
 
-	     ObiTuarY 
+	     ObiTuarY
 	     MATSUBAYASHI 'Shaolin' Kohji"
 	     Fumihiko Nishio
-	     
 
 
-  
+
+
 Description
 --------------------------------------------------------------
 WMAPM monitors the APM statistics through the APM support in
@@ -56,11 +56,11 @@ BUGS		Things you don't want to know ;-)
 CHANGES 	Description of changes.
 COPYING		GNU General Public License Version 2.
 TODO		Stuff I've planned for future WMAPM releases.
-	
+
 
 Bugs
 --------------------------------------------------------------
-If you discover any bugs in this software, please send a 
+If you discover any bugs in this software, please send a
 bugreport to jedgar@fxp.org and describe the problem as
 as detailed as you can.
 
@@ -68,7 +68,7 @@ as detailed as you can.
 Copyright
 --------------------------------------------------------------
 WMAPM.app is copyright (c)1998,1999 by Chris D. Faulhaber and
-licensed through the GNU General Public License. Read the 
+licensed through the GNU General Public License. Read the
 COPYING file for the complete GNU license.
 
 

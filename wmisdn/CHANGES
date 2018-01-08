@@ -24,7 +24,7 @@
 ---
 
 * separated the look&feel code from the main code. Creating different
-  skins is now much easier. Expect them in the next version :)) (sorry, I'm 
+  skins is now much easier. Expect them in the next version :)) (sorry, I'm
   completely out of time for now).
 
 1.6

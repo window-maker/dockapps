@@ -2,13 +2,13 @@
  *	wmapm-3.1
  *
  *		A WindowMaker dockable application that allows laptop users
- *		to graphically monitor the status of their power source. 
+ *		to graphically monitor the status of their power source.
  *		(I.e. whether or not AC or battery is in use as well as
  *		 how long it will take to drain or charge the battery.)
  *
  *              Originally written (and copyrighted under GPL) by
  * 		Chris D. Faulhaber <jedgar@fxp.org>. Version 3.0
- * 		is an extensively modified version of version 2.0 
+ * 		is an extensively modified version of version 2.0
  *		by Michael G. Henderson <mghenderson@lanl.gov>.
  *
  *
@@ -30,7 +30,7 @@
  * 	Portions of code derived from:
  *   		apm/apmd/libapm : (c) 1996 Rickard E. Faith (r.faith@ieee.org)
  *   		wmmon           : (c) 1998 Martijn Pieterse (pieterse@xs4all.nl) and
- *                              Antoine Nulle (warp@xs4all.nl) 
+ *                              Antoine Nulle (warp@xs4all.nl)
  *
  * 	Thanx to Timecop <timecop@linuxwarez.com> for pointing out/helping to
  *	Toggle fix the meter mismatch.
@@ -53,18 +53,18 @@
  * 			  on laptops. There are a *lot* of laptops out there that are only
  *			  8-bit. Use the "-l" command-line option to invoke.
  *
- * 
+ *
  *	3.0	-Released: December 15, 1998.
  * 		 A Major overhaul performed. Changes include;
  *
- *			+ Added buttons to place laptop into "Suspend" (button labeled `Z') 
+ *			+ Added buttons to place laptop into "Suspend" (button labeled `Z')
  *			  or "Standby" (button labeled `S') mode. Buttons are separated
  *			  by status LEDs to minimize accidentally clicking on the wrong
- *			  one. I used `Z' for suspend because its like the laptop is 
+ *			  one. I used `Z' for suspend because its like the laptop is
  *			  catching some Zs (i.e. going to sleep).
  *
  *			+ Replaced the 3 rectangular red/yellow/green status indicators
- *			  with 3 small round LEDs and moved them to a viewport at the 
+ *			  with 3 small round LEDs and moved them to a viewport at the
  *			  bottom between the two buttons. This array of LEDs could in future
  *			  be moved to a single LED in the main viewport to make room for
  *			  other things at this location (perhaps more buttons if apm supports
@@ -97,11 +97,11 @@
  *			  charging up or draining down. (+ means you have that much battery life
  *			  left before its discharged. - means you have that much time to wait until
  *			  the battery is fully charged.)
- *			
- *			+ Fixed a problem with very large "TimeLeft" values. If the time is greater 
- *			  than the maximum time displayable 99 hours and 59 minutes, a ---:-- is 
- *			  listed instead.  Since the time is based on measured charge/discharge rates, 
- *			  when the battery is doing neither, the time is essentially infinite. On my 
+ *
+ *			+ Fixed a problem with very large "TimeLeft" values. If the time is greater
+ *			  than the maximum time displayable 99 hours and 59 minutes, a ---:-- is
+ *			  listed instead.  Since the time is based on measured charge/discharge rates,
+ *			  when the battery is doing neither, the time is essentially infinite. On my
  *			  (M Henderson's) laptop, the time left indicated 32766 when this happened.
  *   			  FreeBSD systems should also show a ---:-- indicator. Dont have FreeBSD though
  *			  so I couldnt test it....
@@ -118,9 +118,9 @@
  *
  * 			+ Various sundry code cleanups.
  *
- * 
+ *
  * 	2.0	- Added FreeBSD support.
- * 
+ *
  * 	1.3	- Fixed an annoying little problem with the the meter
  *		  not properly lowering as the battery is depleted.
  *		  Also did some code cleanup, enhanced the Makefile which
@@ -133,7 +133,7 @@
  *		  Thanx to Brice Ruth <bruth@ltic.com> for pointing out/helping fix the
  *		  100% bug (err...feature).
  *		  Released 980731
- * 
+ *
  * 	1.1	- Removed libapm dependency; tweaked some code.
  *		  Released 980729
  *
@@ -156,7 +156,7 @@
 #include <sys/file.h>
 #include <sys/ioctl.h>
 #include <machine/apm_bios.h>
-#endif 
+#endif
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -204,16 +204,16 @@ float  	CAlertRate     		= 120.0; /* send alert every 2 minutes when Critical */
 
 
 
-/*  
- *   main  
+/*
+ *   main
  */
 int main(int argc, char *argv[]) {
 
 
     struct my_apm_info 	my_cur_info;
-    int                	time_left, 
-			hour_left, 
-			min_left, 
+    int                	time_left,
+			hour_left,
+			min_left,
 			digit;
 #ifdef FreeBSD
     struct apm_info 	temp_info;
@@ -234,7 +234,7 @@ int main(int argc, char *argv[]) {
 
 
 
-  
+
     /*
      *  Parse any command line arguments.
      */
@@ -242,7 +242,7 @@ int main(int argc, char *argv[]) {
 
     BlinkRate = (BlinkRate >= 0.0) ? BlinkRate : -1.0*BlinkRate;
     UpdateRate = (UpdateRate >= 0.0) ? UpdateRate : -1.0*UpdateRate;
-   
+
 
     nMax = (int)( 1.0e6/(2.0*UpdateRate*DELAY)  );
     mMax = (BlinkRate > 0.0) ? (int)( 1.0e6/(2.0*BlinkRate*DELAY)  ) : nMax;
@@ -257,9 +257,9 @@ int main(int argc, char *argv[]) {
 
 
 
-    /*  
-     *  Check for APM support 
-     */   
+    /*
+     *  Check for APM support
+     */
     if (!apm_exists()) {
 #ifdef Linux
         fprintf(stderr, "No APM support in kernel\n");
@@ -271,7 +271,7 @@ int main(int argc, char *argv[]) {
 
 
 
-   
+
     if (UseLowColorPixmap)
         openXwindow(argc, argv, wmapm_master_LowColor, wmapm_mask_bits, wmapm_mask_width, wmapm_mask_height);
     else
@@ -279,7 +279,7 @@ int main(int argc, char *argv[]) {
 
 
 
-   
+
     /*
      *     Loop until we die...
      */
@@ -292,9 +292,9 @@ int main(int argc, char *argv[]) {
 
 	/*
 	 *  Only process apm info only every nMax cycles of this
-	 *  loop. We run it faster to catch the xevents like button 
+	 *  loop. We run it faster to catch the xevents like button
 	 *  presses and expose events, etc...
-	 *  
+	 *
 	 *  DELAY is set at 0.00625 seconds, so process apm info
 	 *  every 1.25 seconds...
 	 *
@@ -321,35 +321,35 @@ int main(int argc, char *argv[]) {
 	    my_cur_info.battery_percentage = (int)temp_info.ai_batt_life;
 	    my_cur_info.battery_time       = (int)temp_info.ai_batt_time;
 #endif
-	
 
 
 
 
 
-	    /* 
+
+	    /*
 	     *   Check AC status.
 	     */
 	    switch (my_cur_info.ac_line_status) {
 
-	        case 1:  	
+	        case 1:
 			/*
 			 *   AC on-line. I.e. we are "plugged-in".
 			 */
 			copyXPMArea(68, 6, 26, 7, 31, 35);
 	       		break;
-	        default: 	
+	        default:
 			/*
 			 *   AC off-line. I.e. we are using battery.
 			 */
 			copyXPMArea(68, 20, 26, 7, 31, 35);
 
 	    }
-	
 
 
 
-	    /* 
+
+	    /*
 	     *    Paste up the default charge status and time
 	     */
 	    copyXPMArea(104,  6,  5, 7, 6, 7);
@@ -371,9 +371,9 @@ int main(int argc, char *argv[]) {
 	        copyXPMArea(75, 81, 1, 2, 17,  9);
 	        copyXPMArea(75, 81, 1, 2, 17, 12);
 
-	    }  
+	    }
 
-		
+
 
 
 
@@ -389,11 +389,11 @@ int main(int argc, char *argv[]) {
 
 
 
-	
-	    /* 
+
+	    /*
 	     *  Paste up the "Time Left". This time means:
-	     *  
-	     *         If not charging: Time left before battery drains to 0% 
+	     *
+	     *         If not charging: Time left before battery drains to 0%
 	     *         If charging:     Time left before battery gets to maximum
 	     *
 	     */
@@ -408,7 +408,7 @@ int main(int argc, char *argv[]) {
 		/*
 		 *  If battery_time is too large, it likely means that there is
 		 *  no charging or discharging going on. So just display a "null"
-		 *  indicator (--:--). 
+		 *  indicator (--:--).
 		 *
 		 */
 		copyXPMArea(83, 106, 41, 9, 15, 7);
@@ -432,12 +432,12 @@ int main(int argc, char *argv[]) {
 	        copyXPMArea((min_left % 10) * 7 + 5, 93, 7, 9, 50, 7); 		/* Show 1's (min)   */
 
 	    }
-	
 
 
 
 
-	    /* 
+
+	    /*
 	     *   Do Battery Percentage.
  	     */
 	    copyXPMArea(76, 81, 19, 7, 7, 34);            		/* Show Default % */
@@ -460,9 +460,9 @@ int main(int argc, char *argv[]) {
 		 */
 		k = my_cur_info.battery_percentage * 49 / 100;
 		copyXPMArea(66, 42, k, 9, 7, 21);
-		if (k%2) 
+		if (k%2)
 		    copyXPMArea(66+k-1, 52, 1, 9, 7+k-1, 21);
-		else     
+		else
 		    copyXPMArea(66+k, 52, 1, 9, 7+k, 21);
 	    }
 
@@ -471,7 +471,7 @@ int main(int argc, char *argv[]) {
 	} else {
 
 	    /*
-	     *  Update the counter. When it hits nMax, we will 
+	     *  Update the counter. When it hits nMax, we will
 	     *  process /proc/apm information again.
 	     */
 	    ++n;
@@ -533,7 +533,7 @@ int main(int argc, char *argv[]) {
 	} else {
 
 	    /*
-	     *  Update the counter. 
+	     *  Update the counter.
 	     */
 	    ++m;
 
@@ -559,7 +559,7 @@ int main(int argc, char *argv[]) {
 	        } else {
 
 	            /*
-	             *  Update the counter. 
+	             *  Update the counter.
 	             */
 	            ++s;
 
@@ -578,7 +578,7 @@ int main(int argc, char *argv[]) {
 	        } else {
 
 	            /*
-	             *  Update the counter. 
+	             *  Update the counter.
 	             */
 	            ++r;
 
@@ -589,7 +589,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	/* 
+	/*
 	 *   Process any pending X events.
 	 */
         while(XPending(display)){
@@ -610,9 +610,9 @@ int main(int argc, char *argv[]) {
 
 
 
-	
-	/* 
-	 *  Redraw and wait for next update 
+
+	/*
+	 *  Redraw and wait for next update
 	 */
 	RedrawWindow();
 	usleep(DELAY);
@@ -644,12 +644,12 @@ int main(int argc, char *argv[]) {
 
 /*
  *  This routine handles button presses. Pressing the 'S' button
- *  invokes 'apm -S' to place the machine into standby mode. And 
- *  pressing the 'Z' buton invokes 'apm -s' to place the machine 
+ *  invokes 'apm -S' to place the machine into standby mode. And
+ *  pressing the 'Z' buton invokes 'apm -s' to place the machine
  *  into suspend mode.
  *
- *  Note: in order for users other than root to be able to run 
- *        'apm -s' and 'apm -S', you need to make apm suid (i.e. 
+ *  Note: in order for users other than root to be able to run
+ *        'apm -s' and 'apm -S', you need to make apm suid (i.e.
  *        run 'chmod +s /usr/bin/apm' as root).  This will allow
  *        'normal' users to execute apm with root privilages.
  *
@@ -704,10 +704,10 @@ void pressEvent(XButtonEvent *xev){
 
 
 
-/*  
- *	apm_exists()  
+/*
+ *	apm_exists()
  *			- Check to see if /proc/apm exists...
- *	
+ *
  */
 int apm_exists()
 {
@@ -728,8 +728,8 @@ int apm_exists()
 
 
 
-/*  
- *  	apm_read()  
+/*
+ *  	apm_read()
  *			- Read in the information found in /proc/apm...
  *
  */
@@ -740,7 +740,7 @@ int apm_read(struct my_apm_info *i){
     char 	 units[10];
     char 	 buffer[100];
     int  	 retcode = 0;
-   
+
     /*
      *  Open /proc/apm for reading
      */
@@ -774,7 +774,7 @@ int apm_read(struct my_apm_info *i){
     /*
      *  Old Style
      */
-    if (i->driver_version[0] == 'B') { 
+    if (i->driver_version[0] == 'B') {
 	strcpy((char *)i->driver_version, "pre-0.7");
 	i->apm_version_major  = 0;
 	i->apm_version_minor  = 0;
@@ -788,7 +788,7 @@ int apm_read(struct my_apm_info *i){
 
 
 
-      
+
 	sscanf(buffer, "BIOS version: %d.%d", &i->apm_version_major, &i->apm_version_minor);
 
 	fgets(buffer, sizeof(buffer) - 1, str);
@@ -804,13 +804,13 @@ int apm_read(struct my_apm_info *i){
 		if (!strncmp(buffer+4, "off line", 8))     i->ac_line_status = 0;
 		else if (!strncmp(buffer+4, "on line", 7)) i->ac_line_status = 1;
 		else if (!strncmp(buffer+4, "on back", 7)) i->ac_line_status = 2;
-	    
+
 		fgets(buffer, sizeof(buffer) - 1, str);
 		if (!strncmp(buffer+16, "high", 4))        i->battery_status = 0;
 		else if (!strncmp(buffer+16, "low", 3))    i->battery_status = 1;
 		else if (!strncmp(buffer+16, "crit", 4))   i->battery_status = 2;
 		else if (!strncmp(buffer+16, "charg", 5))  i->battery_status = 3;
-	    
+
 		fgets(buffer, sizeof(buffer) - 1, str);
 		if (strncmp(buffer+14, "unknown", 7))      i->battery_percentage = atoi(buffer + 14);
 
@@ -825,14 +825,14 @@ int apm_read(struct my_apm_info *i){
 	    }
 	}
     }
-   
 
 
-    /* 
+
+    /*
      *    Take care of battery percentages > 100%
      */
     if (i->battery_percentage > 100) i->battery_percentage = -1;
-   
+
     fclose(str);
     return retcode;
 
@@ -842,7 +842,7 @@ int apm_read(struct my_apm_info *i){
 int apm_read(apm_info_t temp_info) {
 
     int fd;
-   
+
     if ( (fd = open(APMDEV, O_RDWR)) < 0){
 
 	return(1);
@@ -861,7 +861,7 @@ int apm_read(apm_info_t temp_info) {
 
 }
 # endif
-#endif 
+#endif
 
 #ifdef SunOS
 int apm_read(struct my_apm_info *i) {
@@ -874,15 +874,15 @@ int apm_read(struct my_apm_info *i) {
 		perror("open");
 		exit(1);
 	}
- 
+
  	if (ioctl(fd,BATT_STATUS,&info) < 0) return(1);
-  
+
  	close(fd);
- 	
+
  	i->battery_percentage = info.capacity;
  	i->battery_time = info.discharge_time;
  	i->using_minutes = 0;
- 
+
  	/*  convert to internal status:
  	 *
  	 *  0 = high
@@ -908,7 +908,7 @@ int apm_read(struct my_apm_info *i) {
  		i->battery_status = 2;
  		break;
  	}
- 
+
  	switch(info.charge) {
  	    case DISCHARGE:				/* Battery is discharging (i.e. in use) */
  		i->ac_line_status = 0;
@@ -919,61 +919,61 @@ int apm_read(struct my_apm_info *i) {
  		i->ac_line_status = 1;
  		break;
  	}
- 
+
  	if (i->battery_percentage > 100) i->battery_percentage = 100;
- 
+
  	/*  Not sure what else we can fill in right now.
  	 *  Relevant information is:
  	 *
  	 *  info.id_string = type of battery (internal, external, etc)
 	 *  info.total = total capacity (mWhrs)
  	 */
- 
+
  	return(0);
- 	
+
 }
-#endif 
+#endif
 
 
 
-/* 
- *   ParseCMDLine()  
+/*
+ *   ParseCMDLine()
  */
 void ParseCMDLine(int argc, char *argv[]) {
 char *cmdline;
 int  i,j;
 char puke[20];
-   
+
     for (i = 1; i < argc; i++) {
 	cmdline = argv[i];
 
 	if (cmdline[0] == '-') {
 	    switch(cmdline[1]) {
-	  	case 'd': 
+	  	case 'd':
 			++i;
 			break;
-	  	case 'A': 
+	  	case 'A':
 			Alert = 1;
 			LAlertRate = atof(argv[++i]);
 			CAlertRate = atof(argv[++i]);
 			break;
-	  	case 'b': 
+	  	case 'b':
 			BlinkRate = atof(argv[++i]);
 			break;
-	  	case 'C': 
+	  	case 'C':
 			CriticalLevel = atoi(argv[++i]);
 			break;
-	  	case 'L': 
+	  	case 'L':
 			LowLevel = atoi(argv[++i]);
 			break;
-	  	case 'l': 
+	  	case 'l':
 			UseLowColorPixmap = 1;
 			break;
-	  	case 'B': 
+	  	case 'B':
 			Beep = 1;
 			Volume = atoi(argv[++i]);
 			break;
-	  	default:  
+	  	default:
 			printf("\nwmapm version: %s\n", WMAPM_VERSION);
 	    		printf("usage:\n");
 	    		printf("\t-display <display>\tUse alternate display.\n");

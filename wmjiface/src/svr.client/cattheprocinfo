@@ -15,7 +15,7 @@ sub print_stuff {
 
 
 ## Run the farqin thing:
-$bn = `basename $0`; 
+$bn = `basename $0`;
 `killall -v -q -1 $bn`;
 
 if (fork) {

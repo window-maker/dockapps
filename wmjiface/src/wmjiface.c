@@ -32,7 +32,7 @@ void show_help() {
 
 void setup(int argc, char** argv) {
     //char c;
-    int  c;  // thanx to a PowerPC user named Carine Bournez 
+    int  c;  // thanx to a PowerPC user named Carine Bournez
     int  i = 0;
 
     while( -1 != (c = getopt(argc, argv, "hoADua:b:s:l:1:2:"))) {
@@ -81,20 +81,20 @@ void do_print_one_dev(char iface[5], char io, int bps_, int row) {
     jprintf(CYAN, ":", io);
 
     if(bps_ >= 0) {
-        if(bps_ > 1000) { display = (bps_)/1024.0; letter  = 'k'; } 
+        if(bps_ > 1000) { display = (bps_)/1024.0; letter  = 'k'; }
         else            { display = bps_;          letter  = ' '; }
 
-        display += 0.5;  /* Round Up */ 
+        display += 0.5;  /* Round Up */
 
-             if(!bps_)      {                    color = BLUE;   } 
-        else if(bps_ < hw1) { /* 2000 default */ color = GREEN;  } 
-        else if(bps_ < hw2) { /* 4000 default */ color = YELLOW; } 
+             if(!bps_)      {                    color = BLUE;   }
+        else if(bps_ < hw1) { /* 2000 default */ color = GREEN;  }
+        else if(bps_ < hw2) { /* 4000 default */ color = YELLOW; }
         else                {                    color = RED;    }
 
-        if(letter=='k' && display<100) { 
-            jpprintf(6, row, color, "%.1f", display); 
-        } else { 
-            jpprintf(6, row, color, "%.0f", display); 
+        if(letter=='k' && display<100) {
+            jpprintf(6, row, color, "%.1f", display);
+        } else {
+            jpprintf(6, row, color, "%.0f", display);
         }
 
         jprintf(ORANGE, "%c", letter);
@@ -124,7 +124,7 @@ void do_update() {
 
     while(1 + fscanf(f, "%s%i%i", iface, &bps_in, &bps_out)) {
         if(use_expavg) {
-            exp_avg[IN][c] = 
+            exp_avg[IN][c] =
                 (Fal0d(bps_in)*bps_in) + (1-Fal0d(bps_in))*exp_avg[IN][c];
             exp_avg[OUT][c] =
                 (Fal0d(bps_out)*bps_out) + (1-Fal0d(bps_out))*exp_avg[OUT][c];
@@ -142,9 +142,9 @@ void do_update() {
         } else {
             if(row > 5) break;
             do_print_one_dev(
-                iface, 
-                (out) ? 'o':'i', 
-                (out) ? toshow_out : toshow_in, 
+                iface,
+                (out) ? 'o':'i',
+                (out) ? toshow_out : toshow_in,
                 row++
             );
         }
@@ -157,7 +157,7 @@ void do_update() {
 void do_expose() {
     do_update();
 }
-    
+
 void do_button_release() {
     do_update();
 }

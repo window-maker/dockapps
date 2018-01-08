@@ -17,7 +17,7 @@ $staname="$ENV{HOME}/.wmjiface.stat.$ppid";
 @statusFiles=`ls $ENV{HOME}/.wmjiface.stat.* 2>/dev/null`;
 
 foreach (@statusFiles) {
-    s/^.*[.]wmjiface[.]stat[.]//; 
+    s/^.*[.]wmjiface[.]stat[.]//;
     chomp;
     system("rm $ENV{HOME}/.wmjiface.stat.$_") if not ( -d "/proc/$_" );
 }
@@ -66,8 +66,8 @@ sub write_stat() {
     printf sta "%i\n", $now;
 
     foreach (keys %statsc) {
-        printf sta "%s:%i:%i:%i:%i:%i\n", 
-            $_, 
+        printf sta "%s:%i:%i:%i:%i:%i\n",
+            $_,
             $statsc{$_}{bytesi},
             $statsc{$_}{byteso},
             $statsc{$_}{packetsi},
@@ -80,7 +80,7 @@ sub write_stat() {
 sub read_stat() {
     open sta, "$staname" or return ();
 
-    $then = <sta>; 
+    $then = <sta>;
     chomp $then;
 
     while(<sta>) {
@@ -113,12 +113,12 @@ sub read_proc() {
         s/([0-9]+)([0-9]{9})/$2/g;
 
         ($face,
-           $bytesi, $packetsi, $errsi, $dropi, $fifoi, $frame,           $compressedi,   $multicast, 
+           $bytesi, $packetsi, $errsi, $dropi, $fifoi, $frame,           $compressedi,   $multicast,
            $byteso, $packetso, $errso, $dropo, $fifoo, $colls, $carrier, $compressedo
         ) = split ":";
 
         if($devfilesexist !~ /^$/ and $face =~ /ppp/) {
-            $tosser = `grep $face /var/run/*.dev /dev/null | head -1`; 
+            $tosser = `grep $face /var/run/*.dev /dev/null | head -1`;
             chomp $tosser;
             $tosser =~ s/^[^-]*-//;
             $tosser =~ s/.dev:.*//;

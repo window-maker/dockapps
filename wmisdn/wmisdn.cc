@@ -1,17 +1,17 @@
 /*   wmisdn - an ISDN monitor applet for windowmaker/afterstep
  *   Copyright (c) 2000-2001 Tasho Statev Kaletha
  *   tasho.kaletha@gmx.de
- * 
- * 
- *   This program is free software; you can redistribute it and/or modify        
- *   it under the terms of the GNU General Public License as published by        
- *   the Free Software Foundation; either version 2 of the License, or           
- *   (at your option) any later version.                                         
- *                                                                               
- *   This program is distributed in the hope that it will be useful,             
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of              
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               
- *   GNU General Public License for more details.                                
+ *
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
  */
 
 
@@ -271,19 +271,19 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 	readScriptModes();
-	
+
 	initXWin(argc, argv);
-   
+
 	loadPixmaps();
 	createRegions();
 	disp = XCreatePixmap(dpy, Root, MainWinDim.w, MainWinDim.h, DefaultDepth(dpy,DefaultScreen(dpy)));
-	disp_info = XCreatePixmap(dpy, Root, InfoWinDim.w, InfoWinDim.h, DefaultDepth(dpy,DefaultScreen(dpy)));	
+	disp_info = XCreatePixmap(dpy, Root, InfoWinDim.w, InfoWinDim.h, DefaultDepth(dpy,DefaultScreen(dpy)));
 
 	XGCValues gcv;
 	unsigned long gcm;
 	gcm = GCGraphicsExposures|GCBackground;
-	gcv.graphics_exposures = True; 
-	gcv.background = getColor( WindowBackgroundColor );	
+	gcv.graphics_exposures = True;
+	gcv.background = getColor( WindowBackgroundColor );
 	if( strlen(txtfont) != 0 )
 	{
 		textFont = XLoadQueryFont( dpy, txtfont );
@@ -305,8 +305,8 @@ int main(int argc, char *argv[])
 	if(!(wmaker || ushape))
 		XSetClipMask(dpy, WinGC, dmsk);
 	else
-		XShapeCombineMask(dpy, Win[activeWin], ShapeBounding, 0, 0, dmsk, ShapeSet);		
-	
+		XShapeCombineMask(dpy, Win[activeWin], ShapeBounding, 0, 0, dmsk, ShapeSet);
+
 	XSetClipOrigin(dpy, WinGC, 0, 0);
 	XSetClipMask(dpy, WinGC, None);
 
@@ -322,12 +322,12 @@ int main(int argc, char *argv[])
 			switch(event.type){
 				case ButtonPress : pressEvent(&event.xbutton); break;
 				case MotionNotify : motionEvent(&event.xmotion); break;
-				
+
 				case ClientMessage :
 					if((Atom)event.xclient.data.l[0]==WM_DELETE_WINDOW)
 						finished=true;
 					break;
-				
+
 				case Expose : exposeEvent( &event.xexpose ); break;
 			}
 		}
@@ -407,43 +407,43 @@ void freeXWin()
 void loadPixmaps()
 {
 	createPixmap(cover_xpm, &coverPixmap, &dmsk );
-	createPixmap(dialing_xpm, &dialingPixmap, NULL );		
-	createPixmap(unknown_xpm, &unknownPixmap, NULL );		
-	createPixmap(disabled_xpm, &disabledPixmap, NULL );			
+	createPixmap(dialing_xpm, &dialingPixmap, NULL );
+	createPixmap(unknown_xpm, &unknownPixmap, NULL );
+	createPixmap(disabled_xpm, &disabledPixmap, NULL );
 	createPixmap(off_xpm, &offPixmap, NULL );
 
 	createPixmap(incoming_xpm, &incomingPixmap, NULL );
 	createPixmap(outgoing_xpm, &outgoingPixmap, NULL );
 	createPixmap(bundling_xpm, &bundlingPixmap, NULL );
-	createPixmap(bundled_xpm, &bundledPixmap, NULL );	
-	createPixmap(slave_xpm, &slavePixmap, NULL );		
-	
+	createPixmap(bundled_xpm, &bundledPixmap, NULL );
+	createPixmap(slave_xpm, &slavePixmap, NULL );
+
 	createPixmap(offline_xpm, &statusPixmaps[ISDN_USAGE_NONE], NULL );
-	createPixmap(raw_xpm, &statusPixmaps[ISDN_USAGE_RAW], NULL );	
-	createPixmap(modem_xpm, &statusPixmaps[ISDN_USAGE_MODEM], NULL );		
-	createPixmap(online_xpm, &statusPixmaps[ISDN_USAGE_NET], NULL );	
-	createPixmap(voice_xpm, &statusPixmaps[ISDN_USAGE_VOICE], NULL );		
-	createPixmap(fax_xpm, &statusPixmaps[ISDN_USAGE_FAX], NULL );	
-	
+	createPixmap(raw_xpm, &statusPixmaps[ISDN_USAGE_RAW], NULL );
+	createPixmap(modem_xpm, &statusPixmaps[ISDN_USAGE_MODEM], NULL );
+	createPixmap(online_xpm, &statusPixmaps[ISDN_USAGE_NET], NULL );
+	createPixmap(voice_xpm, &statusPixmaps[ISDN_USAGE_VOICE], NULL );
+	createPixmap(fax_xpm, &statusPixmaps[ISDN_USAGE_FAX], NULL );
+
 	createPixmap(lamps_xpm, &lampsPixmap, NULL );
 	createPixmap(info_sw_xpm, &infoSWPixmap, NULL );
-	createPixmap(lamps_sw_xpm, &lampsSWPixmap, NULL );	
-	loadLeds( leds_xpm, &ledsPixmap, InfoTextColor, WindowBackgroundColor );	
+	createPixmap(lamps_sw_xpm, &lampsSWPixmap, NULL );
+	loadLeds( leds_xpm, &ledsPixmap, InfoTextColor, WindowBackgroundColor );
 }
 
 void freePixmaps()
 {
-	XFreePixmap(dpy, coverPixmap);	
-	XFreePixmap(dpy, dialingPixmap);		
+	XFreePixmap(dpy, coverPixmap);
+	XFreePixmap(dpy, dialingPixmap);
 	XFreePixmap(dpy, unknownPixmap);
-	XFreePixmap(dpy, disabledPixmap);	
+	XFreePixmap(dpy, disabledPixmap);
 	XFreePixmap(dpy, offPixmap);
-	
+
 	XFreePixmap(dpy, incomingPixmap);
 	XFreePixmap(dpy, outgoingPixmap);
 	XFreePixmap(dpy, bundlingPixmap);
 	XFreePixmap(dpy, bundledPixmap);
-	XFreePixmap(dpy, slavePixmap);	
+	XFreePixmap(dpy, slavePixmap);
 
 	for( int i=ISDN_USAGE_NONE; i < ISDN_USAGE_FAX; i++ )
 		XFreePixmap( dpy, statusPixmaps[i] );
@@ -451,14 +451,14 @@ void freePixmaps()
 	XFreePixmap(dpy, ledsPixmap);
 	XFreePixmap(dpy, lampsPixmap);
 	XFreePixmap(dpy, infoSWPixmap);
-	XFreePixmap(dpy, lampsSWPixmap);	
+	XFreePixmap(dpy, lampsSWPixmap);
 }
 
 void createMainWin( Window *win )
 {
 	*win = XCreateSimpleWindow(dpy, Root, 10, 10, MainWinDim.w, MainWinDim.h,0,0,0);
 
-	XClassHint classHint;	
+	XClassHint classHint;
 	classHint.res_name = NAME;
 	classHint.res_class = CLASS;
 	XSetClassHint(dpy, *win, &classHint);
@@ -471,8 +471,8 @@ void createInfoPanel( Window *win )
 	XSizeHints shints;
 	shints.flags = PPosition;
 	XSetWMNormalHints( dpy, *win, &shints );
-	
-	XClassHint classHint;	
+
+	XClassHint classHint;
 	classHint.res_name = "Info";
 	classHint.res_class = CLASS;
 	XSetClassHint(dpy, *win, &classHint);
@@ -485,9 +485,9 @@ void createRegions()
 	region_add( Win[activeWin], ID_LAMP_GREEN, LampsRect[ID_LAMP_GREEN].pos.x, LampsRect[ID_LAMP_GREEN].pos.y, LampsRect[ID_LAMP_GREEN].dim.w, LampsRect[ID_LAMP_GREEN].dim.h, mouseInLamp, mouseOutLamp, mouseClickLamp );
 	region_add( Win[activeWin], ID_LAMP_YELLOW, LampsRect[ID_LAMP_YELLOW].pos.x, LampsRect[ID_LAMP_YELLOW].pos.y, LampsRect[ID_LAMP_YELLOW].dim.w, LampsRect[ID_LAMP_YELLOW].dim.h, mouseInLamp, mouseOutLamp, mouseClickLamp );
 	region_add( Win[activeWin], ID_LAMP_RED, LampsRect[ID_LAMP_RED].pos.x, LampsRect[ID_LAMP_RED].pos.y, LampsRect[ID_LAMP_RED].dim.w, LampsRect[ID_LAMP_RED].dim.h, mouseInLamp, mouseOutLamp, mouseClickLamp );
-	
+
 	region_add( Win[activeWin], ID_SWITCH_INFO, InfoSWRect.pos.x, InfoSWRect.pos.y, InfoSWRect.dim.w, InfoSWRect.dim.h, mouseInInfoSw, mouseOutInfoSw, mouseClickInfoSw );
-	region_add( Win[activeWin], ID_SWITCH_LAMPS, LampsSWRect.pos.x, LampsSWRect.pos.y, LampsSWRect.dim.w, LampsSWRect.dim.h, mouseInLampsSw, mouseOutLampsSw, mouseClickLampsSw );	
+	region_add( Win[activeWin], ID_SWITCH_LAMPS, LampsSWRect.pos.x, LampsSWRect.pos.y, LampsSWRect.dim.w, LampsSWRect.dim.h, mouseInLampsSw, mouseOutLampsSw, mouseClickLampsSw );
 
 	region_add( Win[activeWin], ID_DEVICE, DeviceRect.pos.x, DeviceRect.pos.y, DeviceRect.dim.w, DeviceRect.dim.h, mouseInDevice, mouseOutDevice, mouseClickDevice );
 	region_add( Win[activeWin], ID_SWITCH_STATUS, StatusPixmapRect.pos.x, StatusPixmapRect.pos.y, StatusPixmapRect.dim.w, StatusPixmapRect.dim.h, mouseInStatusSw, mouseOutStatusSw, mouseClickStatusSw );
@@ -528,12 +528,12 @@ void printUsage( char *prog_name )
 	fprintf( stderr, "   -w                     use WithdrawnState (for WindowMaker)\n" );
 	fprintf( stderr, "   -s                     shaped window\n" );
 	fprintf( stderr, "   -display display       select target display (see X manual pages)\n" );
-	fprintf( stderr, "   -font font             select the font for displaying status information\n" );	
+	fprintf( stderr, "   -font font             select the font for displaying status information\n" );
 	fprintf( stderr, "   -dialmode mode         select dial mode for offline mode (auto or manual)\n" );
 	fprintf( stderr, "   -device device         select ippp devices to monitor\n" );
 	fprintf( stderr, "                           (a list of comma-separated device names is expected containing __no blanks__)\n" );
 	fprintf( stderr, "   -lamps                 activate the line control switches upon startup\n" );
-	fprintf( stderr, "   -usescripts            use user scripts for dialing/hanging up instead of direct ioctl calls\n" );	
+	fprintf( stderr, "   -usescripts            use user scripts for dialing/hanging up instead of direct ioctl calls\n" );
 	fprintf( stderr, "   -path path             select directory with the up-/down-scripts\n\n" );
 }
 
@@ -546,7 +546,7 @@ void parseDeviceNames( char *name_list )
 {
 	char *ptr1, *ptr2;
 	int i;
-	
+
 	ptr1 = name_list;
 
 	for( i = 0; i < ISDN_MAX_CHANNELS; i++ )
@@ -556,7 +556,7 @@ void parseDeviceNames( char *name_list )
 			ptr2 = &name_list[strlen(name_list)];
 		strncpy( devices[i], ptr1, ptr2-ptr1 );
 		devices[i][ptr2-ptr1] = 0;
-		devices[i+1][0] = 0;		
+		devices[i+1][0] = 0;
 		if( !validIppp(devices[i]) )
 			fprintf( stderr, "Warning : \"%s\" doesn't seem to be a valid ippp device. wmisdn may not work properly\n", devices[i] );
 		if( ptr2[0] == 0 )
@@ -564,12 +564,12 @@ void parseDeviceNames( char *name_list )
 		ptr1 = ptr2+1;
 	}
 }
-	
+
 
 bool scanArgs(int argc, char *argv[])
 {
 	bool dialmode_set = false;
-	
+
 	for(int i=1;i<argc;i++)
 	{
 		if(strcmp(argv[i],"-h")==0 || strcmp(argv[i],"-help")==0 || strcmp(argv[i],"--help")==0)
@@ -622,7 +622,7 @@ bool scanArgs(int argc, char *argv[])
 				else if( strcmp(argv[i], "manual")==0 )
 					dialmode = ISDN_NET_DM_MANUAL;
 				else {
-					fprintf( stderr, "Unknown dial mode \"%s\"\n", argv[i] ); 
+					fprintf( stderr, "Unknown dial mode \"%s\"\n", argv[i] );
 					return false;
 				}
 				dialmode_set = true;
@@ -659,7 +659,7 @@ bool scanArgs(int argc, char *argv[])
 			fprintf( stderr, "Unknown option \"%s\"\n", argv[i] );
 			return false;
 		}
-			
+
 	}
 	if( !dialmode_set )
 		isdnInitDefaultDialmode();
@@ -669,7 +669,7 @@ bool scanArgs(int argc, char *argv[])
 		devices[1][0] = 0;
 		selected_device = 0;
 	}
-	
+
 	return true;
 }
 
@@ -690,7 +690,7 @@ void readScriptModes()
 		scriptmodestrings = (char **)malloc( sizeof(char*) );
 		scriptmodestrings[0] = (char *)malloc( sizeof("go online") );
 		strcpy(scriptmodestrings[0], "go online" );
-		if( f != NULL ) 
+		if( f != NULL )
 			fclose(f);
 		return;
 	}
@@ -708,7 +708,7 @@ void readScriptModes()
 	} while( fgets(buf,sizeof(buf),f) != NULL );
 	fclose(f);
 }
-		
+
 void advanceScriptMode()
 {
 	scriptmode++;
@@ -717,7 +717,7 @@ void advanceScriptMode()
 	update();
 }
 
-/* press event 
+/* press event
  * - if a lamp is pressed then the corresponding actions are taken.
  * - outside a lamp the extended view is turned on or off
  */
@@ -781,7 +781,7 @@ inline void drawInfoSwitch( int active )
 	int pixmap_index = (infoPanelActive ? 2:0) + active;
 	int offset_x = pixmap_index * InfoSWRect.dim.w;
 	XCopyArea( dpy, infoSWPixmap, disp, WinGC, offset_x, 0, InfoSWRect.dim.w, InfoSWRect.dim.h, InfoSWRect.pos.x, InfoSWRect.pos.y );
-	repaint( Win[activeWin], InfoSWRect.pos.x, InfoSWRect.pos.y, InfoSWRect.dim.w, InfoSWRect.dim.h );	
+	repaint( Win[activeWin], InfoSWRect.pos.x, InfoSWRect.pos.y, InfoSWRect.dim.w, InfoSWRect.dim.h );
 }
 
 void mouseInInfoSw( int id )
@@ -809,10 +809,10 @@ void mouseClickInfoSw( int id, unsigned int button )
 
 inline void drawLampsSwitch( int active )
 {
-	int pixmap_index = (lampsActive ? 2:0) + active;	
+	int pixmap_index = (lampsActive ? 2:0) + active;
 	int offset_x = pixmap_index * LampsSWRect.dim.w;
 	XCopyArea( dpy, lampsSWPixmap, disp, WinGC, offset_x, 0, LampsSWRect.dim.w, LampsSWRect.dim.w, LampsSWRect.pos.x, LampsSWRect.pos.y );
-	repaint( Win[activeWin], LampsSWRect.pos.x, LampsSWRect.pos.y, LampsSWRect.dim.w, LampsSWRect.dim.h );		
+	repaint( Win[activeWin], LampsSWRect.pos.x, LampsSWRect.pos.y, LampsSWRect.dim.w, LampsSWRect.dim.h );
 }
 
 void mouseInLampsSw( int id )
@@ -837,7 +837,7 @@ void activateLamps( bool active )
 	{
 		drawLamp( 0, INACTIVE );
 		drawLamp( 1, INACTIVE );
-		drawLamp( 2, INACTIVE );	
+		drawLamp( 2, INACTIVE );
 		region_enable( Win[activeWin], ID_LAMP_GREEN );
 		region_enable( Win[activeWin], ID_LAMP_YELLOW );
 		region_enable( Win[activeWin], ID_LAMP_RED );
@@ -861,13 +861,13 @@ void drawSwitches()
 void mouseInDevice( int id )
 {
 	drawDevice(ACTIVE);
-	repaint( Win[activeWin], 0, 0, MainWinDim.w, MainWinDim.h );	
+	repaint( Win[activeWin], 0, 0, MainWinDim.w, MainWinDim.h );
 }
 
 void mouseOutDevice( int id )
 {
 	drawDevice(INACTIVE);
-	repaint( Win[activeWin], 0, 0, MainWinDim.w, MainWinDim.h );		
+	repaint( Win[activeWin], 0, 0, MainWinDim.w, MainWinDim.h );
 }
 
 void mouseClickDevice( int id, unsigned int button )
@@ -905,17 +905,17 @@ void getWindowPosition( Window win, int *x, int *y )
 {
 	XWindowAttributes winAttr;
 	Window dummy;
-	
+
 	XGetWindowAttributes( dpy, win, &winAttr );
-	XTranslateCoordinates( dpy, win, winAttr.root, 
-						  -winAttr.border_width, -winAttr.border_width, 
+	XTranslateCoordinates( dpy, win, winAttr.root,
+						  -winAttr.border_width, -winAttr.border_width,
 						  x, y, &dummy );
 }
 
 void getWindowDimension( Window win, int *w, int *h )
 {
 	XWindowAttributes winAttr;
-	XGetWindowAttributes( dpy, win, &winAttr );	
+	XGetWindowAttributes( dpy, win, &winAttr );
 	*w = winAttr.width;
 	*h = winAttr.height;
 }
@@ -928,11 +928,11 @@ void repaint( Window win, int x, int y, int w, int h )
 	else if( win == Win[2] )
 		src = disp_info;
 	else {
-		syslog( LOG_DEBUG, "Oops! Unknown window given to repaint\n" ); 
+		syslog( LOG_DEBUG, "Oops! Unknown window given to repaint\n" );
 		return;
 	}
 	//bade code end
-	
+
 	XCopyArea( dpy, src, win, WinGC, x, y, w, h, x, y );
 	XFlush(dpy);
 }
@@ -968,14 +968,14 @@ void update()
 		repaint( Win[activeWin], 0, 0, MainWinDim.w, MainWinDim.h );
 	}
 	updateInfoPanel();
-	repaint( Win[2], 0, 0, InfoWinDim.w, InfoWinDim.h );			
+	repaint( Win[2], 0, 0, InfoWinDim.w, InfoWinDim.h );
 }
 
-/* set the appropriate pixmap on the main window */	
+/* set the appropriate pixmap on the main window */
 void setStatusPixmap()
 {
 	Pixmap statusPixmap, directionPixmap;
-	
+
 	if( curStatus.usage > ISDN_USAGE_NONE && curStatus.usage <= ISDN_USAGE_FAX )
 	{
 		statusPixmap = statusPixmaps[curStatus.usage];
@@ -989,13 +989,13 @@ void setStatusPixmap()
 		}
 	}
 	else {
-		switch( curStatus.usage ) 
+		switch( curStatus.usage )
 		{
 			case STAT_OFF 		: statusPixmap = offPixmap; break;
-			case ISDN_USAGE_NONE: statusPixmap = statusPixmaps[ISDN_USAGE_NONE]; break;			
+			case ISDN_USAGE_NONE: statusPixmap = statusPixmaps[ISDN_USAGE_NONE]; break;
 			case STAT_DISABLED 	: statusPixmap = disabledPixmap; break;
 			case STAT_DIALING	: statusPixmap = dialingPixmap; break;
-			case STAT_UNKNOWN	: statusPixmap = unknownPixmap; break; 
+			case STAT_UNKNOWN	: statusPixmap = unknownPixmap; break;
 			default : syslog( LOG_DEBUG, "Ooops! curStatus.usage has an invalid value\n" ); statusPixmap = 0;
 		}
 		directionPixmap = 0;
@@ -1003,9 +1003,9 @@ void setStatusPixmap()
 	if( statusPixmap != 0 )
 		XCopyArea(dpy, statusPixmap, disp, WinGC, StatusPixmapRect.pos.x, StatusPixmapRect.pos.y, StatusPixmapRect.dim.w, StatusPixmapRect.dim.h, StatusPixmapRect.pos.x, StatusPixmapRect.pos.y);
 	if( directionPixmap != 0 )
-		XCopyArea(dpy, directionPixmap, disp, WinGC, DirectionPixmapRect.pos.x, DirectionPixmapRect.pos.y, DirectionPixmapRect.dim.w, DirectionPixmapRect.dim.h, DirectionPixmapRect.pos.x, DirectionPixmapRect.pos.y);	
+		XCopyArea(dpy, directionPixmap, disp, WinGC, DirectionPixmapRect.pos.x, DirectionPixmapRect.pos.y, DirectionPixmapRect.dim.w, DirectionPixmapRect.dim.h, DirectionPixmapRect.pos.x, DirectionPixmapRect.pos.y);
 }
-	
+
 /* update the info panel */
 void updateInfoPanel()
 {
@@ -1026,11 +1026,11 @@ void updateInfoPanel()
 		getRemoteIP( &a, &b, &c, &d );
 		sprintf( line, "remote ip: %d.%d.%d.%d", a, b, c, d );
 		drawText( line, disp_info, 5, 35 );
-	} 
+	}
 	else if( curStatus.usage == STAT_OFF )
 			drawText( "dialing disabled", disp_info, 5, 5 );
 	else if( curStatus.usage == STAT_DISABLED )
-		drawText( "device disabled", disp_info, 5, 5 );	
+		drawText( "device disabled", disp_info, 5, 5 );
 	else if( curStatus.usage == ISDN_USAGE_NONE )
 	{
 		drawText( "not connected", disp_info, 5, 5 );
@@ -1061,12 +1061,12 @@ unsigned long getColor( const char *colorname )
 	color.flags=DoRed | DoGreen | DoBlue;
 	XAllocColor(dpy, winattr.colormap, &color);
 	return color.pixel;
-}      
+}
 
 void createPixmap(char *data[], Pixmap *image, Pixmap *mask )
 {
 	XpmAttributes pixatt;
-	
+
 	pixatt.exactColors=false;
 	pixatt.closeness=40000;
 	pixatt.valuemask=XpmExactColors | XpmCloseness | XpmSize;
@@ -1077,18 +1077,18 @@ void loadLeds( char *data[], Pixmap *image, const char *led_color, const char *b
 {
 	XpmAttributes pixatt;
 	unsigned long color[4];
-	
+
 	color[0] = mixColor(led_color, 0, back_color, 100);
 	color[1] = mixColor(led_color, 100, back_color, 0);
 	color[2] = mixColor(led_color, 60, back_color, 40);
 	color[3] = mixColor(led_color, 25, back_color, 75);
-	
+
 	XpmColorSymbol xpmcsym[4]={{"led_color_back",     NULL, color[0] },
 	                           {"led_color_high", NULL, color[1]},
 	                           {"led_color_med",  NULL, color[2]},
 	                           {"led_color_low",  NULL, color[3]}};
-	
-	
+
+
 	pixatt.numsymbols = 4;
 	pixatt.colorsymbols = xpmcsym;
 	pixatt.exactColors = false;
@@ -1155,15 +1155,15 @@ void drawText( char *text, Pixmap dst, int x, int y, const char *color )
 void drawLamp( int lamp, int active )
 {
 	int disp_x, disp_y, lamp_x=0;
-	
+
 	disp_x = LampsRect[lamp].pos.x;
 	disp_y = LampsRect[lamp].pos.y;
-	
+
 	/* find the offset of the lamp pixmap in the pixmap of all lamps */
 	for( int i=0; i < lamp; i++ )
 		lamp_x += LampsRect[i].dim.w*2;
-	lamp_x += active*LampsRect[lamp].dim.w;		
-	
+	lamp_x += active*LampsRect[lamp].dim.w;
+
 	XCopyArea( dpy, lampsPixmap, disp, WinGC, lamp_x, 0, LampsRect[lamp].dim.w, LampsRect[lamp].dim.h, disp_x, disp_y );
 }
 
@@ -1178,7 +1178,7 @@ void isdnInitDefaultDialmode()
 		dialmode = cfg.dialmode;
 	else
 		dialmode = ISDN_NET_DM_AUTO;  /* for the sake of cleanness, we'll get an error msg soon anyway */
-	if( dialmode == ISDN_NET_DM_OFF ) 
+	if( dialmode == ISDN_NET_DM_OFF )
 		dialmode = ISDN_NET_DM_AUTO;  /* use auto as default dialmode if device disabled */
 
 	seteuid( getuid() );
@@ -1194,13 +1194,13 @@ int isdn_ioctl( int func, void *arg, const char *errmsg, const char *filename )
 			syslog( LOG_NOTICE, "Couldn't open %s : %m\n", filename );
 		return -1;
 	}
-	
+
 	int res = ioctl( fd, func, arg );
 	if( res == -1 && errmsg != NULL )
-		syslog( LOG_NOTICE, "%s : %m\n", errmsg ); 
+		syslog( LOG_NOTICE, "%s : %m\n", errmsg );
 
 	close(fd);
-	
+
 	return res;
 }
 
@@ -1208,12 +1208,12 @@ inline void isdn_dial()
 {
 	if( !usescripts )
 		isdn_ioctl( IIOCNETDIL, devices[selected_device], "Couldn't dial" );
-	else 
+	else
 	{
-	
+
 		int handle;
 		char command[MAX_ARG_LEN];
-		
+
 		strcpy(command, scriptpath);
 		strcat(command, "/");
 		strcat(command, SCRIPT_UP);
@@ -1225,22 +1225,22 @@ inline void isdn_dial()
 			system(command);
 		}
 	}
-	update();	
+	update();
 }
 
 inline void isdn_hangup()
 {
 	if( !usescripts )
 		isdn_ioctl( IIOCNETHUP, devices[selected_device], "Couldn't hang up" );
-	else 
+	else
 	{
 		int handle;
 		char command[MAX_ARG_LEN];
-		
+
 		strcpy(command, scriptpath);
 		strcat(command, "/");
 		strcat(command, SCRIPT_DOWN);
-		
+
 		if ((handle = open(command, O_RDONLY)) == -1)
 			syslog( LOG_NOTICE, "Couldn't open %s : %m\n", SCRIPT_DOWN );
 		else {
@@ -1313,7 +1313,7 @@ inline void manage_slave()
 	}
 }
 
-/* react upon a lamp press 
+/* react upon a lamp press
  * - green opens a connection and sets the device in dial_auto mode
  * - yellow ends the connection and sets the device in dial_auto mode
  * - red ends the connection and sets the device in dial_off mode
@@ -1322,9 +1322,9 @@ inline void manage_slave()
 inline void _pressGreenLamp( int button )
 {
 	/* middle button - just change the script mode */
-	if( button == 2 ) 
+	if( button == 2 )
 	{
-		advanceScriptMode(); 
+		advanceScriptMode();
 		return;
 	}
 	/* online request of slave - add a channel to the master */
@@ -1338,19 +1338,19 @@ inline void _pressGreenLamp( int button )
 		/* if device is dialing or online - ignore button */
 		if( curStatus.usage == STAT_DIALING || curStatus.usage == ISDN_USAGE_NET )
 			return;
-		if( curStatus.usage == STAT_OFF ) 
-			isdn_enable(); 
-		isdn_dial(); 
+		if( curStatus.usage == STAT_OFF )
+			isdn_enable();
+		isdn_dial();
 	}
 }
 
 inline void _pressYellowLamp( int button )
 {
-	if( curStatus.usage == ISDN_USAGE_NONE ) 
+	if( curStatus.usage == ISDN_USAGE_NONE )
 		return;
 	if( curStatus.usage == STAT_OFF )
-		isdn_enable();			
-	else 
+		isdn_enable();
+	else
 	{
 		if( (button == 3) || (button == 1) && (curStatus.mpppMode == master) )
 			isdn_hangup_slave( devices[selected_device] );
@@ -1366,10 +1366,10 @@ inline void _pressYellowLamp( int button )
 
 inline void _pressRedLamp( int button )
 {
-	if( (curStatus.usage == STAT_OFF) || (button != 1) ) 
+	if( (curStatus.usage == STAT_OFF) || (button != 1) )
 		return;
 	_pressYellowLamp( button );
-	isdn_disable(); 
+	isdn_disable();
 }
 
 void pressLamp( int lamp_id, int button )
@@ -1391,7 +1391,7 @@ void pressStatusSw()
 {
 	seteuid( rootUID );
 	setegid( rootGID );
-	
+
 	if( curStatus.usage == ISDN_USAGE_NONE )
 		_pressGreenLamp(1);
 	else if(curStatus.usage == ISDN_USAGE_NET )
@@ -1414,7 +1414,7 @@ void getLocalIP( int *a, int *b, int *c, int *d )
 	int res = ioctl(fd, SIOCGIFADDR, &ifr);
 	close(fd);
 	translateIP( &(ifr.ifr_ifru.ifru_addr), a, b, c, d );
-	
+
 	if( res != 0 )
 		syslog( LOG_NOTICE, "Oops! Couldn't get local IP of device %s. ioctl() call failed : %m\n", devices[selected_device] );
 }
@@ -1423,7 +1423,7 @@ void getRemoteIP( int *a, int *b, int *c, int *d )
 {
 	struct ifreq ifr;
 	int fd = socket( AF_INET, SOCK_DGRAM, 0 );
-	
+
 	strcpy( ifr.ifr_ifrn.ifrn_name, devices[selected_device] );
 	ifr.ifr_ifru.ifru_addr.sa_family = AF_INET;
 	int res = ioctl( fd, SIOCGIFDSTADDR, &ifr );
@@ -1450,7 +1450,7 @@ bool extractIsdnInfoData( const char *all_data, const char *key, char buffer[ISD
 {
 	char temp[100]; /* buffer the key string */
 	char *ptr;
-	
+
 	ptr = strstr( all_data, key );
 	if( ptr == NULL )
 	{
@@ -1471,7 +1471,7 @@ bool getPeerPhone( char *ippp, char *phone )
 {
 	isdn_net_ioctl_phone ippp_phone;
 	int res;
-	
+
 	strcpy( ippp_phone.name, ippp );
 	res = isdn_ioctl( IIOCNETGPN, &ippp_phone, NULL, "/dev/isdninfo" );
 	if( res < 0 )
@@ -1498,7 +1498,7 @@ bool findBChannel( char *phone, char all_phones[ISDN_MAX_CHANNELS][100], int &ch
 
 void getMPPPSettings( isdn_net_ioctl_cfg *cfg, isdnStatus *stat )
 {
-	stat->mpppMode = none;	
+	stat->mpppMode = none;
 	if( strlen(cfg->master) != 0 )
 	{
 		stat->mpppMode = slave;
@@ -1510,14 +1510,14 @@ void getMPPPSettings( isdn_net_ioctl_cfg *cfg, isdnStatus *stat )
 		strcpy( stat->mpppPartner, cfg->slave );
 	}
 }
-	
-/* get the status of the ippp device: 
- * 
+
+/* get the status of the ippp device:
+ *
  * - isOff if dialing is disabled
  * - isOffline if dialing is enabled but no connection is established
  * - isOnline if device has established a connection
  * - isDialing if device is dialing the remote but no connection is established
- * - isUnknown if no stat info available 
+ * - isUnknown if no stat info available
  */
 void getStatus( char *device, isdnStatus *stat )
 {
@@ -1539,7 +1539,7 @@ void getStatus( char *device, isdnStatus *stat )
 
 	stat->usage = STAT_UNKNOWN;
 	stat->direction = INCOMING;
-	
+
 	if( res == -1 )
 	{
 		warning_count++;
@@ -1552,8 +1552,8 @@ void getStatus( char *device, isdnStatus *stat )
 		stat->usage = ISDN_USAGE_NONE;
 
 	stat->bundled = false;
-	getMPPPSettings( &cfg, stat );	
-	
+	getMPPPSettings( &cfg, stat );
+
 	/* read the device flags from /dev/isdninfo */
 	fd = open( "/dev/isdninfo", O_RDONLY|O_NDELAY );
 	if( fd == -1 )
@@ -1578,21 +1578,21 @@ void getStatus( char *device, isdnStatus *stat )
 		return;
 	if( !extractIsdnInfoData( buf, "usage:", channel_info ) )
 		return;
-	
+
 	channel_usage = atoi(channel_info[channel]);
 	if( (channel_usage & ISDN_USAGE_DISABLED) != 0 )
 		stat->usage = STAT_DISABLED;
 	else
 		stat->usage =  channel_usage & ISDN_USAGE_MASK;
 	stat->direction = (channel_usage & ISDN_USAGE_OUTGOING) == 0 ? INCOMING : OUTGOING;
-	
+
 	/* check if device is still dialing or already online */
 	if( stat->usage == ISDN_USAGE_NET )
 	{
-		
+
 		if( !extractIsdnInfoData( buf, "flags:", channel_info ) )
 			return;
-	
+
 		if( ((atoi(channel_info[0]) >> channel) & 1) == 0 )
 			stat->usage = STAT_DIALING;
 	}
@@ -1601,8 +1601,8 @@ void getStatus( char *device, isdnStatus *stat )
 	{
 		isdnStatus slaveStatus;
 		getStatus( stat->mpppPartner, &slaveStatus );
-		if( (stat->usage == slaveStatus.usage) && (stat->direction == slaveStatus.direction) && 
+		if( (stat->usage == slaveStatus.usage) && (stat->direction == slaveStatus.direction) &&
 			(strcmp(stat->peerPhone,slaveStatus.peerPhone)==0) )
 			stat->bundled = true;
-	} 
+	}
 }

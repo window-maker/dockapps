@@ -40,13 +40,13 @@ char temp[BUFFER_SIZE];
 
     while(fscanf(fp_memory, "%s", temp)!=EOF) {
 
-        if(!strncmp(temp,"MemTotal:", 9)) 
+        if(!strncmp(temp,"MemTotal:", 9))
            fscanf(fp_memory, "%Ld", &m_total);
 
-        if(!strncmp(temp,"MemFree:", 8)) 
+        if(!strncmp(temp,"MemFree:", 8))
            fscanf(fp_memory, "%Ld", &m_free);
 
-        if(!strncmp(temp,"Cached:", 7)) 
+        if(!strncmp(temp,"Cached:", 7))
            fscanf(fp_memory, "%Ld", &m_cached);
     }
 
@@ -175,7 +175,7 @@ struct timeval timeout;
     fp_loadavg = fopen("/proc/loadavg", "r");
     fp_stat = fopen("/proc/stat", "r");
 
-    for (j=0; j<V_WIDTH+1; j++) 
+    for (j=0; j<V_WIDTH+1; j++)
         cpu_device.his[j] = 0;
 
     cpu_device.hisaddcnt = 0;
@@ -197,14 +197,14 @@ struct timeval timeout;
     cpu_device.idlelast = idle;
 
     if (show_memory) {
-        
+
         dcl_draw_string(6,  5, "cpu", FONT_NORMAL, 3);
         dcl_draw_string(6, 12, "mem", FONT_NORMAL, 3);
         dcl_copy_xpm_area(5, 57, 54, 1, 5, 18);
         get_mem_statistics(&free_memory);
         draw_memory_meter();
         draw_stats(cpu_device.his, V_WIDTH, V_HEIGHT_MEM, 5, 55);
-    
+
     } else {
 
         dcl_draw_string(6, 5, "cpu", FONT_LARGE, 3);
@@ -220,7 +220,7 @@ struct timeval timeout;
         waitpid(0, NULL, WNOHANG);
 
         update_stat_cpu(&cpu_device);
-        
+
         /* cpu meter */
         dcl_copy_xpm_area(0, 64, 32, 7-(show_memory*2), 26, 5);
 
@@ -246,7 +246,7 @@ struct timeval timeout;
             draw_memory_meter();
             draw_stats(cpu_device.his, V_WIDTH, V_HEIGHT_MEM, 5, 55);
 
-        } else 
+        } else
             draw_stats(cpu_device.his, V_WIDTH, V_HEIGHT, 5, 55);
 
             cpu_device.his[V_WIDTH] = 0;
@@ -289,7 +289,7 @@ struct timeval timeout;
                 break;
             case ButtonRelease:
                 i = dcl_check_mouse_region(Event.xbutton.x, Event.xbutton.y);
-            
+
                 if(!i && Event.xbutton.button == LMB && cmd_lmb)
                     dcl_execute_command(command_lmb, 0);
                 else if(!i && Event.xbutton.button == RMB && cmd_rmb)
@@ -303,24 +303,24 @@ struct timeval timeout;
 
 /*----------------------------------------------------------------------*/
 
-void cputnik_write_prefs(void) 
+void cputnik_write_prefs(void)
 {
 
     if (dcl_prefs_openfile (dcl_getfilename_config (".clay", "cputnik.rc"), P_WRITE)) {
-    
+
         dcl_prefs_put_int ("update_period", update_period);
         dcl_prefs_put_int ("show_memory", show_memory);
         dcl_prefs_put_string ("command_lmb", command_lmb);
         dcl_prefs_put_string ("command_rmb", command_rmb);
 
     }
-        
+
     dcl_prefs_closefile ();
 }
 
 /*----------------------------------------------------------------------*/
 
-void cputnik_read_prefs(void) 
+void cputnik_read_prefs(void)
 {
 
     if (dcl_prefs_openfile (dcl_getfilename_config(".clay", "cputnik.rc"), P_READ)) {
@@ -336,7 +336,7 @@ void cputnik_read_prefs(void)
         if(strlen(command_rmb)) cmd_rmb = 1;
 
         dcl_prefs_closefile ();
-        
+
     } else {
 
         update_period = 2;
@@ -353,7 +353,7 @@ void cputnik_read_prefs(void)
 
 int main(int argc, char **argv)
 {
-    cputnik_read_prefs(); 
+    cputnik_read_prefs();
     cputnik_routine(argc, argv);
 
     return 0;

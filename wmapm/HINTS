@@ -4,7 +4,7 @@ Generic
 --------------------------------------------------------------
 WMAPM supports 7 commandline options:
 
-	-h (help); 
+	-h (help);
 	-C (Critical Percent Threshold);
 	-L (Low Percent Threshold);
 	-b (BlinkRate for red LED);
@@ -28,7 +28,7 @@ Afterstep users put the following in their .steprc
 Note: AfterStep's Wharf has a problem with pixmaps that are
 larger than 60x60 pixels. Please tell the AfterStep authors
 to fix this, this is not our fault, but a Wharf problem!
- 
+
 
 Other WindowManagers
 --------------------------------------------------------------

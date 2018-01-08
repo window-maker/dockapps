@@ -1,23 +1,23 @@
 /*     WMGlobe 1.3  -  All the Earth on a WMaker Icon
  *     copyright (C) 1998,99,2000,01 Jerome Dumonteil <jerome.dumonteil@linuxfr.org>
- * 
+ *
  *     This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
- * 
+ *
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- * 
+ *
  *     You should have received a copy of the GNU General Public License
  *     along with this program; if not, write to the Free Software
  *     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  ***************************************************************************/
 /* this code was based on XGlobe :
    renderer.cpp
-   *   
+   *
    * This file is part of XGlobe. See README for details.
    *
    * Copyright (C) 1998 Thorsten Scheuermann
@@ -26,8 +26,8 @@
    * it under the terms of the GNU General Public Licenses as published by
    * the Free Software Foundation.
    ************************************************************************/
-/* 
-   Some parts of this files should be rewritten to not depend on 
+/*
+   Some parts of this files should be rewritten to not depend on
    WindowMaker version
 */
 
@@ -383,7 +383,7 @@ void renderFrame()
     if (solution == FALSE)
 	RClearImage(small, &noir);
     /*
-     *  rotation matrix    
+     *  rotation matrix
      */
 
     m11 = cos(v_long);
@@ -477,7 +477,7 @@ void renderFrame()
 			wurzel = sqrt(udroot);
 			s1 = (-b_coef + wurzel) / (2. * a);
 			s2 = (-b_coef - wurzel) / (2. * a);
-			s = (s1 < s2) ? s1 : s2;	/* smaller solution belongs 
+			s = (s1 < s2) ? s1 : s2;	/* smaller solution belongs
 							   to nearer intersection */
 			solu[px + funx][py + funy][0] = s * dir_x;
 			solu[px + funx][py + funy][1] = s * dir_y;
@@ -488,7 +488,7 @@ void renderFrame()
 		    }
 		}
 
-		if (tabsolu[px + funx][py + funy]) {	/*  solution exists <=> 
+		if (tabsolu[px + funx][py + funy]) {	/*  solution exists <=>
 							   intersection exists */
 		    sp_x = solu[px + funx][py + funy][0];	/* sp = camera pos + s*dir */
 		    sp_y = solu[px + funx][py + funy][1];
@@ -599,8 +599,8 @@ void renderFrame()
 			wurzel = sqrt(udroot);
 			s1 = (-b_coef + wurzel) / (2. * a);
 			s2 = (-b_coef - wurzel) / (2. * a);
-			s = (s1 < s2) ? s1 : s2;	/* smaller solution 
-							   belongs to nearer 
+			s = (s1 < s2) ? s1 : s2;	/* smaller solution
+							   belongs to nearer
 							   intersection */
 			/* sp = camera pos + s*dir */
 			solu[px][py][0] = s * dir_x;
@@ -611,7 +611,7 @@ void renderFrame()
 			tabsolu[DIAMETRE - 1 - px][py] = 0;
 		    }
 		}
-		if (tabsolu[px][py]) {	/*  solution exists <=> 
+		if (tabsolu[px][py]) {	/*  solution exists <=>
 					   intersection exists */
 		    sp_x = solu[px][py][0];
 		    sp_y = solu[px][py][1];
@@ -673,8 +673,8 @@ void renderFrame()
 			myRPutPixel(px, py, &teinte);
 
 			/*
-			 * mirror the left half-circle of the globe: 
-			 * we need a new position and have to recalc. the 
+			 * mirror the left half-circle of the globe:
+			 * we need a new position and have to recalc. the
 			 * light intensity
 			 */
 
@@ -698,8 +698,8 @@ void renderFrame()
 				    &teinte);
 
 			/*
-			 * mirror the left half-circle of the globe: 
-			 * we need a new position and have 
+			 * mirror the left half-circle of the globe:
+			 * we need a new position and have
 			 * to recalc. the light intensity
 			 */
 

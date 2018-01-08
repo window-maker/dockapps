@@ -1,6 +1,6 @@
 ifacechck is the program called by wmjiface to get your
 interface statistics.  It uses /proc/net/dev to gather the
-info.  
+info.
 
 If you do not have a /proc/net/dev, you should e-mail me,
 cuz I don't know what to do with you.
