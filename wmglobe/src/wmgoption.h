@@ -1,16 +1,16 @@
-/*     WMGlobe 0.5  -  All the Earth on a WMaker Icon
- *     copyright (C) 1998,99 Jerome Dumonteil <jerome.dumonteil@capway.com>
- *
+/*     WMGlobe 1.3  -  All the Earth on a WMaker Icon
+ *     copyright (C) 1998,99,2000,01 Jerome Dumonteil <jerome.dumonteil@linuxfr.org>
+ * 
  *     This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
- *
+ * 
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- *
+ * 
  *     You should have received a copy of the GNU General Public License
  *     along with this program; if not, write to the Free Software
  *     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
@@ -20,7 +20,7 @@
  * #define DEBUG
  */
 
-#define WMGVERSION "WMGlobe v.0.5   6 fev 1999 <jerome.dumonteil@capway.com>"
+#define WMGVERSION "WMGlobe v.1.3 12 aug 2001 <jerome.dumonteil@linuxfr.org>"
 
 /*
  * comment DEFMAPOK to not install the built-in default maps,
@@ -64,14 +64,27 @@
 #define STOP_RANDOM_FACTOR 1
 #define RATIO_ROTATE 	0.5
 
+/* Markers */
+#define WITH_MARKERS    1	/* put to 0 to remove markers code */
+#define CROSS_LENGTH    8	/* min 2 */
+#define CROSS_INVERT	0	/* 0: black/white, 1: inv. color */
+#define MAX_MARKERS	5
+#define CR_SUN_R	255	/* sun cross color */
+#define CR_SUN_G	255
+#define CR_SUN_B	127
+#define CR_MOON_R	0	/* moon cross color */
+#define CR_MOON_G	200
+#define CR_MOON_B	255
 
+
+/* some default values*/
 #define DEFAULT_DELAY 	1.0
 #define DEFAULT_V_LAT 	0.0
 #define DEFAULT_V_LONG 	0.0
 #define DEFAULT_SENS 	1
 #define DEFAULT_ZOOM 	1.0
 #define DEFAULT_LIGHT 	0.25
-#define DEFAULT_BORDER 	0
+#define DEFAULT_BORDER 	2
 #define DEFAULT_NIGHTMAP 1	/* 1 or 0  */
 
 #define MAX_DELAY_SEC	86400.0
@@ -82,6 +95,6 @@
 #define DEFAULT_DAWN 	0.9
 
 /* change this if not 64x64 icons (not deep tested) you will need to change
-   the cadrex.xbm too and a few other things for the parameters menus
+   the cadrex.xbm too and a few other things for the parameters menus 
    --- DIAMETRE must be a multiple of 2 ---                  */
 #define DIAMETRE 	64

@@ -1,21 +1,21 @@
-/*     WMGlobe 0.5  -  All the Earth on a WMaker Icon
- *     copyright (C) 1998,99 Jerome Dumonteil <jerome.dumonteil@capway.com>
- *
+/*     WMGlobe 1.3  -  All the Earth on a WMaker Icon
+ *     copyright (C) 1998,99,2000,01 Jerome Dumonteil <jerome.dumonteil@linuxfr.org>
+ * 
  *     This program is free software; you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
  *     the Free Software Foundation; either version 2 of the License, or
  *     (at your option) any later version.
- *
+ * 
  *     This program is distributed in the hope that it will be useful,
  *     but WITHOUT ANY WARRANTY; without even the implied warranty of
  *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *     GNU General Public License for more details.
- *
+ * 
  *     You should have received a copy of the GNU General Public License
  *     along with this program; if not, write to the Free Software
  *     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  ***************************************************************************/
-/* it uses some functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib
+/* it uses some functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib 
  ***************************************************************************/
 
 
@@ -51,13 +51,15 @@
 
 #define FALSE 	0
 #define TRUE 	1
-#define MAX(x, y) ((x) < (y) ? (y) : (x))
-#define MIN(x, y) ((x) > (y) ? (y) : (x))
+#define STRONG  2
+#define MAX(x, y)       ((x) < (y) ? (y) : (x))
+#define MIN(x, y)       ((x) > (y) ? (y) : (x))
 #define ABS(a)          ((a) < 0 ? -(a) : (a))
 
-#define PTFIXED 1
-#define PTSUNREL 2
-#define PTRANDOM 3
+#define PTFIXED   1
+#define PTSUN     2
+#define PTRANDOM  3
+#define PTMOON    4
 
 #ifndef PI
 #define PI 3.141592653
@@ -74,33 +76,30 @@
 #define MAX_MOUSE_REGION (8)
 
 typedef struct {
-	int enable;
-	int top;
-	int bottom;
-	int left;
-	int right;
+    int enable;
+    int top;
+    int bottom;
+    int left;
+    int right;
 } MOUSE_REGION;
 
 MOUSE_REGION mouse_region[MAX_MOUSE_REGION];
 
 typedef struct MPO {
-	int r, g, b;
+    int r, g, b;
 } MPO;
 
 MPO *md[4], *mn[4];
 
-double soluce[DIAMETRE / 2][DIAMETRE][4];
+double solu[DIAMETRE][DIAMETRE][3];
+int tabsolu[DIAMETRE][DIAMETRE];
 int solution;
 
-/************/
-
 typedef struct {
-	Pixmap pixmap;
-	Pixmap mask;
-	XpmAttributes attributes;
+    Pixmap pixmap;
+    Pixmap mask;
+    XpmAttributes attributes;
 } XpmIcon;
-
-/************/
 
 
 Display *dpy;
@@ -121,11 +120,18 @@ GC NormalGC;
 
 /********* rendering********/
 
+#if WITH_MARKERS
+double marker[MAX_MARKERS][3];
+int nb_marker, sun_marker, moon_marker;
+RColor sun_col, moon_col;
+double moon_lat,moon_long;
+#endif
+
 double delay, time_multi;
 /*
  * struct timeval delta_tim, last_tim, next_tim, render_tim, base_tim,
  *  vec_tim;
- *
+ * 
  * time_t beg_time, ini_time,t1901;
  */
 struct timeval tlast, tnext, trend, tdelay, tini, tbase;
@@ -133,8 +139,8 @@ time_t tsunpos;
 
 int sens, fun, funx, funy, oknimap, mratiox, mratioy, gotoscr;
 
-int typecadre, p_type, use_nightmap, use_nmap_ini, firstTime, stoprand,
- do_something, iop;
+int typecadre, p_type, use_nightmap, use_default_nightmap, use_nmap_ini, 
+firstTime, stoprand, do_something, iop;
 
 double v_lat, v_long, old_dvlat, old_dvlong, dv_lat, dv_long;
 double dlat, dlong, addlat, addlong, ratiox, ratioy, dawn;
@@ -161,11 +167,14 @@ RColor noir;
 double minhz;
 #endif
 
+int stable;
+
 /****************************************************************/
 /* Function Prototypes                                          */
 /****************************************************************/
 int main(int argc, char *argv[]);
-/****************************************************************/
+
+
 void AddMouseRegion(int index, int left, int top, int right, int bottom);
 int CheckMouseRegion(int x, int y);
 void RedrawWindowXYWH(int x, int y, int w, int h);
@@ -179,19 +188,24 @@ struct timeval diftimev(struct timeval t1, struct timeval t2);
 struct timeval addtimev(struct timeval t1, struct timeval t2);
 struct timeval getimev();
 
-/***************************************************************/
+
 void setZoom(double z);
 void calcDistance();
 void renderFrame();
 void initmyconvert();
 int myRConvertImage(RContext * context, RImage * image, Pixmap * pixmap);
 RContext *myRCreateContext
- (Display * dpy, int screen_number, RContextAttributes * attribs);
+    (Display * dpy, int screen_number, RContextAttributes * attribs);
 void setTime(struct timeval t);
 void recalc(int calme);
-void GetSunPos(time_t ssue, double *lat, double *lon);
+void sun_position(time_t ssue, double *lat, double *lon);
+void moon_position(time_t ssue, double *lat, double *lon);
+void transform_marker(int m);
 void setViewPos(double lat, double lon);
-
-/***************************************************************/
+int ripalpha(RImage * image);
+RImage*
+RScaleImage(RImage *image, unsigned new_width, unsigned new_height);
+void 
+RReleaseImage(RImage *image);
 
 #endif

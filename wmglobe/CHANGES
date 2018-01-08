@@ -1,4 +1,27 @@
 VMGlobe
+
+1.3        released  12/08/01
+           - solve bug of custom map loading (now all maps are 3 layers RGB)
+           - default -bord is now 2
+           - accept a night map of different size than the day map
+           - new -defnimap option
+           - a few minor changes
+
+1.2        released 9/04/2000
+           - WindowMaker 0.62 compliancy
+
+1.1        not released  
+           - another floating point exception bug solved (Alpha)
+	   - little optimizations and rewriting in rend.c
+           - -sun option
+           - -moon option
+	   - -mk marker option
+	   
+1.0        released  30/05/99
+           - option -stable : latitude never change of sign
+	   - change email to jerome.dumonteil@linuxfr.org
+	   - modify a few typo in doc
+	   
 0.5        released  6/02/99
            - floating point exception bug solved
            - many minor bugs solved (earth displaying, mouse, time management)
@@ -11,7 +34,7 @@ VMGlobe
            - option selection through parameters screens (right button)
            - approximation of date & time of view point
            - new default map (bigger, better)
-           - display of time uses setlocale()
+           - display of time uses setlocale() 
            - option -dawn value : enhance dawn borderline
            - option -time : change date displayed
            - option -nonimap
@@ -20,16 +43,16 @@ VMGlobe
            - modify comportment of -rand option when zooming
            - change left button comportment : only change longitude
            - shift+left button : change longitude & latitude
-           - man page
+           - man page	   
 
-0.3.1      released  5/02/99
+0.3.1      released  5/01/99
            - option -austral
            - solved bug about colors 24 and 32 bit per pixel
 
-0.3        released  3/02/99
+0.3        released  3/01/99
            - right button : screen of digital modification of latitude/long.
 
-0.2.1      released  3/02/99
+0.2.1      released  3/01/99
            - change & enhance mouse operations (longitude/latitude/zoom)
            - minor bugs, CPU optimization
 
@@ -39,7 +62,7 @@ VMGlobe
               left click   = change longitude
               middle click = zoom in / zoom out
               right click  = change latitude
-           - a few hints for compile on *BSD
+           - a few hints for compile on *BSD    
 
 0.1        released 31/12/98
 
