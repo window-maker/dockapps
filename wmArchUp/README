@@ -1,0 +1,59 @@
+                   _____                .__     ____ ___          
+__  _  _______    /  _  \_______   ____ |  |__ |    |   \______   
+\ \/ \/ /     \  /  /_\  \_  __ \_/ ___\|  |  \|    |   /\____ \  
+ \     /  Y Y  \/    |    \  | \/\  \___|   Y  \    |  / |  |_> > 
+  \/\_/|__|_|  /\____|__  /__|    \___  >___|  /______/  |   __/  
+             \/         \/            \/     \/          |__|     
+
+*******************
+*** DESCRIPTION ***
+*******************
+
+wmArchUp is a very simple program used to monitor for package updates in Arch
+Linux. It uses the checkupdates script that come with pacman for safe checking
+if there is any package updates. It is a dockapp that is supported by X window
+managers such as Window Maker, AfterStep, BlackBox, Fluxbox and Enlightenment.
+
+This dockapp is quite simple. It contains an Arch Linux logo icon. When there is
+not package updates then the Arch Linux logo icon is greyed. When there are
+package updates then the Arch Linux logo icon is blue. The program check for
+updates every 10 minutes.
+
+***************
+*** OPTIONS ***
+***************
+
+This program has no command line options.
+
+*********************
+*** REQUIREMENTS  ***
+*********************
+
+This program needs libdockapp library files in order to compile.
+You can find libdockapp at http://www.dockapps.net/libdockapp
+
+*******************
+*** COMPILATION ***
+*******************
+
+To compile, simply invoke the "make" command.
+
+********************
+*** INSTALLATION ***
+********************
+
+To install the program (in /usr/local/bin), run : "make install" as root user
+
+**************
+*** THANKS ***
+**************
+
+Thanks to the authors of the libdockapp code, it has been a really good starting
+base to develop this little application.
+
+**************
+*** AUTHOR ***
+**************
+
+wmArchUp has been written by Panagiotis A. Dimopoulos <panosdim@gmail.com>
+All comments are welcome.
