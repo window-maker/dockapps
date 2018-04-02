@@ -1,7 +1,7 @@
 CC=gcc
 INSTALL=install
 PREFIX=/usr/local
-CFLAGS+=-Wall `pkg-config --cflags dockapp`
+CFLAGS+=-Wall -O3 `pkg-config --cflags dockapp`
 LIBS=`pkg-config --libs dockapp`
 
 wmarchup: wmarchup.o
@@ -13,6 +13,7 @@ wmarchup.o: wmarchup.c
 install:
 	$(INSTALL) -d $(DESTDIR)$(PREFIX)/bin
 	$(INSTALL) wmarchup $(DESTDIR)$(PREFIX)/bin
+	$(INSTALL) arch_update.sh $(DESTDIR)$(PREFIX)/bin
 
 clean:
 	rm -f wmarchup wmarchup.o

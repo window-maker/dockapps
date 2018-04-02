@@ -17,13 +17,19 @@ managers such as Window Maker, AfterStep, BlackBox, Fluxbox and Enlightenment.
 This dockapp is quite simple. It contains an Arch Linux logo icon. When there is
 not package updates then the Arch Linux logo icon is greyed. When there are
 package updates then the Arch Linux logo icon is blue. The program check for
-updates every 10 minutes.
+updates every 10 minutes by default. However you can specify the checking
+interval by using the -c or --check-interval command line arguments. When the 
+program checks for updates it change its icon in a gear. If you right click the 
+Arch Linux logo icon then it immediately starts a check for updates. If you left
+click the Arch Linux log the it opens an xterm window and start a system update.
 
 ***************
 *** OPTIONS ***
 ***************
 
-This program has no command line options.
+This program has the following command line options
+-c <number> : Sets the checking time interval in minutes. Default is 10 minutes.
+--check-interval <number> : Same as -c
 
 *********************
 *** REQUIREMENTS  ***
@@ -31,6 +37,7 @@ This program has no command line options.
 
 This program needs libdockapp library files in order to compile.
 You can find libdockapp at http://www.dockapps.net/libdockapp
+Also you need to have xterm installed.
 
 *******************
 *** COMPILATION ***

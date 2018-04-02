@@ -1,3 +1,12 @@
+2018-04-02  Panagiotis A. Dimopoulos  <panosdim@gmail.com>
+
+	- Release 1.1
+    - Add a gear icon to show when checking for updates
+    - Right click initiate a check for updates
+    - Left click will open an xterm and start system update
+    - You can now define that check interval with -c or --check-interval
+      command line arguments
+    
 2018-03-29  Panagiotis A. Dimopoulos  <panosdim@gmail.com>
 
-	Initial Release 1.0
+	- Initial Release 1.0
