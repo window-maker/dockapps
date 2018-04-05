@@ -1,7 +1,7 @@
 CC=gcc
 INSTALL=install
 PREFIX=/usr/local
-CFLAGS+=-Wall -O3 `pkg-config --cflags dockapp`
+CFLAGS+=-Wall -Wextra -O3 `pkg-config --cflags dockapp`
 LIBS=`pkg-config --libs dockapp`
 
 wmarchup: wmarchup.o

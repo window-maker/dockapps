@@ -1,6 +1,10 @@
 /* Also includes Xlib, Xresources, XPM, stdlib and stdio */
 #include <dockapp.h>
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
 
 /* Include the pixmap to use */
 #include "archlinux.xpm"
@@ -10,8 +14,9 @@
 #define TRUE            1
 #define FALSE           0
 #define MAX             256
+#define MAXPATHLEN      4096
 #define CHK_INTERVAL    600
-#define WMARCHUP_VER    "1.1"
+#define WMARCHUP_VER    "1.2"
 #define VERSION         "wmArchUp version " WMARCHUP_VER
 
 /*
@@ -21,6 +26,7 @@ void destroy(void);
 void check_for_updates();
 void buttonrelease(int button, int state, int x, int y);
 void update();
+char *get_update_script();
 
 /*
  * Global variables
@@ -29,6 +35,7 @@ Pixmap arch, arch_mask, arch_bw, arch_bw_mask, checking, checking_mask;
 unsigned short  height, width;
 unsigned int check_interval = CHK_INTERVAL;
 int updates_available = FALSE;
+char *script;
 
 /*
  * M A I N
@@ -37,6 +44,9 @@ int updates_available = FALSE;
 int
 main(int argc, char **argv)
 {
+    /* Find bash update script */
+    script = get_update_script();
+
     /* Set callbacks for events */
     DACallbacks eventCallbacks = {
         destroy,            /* destroy */
@@ -126,8 +136,7 @@ update()
     if (updates_available == TRUE) {
         XSelectInput(DAGetDisplay(NULL), DAGetWindow(), NoEventMask);
 
-        char *update_script = "./arch_update.sh";
-        int ret = system(update_script);
+        int ret = system(script);
 
         if (WEXITSTATUS(ret) == 0) {
             updates_available = FALSE;
@@ -144,7 +153,6 @@ void
 check_for_updates()
 {
     XSelectInput(DAGetDisplay(NULL), DAGetWindow(), NoEventMask);
-    FILE *fp;
     char res[MAX];
 
 
@@ -152,9 +160,8 @@ check_for_updates()
     DASetPixmap(checking);
 
     /* Read output from command */
-    fp = popen("checkupdates", "r");
+    FILE *fp = popen("checkupdates", "r");
     if (fgets(res, MAX, fp) != NULL) {
-        fclose(fp);
         updates_available = TRUE;
         DASetShape(arch_mask);
         DASetPixmap(arch);
@@ -162,6 +169,10 @@ check_for_updates()
         updates_available = FALSE;
         DASetShape(arch_bw_mask);
         DASetPixmap(arch_bw);
+    }
+
+    if (pclose(fp) != 0) {
+        fprintf(stderr, " Error: Failed to close command stream \n");
     }
 
     XSelectInput(DAGetDisplay(NULL), DAGetWindow(),
@@ -184,4 +195,49 @@ buttonrelease(int button, int state, int x, int y)
     } else if (button == 3) {
         check_for_updates();
     }
+}
+
+char *
+get_update_script()
+{
+    int length;
+    char *p;
+    char *script_name = "arch_update.sh";
+
+    char *fullpath = malloc(MAXPATHLEN + strlen(script_name));
+    if (fullpath == NULL) {
+        perror("Can't allocate memory.");
+        exit(1);
+    }
+
+    /*
+     * /proc/self is a symbolic link to the process-ID subdir of /proc, e.g.
+     * /proc/4323 when the pid of the process of this program is 4323.
+     * Inside /proc/<pid> there is a symbolic link to the executable that is
+     * running as this <pid>.  This symbolic link is called "exe". So if we
+     * read the path where the symlink /proc/self/exe points to we have the
+     * full path of the executable.
+     */
+
+    length = readlink("/proc/self/exe", fullpath, MAXPATHLEN);
+
+    /*
+     * Catch some errors:
+     */
+    if (length < 0) {
+        perror("resolving symlink /proc/self/exe.");
+        exit(1);
+    }
+    if (length >= MAXPATHLEN) {
+        fprintf(stderr, "Path too long.\n");
+        exit(1);
+    }
+
+    fullpath[length] = '\0';
+    if ((p = strrchr(fullpath, '/'))) {
+        *(p + 1) = '\0';
+    }
+    strcat(fullpath, script_name);
+
+    return fullpath;
 }
