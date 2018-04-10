@@ -933,9 +933,8 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
 
 	/* Nu horizontaal op 100/200/300 etc lijntje trekken! */
 	for (j = pixels_per_byte-100; j > 0; j-=100) {
+		d = (40.0 / pixels_per_byte) * j;
 		for (k=0; k<num; k++) {
-			d = (40.0 / pixels_per_byte) * j;
-
 			copyXPMArea(2, 91, 1, 1, k+x_left, y_bottom-d);
 		}
 	}
