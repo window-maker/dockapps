@@ -910,7 +910,7 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
 	p = his;
 
 	for (j=0; j<num; j++) {
-		if (p[0] > pixels_per_byte)
+		while (p[0] > pixels_per_byte)
 			pixels_per_byte += 100;
 		p += 1;
 	}
