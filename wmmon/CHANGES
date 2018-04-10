@@ -2,6 +2,11 @@ WMMon changes.
 
 Version         Description
 --------------------------------------------------------------
+1.4		- Released 20180410
+		- Properly compute height of system load window.
+		- Only compute vertical position of hint lines once.
+		- Add support for larger load averages.
+
 1.3		- Released 20170812
 		- Added -b flag to include buffers and cache in total memory
 		  usage.  Added global show_buffers, -b parsing code,
