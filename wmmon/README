@@ -30,6 +30,10 @@ WMMon currently provides:
         * Realtime CPU 'stress' meter;
         * Average systemload, like xload & wmavgload;
         * Average systemload graphic is autoscaling;
+        * Hint lines change color as the systemload increases.
+          - Green for multiples of 1
+          - Yellow for multiples of 10
+          - Red for multiples of 100
 	* Realtime Disk I/O 'stress' meter;
 	* Average Disk I/O load grapic (autoscaling);
 	* Realtime total Mem & Swap usage meters;

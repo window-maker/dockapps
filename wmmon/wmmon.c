@@ -904,7 +904,7 @@ void DrawActive(char *name)
 \*******************************************************************************/
 void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
 {
-	int pixels_per_byte, j, k, *p, d;
+	int pixels_per_byte, j, k, *p, d, hint_height, hint_color;
 
 	pixels_per_byte = 100;
 	p = his;
@@ -932,10 +932,21 @@ void DrawStats(int *his, int num, int size, int x_left, int y_bottom)
 	}
 
 	/* Nu horizontaal op 100/200/300 etc lijntje trekken! */
-	for (j = pixels_per_byte-100; j > 0; j-=100) {
-		d = (40.0 / pixels_per_byte) * j;
+	if (pixels_per_byte > 10000) {
+		hint_height = 10000;
+		hint_color = 93; /* red */
+	} else if (pixels_per_byte > 1000) {
+		hint_height = 1000;
+		hint_color = 92; /* yellow */
+	} else {
+		hint_height = 100;
+		hint_color = 91; /* green */
+	}
+
+	for (j = hint_height;  j < pixels_per_byte; j += hint_height) {
+		d = (40.0 / pixels_per_byte) * j - 1;
 		for (k=0; k<num; k++) {
-			copyXPMArea(2, 91, 1, 1, k+x_left, y_bottom-d);
+			copyXPMArea(2, hint_color, 1, 1, k+x_left, y_bottom-d);
 		}
 	}
 }
