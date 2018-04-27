@@ -13,7 +13,7 @@ DEBUG =
 # for debuggind purposes
 # ISO doesn't support macros with variable number of arguments so -pedantic
 # must not be used
-#CFLAGS += -Wall -g -ansi $(INCLUDES) -DFNCALL_DEBUG
+#CFLAGS += -Wall -g -ansi $(INCLUDES) -DFNCALL_DEBUG -DDATADIR=\"$(DATADIR)\"
 #DEBUG = debug.o
 
 LIBS = `pkg-config --libs gtk+-3.0 x11`
