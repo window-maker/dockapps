@@ -45,53 +45,9 @@ static void
 wmcliphist_exit(gint code)
 {
 	begin_func("wmcliphist_exit");
+	gtk_main_quit();
 	exit(code);
 	return_void();
-}
-
-/* gtk3 dockapp code based on wmpasman by Brad Jorsch
- * <anomie@users.sourceforge.net>
- * http://sourceforge.net/projects/wmpasman */
-
-GtkWidget *foo_create_main_icon_window(GtkWidget *mw, unsigned int s)
-{
-	Display *d;
-	GdkDisplay *display;
-	GtkWidget *foobox;
-	unsigned int dummy3;
-	Window mainwin, iw, p, dummy1, *dummy2, w;
-	XWMHints *wmHints;
-
-	display = gdk_display_get_default();
-	foobox = gtk_window_new(GTK_WINDOW_POPUP);
-
-	gtk_window_set_wmclass(GTK_WINDOW(mw), g_get_prgname(), "DockApp");
-	gtk_widget_set_size_request(foobox, s, s);
-
-	gtk_widget_realize(mw);
-	gtk_widget_realize(foobox);
-
-	d = GDK_DISPLAY_XDISPLAY(display);
-	mainwin = GDK_WINDOW_XID(gtk_widget_get_window(mw));
-	iw = GDK_WINDOW_XID(gtk_widget_get_window(foobox));
-	XQueryTree(d, mainwin, &dummy1, &p, &dummy2, &dummy3);
-	if (dummy2)
-		XFree(dummy2);
-	w = XCreateSimpleWindow(d, p, 0, 0, 1, 1, 0, 0, 0);
-	XReparentWindow(d, mainwin, w, 0, 0);
-	gtk_widget_show(mw);
-	gtk_widget_show(foobox);
-	wmHints = XGetWMHints(d, mainwin);
-	if (!wmHints)
-		wmHints = XAllocWMHints();
-	wmHints->flags |= IconWindowHint;
-	wmHints->icon_window = iw;
-	XSetWMHints(d, mainwin, wmHints);
-	XFree(wmHints);
-	XReparentWindow(d, mainwin, p, 0, 0);
-	XDestroyWindow(d, w);
-
-	return foobox;
 }
 
 /*
@@ -102,11 +58,13 @@ main(int argc, char **argv)
 {
 	gint	i = 1, res;
 	gchar	*arg;
-	gchar   *icon_file;
+	gchar *icon_file;
 	GList	*list_node;
 	int	icon_number = 0;
 	int	icon_size = 60;
 	gboolean dump_only = FALSE;
+	XWMHints mywmhints;
+	GdkDisplay *display;
 
 #ifdef	FNCALL_DEBUG
 	debug_init_nothreads();
@@ -196,12 +154,21 @@ main(int argc, char **argv)
 	/* initialize Gtk */
 	gtk_init(&argc, &argv);
 
-
 	/* create main window */
 	main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
+	/* set the window title */
+	gtk_window_set_title(GTK_WINDOW(main_window), "wmcliphist");
+
 	/* creat dock icon */
-	dock_app = foo_create_main_icon_window(main_window, icon_size);
+	dock_app = main_window;
+	
+	/* add event box to main window*/
+	event = gtk_event_box_new();
+	gtk_container_add(GTK_CONTAINER(dock_app), event);
+
+	/* set the default window size */
+	gtk_window_set_default_size(GTK_WINDOW(dock_app), icon_size, icon_size);
 
 	if (icon_size) {
 		/* create icon_mask */
@@ -243,9 +210,38 @@ main(int argc, char **argv)
 		icon_file = g_strconcat(DATADIR"/", icon_file, NULL);
 		pixmap = gtk_image_new_from_file(icon_file);
 		gtk_widget_show(pixmap);
-		gtk_container_add(GTK_CONTAINER(dock_app), pixmap);
+		gtk_container_add(GTK_CONTAINER(event), pixmap);
 	}
 
+	/* use only mouse events */
+	gtk_widget_add_events(dock_app, GDK_BUTTON_PRESS_MASK);
+
+	gtk_widget_show(dock_app);
+	gtk_widget_show_all(main_window);
+
+	/* transparenter Hintergrund für pixmap*/
+	if (icon_size) {
+		cairo_region_t *region;
+		cairo_surface_t *surface;
+
+		surface = cairo_image_surface_create_from_png(icon_file);
+		region = gdk_cairo_region_create_from_surface(surface);
+		gdk_window_shape_combine_region(gtk_widget_get_window(dock_app),
+						region, 0, 0);
+
+	}
+
+	/* set the window as a dockapp*/
+	display = gdk_display_get_default();
+
+	mywmhints.icon_window = GDK_WINDOW_XID(gtk_widget_get_window(main_window));
+	mywmhints.window_group = GDK_WINDOW_XID(gtk_widget_get_window(main_window));
+	mywmhints.icon_x = 0;
+	mywmhints.icon_y = 0;
+	mywmhints.flags = IconWindowHint | StateHint;
+	mywmhints.initial_state = WithdrawnState;
+
+	XSetWMHints(GDK_DISPLAY_XDISPLAY(display), GDK_WINDOW_XID(gtk_widget_get_window(main_window)), &mywmhints);
 
 	/* create clipboard history menu */
 	menu_hist = gtk_menu_new();
@@ -279,7 +275,6 @@ main(int argc, char **argv)
 			GINT_TO_POINTER(1));
 
 	gtk_widget_show_all(menu_app);
-
 
 	list_node = action_list;
 	while (list_node) {
@@ -317,6 +312,7 @@ main(int argc, char **argv)
 		gtk_menu_shell_insert(GTK_MENU_SHELL(menu_hist), separator, 1);
 	}
 
+
 	/* prepare colors and styles */
 	if (gdk_rgba_parse(&locked_color, locked_color_str) == FALSE) {
 		char	msg_str[128];
@@ -328,6 +324,7 @@ main(int argc, char **argv)
 		strcpy(locked_color_str, DEF_LOCKED_COLOR);
 		gdk_rgba_parse(&locked_color, locked_color_str);
 	}
+
 
 	/* set clipboard */
 	if (strcmp(clipboard_str, "PRIMARY") == 0) {
@@ -372,26 +369,6 @@ main(int argc, char **argv)
 	}
 
 
-	if (icon_size) {
-		cairo_region_t *region;
-		cairo_surface_t *surface;
-
-		/* connect signal for menu popup */
-		gtk_widget_add_events(dock_app, GDK_BUTTON_PRESS_MASK);
-		g_signal_connect(G_OBJECT(dock_app),
-                               "event",
-                               G_CALLBACK(button_press),
-                               G_OBJECT(menu_hist));
-
-		surface = cairo_image_surface_create_from_png(icon_file);
-		region = gdk_cairo_region_create_from_surface(surface);
-		gdk_window_shape_combine_region(gtk_widget_get_window(dock_app),
-						region, 0, 0);
-
-
-	}
-
-
 	/* run clipboard monitor */
 	g_signal_connect(G_OBJECT(main_window),
 			"selection_received",
@@ -416,6 +393,12 @@ main(int argc, char **argv)
 			G_CALLBACK(selection_handle),
 			NULL);
 
+	/* connect signal for menu popup */
+	g_signal_connect(G_OBJECT(dock_app),
+                               "event",
+                               G_CALLBACK(button_press),
+                               NULL);
+	
 	g_signal_connect(G_OBJECT(dock_app),
 			"destroy",
 			G_CALLBACK(wmcliphist_exit),

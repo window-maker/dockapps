@@ -148,7 +148,7 @@ exec_item(char *content, ACTION *action)
 	if (confirm_exec) {
 		msg_buf = g_new0(char, strlen(exec_buf) + 256);
 		sprintf(msg_buf, "Do you want to perform the "
-				"following action?\n\n%s",
+				"following action?\n\n%s\n",
 				exec_buf);
 		msg_result = show_message(msg_buf,
 				"wmcliphist", "Yes", "No", NULL);
@@ -360,8 +360,8 @@ history_free()
 	list_node = g_list_last(history_items);
 	while (list_node) {
 		hist_item = (HISTORY_ITEM *)list_node->data;
-		gtk_container_remove(GTK_CONTAINER(hist_item->menu),
-				hist_item->menu_item);
+/*		gtk_container_remove(GTK_CONTAINER(hist_item->menu),
+				hist_item->menu_item); */
 		gtk_widget_destroy(hist_item->menu_item);
 		g_free(hist_item->content);
 		g_free(hist_item);

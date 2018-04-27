@@ -101,54 +101,11 @@ my_get_selection_text(GtkClipboard *cb, const gchar *text, gpointer
 gboolean
 my_get_xselection(GtkWidget *window, GdkEvent *event)
 {
-	GdkAtom		atom;
-	gint		format;
-	size_t		length;
-	gchar		*content = NULL;
-
-	/* previous clipboard content */
-	static size_t	old_content_len = 0;
-	static gchar	*old_content = "";
-
 
 	begin_func("my_get_xselection");
 
 	gtk_clipboard_request_text(gtk_clipboard_get(clipboard),
 			my_get_selection_text, NULL);
-
-	return_val(TRUE);
-
-	length = (size_t) gdk_selection_property_get(gtk_widget_get_window(window),
-			(guchar **) &content, &atom, &format);
-
-	if (length > 0) {
-		if ((length != old_content_len ||
-				memcmp(content, old_content, length) != 0) &&
-		    !gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore))) {
-			/* new data in clipboard */
-			/* store new content for future comparation */
-			if (old_content_len > 0)
-				g_free(old_content);
-			old_content = content;
-			old_content_len = length;
-
-			/* process item */
-			/* process_item(content, length, 0, TRUE); */
-		} else {
-			/* no new data */
-			g_free(content);
-		}
-
-		/* when clipboard is locked, set selection owener to myself */
-		    if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_ignore)) ||
-			gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(menu_app_clip_lock))) {
-			if (gtk_selection_owner_set(dock_app,
-						clipboard,
-						GDK_CURRENT_TIME) == 0)
-				selected = NULL;
-		}
-
-	}
 
 	return_val(TRUE);
 }

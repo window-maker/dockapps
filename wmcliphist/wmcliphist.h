@@ -281,6 +281,9 @@ extern GtkWidget	*menu_app_save;
 /* button */
 extern GtkWidget	*button;
 
+/* event */
+extern GtkWidget	*event;
+
 /* pixmap */
 extern GtkWidget	*pixmap;
 
@@ -289,7 +292,6 @@ extern GtkWidget	*pixmap;
  */
 gboolean
 button_press(GtkWidget *widget, GdkEvent *event, gpointer data);
-
 
 /*
  * checks, if there is already such item in menu,

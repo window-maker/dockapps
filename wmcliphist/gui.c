@@ -27,6 +27,9 @@ GtkWidget	*menu_app_clip_ignore;
 GtkWidget	*menu_app_exit;
 GtkWidget	*menu_app_save;
 
+/* event box */
+GtkWidget *event;
+
 /* button */
 GtkWidget	*button;
 
@@ -171,8 +174,8 @@ menu_item_add(gchar *content, gint locked, GtkWidget *target_menu)
 		}
 
 		history_items = g_list_remove_link(history_items, list_node);
-		gtk_container_remove(GTK_CONTAINER(hist_item->menu),
-				hist_item->menu_item);
+/*		gtk_container_remove(GTK_CONTAINER(hist_item->menu),
+				hist_item->menu_item); */
 		gtk_widget_destroy(hist_item->menu_item);
 		g_free(hist_item->content);
 		g_free(hist_item);
@@ -283,7 +286,8 @@ menu_app_item_click(GtkWidget *menuitem, gpointer data)
 			}
 			history_free();
 			rcconfig_free();
-
+			
+			gtk_main_quit();
 			exit(0);
 			return_val(TRUE);
 	}
@@ -332,63 +336,13 @@ button_press(GtkWidget *widget, GdkEvent *event, gpointer data)
 }
 
 
-
 /* ==========================================================================
  *                                                            message dialogs
  */
 
-static GMainLoop	*loop;
-static gint		button_pressed;
-
-
-static gboolean
-dialog_button_press(GtkWidget *button, gpointer data)
-{
-	begin_func("dialog_button_press");
-
-	button_pressed = GPOINTER_TO_INT(data);
-	g_main_quit(loop);
-
-	return_val(TRUE);
-}
-
-
-
-static gboolean
-dialog_handle_key_press_event(GdkEventKey *event, gpointer data, guint key)
-{
-	if(event->type != GDK_KEY_PRESS)
-		return_val(FALSE);
-	if(event->keyval != key)
-		return_val(FALSE);
-	button_pressed = GPOINTER_TO_INT(data);
-	g_main_quit(loop);
-
-	return_val(TRUE);
-}
-
-
-
-static gboolean
-dialog_key_press_yes(GtkWidget *button, GdkEventKey *event, gpointer data)
-{
-	begin_func("dialog_key_press_yes");
-	return dialog_handle_key_press_event(event, data, GDK_KEY_Return);
-}
-
-
-
-static gboolean
-dialog_key_press_no(GtkWidget *button, GdkEventKey *event, gpointer data)
-{
-	begin_func("dialog_key_press_no");
-	return dialog_handle_key_press_event(event, data, GDK_KEY_Escape);
-}
-
-
 
 /*
- * open dialog with specified message andbuttons
+ * open dialog with specified message and buttons
  * and return number of button pressed
  */
 gint
@@ -397,60 +351,54 @@ show_message(gchar *message, char *title,
 {
 	GtkWidget	*dialog,
 			*label,
-			*button_0,
-			*button_1,
-			*button_2;
+			*content_area;
+	gint		result;
+	gint		button_pressed = 1;
 
 	begin_func("show_message");
 
 	/* create the main widgets */
 	dialog = gtk_dialog_new();
+
+	content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+
+	/* Show the message */
 	label = gtk_label_new(message);
+	gtk_container_add(GTK_CONTAINER (content_area), label);
+	gtk_widget_show(label);
 
-	/* create buttons and set signals */
-	gtk_dialog_add_button(GTK_DIALOG(dialog), b0_text, 0);
-	button_0 = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), 0);
-	g_signal_connect(G_OBJECT(button_0), "clicked",
-			G_CALLBACK(dialog_button_press),
-			GINT_TO_POINTER(0));
-	if (!b2_text) {
-		g_signal_connect(G_OBJECT(dialog), "key-press-event",
-				G_CALLBACK(dialog_key_press_yes),
-				GINT_TO_POINTER(0));
-	}
+	/* add the button */
+	gtk_dialog_add_button(GTK_DIALOG (dialog), b0_text, 0);
+	if(b1_text != NULL) gtk_dialog_add_button(GTK_DIALOG (dialog), b1_text, 1);
+	if(b2_text != NULL) gtk_dialog_add_button(GTK_DIALOG (dialog), b2_text, 2);
 
-	if (b1_text != NULL) {
-		gtk_dialog_add_button(GTK_DIALOG(dialog), b1_text, 1);
-		button_1 = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), 1);
-		g_signal_connect(G_OBJECT(button_1), "clicked",
-				G_CALLBACK(dialog_button_press),
-				GINT_TO_POINTER(1));
-		if (!b2_text) {
-			g_signal_connect(G_OBJECT(dialog), "key-press-event",
-					G_CALLBACK(dialog_key_press_no),
-					GINT_TO_POINTER(1));
-		}
-	}
-
-	if (b2_text) {
-		gtk_dialog_add_button(GTK_DIALOG(dialog), b2_text, 2);
-		button_2 = gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog), 2);
-		g_signal_connect(G_OBJECT(button_2), "clicked",
-				G_CALLBACK(dialog_button_press),
-				GINT_TO_POINTER(2));
-	}
-
-	/* add the label, and show everything we've added to the dialog. */
-	gtk_misc_set_padding(&GTK_LABEL(label)->misc, 10, 10);
-	gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(dialog))), label);
 	gtk_widget_show_all(dialog);
 
-	/* set window title */
+	/* set the dialog title */
 	gtk_window_set_title(GTK_WINDOW(dialog), title);
 
-	loop = g_main_new(FALSE);
-	g_main_run(loop);
-	g_main_destroy(loop);
+	/* set the dialog modal and transient */
+/*	gtk_window_set_modal(GTK_WINDOW (dialog), TRUE);*/
+	gtk_window_set_transient_for(GTK_WINDOW (dialog), GTK_WINDOW (dock_app));
+
+	/*wait for the user response */
+	result = gtk_dialog_run (GTK_DIALOG (dialog));
+	switch (result)
+	{
+		case 0:
+			button_pressed = 0;
+			break;
+		case 1:
+			button_pressed = 1;
+			break;
+		case 2:
+			button_pressed = 2;
+			break;
+		default:
+			break;
+	}
+
+	/*destroy the dialog box, when the user responds */
 	gtk_widget_destroy(dialog);
 
 	return_val(button_pressed);
