@@ -1,4 +1,8 @@
-// AMixer.h, Petr Hlavka, 2004
+// AMixer.h
+//
+// Copyright (C) 2004, Petr Hlavka
+//
+// SPDX-License-Identifier: GPL-2.0+
 
 #ifndef AMIXER_H
 #define AMIXER_H

@@ -1,4 +1,8 @@
-// AItem.h, Petr Hlavka, 2004
+// AItem.h
+//
+// Copyright (C) 2004, Petr Hlavka
+//
+// SPDX-License-Identifier: GPL-2.0+
 
 #ifndef AITEM_H
 #define AITEM_H

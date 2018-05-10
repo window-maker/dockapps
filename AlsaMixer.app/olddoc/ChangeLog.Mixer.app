@@ -3,7 +3,7 @@ Version		Description
 1.8.0		- Released 2002-09-15
 		- Now supports all mixer sources. NOTE! The source names have
 		  been changed. See "Mixer.app -h".
-		- Added alternative skin submitted by Hans D. <barross@web.de>.
+		- Added alternative skin submitted by Hans Dembinski <barross@web.de>.
 		- Fixed warnings when compiling with GCC 3.2.
 		- Added OpenBSD support (thanks to ptiJo <ptiJo@noos.fr>).
 

@@ -1,4 +1,8 @@
-// AItem.cc, Petr Hlavka, 2004
+// AItem.cc
+//
+// Copyright (C) 2004, Petr Hlavka
+//
+// SPDX-License-Identifier: GPL-2.0+
 
 #include "AItem.h"
 #include "AMixer.h"

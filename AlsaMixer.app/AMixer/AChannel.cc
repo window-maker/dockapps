@@ -1,4 +1,8 @@
-// AChannel.cc, Petr Hlavka, 2004
+// AChannel.cc
+//
+// Copyright (C) 2004, Petr Hlavka
+//
+// SPDX-License-Identifier: GPL-2.0+
 
 #include "AMixer.h"
 #include "AItem.h"

@@ -1,6 +1,10 @@
 #
-# Mixer.app Makefile
+# AlsaMixer.app Makefile
 #
+# Copyright (c) 1998-2002 Per Liden
+# Copyright (C) 2004, Petr Hlavka
+#
+# SPDX-License-Identifier: GPL-2.0+
 
 DESTDIR =
 GNUSTEP_BINDIR = /usr/local/GNUstep/Apps/AlsaMixer.app

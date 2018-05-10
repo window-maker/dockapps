@@ -1,4 +1,8 @@
-// AChannel.h, Petr Hlavka, 2004
+// AChannel.h
+//
+// Copyright (C) 2004, Petr Hlavka
+//
+// SPDX-License-Identifier: GPL-2.0+
 
 #ifndef ACHANNEL_H
 #define ACHANNEL_H
