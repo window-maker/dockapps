@@ -1,27 +1,9 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
-
-  <title>Window Maker: Home</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="title.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  <?php include("dock.php");  ?>
-  <?php include("header.php"); ?>
-
-  <div>
-    <table class="inner" border="0" cellpadding="1" cellspacing="1">
-      <tr>
-        <td content="content" colspan="2" valign="top">
+---
+layout: default
+title: FAQ
+---
           <br />
           <br />
-
-<?
-   $chapter = $_GET["chapter"];
-   if ($chapter == "") {
-?>
 
           <h1>FAQ</h1>
 
@@ -31,29 +13,26 @@
           Green. Questions are routinely taken and added in from the mailing lists and IRC forums.</p>
 
           <ol>
-            <li><a href="FAQ.php?chapter=1">Introduction to Window Maker</a></li>
+            <li><a href="#chap1">Introduction to Window Maker</a></li>
 
-            <li><a href="FAQ.php?chapter=2">Installing Window Maker</a></li>
+            <li><a href="#chap2">Installing Window Maker</a></li>
 
-            <li><a href="FAQ.php?chapter=3">Configuring Window Maker</a></li>
+            <li><a href="#chap3">Configuring Window Maker</a></li>
 
-            <li><a href="FAQ.php?chapter=4">Using Window Maker</a></li>
+            <li><a href="#chap4">Using Window Maker</a></li>
 
-            <li><a href="FAQ.php?chapter=5">Application Compatibility</a></li>
+            <li><a href="#chap5">Application Compatibility</a></li>
 
-            <li><a href="FAQ.php?chapter=6">Themes and Dockapps</a></li>
+            <li><a href="#chap6">Themes and Dockapps</a></li>
 
-            <li><a href="FAQ.php?chapter=7">Miscellaneous Questions</a></li>
+            <li><a href="#chap7">Miscellaneous Questions</a></li>
 
-            <li><a href="FAQ.php?chapter=8">Troubleshooting Tips</a></li>
+            <li><a href="#chap8">Troubleshooting Tips</a></li>
 
-            <li><a href="FAQ.php?chapter=9">Programming for Window Maker</a></li>
+            <li><a href="#chap9">Programming for Window Maker</a></li>
           </ol>
-<?
-}
-if ($chapter == 1) {
-?>
-<h1>Chapter 1: Introduction to Window Maker</h1>
+
+<h1 id="chap1">Chapter 1: Introduction to Window Maker</h1>
 <UL type="disc">
 <B>1.1</B> &nbsp; <A href="#30">What is Window Maker?</A><BR>
 <B>1.2</B> &nbsp; <A href="#31">Where can I get Window Maker?</A><BR>
@@ -198,12 +177,7 @@ the latter of which are used to fix bugs.
 It is generally safe to go with the highest numbered
 patch release.
 
-<?
-}
-if ($chapter==2) {
-?>
-
-<h1>Chapter 2: Installing Window Maker</h1>
+<h1 id="chap2">Chapter 2: Installing Window Maker</h1>
 <UL type="disc">
 <B>2.1</B> &nbsp; <A href="#41">Why are no icons showing up after installing Window Maker?</A><BR>
 <B>2.2</B> &nbsp; <A href="#42">How do I make Window Maker link against libtiff?</A><BR>
@@ -710,11 +684,7 @@ so there are no visable changes for users, and existing file formats will work a
 For developers, there is a proplist-compat.h header that provides a mapping between the old and new function names.  See the comments in this file for further instructions.<BR>
 </BLOCKQUOTE>
 
-<?
-}
-if ($chapter == 3) {
-?>
-<h1>Chapter 3: Configuring Window Maker</h1>
+<h1 id="chap3">Chapter 3: Configuring Window Maker</h1>
 <UL type="disc">
 <B>3.1</B> &nbsp; <A href="#73">What are those files inside my ~/GNUstep directory?</A><BR>
 <B>3.2</B> &nbsp; <A href="#74">How do I enable the normal X sloppy focus mode?</A><BR>
@@ -1245,11 +1215,8 @@ This will not:
 <P>
 Thanks to Martin Sillence for pointing this out.<BR>
 </BLOCKQUOTE>
-<?
-}
-if ($chapter==4) {
-?>
-<h1>Chapter 4: Using Window Maker</h1>
+
+<h1 id="chap4">Chapter 4: Using Window Maker</h1>
 <UL type="disc">
 <B>4.1</B> &nbsp; <A href="#62">How do add new icons to the Dock?</A><BR>
 <B>4.2</B> &nbsp; <A href="#63">What is the difference between the Exit and Exit Session Option?</A><BR>
@@ -1380,11 +1347,8 @@ is useful for moving large numbers of windows between desktops.
 <P>
 You can also select windows with shift+click.<BR>
 </BLOCKQUOTE>
-<?
-}
-if ($chapter==5) {
-?>
-<h1>Chapter 5: Application Compatibility</h1>
+
+<h1 id="chap5">Chapter 5: Application Compatibility</h1>
 <UL type="disc">
 <B>5.1</B> &nbsp; <A href="#96">How do I assign gimp an appicon?</A><BR>
 <B>5.2</B> &nbsp; <A href="#97">How do I get an appicon for XEmacs 20.3+?</A><BR>
@@ -1812,11 +1776,8 @@ Now the window will not take focus when switching workspaces.
 [NOTE: this will also make the window non-focusable via keyboard window
 switching. The only way to shift focus to the window is via the mouse. ]<BR>
 </BLOCKQUOTE>
-<?
-}
-if ($chapter==6) {
-?>
-<h1>Chapter 6: Themes and Dockapps</h1>
+
+<h1 id="chap6">Chapter 6: Themes and Dockapps</h1>
 <UL type="disc">
 <B>6.1</B> &nbsp; <A href="#121">What exactly are themes?</A><BR>
 <B>6.2</B> &nbsp; <A href="#122">How do I install a theme?</A><BR>
@@ -1902,11 +1863,8 @@ add
 </PRE>
 in your wmmacros file.<BR>
 </BLOCKQUOTE>
-<?
-}
-if ($chapter==7) {
-?>
-<h1>Chapter 7: Miscellaneous Questions</h1>
+
+<h1 id="chap7">Chapter 7: Miscellaneous Questions</h1>
 <UL type="disc">
 <B>7.1</B> &nbsp; <A href="#115">Is there a pager for Window Maker?</A><BR>
 <B>7.2</B> &nbsp; <A href="#116">How do I use getstyle and setstyle?</A><BR>
@@ -2072,18 +2030,11 @@ Send the resulting "~/typescript" together with a concise explanation
 about how to reproduce the bug (please use the included BUGFORM for
 instruction) to the <A HREF="http://www.windowmaker.org/feedback.php?mailto=developers">developers</A>.<BR>
 </BLOCKQUOTE>
-<?
-}
-if ($chapter==8) {
-?>
-<h1>Chapter 8: Troubleshooting Tips</h1>
+
+<h1 id="chap8">Chapter 8: Troubleshooting Tips</h1>
 No questions are currently available for this chapter.</FONT>
 
-<?
-}
-if ($chapter==9) {
-?>
-<h1>Chapter 9: Programming for Window Maker</h1>
+<h1 id="chap9">Chapter 9: Programming for Window Maker</h1>
 <UL type="disc">
 <B>9.1</B> &nbsp; <A href="#111">How do I get a normal X application to produce an appicon?</A><BR>
 <B>9.2</B> &nbsp; <A href="#112">How do I get my tcl/tk application to produce an appicon?</A><BR>
@@ -2147,28 +2098,7 @@ To subscribe to this list, send a message with the word ``subscribe'' in
 the _BODY_ of the message to: <A HREF="mailto:wings-request@postilion.org">&lt;wings-request@postilion.org&gt;</A>.<BR>
 </BLOCKQUOTE>
 
-<?
-}
-if ($chapter > 0) {
-?>
 <HR size="1" noshade width="100%" align="center">
 <DIV align="center">
-<A href="FAQ.php">Top level of FAQ</A>
+<A href="#">Top level of FAQ</A>
 </DIV>
-<?
-}
-?>
-
-
-
-
-        </td>
-      </tr>
-    </table>
-
-
-
-  <?php include("footer.php"); ?>
-
-</body>
-</html>
