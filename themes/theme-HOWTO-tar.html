@@ -1,19 +1,7 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
-
-  <title>Window Maker: Themes</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="title.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  <?php include("dock.php");  ?>
-  <?php include("header.php"); ?>
-
-<table class="inner" border="0" cellpadding="1" cellspacing="1">
-      <tr>
-        <td content="content" colspan="2" valign="top">
+---
+layout: default
+title: Theme HOWTO - Tar'ing your theme
+---
           <br />
           <br />
 
@@ -41,7 +29,7 @@
        <p>
        If you're having trouble, try typing '<tt>man tar</tt>' or ask for help on irc 
        in the #WindowMaker channel on EFnet. If all else fails, you can 
-       <a href="wmaker-dev.php">contact us</a> and we'll try and help you out,
+       <a href="{{ site.baseurl }}/lists/wmaker-dev.html">contact us</a> and we'll try and help you out,
        but please try the other methods first. Thanks.
        <p>
        Also, your theme file should NOT include your <tt>~/GNUstep/Defaults/WindowMaker</tt> 
@@ -51,13 +39,3 @@
        above. For example, do NOT include your <tt>menu</tt> file or anything from your
        <tt>~/GNUstep/Defaults/</tt> directory. ONLY include files from the directories 
        listed above and the readme.lsm file.
-
-
- </td>
-      </tr>
-    </table>
-
-  <?php include("footer.php"); ?>
-
-</body>
-</html>
