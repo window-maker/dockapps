@@ -21,7 +21,7 @@ Team.
 # How can I help?
 
 If you would like to add or update a dockapp, fork
-[https://github.com/d-torrance/dockapps](https://github.com/d-torrance/dockapps)
+[https://github.com/window-maker/dockapps](https://github.com/window-maker/dockapps)
 and submit a pull request to the `gh-pages` branch.
 
 The site is built using [Jekyll](http://jekyllrb.com).  Jekyll is a blogging
@@ -110,8 +110,8 @@ category which wmfoo and wmbar both belong to corresponds to a file
 
 # What if I have a question or find a problem with the site?
 
-Either [create an issue](https://github.com/d-torrance/dockapps/issues/new)
-or [email the Window Maker developers](mailto:wmaker-dev@lists.windowmaker.org).
+Either [create an issue](https://github.com/window-maker/dockapps/issues/new)
+or [email the Window Maker developers](mailto:wmaker-dev@googlegroups.com).
 
 # Missing dockapps
 
