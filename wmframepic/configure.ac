@@ -1,4 +1,4 @@
-AC_INIT([wmframepic], [0.2], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmframepic], [0.2], [wmaker-dev@googlegroups.com])
 AC_CONFIG_SRCDIR([src/main.c])
 AM_INIT_AUTOMAKE
 

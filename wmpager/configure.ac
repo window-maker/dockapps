@@ -1,5 +1,5 @@
 AC_PREREQ([2.60])
-AC_INIT([wmpager], [1.2], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmpager], [1.2], [wmaker-dev@googlegroups.com])
 AC_CONFIG_SRCDIR([src/wmpager.c])
 AM_INIT_AUTOMAKE([foreign dist-bzip2 no-dist-gzip])
 AM_SILENT_RULES

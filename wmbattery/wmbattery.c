@@ -1,7 +1,7 @@
 /* wmbattery - display laptop battery info, dockable in WindowMaker
  * Copyright (C) 1998-2014 Joey Hess <joey@kitenet.net>
  * Copyright (C) 2014 Window Maker Developers Team
- *                      <wmaker-dev@lists.windowmaker.org>
+ *                      <wmaker-dev@googlegroups.com>
  *
  * Portions of code derived from:
  *   wmapm - Copyright (C) 1998-1999 Chris D. Faulhaber <jedgar@fxp.org>

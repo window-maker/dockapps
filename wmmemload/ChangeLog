@@ -21,7 +21,7 @@
 
 2014 October 4
   * Now maintained by Window Maker Developers Team
-	<wmaker-dev@lists.windowmaker.org>
+	<wmaker-dev@googlegroups.com>
   * Fix autotools warnings.
   * Fix errors in the manpage.
   * Fix version check for kernel 3.0 (submitted by Guillermo Indalecio

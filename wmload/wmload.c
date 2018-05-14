@@ -2,7 +2,7 @@
 *  Copyright (C) 1996 Beat Christen <bchriste@iiic.ethz.ch>
 *  Copyright (C) 1997 Ryan Land <rland@bc1.com>
 *  Copyright (C) 2015 Window Maker Developers Team
-*                     <wmaker-dev@lists.windowmaker.org>
+*                     <wmaker-dev@googlegroups.com>
 *
 *  This program is free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by

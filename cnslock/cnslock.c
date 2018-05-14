@@ -1,6 +1,6 @@
 /* cnslock
  * Copyright (C) 2002 Simon Hunter (lists@sprig.dyn.dhs.org)
- * Copyright (C) 2017 Window Maker Team (wmaker-dev@lists.windowmaker.org)
+ * Copyright (C) 2017 Window Maker Team (wmaker-dev@googlegroups.com)
  *
  * cnslock is a dock application that displays the current state of the
  * three lock keys (caps, num, and scroll)

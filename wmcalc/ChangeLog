@@ -32,7 +32,7 @@ CHANGE LOG:
 	Fix -Woverflow compiler warnings.
 	Remove C++ style comments.
 	Maintained by Window Maker Developers Team
-		<wmaker-dev@lists.windowmaker.org>
+		<wmaker-dev@googlegroups.com>
 
 0.4     Added global config file
 	Maintained by Gordon Fraser <gordon@debian.org>

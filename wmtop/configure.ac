@@ -1,4 +1,4 @@
-AC_INIT([wmtop], [0.85], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([wmtop], [0.85], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CANONICAL_HOST

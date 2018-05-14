@@ -3,7 +3,7 @@
 - Add manpage from Debian.
 - Add -b command line option to select which clipboard to manage.
 - Now maintained by Window Maker Developers team
-  <wmaker-dev@lists.windowmaker.org>.
+  <wmaker-dev@googlegroups.com>.
 
 21/03/2009: v2.0
 - Gentoo patches by Samuli Suominen integrated

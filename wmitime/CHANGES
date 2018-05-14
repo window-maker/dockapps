@@ -35,7 +35,7 @@ Version		Description
 		  feature.
 		* Update contact information.  wmitime is now maintained by the
 		  Window Maker Developers Team
-		  <wmaker-dev@lists.windowmaker.org>.
+		  <wmaker-dev@googlegroups.com>.
 		* Add manpage and desktop file, both adapted from Debian.
 		* Remove wmitime-master-led.xpm; unused duplicate file.
 		* Do not include or compile unused wmgeneral files.

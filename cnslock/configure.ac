@@ -1,4 +1,4 @@
-AC_INIT([cnslock], [1.03], [wmaker-dev@lists.windowmaker.org])
+AC_INIT([cnslock], [1.03], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC

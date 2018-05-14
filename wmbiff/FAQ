@@ -1,7 +1,7 @@
 * Does WMBiff have a mailing list?
 
 There is no longer a WMBiff-specific mailing list, but it may be discussed
-on the Window Maker Developers mailing list, wmaker-dev@lists.windowmaker.org.
+on the Window Maker Developers mailing list, wmaker-dev@googlegroups.com.
 
 See http://lists.windowmaker.org/.
 
@@ -42,7 +42,7 @@ wmaker-dev.
 
 If using Debian, use 'reportbug wmbiff' and submit a
 wishlist bug.  Or, send mail with your suggestion to
-wmaker-dev@lists.windowmaker.org.
+wmaker-dev@googlegroups.com.
 
 Some previously requested features can't be done:
  - Count IMAP deleted messages separately (the protocol
@@ -86,4 +86,4 @@ http://repo.or.cz/w/wmaker-crm.git/blob/HEAD:/The-perfect-Window-Maker-patch.txt
 
 * This FAQ is wrong.
 
-Send mail to wmaker-dev@lists.windowmaker.org.
+Send mail to wmaker-dev@googlegroups.com.
