@@ -466,6 +466,7 @@ int PlayerConnect(void)
 {
 	GError *error = NULL;
 	static int previous_error_code = 0;
+	static char* player_name = NULL;
 
 	player = playerctl_player_new(NULL, &error);
 	if (error != NULL) {
@@ -474,9 +475,16 @@ int PlayerConnect(void)
 			DAWarning("Connection to player failed: %s",
 				  error->message);
 		previous_error_code = error->code;
+		player_name = NULL;
 		return 0;
 	} else {
 		previous_error_code = 0;
+		if (!player_name) {
+			g_object_get(player, "player_name", &player_name, NULL);
+			player_name++; /* get rid of opening dot */
+			if (player_name)
+				DAWarning("Connected to %s", player_name);
+		}
 		return 1;
 	}
 }
