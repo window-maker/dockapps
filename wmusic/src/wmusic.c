@@ -635,7 +635,7 @@ void DrawVolume(void)
 		if (volume > 36)
 			volume = 36;
 		copyNumArea(61, 0, volume, 6, 7, 18);
-		copyNumArea(97, 0, 36-volume, 6, 7+volume, 18);
+		copyNumArea(98, 0, 36-volume, 6, 7+volume, 18);
 }
 
 void DrawKbps(int bps)
