@@ -30,7 +30,6 @@
 #include <locale.h>
 #include <xmms/xmmsctrl.h>
 
-#include "version.h"
 #include "wmusic-master.xpm"
 #include "wmusic-digits.xpm"
 
@@ -710,7 +709,7 @@ int main(int argc, char **argv)
 	DAParseArguments(argc, argv, options,
 		sizeof(options)/sizeof(DAProgramOption),
 		"XMMS remote control by Bastien Nocera <hadess@hadess.net>",
-		VERSION);
+		PACKAGE_STRING);
 
 	setlocale(LC_ALL, "");
 	DAInitialize(displayName, "wmusic", 64, 64, argc, argv);
