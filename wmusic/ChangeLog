@@ -1,3 +1,39 @@
+- 2.0.0
+* Now maintained by the Window Maker Team.
+* Remove debian directory, spec file, and generated autotools files.
+* Remove libdockapp directory; we will used shared lib.
+* Modernize autotools files.
+* Remove version.h header file; use autoconf's PACKAGE_STRING instead.
+* Update location of libdockapp header file.
+* Port to playerctl for MPRIS support.
+  Since development on XMMS ended long ago (last release was in 2007), we have
+  switched support to MPRIS (Media Player Remote Interfacing Specification),
+  an API for controlling *any* media player which supports it.  We use the
+  playerctl C library, available from https://github.com/acrisci/playerctl.
+  Because of the switch, several more XMMS-specific features have been removed.
+  In particular,
+  + The channels are no longer displayed, and the volume is always displayed.
+  + The bitrate is no longer displayed, and the title is always displayed.
+  + The eject feature no longer is functional, although the eject button is
+    still present.
+  + Toggling between the various XMMS windows is no longer supported.
+* Fix incompatible pointer types.
+* Fix display bug; print entire title for short titles.
+  Previously, if a title was too short to require scrolling, the first
+  character was omitted.
+* Remove unsupported command line options.
+* Print message when connecting to new player.
+* Fix volume display bug.
+  The black pixels which were copied to the right part of the volume slider
+  when the volume was decreased actually included a one-pixel-wide line of the
+  bright red indicating max volume.
+* Remove trailing whitespace.
+* Separate changelog into its own file.
+* Add manpage (adapted from Debian).
+* Update documentation and help text.
+* Include all necessary header files.
+* Add desktop file.
+
 - 1.5.0
 * Added -R option to start xmms when wmusic is started, and to exit wmusic
   when xmms exits.
