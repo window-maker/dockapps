@@ -680,8 +680,8 @@ int DrawChars(char *title, int tpos, int pos)
 	{
 		int len = mbtowc(&wc, title, MB_CUR_MAX);
 		title += len;
-		if(pos > tpos)
-			DrawChar(wc, (pos - tpos)*6 + 1, 26);
+		if(pos >= tpos)
+			DrawChar(wc, (pos - tpos)*6 + 7, 26);
 		++pos;
 	}
 	return pos;
