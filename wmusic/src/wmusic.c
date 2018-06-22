@@ -72,15 +72,12 @@ XEvent ev;
 
 /* Dockapp variables */
 PlayerctlPlayer *player;
-unsigned int xmms_session = 0;
 char *xmms_cmd = "xmms";
 Bool main_vis=0, pl_vis=0, eq_vis=0;
 unsigned int volume_step = 5;
 Bool run_excusive=0;
 
-Bool t_scroll=0;
 Bool t_time=0;
-Bool t_volume=0;
 float title_pos = 0;
 unsigned int arrow_pos = 0;
 Bool pause_norotate = 0;
@@ -124,22 +121,12 @@ static DAProgramOption options[] = {
 		{&xmms_cmd} },
 	{"-d", "--display", "Display to use", DOString, False, {&displayName} },
 	{"-r", "--run", "Run xmms on startup", DONone, False, {NULL} },
-	{"-s", "--session", "Xmms session to use", DONatural, False,
-		{&xmms_session} },
-	{"-t", "--title", "Show title instead of kbps by default", DONone,
-		False, {NULL} },
-	{"-u", "--hide", "Hide xmms windows on startup", DONone, False,
-		{NULL} },
 	{"-V", "--volume", "Stepping of the wheel volume control (in percent)",
 		DONatural, False, {&volume_step} },
-	{"-x", "--wmxmms", "Use wmxmms-like show and hide", DONone, False,
-		{NULL} },
 	{"-a", "--rotate-arrow", "Do not rotate the arrow, when paused", 
 		DONone, False, {NULL} },
 	{"-l", "--time-left", "Show time left instead of time remaining by default",
 	 DONone, False, {NULL} },
-	{"-b", "--volume-slider", "Show volume slider instead of channels", 
-	 DONone, False, {NULL}},
 	{"-R", "--run-excusive", "Run xmms on startup, exit when xmms exits", DONone, False, {NULL} }
 };
 
@@ -764,11 +751,9 @@ int main(int argc, char **argv)
 
 	/* End of initialization */
 
-	if (options[4].used) t_scroll=1;
-	if (options[8].used) pause_norotate=1;
-	if (options[9].used) t_time=1;
-	if (options[10].used) t_volume=1;
-	if (options[11].used) run_excusive=1;
+	if (options[4].used) pause_norotate=1;
+	if (options[5].used) t_time=1;
+	if (options[6].used) run_excusive=1;
 
 	PlayerConnect();
 
