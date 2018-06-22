@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=wmusic
+Comment=Remote-control dockapp for MPRIS-compatible media players
+Exec=wmusic
+Categories=AudioVideo;Audio;Player;
+Keywords=audio;music;dockapp;window maker
