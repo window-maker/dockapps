@@ -1,3 +1,0 @@
-?package(wmusic):needs=X11 section=Apps/Sound\
-  title="wmusic" command="/usr/bin/wmusic --rotate-arrow" \
-  description="A remote-control DockApp for XMMS"
