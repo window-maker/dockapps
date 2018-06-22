@@ -26,9 +26,12 @@
 #include <libdockapp/dockapp.h>
 #include <playerctl/playerctl.h>
 #include <unistd.h>
-#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <X11/X.h>
+#include <X11/Xlib.h>
 
 #include "wmusic-master.xpm"
 #include "wmusic-digits.xpm"
