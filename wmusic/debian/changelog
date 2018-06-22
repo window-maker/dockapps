@@ -1,0 +1,115 @@
+wmusic (1.4.10-2) unstable; urgency=low
+
+  * Use xlibs-dev as Build-Dep instead of xlibs6-dev (Closes: #170164).
+
+ -- Alain Schroeder <alain@debian.org>  Fri,  7 Mar 2003 20:45:14 +0100
+
+wmusic (1.4.10-1) unstable; urgency=low
+
+  * New Upstream (Fixes Segfaults with gcc-3.0; New Upstream Address)
+  * Changed all addresses in debian/copyright and debian/wmusic.1
+  * Fix hiding of xmms on startup (Closes: #166529).
+
+ -- Alain Schroeder <alain@debian.org>  Wed, 30 Oct 2002 01:30:27 +0100
+
+wmusic (1.4.9-1) unstable; urgency=low
+
+  * New Upstream (It now includes the arrow-patch from 1.4.7-1 and adds the
+    possibility, to choose if the time left or time elapsed is displayed).
+  * Upped Standart Version.
+
+ -- Alain Schroeder <alain@debian.org>  Fri, 22 Feb 2002 12:34:49 +0100
+
+wmusic (1.4.7-1) unstable; urgency=low
+
+  * New Upstream (Only changes to included libdockapp, which we don't use
+    since there is an debian package)
+  * Modified patch from (1.2.6-3 / #86939 / Spinning arrow when stopped)
+    to work only, if command line argument -a or --rotate-arrow is given.
+    Upstream is unresponsive at the moment, so I'm releasing this now.
+  * Changed Manpage to reflect the new patch.
+  * Changed debian menu entry to start with --rotate-arrow by default, too
+
+ -- Alain Schroeder <alain@debian.org>  Thu,  2 Aug 2001 20:22:39 +0200
+ 
+wmusic (1.4.6-1) unstable; urgency=low
+
+  * New Upstream (No real change - only a few changes to README and 
+    Makefile for *BSD)
+  * Linked against libdockapp again - the maintainer included my fixes 
+    and fixed my fixes again ;)
+ 
+ -- Alain Schroeder <alain@debian.org>  Tue, 24 Apr 2001 19:21:37 +0200
+
+wmusic (1.4.5-2) unstable; urgency=low
+
+  * Patched included libdockapp, to work correctly with KDE. (closes: #89516)
+
+ -- Alain Schroeder <alain@debian.org>  Sun, 15 Apr 2001 01:59:11 +0200
+
+wmusic (1.4.5-1) unstable; urgency=low
+
+  * New Upstream.
+
+ -- Alain Schroeder <alain@debian.org>  Mon, 11 Apr 2001 13:50:32 +0200
+
+wmusic (1.4.4-2) unstable; urgency=low
+
+  * Fixed menu entry and added a long description.
+
+ -- Alain Schroeder <alain@debian.org>  Mon,  9 Apr 2001 15:52:48 +0200
+
+wmusic (1.4.4-1) unstable; urgency=low
+
+  * New Upstream, fixes Memory Leak and closes #91826
+
+ -- Alain Schroeder <alain@debian.org>  Mon,  2 Apr 2001 00:30:38 +0200
+
+wmusic (1.4.3-1) unstable; urgency=low
+
+  * New Upstream
+  * Changed back to libdockapp delivered with wmusic, since it
+    seem to handle some stuff right, this might close 89516, maybe
+    not...
+
+ -- Alain Schroeder <alain@debian.org>  Wed, 16 Mar 2001 11:29:58 +0100
+ 
+wmusic (1.4.2-1) unstable; urgency=low
+
+  * New Upstream
+
+ -- Alain Schroeder <alain@debian.org>  Mon, 12 Mar 2001 10:46:57 +0100
+
+wmusic (1.4.1-1) unstable; urgency=low
+
+  * New Upstream
+  * Upgraded Standarts Version
+
+ -- Alain Schroeder <alain@debian.org>  Sun, 11 Mar 2001 16:47:29 +0100
+
+wmusic (1.2.6-4) unstable; urgency=low
+
+  * Wrote a manpage, closes #87140
+
+ -- Alain Schroeder <alain@debian.org>  Tue, 27 Feb 2001 11:29:12 +0100
+ 
+wmusic (1.2.6-3) unstable; urgency=low
+
+  * Now wmusic´s arrow doesn´t spin, if xmms is paused, closes #86939
+
+ -- Alain Schroeder <alain@debian.org>  Thu, 22 Feb 2001 05:17:45 +0100
+
+wmusic (1.2.6-2) unstable; urgency=low
+
+  * Changed section to sound
+  * Fixed dependencies and compiled wmusic against libdockapp
+    instead of just linking it (changed src/Makefile.in too to this), 
+    closes Bug#86101
+
+ -- Alain Schroeder <alain@debian.org>  Fri, 16 Feb 2001 17:09:44 +0100
+ 
+wmusic (1.2.6-1) unstable; urgency=low
+
+  * Initial Release, closes Bug#85266.
+
+ -- Alain Schroeder <alain@debian.org>  Sun, 14 Jan 2001 16:23:10 +0000
