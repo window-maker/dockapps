@@ -1,0 +1,57 @@
+.TH WMUSIC 1 "June 22, 2018"
+.SH NAME
+wmusic \- a remote-control DockApp for MPRIS-compatible media players
+.SH SYNOPSIS
+.B wmusic
+.RI [ options ]
+.SH DESCRIPTION
+This manual page documents briefly the
+.B wmusic command.
+\fBwmusic\fP is a dockapp that remote-controls MPRIS-compatible media players.
+Features include VCR-style controls, Time and Playlist display, supa stylee
+rotating arrow.
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+For a complete description, see the Info files.
+.TP
+.B \-h, \-\-help
+Show summary of options.
+.TP
+.B \-v, \-\-version
+Show version of program.
+.TP
+.B \-c, \-\-command <program>
+Use <program> as the command to launch the media player. You can start it
+by a double-click into the status part of \fBwmusic\fP.
+.TP
+.B \-d, \-\-display host:display[.screen]
+specifies the X server to contact; see X(1).
+.TP
+.B \-r, \-\-run
+Run the media player on startup.
+.TP
+.B \-R, \-\-run\-exclusive
+Run the media player on startup, exit when it exits.
+.TP
+.B \-V, \-\-volume
+Stepping of the wheel volume control (in percent).
+.TP
+.B \-w, \-\-windowed
+Run in windowed mode. Use this, if you want to run \fBwmusic\fP in
+the AfterStep wharf.
+.TP
+.B \-a, \-\-rotate-arrow
+Stop the rotating arrow when \fBwmusic\fP is paused.
+.TP
+.B \-l, \-\-time-left
+Start \fBwmusic\fP with the display showing time left instead of time
+elapsed.
+.SH SEE ALSO
+.BR wmaker (1)
+.SH AUTHOR
+wmusic was originally written by Bastien Nocera <hadess@hadess.net> and
+it is now maintained by the Window Maker Team <wmaker-dev@googlegroups.com>.
+This manual page was written by Alain Schroeder <alain@debian.org>,
+for the Debian GNU/Linux system (but may be used by others).
