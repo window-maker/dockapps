@@ -737,7 +737,7 @@ void ExecuteXmms(void)
 
 int main(int argc, char **argv)
 {
-	unsigned height, width;
+	short unsigned int height, width;
 	DACallbacks callbacks={NULL, buttonPress, buttonRelease, buttonDrag,
 		NULL, NULL, NULL};
 
