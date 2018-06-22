@@ -23,7 +23,7 @@
 #define SEPARATOR " ** "	/* The separator for the scrolling title */
 #define DISPLAYSIZE 6		/* width of text to display (running title) */
 
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <string.h>
