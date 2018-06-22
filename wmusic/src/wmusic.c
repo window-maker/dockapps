@@ -117,17 +117,19 @@ static DAActionRect volumeRects[] = {
 };
 
 static DAProgramOption options[] = {
-	{"-c", "--command", "Command to launch xmms", DOString, False,
-		{&xmms_cmd} },
+	{"-c", "--command", "Command to launch the media player", DOString,
+	 False,	{&xmms_cmd} },
 	{"-d", "--display", "Display to use", DOString, False, {&displayName} },
-	{"-r", "--run", "Run xmms on startup", DONone, False, {NULL} },
+	{"-r", "--run", "Run the media player on startup", DONone, False,
+	 {NULL} },
 	{"-V", "--volume", "Stepping of the wheel volume control (in percent)",
 		DONatural, False, {&volume_step} },
 	{"-a", "--rotate-arrow", "Do not rotate the arrow, when paused",
 		DONone, False, {NULL} },
 	{"-l", "--time-left", "Show time left instead of time remaining by default",
 	 DONone, False, {NULL} },
-	{"-R", "--run-excusive", "Run xmms on startup, exit when xmms exits", DONone, False, {NULL} }
+	{"-R", "--run-excusive", "Run media player on startup, "
+	 "exit when it exits", DONone, False, {NULL} }
 };
 
 typedef struct
@@ -739,7 +741,10 @@ int main(int argc, char **argv)
 	/* Initialization */
 	DAParseArguments(argc, argv, options,
 		sizeof(options)/sizeof(DAProgramOption),
-		"XMMS remote control by Bastien Nocera <hadess@hadess.net>",
+		"MPRIS-compatible media player remote control\n"
+			 "by Bastien Nocera <hadess@hadess.net>\n"
+			 "maintained by the Window Maker Team "
+			 "<wmaker-dev@googlegroups.com>",
 		PACKAGE_STRING);
 
 	setlocale(LC_ALL, "");
