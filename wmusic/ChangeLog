@@ -1,0 +1,136 @@
+- 1.5.0
+* Added -R option to start xmms when wmusic is started, and to exit wmusic
+  when xmms exits.
+  (Thanks to Mateusz Greszta)
+* Incremented the minor version number, getting sick of 1.4.xx releases :)
+
+- 1.4.14
+* Fixed the configure/manpage issue from 1.4.13 :)
+
+- 1.4.13
+* Added Russian/Ukrainian glyph support.
+  (Thanks to Alexey Voinov <voins@voins.program.ru>,
+   Michael Shigorin <mike@altlinux.ru>)
+
+- 1.4.12
+* Added patch to make sure xmms is running before calling some functions.
+  (Thanks to Michael Cohrs <<michael@cohrs.de>)
+* Added patch to fix volume slider overdrawing.
+  (Thanks to Zdik Kudrle <zdik.kudrle@borg.cz>)
+* Added patch to treat main window just like playlist, equalizer, with regard
+  to visibility after right-clicking the wmusic app.
+  (Thanks to Nicolas Hinz <nicolas-hinz@gmx.de>)
+
+- 1.4.11
+* Added patch to show volume slider (-b flag), allowing volume control
+  without a scroll mouse.
+  (Thanks to Alessandro Budai <budai@ingsun1.univ.trieste.it>)
+
+- 1.4.10
+* Added patch to fix segfaults caused by wrong size of displayRect array
+  (Thanks to Alexey Voinov <voins@voins.program.ru>)
+
+- 1.4.9
+* Added patch to stop rotating arrow when XMMS is paused (-a flag)
+* Added patch to switch between time left and time elapsed display
+  (-l flag to start with time left)
+* Changed docs to reflect new maintainership (John Chapin)
+
+- 1.4.8
+* Corrected e-mail addresses
+
+- 1.4.7
+* KDE support removed (maybe) because it breaks everything else (should fix
+  the "buttons not clickable" problem)
+
+- 1.4.6
+* Non-GNU make fixes (thanks to Eric Melville <eric@freebsd.org>)
+* KDE support in libdockapp (thanks to Alain Schroeder <alain@mini.gt.owl.de>)
+* KDE testing and README update (thanks to Eric Christopherson from #kde-users)
+
+- 1.4.5
+* Fixed another leak (will it ever stop ?)
+	(thanks to Ulrich Seidl for finding it out)
+
+- 1.4.4
+* Fixed a leak (thanks to Gerry OKeefe for reporting this one)
+
+- 1.4.3
+* Fixed volume flag to be -V (collided with -v/--version)
+* Updated man page
+* Fixed a leak
+* Fixed title "freezing" when emptying the playlist
+* Changed the separator for the scrolling title (and the code as well)
+* Added ()*/ to the recognized characters
+* Fixed a segfault related to the new separator code
+
+- 1.4.2
+* Updated manpage
+* Added manpage by Alain Schroeder
+* Added -t flag to start with title display (idea by Antoine Labour as well)
+* Added apostroph in title (Antoine Labour <antoine.labour@m4x.org>)
+* Fixed 2 segfaults (title related again)
+
+- 1.4.1
+* Fixed wmusic.spec.in (thanks to g0sh on OPN)
+* Really fixed the title display bugs
+* Make sure to use -w to run it under window managers other than Window Maker
+* Made the title scrolling speed slower
+
+- 1.4
+* Debian fixes and maintainership (Alain Schroeder)
+* Wheel scroll support for volume change (thanks Marius Aamodt Eriksen)
+* Added scroll title display, had to rework the GUI a bit
+
+- 1.2.6
+* Added hours:minutes display for songs longer than 99 minutes and 59 seconds
+  (idea by Scott Mc Dermott <scottm@octaldream.com>)
+* Now upstream Debian package
+
+- 1.2.5
+* Changed the size of the dockapp to 64x64, now Sawfish compatible
+
+- 1.2.4
+* Included libdockapp inside the archive, it is not needed to download and
+  install it separately.
+* Added AfterStep compatibility
+
+- 1.2.3
+* Removed -n option (don't run XMMS on startup)
+* Added -r option (run XMMS on startup)
+* Double-click on the display will now run XMMS
+* Added more differences between XMMS not playing / XMMS not running
+
+- 1.2.2
+* fixed a crazy cpu bug, threads are no more used
+
+- 1.2.1
+* changed the name from wmplay to wmusic
+* fixed a bug (uninitialized var. was used on some circumstances)
+* removed the close-on-xmms-close (click on the display to run xmms)
+* added -n switch to avoid running xmms on startup
+
+- 1.2
+* a little bug fix for transparency
+* added autoconf support, thanks to Logan
+
+- 1.1.9
+* Added -x switch for wmxmms like mouse-bindings
+	(lo_tek wanted it :P)
+
+- 1.1.8
+* Now multi-threaded, so that the display is independant of the rest
+
+- 1.1.0
+* Rewrote to use libdockapp rather than gdk
+
+- 0.9.9
+* Added Stereo/Mono display
+* Added kbps display
+
+- 0.9
+* Added time and pos display, and the rotating arrow
+* Switched the building to a Makefile
+
+- 0.1
+* First version, only the bottom buttons are working
