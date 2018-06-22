@@ -31,7 +31,6 @@
 #include <xmms/xmmsctrl.h>
 
 #include "version.h"
-#include "config.h"
 #include "wmusic-master.xpm"
 #include "wmusic-digits.xpm"
 
