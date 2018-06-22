@@ -24,11 +24,11 @@
 #define DISPLAYSIZE 6		/* width of text to display (running title) */
 
 #include <libdockapp/dockapp.h>
+#include <playerctl/playerctl.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <string.h>
 #include <locale.h>
-#include <xmms/xmmsctrl.h>
 
 #include "wmusic-master.xpm"
 #include "wmusic-digits.xpm"
@@ -49,16 +49,15 @@ void ActionFastf(int x, int y, DARect rect, void *data);
 void ToggleWins(int x, int y, DARect rect, void *data);
 void ToggleVol(int x, int y, DARect rect, void *data);
 void ChangeVol(int x, int y, DARect rect, void *data);
-void ToggleTitle(int x, int y, DARect rect, void *data);
 void ToggleTime(int x, int y, DARect rect, void *data);
 void buttonPress(int button, int state, int x, int y);
 void buttonRelease(int button, int state, int x, int y);
+int PlayerConnect(void);
 void DisplayRoutine();
 void DrawPos (int pos);
 void DrawTime(int time);
 void DrawArrow(void);
-void DrawChannels(int channels);
-void DrawKbps(int bps);
+void DrawVolume(void);
 void DrawTitle(char *title);
 void ExecuteXmms(void);
 
@@ -72,10 +71,10 @@ GC gc;
 XEvent ev;
 
 /* Dockapp variables */
+PlayerctlPlayer *player;
 unsigned int xmms_session = 0;
 char *xmms_cmd = "xmms";
 Bool main_vis=0, pl_vis=0, eq_vis=0;
-Bool xmms_running;
 unsigned int volume_step = 5;
 Bool run_excusive=0;
 
@@ -114,7 +113,6 @@ static DAActionRect globRect[] = {
 
 static DAActionRect displayRects[] = {
 	{{5, 5, 54, 12}, ToggleTime},
-	{{5, 25, 54, 9}, ToggleTitle}
 };
 
 static DAActionRect volumeRects[] = {
@@ -264,7 +262,12 @@ void ActionPlay(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_play(xmms_session);
+		GError *error = NULL;
+
+		playerctl_player_play(player, &error);
+		if (error != NULL)
+			DAWarning("Could not execute command: %s",
+				  error->message);
 	}
 }
 
@@ -273,7 +276,12 @@ void ActionPause(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_pause(xmms_session);
+		GError *error = NULL;
+
+		playerctl_player_pause(player, &error);
+		if (error != NULL)
+			DAWarning("Could not execute command: %s",
+				  error->message);
 	}
 }
 
@@ -282,7 +290,7 @@ void ActionEject(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_eject(xmms_session);
+		DAWarning("Eject function is no longer supported.");
 	}
 }
 
@@ -291,7 +299,12 @@ void ActionPrev(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_playlist_prev(xmms_session);
+		GError *error = NULL;
+
+		playerctl_player_previous(player, &error);
+		if (error != NULL)
+			DAWarning("Could not execute command: %s",
+				  error->message);
 	}
 }
 
@@ -300,7 +313,12 @@ void ActionNext(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_playlist_next(xmms_session);
+		GError *error = NULL;
+
+		playerctl_player_next(player, &error);
+		if (error != NULL)
+			DAWarning("Could not execute command: %s",
+				  error->message);
 	}
 }
 
@@ -309,7 +327,12 @@ void ActionStop(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_stop(xmms_session);
+		GError *error = NULL;
+
+		playerctl_player_stop(player, &error);
+		if (error != NULL)
+			DAWarning("Could not execute command: %s",
+				  error->message);
 	}
 }
 
@@ -318,8 +341,12 @@ void ActionFastr(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_jump_to_time(xmms_session,
-			xmms_remote_get_output_time(xmms_session)-10000);
+		GError *error = NULL;
+
+		playerctl_player_seek(player, -10000000, &error);
+		if (error != NULL)
+			DAWarning("Could not execute command: %s",
+				  error->message);
 	}
 }
 
@@ -328,42 +355,18 @@ void ActionFastf(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		xmms_remote_jump_to_time(xmms_session,
-			xmms_remote_get_output_time(xmms_session)+10000);
+		GError *error = NULL;
+
+		playerctl_player_seek(player, 10000000, &error);
+		if (error != NULL)
+			DAWarning("Could not execute command: %s",
+				  error->message);
 	}
 }
 
 void ToggleWins(int x, int y, DARect rect, void *data)
 {
-	if (xmms_running)
-	{
-		if (options[7].used)
-		{
-			if (data)
-			xmms_remote_main_win_toggle(xmms_session,
-					!xmms_remote_is_main_win(xmms_session));
-			if (!data)
-			xmms_remote_pl_win_toggle(xmms_session,
-					!xmms_remote_is_pl_win(xmms_session));
-		} else {
-			if (xmms_remote_is_main_win(xmms_session) || 
-			    xmms_remote_is_pl_win(xmms_session) ||
-			    xmms_remote_is_eq_win(xmms_session))
-			{
-				main_vis = xmms_remote_is_main_win(xmms_session);
-				pl_vis = xmms_remote_is_pl_win(xmms_session);
-				eq_vis = xmms_remote_is_eq_win(xmms_session);
-
-				xmms_remote_main_win_toggle(xmms_session, 0);
-				xmms_remote_pl_win_toggle(xmms_session, 0);
-				xmms_remote_eq_win_toggle(xmms_session, 0);
-			} else {
-				xmms_remote_main_win_toggle(xmms_session, main_vis);
-				xmms_remote_pl_win_toggle(xmms_session, pl_vis);
-				xmms_remote_eq_win_toggle(xmms_session, eq_vis);
-			}
-		}
-	} else {
+	if (!player) {
 		if ( (ev.xbutton.time-click_time) <= DBL_CLICK_INTERVAL )
 		{
 			click_time=0;
@@ -376,31 +379,29 @@ void ToggleWins(int x, int y, DARect rect, void *data)
 
 void ToggleVol(int x, int y, DARect rect, void *data)
 {
-	int volume;
-	int factor;
+	double volume;
+	double factor;
+
+	g_object_get(player, "volume", &volume, NULL);
 
 	if (*(int*)data == 1)
-		factor = volume_step;
+		factor = 0.01 * volume_step;
 	else
-		factor = -volume_step;
+		factor = -0.01 * volume_step;
+	volume += factor;
 
-	/* xmms seems to do the bounds checking for us */
+	if (volume > 1)
+		volume = 1;
+	if (volume < 0)
+		volume = 0;
 
-	volume = xmms_remote_get_main_volume(xmms_session);
-	xmms_remote_set_main_volume(xmms_session, volume+factor);
+	g_object_set(player, "volume", volume, NULL);
 }
 
 void ChangeVol(int x, int y, DARect rect, void *data)
 {
-	int volume = (int)100*(((float)x)/38);
-	xmms_remote_set_main_volume(xmms_session, volume);
-}
-
-void ToggleTitle(int x, int y, DARect rect, void *data)
-{
-	if (t_scroll)
-		t_scroll = 0;
-	else t_scroll =1;
+	float volume = ((float)x)/38;
+	g_object_set(player, "volume", volume, NULL);
 }
 
 void ToggleTime(int x, int y, DARect rect, void *data)
@@ -414,7 +415,7 @@ void buttonPress(int button, int state, int x, int y)
 {
 	if (button==1)
 		left_pressed=1;
-	if (xmms_running)
+	if (player)
 	{
 		if (button == 1)
 		{
@@ -453,7 +454,7 @@ void buttonRelease(int button, int state, int x, int y)
 {
 	if (button==1)
 		left_pressed=0;
-	if (xmms_running)
+	if (player)
 	{
 		if (button == 1)
 		{
@@ -467,62 +468,105 @@ void buttonRelease(int button, int state, int x, int y)
 void buttonDrag(int x, int y) 
 {
 	motion_event=1;
-	if (t_volume)
-		if (left_pressed==1) {
-			DAProcessActionRects(x,y, volumeRects, 1, NULL);
-			DrawChannels(0); /* volume only update */
-			DASetPixmap(pixmap);
-		}
+	if (left_pressed==1) {
+		DAProcessActionRects(x,y, volumeRects, 1, NULL);
+		DrawVolume();
+		DASetPixmap(pixmap);
+	}
+}
+
+int PlayerConnect(void)
+{
+	GError *error = NULL;
+	static int previous_error_code = 0;
+
+	player = playerctl_player_new(NULL, &error);
+	if (error != NULL) {
+		/* don't spam error message */
+		if (error->code != previous_error_code)
+			DAWarning("Connection to player failed: %s",
+				  error->message);
+		previous_error_code = error->code;
+		return 0;
+	} else {
+		previous_error_code = 0;
+		return 1;
+	}
 }
 
 void DisplayRoutine()
 {
 	int time = 0, length = 0, position = 100;
-	int rate, freq, nch;
 	char *title = NULL;
-	Bool do_scroll=t_scroll;
+	GError *error = NULL;
 
-	xmms_running=xmms_remote_is_running(xmms_session);
+	PlayerConnect();
 
 	/* Compute diplay */
-	if (!xmms_running)
+	if (!player)
 	{
 		if (run_excusive)
 			exit(0);
-		position = 100; /* Will display "00" as the current position */
-		do_scroll = 0;   /* Will display channel/kbps info */
+		title = strdup("--");
+		title_pos = 0;
 		arrow_pos = 5;
-		rate = 0;
-		time = 0;
-		nch = 4;
-		freq = 0;
-		length = 0;
 	} else {
-	        /* check again, avoiding xmms_remote_* functions to hang,
-		   if xmms was closed in the meantime */
-	        if ((xmms_running = xmms_remote_is_running(xmms_session)))  
-		{
-		        position = xmms_remote_get_playlist_pos(xmms_session);
-			xmms_remote_get_info(xmms_session, &rate, &freq, &nch);
-			time = xmms_remote_get_output_time(xmms_session);
-			length = xmms_remote_get_playlist_time(xmms_session, position);
-			title = xmms_remote_get_playlist_title(xmms_session, position);
-			if (!xmms_remote_is_playing(xmms_session) || (pause_norotate && 
-								      xmms_remote_is_paused(xmms_session) ))
-			    arrow_pos = 5;
+		char *length_str, *position_str, *status;
+
+		g_object_get(player, "status", &status, NULL);
+		if (status) {
+			if (!strcmp(status, "Playing") ||
+			    !strcmp(status, "Paused")) {
+				g_object_get(player, "position", &time, NULL);
+
+				title = playerctl_player_get_title(player,
+								   &error);
+				if (error != NULL)
+					DAWarning("%s", error->message);
+
+				length_str =
+					playerctl_player_print_metadata_prop(
+						player, "mpris:length", &error);
+				if (error != NULL)
+					DAWarning("%s", error->message);
+				if (length_str)
+					length = atoi(length_str);
+				else
+					length = 0;
+
+				position_str =
+					playerctl_player_print_metadata_prop(
+						player, "xesam:trackNumber",
+						&error);
+				if (error != NULL)
+					DAWarning("%s", error->message);
+				if (position_str)
+					position = atoi(position_str);
+				else
+					position = 0;
+
+				if (!strcmp(status, "Paused") && pause_norotate)
+					arrow_pos = 5;
+			} else { /* not playing or paused */
+				title = strdup("--");
+				title_pos = 0;
+				arrow_pos = 5;
+			}
+
+		} else { /* status undefined */
+			title = strdup("--");
+			title_pos = 0;
+			arrow_pos = 5;
 		}
 	}
 
 	/*Draw everything */
-	if (t_time) DrawTime(length-time);
-	else DrawTime(time);
+	if (t_time && length) DrawTime((length-time) / 1000);
+	else DrawTime(time / 1000);
 	DrawPos(position);
 	DrawArrow();
-	DrawChannels(nch);
-	if (do_scroll && (title != NULL))
-		DrawTitle(title);
-	else
-		DrawKbps(rate);
+	DrawVolume();
+	DrawTitle(title);
 
 	DASetPixmap(pixmap);
 
@@ -536,7 +580,6 @@ void DrawPos (int pos)
 	char *p = posstr;
 	int i=1;
 
-	pos++;
 	if (pos > 99) pos=0;
 	sprintf(posstr, "%02d", pos);
 	
@@ -587,23 +630,17 @@ void DrawArrow(void)
 	if (arrow_pos > 4) arrow_pos = 0;
 }
 
-void DrawChannels(int channels)
+void DrawVolume(void)
 {
+		int volume;
+		double volume_double;
 
-	if (t_volume) {
-   		int volume = (int)(0.36*(float)xmms_remote_get_main_volume(xmms_session));
+		g_object_get(player, "volume", &volume_double, NULL);
+		volume = (int)(36 * volume_double);
 		if (volume > 36)
 			volume = 36;
 		copyNumArea(61, 0, volume, 6, 7, 18);
 		copyNumArea(97, 0, 36-volume, 6, 7+volume, 18);
-	} else {
-		if (channels == 4)
-			{
-				copyNumArea(55, 32, 10, 6, 10, 18);
-			} else {
-				copyNumArea((channels*10), 22, 10, 6, 10, 18);
-			}
-	}
 }
 
 void DrawKbps(int bps)
@@ -656,10 +693,9 @@ void DrawTitle(char *name)
 
 	if (name == NULL)
 		return;
-#ifdef DEBUG
-	printf("name: %s\n", name);
-#endif
+
 	len = pos = DrawChars(name, tpos, 0);
+
 	if(pos < 6)
 	{
 		DrawChars("      ", tpos, pos);
@@ -691,7 +727,7 @@ void ExecuteXmms(void)
 		fprintf(stderr, "XMMS can't be launched, exiting...");
 		exit(1);
 	}
-	while (!xmms_remote_is_running(xmms_session))
+	while (!PlayerConnect())
 		usleep(10000L);
 	free(command);
 }
@@ -734,16 +770,13 @@ int main(int argc, char **argv)
 	if (options[10].used) t_volume=1;
 	if (options[11].used) run_excusive=1;
 
+	PlayerConnect();
+
 	/* Launch xmms if it's not running and -r or -R was used */
-	xmms_running=xmms_remote_is_running(xmms_session);
-	if ((!xmms_running) && (options[2].used || run_excusive))
+	if ((!player) && (options[2].used || run_excusive))
 	{
 		ExecuteXmms();
-		xmms_running=1;
 	}
-
-	if(xmms_remote_is_main_win(xmms_session) && (options[6].used))
-		ToggleWins(0, 0, DANoRect, NULL);
 
 	/* Update the display */
 	DisplayRoutine();
