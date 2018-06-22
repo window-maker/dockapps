@@ -123,7 +123,7 @@ static DAProgramOption options[] = {
 	{"-r", "--run", "Run xmms on startup", DONone, False, {NULL} },
 	{"-V", "--volume", "Stepping of the wheel volume control (in percent)",
 		DONatural, False, {&volume_step} },
-	{"-a", "--rotate-arrow", "Do not rotate the arrow, when paused", 
+	{"-a", "--rotate-arrow", "Do not rotate the arrow, when paused",
 		DONone, False, {NULL} },
 	{"-l", "--time-left", "Show time left instead of time remaining by default",
 	 DONone, False, {NULL} },
@@ -452,7 +452,7 @@ void buttonRelease(int button, int state, int x, int y)
 	}
 }
 
-void buttonDrag(int x, int y) 
+void buttonDrag(int x, int y)
 {
 	motion_event=1;
 	if (left_pressed==1) {
@@ -577,7 +577,7 @@ void DrawPos (int pos)
 
 	if (pos > 99) pos=0;
 	sprintf(posstr, "%02d", pos);
-	
+
 	for (;i<3; i++)
 	{
 		copyNumArea((*p-'0')*6 + 1, 1, 6, 7, (i*6)+39, 7);

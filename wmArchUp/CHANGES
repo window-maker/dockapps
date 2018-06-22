@@ -1,9 +1,9 @@
 2018-04-04  Panagiotis A. Dimopoulos  <panosdim@gmail.com>
-	
+
     - Release 1.2
     - Fix a bug when left click is not working in some cases
 	- Fix a bug leaving zombie process when checking for new updates
-      
+
 2018-04-02  Panagiotis A. Dimopoulos  <panosdim@gmail.com>
 
 	- Release 1.1
@@ -12,7 +12,7 @@
     - Left click will open an xterm and start system update
     - You can now define that check interval with -c or --check-interval
       command line arguments
-    
+
 2018-03-29  Panagiotis A. Dimopoulos  <panosdim@gmail.com>
 
 	- Initial Release 1.0

@@ -162,7 +162,7 @@ main(int argc, char **argv)
 
 	/* creat dock icon */
 	dock_app = main_window;
-	
+
 	/* add event box to main window*/
 	event = gtk_event_box_new();
 	gtk_container_add(GTK_CONTAINER(dock_app), event);
@@ -398,7 +398,7 @@ main(int argc, char **argv)
                                "event",
                                G_CALLBACK(button_press),
                                NULL);
-	
+
 	g_signal_connect(G_OBJECT(dock_app),
 			"destroy",
 			G_CALLBACK(wmcliphist_exit),

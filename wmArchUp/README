@@ -1,9 +1,9 @@
-                   _____                .__     ____ ___          
-__  _  _______    /  _  \_______   ____ |  |__ |    |   \______   
-\ \/ \/ /     \  /  /_\  \_  __ \_/ ___\|  |  \|    |   /\____ \  
- \     /  Y Y  \/    |    \  | \/\  \___|   Y  \    |  / |  |_> > 
-  \/\_/|__|_|  /\____|__  /__|    \___  >___|  /______/  |   __/  
-             \/         \/            \/     \/          |__|     
+                   _____                .__     ____ ___
+__  _  _______    /  _  \_______   ____ |  |__ |    |   \______
+\ \/ \/ /     \  /  /_\  \_  __ \_/ ___\|  |  \|    |   /\____ \
+ \     /  Y Y  \/    |    \  | \/\  \___|   Y  \    |  / |  |_> >
+  \/\_/|__|_|  /\____|__  /__|    \___  >___|  /______/  |   __/
+             \/         \/            \/     \/          |__|
 
 *******************
 *** DESCRIPTION ***
@@ -18,8 +18,8 @@ This dockapp is quite simple. It contains an Arch Linux logo icon. When there is
 not package updates then the Arch Linux logo icon is greyed. When there are
 package updates then the Arch Linux logo icon is blue. The program check for
 updates every 10 minutes by default. However you can specify the checking
-interval by using the -c or --check-interval command line arguments. When the 
-program checks for updates it change its icon in a gear. If you right click the 
+interval by using the -c or --check-interval command line arguments. When the
+program checks for updates it change its icon in a gear. If you right click the
 Arch Linux logo icon then it immediately starts a check for updates. If you left
 click the Arch Linux log the it opens an xterm window and start a system update.
 

@@ -286,7 +286,7 @@ menu_app_item_click(GtkWidget *menuitem, gpointer data)
 			}
 			history_free();
 			rcconfig_free();
-			
+
 			gtk_main_quit();
 			exit(0);
 			return_val(TRUE);
