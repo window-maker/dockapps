@@ -1,5 +1,12 @@
 Version         Description
 --------------------------------------------------------------
+1.9	* Released 180627
+
+	* Error handling when fopen fails.
+	  This prevents fgets from segfaulting on the next line, closing Debian
+	  bug #901353.
+	  Thanks to <anomie@users.sourceforge.net> for the bug report and patch.
+
 1.8	* Released 160420
 
 	* Display version number from configure.ac with -v option.
