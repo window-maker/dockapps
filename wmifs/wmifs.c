@@ -765,7 +765,7 @@ int get_statistics(char *devname, long *ip, long *op, long *is, long *os)
 	/* Read from /proc/net/dev the stats! */
 	fp = fopen("/proc/net/dev", "r");
 	if (!fp)
-		return -1
+		return -1;
 	if (!fgets(temp, BUFFER_SIZE, fp)) {
 		fclose(fp);
 		return -1;
