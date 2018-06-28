@@ -8,7 +8,7 @@
                                  \|_________|
 ================================================================================
 Dockable WindowMaker SunRise/SunSet App
-http://windowmaker.org/dockapps/?name=wmsun
+https://www.dockapps.net/wmsun
 Author: Mike Henderson <mghenderson@lanl.gov>
 Maintainers: Window Maker Developers Team <wmaker-dev@googlegroups.com>
 ================================================================================
@@ -17,7 +17,7 @@ REQUIREMENTS
 
 Make sure libdockapp (at least version 0.7.0) is installed. It
 may be obtained at
-http://windowmaker.org/dockapps/?name=libdockapp
+https://www.dockapps.net/libdockapp
 
 INSTALLATION
 

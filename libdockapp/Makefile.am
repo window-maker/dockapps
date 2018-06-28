@@ -17,7 +17,7 @@ dockapp.pc: Makefile
 	@echo "Generating $@"
 	@echo 'Name: dockapp' >	 $@
 	@echo 'Description: Window Maker dockapp support' >> $@
-	@echo 'URL: http://windowmaker.org/dockapps/?name=libdockapp' >> $@
+	@echo 'URL: https://www.dockapps.net/libdockapp' >> $@
 	@echo 'Version: $(VERSION)' >> $@
 	@echo 'Requires.private: x11 xext xpm' >> $@
 	@echo 'Libs: -L${libdir} -ldockapp' >> $@
