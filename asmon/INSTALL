@@ -1,0 +1,14 @@
+Installation instructions for asmon
+
+Installation
+--------------------------------------------------------------
+1) % tar -zxvf asmon-0.7.tar.gz
+2) % cd amon-0.7/asmon
+3) % make
+4) % make install 
+5) % asmon & (or asmon -h for help)
+
+Solaris
+--------------------------------------------------------------
+Uncomment the appropriate lines in the Makefile before 
+compiling.

@@ -1,0 +1,104 @@
+asmon-0.71
+    - Patch from Eric Evans <eevans@sym-link.com> to fix problems
+    	with the Uptime not rolling over after more than 10 days.
+
+asmon-0.7
+    - Fixed a graphics bug when X mem is over 100 mb
+    - Fixed a bug in regards to throttling cpus
+- Eric Evans
+    - added support for Linux Kernel 2.6
+- apollock@debian.org
+    - fixed problem with more powerful cpus
+    - fixed problem with very large memory systems
+
+asmon-0.60
+    - fixed glitch when only shared mem shown
+- Eric Davis <ead@pobox.com>
+    - ported to Solaris
+    - added code to refresh the area of the memory and swap bars
+    - fixed a few math bugs
+
+asmon-0.51
+- added support for more than 9 days uptime
+- added support for load average higher than 9.99
+- fixed the mem bar for >99 megs of ram
+- added "Kitchen Sink" for WavePoet
+- fixed a couple graphics glitches
+
+asmon-0.50
+- fixed yet another bug in the X mem bar, it should behave now
+- integrated patch from Dmytro Sudak <ii1@grant.kharkov.ua>, allowing
+	execution of a program when you click on asmon, with "-e <prog>"
+
+asmon-0.49
+- fixed bug in X mem usage bar
+
+asmon-0.48
+- tweaked a few things
+
+asmon-0.47
+- more CPU optimization
+- cleaned up the code alot
+
+asmon-0.46
+- it now checks both /tmp/.X0-lock and /var/run/server.0.pid for X's pid
+
+asmon-0.45 
+- cleaned up the code a bunch
+- some optimization
+
+asmon-0.44
+- added -m option to show only Shared mem like other mem meters
+
+asmon-0.43
+- increased the time interval between mem updates to lower cpu usage
+- fixed the >100 megs bug
+- added "-u" option to force uptime display
+- fixed a few other minor things that I don't remember
+
+
+asmon-0.42
+- fixed some math errors
+- put a limiter on the X mem bar
+- fixed problem of crashing when no Swap exists
+
+asmon-0.4
+- made X mem meter only appear if X pid can be found
+    otherwise diverting to uptime
+
+asmon-0.3
+- put in X mem meter
+
+asmon-0.2
+- stomped a few bugs
+- first official release
+
+asmon-0.15
+- tweaked the graphs
+- changed the name
+- fixed -h docs
+
+asmem-0.1e 
+- put brackets on the graphs
+
+asmem-0.1d
+- fixed overzealous bra graphs
+
+asmem-0.1c
+- moved the cpu meter over one pixel
+
+asmem-0.1b
+- re-integrated CPU monitor
+- removed ladavg bar
+
+asmem-0.1a
+- added page/swap LED's
+
+asmem-0.1
+- changed from wmcpu
+- Removed CPU Usage Meter
+- Added Swap Usage Meter
+- Added Number of megs next to mem meters
+- Added Load avg number
+- Changed mem splits to tick marks rather than colors
+- Put in better colors taken from wmsysmon 
