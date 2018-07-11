@@ -5,11 +5,8 @@
 #SOLARIS_OBJS = solaris26.o
 
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11 $(SOLARIS_LIBS)
-OBJS =  asmon.o $(SOLARIS_OBJS) \
-		../wmgeneral/wmgeneral.o \
-		../wmgeneral/misc.o \
-		../wmgeneral/list.o
+LIBS   = -lXpm -lXext -lX11 $(SOLARIS_LIBS) -ldockapp
+OBJS =  asmon.o $(SOLARIS_OBJS)
 
 .c.o:
 	gcc -c -Wall $(SOLARIS) $< -o $*.o
