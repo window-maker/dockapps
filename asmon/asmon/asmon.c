@@ -1,22 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
 #include <string.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <ctype.h>
 #include <sys/utsname.h>
 
-#include <sys/wait.h>
-#include <sys/param.h>
-#include <sys/types.h>
-
+#include <X11/X.h>
 #include <X11/Xlib.h>
-#include <X11/xpm.h>
-#include <X11/extensions/shape.h>
 
 #include <libdockapp/wmgeneral.h>
-#include <libdockapp/misc.h>
 
 #include "asmon-master.xpm"
 #include "asmon-mask.xbm"
