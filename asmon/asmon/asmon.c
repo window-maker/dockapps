@@ -472,7 +472,7 @@ void DrawCPU(void)
 /* Load Average */
 void DrawLoad(void)
 {
-    int tempy, tempa, i;
+    int tempy, tempa;
     static float oldv = -1.0;
     float ftmp;
 		
@@ -489,7 +489,6 @@ void DrawLoad(void)
 	if(oldv != ftmp)
 	{
 	    oldv = ftmp;
-	    i=ftmp*26;
 	    tempa=(ftmp+0.005)*100;
 	    tempy=tempa%10;
 	    copyXPMArea(3+(tempy*6),66,6,9,50,5);
@@ -612,7 +611,7 @@ float DrawMemSwap(float total, int allmem)
 	char junk[128];
 	float used, freeM, shared, buffers, cached, swaptotal, 
 	    swapused, swapfreeM;
-	unsigned long MEMshar,MEMbuff,MEMcach, MEMswap;
+	unsigned long MEMshar,MEMbuff, MEMswap;
 	int tempy, tempa;
 
 	if( has_kern26 > 0 )
@@ -671,11 +670,9 @@ float DrawMemSwap(float total, int allmem)
 		{
 		    MEMshar=((used-buffers-cached)/total)*27;
 		    MEMbuff=(buffers/total)*27;
-		    MEMcach=(cached/total)*27;
 		} else {
 		    MEMshar=((used-buffers-cached)/total)*33;
 		    MEMbuff=(buffers/total)*33;
-		    MEMcach=(cached/total)*33;
 		}
                 // refresh
                 copyXPMArea(4, 115, 55, 11, 4, 18);
