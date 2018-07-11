@@ -17,7 +17,7 @@
 #endif
 
 #define EXEC_ON_CLICK 1
-#define ASMON_VERSION "0.71"
+#define ASMON_VERSION "0.72"
 #define CHAR_WIDTH 5
 #define CHAR_HEIGHT 7
 

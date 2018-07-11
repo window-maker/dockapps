@@ -1,3 +1,10 @@
+asmon-0.72
+    - Now maintained by the Window Maker Team <wmaker-dev@googlegroups.com>
+    - Use wmgeneral from libdockapp.
+    - Remove set but unused variables.
+    - Include only necessary header files.
+    - Don't link against libXext and libXpm; unnecessary.
+
 asmon-0.71
     - Patch from Eric Evans <eevans@sym-link.com> to fix problems
     	with the Uptime not rolling over after more than 10 days.
