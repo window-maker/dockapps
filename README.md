@@ -127,6 +127,7 @@ have the source code lying around somewhere, please let us know!
 * wmisdncid
 * wmisdnmon
 * wmmldmon
+* wmsensors.pl
 * wmstpu
 * wmsvn
 * wmweatherapp
