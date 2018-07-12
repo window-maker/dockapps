@@ -1,0 +1,36 @@
+09.01.06  Jesse S. <luxorfalls@sbcglobal.net>
+	* Version 1.1
+
+	* src/dockapp_main.c: Fixed not exiting with -h and -v.
+	Also update a copyright date that I missed. (Never code while tired.)
+
+	* src/dockapp_main.h: Update the version number, which I forgot to do before. Oops.
+
+	* src/dockapp_utils.h: Reduced amount of calculations needed for time macros.
+
+	* src/dockapp_draw.h: #if 0 some unused code. #endif
+
+07.01.06  Jesse S. <luxorfalls@sbcglobal.net>
+	* Version 1.0
+
+	* README: Updated various bits of information.
+
+	* src/general.mk, src/Makefile: Support for modular X.Org (use 'make MODULAR_X=1' and
+	'make MODULAR_X=1 install').
+
+	* src/general.mk: Add conditional (FASTER_MATH) to use faster math optimizations (use
+	'make FASTER_MATH=1' to enable), also replaced -Wextra with -W, as some people still
+	use versions of GCC older than 3.4.
+
+	* src/wmgeneral.c (open_window): Removed invalid free()
+
+	* src/*.[ch]: Code reformatted, various clean ups, updated copyright and
+	license information (FSF has a new address).
+
+24.04.04  Jesse S. <luxorfalls@sbcglobal.net>
+	* Version 0.9
+
+	* src/dockapp_util.c: Properly get the user count. Thanks to gkrellm for this improved
+	method.
+
+	* src/*.c: Clean-ups, removed unused/dead code, etc.

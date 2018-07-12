@@ -1,0 +1,7 @@
+Installing is simple:
+
+  $ make
+  $ su
+  # make install
+
+This will install the binary (wmmisc) in /usr/X11R6/bin.
