@@ -14,39 +14,13 @@ What this dockapp does:
 This dockapp was written for GNU/Linux and has not been tested, by me, on other platforms.
 It may work on FreeBSD with /proc file system support, but I honestly have no idea.
 
-Please note: This source tree includes a modified version of wmgeneral. I am NOT the
-original author, though I have rewritten parts of it. However, all other code is my own.
 This dockapp is a good base if you plan on writing your own. I have provided simple functions
 for drawing text and numbers on the canvas. There are also functions in place for drawing
 bars, but it is currently unused and may contain bugs. However, I currently know of no bugs.
 If you find any, let me know (via email).
 
-To compile and install, run:
-
-   for older X systems:
-
-       $ make
-
-       $ sudo make install
-
-       or (as root):
-
-       # make install
-
-   The binary, wmmisc, will be placed in /usr/X11R6/bin
-
-   for newer, modular X systems (X.Org >= 7.0):
-
-       $ make MODULAR_X=1
-
-       $ sudo make MODULAR_X=1 install
-
-       or (as root):
-
-       # make MODULAR_X=1 install
-
-   The binary will be placed in `pkg-config --variable=prefix xorg-server`/bin
-
 Enjoy.
 
 - Jesse S. <luxorfalls@sbcglobal.net>
+
+Now maintained by the Window Maker Team <wmaker-dev@googlegroups.com>
