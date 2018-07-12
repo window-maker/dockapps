@@ -26,7 +26,7 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
-#include "wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 #include "dockapp_draw.h"
 #include "dockapp_utils.h"
 
@@ -65,7 +65,7 @@ dockapp_draw_big_digit( unsigned int digit_value,
 
    do
    {
-      copy_xpm_area( ( ( ( digit_value / digit_value_of_ten ) % 10 ) *
+      copyXPMArea( ( ( ( digit_value / digit_value_of_ten ) % 10 ) *
 		       DOCKAPP_BIG_CHAR_WIDTH + DOCKAPP_BIG_DIGIT_X ),
 		     DOCKAPP_BIG_DIGIT_Y,
 		     DOCKAPP_BIG_CHAR_WIDTH,
@@ -77,7 +77,7 @@ dockapp_draw_big_digit( unsigned int digit_value,
       digit_new_draw_location_x += DOCKAPP_BIG_CHAR_WIDTH;
    } while ( 0 < digit_value_of_ten );
 
-  redraw_window();
+  RedrawWindow();
 }
 
 void
@@ -113,7 +113,7 @@ dockapp_draw_small_digit( unsigned int d_value,
 
    do
    {
-      copy_xpm_area( ( ( ( d_value / digit_value_of_ten) % 10) *
+      copyXPMArea( ( ( ( d_value / digit_value_of_ten) % 10) *
 		       DOCKAPP_SMALL_CHAR_WIDTH + DOCKAPP_SMALL_DIGIT_X ),
 		     DOCKAPP_SMALL_DIGIT_Y,
 		     DOCKAPP_SMALL_CHAR_WIDTH,
@@ -125,7 +125,7 @@ dockapp_draw_small_digit( unsigned int d_value,
       digit_new_draw_location_x += DOCKAPP_SMALL_CHAR_WIDTH;
    } while ( 0 < digit_value_of_ten );
 
-  redraw_window();
+  RedrawWindow();
 }
 
 void
@@ -171,7 +171,7 @@ dockapp_draw_big_str( const char* string_to_draw,
    {
       string_character = dockapp_utils_get_char( string_to_draw[string_character_position] );
 
-      copy_xpm_area( string_character * DOCKAPP_BIG_CHAR_WIDTH + DOCKAPP_BIG_LETTER_X,
+      copyXPMArea( string_character * DOCKAPP_BIG_CHAR_WIDTH + DOCKAPP_BIG_LETTER_X,
 		     DOCKAPP_BIG_LETTER_Y,
 		     DOCKAPP_BIG_CHAR_WIDTH,
 		     DOCKAPP_BIG_CHAR_HEIGHT,
@@ -181,7 +181,7 @@ dockapp_draw_big_str( const char* string_to_draw,
       digit_new_draw_location_x += DOCKAPP_BIG_CHAR_WIDTH;
    }
 
-  redraw_window();
+  RedrawWindow();
 }
 
 void
@@ -226,7 +226,7 @@ dockapp_draw_small_str( const char* string_to_draw,
    {
       string_character = dockapp_utils_get_char( string_to_draw[string_character_position] );
 
-      copy_xpm_area( string_character * DOCKAPP_SMALL_CHAR_WIDTH + DOCKAPP_SMALL_LETTER_X,
+      copyXPMArea( string_character * DOCKAPP_SMALL_CHAR_WIDTH + DOCKAPP_SMALL_LETTER_X,
 		     DOCKAPP_SMALL_LETTER_Y,
 		     DOCKAPP_SMALL_CHAR_WIDTH,
 		     DOCKAPP_SMALL_CHAR_HEIGHT,
@@ -236,7 +236,7 @@ dockapp_draw_small_str( const char* string_to_draw,
       digit_new_draw_location_x += DOCKAPP_SMALL_CHAR_WIDTH;
    }
 
-  redraw_window();
+  RedrawWindow();
 }
 
 #if 0
@@ -272,14 +272,14 @@ dockapp_draw_bar( int bar_draw_width,
       return;
    }
 
-  copy_xpm_area( bar_x,
+  copyXPMArea( bar_x,
 		 bar_y,
 		 bar_draw_width,
 		 DOCKAPP_BAR_HEIGHT,
 		 bar_draw_x,
 		 bar_draw_y );
 
-  redraw_window();
+  RedrawWindow();
 }
 
 void
@@ -328,5 +328,5 @@ dockapp_draw_data( void )
    dockapp_draw_small_digit( dockapp_proc.load[0], 1, 36, 53 );
    dockapp_draw_small_digit( dockapp_proc.load[1], 1, 50, 53 );
 
-   redraw_window();
+   RedrawWindow();
 }

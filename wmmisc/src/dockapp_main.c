@@ -32,7 +32,7 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 
-#include "wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 
 #include "wmmisc-master.xpm"
 #include "dockapp_main.h"
@@ -137,19 +137,19 @@ main( int argc, char** argv )
       opt = getopt( argc, argv, "hv" );
    }
 
-   create_xbm_from_xpm( wmmisc_mask_bits,
+   createXBMfromXPM( wmmisc_mask_bits,
 			wmmisc_master_xpm,
 			wmmisc_mask_width,
 			wmmisc_mask_height );
 
-   open_window( argc,
+   openXwindow( argc,
 		argv,
 		wmmisc_master_xpm,
 		wmmisc_mask_bits,
 		wmmisc_mask_width,
 		wmmisc_mask_height );
 
-   redraw_window();
+   RedrawWindow();
 
    dockapp_draw_small_str( "USERS", 4, 4 );
    dockapp_draw_small_str( "PROCS", 4, 11 );

@@ -8,5 +8,6 @@ AC_SEARCH_LIBS([nearbyintf], [m], [], [
 PKG_CHECK_MODULES([X11], [x11])
 PKG_CHECK_MODULES([XEXT], [xext])
 PKG_CHECK_MODULES([XPM], [xpm])
+PKG_CHECK_MODULES([DOCKAPP], [dockapp])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
