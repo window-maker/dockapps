@@ -43,16 +43,13 @@ dockapp_show_help( const char* wm_name )
    printf( "the system's fork count and load average.\n\n" );
    printf( "                -h       display this help and exit\n" );
    printf( "                -v       output version information and exit\n\n" );
-   printf( "Report bugs to <" DOCKAPP_AUTHOR_EMAIL ">.\n" );
+   printf( "Report bugs to <" PACKAGE_BUGREPORT ">.\n" );
 }
 
 void
 dockapp_show_version( void )
 {
-   printf( "%s %d.%d\n",
-	   DOCKAPP_NAME,
-	   DOCKAPP_MAJOR_VERSION,
-	   DOCKAPP_MINOR_VERSION );
+   printf( "%s\n", PACKAGE_STRING);
    printf( "Written by %s <%s>\n\n", DOCKAPP_AUTHOR, DOCKAPP_AUTHOR_EMAIL );
    printf( "Copyright (C) 2003-2006 %s\n", DOCKAPP_AUTHOR );
    printf( "This is free software; see the source for copying conditions.  There is NO\n" );
@@ -91,7 +88,7 @@ dockapp_crash( int signal_received )
 	    DOCKAPP_NAME );
    fprintf( stderr,
 	    "such as gdb, and report the output to <%s>.\n",
-	    DOCKAPP_AUTHOR_EMAIL );
+	    PACKAGE_BUGREPORT );
 
    abort();
 }

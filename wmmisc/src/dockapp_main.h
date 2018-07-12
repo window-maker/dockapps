@@ -26,10 +26,6 @@
 
 #define DOCKAPP_NAME "wmmisc"
 
-#define DOCKAPP_MAJOR_VERSION 1
-#define DOCKAPP_MINOR_VERSION 1
-#define DOCKAPP_VERSION "1.1"
-
 static char wmmisc_mask_bits[64 * 64];
 static int wmmisc_mask_width = 64;
 static int wmmisc_mask_height = 64;
