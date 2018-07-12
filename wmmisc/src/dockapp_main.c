@@ -44,7 +44,8 @@ dockapp_show_help( const char* wm_name )
    printf( "the system's fork count and load average.\n\n" );
    printf( "      -h                 display this help and exit\n" );
    printf( "      -v                 output version information and exit\n" );
-   printf( "      -display DISPLAY   set display\n\n");
+   printf( "      -display DISPLAY   set display\n");
+   printf( "      -geometry +x+y     set position\n\n");
    printf( "Report bugs to <" PACKAGE_BUGREPORT ">.\n" );
 }
 
@@ -101,6 +102,7 @@ main( int argc, char** argv )
    int opt = 0;
    const struct option longopts[] = {
 	{"display", required_argument, NULL, 0},
+	{"geometry", required_argument, NULL, 0},
 	{0, 0, 0, 0}
    };
 
