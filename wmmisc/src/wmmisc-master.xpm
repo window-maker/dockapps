@@ -1,8 +1,8 @@
 /* XPM */
 static char * wmmisc_master_xpm[] = {
 "200 100 70 1",
-" 	c None",
 ".	c #0000FF",
+" 	c None",
 "+	c #000000",
 "@	c #333133",
 "#	c #666366",
