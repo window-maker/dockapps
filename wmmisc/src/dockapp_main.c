@@ -18,6 +18,7 @@
  *
  */
 
+#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -41,8 +42,9 @@ dockapp_show_help( const char* wm_name )
    printf( "This is a simple WindowMaker 'DockApp' that will monitor the following:\n" );
    printf( "Number of users logged in, total processes, total number of processes running,\n" );
    printf( "the system's fork count and load average.\n\n" );
-   printf( "                -h       display this help and exit\n" );
-   printf( "                -v       output version information and exit\n\n" );
+   printf( "      -h                 display this help and exit\n" );
+   printf( "      -v                 output version information and exit\n" );
+   printf( "      -display DISPLAY   set display\n\n");
    printf( "Report bugs to <" PACKAGE_BUGREPORT ">.\n" );
 }
 
@@ -97,6 +99,10 @@ int
 main( int argc, char** argv )
 {
    int opt = 0;
+   const struct option longopts[] = {
+	{"display", required_argument, NULL, 0},
+	{0, 0, 0, 0}
+   };
 
 #ifdef USE_MTRACE
    mtrace();
@@ -105,7 +111,7 @@ main( int argc, char** argv )
    signal( SIGINT, dockapp_exit );
    signal( SIGSEGV, dockapp_crash );
 
-   opt = getopt( argc, argv, "hv" );
+   opt = getopt_long_only( argc, argv, "hv", longopts, NULL);
 
    while ( -1 != opt )
    {
@@ -126,7 +132,7 @@ main( int argc, char** argv )
 	 }
       }
 
-      opt = getopt( argc, argv, "hv" );
+      opt = getopt_long_only( argc, argv, "hv", longopts, NULL);
    }
 
    createXBMfromXPM( wmmisc_mask_bits,
