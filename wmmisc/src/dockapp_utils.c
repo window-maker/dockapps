@@ -35,6 +35,7 @@ dockapp_utils_get_proc( void )
    int p_load[2];
    int p_run = 0;
    int p_total = 0;
+   int count;
    FILE* put_buf = NULL;
    float p_uptime = 0.00;
 
@@ -44,7 +45,7 @@ dockapp_utils_get_proc( void )
 
    if ( NULL != pla_buf )
    {
-      fscanf( pla_buf,
+      count = fscanf( pla_buf,
 	      "%d.%d %*s %*s %d/%d %*s",
 	      &p_load[0],
 	      &p_load[1],
@@ -52,10 +53,17 @@ dockapp_utils_get_proc( void )
 	      &p_total );
       fclose( pla_buf );
 
-      dockapp_proc.total = p_total;
-      dockapp_proc.running = p_run;
-      dockapp_proc.load[0] = p_load[0];
-      dockapp_proc.load[1] = p_load[1];
+      if (count == 4) {
+	      dockapp_proc.total = p_total;
+	      dockapp_proc.running = p_run;
+	      dockapp_proc.load[0] = p_load[0];
+	      dockapp_proc.load[1] = p_load[1];
+      } else {
+	      dockapp_proc.total = 0;
+	      dockapp_proc.running = 0;
+	      dockapp_proc.load[0] = 0;
+	      dockapp_proc.load[1] = 0;
+      }
    }
    else
    {
@@ -69,15 +77,24 @@ dockapp_utils_get_proc( void )
 
   if ( NULL != put_buf )
   {
-     fscanf( put_buf, "%f %*s", &p_uptime );
+     count = fscanf( put_buf, "%f %*s", &p_uptime );
      fclose( put_buf );
 
-     dockapp_proc.jiffies = p_uptime;
-     dockapp_proc.seconds = GET_SECS( p_uptime );
-     dockapp_proc.minutes = GET_MINS( p_uptime );
-     dockapp_proc.hours = GET_HRS( p_uptime );
-     dockapp_proc.days = GET_DAYS( p_uptime );
-     dockapp_proc.weeks = GET_WEEKS( p_uptime );
+     if (count == 1) {
+	     dockapp_proc.jiffies = p_uptime;
+	     dockapp_proc.seconds = GET_SECS( p_uptime );
+	     dockapp_proc.minutes = GET_MINS( p_uptime );
+	     dockapp_proc.hours = GET_HRS( p_uptime );
+	     dockapp_proc.days = GET_DAYS( p_uptime );
+	     dockapp_proc.weeks = GET_WEEKS( p_uptime );
+     } else {
+	     dockapp_proc.jiffies = 0.00;
+	     dockapp_proc.seconds = 0;
+	     dockapp_proc.minutes = 0;
+	     dockapp_proc.hours = 0;
+	     dockapp_proc.days = 0;
+	     dockapp_proc.weeks = 0;
+     }
 
 #if 0
      printf( "Uptime: %.2d:%.2d:%.2d, %d day%c, %.3d week%c\n",
