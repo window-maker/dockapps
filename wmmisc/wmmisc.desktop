@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=wmmisc
+Comment=Window Maker dockapp for monitoring system information
+Exec=wmmisc
+Categories=System;Monitor;
+Keywords=uptime;system load;monitor;dockapp;window maker;

@@ -7,3 +7,6 @@ dist_man_MANS = wmmisc.1
 
 AM_CFLAGS = $(DOCKAPP_CFLAGS)
 LIBS += $(DOCKAPP_LIBS)
+
+desktopdir = $(datadir)/applications
+dist_desktop_DATA = wmmisc.desktop
