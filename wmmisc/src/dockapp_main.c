@@ -21,23 +21,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <getopt.h>
+#include <bits/getopt_core.h>
 #include <signal.h>
 
 #ifdef USE_MTRACE
 #include <mcheck.h>
 #endif /* USE_MTRACE */
 
-#include <X11/Xlib.h>
-#include <X11/xpm.h>
-#include <X11/extensions/shape.h>
-
 #include <libdockapp/wmgeneral.h>
 
 #include "wmmisc-master.xpm"
 #include "dockapp_main.h"
 #include "dockapp_draw.h"
-#include "dockapp_utils.h"
 
 void
 dockapp_show_help( const char* wm_name )
