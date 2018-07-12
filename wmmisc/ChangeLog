@@ -1,3 +1,32 @@
+11.07.18  Doug Torrance <dtorrance@piedmont.edu>
+	* Version 1.2
+
+	* Now maintained by the Window Maker Team <wmaker-dev@googlegroups.com>
+
+	* Switch to autotools for build.
+
+	* Use wmgeneral from libdockapp.
+
+	* Move blue to top of list in XPM colors so that wmgeneral properly
+	creates mask.
+
+	* Use only necessary headers.
+
+	* Don't link against X11 libs; unnecessary.
+
+	* Add error handling for fscanf.
+
+	* Use autoconf defines for version number and bugreport address.
+
+	* Add manpage from Debian.
+
+	* Add support for wmgeneral's -display and -geometry command line
+	arguments.
+
+	* Update documentation.
+
+	* Add desktop entry file.
+
 09.01.06  Jesse S. <luxorfalls@sbcglobal.net>
 	* Version 1.1
 

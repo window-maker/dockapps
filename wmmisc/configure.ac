@@ -1,4 +1,4 @@
-AC_INIT([wmmisc], [1.1], [wmaker-dev@googlegroups.com])
+AC_INIT([wmmisc], [1.2], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC
