@@ -1,0 +1,7 @@
+Window managers supported (tested with):
+
+WindowMaker
+Enlightenment
+BlackBox
+IceWM (not as applet)
+TWM (partially, don't iconify)

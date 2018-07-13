@@ -1,0 +1,6 @@
+* Add refresh interval options
+* I hear 'long long int' isn't in ANSI C.
+* lots more!
+* DO ERRORCHECKING! A LOT OF IT!
+* use _MOTIF_WM_HINTS in windowed mode
+* merge all pixmaps into one

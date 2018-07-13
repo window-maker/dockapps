@@ -1,0 +1,54 @@
+.TH "WMMemFree" "1" "0.7" "Draghicioiu Mihai Andrei" "User Commands"
+.SH "NAME"
+WMMemFree \- A dockapp which displays memory usage
+.SH "SYNOPSIS"
+wmmemfree [OPTIONS]
+.SH "DESCRIPTION"
+.PP 
+\fBWMMemFree\fP is a program which displays your computer's memory and swap usage.
+
+It runs as a dockapp for WindowMaker or some other window manager which
+supports dockapps. On the top the physical memory usage is displayed
+and on the bottom the swap space usage is displayed.
+
+.SH "OPTIONS"
+The following options can be passed to WMMemFree on the command line:
+.TP 
+.B \-h,  \-\-help
+display basic usage info and exit.
+.TP 
+.B \-v,  \-\-version
+display version and exit.
+.TP 
+.B \-display <DISPLAY>
+specify the X11 display to connect to
+.TP 
+.B \-m,  \-\-milisecs <MILISECS>
+number of miliseconds between updates
+.TP 
+.B \-b,  \-\-buffers
+consider buffer memory
+.TP 
+.B \-nb, \-\-no\-buffers
+ignore buffer memory
+.TP 
+.B \-c,  \-\-cache
+consider cache memory
+.TP 
+.B \-nc, \-\-no\-cache
+ignore cache memory
+.TP 
+.B \-w,  \-\-window
+run in a window
+.TP 
+.B \-nw, \-\-no\-window
+don't run in a window
+.TP 
+.B \-s,  \-\-shape
+use the XShape extension
+.SH "AUTHOR"
+Draghicioiu Mihai <misuceldestept@go.ro>.
+.SH "THANKS"
+unsigned <soulrider@ifrance.com>
+.SH "WEBSITE"
+http://misuceldestept.go.ro/wmmemfree

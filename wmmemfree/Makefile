@@ -1,0 +1,38 @@
+#Makefile
+
+PROG=wmmemfree
+OBJS=dockapp.o draw.o mem_linux.o options.o wmmemfree.o
+
+PREFIX=/usr/local
+BINDIR=$(PREFIX)/bin
+MANUALDIR=$(PREFIX)/share/man/man1
+CC=gcc
+STRIP=strip
+FLAGS=-Wall -O2
+RM=rm -f
+INST=install
+MANUAL=$(PROG).1
+LIBS=-L/usr/X11R6/lib -lX11 -lXext -lXpm
+
+all: $(PROG)
+
+$(PROG): $(OBJS)
+	$(CC) -o $(PROG) $(OBJS) $(LIBS)
+	$(STRIP) $(PROG)
+%.o: %.c
+	$(CC) $(FLAGS) -c $< -o $@
+clean:
+	$(RM) $(OBJS) $(PROG)
+install: $(PROG)
+	$(INST) -m 755 $(PROG) $(BINDIR)
+	$(INST) -m 644 $(MANUAL) $(MANUALDIR)
+uninstall:
+	$(RM) $(BINDIR)/$(PROG)
+	$(RM) $(MANUALDIR)/$(MANUAL)
+
+dockapp.o: dockapp.c wmmemfree.h options.h draw.h xpm/bg.xpm xpm/on.xpm \
+  xpm/off.xpm xpm/numbers.xpm xpm/panel.xpm
+draw.o: draw.c dockapp.h draw.h mem_linux.h options.h
+mem_linux.o: mem_linux.c
+options.o: options.c wmmemfree.h options.h
+wmmemfree.o: wmmemfree.c wmmemfree.h dockapp.h draw.h options.h

@@ -1,0 +1,22 @@
+Version		Changes
+-----------------------
+0.7		- Now windowed mode will have no decorations,
+		   the window can be moved with the mouse.
+		-
+0.6		- Cleaned up options
+		- Cleaned up the whole thing
+		- Moved pixmaps to xpm/
+0.5		- Removed -bw, now not needed :)
+		- -ns will create a back panel
+		- now you can close it properly using the close button from your
+		  windowmanager, in windowed mode.
+0.4		- Added the following options:
+			-bw, --bad-wm	Activate broken wm hack
+			-w,  --window	Run in a window
+			-nw, --no-shape	Don't use XShape
+		- Now it'll run in enlightenment with -bw
+		- Rewrote Makefile
+0.3		- Radically changed interface to a nice blue one.
+		- Now a percent is displayed too.
+		- 'make install' will also install the manual now.
+		- added '-display' to options.

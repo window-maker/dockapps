@@ -1,0 +1,24 @@
+WMMemFree - a dockapp
+
+	WMMemFree shows system memory usage. It runs as a dockapp for
+WindowMaker or some other window manager which supports dockapps. On the
+top side you have your physical memory usage and on the bottom there's
+your swap space usage.
+	The following options can be passed to WMMemFree on the command
+line:
+	-h,  --help             - display basic usage info
+	-v,  --version          - display version
+	-display <DISPLAY>      - specify the X11 display to connect to
+	-b,  --buffers          - consider buffer memory
+	-nb, --no-buffers       - ignore buffer memory
+	-c,  --cache            - consider cache memory
+	-nc, --no-cache         - ignore cache memory
+	-w,  --window           - run in a window
+	-nw, --no-window        - don't run in a window
+	-s,  --shape            - use the XShape extension
+	-ns, --no-shape         - don't use XShape extension
+
+Author:
+	Draghicioiu Mihai <misuceldestept@go.ro>
+Website:
+	misuceldestept.go.ro/wmmemfree

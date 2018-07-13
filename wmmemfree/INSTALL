@@ -1,0 +1,11 @@
+WMMemFree installation instructions
+
+For defaults edit 'options.h'.
+Edit the Makefile to set the installation directory and then go like this:
+
+	$ make
+	$ su -c 'make install'
+
+To uninstall do:
+
+	$ su -c 'make uninstall'
