@@ -25,7 +25,7 @@
 
 /* The version number */
 #ifndef OPT_VERSION
-#define OPT_VERSION "0.7"
+#define OPT_VERSION "0.8"
 #endif /* OPT_VERSION */
 
 /* The X11 display to connect to */

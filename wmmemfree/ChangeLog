@@ -1,5 +1,9 @@
 Version		Changes
 -----------------------
+0.8		- Now maintained by the Window Maker Team.
+		- Parse modern /proc/meminfo.
+		- Add error handling for fscanf.
+		- Include only necessary headers.
 0.7		- Now windowed mode will have no decorations,
 		   the window can be moved with the mouse.
 		-
