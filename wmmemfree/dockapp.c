@@ -21,15 +21,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
+#include <X11/extensions/shapeconst.h>
 #include <X11/cursorfont.h>
 
 #include "wmmemfree.h"
 #include "options.h"
-#include "draw.h"
 
 #include "xpm/bg.xpm"
 #include "xpm/on.xpm"

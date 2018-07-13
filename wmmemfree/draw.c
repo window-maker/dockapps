@@ -18,9 +18,7 @@
  *  Foundation, Inc., 59 Temple Street #330, Boston, MA 02111-1307, USA.
  */
 
-#include <stdio.h>
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
 
 #include "dockapp.h"
 #include "draw.h"

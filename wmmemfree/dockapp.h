@@ -21,8 +21,8 @@
 #ifndef __DOCKAPP_H__
 #define __DOCKAPP_H__
 
+#include <X11/X.h>
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
 
 #define WINDOW_WIDTH 64
 #define WINDOW_HEIGHT 64
