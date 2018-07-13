@@ -27,6 +27,7 @@ long long int swp_total, swp_used, swp_free;
 void mem_getfree()
 {
  FILE *file;
+ int count;
 
  file = fopen("/proc/meminfo", "r");
  if(!file)
@@ -34,13 +35,24 @@ void mem_getfree()
   perror("/proc/meminfo");
   exit(1);
  }
- fscanf(file, "MemTotal: %lld kB MemFree: %lld kB MemAvailable: %*d kB "
-	"Buffers: %lld kB Cached: %lld kB",
-	&mem_total, &mem_free, &mem_buffers, &mem_cached);
+ count = fscanf(file, "MemTotal: %lld kB MemFree: %lld kB "
+		"MemAvailable: %*d kB Buffers: %lld kB Cached: %lld kB",
+		&mem_total, &mem_free, &mem_buffers, &mem_cached);
+ if (count != 4) {
+	 mem_total = 1;
+	 mem_free = 1;
+	 mem_buffers = 0;
+	 mem_cached = 0;
+ }
  for (int i = 0; i < 10; i++) {
 	 while (fgetc(file) != '\n') {}
  }
- fscanf(file, "SwapTotal: %lld kB SwapFree: %lld kB", &swp_total, &swp_free);
+ count = fscanf(file, "SwapTotal: %lld kB SwapFree: %lld kB",
+		&swp_total, &swp_free);
+ if (count != 2) {
+	 swp_total = 1;
+	 swp_free = 1;
+ }
  fclose(file);
  mem_used = mem_total - mem_free;
  swp_used = swp_total - swp_free;
