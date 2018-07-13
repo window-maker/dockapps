@@ -34,10 +34,14 @@ void mem_getfree()
   perror("/proc/meminfo");
   exit(1);
  }
- while(fgetc(file)!='\n'){}
- fscanf(file, "%*s %Ld %Ld %Ld %Ld %Ld %Ld",
-        &mem_total, &mem_used, &mem_free, &mem_shared, &mem_buffers, &mem_cached);
- fscanf(file, "%*s %Ld %Ld %Ld",
-        &swp_total, &swp_used, &swp_free);
+ fscanf(file, "MemTotal: %lld kB MemFree: %lld kB MemAvailable: %*d kB "
+	"Buffers: %lld kB Cached: %lld kB",
+	&mem_total, &mem_free, &mem_buffers, &mem_cached);
+ for (int i = 0; i < 10; i++) {
+	 while (fgetc(file) != '\n') {}
+ }
+ fscanf(file, "SwapTotal: %lld kB SwapFree: %lld kB", &swp_total, &swp_free);
  fclose(file);
+ mem_used = mem_total - mem_free;
+ swp_used = swp_total - swp_free;
 }
