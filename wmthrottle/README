@@ -1,0 +1,54 @@
+A small app of questionable value (myself I use it to throttle the CPU when I perceive it 
+is getting too hot). At the moment the code is optimized for a dell laptop but should work 
+on most ACPI systems.
+
+Supports changing cpu speed via performance (Intl's enhanced speedstep in 
+Centrino/Pentium M cpus) as well, via the -p command line option. This is good for
+saving energy while on batteries and it can also avoid fan noise.
+
+It also features automatic, dynamic downclocking/throttling depending on the cpu
+temperature. This can be useful to avoid fan noise. To enable this feature, simply
+run wmthrottle with the -t <temperature> option and give it a certain temperature
+threshold. Starting at this threshold, it will change performance/throttle states.
+This is dynamic, i.e. a higher temperature will result in a lower clock speed 
+(or higher throttling).
+The temperature threshold depends on the machine you use it on and on workload.
+The machine it was tested on (Acer TravelMate 800) requires a 
+threshold of 49/50 degrees (Celsius) when having 100% cpu usage to keep the cpu fan
+from turning on.
+Note that although the numbers above are in Celsius, this feature should work with
+Fahrenheit as well. Simply check /proc/acpi/thermal_zone/THRM/temperature to see
+if your acpi is set to use Celsius or Fahrenheit.
+
+When the -t switch is set, wmthrottle will change cpu performance/throttling 
+states every one degree. Example: You start wmthrottle with -t 49, which means
+that it will change from state 0 to state 1 when the cpu is at 49 degrees,
+and will change from state 1 to 2 when the temperature increases by 1 degree,
+i.e. at 50 degrees, and so on.
+If your setup requires a different temperature delta value, e.g. when your
+system is using Fahrenheit, you can set this value using the -e switch.
+You will probably have to plain with both the -t and the -e switches since
+all computers are different.
+
+
+Once you have started wmthrottle, change throttle/performance states by 
+clicking on state numbers.
+If started with the -t <temperature> option, clicking on the [T] toggles
+dynamic performance/throttle changes. If you turn it off, you can also choose
+states manually again.
+Clicking anywhere else will toggle the back light.
+
+If you want to use wmthrottle with a windowmanager other than windowmaker, the
+-bw (--broken-wm) flag will probably be your friend.
+
+
+wmthrottle certainly needs to be run as root. To always run it as root, simply set the
+setuid bit on wmthrottle after installing:
+# chmod u+s wmthrottle
+
+This means that wmthrottle is always run by whoever owns it (root in this case), 
+no matter who started it.
+
+
+Also remember that playing around with your CPU etc can be a bad thing so saying 
+standard I take no responsibility for damage to your machine disclaimer applies.

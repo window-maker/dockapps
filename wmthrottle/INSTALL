@@ -1,0 +1,13 @@
+Easy way:
+ $ su
+Copy src/wmthrottle somewhere to your path, e.g.
+ # cp src/wmthrottle /usr/local/bin/wmthrottle
+Make it run as root to be able to use it as a normal user
+ # chmod u+s /<path-to>/wmthrottle
+
+"Hard" way:
+ $ make
+ $ su
+ # make install
+Make it always run as root to be able to use it as a normal user
+ # chmod u+s /usr/local/bin/wmthrottle

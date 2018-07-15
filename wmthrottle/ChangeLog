@@ -1,0 +1,27 @@
+2003-01-01
+    * version 0.3.2 released
+    * fixed a bug in modifier-keys handling
+    * fixed a bug in differenciating linux and freebsd from other OS
+
+2002-11-18
+    * version 0.3.1 released
+    * fixed a bug in calculating FreeBSD remaining time
+      (Thanks to Lorenz Gschwendtner)
+
+2002-10-08
+    * version 0.3.0 released
+    * added options for apm commands (suspend and standby) instead
+      of hard-coded "apm -s" and "apm -S"
+
+2002-10-05
+    * version 0.2.1 released
+    * bug fix in windowed mode
+
+2002-09-26
+    * version 0.2.0 released
+    * deleted option --apm-mode to use Ctrl key with button 2 for suspend
+      and only button 2 for standby.
+    * modified the man page
+
+2002-09-02
+    * Creation :)
