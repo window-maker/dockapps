@@ -63,6 +63,7 @@ void clearcalc(void) {
   for (i=0; i < DISPSIZE; i++) {
     DispString[i] = ' ';
   }
+  DispString[DISPSIZE] = '\0';
   OpFlag = ' ';
 } /***** End of function clearcalc() *****************************/
 
@@ -94,6 +95,7 @@ void clearnum(void) {
   for (i=0; i < DISPSIZE; i++) {
     DispString[i] = ' ';
   }
+  DispString[DISPSIZE] = '\0';
 
 } /***** End of function clearnum() ******************************/
 
