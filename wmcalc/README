@@ -37,6 +37,7 @@ bugs in the code, etc.
 INSTALLATION:
 -------------
 	Compile it:
+		./configure
 	 	make clean; make
 
 	As root, install it:
