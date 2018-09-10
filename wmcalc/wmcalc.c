@@ -836,7 +836,7 @@ void displaystr(void) {
 void show_usage(void) {
 
   printf("\n");
-  printf(" %s:  Ver %d Rel %d\n",app_name, VER, REL);
+  printf(" %s %s\n",app_name, PACKAGE_VERSION);
   printf("\n");
   printf("usage: %s [-g geometry] [-d display] [-f <filename>] [-v] [-h] \n",
 	 app_name);
