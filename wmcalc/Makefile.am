@@ -11,3 +11,6 @@ LIBS += $(X11_LIBS) $(XEXT_LIBS) $(XPM_LIBS)
 
 icondir = @datadir@/icons/hicolor/48x48/apps
 dist_icon_DATA = wmcalc.png
+
+desktopdir = @datadir@/applications
+dist_desktop_DATA = wmcalc.desktop

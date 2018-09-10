@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=wmcalc
+Comment=Calculator dockapp for Window Maker
+Exec=wmcalc
+Categories=Science;Math
+Keywords=calculator;dockapp;window maker
+Icon=wmcalc
