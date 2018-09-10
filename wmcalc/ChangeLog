@@ -1,5 +1,27 @@
 CHANGE LOG:
 -----------
+0.7     Fix reference to config file in manpage.
+	Remove trailing whitespace.
+	Update mailing list links to new Google Groups.
+	Null-terminate display string when clearing.
+	 Often, the number currently being displayed has more than 10 digits.
+	 However, when clearing the display, only the first 10 digits were
+	 cleared.  When a new number was entered, it would be prepended to any
+	 digits that weren't cleared.  This behavior was invisible to the user,
+	 causing incorrect calculations, e.g., Debian bug #564173:
+	   1814 / 720 * 300 -> 7568.41111
+	 But the correct answer is 755.833333.
+	 The problem was that when the display was cleared, the string that
+	 stores this number was not null-terminated.  Indeed, 1814 / 720 gives
+	 us 2.519444444 (6 4's), but only 2.51944444 (5 4's) is displayed.  When
+	 we begin to multiply by 300, the final 4 remained, and so we really
+	 were multiplying by 3004.
+	Use autotools for build.
+	Remove unused image files.
+	Use version number from autoconf.
+	Add icon for freedesktop.org icon themes.
+	Add freedesktop.org desktop entry file.
+
 0.6	Increase significant digits.  Patch by Antony Gelberg
 	 <antony@wayforth.co.uk> to fix Debian bug #320597 [1].  Obtained from
 	 the Debian package [2].

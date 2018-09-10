@@ -1,4 +1,4 @@
-AC_INIT([wmcalc], [0.6], [wmaker-dev@googlegroups.com])
+AC_INIT([wmcalc], [0.7], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC
