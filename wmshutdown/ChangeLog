@@ -28,3 +28,12 @@
 	* Fix 'unused parameter' compiler warnings.
 	* Fix 'mixed declarations and code' compiler warnings.
 	* Update contact information.
+22/09/2018: Version 1.5 released.
+	* Remove support for deprecated Consolekit.
+	* Add support for suspend and hibernate.
+	* Update my email address.
+	* Update manpage.
+	* Include xpm icon in source rather than installing into a data
+	  directory and loading it from file.
+	* Add icon for freedesktop.org icon themes.
+	* Add freedesktop.org desktop entry file.
