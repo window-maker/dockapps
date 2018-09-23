@@ -1,7 +1,7 @@
 /* wmshutdown - dockapp to shutdown or reboot your machine
  *
  * Copyright 2001, 2002 Rafael V. Aroca <rafael@linuxqos.cjb.net>
- * Copyright 2014 Doug Torrance <dtorrance@monmouthcollege.edu>
+ * Copyright 2014 Doug Torrance <dtorrance@piedmont.edu>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
