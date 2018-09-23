@@ -24,21 +24,34 @@
 #include <config.h>
 #endif
 
-#define GTK_RESPONSE_HALT   1
-#define GTK_RESPONSE_REBOOT 2
+enum {
+  GTK_RESPONSE_HALT,
+  GTK_RESPONSE_REBOOT,
+  GTK_RESPONSE_SUSPEND,
+  GTK_RESPONSE_HIBERNATE
+};
 
 #define HALT_METHOD      "PowerOff"
 #define REBOOT_METHOD    "Reboot"
+#define SUSPEND_METHOD   "Suspend"
+#define HIBERNATE_METHOD "Hibernate"
 #define DBUS_PATH        "/org/freedesktop/login1"
 #define DBUS_INTERFACE   "org.freedesktop.login1.Manager"
 #define DBUS_DESTINATION "org.freedesktop.login1"
 
 static int showVersion;
+static gboolean show_suspend = FALSE;
+static gboolean show_hibernate = FALSE;
+
 GtkWidget *dialog = NULL;
 
 static GOptionEntry entries[] = {
 	{ "version", 'v', 0, G_OPTION_ARG_NONE, &showVersion,
 	  "Display version information", NULL },
+	{ "suspend", 's', 0, G_OPTION_ARG_NONE, &show_suspend,
+	  "Show 'suspend' button", NULL },
+	{ "hibernate", 'b', 0, G_OPTION_ARG_NONE, &show_hibernate,
+	  "Show 'hibernate' button", NULL },
 	{ NULL }
 };
 
@@ -140,6 +153,8 @@ void button_press(GtkWidget *widget, GdkEvent *event)
 	GtkWidget *label;
 	GtkWidget *halt_button;
 	GtkWidget *reboot_button;
+	GtkWidget *suspend_button;
+	GtkWidget *hibernate_button;
 	GtkWidget *cancel_button;
 	GdkEventButton  *bevent;
 
@@ -158,23 +173,13 @@ void button_press(GtkWidget *widget, GdkEvent *event)
 
 		gtk_dialog_add_buttons(GTK_DIALOG(dialog),
 				       "Halt", GTK_RESPONSE_HALT,
-				       "Reboot", GTK_RESPONSE_REBOOT,
-				       "Cancel", GTK_RESPONSE_CANCEL, NULL);
+				       "Reboot", GTK_RESPONSE_REBOOT, NULL);
 		halt_button = gtk_dialog_get_widget_for_response(
 			GTK_DIALOG(dialog),
 			GTK_RESPONSE_HALT);
 		reboot_button = gtk_dialog_get_widget_for_response(
 			GTK_DIALOG(dialog),
 			GTK_RESPONSE_REBOOT);
-		cancel_button = gtk_dialog_get_widget_for_response(
-			GTK_DIALOG(dialog),
-			GTK_RESPONSE_CANCEL);
-
-		g_signal_connect(dialog, "destroy", G_CALLBACK(fecha), NULL);
-		g_signal_connect(cancel_button,
-				 "clicked",
-				 G_CALLBACK(fecha),
-				 (gpointer) dialog);
 		g_signal_connect(halt_button,
 				 "clicked",
 				 G_CALLBACK(handle_click),
@@ -183,6 +188,41 @@ void button_press(GtkWidget *widget, GdkEvent *event)
 				 "clicked",
 				 G_CALLBACK(handle_click),
 				 REBOOT_METHOD);
+
+		if (show_suspend) {
+		  gtk_dialog_add_buttons(GTK_DIALOG(dialog), "Suspend",
+					 GTK_RESPONSE_SUSPEND, NULL);
+		  suspend_button =
+		    gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog),
+						       GTK_RESPONSE_SUSPEND);
+		  g_signal_connect(suspend_button,
+				   "clicked",
+				   G_CALLBACK(handle_click),
+				   SUSPEND_METHOD);
+		}
+		if (show_hibernate) {
+		  gtk_dialog_add_buttons(GTK_DIALOG(dialog), "Hibernate",
+					 GTK_RESPONSE_HIBERNATE, NULL);
+		  hibernate_button =
+		    gtk_dialog_get_widget_for_response(GTK_DIALOG(dialog),
+						       GTK_RESPONSE_HIBERNATE);
+		  g_signal_connect(hibernate_button,
+				   "clicked",
+				   G_CALLBACK(handle_click),
+				   HIBERNATE_METHOD);
+		}
+
+		gtk_dialog_add_buttons(GTK_DIALOG(dialog), "Cancel",
+				       GTK_RESPONSE_CANCEL, NULL);
+		cancel_button = gtk_dialog_get_widget_for_response(
+			GTK_DIALOG(dialog),
+			GTK_RESPONSE_CANCEL);
+		g_signal_connect(cancel_button,
+				 "clicked",
+				 G_CALLBACK(fecha),
+				 (gpointer) dialog);
+
+		g_signal_connect(dialog, "destroy", G_CALLBACK(fecha), NULL);
 		gtk_widget_show_all(dialog);
 		break;
 	default:
