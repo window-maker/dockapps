@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=wmshutdown
+Comment=Window Maker dockapp to shut down or reboot your machine
+Exec=wmshutdown
+Categories=System
+Keywords=power;dockapp;window maker
+Icon=wmshutdown

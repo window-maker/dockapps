@@ -9,3 +9,6 @@ dist_man_MANS = wmshutdown.1
 
 icondir = @datadir@/icons/hicolor/48x48/apps
 dist_icon_DATA = wmshutdown.png
+
+desktopdir = @datadir@/applications
+dist_desktop_DATA = wmshutdown.desktop
