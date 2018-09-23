@@ -19,6 +19,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <gio/gio.h>
+#include "wmshutdown.xpm"
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -234,6 +235,7 @@ int main(int argc, char *argv[])
 {
 	GError *error = NULL;
 	GOptionContext *context;
+	GdkPixbuf *pixbuf;
 	GtkWidget *gtkiw;
 	GtkWidget *dockArea;
 	GtkWidget *pixmap;
@@ -254,7 +256,8 @@ int main(int argc, char *argv[])
 	gtkiw = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	dockArea = cria_dock(gtkiw, 47);
 
-	pixmap = gtk_image_new_from_file(DATADIR"/wmshutdown.xpm");
+	pixbuf = gdk_pixbuf_new_from_xpm_data(image_name);
+	pixmap = gtk_image_new_from_pixbuf(pixbuf);
 	gtk_widget_show(pixmap);
 	gtk_container_add(GTK_CONTAINER(dockArea), pixmap);
 
