@@ -27,19 +27,11 @@
 #define GTK_RESPONSE_HALT   1
 #define GTK_RESPONSE_REBOOT 2
 
-#ifdef CONSOLEKIT
-#define HALT_METHOD      "Stop"
-#define REBOOT_METHOD    "Restart"
-#define DBUS_PATH        "/org/freedesktop/ConsoleKit/Manager"
-#define DBUS_INTERFACE   "org.freedesktop.ConsoleKit.Manager"
-#define DBUS_DESTINATION "org.freedesktop.ConsoleKit"
-#else
 #define HALT_METHOD      "PowerOff"
 #define REBOOT_METHOD    "Reboot"
 #define DBUS_PATH        "/org/freedesktop/login1"
 #define DBUS_INTERFACE   "org.freedesktop.login1.Manager"
 #define DBUS_DESTINATION "org.freedesktop.login1"
-#endif
 
 static int showVersion;
 GtkWidget *dialog = NULL;
@@ -116,9 +108,7 @@ void handle_click(GtkWidget *widget, gpointer data)
 			DBUS_PATH,
 			DBUS_INTERFACE,
 			method);
-#ifndef CONSOLEKIT
 	g_dbus_message_set_body(message, g_variant_new("(b)", TRUE));
-#endif
 	g_dbus_message_set_destination(message, DBUS_DESTINATION);
 	reply = g_dbus_connection_send_message_with_reply_sync(
 		connection, message, 0, -1, NULL, NULL, &error);
