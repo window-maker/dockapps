@@ -17,6 +17,6 @@ versions:
  -
   number: 1.5
   download: wmshutdown-1.5.tar.gz
-categories: misc
+categories: power
 ---
 A Window Maker dockapp for shutting down your machine.
