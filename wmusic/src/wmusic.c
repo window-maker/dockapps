@@ -633,9 +633,11 @@ void DrawArrow(void)
 void DrawVolume(void)
 {
 		int volume;
-		double volume_double;
+		double volume_double = 0.0;
 
-		g_object_get(player, "volume", &volume_double, NULL);
+		if (player)
+			g_object_get(player, "volume", &volume_double, NULL);
+
 		volume = (int)(36 * volume_double);
 		if (volume > 36)
 			volume = 36;
