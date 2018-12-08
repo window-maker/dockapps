@@ -1,5 +1,5 @@
 /* XPM */
-static char * image_name[] = {
+static const char * image_name[] = {
 "48 48 234 2",
 "  	c #C71BCB2BC71B",
 ". 	c #BEFBBEFBBEFB",
