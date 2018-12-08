@@ -1,4 +1,4 @@
-AC_INIT([wmshutdown], [1.5], [wmaker-dev@googlegroups.com])
+AC_INIT([wmshutdown], [1.6], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADER([config.h])

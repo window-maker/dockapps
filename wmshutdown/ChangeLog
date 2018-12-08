@@ -37,3 +37,13 @@
 	  directory and loading it from file.
 	* Add icon for freedesktop.org icon themes.
 	* Add freedesktop.org desktop entry file.
+08/12/2018: Version 1.6 released.
+	* Destroy dialog window before shutting down.
+	  This is especially useful for suspending or hibernating.  After
+	  turning the computer back on, the wmshutdown dialog would still be
+	  open from before, and clicking on the dockapp would not create a new
+	  dialog.  So the user would need to try and hunt for the old dialog if
+	  they wanted to use it again.
+	* Use const in XPM image.
+	  The function gdk_pixbuf_new_from_xpm_data expects a const char, and so
+	  previously we had a compiler warning.
