@@ -116,6 +116,8 @@ void handle_click(GtkWidget *widget, gpointer data)
 
 	gchar *method = (gchar *)data;
 
+	fecha();
+
 	connection = g_bus_get_sync(G_BUS_TYPE_SYSTEM, NULL, &error);
 	message = g_dbus_message_new_method_call(
 			NULL,
