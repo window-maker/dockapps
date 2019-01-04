@@ -130,9 +130,11 @@ DACreateIcon(char *name, unsigned width, unsigned height, int argc, char **argv)
 {
 	XClassHint          *classHint;
 	XWMHints            *wmHints;
+	XTextProperty        window_name;
 	XGCValues gcv;
 	unsigned long valueMask;
 	char                *resourceValue;
+	char                 class[100];
 
 	if (!_daContext)
 		_daContext = DAContextInit(argc, argv);
@@ -161,14 +163,18 @@ DACreateIcon(char *name, unsigned width, unsigned height, int argc, char **argv)
 	if (!_daContext->windowed) {
 		classHint->res_class = RES_CLASSNAME;
 	} else {
-		char class[100];
 		snprintf(class, 100, "%c%s", toupper(name[0]), name + 1);
 		classHint->res_class = class;
 	}
 	classHint->res_name = name;
-
 	XSetClassHint(DADisplay, DALeader, classHint);
 	XFree(classHint);
+
+	/* Set WMName */
+	if (XStringListToTextProperty(&name, 1, &window_name) == 0)
+		printf("%s: can't allocate window name.\n",
+			_daContext->programName), exit(1);
+	XSetWMName(DADisplay, DALeader, &window_name);
 
 	/* Set WMHints */
 	wmHints = XAllocWMHints();
