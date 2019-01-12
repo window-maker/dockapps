@@ -94,7 +94,7 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 {
 	char buffer[BUFSIZ], *p;
 	int fd, len, i;
-	u_int64_t mtotal, mused, mfree, mbuffer, mcached;
+	u_int64_t mtotal, mused, mfree, mbuffer, mcached, mavail;
 	u_int64_t stotal, sused, sfree, scached = 0;
 
 	/* read /proc/meminfo */
@@ -141,8 +141,8 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 		p = skip_token(p);
 		/* examine each line of file */
 		mtotal  = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
-		mfree   = strtoul(p, &p, 0);
-		p = skip_multiple_token(p, 5); /* skip MemAvailable line */
+		mfree   = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
+		mavail  = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 		mbuffer = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 		mcached = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 		scached = strtoul(p, &p, 0);
@@ -162,6 +162,9 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 	stotal = strtoul(p, &p, 0); p = skip_multiple_token(p, 2);
 	sfree  = strtoul(p, &p, 0);
 
+	if (format == AFTER_3_14) {
+		*per_mem = 100 * (double) (mtotal - mavail) / (double) mtotal;
+	} else {
 	/* calculate memory usage in percent */
 	mused = mtotal - mfree;
 	if (opts->ignore_buffers)
@@ -169,6 +172,7 @@ void mem_getusage(int *per_mem, int *per_swap, const struct mem_options *opts)
 	if (opts->ignore_cached)
 		mused -= mcached;
 	*per_mem = 100 * (double) mused / (double) mtotal;
+	}
 
 	/* calculate swap usage in percent */
 	sused = stotal - sfree;
