@@ -41,8 +41,6 @@
 /* Evil globals I haven't removed yet */
 long last_pageins = 0, last_pageouts = 0;
 long last_swapins = 0, last_swapouts = 0;
-//double old;
-static int has_kern26 = 0;
 
 #ifdef EXEC_ON_CLICK
 char Command[256] = "";
@@ -77,9 +75,6 @@ int main(int argc, char *argv[])
 	int allmem = 1;
 	int Xpid = 1;
 	char *ProgName;
-	struct utsname name;
-	int kernMajor, kernMinor, kernRev;
-
 	ProgName = argv[0];
 
 	if (strlen(ProgName) >= 5)
@@ -143,18 +138,6 @@ int main(int argc, char *argv[])
 	/* Open 64x64 window */
 	openXwindow(argc, argv, asmon_master_xpm, asmon_mask_bits,
 		    asmon_mask_width, asmon_mask_height);
-
-	if (uname(&name) != -1) {
-		if (strcmp(name.sysname, "Linux") == 0) {
-			sscanf(name.release, "%d.%d.%d", &kernMajor, &kernMinor,
-			       &kernRev);
-			if ((kernMajor == 2) && (kernMinor == 6))
-				has_kern26 = 1;
-		}
-	} else {
-		fprintf(stderr, "Can't find system name\n");
-		exit(1);
-	}
 
 	asmon_routine(Xpid, allmem);
 	return (0);
@@ -344,72 +327,45 @@ void DrawCPU(void)
 	int i;
 
 	if ((fp = fopen("/proc/stat", "r")) != NULL) {
-		if (has_kern26 > 0) {
-			// CPU data
-			fscanf(fp, "cpu %lf %lf %lf %lf %lf %lf %lf", info,
-			       info + 1, info + 2, info + 3, info + 4, info + 5,
-			       info + 6);
+		// CPU data
+		fscanf(fp, "cpu %lf %lf %lf %lf %lf %lf %lf", info,
+		       info + 1, info + 2, info + 3, info + 4, info + 5,
+		       info + 6);
 
-			fclose(fp);
+		fclose(fp);
 
-			if ((fp = fopen("/proc/vmstat", "r")) != NULL) {
-				// gather data for LED's
-				while (fgets(buf, 127, fp)) {
-					if (strstr(buf, "pgpgin"))
-						sscanf(buf, "pgpgin %ld",
-						       &pageins);
-
-					if (strstr(buf, "pgpgout"))
-						sscanf(buf, "pgpgout %ld",
-						       &pageouts);
-
-					if (strstr(buf, "pswpin"))
-						sscanf(buf, "pswpin %ld",
-						       &swapins);
-
-					if (strstr(buf, "pswpout"))
-						sscanf(buf, "pswpout %ld",
-						       &swapouts);
-				}
-				fclose(fp);
-			}
-		} else {
-			// CPU data
-			fscanf(fp, "cpu %lf %lf %lf %lf", info, info + 1,
-			       info + 2, info + 3);
-
+		if ((fp = fopen("/proc/vmstat", "r")) != NULL) {
 			// gather data for LED's
 			while (fgets(buf, 127, fp)) {
-				if (strstr(buf, "page"))
-					sscanf(buf, "page %ld %ld", &pageins,
+				if (strstr(buf, "pgpgin"))
+					sscanf(buf, "pgpgin %ld",
+					       &pageins);
+
+				if (strstr(buf, "pgpgout"))
+					sscanf(buf, "pgpgout %ld",
 					       &pageouts);
 
-				if (strstr(buf, "swap"))
-					sscanf(buf, "swap %ld %ld", &swapins,
+				if (strstr(buf, "pswpin"))
+					sscanf(buf, "pswpin %ld",
+					       &swapins);
+
+				if (strstr(buf, "pswpout"))
+					sscanf(buf, "pswpout %ld",
 					       &swapouts);
 			}
 			fclose(fp);
 		}
 
+
 		// Calculate CPU stuff
-		if (has_kern26 > 0) {
-			for (i = 0; i < 7; i++) {
-				fields[i] = info[i] - cpustat[i];
-				cputotal += fields[i];
-				cpustat[i] = info[i];
-			}
-		} else {
-			for (i = 0; i < 4; i++) {
-				fields[i] = info[i] - cpustat[i];
-				cputotal += fields[i];
-				cpustat[i] = info[i];
-			}
+		for (i = 0; i < 7; i++) {
+			fields[i] = info[i] - cpustat[i];
+			cputotal += fields[i];
+			cpustat[i] = info[i];
 		}
+
 		//idlee=info[3]-old;
-
-		//old=info[3]; 
-
-		// CPU Bar
+		//old=info[3];
 
 		//cputotal = 100 * l1 ;
 		//cputotal=(100-(idlee*100/16))*26/100;
@@ -580,104 +536,89 @@ float DrawMemSwap(float total, int allmem)
 {
 	FILE *fp;
 	if ((fp = fopen("/proc/meminfo", "r")) != NULL) {
-		static float stotal = 0.0, sshared = 0.0, sbuffers =
-		    0.0, scached = 0.0;
 		char junk[128];
-		float used, freeM, shared, buffers, cached, swaptotal,
+		float used, freeM, buffers, cached, swaptotal,
 		    swapused, swapfreeM;
 		unsigned long MEMshar, MEMbuff, MEMswap;
 		int tempy, tempa;
 
-		if (has_kern26 > 0) {
-			float scratch;
-
-			while (!feof(fp)) {
-				fgets(junk, 120, fp);
-				if (strstr(junk, "MemTotal")) {
-					sscanf(junk, "MemTotal: %f kB",
-					       &scratch);
-					total = scratch * 1024;
-				}
-				if (strstr(junk, "MemFree")) {
-					sscanf(junk, "MemFree: %f kB",
-					       &scratch);
-					freeM = scratch * 1024;
-					used = total - freeM;
-				}
-				if (strstr(junk, "Buffers")) {
-					sscanf(junk, "Buffers: %f kB",
-					       &scratch);
-					buffers = scratch * 1024;
-				}
-				if (strstr(junk, "Cached")) {
-					sscanf(junk, "Cached: %f kB", &scratch);
-					cached = scratch * 1024;
-				}
-				if (strstr(junk, "SwapTotal")) {
-					sscanf(junk, "SwapTotal: %f kB",
-					       &scratch);
-					swaptotal = scratch * 1024;
-				}
-				if (strstr(junk, "SwapFree")) {
-					sscanf(junk, "SwapFree: %f kB",
-					       &scratch);
-					swapfreeM = scratch * 1024;
-					swapused = swaptotal - swapfreeM;
-				}
+		float scratch;
+		while (!feof(fp)) {
+			fgets(junk, 120, fp);
+			if (strstr(junk, "MemTotal")) {
+				sscanf(junk, "MemTotal: %f kB",
+				       &scratch);
+				total = scratch * 1024;
 			}
-		} else {
-			fgets(junk, 80, fp);
-			fscanf(fp, "Mem: %f %f %f %f %f %f\nSwap: %f %f %f",
-			       &total, &used, &freeM, &shared, &buffers,
-			       &cached, &swaptotal, &swapused, &swapfreeM);
+			if (strstr(junk, "MemFree")) {
+				sscanf(junk, "MemFree: %f kB",
+				       &scratch);
+				freeM = scratch * 1024;
+				used = total - freeM;
+			}
+			if (strstr(junk, "Buffers")) {
+				sscanf(junk, "Buffers: %f kB",
+				       &scratch);
+				buffers = scratch * 1024;
+			}
+			if (strstr(junk, "Cached")) {
+				sscanf(junk, "Cached: %f kB", &scratch);
+				cached = scratch * 1024;
+			}
+			if (strstr(junk, "SwapTotal")) {
+				sscanf(junk, "SwapTotal: %f kB",
+				       &scratch);
+				swaptotal = scratch * 1024;
+			}
+			if (strstr(junk, "SwapFree")) {
+				sscanf(junk, "SwapFree: %f kB",
+				       &scratch);
+				swapfreeM = scratch * 1024;
+				swapused = swaptotal - swapfreeM;
+			}
 		}
+
 		fclose(fp);
 
 		/* All mem areas */
-		if (stotal != total || sshared != shared || sbuffers != buffers
-		    || scached != cached) {
-			stotal = total;
-			sshared = shared;
-			sbuffers = buffers;
-			scached = cached;
-			if ((total / 101048576) >= 1) {
-				MEMshar =
-				    ((used - buffers - cached) / total) * 27;
-				MEMbuff = (buffers / total) * 27;
-			} else {
-				MEMshar =
-				    ((used - buffers - cached) / total) * 33;
-				MEMbuff = (buffers / total) * 33;
-			}
-			// refresh
-			copyXPMArea(4, 115, 55, 11, 4, 18);
-			// Bar
-			if ((total / 101048576) >= 1) {
-				copyXPMArea(3, 75, ((used / total) * 28), 9, 5,
-					    19);
-			} else {
-				copyXPMArea(3, 75, ((used / total) * 34), 9, 5,
-					    19);
-			}
-			// Separators
-			copyXPMArea(15, 105, 1, 9, 5 + MEMshar, 19);
-			copyXPMArea(15, 105, 1, 9, 7 + MEMshar + MEMbuff, 19);
-			copyXPMArea(15, 105, (36 - (used / total) * 34), 9,
-				    (5 + (used / total) * 34), 19);
-			// Numbers                      
-			tempa = used / 1048576;
-			tempy = tempa % 10;
-			copyXPMArea(3 + (tempy * 6), 66, 6, 9, 50, 19);
-			tempy = (tempa / 10) % 10;
-			copyXPMArea(3 + (tempy * 6), 66, 6, 9, 44, 19);
-			tempy = (tempa / 100) % 10;
-			if ((total / 101048576) >= 1) {
-				copyXPMArea(3 + (tempy * 6), 66, 6, 9, 38, 19);
-				copyXPMArea(16, 46, 2, 14, 35, 16);
-			} else {
-				copyXPMArea(16, 46, 2, 14, 41, 16);
-			}
+		if ((total / 101048576) >= 1) {
+			MEMshar =
+				((used - buffers - cached) / total) * 27;
+			MEMbuff = (buffers / total) * 27;
+		} else {
+			MEMshar =
+				((used - buffers - cached) / total) * 33;
+			MEMbuff = (buffers / total) * 33;
 		}
+		// refresh
+		copyXPMArea(4, 115, 55, 11, 4, 18);
+		// Bar
+		if ((total / 101048576) >= 1) {
+			copyXPMArea(3, 75, ((used / total) * 28), 9, 5,
+				    19);
+		} else {
+			copyXPMArea(3, 75, ((used / total) * 34), 9, 5,
+				    19);
+		}
+		// Separators
+		copyXPMArea(15, 105, 1, 9, 5 + MEMshar, 19);
+		copyXPMArea(15, 105, 1, 9, 7 + MEMshar + MEMbuff, 19);
+		copyXPMArea(15, 105, (36 - (used / total) * 34), 9,
+			    (5 + (used / total) * 34), 19);
+		// Numbers                      
+		tempa = used / 1048576;
+		tempy = tempa % 10;
+		copyXPMArea(3 + (tempy * 6), 66, 6, 9, 50, 19);
+		tempy = (tempa / 10) % 10;
+		copyXPMArea(3 + (tempy * 6), 66, 6, 9, 44, 19);
+		tempy = (tempa / 100) % 10;
+		if ((total / 101048576) >= 1) {
+			copyXPMArea(3 + (tempy * 6), 66, 6, 9, 38, 19);
+			copyXPMArea(16, 46, 2, 14, 35, 16);
+		} else {
+			copyXPMArea(16, 46, 2, 14, 41, 16);
+		}
+
 		/* SWAP Meter */
 		if (swaptotal == 0)
 			MEMswap = 0;
@@ -705,6 +646,7 @@ float DrawMemSwap(float total, int allmem)
 		} else {
 			copyXPMArea(16, 46, 2, 14, 41, 30);
 		}
+
 	}
 	return (total);
 }
