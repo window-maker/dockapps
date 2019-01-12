@@ -53,6 +53,7 @@ static int mem_usage;
 static int swap_usage;
 static unsigned alarm_mem = 101;
 static unsigned alarm_swap = 101;
+time_t last_update = 0;
 
 /* prototypes */
 static void update(void);
@@ -121,8 +122,12 @@ int main(int argc, char **argv)
 
 	/* Main loop */
 	while (1) {
-		if (dockapp_nextevent_or_timeout(&event, update_interval * 1000)) {
-			/* Next Event */
+		if (time(NULL) != last_update)
+			update();
+
+		while (XPending(display)) {
+			XNextEvent(display, &event);
+
 			switch (event.type) {
 			case ButtonPress:
 				switch_light();
@@ -130,10 +135,8 @@ int main(int argc, char **argv)
 			default: /* make gcc happy */
 				break;
 			}
-		} else {
-			/* Time Out */
-			update();
 		}
+		usleep(update_interval*1000000L);
 	}
 
 	return 0;
@@ -180,6 +183,7 @@ static void update(void)
 
 	/* show */
 	dockapp_copy2window(pixmap);
+	time(&last_update);
 }
 
 /* called when mouse button pressed */
