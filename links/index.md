@@ -11,7 +11,7 @@ External links
 * [Dockapps](https://www.dockapps.net/)
 * [OneStepBack](http://gnome-look.org/content/show.php/OneStepBack?content=170904)
   -- Gnome 2 and 3 theme with a NextStep look.
-* [WINGs tutorial](http://www.quantitativefinanceservices.com/OpenDir/WINGslib/WINGToc.html)
+* [WINGs tutorial](/WINGs_tutorial/WINGtoc.html)
 * [Unofficial debian packages of Window
   Maker](http://www.the-little-red-haired-girl.org/pub/wmaker/)
 * [WINGs manpages](https://web.archive.org/web/20141111210726/http://voins.program.ru:80/windowmaker/wingsman.html)
