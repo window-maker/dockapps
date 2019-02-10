@@ -1,25 +1,22 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
 <head>
-  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
-
   <title>Window Maker: {{ page.title }}</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="{{ site.baseurl }}/title.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="{{ site.baseurl }}/style.css" media="all">
 </head>
-
-<body>
-  {% include dock.html %}{% include header.html %}
-
-  <div>
-    <table class="inner" border="0" cellpadding="1" cellspacing="1">
-      <tr>
-        <td content="content" colspan="2" valign="top">
-	  {{ content }}
-        </td>
-      </tr>
-    </table>
-
-  {% include footer.html %}
-
-</body>
+  <body>
+    <div id="wrapper">
+      <header>
+      <h1>
+        <a href="{{ site.baseurl }}/">
+          <span class="first">Window</span><span class="second">Maker</span>
+        </a>
+      </h1>
+      </header>
+      {% include header.html %}
+      <article>
+      {{ content }}
+      </article>
+  </div>
+  </body>
 </html>

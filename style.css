@@ -1,0 +1,124 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #515171;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0;
+}
+
+header h1 a {
+    font-family: "DejaVu Sans", sans-serif;
+    text-shadow: 0 4px 4px #666;
+    display: block;
+    padding-left: 1.4em;
+    background-image: url(/img/gnustep.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    text-decoration: none;
+    color: black;
+}
+header h1 span.second {color: white;}
+header h1 span:first {color: black;}
+
+#wrapper {
+    width: 900px;
+    margin: 0 auto;
+    /* padding: 1em; */
+    padding: 0;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 0 15px #000000;
+    background-color: #aeaaae;
+}
+
+article {
+    padding: 1em;
+    border-right: 1px solid #333;
+    /* border-bottom: 1px solid #333; */
+}
+
+.nav {
+    position: relative;
+    padding: 0.6em 0 0.4em 0.6em;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #333;
+    background: linear-gradient(#444, #411, #000) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #333;
+}
+.nav ul {
+    margin: 0;
+    padding: 0;
+}
+.nav li {
+    margin: 0 5px 5px 0;
+    padding: 0;
+    list-style: none;
+    display: inline-block;
+}
+.nav a {
+    padding: 3px 12px;
+    text-decoration: none;
+    color: #999;
+    line-height: 100%;
+}
+.nav a:hover {
+    color: #BBB;
+}
+
+.nav form {
+    display: inline;
+}
+
+.nav .current a {
+    color: #fff;
+}
+
+
+@media screen and (max-width: 900px) {
+
+    #wrapper {
+        width: 100%;
+        margin: 0;
+    }
+
+    article {
+        width: auto;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    #wrapper {
+        width: 100%;
+        margin: 0;
+    }
+
+    #header {
+        height: auto;
+    }
+
+    .image-left {
+        float: none;
+    }
+
+    article {
+        width: auto;
+        float: none;
+    }
+
+}
