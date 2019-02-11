@@ -6,6 +6,9 @@
 </head>
   <body>
     <div id="wrapper">
+      <div id="titlebar">
+        <div id="minimize"></div><div id="titlebar-inner">Window Maker: {{ page.title }}</div><div id="close"></div>
+      </div>
       <header>
       <h1>
         <a href="{{ site.baseurl }}/">
@@ -17,6 +20,9 @@
       <article>
       {{ content }}
       </article>
+      <div id="resizebar">
+        <div id="resizel"></div><div id="resizebar-inner"></div><div id="resizer"></div>
+      </div>
   </div>
   </body>
 </html>

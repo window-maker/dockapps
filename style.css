@@ -30,24 +30,109 @@ header h1 a {
     text-decoration: none;
     color: black;
 }
+
 header h1 span.second {color: white;}
 header h1 span:first {color: black;}
 
+#resizel, #resizer {
+    margin: 0;
+    padding: 0;
+    height: 6px;
+    width: 28px;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid #555555;
+}
+
+#resizebar {
+    position: absolute;
+    bottom: 2px;
+    display: inline-flex;
+    width: 100%;
+    margin: 0;
+    margin-top: 0px;
+    padding: 0;
+    background: #aaaaaa;
+    height: 5px;
+    border-top: 1px solid #555555;
+}
+
+#resizebar-inner {
+    margin: 0;
+    padding: 0;
+    margin-top: 0px;
+    height: 6px;
+    width: 100%;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid #555555;
+}
+
+#minimize, #close {
+    margin: 0;
+    padding: 0;
+    height: 19px;
+    width: 19px;
+    border-left: 1px solid #b6b6b6;
+    border-top: 1px solid #b6b6b6;
+    border-right: 1px solid #616161;
+    border-bottom: 1px solid #616161;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#minimize {
+    margin-right: 1px;
+    background-image: url(/img/minimize.png);
+}
+
+#close {
+    margin-left: 1px;
+    background-image: url(/img/close.png);
+}
+
+#titlebar {
+    display: inline-flex;
+    width: 100%;
+    margin: 0;
+    margin-top: 0px;
+    padding: 0;
+    background: black;
+    height: 22px;
+}
+
+#titlebar-inner {
+    margin: 0;
+    padding: 0;
+    margin-top: 0px;
+    background: black;
+    height: 19px;
+    width: 100%;
+    border-left: 1px solid #b6b6b6;
+    border-top: 1px solid #b6b6b6;
+    border-right: 1px solid #616161;
+    border-bottom: 1px solid #616161;
+    font-size: 0.8em;
+    font-color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
 #wrapper {
+    position: relative;
     width: 900px;
     margin: 0 auto;
     /* padding: 1em; */
-    padding: 0;
+    /* padding: 0; */
     margin-top: 1em;
     margin-bottom: 1em;
     box-shadow: 0 0 15px #000000;
     background-color: #aeaaae;
+    border: 1px solid black;
 }
 
 article {
     padding: 1em;
-    border-right: 1px solid #333;
-    /* border-bottom: 1px solid #333; */
 }
 
 .nav {
