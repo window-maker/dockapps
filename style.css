@@ -22,6 +22,25 @@ a:hover {color: #2c7abc;}
 a:visited {color: #371e7e;}
 a:visited {color: #574882;}
 
+.caption {
+    font-style: italic;
+    font-size: 0.8em;
+    line-height: 5px;
+    margin-bottom: 3em;
+}
+
+p.center {text-align: center;}
+
+p.screenshot a img {
+    border: 1px solid black;
+    box-shadow: 3px 7px 7px #606060;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right:0;
+    margin: auto;
+}
+
 h1 {font-size: 1.7em;}
 
 header h1 a {
