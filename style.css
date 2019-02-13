@@ -254,6 +254,10 @@ nav.menu li#links {background-image: url(/img/dock_links.png);}
         height: auto;
     }
 
+    header h1 a {
+        font-size: 1.5em
+    }
+
     .image-left {
         float: none;
     }
