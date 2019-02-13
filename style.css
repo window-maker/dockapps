@@ -246,6 +246,7 @@ article {
     #wrapper {
         width: 100%;
         margin: 0;
+        border: 0;
     }
 
     article {
@@ -326,6 +327,7 @@ article {
     #wrapper {
         width: 100%;
         margin: 0;
+        border: 0;
     }
 
     #header {
