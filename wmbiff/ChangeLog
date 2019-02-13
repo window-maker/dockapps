@@ -1,3 +1,32 @@
+2019-02-12  Doug Torrance <dtorrance@piedmont.edu>
+
+	* ChangeLog, NEWS, configure.ac: Bump to version 0.4.32.
+
+2019-02-12  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/Imap4Client.c, wmbiff/tlsComm.c:
+	handle EAGAIN or GNUTLS_E_AGAIN
+
+	From Debian bug #917467, reported by Nye Liu <nyet@nyet.org> [1]:
+
+	If gnutls_read() or read() report EAGAIN, tlscomm_expect() fails:
+
+	wmbiff/nyet  comm: wrote a000 CAPABILITY
+	wmbiff/nyet  comm: imap.***.***:993: expecting: * CAPABILITY
+	wmbiff/nyet  comm: imap.***.***:993: gnutls error reading: Resource
+	    temporarily unavailable, try again.
+	wmbiff/nyet  imap4: unable to query capability stringwmbiff/nyet
+	    comm: wrote a002 LOGOUT wmbiff/nyet
+	comm: imap.***.***:993: closing.
+
+	[1] https://bugs.debian.org/917467
+
+2018-05-14  Doug Torrance <dtorrance@piedmont.edu>
+
+	* FAQ, README, configure.ac, wmbiff/sample.wmbiffrc, wmbiff/wmbiff.1:
+	Update mailing list links to new Google Groups.
+
+
 2017-06-23  Doug Torrance <dtorrance@piedmont.edu>
 
 	* ChangeLog, NEWS, configure.ac: Bump to version 0.4.31.
