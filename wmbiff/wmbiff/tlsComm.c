@@ -229,10 +229,12 @@ tlscomm_expect(struct connection_state *scs,
 #ifdef USE_GNUTLS
 			if (scs->tls_state) {
 				/* BUF_SIZE - 1 leaves room for trailing \0 */
-				thisreadbytes =
-					gnutls_read(scs->tls_state,
-								&scs->unprocessed[buffered_bytes],
-								BUF_SIZE - 1 - buffered_bytes);
+				do {
+					thisreadbytes =
+						gnutls_read(scs->tls_state,
+									&scs->unprocessed[buffered_bytes],
+									BUF_SIZE - 1 - buffered_bytes);
+				} while (thisreadbytes == GNUTLS_E_AGAIN);
 				if (thisreadbytes < 0) {
 					handle_gnutls_read_error(thisreadbytes, scs);
 					return 0;
@@ -240,9 +242,11 @@ tlscomm_expect(struct connection_state *scs,
 			} else
 #endif
 			{
-				thisreadbytes =
-					read(scs->sd, &scs->unprocessed[buffered_bytes],
-						 BUF_SIZE - 1 - buffered_bytes);
+				do {
+					thisreadbytes =
+						read(scs->sd, &scs->unprocessed[buffered_bytes],
+							 BUF_SIZE - 1 - buffered_bytes);
+				} while (thisreadbytes == EAGAIN);
 				if (thisreadbytes < 0) {
 					TDM(DEBUG_ERROR, "%s: error reading: %s\n",
 						scs->name, strerror(errno));

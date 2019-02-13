@@ -258,7 +258,7 @@ FILE *imap_open(Pop3 pc)
 	   encrypted session. */
 	tlscomm_printf(scs, "a000 CAPABILITY\r\n");
 	if (tlscomm_expect(scs, "* CAPABILITY", capabilities, BUF_SIZE) == 0) {
-		IMAP_DM(pc, DEBUG_ERROR, "unable to query capability string");
+		IMAP_DM(pc, DEBUG_ERROR, "unable to query capability string\n");
 		goto communication_failure;
 	}
 
