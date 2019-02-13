@@ -22,6 +22,10 @@ a:hover {color: #2c7abc;}
 a:visited {color: #371e7e;}
 a:visited {color: #574882;}
 
+pre {
+    overflow-x: auto;
+}
+
 .caption {
     font-style: italic;
     font-size: 0.8em;
@@ -116,7 +120,7 @@ header h1 a span.first {color: black;}
 
 #wrapper {
     position: relative;
-    width: 900px;
+    width: 800px;
     margin: 0 auto;
     margin-top: 1em;
     margin-bottom: 1em;
@@ -163,74 +167,81 @@ article {
     padding: 1em;
 }
 
-nav.menu {
-    padding: 0 1em 0 1em;
+/* 64 * 2 + width of the wrapper (800) == 928 + margin */
+@media screen and (min-width: 940px) {
+    aside {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 64px;
+    }
+
+    nav.menu li#home {background-image: url(/img/dock_home.png);}
+    nav.menu li#news {background-image: url(/img/dock_news.png);}
+    nav.menu li#docs {background-image: url(/img/dock_docs.png);}
+    nav.menu li#devel {background-image: url(/img/dock_devel.png);}
+    nav.menu li#themes {background-image: url(/img/dock_themes.png);}
+    nav.menu li#links {background-image: url(/img/dock_links.png);}
+
+    nav.menu {
+        padding: 0;
+    }
+
+    nav.menu ul {
+        padding: 0;
+        margin: 0;
+        list-style:none;
+    }
+
+    nav.menu li {
+        float: left;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline;
+    }
+
+    nav.menu a {
+        padding: 3px 12px;
+        text-decoration: none;
+        color: #999;
+        line-height: 100%;
+    }
+
+    nav.menu a:hover {
+        color: #BBB;
+    }
+
+    nav.menu form {
+        display: inline;
+    }
+
+    nav.menu .current a {
+        color: #fff;
+    }
+
+    nav.menu li {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+    }
+
+    nav.menu li a {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+        line-height: 0;
+        font-size: 0;
+        color: transparent;
+    }
+
 }
 
-nav.menu ul {
-    border: 3px groove black;
-    padding: 0;
-    margin: 0;
-    list-style:none;
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-}
-
-nav.menu li {
-    float: left;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: inline;
-}
-
-nav.menu a {
-    padding: 3px 12px;
-    text-decoration: none;
-    color: #999;
-    line-height: 100%;
-}
-
-nav.menu a:hover {
-    color: #BBB;
-}
-
-nav.menu form {
-    display: inline;
-}
-
-nav.menu .current a {
-    color: #fff;
-}
-
-nav.menu li {
-    display: block;
-    width: 64px;
-    height: 64px;
-    border: 0;
-    padding:0;
-}
-
-nav.menu li a {
-    display: block;
-    width: 64px;
-    height: 64px;
-    border: 0;
-    padding:0;
-    line-height: 0;
-    font-size: 0;
-    color: transparent;
-}
-
-nav.menu li#home {background-image: url(/img/dock_home.png);}
-nav.menu li#news {background-image: url(/img/dock_news.png);}
-nav.menu li#docs {background-image: url(/img/dock_docs.png);}
-nav.menu li#devel {background-image: url(/img/dock_devel.png);}
-nav.menu li#themes {background-image: url(/img/dock_themes.png);}
-nav.menu li#links {background-image: url(/img/dock_links.png);}
-
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 939px) {
 
     #wrapper {
         width: 100%;
@@ -240,6 +251,73 @@ nav.menu li#links {background-image: url(/img/dock_links.png);}
     article {
         width: auto;
     }
+
+    nav.menu {
+        padding: 0 1em 0 1em;
+    }
+
+    nav.menu ul {
+        border: 3px groove black;
+        padding: 0;
+        margin: 0;
+        list-style:none;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    nav.menu li {
+        float: left;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline;
+    }
+
+    nav.menu a {
+        padding: 3px 12px;
+        text-decoration: none;
+        color: #999;
+        line-height: 100%;
+    }
+
+    nav.menu a:hover {
+        color: #BBB;
+    }
+
+    nav.menu form {
+        display: inline;
+    }
+
+    nav.menu .current a {
+        color: #fff;
+    }
+
+    nav.menu li {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+    }
+
+    nav.menu li a {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+        line-height: 0;
+        font-size: 0;
+        color: transparent;
+    }
+
+    nav.menu li#home {background-image: url(/img/prefs_home.png);}
+    nav.menu li#news {background-image: url(/img/prefs_news.png);}
+    nav.menu li#docs {background-image: url(/img/prefs_docs.png);}
+    nav.menu li#devel {background-image: url(/img/prefs_devel.png);}
+    nav.menu li#themes {background-image: url(/img/prefs_themes.png);}
+    nav.menu li#links {background-image: url(/img/prefs_links.png);}
 
 }
 
@@ -266,5 +344,4 @@ nav.menu li#links {background-image: url(/img/dock_links.png);}
         width: auto;
         float: none;
     }
-
 }
