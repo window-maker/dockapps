@@ -26,6 +26,7 @@ a:visited {color: #574882;}
 img {max-width: 100%;}
 
 pre {
+    color: #dddddd;
     overflow-x: auto;
     padding: 0.3em;
 }
@@ -282,6 +283,7 @@ article {
     nav.menu li#devel {background-image: url(/img/dock_devel.png);}
     nav.menu li#themes {background-image: url(/img/dock_themes.png);}
     nav.menu li#links {background-image: url(/img/dock_links.png);}
+    nav.menu li#mail {background-image: url(/img/dock_mail.png);}
 
     nav.menu {
         padding: 0;
@@ -421,6 +423,7 @@ article {
     nav.menu li#devel {background-image: url(/img/prefs_devel.png);}
     nav.menu li#themes {background-image: url(/img/prefs_themes.png);}
     nav.menu li#links {background-image: url(/img/prefs_links.png);}
+    nav.menu li#mail {background-image: url(/img/prefs_mail.png);}
 
     .highlight {
         padding: 0;
@@ -433,7 +436,7 @@ article {
 @media screen and (max-width: 600px) {
 
     header h1 a {
-        font-size: 1.5em
+        font-size: 1.5em;
     }
-    }
+
 }
