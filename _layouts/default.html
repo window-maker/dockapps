@@ -1,25 +1,64 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <meta name="generator" content="HTML Tidy for Linux (vers 25 March 2009), see www.w3.org" />
-
-  <title>Window Maker: {{ page.title }}</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
-  <link href="{{ site.baseurl }}/title.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  {% include dock.html %}{% include header.html %}
-
-  <div>
-    <table class="inner" border="0" cellpadding="1" cellspacing="1">
-      <tr>
-        <td content="content" colspan="2" valign="top">
-	  {{ content }}
-        </td>
-      </tr>
-    </table>
-
-  {% include footer.html %}
-
-</body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Window Maker: {{ page.title }}</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ site.baseurl }}/style.css" media="screen">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport"
+      content="width=device-width, minimumscale=1.0, maximum-scale=1.0">
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <h1>
+          <a href="{{ site.baseurl }}/">
+            <span class="first">Window</span><span class="second">Maker</span>
+          </a>
+        </h1>
+      </header>
+      <aside>
+        <nav class="menu">
+          <ul>
+            <li id="home" title="Home">
+              <a href="{{ site.baseurl }}/">Home</a>
+            </li>
+            <li id="news" title="News">
+              <a href="{{ site.baseurl }}/news">News</a>
+            </li>
+            <li id="docs" title="Documentation">
+              <a href="{{ site.baseurl }}/docs">Documentation</a>
+            </li>
+            <li id="mail" title="Mailing lists">
+              <a href="{{ site.baseurl }}/lists">Mailing</a>
+            </li>
+            <li id="devel" title="Development">
+              <a href="{{ site.baseurl }}/dev">Development</a>
+            </li>
+            <li id="themes" title="Themes">
+              <a href="{{ site.baseurl }}/themes">Themes</a>
+            </li>
+            <li id="links" title="Links">
+              <a href="{{ site.baseurl }}/links">Links</a>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <article>
+        {{ content }}
+      </article>
+      <div id="titlebar">
+        <div id="minimize"></div>
+        <div id="titlebar-inner">Window Maker: {{ page.title }}</div>
+        <div id="close"></div>
+      </div>
+      <div id="resizebar">
+        <div id="resizel"></div>
+        <div id="resizebar-inner">
+        </div>
+        <div id="resizer"></div>
+      </div>
+    </div>
+  </body>
 </html>
