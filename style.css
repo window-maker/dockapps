@@ -1,3 +1,4 @@
+/* common */
 html {
     margin: 0;
     padding: 0;
@@ -17,13 +18,16 @@ header {
     padding-bottom: 0;
 }
 
+h1 {font-size: 1.7em;}
 a:link {color: #1e527e;}
 a:hover {color: #2c7abc;}
 a:visited {color: #371e7e;}
 a:visited {color: #574882;}
+img {max-width: 100%;}
 
 pre {
     overflow-x: auto;
+    padding: 0.3em;
 }
 
 .caption {
@@ -45,8 +49,7 @@ p.screenshot a img {
     margin: auto;
 }
 
-h1 {font-size: 1.7em;}
-
+/* logo */
 header h1 a {
     font-family: "DejaVu Sans", sans-serif;
     text-shadow: 0 4px 4px #666;
@@ -60,11 +63,12 @@ header h1 a {
     color: black;
     font-size: 1.8em;
 }
-header h1 a:link {text-decoration: none;}
 
+header h1 a:link {text-decoration: none;}
 header h1 a span.second {color: white;}
 header h1 a span.first {color: black;}
 
+/* wrapper decorations */
 #minimize, #close {
     margin: 0;
     padding: 0;
@@ -163,12 +167,19 @@ header h1 a span.first {color: black;}
     border-right: 1px solid #555555;
 }
 
+/* main content */
 article {
     padding: 1em;
 }
 
-/* 64 * 2 + width of the wrapper (800) == 928 + margin */
+/*
+ * size specific styles
+ */
+
+/* large screens. size: 64 * 2 + width of the wrapper (800) == 928 + margin */
 @media screen and (min-width: 940px) {
+
+    /* menu as a vertical dock */
     aside {
         position: fixed;
         right: 0;
@@ -241,6 +252,7 @@ article {
 
 }
 
+/* small screens */
 @media screen and (max-width: 939px) {
 
     #wrapper {
@@ -249,6 +261,7 @@ article {
         border: 0;
     }
 
+    /* menu as a horizontal, scrollable icon list */
     article {
         width: auto;
     }
@@ -322,28 +335,11 @@ article {
 
 }
 
+/* very small - usually mobile phone screens */
 @media screen and (max-width: 600px) {
-
-    #wrapper {
-        width: 100%;
-        margin: 0;
-        border: 0;
-    }
-
-    #header {
-        height: auto;
-    }
 
     header h1 a {
         font-size: 1.5em
     }
-
-    .image-left {
-        float: none;
-    }
-
-    article {
-        width: auto;
-        float: none;
     }
 }
