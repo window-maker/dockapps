@@ -18,12 +18,12 @@ header {
     padding-bottom: 0;
 }
 
-h1 {font-size: 1.7em;}
-a:link {color: #1e527e;}
-a:hover {color: #2c7abc;}
-a:visited {color: #371e7e;}
-a:visited {color: #574882;}
-img {max-width: 100%;}
+h1 {font-size: 1.7em}
+a:link {color: #1e527e}
+a:hover {color: #2c7abc}
+a:visited {color: #371e7e}
+a:visited {color: #574882}
+img {max-width: 100%}
 
 pre {
     color: #dddddd;
@@ -38,7 +38,7 @@ pre {
     margin-bottom: 3em;
 }
 
-p.center {text-align: center;}
+p.center {text-align: center}
 
 p.screenshot a img {
     border: 1px solid black;
@@ -65,16 +65,16 @@ header h1 a {
     font-size: 1.8em;
 }
 
-header h1 a:link {text-decoration: none;}
-header h1 a span.second {color: white;}
-header h1 a span.first {color: black;}
+header h1 a:link {text-decoration: none}
+header h1 a span.second {color: white}
+header h1 a span.first {color: black}
 
 /* wrapper decorations */
 #minimize, #close {
     margin: 0;
     padding: 0;
-    height: 19px;
-    width: 19px;
+    height: 20px;
+    width: 21px;
     border-left: 1px solid #b6b6b6;
     border-top: 1px solid #b6b6b6;
     border-right: 1px solid #616161;
@@ -102,7 +102,7 @@ header h1 a span.first {color: black;}
     margin-top: 0px;
     padding: 0;
     background: black;
-    height: 22px;
+    height: 23px;
 }
 
 #titlebar-inner {
@@ -110,7 +110,7 @@ header h1 a span.first {color: black;}
     padding: 0;
     margin-top: 0px;
     background: black;
-    height: 19px;
+    height: 20px;
     width: 100%;
     border-left: 1px solid #b6b6b6;
     border-top: 1px solid #b6b6b6;
@@ -120,7 +120,7 @@ header h1 a span.first {color: black;}
     color: white;
     font-weight: bold;
     text-align: center;
-    vertical-align: middle;
+    line-height: 19px;
 }
 
 #wrapper {
@@ -169,7 +169,7 @@ header h1 a span.first {color: black;}
 }
 
 /* pre/code highlighted theme - taken from wombat256grf vim colorscheme */
-.highlight { background-color: #242424; }
+.highlight { background-color: #242424 }
 .highlight .c { color: #99968b; font-style: italic} /* Comment */
 .highlight .err { color: #dddddd} /* Error */
 .highlight .g { color: #dddddd } /* Generic */
@@ -258,9 +258,7 @@ header h1 a span.first {color: black;}
 }
 
 /* main content */
-article {
-    padding: 1em;
-}
+article {padding: 1em}
 
 /*
  * size specific styles
@@ -277,17 +275,16 @@ article {
         width: 64px;
     }
 
-    nav.menu li#home {background-image: url(/img/dock_home.png);}
-    nav.menu li#news {background-image: url(/img/dock_news.png);}
-    nav.menu li#docs {background-image: url(/img/dock_docs.png);}
-    nav.menu li#devel {background-image: url(/img/dock_devel.png);}
-    nav.menu li#themes {background-image: url(/img/dock_themes.png);}
-    nav.menu li#links {background-image: url(/img/dock_links.png);}
-    nav.menu li#mail {background-image: url(/img/dock_mail.png);}
+    nav.menu li#dock {background-image: url(/img/dock_dock.png)}
+    nav.menu li#home {background-image: url(/img/dock_home.png)}
+    nav.menu li#news {background-image: url(/img/dock_news.png)}
+    nav.menu li#docs {background-image: url(/img/dock_docs.png)}
+    nav.menu li#devel {background-image: url(/img/dock_devel.png)}
+    nav.menu li#themes {background-image: url(/img/dock_themes.png)}
+    nav.menu li#links {background-image: url(/img/dock_links.png)}
+    nav.menu li#mail {background-image: url(/img/dock_mail.png)}
 
-    nav.menu {
-        padding: 0;
-    }
+    nav.menu {padding: 0}
 
     nav.menu ul {
         padding: 0;
@@ -310,17 +307,11 @@ article {
         line-height: 100%;
     }
 
-    nav.menu a:hover {
-        color: #BBB;
-    }
+    nav.menu a:hover {color: #BBB}
 
-    nav.menu form {
-        display: inline;
-    }
+    nav.menu form {display: inline}
 
-    nav.menu .current a {
-        color: #fff;
-    }
+    nav.menu .current a {color: #fff}
 
     nav.menu li {
         display: block;
@@ -353,13 +344,9 @@ article {
     }
 
     /* menu as a horizontal, scrollable icon list */
-    article {
-        width: auto;
-    }
+    article {width: auto}
 
-    nav.menu {
-        padding: 0 1em 0 1em;
-    }
+    nav.menu {padding: 0 1em 0 1em}
 
     nav.menu ul {
         border: 3px groove black;
@@ -386,17 +373,9 @@ article {
         line-height: 100%;
     }
 
-    nav.menu a:hover {
-        color: #BBB;
-    }
-
-    nav.menu form {
-        display: inline;
-    }
-
-    nav.menu .current a {
-        color: #fff;
-    }
+    nav.menu a:hover {color: #BBB}
+    nav.menu form {display: inline}
+    nav.menu .current a {color: #fff}
 
     nav.menu li {
         display: block;
@@ -417,13 +396,14 @@ article {
         color: transparent;
     }
 
-    nav.menu li#home {background-image: url(/img/prefs_home.png);}
-    nav.menu li#news {background-image: url(/img/prefs_news.png);}
-    nav.menu li#docs {background-image: url(/img/prefs_docs.png);}
-    nav.menu li#devel {background-image: url(/img/prefs_devel.png);}
-    nav.menu li#themes {background-image: url(/img/prefs_themes.png);}
-    nav.menu li#links {background-image: url(/img/prefs_links.png);}
-    nav.menu li#mail {background-image: url(/img/prefs_mail.png);}
+    nav.menu li#dock {display: none}
+    nav.menu li#home {background-image: url(/img/prefs_home.png)}
+    nav.menu li#news {background-image: url(/img/prefs_news.png)}
+    nav.menu li#docs {background-image: url(/img/prefs_docs.png)}
+    nav.menu li#devel {background-image: url(/img/prefs_devel.png)}
+    nav.menu li#themes {background-image: url(/img/prefs_themes.png)}
+    nav.menu li#links {background-image: url(/img/prefs_links.png)}
+    nav.menu li#mail {background-image: url(/img/prefs_mail.png)}
 
     .highlight {
         padding: 0;
@@ -435,8 +415,6 @@ article {
 /* very small - usually mobile phone screens */
 @media screen and (max-width: 600px) {
 
-    header h1 a {
-        font-size: 1.5em;
-    }
+    header h1 a {font-size: 1.5em}
 
 }
