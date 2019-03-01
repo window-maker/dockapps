@@ -1,3 +1,25 @@
+2019-03-01  Doug Torrance <dtorrance@piedmont.edu>
+
+	* ChangeLog, NEWS, configure.ac: Bump to version 0.4.33
+
+2019-03-01  Doug Torrance <dtorrance@piedmont.edu>
+
+	* wmbiff/tlsComm.c: Remove unnecessary loop.  The last release of
+	wmbiff included a patch by Nye Liu from Debian bug #917467 [1].
+	However, the second part of that patch is not necessary.  From Andreas
+	Metzler's comment
+
+	    I am not sure about the second part of the patch. I understand
+	    wmbiff breaking on GNUTLS_E_AGAIN from gnutls_read, because this
+	    only started to happen recently (with TLS1.3) on blocking sockets.
+	    What I do not get from my rudimentary understanding C
+	    programmimg is the second part, this is in the else of "if
+	    (scs->tls_state)", so, afaiui for non-encrypted connections. Is the
+	    change necessary there at all, is it the right thing to retry read
+	    on EAGAIN then? We revert the second part of the patch.
+
+	[1] https://bugs.debian.org/917467
+
 2019-02-12  Doug Torrance <dtorrance@piedmont.edu>
 
 	* ChangeLog, NEWS, configure.ac: Bump to version 0.4.32.
