@@ -242,11 +242,9 @@ tlscomm_expect(struct connection_state *scs,
 			} else
 #endif
 			{
-				do {
-					thisreadbytes =
-						read(scs->sd, &scs->unprocessed[buffered_bytes],
-							 BUF_SIZE - 1 - buffered_bytes);
-				} while (thisreadbytes == EAGAIN);
+				thisreadbytes =
+					read(scs->sd, &scs->unprocessed[buffered_bytes],
+						 BUF_SIZE - 1 - buffered_bytes);
 				if (thisreadbytes < 0) {
 					TDM(DEBUG_ERROR, "%s: error reading: %s\n",
 						scs->name, strerror(errno));
