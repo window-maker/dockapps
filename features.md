@@ -6,59 +6,62 @@ title: Features
 Features
 ========
 
-We have already mentioned that Window Maker is a
-[window manager](http://en.wikipedia.org/wiki/Window_manager)
-There are other window managers out there, such as the infamous FVWM,
-Enlightenment, AfterStep, and the list goes on. All window managers perform the
-same basic tasks, which are to create, place, keep track of, and draw borders
-around the windows on the screen. Beyond this, they can become quite different
-in their various abilities.
-
 Window Maker firmly adheres to the behavior and functionality of the
-NEXTSTEP&trade; user interface. The developers have put forth a great deal of
-effort in capturing the essense and beauty of the original design, and have
-incorporated some new ideas of their own. This has always followed the
-philosophy of keeping to those features which fit well into the overall design,
-while limiting the amount of "feature creep" that tends to bloat other window
-managers. A summary of the main Window Maker features are presented below.
+[NeXTSTEP](http://en.wikipedia.org/wiki/NeXTSTEP)&trade; user interface. The
+developers have put forth a great deal of effort in capturing the essence and
+beauty of the original design, and have incorporated some new ideas of their
+own. This has always followed the philosophy of keeping to those features which
+fit well into the overall design, while limiting the amount of "feature creep"
+that tends to bloat other window managers. A summary of the main Window Maker
+features are presented below.
 
 Core (usability)
 ----------------
 
-* Almost complete [ICCM](http://en.wikipedia.org/wiki/Icccm) compliance
-* National language I18N support (over 11 locales)
-* Built-in icon dithering with support for 4bpp and 8bpp displays
+* Almost complete [ICCM](http://en.wikipedia.org/wiki/Icccm) compliance.
+* National language I18N support (over 11 locales).
+* Built-in icon dithering with support for 4bpp and 8bpp displays.
 * Popup menus that support keyboard traversal, which can be "pinned" to the
-  root window
+  root window.
 * Support for [GNUstep](http://gnustep.org), [GNOME](http://gnome.org), and
   [KDE](http://kde.org) window hints to better integrate with those desktop
-  environments
+  environments.
 * Support for Motif&trade; and OPEN LOOK&trade; window hints to better
-  interface with applications based on those toolkits
+  interface with applications based on those toolkits.
 * Built-in GUI configuration utility that eliminates the need to hand edit
-  config files
+  config files.
 * Application [Dock](http://en.wikipedia.org/wiki/Dock_(computing)) (similar to
-  NEXTSTEP/MacOS X Dock) that can be configured using drag and drop
-* Workspace Dock (aka Clip/Fiend) which is a workspace specific Dock extender
-* Support for rudimentary session management
-* Rudimentary support for the [X RandR](http://en.wikipedia.org/wiki/RandR)
-  extension
+  NEXTSTEP/MacOS X Dock) that can be configured using drag and drop.
+* Workspace Dock (aka Clip/Fiend) which is a workspace specific Dock extender.
+* Support for rudimentary session management.
 * Support for [dockapps](http://en.wikipedia.org/wiki/Dockapps) (equivalent of
-  applets or epplets)
+  applets or epplets).
 * Ability to change all preferences and menus on-the-fly without having to
-  restart the window manager
-* Support for multiple workspaces (aka "virtual desktops")
+  restart the window manager.
+* Support for multiple workspaces (aka "virtual desktops").
+* Multiple display support ([Xinerama](https://en.wikipedia.org/wiki/Xinerama)
+  and [XRandR](http://en.wikipedia.org/wiki/RandR) extensions)
+* Ability to maximize windows in half left/right/top/bottom of the screen and
+  also quarters.
+* Ability to display minimized window content as small preview (apercu).
+* Up to 9 buttons mouses support.
+* And more. You can go either through the git
+  [log](https://repo.or.cz/wmaker-crm.git/shortlog) and/or
+  [NEWS](https://repo.or.cz/wmaker-crm.git/blob/refs/heads/master:/NEWS) file.
 
 Extras (eye candy)
 ------------------
 
-* Built-in themes support
-* Over 13 types of window decorations, including custom defined
+* Built-in themes support.
+* Over 13 types of window decorations, including custom defined.
 * Support for XPM, PNG, JPEG, TIFF, GIF and PPM icons (no conversions with
-  external programs) with an alpha-channel
-* Support for setting the root window background (via the wmsetbg utility)
+  external programs) with an alpha-channel.
+* Additional format, which [ImageMagick](https://www.imagemagick.org) supports,
+  will be accessible if compiled with ImageMagick support.
+* Support for setting the root window background (via the wmsetbg utility). Even
+  differnt one per workspace.
 * Optional superfluous animations, such as window shading, customizeable icon
-  miniturization effects, slide/scrolling menus, and much more
+  miniaturization effects, slide/scrolling menus, and much more.
 
 Despite all of these features, Window Maker is not resource intensive and
 remains stable across many UNIX varients. It is extremely flexible, and many
