@@ -6,11 +6,12 @@ title: Home
 Introduction
 ============
 
-**Window Maker** is an X11 window manager originally designed to provide
-integration support for the [GNUstep](http://gnustep.org) Desktop Environment,
-although it can run stand alone. In every way possible, it reproduces the
-elegant look and feel of the [NEXTSTEP](http://en.wikipedia.org/wiki/NEXTSTEP)
-user interface.
+**Window Maker** is an X11 [window
+manager](http://en.wikipedia.org/wiki/Window_manager) originally designed to
+provide integration support for the [GNUstep](http://gnustep.org) Desktop
+Environment, although it can run stand alone. In every way possible, it
+reproduces the elegant look and feel of the
+[NeXTSTEP](http://en.wikipedia.org/wiki/NeXTSTEP) user interface.
 
 [![Default Window Maker config](img/wmaker_thumb.png)](img/wmaker.png)
 {:.screenshot .center}
@@ -24,6 +25,8 @@ The key features of Window Maker are:
 - Lightweight and blazing fast
 - Easy to use
 - Highly configurable
+- Ability to bind keyboard shortcut to wide set of actions
+- Dynamic menu entries 
 - Small, dockable apps ([dockapps](https://www.dockapps.net))
 - Human readable config files and GUI prefs application
 - Free and open source
