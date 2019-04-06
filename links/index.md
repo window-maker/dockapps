@@ -21,6 +21,8 @@ Window Maker/GNUStep related
 NEXTStep related
 ----------------
 
+* [NEXTSPACE](https://github.com/trunkmaster/nextspace) another take of creating
+  NeXTSTEP like environment for the CentOS.
 * [OPENSTEP 4.0 Demo](https://youtu.be/WyxByfhT1F0) -- Youtube video,
 * [OPENSTEP installation guide](http://openstep.bfx.re) -- Resources and guide
   to install OPENSTEP,
