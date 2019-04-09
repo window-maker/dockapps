@@ -32,7 +32,8 @@ The key features of Window Maker are:
 - Free and open source
 - Active community from all of the world
 
-See [features](features.html) section for more.
+See [features](features.html) section for more. In [screenshots](screenshots/)
+section you can see examples of how users set up their desktops.
 
 Download
 --------
