@@ -50,6 +50,33 @@ p.screenshot a img {
     margin: auto;
 }
 
+/* gallery */
+
+p.gallery {
+    float: left;
+    margin: 5px;
+    width: 300px;
+}
+
+p.gallery a img {
+    border: 1px solid black;
+    box-shadow: 3px 7px 7px #606060;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right:0;
+    margin: auto;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+.clear {
+    clear: left;
+}
+
 /* logo */
 header h1 a {
     font-family: "DejaVu Sans", sans-serif;
