@@ -39,6 +39,8 @@ pre {
 }
 
 p.center {text-align: center}
+p.caption {text-align: center}
+
 
 p.screenshot a img {
     border: 1px solid black;
@@ -75,6 +77,13 @@ div.gallery img {
 
 .clear {
     clear: left;
+}
+
+div.figure img {
+    display: block;
+    border: 1px solid black;
+    box-shadow: 3px 7px 7px #606060;
+    margin: 0 auto;
 }
 
 /* logo */
