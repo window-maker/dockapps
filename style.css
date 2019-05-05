@@ -50,6 +50,33 @@ p.screenshot a img {
     margin: auto;
 }
 
+/* gallery */
+
+p.gallery {
+    float: left;
+    margin: 5px;
+    width: 300px;
+}
+
+p.gallery a img {
+    border: 1px solid black;
+    box-shadow: 3px 7px 7px #606060;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right:0;
+    margin: auto;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+.clear {
+    clear: left;
+}
+
 /* logo */
 header h1 a {
     font-family: "DejaVu Sans", sans-serif;
@@ -280,6 +307,7 @@ article {padding: 1em}
     nav.menu li#news {background-image: url(/img/dock_news.png)}
     nav.menu li#docs {background-image: url(/img/dock_docs.png)}
     nav.menu li#devel {background-image: url(/img/dock_devel.png)}
+    nav.menu li#screenshots {background-image: url(/img/dock_mag.png)}
     nav.menu li#themes {background-image: url(/img/dock_themes.png)}
     nav.menu li#links {background-image: url(/img/dock_links.png)}
     nav.menu li#mail {background-image: url(/img/dock_mail.png)}
@@ -401,6 +429,7 @@ article {padding: 1em}
     nav.menu li#news {background-image: url(/img/prefs_news.png)}
     nav.menu li#docs {background-image: url(/img/prefs_docs.png)}
     nav.menu li#devel {background-image: url(/img/prefs_devel.png)}
+    nav.menu li#screenshots {background-image: url(/img/prefs_mag.png)}
     nav.menu li#themes {background-image: url(/img/prefs_themes.png)}
     nav.menu li#links {background-image: url(/img/prefs_links.png)}
     nav.menu li#mail {background-image: url(/img/prefs_mail.png)}
