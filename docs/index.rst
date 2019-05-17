@@ -23,14 +23,17 @@ novice users to overlook this information, leading them to frustration and a
 bad first impression. Please take a moment to peruse the sections below, which
 should make the experience of learning Window Maker a more pleasant one.
 
+.. class:: contents
+
 - `Installation Basics <installation.html>`_
 - `Window Maker Compilation and Installation <wmaker_install.html>`_
 - `Window Maker Internationalisation <wmaker_i18n.html>`_
 - `Guided Tour <guidedtour/index.html>`_
 - `User Guide <guide_toc.html>`_
-- `Desktop/X Integration <desktop.php>`_
 - `FAQ <FAQ.html>`_
 - `WINGs <wings.html>`_
+
+.. - `Desktop/X Integration <desktop.php>`_
 
 Very frequently asked question
 ------------------------------

@@ -204,6 +204,11 @@ header h1 a span.first {color: black}
     border-right: 1px solid #555555;
 }
 
+/* TOC */
+.contents p {
+    margin: 0.2em;
+}
+
 /* pre/code highlighted theme - taken from wombat256grf vim colorscheme */
 .highlight { background-color: #242424 }
 .highlight .c { color: #99968b; font-style: italic} /* Comment */

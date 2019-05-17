@@ -9,7 +9,9 @@ Window Maker Internationalisation
 A guide to enable support for language translations in WINDOW MAKER and to the
 contributors who want to help translating.
 
+.. sectnum::
 .. contents:: Table of Contents
+   :backlinks: none
 
 This manual is for Window Maker, version git#next.
 

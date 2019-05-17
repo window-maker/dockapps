@@ -10,7 +10,9 @@ Window Maker Compilation and Installation
 
 A guide to configure, compile and install WINDOW MAKER from sources.
 
+.. sectnum::
 .. contents:: Table of Contents
+   :backlinks: none
 
 This manual is for Window Maker, version git#next.
 
