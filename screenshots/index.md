@@ -37,4 +37,7 @@ screenshots.
 [![screenshot from khamsin](gryf-clearloks_thumb.jpg)](gryf-clearloks.png)
 {:.gallery}
 
+[![screenshot from khamsin](GoldUtop_thumb.jpg)](GoldUtop.png)
+{:.gallery}
+
 <div class="clear"></div>
