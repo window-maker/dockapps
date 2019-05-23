@@ -38,9 +38,9 @@ pre {
     margin-bottom: 3em;
 }
 
-p.center {text-align: center}
-p.caption {text-align: center}
+.caption {text-align: center}
 
+.center:not(.section), .center>h1, .center>h2{ text-align: center }
 
 p.screenshot a img {
     border: 1px solid black;
@@ -50,6 +50,15 @@ p.screenshot a img {
     left: 0;
     right:0;
     margin: auto;
+}
+
+/* guided tour */
+
+#window-maker h1.title { text-align: center }
+#window-maker #guided-tour img {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* gallery */
