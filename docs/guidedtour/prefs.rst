@@ -8,41 +8,38 @@ Preferences
 ===========
 
 .. figure:: images/wprefs.jpg
+   :figclass: borderless
    :height: 64
    :width: 64
 
 WPrefs.app
 ----------
 
-
 WPrefs.app is the heart of the configuration process in Window Maker.
 
-Upon installing Window Maker and running it for the first time, the WPrefs icon
-is already docked. By default, it's the one with the GNUstep logo in the
-background and a few tools in the foreground (although your distibution may use
-the plain GNUstep icon or something enitrely different). Normally Linux
-distributions position WPrefs as the second or third icon in the Dock column by
-default, just above or below the terminal icon.
+Upon installing Window Maker and running it for the first time, the WPrefs
+application is available under dock icon by default:
 
-.. figure:: images/wmakerconf.png
-   :alt: GNUstep Logo with Tools
-   :height: 64
-   :width: 64
-
-   ..
-
-.. figure:: images/gnustep_64.png
+.. figure:: images/dock_tile.png
+   :figclass: borderless
    :alt: GNUstep Logo
-   :height: 64
-   :width: 64
 
-   ..
+
+although, depending on your distibution, location, menu entry or icon may be
+different. Ususally Linux distributions position WPrefs as the second or third
+icon in the Dock column by default, just above or below the terminal icon.
 
 Double-clicking on this icon opens the WPrefs.app window. Across the top of
 the window there is a row of icons, each one corresponding to a group of
 settings options. There is a checkbox for balloon help on the bottom left of
 the WPrefs.app window. Most of the following is taken directly from the content
 of the ballon help dialogs.
+
+.. figure:: images/prefs0.png
+   :alt: WPrefs.app after launching
+   :figclass: borderless
+
+   WPrefs.app after launching
 
 .. contents:: Available preference settings
    :backlinks: none
@@ -51,8 +48,11 @@ of the ballon help dialogs.
 Window focus
 ~~~~~~~~~~~~
 
-.. figure:: images/prefs2.png
+.. figure:: images/prefs1.png
    :alt: WPrefs.app window focus controls
+   :figclass: borderless
+
+   WPrefs.app window focus controls
 
 The first icon from the left-hand side controls the way windows get
 their focus (how they are activated).
@@ -75,15 +75,19 @@ their focus (how they are activated).
 
   The topmost check box prevents applications from receiving the focusing
   mouse-click (I don't know why you would use this, but some people obviously
-  find it useful). The bottom checkbox allows you to choose whether
+  find it useful). The middle checkbox allows you to choose whether
   newly-opened application windows automatically receive the focus, or must be
-  clicked to gain focus.
+  clicked to gain focus. The bottom allows you to bring window up while using
+  keyboard.
 
 Window handling
 ~~~~~~~~~~~~~~~
 
-.. figure:: images/prefs1.png
+.. figure:: images/prefs2.png
    :alt: WPrefs.app window handling preferences
+   :figclass: borderless
+
+   WPrefs.app window handling preferences
 
 Clicking the second icon allows you to select the window handling options.
 Clicking on this icon opens a panel allowing you to define the default
@@ -95,6 +99,16 @@ placement and properties of windows in the workspace.
   original placement. The gadget tells Window Maker how to order windows on the
   screen: *Random*, *Manual*, *Cascade* or *Smart*. *Automatic* is the default.
 
+- *Dragging a maximized window*
+
+  Set the behaviour of maximized window when click on titlebar and drag with
+  the mouse. Possible actions can be set for a window to:
+
+  - *changes its position*
+  - *restores its unmaximized geometry*
+  - *considers the window now unmaximized*
+  - *does not move the window*
+
 - *Edge resistance*
 
   To set the edge resistance and whether it resists or attracts windows.
@@ -102,12 +116,24 @@ placement and properties of windows in the workspace.
   other windows or the edges of the screen. The slider defines the threshold.
   Some applications' title bars may disappear at the top of the screen, with
   the window being too high for the screen area. Setting the edge resistance to
-  "0" may solve this problem.
+  "0" may solve this problem
 
-- *Open dialogs in the same workspace as their owners*
+- *Mod+Wheel*
 
-  Obviously, whether to force dialog boxes "spawned" by an application to open
-  in same workspace as their owners.
+  You can define, how many pixels window should increment/decrement by using
+  modifer keys + mouse wheel. By default, CTRL+wheel will change window size
+  horizontally, while SUPER+wheel vertically.
+
+..
+   1. *Open dialogs in the same workspace as their owners*
+
+      Obviously, whether to force dialog boxes "spawned" by an application to open
+      in same workspace as their owners.
+
+- *When maximizing*
+
+  This option allows the window to cover (or not) icons or the dock when
+  maximizing.
 
 - *Opaque move/resize*
 
@@ -116,16 +142,14 @@ placement and properties of windows in the workspace.
   resize* makes window contents visible during resizing, otherwise only the
   frame is displayed.
 
-- *When maximizing*
-
-  This option allows the window to cover (or not) icons or the dock when
-  maximizing.
-
 Menu
 ~~~~
 
 .. figure:: images/prefs3.png
+   :figclass: borderless
    :alt: WPrefs.app menu preferences
+
+   WPrefs.app menu preferences
 
 This panel allows you to set menu scrolling speed and submenu alignment with
 the parent menu. In addition, two checkboxes are provided:
@@ -140,14 +164,17 @@ the parent menu. In addition, two checkboxes are provided:
   over it. This is convenient in some workflows, as when you have multiple
   applications open and you are using the window list menu to switch between
   applications.
-- The bottom box allows you to assign EMACS-like keybindings for the selection
+- The bottom box allows you to assign Vim-like keybindings for the selection
   of menu items.
 
 Icon
 ~~~~
 
 .. figure:: images/prefs4.png
+   :figclass: borderless
    :alt: WPrefs.app icon preferences
+
+   WPrefs.app icon preferences
 
 Set icon or miniwindow handling options.
 
@@ -156,12 +183,17 @@ Set icon or miniwindow handling options.
   This area defines the initial placement of miniwindows or icons will be
   displayed: *bottom, top, right, left*...
 
-- *Checkboxes*
+- *Icon size*
 
-  The topmost box enables/disables auto-arrangement of icons. The bottom box
-  places miniwindows for opened applications on all existing workspaces
-  (*omnipresent*).
+  Selects the size of the icons shown when a window is miniaturized and for
+  application icons. Dockapp developers usually assume that tiles will be 64x64
+  pixels, so it's probably a good idea to leave it at that size, unless you
+  know you won't be using dockapps.
 
+- *Mini-Previews for Icons*
+
+  Allows to display content of the window, while hovering the mouse on
+  minimised application icon. The slider allows to set the size of the preview.
 
 - *Iconification animation*
 
@@ -173,19 +205,21 @@ Set icon or miniwindow handling options.
   - 3D Flipping, or
   - None
 
+- *Checkboxes*
 
-- *Icon size*
-
-  Selects the size of the icons shown when a window is miniaturized and for
-  application icons. Dockapp developers usually assume that tiles will be 64x64
-  pixels, so it's probably a good idea to leave it at that size, unless you
-  know you won't be using dockapps.
+  The topmost box enables/disables auto-arrangement of icons. The middle box
+  places miniwindows for opened applications on all existing workspaces
+  (*omnipresent*). The bottom box, allows to use single click for minimized or
+  docked icons isntead of double clicking.
 
 Ergonomy
 ~~~~~~~~
 
 .. figure:: images/prefs5.png
+   :figclass: borderless
    :alt: WPrefs.app ergonomic settings
+
+   WPrefs.app ergonomic settings
 
 Various types of information are defined in this panel.
 
@@ -202,10 +236,9 @@ Various types of information are defined in this panel.
   Same information as above but regarding the screen placement of a
   window while moving (no technical drawing-like option).
 
-- *Workspace border*
+- *Appicon bouncing*
 
-  You can set a small border for the workspace. This allows you to easily
-  access the clip (for instance) when windows are maximized.
+  You can set the behaviour of AppIcons bounce here.
 
 - *Show balloon text for*
 
@@ -215,19 +248,28 @@ Various types of information are defined in this panel.
   over the desktop gets annoying quickly. I use the *incomplete window title*
   and the *miniwindow title* options and none of the others.
 
-- *Checkbox*
+- *Workspace border*
 
-  The top check bos, if selected, raises a window when switching focus with the
-  keyboard. The bottom box enables a keyboard language selection button on
-  window titlebars (must have multiple keyboard maps/locales defined - this is
-  handy if you are working in multiple languages in applications such as word
-  processors, for example).
+  You can set a small border for the workspace. This allows you to easily
+  access the clip (for instance) when windows are maximized.
+
+..
+  - *Checkbox*
+
+    The top check box, if selected, raises a window when switching focus with the
+    keyboard. The bottom box enables a keyboard language selection button on
+    window titlebars (must have multiple keyboard maps/locales defined - this is
+    handy if you are working in multiple languages in applications such as word
+    processors, for example).
 
 Search Path
 ~~~~~~~~~~~
 
 .. figure:: images/prefs6.png
+   :figclass: borderless
    :alt: WPrefs.app icon and pixmap search path settings
+
+   WPrefs.app icon and pixmap search path settings
 
 This panel is used to add or delete directory paths to search for icons and
 pixmaps. These paths are used in the *settings* dialogs for dockapps and docked
@@ -237,14 +279,37 @@ setup, since some default paths will not be present on your system, while
 others not predefined will be present. Use the *add* and *remove* dialogs to
 configure according to what is actually available.
 
+Dock
+~~~~
+
+.. figure:: images/prefs7.png
+   :figclass: borderless
+   :alt: WPrefs.app dock preference settings
+
+   WPrefs.app dock preference settings
+
+In this panel you can fine-tune Dock/Clip/Drawer behaviour.
+
+- *Clip autocollapsing delays* and *Clip autoraising delays* lets you choose
+  delays for expansion, collapsing, raising and lowering the Clip
+
+- *Dock/Clip/Drawer*
+
+  First icon enables/disables thr Dock, vertical bar for your appicons and
+  applications. Second allows to enables/disables Clip, the tile with the
+  paperclip icon. Last one enables/disables Drawer - a special dockapp for
+  keeping the applications icons horizontally.
+
 Workspace
 ~~~~~~~~~
 
-.. figure:: images/prefs7.png
+.. figure:: images/prefs8.png
+   :figclass: borderless
    :alt: WPrefs.app workspace preference settings
 
-This panel defines navigation features within the workspace.
+   WPrefs.app workspace preference settings
 
+This panel defines navigation features within the workspace.
 
 - *Workspace navigation*
 
@@ -256,18 +321,14 @@ This panel defines navigation features within the workspace.
   define where the workspace name is displayed each time you move from one
   workspace to another (or not to display the workspace name at all).
 
-- *Dock and clip*
-
-  Enables / disables the dock and/or the clip. I have seen some interesting
-  configurations using no dock but having the clip present. For users who
-  prefer a bottom or top "panel" of application launchers, system monitors and
-  other tools, this is a very valuable bit of flexibility.
-
 Other
 ~~~~~
 
-.. figure:: images/prefs8.png
+.. figure:: images/prefs9.png
+   :figclass: borderless
    :alt: WPrefs.app other workspace configuration settings
+
+   WPrefs.app other workspace configuration settings
 
 This panel sets icon slide speed, shade animation speed, smooth scaling and
 titlebar control (button) style. Animations and sound are also defined here.
@@ -281,11 +342,6 @@ titlebar control (button) style. Animations and sound are also defined here.
 
   Same as icon slide
 
-- *Smooth scaling*
-
-  If selected, neutralizes pixelization effect on background images. The
-  side-effect is to slow down background image loading.
-
 - *Titlebar style*
 
   To choose a more or less "NeXTish" titlebar. (The top version is "newer,"
@@ -298,6 +354,11 @@ titlebar control (button) style. Animations and sound are also defined here.
   (when moved - especially when moved from one side of the screen to the other)
   and explosion animation for icons you remove from the dock.
 
+- *Smooth scaling*
+
+  If selected, neutralizes pixelization effect on background images. The
+  side-effect is to slow down background image loading.
+
 - *Dithering colormap for 8bpp*
 
   For 8-bit displays (anyone still have one of these?) this enables dithering
@@ -307,8 +368,11 @@ titlebar control (button) style. Animations and sound are also defined here.
 Applications menu
 ~~~~~~~~~~~~~~~~~
 
-.. figure:: images/prefs9.png
+.. figure:: images/prefs10.png
+   :figclass: borderless
    :alt: WPrefs.app application menu configuration
+
+   WPrefs.app application menu configuration
 
 In this panel the applications menu and the commands to launch each application
 can be defined. This panel has been changed in version 0.63.and later. It now
@@ -320,8 +384,11 @@ use one or the other.
 Keyboard shortcut
 ~~~~~~~~~~~~~~~~~
 
-.. figure:: images/prefs10.png
+.. figure:: images/prefs11.png
+   :figclass: borderless
    :alt: WPrefs.app keyboard shortcut settings
+
+   WPrefs.app keyboard shortcut settings
 
 Many actions in Window Maker have predefined keyboard shortcuts. These actions
 mainly concern windows and workspaces. Modifying, adding or removing shortcuts
@@ -331,8 +398,15 @@ capturing the key combination.
 Mouse
 ~~~~~
 
-.. figure:: images/prefs11.png
+.. figure:: images/prefs12.png
+   :figclass: borderless
    :alt: WPrefs.app mouse configuration
+
+   WPrefs.app mouse configuration
+
+The mouse grab modifier represents the keyboard shortcut to use for actions
+like dragging windows with the mouse or clicking inside the window. Mod1 (Alt)
+is the default.
 
 This panel sets the mouse speed and double-click delay. Mouse button bindings
 can be defined and can be disabled or enabled.
@@ -346,15 +420,17 @@ as the one obtained with middle button.
 Starting from version 0.65 on, the mouse wheel can be used to switch
 workspaces. This is not default behavior and must be enabled here.
 
-The mouse grab modifier represents the keyboard shortcut to use for actions
-like dragging windows with the mouse or clicking inside the window. Mod1 (Alt)
-is the default.
+If mouse have more than 3 buttons and/or tilt, they can be bound to some
+actions.
 
 Appearance
 ~~~~~~~~~~
 
-.. figure:: images/prefs12.png
+.. figure:: images/prefs13.png
+   :figclass: borderless
    :alt: WPrefs.app appearance settings
+
+   WPrefs.app appearance settings
 
 In this panel, everything related to the appearance of the GUI (except the
 background color or image) can be configured. Windows, menus and icons can have
@@ -366,7 +442,10 @@ Font configuration
 ~~~~~~~~~~~~~~~~~~
 
 .. figure:: images/prefs14.png
+   :figclass: borderless
    :alt: Wprefs.app font configuration options
+
+   Wprefs.app font configuration options
 
 This panel allows you to configure fonts for the window and menu titlebars, for
 the menu body text, and for the icon and clip text. In addition, a font may be
@@ -375,8 +454,11 @@ defined for desktop messages.
 Expert user
 ~~~~~~~~~~~
 
-.. figure:: images/prefs13.png
+.. figure:: images/prefs15.png
+   :figclass: borderless
    :alt: WPrefs.app expert user settings
+
+   WPrefs.app expert user settings
 
 Using this panel implies some knowledge. Many options are available. Among
 these are:
@@ -388,6 +470,8 @@ these are:
 - Using Win style cycling (added from version 0.63.0)
 - Disabling confirmation panel for the kill command
 - Disabling cycling colors highlighting of icons
+- Multi head related options
+- Screen edge snapping
 
 Editing the configuration file
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

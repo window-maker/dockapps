@@ -95,6 +95,10 @@ div.figure img {
     margin: 0 auto;
 }
 
+div.figure.borderless img {
+    border: 0
+}
+
 /* logo */
 header h1 a {
     font-family: "DejaVu Sans", sans-serif;
