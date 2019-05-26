@@ -14,7 +14,6 @@ Guided Tour
 .. class:: screenshot center
 
 .. image:: images/gnusteplogo.png
-   :alt: Amanda by Agnieszka Czajkowska
    :height: 100
    :width: 100
 
@@ -73,7 +72,6 @@ Table of contents
 - `Clip <clip.html>`_
 - `Backgrounds and themes <back.html>`_
 - `Miscellaneous <misc.html>`_
-- `News <news.html>`_
 
 Archives
 --------
