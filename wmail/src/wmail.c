@@ -100,6 +100,7 @@ typedef enum {
 ///////////////////////////////////////////////////////////////////////////////
 // data
 
+static unsigned long lastTimeOut;
 mail_state_t state = STATE_NOMAIL;
 int numMails = 0;
 bool namesChanged = false;
@@ -160,7 +161,8 @@ static DAProgramOption options[] = {
 // prototypes
 
 void PreparePixmaps( bool freeThemFirst );
-void TimerHandler( int dummy );
+void TimedOut( void );
+void CheckTimeOut( bool force );
 void CheckMBox( void );
 void CheckMaildir( void );
 int TraverseDirectory( const char *name, bool isNewMail );
@@ -195,28 +197,14 @@ bool HasTickerWork( void );
 // implementation
 
 
-void SetTimer( void )
-{
-    struct itimerval timerVal;
-
-    timerVal.it_interval.tv_sec = 0;
-    timerVal.it_interval.tv_usec = 1000000/config.fps;
-    timerVal.it_value.tv_sec = 0;
-    timerVal.it_value.tv_usec = 1000000/config.fps;
-
-    setitimer( ITIMER_REAL, &timerVal, NULL );
-}
-
 int main( int argc, char **argv )
 {
     char *usersHome;
-    struct sigaction sa;
-    int ret;
     struct stat fileStat;
     XTextProperty windowName;
     char *name = argv[0];
     DACallbacks callbacks = { NULL, &ButtonPressed, &ButtonReleased,
-			      NULL, NULL, NULL, NULL };
+			      NULL, NULL, NULL, &TimedOut };
 
     // read the config file and overide the default-settings
     ReadConfigFile( false );
@@ -303,24 +291,13 @@ int main( int argc, char **argv )
     PreparePixmaps( false );
 
     DASetCallbacks( &callbacks );
-    DASetTimeout( -1 );
-
-    sa.sa_handler = TimerHandler;
-    sigemptyset( &sa.sa_mask );
-    sa.sa_flags = SA_RESTART;
-    ret = sigaction( SIGALRM, &sa, 0 );
-
-    if( ret ) {
-	perror( "wmail error: sigaction" );
-	exit( 1 );
-    }
+    DASetTimeout (1000 / config.fps);
 
     XStringListToTextProperty( &name, 1, &windowName );
     XSetWMName( DADisplay, DAWindow, &windowName );
 
     UpdatePixmap( false );
     DAShow();
-    SetTimer();
 
     DAEventLoop();
 
@@ -542,10 +519,24 @@ void RemoveChecksumFile( void )
     remove( config.checksumFileName );
 }
 
-// dummy needed because this func is a signal-handler
-void TimerHandler( int dummy )
+void TimedOut( void )
+{
+    CheckTimeOut( true );
+}
+
+void CheckTimeOut( bool force )
 {
     static int checkMail = 0;
+
+    struct timeval now;
+    gettimeofday(&now, NULL);
+
+    unsigned long nowMs = now.tv_sec * 1000L + now.tv_usec / 1000L;
+
+    if (!force && nowMs - lastTimeOut < 1000L / config.fps)
+	return;
+
+    lastTimeOut = nowMs;
 
     if( readConfigFile ) {
 	readConfigFile = false;
@@ -1252,6 +1243,8 @@ void ButtonPressed( int button, int state, int x, int y )
     } else
 	// reread the config file
 	readConfigFile = true;
+
+    CheckTimeOut( false );
 }
 
 void ButtonReleased( int button, int state, int x, int y )
@@ -1265,6 +1258,8 @@ void ButtonReleased( int button, int state, int x, int y )
 	if( ret == 127 || ret == -1 )
 	    WARNING( "execution of command \"%s\" failed.\n", config.runCmd );
     }
+
+    CheckTimeOut( false );
 }
 
 void GetHexColorString( const char *colorName, char *xpmLine )
@@ -1326,7 +1321,7 @@ void UpdateConfiguration( void )
 
     PreparePixmaps( true );
 
-    SetTimer();
+    DASetTimeout (1000 / config.fps);
 }
 
 void CleanupNames( void )
