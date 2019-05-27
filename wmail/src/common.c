@@ -79,10 +79,13 @@ char *MakePathName( const char *dir, const char *file )
     else
 	fullName = malloc( len1 + len2 + 1 );
 
-    memcpy( fullName, dir, len1 );
-    if( dir[len1-1] != '/' )
-	fullName[len1++] = '/';
-    memcpy( fullName + len1, file, len2 + 1 );
+    if( fullName != NULL)
+    {
+	memcpy( fullName, dir, len1 );
+	if( dir[len1-1] != '/' )
+	    fullName[len1++] = '/';
+	memcpy( fullName + len1, file, len2 + 1 );
+    }
 
     return fullName;
 }

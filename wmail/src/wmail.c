@@ -230,6 +230,12 @@ int main( int argc, char **argv )
 	    config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
     }
 
+    if ( config.checksumFileName == NULL)
+    {
+	WARNING( "Cannot allocate checksum file-name.\n");
+	exit( EXIT_FAILURE );
+    }
+
     TRACE( "using checksum-file \"%s\"\n", config.checksumFileName );
 
     // parse cmdline-args and overide defaults and cfg-file settings
@@ -630,6 +636,12 @@ void CheckMaildir()
 	    char *fullName = FileNameConcat( config.mailBox, dirEnt->d_name );
 	    struct stat fileStat;
 
+	    if ( fullName == NULL )
+	    {
+		WARNING( "Cannot allocate file/path\n" );
+		break;
+	    }
+
 	    if( !stat( fullName, &fileStat ) == 0 ) {
 		WARNING( "Can't stat file/path \"%s\"\n", fullName );
 		free( fullName );
@@ -674,6 +686,12 @@ int TraverseDirectory( const char *name, bool isNewMail )
 	    struct stat fileStat;
 	    unsigned long checksum = 0;
 	    name_t *name;
+
+	    if ( fullName == NULL )
+	    {
+		WARNING( "Cannot allocate file/path\n" );
+		break;
+	    }
 
 	    if( !stat( fullName, &fileStat ) == 0 ) {
 		WARNING( "Can't stat file/path \"%s\"\n", fullName );
@@ -823,7 +841,13 @@ void ParseMBoxFile( struct stat *fileStat )
 	    if( SkipSender( buf+6 ))
 		goto NEXTMAIL;
 
-	    InsertName( ParseFromField( buf+6 ), checksum, FLAG_INITIAL );
+	    char *name;
+	    if(( name = ParseFromField( buf+6 )) == NULL )
+	    {
+		WARNING( "Could not parse From field\n" );
+		break;
+	    }
+	    InsertName( name, checksum, FLAG_INITIAL );
 
 	    ++numMails;
 	    fromFound = 0;
@@ -868,8 +892,13 @@ void ParseMaildirFile( const char *fileName, unsigned long checksum,
 	    if( SkipSender( buf+6 ))
 		break;
 
-	    InsertName( ParseFromField( buf+6 ), checksum,
-			isNewMail ? FLAG_INITIAL : FLAG_READ );
+	    char *name;
+	    if(( name = ParseFromField( buf+6 )) == NULL )
+	    {
+		WARNING( "Could not parse From field\n" );
+		break;
+	    }
+	    InsertName( name, checksum, isNewMail ? FLAG_INITIAL : FLAG_READ );
 
 	    //++numMails;
 	}
@@ -894,11 +923,12 @@ char *ParseFromField( char *buf )
     int maxLen = strlen( buf ) + 1;
     char *comment;
 
-    // FIXME: Uhm, those mallocs might fail...
-
-    fullName = malloc( maxLen );
-    addressName = malloc( maxLen );
-    comment = malloc( maxLen );
+    if(( fullName = malloc( maxLen )) == NULL )
+	return NULL;
+    if(( addressName = malloc( maxLen )) == NULL )
+	return NULL;
+    if(( comment = malloc( maxLen )) == NULL )
+	return NULL;
 
     memset( fullName, '\0', maxLen );
     memset( addressName, '\0', maxLen );
@@ -1080,7 +1110,9 @@ void InsertName( char *name, unsigned long checksum, flag_t flag )
     name_t *item;
 
     TRACE( "insertName: %X, \"%s\"\n", checksum, name );
-    item = (name_t *)malloc( sizeof( name_t ));
+    if (( item = malloc( sizeof( name_t ))) == NULL )
+	return;
+
     item->name = name; /*strdup( name );*/
     item->checksum = checksum;
     item->flag = flag;
