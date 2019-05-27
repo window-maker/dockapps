@@ -188,7 +188,6 @@ void MarkName( unsigned long checksum );
 void DetermineState();
 void UpdateConfiguration();
 void CleanupNames();
-char *FileNameConcat( const char *path, const char *fileName );
 bool HasTickerWork();
 
 
@@ -633,7 +632,7 @@ void CheckMaildir()
 
 	while(( dirEnt = readdir( dir )) != NULL )
 	{
-	    char *fullName = FileNameConcat( config.mailBox, dirEnt->d_name );
+	    char *fullName = MakePathName( config.mailBox, dirEnt->d_name );
 	    struct stat fileStat;
 
 	    if ( fullName == NULL )
@@ -682,7 +681,7 @@ int TraverseDirectory( const char *name, bool isNewMail )
 
 	while(( dirEnt = readdir( dir )) != NULL )
 	{
-	    char *fullName = FileNameConcat( name, dirEnt->d_name );
+	    char *fullName = MakePathName( name, dirEnt->d_name );
 	    struct stat fileStat;
 	    unsigned long checksum = 0;
 	    name_t *name;
@@ -721,25 +720,6 @@ int TraverseDirectory( const char *name, bool isNewMail )
     closedir( dir );
 
     return mails;
-}
-
-char *FileNameConcat( const char *path, const char *fileName )
-{
-    int len1 = strlen( path );
-    int len2 = strlen( fileName );
-    char *buf;
-
-    if( path[len1-1] == '/' )
-	--len1;
-
-    buf = (char *)malloc( len1 + len2 + 2 );
-
-    memcpy( buf, path, len1 );
-    buf[len1] = '/';
-    memcpy( &buf[len1+1], fileName, len2 );
-    buf[len1+len2+1] = '\0';
-
-    return buf;
 }
 
 name_t *GetMail( unsigned long checksum )
