@@ -101,9 +101,9 @@ config_t config = {
     NULL,
     NULL,
     false,
-	NULL,
+    NULL,
     0,
-	0
+    0
 };
 
 // enumeration names for ticker mode
@@ -121,23 +121,23 @@ bool Tokenize( const char *line, const char **id, const char **value )
     const char *token1, *token2;
 
     if( line != NULL )
+    {
+	token1 = SkipWhiteSpaces( line );
+
+	if(( len = strlen( token1 )) != 0 && token1[0] != '#' )
 	{
-		token1 = SkipWhiteSpaces( line );
+	    token2 = strchr( token1, '=' );
+	    if( token2 != NULL )
+		token2 = SkipWhiteSpaces( token2+1 );
 
-		if(( len = strlen( token1 )) != 0 && token1[0] != '#' )
-		{
-			token2 = strchr( token1, '=' );
-			if( token2 != NULL )
-				token2 = SkipWhiteSpaces( token2+1 );
+	    if( !IsWhiteSpace( token2 ))
+	    {
+		*id = token1;
+		*value = token2;
 
-			if( !IsWhiteSpace( token2 ))
-			{
-				*id = token1;
-				*value = token2;
-
-				return true;
-			}
-		}
+		return true;
+	    }
+	}
     }
 
     return false;
@@ -149,19 +149,19 @@ void AddSenderToSkipList( char *sender  )
     char **skipName, **newList;
 
     for( skipName = config.skipNames, numNames = 0;
-		 skipName != NULL && *skipName != NULL; skipName++ )
+	 skipName != NULL && *skipName != NULL; skipName++ )
     {
-		if( !strcmp( *skipName, sender ))
-			return;
+	if( !strcmp( *skipName, sender ))
+	    return;
 
-		numNames++;
+	numNames++;
     }
 
     TRACE( "adding \"%s\" to skip-list of currently %d names\n", sender, numNames );
     newList = malloc( sizeof(char *) * (numNames + 2) );
 
     for( i = 0; i < numNames; ++i )
-		newList[i] = config.skipNames[i];
+	newList[i] = config.skipNames[i];
 
     newList[i] = strdup( sender );
     newList[i+1] = NULL;
@@ -171,177 +171,177 @@ void AddSenderToSkipList( char *sender  )
 
 void ResetConfigStrings()
 {
-	if( !( config.givenOptions & CL_MAILBOX )) {
-		free( config.mailBox );
-		config.mailBox = NULL;
-	}
+    if( !( config.givenOptions & CL_MAILBOX )) {
+	free( config.mailBox );
+	config.mailBox = NULL;
+    }
 
-	if( !( config.givenOptions & CL_RUNCMD )) {
-		free( config.runCmd );
-		config.runCmd = NULL;
-	}
+    if( !( config.givenOptions & CL_RUNCMD )) {
+	free( config.runCmd );
+	config.runCmd = NULL;
+    }
 
-	if( !( config.givenOptions & CL_SYMBOLCOLOR )) {
-		free( config.symbolColor );
-		config.symbolColor = NULL;
-	}
+    if( !( config.givenOptions & CL_SYMBOLCOLOR )) {
+	free( config.symbolColor );
+	config.symbolColor = NULL;
+    }
 
-	if( !( config.givenOptions & CL_FONTCOLOR )) {
-		free( config.fontColor );
-		config.fontColor = NULL;
-	}
+    if( !( config.givenOptions & CL_FONTCOLOR )) {
+	free( config.fontColor );
+	config.fontColor = NULL;
+    }
 
-	if( !( config.givenOptions & CL_BACKCOLOR )) {
-		free( config.backColor );
-		config.backColor = NULL;
-	}
+    if( !( config.givenOptions & CL_BACKCOLOR )) {
+	free( config.backColor );
+	config.backColor = NULL;
+    }
 
-	if( !( config.givenOptions & CL_OFFLIGHTCOLOR )) {
-		free( config.offlightColor );
-		config.offlightColor = NULL;
-	}
+    if( !( config.givenOptions & CL_OFFLIGHTCOLOR )) {
+	free( config.offlightColor );
+	config.offlightColor = NULL;
+    }
 
-	if( !( config.givenOptions & CL_BACKGROUNDCOLOR )) {
-		free( config.backgroundColor );
-		config.backgroundColor = NULL;
-	}
+    if( !( config.givenOptions & CL_BACKGROUNDCOLOR )) {
+	free( config.backgroundColor );
+	config.backgroundColor = NULL;
+    }
 
-	if( !( config.givenOptions & CL_CHECKSUMFILENAME )) {
-		free( config.checksumFileName );
-		config.checksumFileName = NULL;
-	}
+    if( !( config.givenOptions & CL_CHECKSUMFILENAME )) {
+	free( config.checksumFileName );
+	config.checksumFileName = NULL;
+    }
 
-	if( !( config.givenOptions & CL_CMDONMAIL )) {
-		free( config.cmdOnMail );
-		config.cmdOnMail = NULL;
-	}
+    if( !( config.givenOptions & CL_CMDONMAIL )) {
+	free( config.cmdOnMail );
+	config.cmdOnMail = NULL;
+    }
 
-	if( !( config.givenOptions & CL_USEX11FONT )) {
-		free( config.useX11Font );
-		config.useX11Font = NULL;
-	}
+    if( !( config.givenOptions & CL_USEX11FONT )) {
+	free( config.useX11Font );
+	config.useX11Font = NULL;
+    }
 }
 
 void PostProcessConfiguration()
 {
     if( config.display == NULL )
-		config.display = strdup( WMAIL_DISPLAY );
+	config.display = strdup( WMAIL_DISPLAY );
 
-	if( config.runCmd == NULL )
-		config.runCmd = strdup( WMAIL_CLIENT_CMD );
+    if( config.runCmd == NULL )
+	config.runCmd = strdup( WMAIL_CLIENT_CMD );
 
-	if( config.mailBox == NULL )
-	{
-		char *envMBox = getenv( "MAIL" );
-		if( envMBox != NULL )
-			config.mailBox = strdup( envMBox );
-	}
+    if( config.mailBox == NULL )
+    {
+	char *envMBox = getenv( "MAIL" );
+	if( envMBox != NULL )
+	    config.mailBox = strdup( envMBox );
+    }
 }
 
 void ReadConfigFile( bool resetConfigStrings )
 {
     char *usersHome;
 
-	// free all config strings and reset their pointers if required
-	if( resetConfigStrings )
-		ResetConfigStrings();
+    // free all config strings and reset their pointers if required
+    if( resetConfigStrings )
+	ResetConfigStrings();
 
     if(( usersHome = getenv( "HOME" )) != NULL )
+    {
+	char *fileName = MakePathName( usersHome, WMAIL_RC_FILE );
+	FILE *f = fopen( fileName, "rt" );
+
+	if( f != NULL )
 	{
-		char *fileName = MakePathName( usersHome, WMAIL_RC_FILE );
-		FILE *f = fopen( fileName, "rt" );
+	    char buf[1024];
+	    int line = 1;
 
-		if( f != NULL )
-		{
-			char buf[1024];
-			int line = 1;
+	    for( ; !feof( f ); ++line )
+	    {
+		const char *id, *value;
+		unsigned int len;
 
-			for( ; !feof( f ); ++line )
-			{
-				const char *id, *value;
-				unsigned int len;
+		if( fgets( buf, 1024, f ) == NULL )
+		    break;
 
-				if( fgets( buf, 1024, f ) == NULL )
-					break;
+		// first eliminate the trailing whitespaces
+		for( len = strlen( buf );
+		     len > 0 && IsWhiteSpace(buf+(--len)); )
+		    *(buf+len) = '\0';
 
-				// first eliminate the trailing whitespaces
-				for( len = strlen( buf );
-					 len > 0 && IsWhiteSpace(buf+(--len)); )
-					*(buf+len) = '\0';
+		if( !Tokenize( buf, &id, &value ))
+		    continue;
 
-				if( !Tokenize( buf, &id, &value ))
-					continue;
+		if( !strncasecmp( id, "Window.Display", 14 )) {
+		    if( !( config.givenOptions & CL_DISPLAY ))
+			ReadString( value, line, &config.display );
+		} else if( !strncasecmp( id, "Window.NonShaped", 16 )) {
+		    if( !( config.givenOptions & CL_NOSHAPE ))
+			ReadBool( value, line, &config.noshape );
+		} else if( !strncasecmp( id, "Window.Button.Command", 21 )) {
+		    if( !( config.givenOptions & CL_RUNCMD ))
+			ReadString( value, line, &config.runCmd );
+		} else if( !strncasecmp( id, "Mail.MailBox", 12 )) {
+		    if( !( config.givenOptions & CL_MAILBOX ))
+			ReadString( value, line, &config.mailBox );
+		} else if( !strncasecmp( id, "Mail.ChecksumFile", 17 )) // no corresponding cmdline option
+		    ReadString( value, line, &config.checksumFileName );
+		else if( !strncasecmp( id, "Mail.CheckIntervall", 19 )) {
+		    if( !( config.givenOptions & CL_CHECKINTERVAL ))
+			ReadInt( value, line, &config.checkInterval );
+		} else if( !strncasecmp( id, "Mail.ShowOnlyNew", 16 )) {
+		    if( !( config.givenOptions & CL_NEWMAILONLY ))
+			ReadBool( value, line, &config.newMailsOnly );
+		} else if( !strncasecmp( id, "Ticker.Mode", 11 )) {
+		    if( !( config.givenOptions & CL_TICKERMODE ))
+			ReadEnum( value, line, (int *)&config.tickerMode, tickerEnum );
+		} else if( !strncasecmp( id, "Ticker.Frames", 13 )) {
+		    if( !( config.givenOptions & CL_FPS ))
+			ReadInt( value, line, &config.fps );
+		} else if( !strncasecmp( id, "Colors.Symbols", 14 )) {
+		    if( !( config.givenOptions & CL_SYMBOLCOLOR ))
+			ReadString( value, line, &config.symbolColor );
+		} else if( !strncasecmp( id, "Colors.Font", 11 )) {
+		    if( !( config.givenOptions & CL_FONTCOLOR ))
+			ReadString( value, line, &config.fontColor );
+		} else if( !strncasecmp( id, "Colors.Backlight", 16 )) {
+		    if( !( config.givenOptions & CL_BACKCOLOR ))
+			ReadString( value, line, &config.backColor );
+		} else if( !strncasecmp( id, "Colors.OffLight", 15 )) {
+		    if( !( config.givenOptions & CL_OFFLIGHTCOLOR ))
+			ReadString( value, line, &config.offlightColor );
+		} else if( !strncasecmp( id, "Colors.NonShapedFrame", 21 )) {
+		    if( !( config.givenOptions & CL_NOSHAPE ))
+			ReadString( value, line, &config.backgroundColor );
+		} else if( !strncasecmp( id, "Ticker.X11Font", 14 )) {
+		    if( !( config.givenOptions & CL_USEX11FONT ))
+			ReadString( value, line, &config.useX11Font );
+		} else if( !strncasecmp( id, "Mail.SkipSender", 15 )) { // no corresponding cmdline options
+		    char *skip;
+		    if( ReadString( value, line, &skip ))
+			AddSenderToSkipList( skip );
+		} else if( !strncasecmp( id, "Mail.OnNew.Command", 18 )) {
+		    if( !( config.givenOptions & CL_CMDONMAIL ))
+			ReadString( value, line, &config.cmdOnMail );
+		} else if( !strncasecmp( id, "Mail.UseStatusField", 19 )) {
+		    if( !( config.givenOptions & CL_CONSIDERSTATUSFIELD ))
+			ReadBool( value, line, &config.considerStatusField );
+		} else if( !strncasecmp( id, "Mail.ReadStatus", 15 )) {
+		    if( !( config.givenOptions & CL_READSTATUS ))
+			ReadString( value, line, &config.readStatus );
+		} else
+		    WARNING( "cfg-file(%i): unrecognized: \"%s\"\n", line, buf );
+	    }
 
-				if( !strncasecmp( id, "Window.Display", 14 )) {
-					if( !( config.givenOptions & CL_DISPLAY ))
-						ReadString( value, line, &config.display );
-				} else if( !strncasecmp( id, "Window.NonShaped", 16 )) {
-					if( !( config.givenOptions & CL_NOSHAPE ))
-						ReadBool( value, line, &config.noshape );
-				} else if( !strncasecmp( id, "Window.Button.Command", 21 )) {
-					if( !( config.givenOptions & CL_RUNCMD ))
-						ReadString( value, line, &config.runCmd );
-				} else if( !strncasecmp( id, "Mail.MailBox", 12 )) {
-					if( !( config.givenOptions & CL_MAILBOX ))
-						ReadString( value, line, &config.mailBox );
-				} else if( !strncasecmp( id, "Mail.ChecksumFile", 17 )) // no corresponding cmdline option
-					ReadString( value, line, &config.checksumFileName );
-				else if( !strncasecmp( id, "Mail.CheckIntervall", 19 )) {
-					if( !( config.givenOptions & CL_CHECKINTERVAL ))
-						ReadInt( value, line, &config.checkInterval );
-				} else if( !strncasecmp( id, "Mail.ShowOnlyNew", 16 )) {
-					if( !( config.givenOptions & CL_NEWMAILONLY ))
-						ReadBool( value, line, &config.newMailsOnly );
-				} else if( !strncasecmp( id, "Ticker.Mode", 11 )) {
-					if( !( config.givenOptions & CL_TICKERMODE ))
-						ReadEnum( value, line, (int *)&config.tickerMode, tickerEnum );
-				} else if( !strncasecmp( id, "Ticker.Frames", 13 )) {
-					if( !( config.givenOptions & CL_FPS ))
-						ReadInt( value, line, &config.fps );
-				} else if( !strncasecmp( id, "Colors.Symbols", 14 )) {
-					if( !( config.givenOptions & CL_SYMBOLCOLOR ))
-						ReadString( value, line, &config.symbolColor );
-				} else if( !strncasecmp( id, "Colors.Font", 11 )) {
-					if( !( config.givenOptions & CL_FONTCOLOR ))
-						ReadString( value, line, &config.fontColor );
-				} else if( !strncasecmp( id, "Colors.Backlight", 16 )) {
-					if( !( config.givenOptions & CL_BACKCOLOR ))
-						ReadString( value, line, &config.backColor );
-				} else if( !strncasecmp( id, "Colors.OffLight", 15 )) {
-					if( !( config.givenOptions & CL_OFFLIGHTCOLOR ))
-						ReadString( value, line, &config.offlightColor );
-				} else if( !strncasecmp( id, "Colors.NonShapedFrame", 21 )) {
-					if( !( config.givenOptions & CL_NOSHAPE ))
-						ReadString( value, line, &config.backgroundColor );
-				} else if( !strncasecmp( id, "Ticker.X11Font", 14 )) {
-					if( !( config.givenOptions & CL_USEX11FONT ))
-						ReadString( value, line, &config.useX11Font );
-				} else if( !strncasecmp( id, "Mail.SkipSender", 15 )) { // no corresponding cmdline options
-					char *skip;
-					if( ReadString( value, line, &skip ))
-						AddSenderToSkipList( skip );
-				} else if( !strncasecmp( id, "Mail.OnNew.Command", 18 )) {
-					if( !( config.givenOptions & CL_CMDONMAIL ))
-						ReadString( value, line, &config.cmdOnMail );
-				} else if( !strncasecmp( id, "Mail.UseStatusField", 19 )) {
-					if( !( config.givenOptions & CL_CONSIDERSTATUSFIELD ))
-						ReadBool( value, line, &config.considerStatusField );
-				} else if( !strncasecmp( id, "Mail.ReadStatus", 15 )) {
-					if( !( config.givenOptions & CL_READSTATUS ))
-						ReadString( value, line, &config.readStatus );
-				} else
-					WARNING( "cfg-file(%i): unrecognized: \"%s\"\n", line, buf );
-			}
-
-			fclose( f );
-		} else {
-			TRACE( "unable to open config-file \"%s\"\n", fileName );
-		}
+	    fclose( f );
+	} else {
+	    TRACE( "unable to open config-file \"%s\"\n", fileName );
+	}
     } else {
-		TRACE( "no $HOME defined - config-file not read\n" );
+	TRACE( "no $HOME defined - config-file not read\n" );
     }
 
-	PostProcessConfiguration();
+    PostProcessConfiguration();
 }
 
 bool ReadString( const char *from, unsigned int line, char **to )
@@ -449,7 +449,7 @@ bool ReadInt( const char *from, unsigned int line, int *to )
 	    }
 	}
     } else for( ; *from != '\0' && !IsWhiteSpace( from ); ++from ) {
-        if( value > (INT_MAX - 9) / 10 ) {
+	if( value > (INT_MAX - 9) / 10 ) {
 	    WARNING( "cfg-file(%i): decimal-number too large: \">%i\"\n", line, INT_MAX );
 	    return false;
 	}
