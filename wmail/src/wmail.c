@@ -641,13 +641,9 @@ void CheckMaildir()
 		break;
 	    }
 
-	    if( !stat( fullName, &fileStat ) == 0 ) {
+	    if( !stat( fullName, &fileStat ) == 0 )
 		WARNING( "Can't stat file/path \"%s\"\n", fullName );
-		free( fullName );
-		continue;
-	    }
-
-	    if( S_ISDIR( fileStat.st_mode ))
+	    else if( S_ISDIR( fileStat.st_mode ))
 	    {
 		if( strcmp( dirEnt->d_name, "new" ) == 0 ) {
 		    if( TraverseDirectory( fullName, true ) > 0 )
@@ -660,6 +656,7 @@ void CheckMaildir()
 		}
 		// directories ".", ".." and "tmp" discarded
 	    }
+	    free( fullName );
 	}
 	closedir( dir );
 	CleanupNames();
@@ -692,13 +689,9 @@ int TraverseDirectory( const char *name, bool isNewMail )
 		break;
 	    }
 
-	    if( !stat( fullName, &fileStat ) == 0 ) {
+	    if( !stat( fullName, &fileStat ) == 0 )
 		WARNING( "Can't stat file/path \"%s\"\n", fullName );
-		free( fullName );
-		continue;
-	    }
-
-	    if( !S_ISDIR( fileStat.st_mode ))
+	    else if( !S_ISDIR( fileStat.st_mode ))
 	    {
 		TRACE( "found email-file \"%s\"\n", fullName );
 		UpdateChecksum( &checksum, dirEnt->d_name );
@@ -714,6 +707,7 @@ int TraverseDirectory( const char *name, bool isNewMail )
 		}
 		++mails;
 	    }
+	    free( fullName );
 	}
     }
 
@@ -906,9 +900,16 @@ char *ParseFromField( char *buf )
     if(( fullName = malloc( maxLen )) == NULL )
 	return NULL;
     if(( addressName = malloc( maxLen )) == NULL )
+    {
+	free( fullName );
 	return NULL;
+    }
     if(( comment = malloc( maxLen )) == NULL )
+    {
+	free( fullName );
+	free( addressName );
 	return NULL;
+    }
 
     memset( fullName, '\0', maxLen );
     memset( addressName, '\0', maxLen );
@@ -1039,6 +1040,7 @@ char *ParseFromField( char *buf )
 	    strcpy(fullName, comment);
 	}
     }
+    free( comment );
 
     //WARNING("Fullname: %s\nAddress: %s\n", fullName, addressName);
 
@@ -1091,7 +1093,10 @@ void InsertName( char *name, unsigned long checksum, flag_t flag )
 
     TRACE( "insertName: %X, \"%s\"\n", checksum, name );
     if (( item = malloc( sizeof( name_t ))) == NULL )
+    {
+	free( name );
 	return;
+    }
 
     item->name = name; /*strdup( name );*/
     item->checksum = checksum;
@@ -1108,6 +1113,7 @@ void RemoveLastName()
     if( names != NULL ) {
 	name_t *name = names;
 	names = names->next;
+	free( name->name );
 	free( name );
     }
 }
@@ -1343,6 +1349,7 @@ void CleanupNames()
 	    else
 		last->next = name->next;
 
+	    free( name->name );
 	    free( name );
 	} else {
 	    last = name;

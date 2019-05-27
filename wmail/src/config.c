@@ -339,6 +339,8 @@ void ReadConfigFile( bool resetConfigStrings )
 	    } else {
 		TRACE( "unable to open config-file \"%s\"\n", fileName );
 	    }
+
+	    free( fileName );
 	} else {
 	    TRACE( "unable to allocate config-file\n" );
 	}
