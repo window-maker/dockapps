@@ -169,7 +169,7 @@ void AddSenderToSkipList( char *sender  )
     config.skipNames = newList;
 }
 
-void ResetConfigStrings()
+void ResetConfigStrings( void )
 {
     if( !( config.givenOptions & CL_MAILBOX )) {
 	free( config.mailBox );
@@ -222,7 +222,7 @@ void ResetConfigStrings()
     }
 }
 
-void PostProcessConfiguration()
+void PostProcessConfiguration( void )
 {
     if( config.display == NULL )
 	config.display = strdup( WMAIL_DISPLAY );

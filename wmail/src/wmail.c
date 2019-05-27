@@ -161,8 +161,8 @@ static DAProgramOption options[] = {
 
 void PreparePixmaps( bool freeThemFirst );
 void TimerHandler( int dummy );
-void CheckMBox();
-void CheckMaildir();
+void CheckMBox( void );
+void CheckMaildir( void );
 int TraverseDirectory( const char *name, bool isNewMail );
 name_t *GetMail( unsigned long checksum );
 void UpdatePixmap( bool flashMailSymbol );
@@ -172,30 +172,30 @@ void ParseMaildirFile( const char *fileName, unsigned long checksum,
 char *ParseFromField( char *buf );
 bool SkipSender( char *address );
 void InsertName( char *name, unsigned long checksum, flag_t flag );
-void RemoveLastName();
-void ClearAllNames();
-void DrawTickerX11Font();
-void DrawTickerBuildinFont();
+void RemoveLastName( void );
+void ClearAllNames( void );
+void DrawTickerX11Font( void );
+void DrawTickerBuildinFont( void );
 void ButtonPressed( int button, int state, int x, int y );
 void ButtonReleased( int button, int state, int x, int y );
 char *XpmColorLine( const char *colorName, char *colorLine, bool disposeLine );
-void ReadChecksumFile();
+void ReadChecksumFile( void );
 void WriteChecksumFile( bool writeAll );
 void UpdateChecksum( unsigned long *checksum, const char *buf );
-void RemoveChecksumFile();
+void RemoveChecksumFile( void );
 void SetMailFlags( flag_t flag );
 void MarkName( unsigned long checksum );
-void DetermineState();
-void UpdateConfiguration();
-void CleanupNames();
-bool HasTickerWork();
+void DetermineState( void );
+void UpdateConfiguration( void );
+void CleanupNames( void );
+bool HasTickerWork( void );
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // implementation
 
 
-void SetTimer()
+void SetTimer( void )
 {
     struct itimerval timerVal;
 
@@ -471,7 +471,7 @@ void MarkName( unsigned long checksum )
     }
 }
 
-void DetermineState()
+void DetermineState( void )
 {
     name_t *name;
 
@@ -490,7 +490,7 @@ void DetermineState()
 	}
 }
 
-void ReadChecksumFile()
+void ReadChecksumFile( void )
 {
     FILE *f = fopen( config.checksumFileName, "rb" );
     if( f != NULL ) while( !feof( f )) {
@@ -536,7 +536,7 @@ void UpdateChecksum( unsigned long *checksum, const char *buf )
     }
 }
 
-void RemoveChecksumFile()
+void RemoveChecksumFile( void )
 {
     TRACE( "removing checksum-file\n" );
     remove( config.checksumFileName );
@@ -570,7 +570,7 @@ void TimerHandler( int dummy )
 	checkMail = 0;
 }
 
-void CheckMBox()
+void CheckMBox( void )
 {
     struct stat fileStat;
 
@@ -607,7 +607,7 @@ void CheckMBox()
     }
 }
 
-void CheckMaildir()
+void CheckMaildir( void )
 {
     DIR *dir = NULL;
     int lastState = state;
@@ -1104,7 +1104,7 @@ void InsertName( char *name, unsigned long checksum, flag_t flag )
     namesChanged = true;
 }
 
-void RemoveLastName()
+void RemoveLastName( void )
 {
     if( names != NULL ) {
 	name_t *name = names;
@@ -1114,7 +1114,7 @@ void RemoveLastName()
     }
 }
 
-void ClearAllNames()
+void ClearAllNames( void )
 {
     name_t *name, *nextName;
 
@@ -1139,7 +1139,7 @@ void SetMailFlags( flag_t flag )
 	name->flag |= flag;
 }
 
-void DrawTickerX11Font()
+void DrawTickerX11Font( void )
 {
     // 49x21+7+20 out-drawable size
 
@@ -1177,7 +1177,7 @@ void DrawTickerX11Font()
     }
 }
 
-void DrawTickerBuildinFont()
+void DrawTickerBuildinFont( void )
 {
     // 49x21+7+20 out-drawable size
     // 14x21 font-character size
@@ -1303,7 +1303,7 @@ char *XpmColorLine( const char *colorName, char *colorLine, bool disposeLine )
     return newLine;
 }
 
-void UpdateConfiguration()
+void UpdateConfiguration( void )
 {
     struct stat fileStat;
 
@@ -1329,7 +1329,7 @@ void UpdateConfiguration()
     SetTimer();
 }
 
-void CleanupNames()
+void CleanupNames( void )
 {
     name_t *name, *last = NULL, *nextName;
 
@@ -1356,7 +1356,7 @@ void CleanupNames()
     }
 }
 
-bool HasTickerWork()
+bool HasTickerWork( void )
 {
     name_t *nextTickerName;
 
