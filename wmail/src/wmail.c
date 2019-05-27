@@ -34,6 +34,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 // includes
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -936,7 +937,8 @@ char *ParseFromField( char *buf )
 		    continue;
 		} // else do the default action
 	    default:
-		fullName[ strlen( fullName ) ] = *c;
+		if( fullName[0] != '\0' || !isspace ( *c ))
+		    fullName[ strlen( fullName ) ] = *c;
 	    }
 	    continue;
 
