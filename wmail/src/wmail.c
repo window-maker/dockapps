@@ -102,6 +102,7 @@ typedef enum {
 // data
 
 static unsigned long lastTimeOut;
+static sig_atomic_t caughtSig;
 mail_state_t state = STATE_NOMAIL;
 int numMails = 0;
 bool namesChanged = false;
@@ -162,6 +163,7 @@ static DAProgramOption options[] = {
 // prototypes
 
 void PreparePixmaps( bool freeThemFirst );
+static void ExitHandler( int sig );
 void TimedOut( void );
 void CheckTimeOut( bool force );
 void CheckMBox( void );
@@ -201,6 +203,7 @@ bool HasTickerWork( void );
 int main( int argc, char **argv )
 {
     char *usersHome;
+    struct sigaction sa = { .sa_handler = ExitHandler };
     struct stat fileStat;
     XTextProperty windowName;
     char *name = argv[0];
@@ -213,7 +216,7 @@ int main( int argc, char **argv )
     if( config.checksumFileName == NULL ) {
 	if(( usersHome = getenv( "HOME" )) == NULL ) {
 	    WARNING( "HOME environment-variable is not set, placing %s in current directory!\n", WMAIL_CHECKSUM_FILE );
-	    config.checksumFileName = WMAIL_CHECKSUM_FILE;
+	    config.checksumFileName = strdup( WMAIL_CHECKSUM_FILE );
 	} else
 	    config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
     }
@@ -290,6 +293,16 @@ int main( int argc, char **argv )
 
     outPixmap = DAMakePixmap();
     PreparePixmaps( false );
+
+    if( sigaction( SIGINT, &sa, NULL ) == -1 ) {
+	perror( "wmail error: sigaction" );
+	exit( EXIT_FAILURE );
+    }
+
+    if( sigaction( SIGTERM, &sa, NULL ) == -1 ) {
+	perror( "wmail error: sigaction" );
+	exit( EXIT_FAILURE );
+    }
 
     DASetCallbacks( &callbacks );
     DASetTimeout (1000 / config.fps);
@@ -520,8 +533,19 @@ void RemoveChecksumFile( void )
     remove( config.checksumFileName );
 }
 
+static void ExitHandler( int sig )
+{
+    caughtSig = 1;
+}
+
 void TimedOut( void )
 {
+    if (caughtSig) {
+	ClearAllNames();
+	ResetConfigStrings();
+	exit( EXIT_SUCCESS );
+    }
+
     CheckTimeOut( true );
 }
 

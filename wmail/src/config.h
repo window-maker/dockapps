@@ -101,4 +101,6 @@ extern config_t config;
 // config manipulation functions
 void ReadConfigFile( bool resetConfigStrings );
 
+void ResetConfigStrings( void );
+
 #endif
