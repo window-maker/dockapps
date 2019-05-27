@@ -897,23 +897,19 @@ char *ParseFromField( char *buf )
     int maxLen = strlen( buf ) + 1;
     char *comment;
 
-    if(( fullName = malloc( maxLen )) == NULL )
+    if(( fullName = calloc( maxLen, sizeof *fullName )) == NULL )
 	return NULL;
-    if(( addressName = malloc( maxLen )) == NULL )
+    if(( addressName = calloc( maxLen, sizeof *addressName )) == NULL )
     {
 	free( fullName );
 	return NULL;
     }
-    if(( comment = malloc( maxLen )) == NULL )
+    if(( comment = calloc( maxLen, sizeof *comment )) == NULL )
     {
 	free( fullName );
 	free( addressName );
 	return NULL;
     }
-
-    memset( fullName, '\0', maxLen );
-    memset( addressName, '\0', maxLen );
-    memset( comment, '\0', maxLen );
 
     // FIXME: Don't do that "encoded" dance.  It's not intended by
     // RFC2047, and it's better to just do it in the end.
