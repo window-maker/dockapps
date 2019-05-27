@@ -103,27 +103,27 @@ typedef enum {
 
 static unsigned long lastTimeOut;
 static sig_atomic_t caughtSig;
-mail_state_t state = STATE_NOMAIL;
-int numMails = 0;
-bool namesChanged = false;
-bool buttonPressed = false;
-bool readConfigFile = false;
-bool isMaildir = false;
-bool forceRead = false;
-bool forceRedraw = true;
-time_t lastModifySeconds = 0;
-time_t lastAccessSeconds = 0;
-Pixmap mainPixmap;
-Pixmap mainPixmap_mask;
-Pixmap symbolsPixmap;
-Pixmap charsPixmap;
-Pixmap numbersPixmap;
-Pixmap buttonPixmap;
-Pixmap outPixmap;
-GC tickerGC;
-XFontStruct *tickerFS = NULL;
-name_t *names = NULL;
-name_t *curTickerName = NULL;
+static mail_state_t state;
+static int numMails;
+static bool namesChanged;
+static bool buttonPressed;
+static bool readConfigFile;
+static bool isMaildir;
+static bool forceRead;
+static bool forceRedraw = true;
+static time_t lastModifySeconds;
+static time_t lastAccessSeconds;
+static Pixmap mainPixmap;
+static Pixmap mainPixmap_mask;
+static Pixmap symbolsPixmap;
+static Pixmap charsPixmap;
+static Pixmap numbersPixmap;
+static Pixmap buttonPixmap;
+static Pixmap outPixmap;
+static GC tickerGC;
+static XFontStruct *tickerFS;
+static name_t *names;
+static name_t *curTickerName;
 
 static DAProgramOption options[] = {
     {"-display", NULL, "display to use", DOString, False, {&config.display}},
@@ -154,46 +154,47 @@ static DAProgramOption options[] = {
     {"-mb", "--mailbox", "specify another mailbox ($MAIL is default)", DOString, False, {&config.mailBox} },
     {"-e", "--execute", "command to execute when receiving a new mail", DOString, False, {&config.cmdOnMail} },
     {"-sf", "--statusfield", "consider the status-field of the mail header to distinguish unread mails", DONone, False, {NULL} },
-	{"-rs", "--readstatus", "status field content that your client uses to mark read mails", DOString, False, {&config.readStatus} },
-	{"-fn", "--tickerfont", "use specified X11 font to draw the ticker", DOString, False, {&config.useX11Font} }
+    {"-rs", "--readstatus", "status field content that your client uses to mark read mails", DOString, False, {&config.readStatus} },
+    {"-fn", "--tickerfont", "use specified X11 font to draw the ticker", DOString, False, {&config.useX11Font} }
 };
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // prototypes
 
-void PreparePixmaps( bool freeThemFirst );
+static void PreparePixmaps( bool freeThemFirst );
 static void ExitHandler( int sig );
-void TimedOut( void );
-void CheckTimeOut( bool force );
-void CheckMBox( void );
-void CheckMaildir( void );
-int TraverseDirectory( const char *name, bool isNewMail );
-name_t *GetMail( unsigned long checksum );
-void UpdatePixmap( bool flashMailSymbol );
-void ParseMBoxFile( struct stat *fileStat );
-void ParseMaildirFile( const char *fileName, unsigned long checksum,
-		       struct stat *fileStat, bool isNewMail );
-char *ParseFromField( char *buf );
-bool SkipSender( char *address );
-void InsertName( char *name, unsigned long checksum, flag_t flag );
-void RemoveLastName( void );
-void ClearAllNames( void );
-void DrawTickerX11Font( void );
-void DrawTickerBuildinFont( void );
-void ButtonPressed( int button, int state, int x, int y );
-void ButtonReleased( int button, int state, int x, int y );
-char *XpmColorLine( const char *colorName, char *colorLine, bool disposeLine );
-void ReadChecksumFile( void );
-void WriteChecksumFile( bool writeAll );
-void UpdateChecksum( unsigned long *checksum, const char *buf );
-void RemoveChecksumFile( void );
-void SetMailFlags( flag_t flag );
-void MarkName( unsigned long checksum );
-void DetermineState( void );
-void UpdateConfiguration( void );
-void CleanupNames( void );
-bool HasTickerWork( void );
+static void TimedOut( void );
+static void CheckTimeOut( bool force );
+static void CheckMBox( void );
+static void CheckMaildir( void );
+static int TraverseDirectory( const char *name, bool isNewMail );
+static name_t *GetMail( unsigned long checksum );
+static void UpdatePixmap( bool flashMailSymbol );
+static void ParseMBoxFile( struct stat *fileStat );
+static void ParseMaildirFile( const char *fileName, unsigned long checksum,
+			      struct stat *fileStat, bool isNewMail );
+static char *ParseFromField( char *buf );
+static bool SkipSender( char *address );
+static void InsertName( char *name, unsigned long checksum, flag_t flag );
+static void RemoveLastName( void );
+static void ClearAllNames( void );
+static void DrawTickerX11Font( void );
+static void DrawTickerBuildinFont( void );
+static void ButtonPressed( int button, int state, int x, int y );
+static void ButtonReleased( int button, int state, int x, int y );
+static char *XpmColorLine( const char *colorName, char *colorLine,
+			   bool disposeLine );
+static void ReadChecksumFile( void );
+static void WriteChecksumFile( bool writeAll );
+static void UpdateChecksum( unsigned long *checksum, const char *buf );
+static void RemoveChecksumFile( void );
+static void SetMailFlags( flag_t flag );
+static void MarkName( unsigned long checksum );
+static void DetermineState( void );
+static void UpdateConfiguration( void );
+static void CleanupNames( void );
+static bool HasTickerWork( void );
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -305,7 +306,7 @@ int main( int argc, char **argv )
     }
 
     DASetCallbacks( &callbacks );
-    DASetTimeout (1000 / config.fps);
+    DASetTimeout( 1000 / config.fps );
 
     XStringListToTextProperty( &name, 1, &windowName );
     XSetWMName( DADisplay, DAWindow, &windowName );
@@ -318,7 +319,7 @@ int main( int argc, char **argv )
     return 0;
 }
 
-void PreparePixmaps( bool freeMem )
+static void PreparePixmaps( bool freeMem )
 {
     // simple recoloring of the raw xpms befor creating Pixmaps of them
     // this works as long as you don't "touch" the images...
@@ -448,7 +449,7 @@ void PreparePixmaps( bool freeMem )
 	DASetShape( mainPixmap_mask );
 }
 
-void MarkName( unsigned long checksum )
+static void MarkName( unsigned long checksum )
 {
     name_t *name;
 
@@ -462,7 +463,7 @@ void MarkName( unsigned long checksum )
     }
 }
 
-void DetermineState( void )
+static void DetermineState( void )
 {
     name_t *name;
 
@@ -481,7 +482,7 @@ void DetermineState( void )
 	}
 }
 
-void ReadChecksumFile( void )
+static void ReadChecksumFile( void )
 {
     FILE *f = fopen( config.checksumFileName, "rb" );
     if( f != NULL ) while( !feof( f )) {
@@ -496,7 +497,7 @@ void ReadChecksumFile( void )
     fclose( f );
 }
 
-void WriteChecksumFile( bool writeAll )
+static void WriteChecksumFile( bool writeAll )
 {
     FILE *f;
     TRACE( "writing checksums:" );
@@ -517,7 +518,7 @@ void WriteChecksumFile( bool writeAll )
     fclose( f );
 }
 
-void UpdateChecksum( unsigned long *checksum, const char *buf )
+static void UpdateChecksum( unsigned long *checksum, const char *buf )
 {
     if( buf != NULL ) {
 	unsigned int i, len = strlen( buf );
@@ -527,7 +528,7 @@ void UpdateChecksum( unsigned long *checksum, const char *buf )
     }
 }
 
-void RemoveChecksumFile( void )
+static void RemoveChecksumFile( void )
 {
     TRACE( "removing checksum-file\n" );
     remove( config.checksumFileName );
@@ -538,7 +539,7 @@ static void ExitHandler( int sig )
     caughtSig = 1;
 }
 
-void TimedOut( void )
+static void TimedOut( void )
 {
     if (caughtSig) {
 	ClearAllNames();
@@ -549,7 +550,7 @@ void TimedOut( void )
     CheckTimeOut( true );
 }
 
-void CheckTimeOut( bool force )
+static void CheckTimeOut( bool force )
 {
     static int checkMail = 0;
 
@@ -586,7 +587,7 @@ void CheckTimeOut( bool force )
 	checkMail = 0;
 }
 
-void CheckMBox( void )
+static void CheckMBox( void )
 {
     struct stat fileStat;
 
@@ -623,7 +624,7 @@ void CheckMBox( void )
     }
 }
 
-void CheckMaildir( void )
+static void CheckMaildir( void )
 {
     DIR *dir = NULL;
     int lastState = state;
@@ -683,7 +684,7 @@ void CheckMaildir( void )
 	forceRedraw = true;
 }
 
-int TraverseDirectory( const char *name, bool isNewMail )
+static int TraverseDirectory( const char *name, bool isNewMail )
 {
     DIR *dir = NULL;
     int mails = 0;
@@ -732,7 +733,7 @@ int TraverseDirectory( const char *name, bool isNewMail )
     return mails;
 }
 
-name_t *GetMail( unsigned long checksum )
+static name_t *GetMail( unsigned long checksum )
 {
     name_t *name;
 
@@ -743,7 +744,7 @@ name_t *GetMail( unsigned long checksum )
     return NULL;
 }
 
-void UpdatePixmap( bool flashMailSymbol )
+static void UpdatePixmap( bool flashMailSymbol )
 {
     int drawCount, i;
 
@@ -797,7 +798,7 @@ void UpdatePixmap( bool flashMailSymbol )
     DASetPixmap( outPixmap );
 }
 
-void ParseMBoxFile( struct stat *fileStat )
+static void ParseMBoxFile( struct stat *fileStat )
 {
     char buf[1024];
     struct utimbuf timeStruct;
@@ -862,7 +863,7 @@ NEXTMAIL:
     utime( config.mailBox, &timeStruct );
 }
 
-void ParseMaildirFile( const char *fileName, unsigned long checksum,
+static void ParseMaildirFile( const char *fileName, unsigned long checksum,
 		       struct stat *fileStat, bool isNewMail )
 {
     char buf[1024];
@@ -901,7 +902,7 @@ void ParseMaildirFile( const char *fileName, unsigned long checksum,
     utime( fileName, &timeStruct );
 }
 
-char *ParseFromField( char *buf )
+static char *ParseFromField( char *buf )
 {
     parse_state_t state = STATE_FULLNAME;
     int fullNameEncoded = 0;
@@ -1076,7 +1077,7 @@ char *ParseFromField( char *buf )
     }
 }
 
-bool SkipSender( char *address )
+static bool SkipSender( char *address )
 {
     char **skipName;
     int len = strlen( address );
@@ -1100,7 +1101,7 @@ bool SkipSender( char *address )
     return false;
 }
 
-void InsertName( char *name, unsigned long checksum, flag_t flag )
+static void InsertName( char *name, unsigned long checksum, flag_t flag )
 {
     name_t *item;
 
@@ -1121,7 +1122,7 @@ void InsertName( char *name, unsigned long checksum, flag_t flag )
     namesChanged = true;
 }
 
-void RemoveLastName( void )
+static void RemoveLastName( void )
 {
     if( names != NULL ) {
 	name_t *name = names;
@@ -1131,7 +1132,7 @@ void RemoveLastName( void )
     }
 }
 
-void ClearAllNames( void )
+static void ClearAllNames( void )
 {
     name_t *name, *nextName;
 
@@ -1148,7 +1149,7 @@ void ClearAllNames( void )
     namesChanged = true;
 }
 
-void SetMailFlags( flag_t flag )
+static void SetMailFlags( flag_t flag )
 {
     name_t *name;
 
@@ -1156,7 +1157,7 @@ void SetMailFlags( flag_t flag )
 	name->flag |= flag;
 }
 
-void DrawTickerX11Font( void )
+static void DrawTickerX11Font( void )
 {
     // 49x21+7+20 out-drawable size
 
@@ -1194,7 +1195,7 @@ void DrawTickerX11Font( void )
     }
 }
 
-void DrawTickerBuildinFont( void )
+static void DrawTickerBuildinFont( void )
 {
     // 49x21+7+20 out-drawable size
     // 14x21 font-character size
@@ -1261,7 +1262,7 @@ void DrawTickerBuildinFont( void )
     }
 }
 
-void ButtonPressed( int button, int state, int x, int y )
+static void ButtonPressed( int button, int state, int x, int y )
 {
     if( x >= 35 && x <= 59 && y >= 47 && y <= 59 ) {
 	buttonPressed = true;
@@ -1273,7 +1274,7 @@ void ButtonPressed( int button, int state, int x, int y )
     CheckTimeOut( false );
 }
 
-void ButtonReleased( int button, int state, int x, int y )
+static void ButtonReleased( int button, int state, int x, int y )
 {
     buttonPressed = false;
 	forceRedraw = true;
@@ -1288,7 +1289,7 @@ void ButtonReleased( int button, int state, int x, int y )
     CheckTimeOut( false );
 }
 
-void GetHexColorString( const char *colorName, char *xpmLine )
+static void GetHexColorString( const char *colorName, char *xpmLine )
 {
     XColor color;
 
@@ -1302,7 +1303,8 @@ void GetHexColorString( const char *colorName, char *xpmLine )
 	WARNING( "unknown colorname: \"%s\"\n", colorName );
 }
 
-char *XpmColorLine( const char *colorName, char *colorLine, bool disposeLine )
+static char *XpmColorLine( const char *colorName, char *colorLine,
+			   bool disposeLine )
 {
     char *newLine = strdup( colorLine );
     char *from = strrchr( newLine, '#' );
@@ -1324,7 +1326,7 @@ char *XpmColorLine( const char *colorName, char *colorLine, bool disposeLine )
     return newLine;
 }
 
-void UpdateConfiguration( void )
+static void UpdateConfiguration( void )
 {
     struct stat fileStat;
 
@@ -1350,7 +1352,7 @@ void UpdateConfiguration( void )
     DASetTimeout (1000 / config.fps);
 }
 
-void CleanupNames( void )
+static void CleanupNames( void )
 {
     name_t *name, *last = NULL, *nextName;
 
@@ -1377,7 +1379,7 @@ void CleanupNames( void )
     }
 }
 
-bool HasTickerWork( void )
+static bool HasTickerWork( void )
 {
     name_t *nextTickerName;
 

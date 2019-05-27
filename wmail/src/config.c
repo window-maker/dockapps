@@ -75,12 +75,13 @@ typedef struct { char *id; int value; } enumList_t;
 // local prototypes
 
 
-bool ReadString( const char *from, unsigned int line, char **to );
-bool ReadEnum( const char *from, unsigned int line, int *to, const enumList_t *enumList );
-bool ReadBool( const char *from, unsigned int line, bool *to );
-bool ReadInt( const char *from, unsigned int line, int *to );
-bool IsWhiteSpace( const char *chr );
-const char *SkipWhiteSpaces( const char *str );
+static bool ReadString( const char *from, unsigned int line, char **to );
+static bool ReadEnum( const char *from, unsigned int line, int *to,
+		      const enumList_t *enumList );
+static bool ReadBool( const char *from, unsigned int line, bool *to );
+static bool ReadInt( const char *from, unsigned int line, int *to );
+static bool IsWhiteSpace( const char *chr );
+static const char *SkipWhiteSpaces( const char *str );
 
 // current configuration
 config_t config = {
@@ -107,7 +108,7 @@ config_t config = {
 };
 
 // enumeration names for ticker mode
-enumList_t tickerEnum[] =
+static enumList_t tickerEnum[] =
 {
     { "address", TICKER_ADDRESS },
     { "familyname", TICKER_FAMILYNAME },
@@ -115,7 +116,7 @@ enumList_t tickerEnum[] =
     { NULL, 0 }
 };
 
-bool Tokenize( const char *line, const char **id, const char **value )
+static bool Tokenize( const char *line, const char **id, const char **value )
 {
     int len;
     const char *token1, *token2;
@@ -143,7 +144,7 @@ bool Tokenize( const char *line, const char **id, const char **value )
     return false;
 }
 
-void AddSenderToSkipList( char *sender  )
+static void AddSenderToSkipList( char *sender  )
 {
     int numNames, i;
     char **skipName, **newList;
@@ -222,7 +223,7 @@ void ResetConfigStrings( void )
     }
 }
 
-void PostProcessConfiguration( void )
+static void PostProcessConfiguration( void )
 {
     if( config.display == NULL )
 	config.display = strdup( WMAIL_DISPLAY );
@@ -351,7 +352,7 @@ void ReadConfigFile( bool resetConfigStrings )
     PostProcessConfiguration();
 }
 
-bool ReadString( const char *from, unsigned int line, char **to )
+static bool ReadString( const char *from, unsigned int line, char **to )
 {
     if( *from++ == '"' ) {
 	const char *trailingQuote;
@@ -416,7 +417,7 @@ bool ReadString( const char *from, unsigned int line, char **to )
     return false;
 }
 
-bool ReadBool( const char *from, unsigned int line, bool *to )
+static bool ReadBool( const char *from, unsigned int line, bool *to )
 {
     if( !strcasecmp( from, "on" ) || !strcasecmp( from, "yes" ) || !strcasecmp( from, "true" ))
 	*to = true;
@@ -432,7 +433,7 @@ bool ReadBool( const char *from, unsigned int line, bool *to )
     return true;
 }
 
-bool ReadInt( const char *from, unsigned int line, int *to )
+static bool ReadInt( const char *from, unsigned int line, int *to )
 {
     int value = 0;
 
@@ -475,7 +476,8 @@ bool ReadInt( const char *from, unsigned int line, int *to )
     return true;
 }
 
-bool ReadEnum( const char *from, unsigned int line, int *to, const enumList_t *enumList )
+static bool ReadEnum( const char *from, unsigned int line, int *to,
+		      const enumList_t *enumList )
 {
     int index;
 
@@ -493,12 +495,12 @@ bool ReadEnum( const char *from, unsigned int line, int *to, const enumList_t *e
     return false;
 }
 
-bool IsWhiteSpace( const char *chr )
+static bool IsWhiteSpace( const char *chr )
 {
     return ( chr != NULL && ( *chr == ' ' || *chr == '\t' || *chr == '\n' )) ? true : false;
 }
 
-const char *SkipWhiteSpaces( const char *str )
+static const char *SkipWhiteSpaces( const char *str )
 {
     const char *c;
 
