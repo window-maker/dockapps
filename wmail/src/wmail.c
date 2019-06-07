@@ -951,9 +951,10 @@ static char *ParseFromField( char *buf )
 		state = STATE_QUOTED_FULLNAME;
 		continue;
 	    case '<':
-		if( fullNameLen > 0 &&
-		    fullName[ fullNameLen - 1 ] == ' ' )
-		    fullName[ --fullNameLen ] = '\0';
+		while( fullNameLen > 0 &&
+		       isspace( fullName[ fullNameLen - 1 ] ))
+		    fullNameLen--;
+		fullName[ fullNameLen ] = '\0';
 		state = STATE_ADDRESS;
 		continue;
 	    case '@':
