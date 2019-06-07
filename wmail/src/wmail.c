@@ -115,7 +115,7 @@ typedef enum {
 static unsigned long lastTimeOut;
 static sig_atomic_t caughtSig;
 static mail_state_t state;
-static int numMails;
+static unsigned numMails;
 static bool namesChanged;
 static bool buttonPressed;
 static bool readConfigFile;
@@ -570,9 +570,9 @@ static void CheckTimeOut( bool force )
     struct timeval now;
     gettimeofday(&now, NULL);
 
-    unsigned long nowMs = now.tv_sec * 1000L + now.tv_usec / 1000L;
+    unsigned long nowMs = now.tv_sec * 1000UL + now.tv_usec / 1000UL;
 
-    if( !force && nowMs - lastTimeOut < 1000L / config.fps )
+    if( !force && nowMs - lastTimeOut < 1000UL / config.fps )
 	return;
 
     lastTimeOut = nowMs;
@@ -641,7 +641,7 @@ static void CheckMaildir( void )
 {
     DIR *dir = NULL;
     int lastState = state;
-    int lastMailCount = numMails;
+    unsigned lastMailCount = numMails;
 
     if( forceRead ) {
 	forceRead = false;
@@ -1215,11 +1215,11 @@ static void DrawTickerBuildinFont( void )
     // 49x21+7+20 out-drawable size
     // 14x21 font-character size
 
-    static int insertAt;
-    static int takeItFrom;
+    static unsigned insertAt;
+    static unsigned takeItFrom;
 
-    int leftSpace;
-    int drawTo;
+    unsigned leftSpace;
+    unsigned drawTo;
     unsigned char *currentChar;
 
     if( names == NULL )
