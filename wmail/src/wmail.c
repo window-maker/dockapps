@@ -797,6 +797,7 @@ static void UpdatePixmap( bool flashMailSymbol )
 	if( flashMailSymbol )
 	    XCopyArea( DADisplay, symbolsPixmap, outPixmap, DAGC,
 		       13, 0, 37, 12, 20, 7 );
+	/* fall through */
     case STATE_READMAIL:
 	XCopyArea( DADisplay, symbolsPixmap, outPixmap, DAGC,
 		   0, 0, 13, 12, 7, 7 );
@@ -805,8 +806,9 @@ static void UpdatePixmap( bool flashMailSymbol )
 	    DrawTickerBuildinFont();
 	else
 	    DrawTickerX11Font();
+	break;
     default: // make compiler happy
-	;
+	break;
     }
 
     DASetPixmap( outPixmap );
@@ -976,7 +978,8 @@ static char *ParseFromField( char *buf )
 		    fullNameEncoded = 1;
 		    state = STATE_ENCODED_FULLNAME;
 		    continue;
-		} // else do the default action
+		}
+		/* else fall through */
 	    default:
 		if( fullName[0] != '\0' || !isspace( *c ))
 		    fullName[ fullNameLen++ ] = *c;
