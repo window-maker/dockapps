@@ -681,7 +681,7 @@ static void CheckMaildir( void )
 		break;
 	    }
 
-	    if( !stat( fullName, &fileStat ) == 0 )
+	    if( stat( fullName, &fileStat ) == -1 )
 		WARNING( "Can't stat file/path \"%s\"\n", fullName );
 	    else if( S_ISDIR( fileStat.st_mode ))
 	    {
@@ -729,7 +729,7 @@ static int TraverseDirectory( const char *name, bool isNewMail )
 		break;
 	    }
 
-	    if( !stat( fullName, &fileStat ) == 0 )
+	    if( stat( fullName, &fileStat ) == -1 )
 		WARNING( "Can't stat file/path \"%s\"\n", fullName );
 	    else if( !S_ISDIR( fileStat.st_mode ))
 	    {
