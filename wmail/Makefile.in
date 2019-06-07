@@ -4,7 +4,7 @@
 # Toplevel Makefile.
 # Usage: make ..........: creates the wmail binary.
 #        make install ..: installs the binary under your default user binary
-#                         directory and the rc-file in your home, respectively.
+#                         directory.
 #        make uninstall : removes any installed wmail files.
 #        make clean ....: cleans the src directory.
 
@@ -19,15 +19,10 @@ install:
 	@if ! test -f src/wmail; then $(MAKE) wmail; fi
 	@echo "Installing the binary under @bindir@."
 	@cp -f src/wmail @bindir@
-	@echo "Copying .wmailrc to your home directory - you may have a look into"
-	@echo "this file and change it appropriately to suit your personal needs."
-	@cp -f wmailrc-sample $(HOME)/.wmailrc
 
 uninstall:
 	@echo "Removing wmail files from your system."
 	@rm -f @bindir@/wmail
-	@rm -f $(HOME)/.wmailrc
-	@rm -f $(HOME)/.wmail-cksums
 
 clean:
 	@echo "Cleaning src directory."

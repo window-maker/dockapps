@@ -321,15 +321,13 @@ Porting:
 Install:
 
  Call "make install" or copy the binary found in the src subdirectory by hand.
- Make based installation also copies the provided sample rc-file to ~/.wmailrc
- but wmail even runs without it.
 
  Keep in mind, libdockapp must be installed properly (i.e. let reside it in
  your X11 base library directory or let $LD_LIBRARY_PATH point to the lib).
  If you would like to use rc-based configuration, look into the provided
  sample-file "wmailrc-sample" and use it as a base for your particular needs
- by copying it to ~/.wmailrc (make install has done this automatically).
- Note: the name of this rc-file is hard-wired and cannot be customized.
+ by copying it to ~/.wmailrc.  Note: the name of this rc-file is hard-wired and
+ cannot be customized.
 
 Run:
 
