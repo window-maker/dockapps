@@ -6,20 +6,20 @@
 LIBS     = @LIBS@ @XLFLAGS@ @XLIBS@
 CC       = @CC@
 CFLAGS   = @CFLAGS@ @XCFLAGS@
-CPPFLAGS = @CPPFLAGS@
+CPPFLAGS = @DEFS@ @CPPFLAGS@
 
 default all target: wmail
 
 wmail: wmail.o common.o config.o
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LIBS)
 
-wmail.o: wmail.c common.h config.h xpm/main.xpm xpm/symbols.xpm xpm/numbers.xpm xpm/button.xpm xpm/chars.xpm
+wmail.o: wmail.c common.h config.h ../config.h xpm/main.xpm xpm/symbols.xpm xpm/numbers.xpm xpm/button.xpm xpm/chars.xpm
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
-common.o: common.c common.h
+common.o: common.c common.h ../config.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
-config.o: config.c config.h common.h
+config.o: config.c config.h common.h ../config.h
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
 clean:

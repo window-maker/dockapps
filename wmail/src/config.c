@@ -28,10 +28,18 @@
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
+#ifdef HAVE_CONFIG_H
+#ifndef CONFIG_H_INCLUDED
+#include "../config.h"
+#define CONFIG_H_INCLUDED
+#endif
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+
 #include "common.h"
 #include "config.h"
 

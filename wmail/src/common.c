@@ -28,12 +28,19 @@
 // THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
+#ifdef HAVE_CONFIG_H
+#ifndef CONFIG_H_INCLUDED
+#include "../config.h"
+#define CONFIG_H_INCLUDED
+#endif
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
-#include "common.h"
 
+#include "common.h"
 
 #if defined(DEBUG) || defined(DEBUG2) || defined(_DEBUG)
 void TRACE( const char *fmt, ... )

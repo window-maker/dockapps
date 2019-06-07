@@ -34,6 +34,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 // includes
 
+#ifdef HAVE_CONFIG_H
+#ifndef CONFIG_H_INCLUDED
+#include "../config.h"
+#define CONFIG_H_INCLUDED
+#endif
+#endif
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,6 +54,7 @@
 #include <dirent.h>
 #include <X11/Xlib.h>
 #include <libdockapp/dockapp.h>
+
 #include "common.h"
 #include "config.h"
 
