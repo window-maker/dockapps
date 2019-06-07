@@ -42,7 +42,7 @@
 
 #include "common.h"
 
-#if defined(DEBUG) || defined(DEBUG2) || defined(_DEBUG)
+#ifdef DEBUG
 void TRACE( const char *fmt, ... )
 {
     va_list args;

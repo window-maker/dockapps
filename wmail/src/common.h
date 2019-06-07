@@ -76,7 +76,7 @@ void ABORT( const char *fmt, ... );
 void WARNING( const char *fmt, ... );
 char *MakePathName( const char *dir, const char *file );
 
-#if defined(DEBUG) || defined(DEBUG2) || defined(_DEBUG)
+#ifdef DEBUG
 
 void TRACE( const char *fmt, ... );
 #define ASSERT( EXPR ) ((void)(EXPR ? 0 : ABORT( "%s(%i): Assertion failed: \"%s\"\n", __FILE__, __LINE__, #EXPR )))
