@@ -641,7 +641,7 @@ static void CheckMBox( void )
 static void CheckMaildir( void )
 {
     DIR *dir = NULL;
-    int lastState = state;
+    mail_state_t lastState = state;
     unsigned lastMailCount = numMails;
 
     if( forceRead ) {
