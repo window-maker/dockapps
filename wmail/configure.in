@@ -10,7 +10,7 @@ dnl Checks for header files.
 #AC_PATH_X
 AC_HEADER_DIRENT
 AC_HEADER_STDC
-AC_CHECK_HEADERS(limits.h sys/time.h)
+AC_CHECK_HEADERS(limits.h strings.h sys/time.h)
 
 dnl Checks for X installation root directory.
 AC_PATH_XTRA
