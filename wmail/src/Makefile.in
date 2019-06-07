@@ -3,23 +3,24 @@
 # Makefile for wmail.
 # Makes the wmail dockapp binary and cleans the directory, respectively.
 
-LIBS    = @LIBS@ @XLFLAGS@ @XLIBS@
-CC      = @CC@
-CFLAGS  = @CFLAGS@ @XCFLAGS@
+LIBS     = @LIBS@ @XLFLAGS@ @XLIBS@
+CC       = @CC@
+CFLAGS   = @CFLAGS@ @XCFLAGS@
+CPPFLAGS = @CPPFLAGS@
 
 default all target: wmail
 
 wmail: wmail.o common.o config.o
-	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $^ $(LIBS)
 
 wmail.o: wmail.c common.h config.h xpm/main.xpm xpm/symbols.xpm xpm/numbers.xpm xpm/button.xpm xpm/chars.xpm
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
 common.o: common.c common.h
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
 config.o: config.c config.h common.h
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ -c $<
 
 clean:
 	rm -f wmail core *.o *~
