@@ -1,10 +1,12 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(src/wmail.c)
+AC_INIT([wmail], [2.0], [wmaker-dev@googlegroups.com])
 AC_CONFIG_HEADERS(config.h)
+AC_CONFIG_SRCDIR([src/wmail.c])
+AM_INIT_AUTOMAKE([foreign])
 
 dnl Checks for programs.
 AC_PROG_CC
-AC_PROG_MAKE_SET
+AC_PROG_INSTALL
 
 dnl Checks for pkg-config modules.
 PKG_CHECK_MODULES([X11], [x11])
@@ -27,23 +29,23 @@ dnl Checks for library functions.
 AC_FUNC_FNMATCH
 AC_FUNC_UTIME_NULL
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS(strdup strstr memcpy)
+AC_CHECK_FUNCS([strdup strstr memcpy])
 
 dnl Checks for libraries.
 
 dnl Enable Debugging?
-AC_ARG_ENABLE(debug,
-                [  --enable-debug	  enable debugging ],, enable_debug=no)
-if test "$enable_debug" = yes; then
-	CPPFLAGS="$CPPFLAGS -DDEBUG -D_XOPEN_SOURCE=600"
-	CFLAGS="$CFLAGS -std=c99 -pedantic -Wall -Wextra -g"
-fi
+AC_ARG_ENABLE(debug, [  --enable-debug    enable debugging ],
+              enable_debug=yes, enable_debug=no)
+AC_MSG_CHECKING([whether to enable debugging])
+AC_MSG_RESULT([$enable_debug])
+AM_CONDITIONAL([ENABLE_DEBUG], [test x$enable_debug = xyes])
 
 dnl Use delt's pixmaps instead of the default ones?
-AC_ARG_ENABLE(delt_xpms,
-                [  --enable-delt-xpms	  enable delt's pixmaps ],, enable_delt_xpms=no)
-if test "$enable_delt_xpms" = yes; then
-	CPPFLAGS="$CPPFLAGS -DUSE_DELT_XPMS"
-fi
+AC_ARG_ENABLE(delt_xpms, [  --enable-delt-xpms    enable delt's pixmaps ],
+              enable_delt_xpms=yes, enable_delt_xpms=no)
+AC_MSG_CHECKING([whether to enable delt's pixmaps])
+AC_MSG_RESULT([$enable_delt_xpms])
+AM_CONDITIONAL([ENABLE_DELT_XPMS], [test x$enable_delt_xpms = xyes])
 
-AC_OUTPUT(Makefile src/Makefile)
+AC_CONFIG_FILES([Makefile src/Makefile])
+AC_OUTPUT
