@@ -1,0 +1,116 @@
+ v 2.0
+    - Autoconf based package configuration support added.
+    - Support for real X11 fonts when drawing the ticker.
+      Use the new option "-fn X11_FONT_NAME" or ~/.wmailrc-file statement
+      "Ticker.X11Font = X11_FONT_NAME" to enable it. If you wish to see latin1
+      characters not covered by the buildin font you MUST make use of this.
+	- Removed support of two buildin fonts (one seems enough when native
+      X11 font rendering is supported...) -> cmdline option "-bf" and
+      rcfile statement "Ticker.BoldFont" are no longer available
+    - added a window name when called with the -w option (libdockapp windowing
+      mode), this workarounds a dockapp library bug and makes wmail work docked
+      in Gnomes panel bar
+    - Fixed some reconfiguration memleaks
+    - Fixed button-keeps-up-when-pressed-and-empty-inbox bug
+    - Fixed Maildir file-parsing bug
+    - Fixed wmail-crash on dual-headed displays (Thanx to Michael Hocke!)
+    - Changed upper M@il symbol a bit ;-)
+
+ v 1.9
+    - Comment support added (by Juergen A. Erhard - thank you!)
+    - Status field content recognition enhanced: now you can supply the
+      content of the status field that markes you email as read. This is due
+      to different behaviour of different mbox readers - pine seems using "ro"
+      to mark a mail as read. The given value is substring-matched.
+
+ v 1.8
+    - Support for qmails Maildir format added: if you specify a directory
+      as your inbox then wmail assumes 'Maildir' functionality,
+      searches for the subdirectories "new" and "cur" and interprets all
+      files found directly under these directories as text-files containing
+      one single email message. When in Maildir-mode, checksums and the
+      file ~/.wmail-cksums are not used.
+    - Combining of equal sender-names before tickering them is not done
+      anymore - this hasn't worked if for example wmail shows only unread
+      emails and there are two emails from the same sender and one of them
+      is read, the other isn't.
+
+ v 1.72
+    - Now redrawing is done only if there are some changes to be drawn
+      (previous versions had redrawn the screen fps-times per sec. even if
+       the inbox was empty...)
+
+ v 1.71
+    - File parsing bug fixed: searching for "From"-directive is now
+      case-sensitive.
+
+ v 1.7
+    - Support for mail-header-field "Status" added: if this field
+      is set to "RO" the mail is assumed to be read. Turn this feature on
+      either by adding "Mail.UseStatusField = Yes" to your ~/.wmailrc-file
+      or using the new cmd-line option "-sf"
+
+ v 1.61
+    - Minor changes: signal-handling stuff reimplemented
+    - Included another set of xpms (thanx to delt!); to use it,
+      change the #includes in wmail.c to point to the xpm_delt dir
+
+ v 1.6
+    - Sender-skipping added: use this by adding some
+      "Mail.SkipSender = XYZ" to your ~/.wmailrc file. Note that you can
+      use the known wildcards here (i.e. "Mail.SkipSender = *Foo*" matches
+      all names containing "Foo")
+    - Support for execution of a custom command when receiving a new mail
+      added: either use the new option "-e" or a
+      "Mail.OnNew.Command = some-cmd" in the rc-file (for example this
+      makes it possible to play some sound file using the command
+      "/usr/bin/play some-sound.wav")
+
+ v 1.5
+    - Config-file support (~/.wmailrc), re-configuration of most options
+      during run-time is possible - a click on the docklets main-area
+      forces wmail to read its config-file. Note that this can also be
+      used to do a mailbox update...
+    - Bolder tickerfont added -> new option "-bf"
+    - Polling bug fixed (wmail has queried for new mail fps-times per
+      second...)
+    - Mailbox made configurable via cmdline -> new cmd-option "-mb"
+    - Color of inactive (off-switched) symbols made customizable -> new
+      cmd-option "-oc"
+
+ v 1.41
+    - Minor fixes, debugging-aid macro TRACE made more portable
+
+ v 1.4
+    - Made mails identifiable by a checksum to (hopefully) fix some
+      wrong behaviour of the recent-mails-only feature introduced with
+      v1.3 - this is also used to make wmail able to keep the current state
+      in mind, even after a restart. These checksums are written to the
+      file ".wmail-cksums" in the users home directory
+
+ v 1.3
+    - wmail is now able to show only recent mails in ticker and counter
+      (such ones you don't have read/opened yet since startup of wmail)
+      this is quite nice if you use your mail-file as an inbox storing
+      loads of mails there -> new cmd-option "-n"
+    - Solaris port got working (signal-handler bug fixed)
+    - Image of run-client-button changed
+
+ v 1.2
+    - Message counter now displays up to 3 digits
+    - Made ticker scroll-refresh customizable (30 fps by default)
+      -> new cmd-option "-fps"
+
+ v 1.1
+    - Parsing of from-header fixed/improved
+    - Added windowed mode support (only works with libdockapp v >0.4.0) and
+      support for a non-shaped window -> new cmd-options "-w" and "-ns"
+    - Made background color customizable (useful in windowed mode)
+      -> new cmd-option "-bg"
+    - Ticker either fullname, short-address-name or total-address
+      -> new cmd-option "-s"
+    - Changed pixmaps a bit
+
+ v 1.0
+    - Initial release
+

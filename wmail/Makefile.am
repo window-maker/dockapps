@@ -1,3 +1,3 @@
 SUBDIRS = src
 
-EXTRA_DIST = wmailrc-sample
+EXTRA_DIST = ChangeLog.old wmailrc-sample
