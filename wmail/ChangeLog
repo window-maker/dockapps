@@ -1,5 +1,10 @@
 2019-06-06  Jeremy Sowden <jeremy@azazel.net>
 
+	* wmail/ChangeLog, wmail/README, wmail/configure.ac: wmail: bumped
+	to 2.1.
+
+2019-06-06  Jeremy Sowden <jeremy@azazel.net>
+
 	* wmail/ChangeLog: wmail: added new ChangeLog.
 
 2019-06-06  Jeremy Sowden <jeremy@azazel.net>
