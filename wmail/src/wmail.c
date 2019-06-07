@@ -335,7 +335,12 @@ static void PreparePixmaps( bool freeMem )
     // simple recoloring of the raw xpms befor creating Pixmaps of them
     // this works as long as you don't "touch" the images...
 
+#if DA_VERSION < 20030126
+    unsigned dummy;
+#else
     unsigned short dummy;
+#endif
+
     XGCValues values;
 
     if( config.symbolColor != NULL ) { // symbol color ?
