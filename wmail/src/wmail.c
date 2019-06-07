@@ -529,7 +529,7 @@ static void WriteChecksumFile( bool writeAll )
 static void UpdateChecksum( unsigned long *checksum, const char *buf )
 {
     if( buf != NULL ) {
-	unsigned int i, len = strlen( buf );
+	size_t i, len = strlen( buf );
 
 	for( i = 0; i < len; ++i )
 	    *checksum += buf[i] << (( i % sizeof(long) ) * 8 );
@@ -919,7 +919,7 @@ static char *ParseFromField( char *buf )
     char *addressName;
     char *atChar = NULL;
     char *c;
-    int maxLen = strlen( buf ) + 1;
+    size_t maxLen = strlen( buf ) + 1;
     char *comment;
 
     if(( fullName = calloc( maxLen, sizeof *fullName )) == NULL )
@@ -1088,7 +1088,7 @@ static char *ParseFromField( char *buf )
 static bool SkipSender( char *address )
 {
     char **skipName;
-    int len = strlen( address );
+    size_t len = strlen( address );
 
     // remove trailing '\n' got from fgets
     if( address[len-1] == '\n' )

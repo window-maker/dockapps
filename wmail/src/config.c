@@ -126,7 +126,7 @@ static enumList_t tickerEnum[] =
 
 static bool Tokenize( const char *line, const char **id, const char **value )
 {
-    int len;
+    size_t len;
     const char *token1, *token2;
 
     if( line != NULL )
@@ -270,7 +270,7 @@ void ReadConfigFile( bool resetConfigStrings )
 		for( ; !feof( f ); ++line )
 		{
 		    const char *id, *value;
-		    unsigned int len;
+		    size_t len;
 
 		    if( fgets( buf, 1024, f ) == NULL )
 			break;

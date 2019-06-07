@@ -39,6 +39,7 @@ AC_SUBST(X_LIBRARY_PATH)
 
 dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_CONST
+AC_TYPE_SIZE_T
 
 dnl Checks for library functions.
 AC_FUNC_FNMATCH

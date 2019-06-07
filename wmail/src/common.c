@@ -78,8 +78,8 @@ void WARNING( const char *fmt, ... )
 char *MakePathName( const char *dir, const char *file )
 {
     char *fullName;
-    int len1 = strlen( dir );
-    int len2 = strlen( file );
+    size_t len1 = strlen( dir );
+    size_t len2 = strlen( file );
 
     if( dir[len1-1] != '/' )
 	fullName = malloc( len1 + len2 + 2 );
