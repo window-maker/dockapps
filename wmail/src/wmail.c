@@ -86,7 +86,7 @@ typedef struct _name_t {
     char *name;
     unsigned long checksum;
     flag_t flag;
-	bool visited;
+    bool visited;
     struct _name_t *next;
 } name_t;
 
@@ -230,7 +230,7 @@ int main( int argc, char **argv )
 	    config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
     }
 
-    if ( config.checksumFileName == NULL)
+    if( config.checksumFileName == NULL )
     {
 	WARNING( "Cannot allocate checksum file-name.\n");
 	exit( EXIT_FAILURE );
@@ -493,13 +493,15 @@ static void DetermineState( void )
 static void ReadChecksumFile( void )
 {
     FILE *f = fopen( config.checksumFileName, "rb" );
-    if( f != NULL ) while( !feof( f )) {
-	unsigned long checksum;
-	if( fread( &checksum, sizeof(long), 1, f ) != 1 )
-	    continue;
+    if( f != NULL )
+        while( !feof( f )) {
+            unsigned long checksum;
+            if( fread( &checksum, sizeof(long), 1, f ) != 1 )
+                continue;
 
-	MarkName( checksum );
-    } else
+            MarkName( checksum );
+        }
+    else
 	return;
 
     fclose( f );
@@ -549,7 +551,7 @@ static void ExitHandler( int sig )
 
 static void TimedOut( void )
 {
-    if (caughtSig) {
+    if( caughtSig ) {
 	ClearAllNames();
 	ResetConfigStrings();
 	exit( EXIT_SUCCESS );
@@ -567,7 +569,7 @@ static void CheckTimeOut( bool force )
 
     unsigned long nowMs = now.tv_sec * 1000L + now.tv_usec / 1000L;
 
-    if (!force && nowMs - lastTimeOut < 1000L / config.fps)
+    if( !force && nowMs - lastTimeOut < 1000L / config.fps )
 	return;
 
     lastTimeOut = nowMs;
@@ -660,7 +662,7 @@ static void CheckMaildir( void )
 	    char *fullName = MakePathName( config.mailBox, dirEnt->d_name );
 	    struct stat fileStat;
 
-	    if ( fullName == NULL )
+	    if( fullName == NULL )
 	    {
 		WARNING( "Cannot allocate file/path\n" );
 		break;
@@ -708,7 +710,7 @@ static int TraverseDirectory( const char *name, bool isNewMail )
 	    unsigned long checksum = 0;
 	    name_t *name;
 
-	    if ( fullName == NULL )
+	    if( fullName == NULL )
 	    {
 		WARNING( "Cannot allocate file/path\n" );
 		break;
@@ -972,7 +974,7 @@ static char *ParseFromField( char *buf )
 		    continue;
 		} // else do the default action
 	    default:
-		if( fullName[0] != '\0' || !isspace ( *c ))
+		if( fullName[0] != '\0' || !isspace( *c ))
 		    fullName[ fullNameLen++ ] = *c;
 	    }
 	    continue;
@@ -1050,12 +1052,12 @@ static char *ParseFromField( char *buf )
 	}
     }
 
-    if (*comment) {
+    if( *comment ) {
 	//WARNING("Comment seen: %s\nIn: %s\nFullname: %s\nAddress: %s\n", comment, buf, fullName, addressName);
 	// Comment seen: if there's an address, append to
 	// fullname.  If no address, copy fullname to address
 	// and comment to fullname.
-	if (*addressName) {
+	if( *addressName ) {
 	    strcat(fullName, "(");
 	    strcat(fullName, comment);
 	    strcat(fullName, ")");
@@ -1116,7 +1118,7 @@ static void InsertName( char *name, unsigned long checksum, flag_t flag )
     name_t *item;
 
     TRACE( "insertName: %X, \"%s\"\n", checksum, name );
-    if (( item = malloc( sizeof( name_t ))) == NULL )
+    if(( item = malloc( sizeof( name_t ))) == NULL )
     {
 	free( name );
 	return;
@@ -1193,7 +1195,7 @@ static void DrawTickerX11Font( void )
     --insertAt;
 
     if( insertAt < -XTextWidth( tickerFS, curTickerName->name,
-				  strlen( curTickerName->name )) + 6 )
+				strlen( curTickerName->name )) + 6 )
     {
 	do {
 	    curTickerName = curTickerName->next;
@@ -1218,7 +1220,7 @@ static void DrawTickerBuildinFont( void )
     unsigned char *currentChar;
 
     if( names == NULL )
-		return;
+	return;
 
     if( curTickerName == NULL || namesChanged ) {
 
@@ -1287,7 +1289,7 @@ static void ButtonPressed( int button, int state, int x, int y )
 static void ButtonReleased( int button, int state, int x, int y )
 {
     buttonPressed = false;
-	forceRedraw = true;
+    forceRedraw = true;
 
     if( x >= 35 && x <= 59 && y >= 47 && y <= 59 ) {
 	int ret = system( config.runCmd );
@@ -1359,7 +1361,7 @@ static void UpdateConfiguration( void )
 
     PreparePixmaps( true );
 
-    DASetTimeout (1000 / config.fps);
+    DASetTimeout( 1000 / config.fps );
 }
 
 static void CleanupNames( void )

@@ -393,20 +393,22 @@ static bool ReadString( const char *from, unsigned int line, char **to )
 		    case 'r': *to_c = '\r'; break;
 		    case 't': *to_c = '\t'; break;
 		    case '"': *to_c = '"'; break;
-		    default: {
-			int value, i;
-			for( i = 0, value = 0; i < 3; ++i ) {
-			    if( c+i == NULL || *(c+i) < '0' || *(c+i) > '9' )
+		    default:
+			{
+			    int value, i;
+			    for( i = 0, value = 0; i < 3; ++i ) {
+				if( c+i == NULL || *(c+i) < '0' || *(c+i) > '9' )
 				break;
-			    value = value * 10 + *(c+i) - '0';
+				value = value * 10 + *(c+i) - '0';
+			    }
+			    if( value == 0 )
+				WARNING( "cfg-file(%i): '\\0' in string or unknown escape sequence found\n",
+					 line );
+			    else {
+				*to_c = (char)value;
+				c += i-1;
+			    }
 			}
-			if( value == 0 )
-			    WARNING( "cfg-file(%i): '\\0' in string or unknown escape sequence found\n", line );
-			else {
-			    *to_c = (char)value;
-			    c += i-1;
-			}
-		    }
 		    }
 		} else
 		    *to_c = *c;
@@ -464,18 +466,21 @@ static bool ReadInt( const char *from, unsigned int line, int *to )
 		return false;
 	    }
 	}
-    } else for( ; *from != '\0' && !IsWhiteSpace( from ); ++from ) {
-	if( value > (INT_MAX - 9) / 10 ) {
-	    WARNING( "cfg-file(%i): decimal-number too large: \">%i\"\n", line, INT_MAX );
-	    return false;
+    } else
+	for( ; *from != '\0' && !IsWhiteSpace( from ); ++from ) {
+	    if( value > (INT_MAX - 9) / 10 ) {
+		WARNING( "cfg-file(%i): decimal-number too large: \">%i\"\n",
+			 line, INT_MAX );
+		return false;
+	    }
+	    if( *from >= '0' && *from <= '9' )
+		value = value * 10 + *from - '0';
+	    else {
+		WARNING( "cfg-file(%i): invalid decimal-digit: \"%c\"\n",
+			 line, *from );
+		return false;
+	    }
 	}
-	if( *from >= '0' && *from <= '9' )
-	    value = value * 10 + *from - '0';
-	else {
-	    WARNING( "cfg-file(%i): invalid decimal-digit: \"%c\"\n", line, *from );
-	    return false;
-	}
-    }
 
     *to = value;
 
