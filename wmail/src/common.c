@@ -77,22 +77,27 @@ void WARNING( const char *fmt, ... )
 
 char *MakePathName( const char *dir, const char *file )
 {
+    size_t dir_len  = strlen( dir );
+    size_t file_len = strlen( file );
+
+    size_t len;
+    const char *fmt;
+
     char *fullName;
-    size_t len1 = strlen( dir );
-    size_t len2 = strlen( file );
 
-    if( dir[len1-1] != '/' )
-	fullName = malloc( len1 + len2 + 2 );
-    else
-	fullName = malloc( len1 + len2 + 1 );
-
-    if( fullName != NULL)
+    if( dir[dir_len - 1] != '/' )
     {
-	memcpy( fullName, dir, len1 );
-	if( dir[len1-1] != '/' )
-	    fullName[len1++] = '/';
-	memcpy( fullName + len1, file, len2 + 1 );
+        len = dir_len + 1 + file_len + 1;
+        fmt = "%s/%s";
+    }
+    else
+    {
+        len = dir_len + file_len + 1;
+        fmt = "%s%s";
     }
 
+    fullName = malloc( len );
+    if( fullName != NULL )
+        snprintf( fullName, len, fmt, dir, file );
     return fullName;
 }
