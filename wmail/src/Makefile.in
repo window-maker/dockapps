@@ -3,9 +3,9 @@
 # Makefile for wmail.
 # Makes the wmail dockapp binary and cleans the directory, respectively.
 
-LIBS     = @LIBS@ @XLFLAGS@ @XLIBS@
+LIBS     = @LIBS@ @dockapp_LIBS@ @X11_LIBS@
 CC       = @CC@
-CFLAGS   = @CFLAGS@ @XCFLAGS@
+CFLAGS   = @CFLAGS@ @dockapp_CFLAGS@ @X11_CFLAGS@
 CPPFLAGS = @DEFS@ @CPPFLAGS@
 
 default all target: wmail
