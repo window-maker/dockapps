@@ -921,6 +921,7 @@ static char *ParseFromField( char *buf )
     char *c;
     size_t maxLen = strlen( buf ) + 1;
     char *comment;
+    size_t fullNameLen = 0, addressNameLen = 0, commentLen = 0;
 
     if(( fullName = calloc( maxLen, sizeof *fullName )) == NULL )
 	return NULL;
@@ -950,14 +951,14 @@ static char *ParseFromField( char *buf )
 		state = STATE_QUOTED_FULLNAME;
 		continue;
 	    case '<':
-		if( fullName[0] != '\0' &&
-		    fullName[ strlen( fullName ) - 1 ] == ' ' )
-		    fullName[ strlen( fullName ) - 1 ] = '\0';
+		if( fullNameLen > 0 &&
+		    fullName[ fullNameLen - 1 ] == ' ' )
+		    fullName[ --fullNameLen ] = '\0';
 		state = STATE_ADDRESS;
 		continue;
 	    case '@':
-		saveAtCharPos = strlen( fullName );
-		fullName[ saveAtCharPos ] = *c;
+		saveAtCharPos = fullNameLen;
+		fullName[ fullNameLen++ ] = *c;
 		continue;
 	    case '(':
 		state = STATE_COMMENT;
@@ -971,7 +972,7 @@ static char *ParseFromField( char *buf )
 		} // else do the default action
 	    default:
 		if( fullName[0] != '\0' || !isspace ( *c ))
-		    fullName[ strlen( fullName ) ] = *c;
+		    fullName[ fullNameLen++ ] = *c;
 	    }
 	    continue;
 
@@ -979,13 +980,13 @@ static char *ParseFromField( char *buf )
 
 	    switch( *c ) {
 	    case '\\':
-		fullName[ strlen( fullName ) ] = *(++c);
+		fullName[ fullNameLen++ ] = *(++c);
 		continue;
 	    case '"':
 		state = STATE_FULLNAME;
 		continue;
 	    default:
-		fullName[ strlen( fullName ) ] = *c;
+		fullName[ fullNameLen++ ] = *c;
 	    }
 	    continue;
 
@@ -1014,11 +1015,11 @@ static char *ParseFromField( char *buf )
 		// Since the address is finished?
 		continue;
 	    case '@':
-		atChar = &addressName[ strlen( addressName ) ];
-		*atChar = *c;
+		atChar = addressName + addressNameLen;
+		addressName[ addressNameLen++ ] = *c;
 		continue;
 	    default:
-		addressName[ strlen( addressName ) ] = *c;
+		addressName[ addressNameLen++ ] = *c;
 	    }
 	    continue;
 
@@ -1029,10 +1030,10 @@ static char *ParseFromField( char *buf )
 		state = STATE_ADDRESS;
 		continue;
 	    case '\\':
-		addressName[ strlen( addressName ) ] = *(++c);
+		addressName[ addressNameLen++ ] = *(++c);
 		continue;
 	    default:
-		addressName[ strlen( addressName ) ] = *c;
+		addressName[ addressNameLen++ ] = *c;
 	    }
 	    continue;
 	case STATE_COMMENT:
@@ -1041,7 +1042,7 @@ static char *ParseFromField( char *buf )
 		    state = STATE_FULLNAME;
 		    continue;
 	    default:
-		    comment[ strlen( comment ) ] = *c;
+		    comment[ commentLen++ ] = *c;
 		    continue;
 	    }
 	    continue;
