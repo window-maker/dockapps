@@ -84,9 +84,9 @@ void TRACE( const char *fmt, ... );
 
 #else
 
-#define TRACE 0 && // hopefully rejected by the optimizing compiler (as gcc does...)
-#define ASSERT(EXPR) ((void)0)
-#define VERIFY(EXPR) (EXPR)
+#define TRACE( fmt... )
+#define ASSERT( EXPR )
+#define VERIFY( EXPR )
 
 #endif
 
