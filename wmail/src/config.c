@@ -96,26 +96,9 @@ static const char *SkipWhiteSpaces( const char *str );
 
 // current configuration
 config_t config = {
-    NULL,
-    NULL, // use $MAIL environment-variable
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    WMAIL_CHECK_INTERVAL,
-    WMAIL_FPS,
-    false,
-    false,
-    TICKER_ADDRESS,
-    NULL,
-    NULL,
-    false,
-    NULL,
-    0,
-    0
+    .checkInterval = WMAIL_CHECK_INTERVAL,
+    .fps = WMAIL_FPS,
+    .tickerMode = TICKER_ADDRESS
 };
 
 // enumeration names for ticker mode
