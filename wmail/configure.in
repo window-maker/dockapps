@@ -13,10 +13,10 @@ PKG_CHECK_MODULES([dockapp], [dockapp])
 dnl Checks for header files.
 AC_HEADER_DIRENT
 AC_HEADER_STDC
-AC_CHECK_HEADERS(limits.h strings.h sys/time.h)
+AC_CHECK_HEADERS([limits.h strings.h sys/time.h])
 CPPFLAGS_old="$CPPFLAGS"
 CPPFLAGS="$CPPFLAGS $dockapp_CFLAGS $X11_CFLAGS"
-AC_CHECK_HEADER(dockapp.h)
+AC_CHECK_HEADERS([libdockapp/dockapp.h dockapp.h])
 CPPFLAGS="$CPPFLAGS_old"
 
 dnl Checks for typedefs, structures, and compiler characteristics.

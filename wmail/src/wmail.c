@@ -56,7 +56,11 @@
 #include <sys/stat.h>
 #include <dirent.h>
 #include <X11/Xlib.h>
+#ifdef HAVE_LIBDOCKAPP_DOCKAPP_H
 #include <libdockapp/dockapp.h>
+#else
+#include <dockapp.h>
+#endif
 
 #include "common.h"
 #include "config.h"
