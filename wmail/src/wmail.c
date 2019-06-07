@@ -549,6 +549,7 @@ static void RemoveChecksumFile( void )
 
 static void ExitHandler( int sig )
 {
+    (void) sig;
     caughtSig = 1;
 }
 
@@ -1279,6 +1280,9 @@ static void DrawTickerBuildinFont( void )
 
 static void ButtonPressed( int button, int state, int x, int y )
 {
+    (void) button;
+    (void) state;
+
     if( x >= 35 && x <= 59 && y >= 47 && y <= 59 ) {
 	buttonPressed = true;
 	forceRedraw = true;
@@ -1291,6 +1295,9 @@ static void ButtonPressed( int button, int state, int x, int y )
 
 static void ButtonReleased( int button, int state, int x, int y )
 {
+    (void) button;
+    (void) state;
+
     buttonPressed = false;
     forceRedraw = true;
 
