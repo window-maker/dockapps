@@ -1,11 +1,9 @@
 Name            : wmail
 Description     : a enhanced Window Maker email flagging docklet
 Current version : 2.0
-Last updated    : SEP 30 2002
 Licence         : see file COPYING for licencing details
-Web/Home        : www.informatik.uni-jena.de/~topical/sveng/wmail.html
-Author          : (c) 2000~2002 Sven Geisenhainer
-Contact         : sveng@informatik.uni-jena.de
+Web/Home        : https://www.dockapps.net/wmail
+Contact         : Window Maker Developers <wmaker-dev@googlegroups.com>
 
 Description:
 
@@ -214,17 +212,6 @@ Install:
 Run:
 
  Try wmail -h to see a list of all available options.
-
-Web/Home:
-
- www.informatik.uni-jena.de/~topical/sveng/wmail.html
-
-Author and maintainer:
-
- Sven Geisenhainer <sveng@informatik.uni-jena.de>
-
- There is also a Debian package available under "http://jerhard.org/files/"
- maintained by Juergen A. Erhard <juergen.erhard@gmx.net> - Thank you, Juergen!
 
 Final words:
 
