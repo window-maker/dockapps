@@ -49,26 +49,24 @@ enum {
 
 // flags to mark used cmdline options
 enum {
-    CL_DISPLAY             = 1<<0,
-    CL_MAILBOX             = 1<<1,
-    CL_RUNCMD              = 1<<2,
-    CL_SYMBOLCOLOR         = 1<<3,
-    CL_FONTCOLOR           = 1<<4,
-    CL_BACKCOLOR           = 1<<5,
-    CL_OFFLIGHTCOLOR       = 1<<6,
-    CL_BACKGROUNDCOLOR     = 1<<7,
-    CL_CHECKSUMFILENAME    = 1<<8,
-    CL_CHECKINTERVAL       = 1<<9,
-    CL_FPS                 = 1<<10,
-    CL_NEWMAILONLY         = 1<<11,
-    CL_NOSHAPE             = 1<<12,
-    CL_TICKERMODE          = 1<<13,
-    CL_SKIPNAMES           = 1<<14,
-    CL_CMDONMAIL           = 1<<15,
-    CL_CONSIDERSTATUSFIELD = 1<<16,
-    CL_READSTATUS          = 1<<17,
-    CL_USEX11FONT          = 1<<18,
-    CL_CONFIGFILE          = 1<<19
+    CL_DISPLAY             = 1 <<  0,
+    CL_MAILBOX             = 1 <<  1,
+    CL_RUNCMD              = 1 <<  2,
+    CL_SYMBOLCOLOR         = 1 <<  3,
+    CL_FONTCOLOR           = 1 <<  4,
+    CL_BACKCOLOR           = 1 <<  5,
+    CL_OFFLIGHTCOLOR       = 1 <<  6,
+    CL_BACKGROUNDCOLOR     = 1 <<  7,
+    CL_CHECKINTERVAL       = 1 <<  8,
+    CL_FPS                 = 1 <<  9,
+    CL_NEWMAILONLY         = 1 << 10,
+    CL_NOSHAPE             = 1 << 11,
+    CL_TICKERMODE          = 1 << 12,
+    CL_CMDONMAIL           = 1 << 13,
+    CL_CONSIDERSTATUSFIELD = 1 << 14,
+    CL_READSTATUS          = 1 << 15,
+    CL_USEX11FONT          = 1 << 16,
+    CL_CONFIGFILE          = 1 << 17
 };
 
 typedef struct _config_t {
