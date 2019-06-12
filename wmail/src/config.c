@@ -159,7 +159,7 @@ static void AddSenderToSkipList( char *sender  )
     for( i = 0; i < numNames; ++i )
 	newList[i] = config.skipNames[i];
 
-    newList[i] = strdup( sender );
+    newList[i] = sender;
     newList[i+1] = NULL;
     free( config.skipNames );
     config.skipNames = newList;
@@ -202,10 +202,11 @@ void ResetConfigStrings( void )
 	config.backgroundColor = NULL;
     }
 
-    if( !( config.givenOptions & CL_CHECKSUMFILENAME )) {
-	free( config.checksumFileName );
-	config.checksumFileName = NULL;
-    }
+    /*
+     * No corresponding command-line option.
+     */
+    free( config.checksumFileName );
+    config.checksumFileName = NULL;
 
     if( !( config.givenOptions & CL_CMDONMAIL )) {
 	free( config.cmdOnMail );
@@ -215,6 +216,18 @@ void ResetConfigStrings( void )
     if( !( config.givenOptions & CL_USEX11FONT )) {
 	free( config.useX11Font );
 	config.useX11Font = NULL;
+    }
+
+    /*
+     * No corresponding command-line option.
+     */
+    if( config.skipNames != NULL )
+    {
+	char **n;
+	for( n = config.skipNames; *n; ++n )
+	    free( *n );
+	free( config.skipNames );
+	config.skipNames = NULL;
     }
 }
 
