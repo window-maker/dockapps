@@ -840,7 +840,7 @@ static void ParseMBoxFile( struct stat *fileStat )
 	return;
     }
 
-    while( fgets( buf, 1024, f ) != NULL )
+    while( fgets( buf, sizeof buf, f ) != NULL )
     {
 	if( strncmp( buf, "From ", 5 ) == 0 ) {
 	    fromFound = 1;
@@ -900,7 +900,7 @@ static void ParseMaildirFile( const char *fileName, unsigned long checksum,
 	return;
     }
 
-    while( fgets( buf, 1024, f ) != NULL )
+    while( fgets( buf, sizeof buf, f ) != NULL )
     {
 	if( strncasecmp( buf, "from: ", 6 ) == 0 )
 	{

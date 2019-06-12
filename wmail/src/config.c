@@ -259,7 +259,7 @@ void ReadConfigFile( bool resetConfigStrings )
 		    const char *id, *value;
 		    size_t len;
 
-		    if( fgets( buf, 1024, f ) == NULL )
+		    if( fgets( buf, sizeof buf, f ) == NULL )
 			break;
 
 		    // first eliminate the trailing whitespaces
