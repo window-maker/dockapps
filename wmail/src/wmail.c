@@ -1214,7 +1214,6 @@ static char *ParseFromField( char *buf )
 		    continue;
 	    default:
 		    comment[ commentLen++ ] = *c;
-		    continue;
 	    }
 	    continue;
 	}
