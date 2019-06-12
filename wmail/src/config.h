@@ -67,7 +67,8 @@ enum {
     CL_CMDONMAIL           = 1<<15,
     CL_CONSIDERSTATUSFIELD = 1<<16,
     CL_READSTATUS          = 1<<17,
-    CL_USEX11FONT          = 1<<18
+    CL_USEX11FONT          = 1<<18,
+    CL_CONFIGFILE          = 1<<19
 };
 
 typedef struct _config_t {
@@ -100,7 +101,7 @@ typedef struct _config_t {
 extern config_t config;
 
 // config manipulation functions
-void ReadConfigFile( bool resetConfigStrings );
+void ReadConfigFile( const char *configFile, bool resetConfigStrings );
 
 void ResetConfigStrings( void );
 

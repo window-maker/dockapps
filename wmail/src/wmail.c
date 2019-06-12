@@ -115,6 +115,7 @@ typedef enum {
 ///////////////////////////////////////////////////////////////////////////////
 // data
 
+static char *configFile;
 static unsigned long lastTimeOut;
 static sig_atomic_t caughtSig;
 static mail_state_t state;
@@ -158,7 +159,8 @@ enum
       OPT_INDEX_EXECUTE,
       OPT_INDEX_STATUS_FIELD,
       OPT_INDEX_READ_STATUS,
-      OPT_INDEX_TICKER_FONT
+      OPT_INDEX_TICKER_FONT,
+      OPT_INDEX_CONFIG_FILE,
 };
 
 static DAProgramOption options[] = {
@@ -276,6 +278,13 @@ static DAProgramOption options[] = {
       .description = "use specified X11 font to draw the ticker",
       .type        = DOString,
       .value       = { .string = &config.useX11Font }
+    },
+    [OPT_INDEX_CONFIG_FILE] = {
+      .shortForm   = "-rc",
+      .longForm    = "--rcfile",
+      .description = "specify another rc-file ($HOME/.wmailrc is default)",
+      .type        = DOString,
+      .value       = { .string = &configFile }
     }
 };
 
@@ -324,7 +333,7 @@ static bool HasTickerWork( void );
 
 int main( int argc, char **argv )
 {
-    char *usersHome;
+    char *usersHome = getenv( "HOME" );
     struct sigaction sa = { .sa_handler = ExitHandler };
     struct stat fileStat;
     XTextProperty windowName;
@@ -383,21 +392,45 @@ int main( int argc, char **argv )
     if( options[OPT_INDEX_TICKER_FONT].used )
 	config.givenOptions |= CL_USEX11FONT;
 
-    // read the config file
-    ReadConfigFile( false );
+    if( configFile == NULL)
+    {
+	if( usersHome == NULL)
+	{
+	    WARNING( "HOME environment-variable is not set, looking for %s in current directory!\n",
+		     WMAIL_RC_FILE );
+	    configFile = strdup( WMAIL_RC_FILE );
+	}
+	else
+	    configFile = MakePathName( usersHome, WMAIL_RC_FILE );
 
-    if( config.checksumFileName == NULL ) {
-	if(( usersHome = getenv( "HOME" )) == NULL ) {
-	    WARNING( "HOME environment-variable is not set, placing %s in current directory!\n", WMAIL_CHECKSUM_FILE );
-	    config.checksumFileName = strdup( WMAIL_CHECKSUM_FILE );
-	} else
-	    config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
+	if( configFile == NULL )
+	{
+	    WARNING( "Cannot allocate config file-name.\n");
+	    exit( EXIT_FAILURE );
+	}
+
     }
 
-    if( config.checksumFileName == NULL )
-    {
-	WARNING( "Cannot allocate checksum file-name.\n");
-	exit( EXIT_FAILURE );
+    TRACE( "%s: configFile = %s\n", __func__, configFile );
+
+    // read the config file
+    ReadConfigFile( configFile, false );
+
+    if( config.checksumFileName == NULL ) {
+	if( usersHome == NULL )
+	{
+	    WARNING( "HOME environment-variable is not set, placing %s in current directory!\n",
+		     WMAIL_CHECKSUM_FILE );
+	    config.checksumFileName = strdup( WMAIL_CHECKSUM_FILE );
+	}
+	else
+	    config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
+
+	if( config.checksumFileName == NULL )
+	{
+	    WARNING( "Cannot allocate checksum file-name.\n");
+	    exit( EXIT_FAILURE );
+	}
     }
 
     TRACE( "using checksum-file \"%s\"\n", config.checksumFileName );
@@ -672,6 +705,8 @@ static void TimedOut( void )
     if( caughtSig ) {
 	ClearAllNames();
 	ResetConfigStrings();
+	if( !options[OPT_INDEX_CONFIG_FILE].used )
+	    free( configFile );
 	exit( EXIT_SUCCESS );
     }
 
@@ -1472,7 +1507,7 @@ static void UpdateConfiguration( void )
 
     TRACE( "reading configuration file...\n" );
 
-    ReadConfigFile( true );
+    ReadConfigFile( configFile, true );
 
     // if no path/name to an mbox or maildir inbox directory was given,
     // use the environment

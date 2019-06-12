@@ -234,195 +234,179 @@ static void PostProcessConfiguration( void )
     }
 }
 
-void ReadConfigFile( bool resetConfigStrings )
+void ReadConfigFile( const char *configFile, bool resetConfigStrings )
 {
-    char *usersHome;
-
     // free all config strings and reset their pointers if required
     if( resetConfigStrings )
 	ResetConfigStrings();
 
-    if(( usersHome = getenv( "HOME" )) != NULL )
+    FILE *f = fopen( configFile, "r" );
+    if( f != NULL )
     {
-	char *fileName;
-	if(( fileName = MakePathName( usersHome, WMAIL_RC_FILE )) != NULL )
+	char buf[1024];
+	int line = 1;
+
+	for( ; !feof( f ); ++line )
 	{
-	    FILE *f = fopen( fileName, "rt" );
+	    const char *id, *value;
+	    size_t len;
 
-	    if( f != NULL )
+	    if( fgets( buf, sizeof buf, f ) == NULL )
+		break;
+
+	    // first eliminate the trailing whitespaces
+	    for( len = strlen( buf );
+		 len > 0 && IsWhiteSpace(buf+(--len)); )
+		*(buf+len) = '\0';
+
+	    if( !Tokenize( buf, &id, &value ))
+		continue;
+
+	    if( PREFIX_MATCHES( id, "Window.Display", false ))
 	    {
-		char buf[1024];
-		int line = 1;
-
-		for( ; !feof( f ); ++line )
-		{
-		    const char *id, *value;
-		    size_t len;
-
-		    if( fgets( buf, sizeof buf, f ) == NULL )
-			break;
-
-		    // first eliminate the trailing whitespaces
-		    for( len = strlen( buf );
-			 len > 0 && IsWhiteSpace(buf+(--len)); )
-			*(buf+len) = '\0';
-
-		    if( !Tokenize( buf, &id, &value ))
-			continue;
-
-		    if( PREFIX_MATCHES( id, "Window.Display", false ))
-		    {
-			if( !( config.givenOptions & CL_DISPLAY ))
-			    ReadString( value, line, &config.display );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Window.NonShaped", false ))
-		    {
-			if( !( config.givenOptions & CL_NOSHAPE ))
-			    ReadBool( value, line, &config.noshape );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Window.Button.Command", false ))
-		    {
-			if( !( config.givenOptions & CL_RUNCMD ))
-			    ReadString( value, line, &config.runCmd );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.MailBox", false ))
-		    {
-			if( !( config.givenOptions & CL_MAILBOX ))
-			    ReadString( value, line, &config.mailBox );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.ChecksumFile", false ))
-		    {
-			/*
-			 * No corresponding command-line option.
-			 */
-			ReadString( value, line, &config.checksumFileName );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.CheckIntervall", false ))
-		    {
-			if( !( config.givenOptions & CL_CHECKINTERVAL ))
-			    ReadInt( value, line, &config.checkInterval );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.ShowOnlyNew", false ))
-		    {
-			if( !( config.givenOptions & CL_NEWMAILONLY ))
-			    ReadBool( value, line, &config.newMailsOnly );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Ticker.Mode", false ))
-		    {
-			if( !( config.givenOptions & CL_TICKERMODE ))
-			    ReadEnum( value, line, (int *)&config.tickerMode, tickerEnum );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Ticker.Frames", false ))
-		    {
-			if( !( config.givenOptions & CL_FPS ))
-			    ReadInt( value, line, &config.fps );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Colors.Symbols", false ))
-		    {
-			if( !( config.givenOptions & CL_SYMBOLCOLOR ))
-			    ReadString( value, line, &config.symbolColor );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Colors.Font", false ))
-		    {
-			if( !( config.givenOptions & CL_FONTCOLOR ))
-			    ReadString( value, line, &config.fontColor );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Colors.Backlight", false ))
-		    {
-			if( !( config.givenOptions & CL_BACKCOLOR ))
-			    ReadString( value, line, &config.backColor );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Colors.OffLight", false ))
-		    {
-			if( !( config.givenOptions & CL_OFFLIGHTCOLOR ))
-			    ReadString( value, line, &config.offlightColor );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Colors.NonShapedFrame", false ))
-		    {
-			if( !( config.givenOptions & CL_NOSHAPE ))
-			    ReadString( value, line, &config.backgroundColor );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Ticker.X11Font", false ))
-		    {
-			if( !( config.givenOptions & CL_USEX11FONT ))
-			    ReadString( value, line, &config.useX11Font );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.SkipSender", false ))
-		    {
-			/*
-			 * No corresponding command-line option.
-			 */
-			char *skip;
-			if( ReadString( value, line, &skip ))
-			    AddSenderToSkipList( skip );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.OnNew.Command", false ))
-		    {
-			if( !( config.givenOptions & CL_CMDONMAIL ))
-			    ReadString( value, line, &config.cmdOnMail );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.UseStatusField", false ))
-		    {
-			if( !( config.givenOptions & CL_CONSIDERSTATUSFIELD ))
-			    ReadBool( value, line, &config.considerStatusField );
-			continue;
-		    }
-
-		    if( PREFIX_MATCHES( id, "Mail.ReadStatus", false ))
-		    {
-			if( !( config.givenOptions & CL_READSTATUS ))
-			    ReadString( value, line, &config.readStatus );
-			continue;
-		    }
-
-		    WARNING( "cfg-file(%i): unrecognized: \"%s\"\n", line, buf );
-		}
-
-		fclose( f );
-	    } else {
-		TRACE( "unable to open config-file \"%s\"\n", fileName );
+		if( !( config.givenOptions & CL_DISPLAY ))
+		    ReadString( value, line, &config.display );
+		continue;
 	    }
 
-	    free( fileName );
-	} else {
-	    TRACE( "unable to allocate config-file\n" );
+	    if( PREFIX_MATCHES( id, "Window.NonShaped", false ))
+	    {
+		if( !( config.givenOptions & CL_NOSHAPE ))
+		    ReadBool( value, line, &config.noshape );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Window.Button.Command", false ))
+	    {
+		if( !( config.givenOptions & CL_RUNCMD ))
+		    ReadString( value, line, &config.runCmd );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.MailBox", false ))
+	    {
+		if( !( config.givenOptions & CL_MAILBOX ))
+		    ReadString( value, line, &config.mailBox );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.ChecksumFile", false ))
+	    {
+		/*
+		 * No corresponding command-line option.
+		 */
+		ReadString( value, line, &config.checksumFileName );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.CheckIntervall", false ))
+	    {
+		if( !( config.givenOptions & CL_CHECKINTERVAL ))
+		    ReadInt( value, line, &config.checkInterval );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.ShowOnlyNew", false ))
+	    {
+		if( !( config.givenOptions & CL_NEWMAILONLY ))
+		    ReadBool( value, line, &config.newMailsOnly );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Ticker.Mode", false ))
+	    {
+		if( !( config.givenOptions & CL_TICKERMODE ))
+		    ReadEnum( value, line, (int *)&config.tickerMode, tickerEnum );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Ticker.Frames", false ))
+	    {
+		if( !( config.givenOptions & CL_FPS ))
+		    ReadInt( value, line, &config.fps );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Colors.Symbols", false ))
+	    {
+		if( !( config.givenOptions & CL_SYMBOLCOLOR ))
+		    ReadString( value, line, &config.symbolColor );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Colors.Font", false ))
+	    {
+		if( !( config.givenOptions & CL_FONTCOLOR ))
+		    ReadString( value, line, &config.fontColor );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Colors.Backlight", false ))
+	    {
+		if( !( config.givenOptions & CL_BACKCOLOR ))
+		    ReadString( value, line, &config.backColor );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Colors.OffLight", false ))
+	    {
+		if( !( config.givenOptions & CL_OFFLIGHTCOLOR ))
+		    ReadString( value, line, &config.offlightColor );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Colors.NonShapedFrame", false ))
+	    {
+		if( !( config.givenOptions & CL_NOSHAPE ))
+		    ReadString( value, line, &config.backgroundColor );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Ticker.X11Font", false ))
+	    {
+		if( !( config.givenOptions & CL_USEX11FONT ))
+		    ReadString( value, line, &config.useX11Font );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.SkipSender", false ))
+	    {
+		/*
+		 * No corresponding command-line option.
+		 */
+		char *skip;
+		if( ReadString( value, line, &skip ))
+		    AddSenderToSkipList( skip );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.OnNew.Command", false ))
+	    {
+		if( !( config.givenOptions & CL_CMDONMAIL ))
+		    ReadString( value, line, &config.cmdOnMail );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.UseStatusField", false ))
+	    {
+		if( !( config.givenOptions & CL_CONSIDERSTATUSFIELD ))
+		    ReadBool( value, line, &config.considerStatusField );
+		continue;
+	    }
+
+	    if( PREFIX_MATCHES( id, "Mail.ReadStatus", false ))
+	    {
+		if( !( config.givenOptions & CL_READSTATUS ))
+		    ReadString( value, line, &config.readStatus );
+		continue;
+	    }
+
+	    WARNING( "cfg-file(%i): unrecognized: \"%s\"\n", line, buf );
 	}
+
+	fclose( f );
     } else {
-	TRACE( "no $HOME defined - config-file not read\n" );
+	TRACE( "unable to open config-file \"%s\"\n", configFile );
     }
 
     PostProcessConfiguration();

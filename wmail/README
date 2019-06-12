@@ -132,6 +132,11 @@ Description:
  rc-file statement: Colors.NonShapedFrame = "<string>"
  default value    : <unset, this color is translucent>
 
+ item             : rc-file location
+ cmd-line option  : -rc <path>
+ rc-file statement: <none>
+ default value    : "~/.wmailrc"
+
  libdockapp provides the following additional cmd-line options:
 
  windowed-mode        : -w
@@ -206,8 +211,7 @@ Install:
  your X11 base library directory or let $LD_LIBRARY_PATH point to the lib).
  If you would like to use rc-based configuration, look into the provided
  sample-file "wmailrc-sample" and use it as a base for your particular needs
- by copying it to ~/.wmailrc.  Note: the name of this rc-file is hard-wired and
- cannot be customized.
+ by copying it to ~/.wmailrc.
 
 Run:
 
