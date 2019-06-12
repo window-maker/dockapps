@@ -139,37 +139,144 @@ static XFontStruct *tickerFS;
 static name_t *names;
 static name_t *curTickerName;
 
+enum
+{
+      OPT_INDEX_DISPLAY,
+      OPT_INDEX_COMMAND,
+      OPT_INDEX_INTERVAL,
+      OPT_INDEX_FAMILY_NAME,
+      OPT_INDEX_FRAMES,
+      OPT_INDEX_SHORT_NAME,
+      OPT_INDEX_SYMBOL_COLOR,
+      OPT_INDEX_FONT_COLOR,
+      OPT_INDEX_BACK_COLOR,
+      OPT_INDEX_OFF_COLOR,
+      OPT_INDEX_BACKGROUND,
+      OPT_INDEX_NO_SHAPE,
+      OPT_INDEX_NEW,
+      OPT_INDEX_MAILBOX,
+      OPT_INDEX_EXECUTE,
+      OPT_INDEX_STATUS_FIELD,
+      OPT_INDEX_READ_STATUS,
+      OPT_INDEX_TICKER_FONT
+};
+
 static DAProgramOption options[] = {
-    {"-display", NULL, "display to use", DOString, False, {&config.display}},
-    {"-c", "--command", "cmd to run on btn-click (\"xterm -e mail\" is default)",
-     DOString, False, {&config.runCmd} },
-    {"-i", "--intervall",
-     "number of secs between mail-status updates (1 is default)", DONatural,
-     False, {&config.checkInterval} },
-    {"-f", "--familyname", "tickers the family-name if available", DONone,
-     False, {NULL} },
-    {"-fps", "--frames", "ticker frames per second", DONatural,
-     False, {&config.fps} },
-    {"-s", "--shortname", "tickers the nickname (all before the '@')", DONone,
-     False, {NULL} },
-    {"-sc", "--symbolcolor", "symbol color-name",
-     DOString, False, {&config.symbolColor} },
-    {"-fc", "--fontcolor", "ticker-font color-name",
-     DOString, False, {&config.fontColor} },
-    {"-bc", "--backcolor", "backlight color-name",
-     DOString, False, {&config.backColor} },
-    {"-oc", "--offcolor", "off-light color-name",
-     DOString, False, {&config.offlightColor} },
-    {"-bg", "--background", "frame-background for non-shaped window",
-     DOString, False, {&config.backgroundColor} },
-    {"-ns", "--noshape", "make the dockapp non-shaped (combine with -w)",
-     DONone, False, {NULL} },
-    {"-n", "--new", "forces wmail to show new mail exclusively", DONone, False, {NULL} },
-    {"-mb", "--mailbox", "specify another mailbox ($MAIL is default)", DOString, False, {&config.mailBox} },
-    {"-e", "--execute", "command to execute when receiving a new mail", DOString, False, {&config.cmdOnMail} },
-    {"-sf", "--statusfield", "consider the status-field of the mail header to distinguish unread mails", DONone, False, {NULL} },
-    {"-rs", "--readstatus", "status field content that your client uses to mark read mails", DOString, False, {&config.readStatus} },
-    {"-fn", "--tickerfont", "use specified X11 font to draw the ticker", DOString, False, {&config.useX11Font} }
+    [OPT_INDEX_DISPLAY] = {
+      .shortForm   = "-display",
+      .description = "display to use",
+      .type        = DOString,
+      .value       = { .string = &config.display }
+    },
+    [OPT_INDEX_COMMAND] = {
+      .shortForm   = "-c",
+      .longForm    = "--command",
+      .description = "cmd to run on btn-click (\"xterm -e mail\" is default)",
+      .type        = DOString,
+      .value       = { .string = &config.runCmd }
+    },
+    [OPT_INDEX_INTERVAL] = {
+      .shortForm   = "-i",
+      .longForm    = "--interval",
+      .description = "number of secs between mail-status updates (1 is default)",
+      .type        = DONatural,
+      .value       = { .integer = &config.checkInterval }
+    },
+    [OPT_INDEX_FAMILY_NAME] = {
+      .shortForm   = "-f",
+      .longForm    = "--familyname",
+      .description = "tickers the family-name if available",
+    },
+    [OPT_INDEX_FRAMES] = {
+      .shortForm   = "-fps",
+      .longForm    = "--frames",
+      .description = "ticker frames per second",
+      .type        = DONatural,
+      .value       = { .integer = &config.fps }
+    },
+    [OPT_INDEX_SHORT_NAME] = {
+      .shortForm   = "-s",
+      .longForm    = "--shortname",
+      .description = "tickers the nickname (all before the '@')",
+    },
+    [OPT_INDEX_SYMBOL_COLOR] = {
+      .shortForm   = "-sc",
+      .longForm    = "--symbolcolor",
+      .description = "symbol color-name",
+      .type        = DOString,
+      .value       = { .string = &config.symbolColor }
+    },
+    [OPT_INDEX_FONT_COLOR] = {
+      .shortForm   = "-fc",
+      .longForm    = "--fontcolor",
+      .description = "ticker-font color-name",
+      .type        = DOString,
+      .value       = { .string = &config.fontColor }
+    },
+    [OPT_INDEX_BACK_COLOR] = {
+      .shortForm   = "-bc",
+      .longForm    = "--backcolor",
+      .description = "backlight color-name",
+      .type        = DOString,
+      .value       = { .string = &config.backColor }
+    },
+    [OPT_INDEX_OFF_COLOR] = {
+      .shortForm   = "-oc",
+      .longForm    = "--offcolor",
+      .description = "off-light color-name",
+      .type        = DOString,
+      .value       = { .string = &config.offlightColor }
+    },
+    [OPT_INDEX_BACKGROUND] = {
+      .shortForm   = "-bg",
+      .longForm    = "--background",
+      .description = "frame-background for non-shaped window",
+      .type        = DOString,
+      .value       = { .string = &config.backgroundColor }
+    },
+    [OPT_INDEX_NO_SHAPE] = {
+      .shortForm   = "-ns",
+      .longForm    = "--noshape",
+      .description = "make the dockapp non-shaped (combine with -w)",
+    },
+    [OPT_INDEX_NEW] = {
+      .shortForm   = "-n",
+      .longForm    = "--new",
+      .description = "forces wmail to show new mail exclusively",
+    },
+    [OPT_INDEX_MAILBOX] = {
+      .shortForm   = "-mb",
+      .longForm    = "--mailbox",
+      .description = "specify another mailbox ($MAIL is default)",
+      .type        = DOString,
+      .value       = { .string = &config.mailBox }
+    },
+    [OPT_INDEX_EXECUTE] = {
+      .shortForm   = "-e",
+      .longForm    = "--execute",
+      .description = "command to execute when receiving a new mail",
+      .type        = DOString,
+      .value       = { .string = &config.cmdOnMail }
+    },
+    [OPT_INDEX_STATUS_FIELD] = {
+      .shortForm   = "-sf",
+      .longForm    = "--statusfield",
+      .description = "consider the status-field of the mail header to distinguish unread mails",
+    },
+    [OPT_INDEX_READ_STATUS] = {
+      .shortForm   = "-rs",
+      .longForm    = "--readstatus",
+      .description = "status field content that your client uses to mark read mails",
+      .type        = DOString,
+      .value       = { .string = &config.readStatus }
+    },
+    [OPT_INDEX_TICKER_FONT] = {
+      .shortForm   = "-fn",
+      .longForm    = "--tickerfont",
+      .description = "use specified X11 font to draw the ticker",
+      .type        = DOString,
+      .value       = { .string = &config.useX11Font }
+    }
 };
 
 
@@ -249,51 +356,51 @@ int main( int argc, char **argv )
 		      sizeof(options) / sizeof(DAProgramOption),
 		      PACKAGE_NAME, PACKAGE_STRING );
 
-    if( options[0].used )
+    if( options[OPT_INDEX_DISPLAY].used )
 	config.givenOptions |= CL_DISPLAY;
-    if( options[1].used )
+    if( options[OPT_INDEX_COMMAND].used )
 	config.givenOptions |= CL_RUNCMD;
-    if( options[2].used )
+    if( options[OPT_INDEX_INTERVAL].used )
 	config.givenOptions |= CL_CHECKINTERVAL;
-    if( options[3].used ) {
+    if( options[OPT_INDEX_FAMILY_NAME].used ) {
 	config.givenOptions |= CL_TICKERMODE;
 	config.tickerMode = TICKER_FAMILYNAME;
     }
-    if( options[4].used )
+    if( options[OPT_INDEX_FRAMES].used )
 	config.givenOptions |= CL_FPS;
-    if( options[5].used ) {
+    if( options[OPT_INDEX_SHORT_NAME].used ) {
 	config.givenOptions |= CL_TICKERMODE;
 	config.tickerMode = TICKER_NICKNAME;
     }
-    if( options[6].used )
+    if( options[OPT_INDEX_SYMBOL_COLOR].used )
 	config.givenOptions |= CL_SYMBOLCOLOR;
-    if( options[7].used )
+    if( options[OPT_INDEX_FONT_COLOR].used )
 	config.givenOptions |= CL_FONTCOLOR;
-    if( options[8].used )
+    if( options[OPT_INDEX_BACK_COLOR].used )
 	config.givenOptions |= CL_BACKCOLOR;
-    if( options[9].used )
+    if( options[OPT_INDEX_OFF_COLOR].used )
 	config.givenOptions |= CL_OFFLIGHTCOLOR;
-    if( options[10].used )
+    if( options[OPT_INDEX_BACK_COLOR].used )
 	config.givenOptions |= CL_BACKGROUNDCOLOR;
-    if( options[11].used ) {
+    if( options[OPT_INDEX_NO_SHAPE].used ) {
 	config.givenOptions |= CL_NOSHAPE;
 	config.noshape = true;
     }
-    if( options[12].used ) {
+    if( options[OPT_INDEX_NEW].used ) {
 	config.givenOptions |= CL_NEWMAILONLY;
 	config.newMailsOnly = true;
     }
-    if( options[13].used )
+    if( options[OPT_INDEX_MAILBOX].used )
 	config.givenOptions |= CL_MAILBOX;
-    if( options[14].used )
+    if( options[OPT_INDEX_EXECUTE].used )
 	config.givenOptions |= CL_CMDONMAIL;
-    if( options[15].used ) {
+    if( options[OPT_INDEX_STATUS_FIELD].used ) {
 	config.givenOptions |= CL_CONSIDERSTATUSFIELD;
 	config.considerStatusField = true;
     }
-    if( options[16].used )
+    if( options[OPT_INDEX_READ_STATUS].used )
 	config.givenOptions |= CL_READSTATUS;
-    if( options[17].used )
+    if( options[OPT_INDEX_TICKER_FONT].used )
 	config.givenOptions |= CL_USEX11FONT;
 
     if( config.mailBox == NULL )
