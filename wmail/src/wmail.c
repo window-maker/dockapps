@@ -1252,8 +1252,8 @@ static bool SkipSender( char *address )
     size_t len = strlen( address );
 
     // remove trailing '\n' got from fgets
-    if( address[len-1] == '\n' )
-	address[len-1] = '\0';
+    if( address[len - 1] == '\n' )
+	address[len - 1] = '\0';
 
     for( skipName = config.skipNames;
 	 skipName != NULL && *skipName != NULL; skipName++ )

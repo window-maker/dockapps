@@ -139,9 +139,9 @@ static bool Tokenize( const char *line, const char **id, const char **value )
     return false;
 }
 
-static void AddSenderToSkipList( char *sender  )
+static void AddSenderToSkipList( char *sender )
 {
-    int numNames, i;
+    size_t numNames;
     char **skipName, **newList;
 
     for( skipName = config.skipNames, numNames = 0;
@@ -154,15 +154,17 @@ static void AddSenderToSkipList( char *sender  )
     }
 
     TRACE( "adding \"%s\" to skip-list of currently %d names\n", sender, numNames );
-    newList = malloc( sizeof(char *) * (numNames + 2) );
+    newList = realloc( config.skipNames, sizeof *config.skipNames * (numNames + 2) );
 
-    for( i = 0; i < numNames; ++i )
-	newList[i] = config.skipNames[i];
+    if( newList == NULL )
+    {
+	WARNING( "Cannot allocate memory for skip list.\n");
+	return;
+    }
 
-    newList[i] = sender;
-    newList[i+1] = NULL;
-    free( config.skipNames );
     config.skipNames = newList;
+    config.skipNames[numNames++] = sender;
+    config.skipNames[numNames++] = NULL;
 }
 
 void ResetConfigStrings( void )
