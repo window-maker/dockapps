@@ -226,7 +226,7 @@ int main( int argc, char **argv )
     DACallbacks callbacks = { NULL, &ButtonPressed, &ButtonReleased,
 			      NULL, NULL, NULL, &TimedOut };
 
-    // read the config file and overide the default-settings
+    // read the config file and override the default-settings
     ReadConfigFile( false );
 
     if( config.checksumFileName == NULL ) {
@@ -245,7 +245,7 @@ int main( int argc, char **argv )
 
     TRACE( "using checksum-file \"%s\"\n", config.checksumFileName );
 
-    // parse cmdline-args and overide defaults and cfg-file settings
+    // parse cmdline-args and override defaults and cfg-file settings
     DAParseArguments( argc, argv, options,
 		      sizeof(options) / sizeof(DAProgramOption),
 		      WMAIL_NAME, WMAIL_VERSION );
