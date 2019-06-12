@@ -14,8 +14,10 @@ LIBS += $(dockapp_LIBS) $(X11_LIBS)
 
 bin_PROGRAMS = wmail
 
-wmail_SOURCES = common.c common.h \
-                config.c config.h \
-                wmail.c \
-                xpm/*.xpm \
-                xpm_delt/*.xpm
+wmail_SOURCES = common.c common.h config.c config.h wmail.c
+
+if ENABLE_DELT_XPMS
+  wmail_SOURCES += xpm_delt/*.xpm
+else
+  wmail_SOURCES += xpm/*.xpm
+endif
