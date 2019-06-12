@@ -1,3 +1,99 @@
+2019-06-12  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/ChangeLog, wmail/README, wmail/configure.ac,
+	wmail/wmailrc-sample: wmail: updated change-log and bumped to 2.2.
+
+2019-06-12  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: removed superfluous continue.
+
+2019-06-12  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/README: wmail: fixed error in build instructions.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: removed commented-out variable.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: POSIX doesn't have a "t" mode flag for
+	fopen(3).
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: formatting fixes.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: strip leading white-space when doing
+	skip-name comparisons.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/config.h: wmail: dropped unused enum values.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/config.c, wmail/src/wmail.c: wmail: use realloc(3) and
+	handle allocation failures.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/config.c: wmail: fixed memory leaks in skip-names.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/README, wmail/src/config.c, wmail/src/config.h,
+	wmail/src/wmail.c: wmail: added command-line option to specify a
+	different config-file.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: parse command-line arguments before
+	reading config-file.  Fixes warnings about config and check-sum files when using --help
+	and --version.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/common.h, wmail/src/config.c, wmail/src/wmail.c: wmail:
+	removed hard-coded string lengths.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/config.c: wmail: use continues rather than if-else chain
+	to improve readability.
+
+2019-06-10  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: added option index enum and used
+	designated initializers for options.
+
+2019-06-09  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/config.c, wmail/src/wmail.c: wmail: removed hard-coded
+	buffer size.
+
+2019-06-09  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/configure.ac, wmail/src/common.h, wmail/src/config.c: wmail:
+	use stdbool.h if available.
+
+2019-06-09  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/common.c, wmail/src/common.h, wmail/src/config.c,
+	wmail/src/config.h, wmail/src/wmail.c, wmail/wmailrc-sample: wmail:
+	more version and copyright updates.
+
+2019-06-09  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/README, wmail/src/wmail.c: wmail: fixed some typo's.
+
+2019-06-09  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/Makefile.am: wmail: only include one set of XPM's among
+	wmail's sources.
+
 2019-06-06  Jeremy Sowden <jeremy@azazel.net>
 
 	* wmail/ChangeLog, wmail/README, wmail/configure.ac: wmail: bumped
