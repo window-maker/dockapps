@@ -270,35 +270,35 @@ void ReadConfigFile( bool resetConfigStrings )
 		    if( !Tokenize( buf, &id, &value ))
 			continue;
 
-		    if( !strncasecmp( id, "Window.Display", 14 ))
+		    if( PREFIX_MATCHES( id, "Window.Display", false ))
 		    {
 			if( !( config.givenOptions & CL_DISPLAY ))
 			    ReadString( value, line, &config.display );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Window.NonShaped", 16 ))
+		    if( PREFIX_MATCHES( id, "Window.NonShaped", false ))
 		    {
 			if( !( config.givenOptions & CL_NOSHAPE ))
 			    ReadBool( value, line, &config.noshape );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Window.Button.Command", 21 ))
+		    if( PREFIX_MATCHES( id, "Window.Button.Command", false ))
 		    {
 			if( !( config.givenOptions & CL_RUNCMD ))
 			    ReadString( value, line, &config.runCmd );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.MailBox", 12 ))
+		    if( PREFIX_MATCHES( id, "Mail.MailBox", false ))
 		    {
 			if( !( config.givenOptions & CL_MAILBOX ))
 			    ReadString( value, line, &config.mailBox );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.ChecksumFile", 17 ))
+		    if( PREFIX_MATCHES( id, "Mail.ChecksumFile", false ))
 		    {
 			/*
 			 * No corresponding command-line option.
@@ -307,77 +307,77 @@ void ReadConfigFile( bool resetConfigStrings )
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.CheckIntervall", 19 ))
+		    if( PREFIX_MATCHES( id, "Mail.CheckIntervall", false ))
 		    {
 			if( !( config.givenOptions & CL_CHECKINTERVAL ))
 			    ReadInt( value, line, &config.checkInterval );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.ShowOnlyNew", 16 ))
+		    if( PREFIX_MATCHES( id, "Mail.ShowOnlyNew", false ))
 		    {
 			if( !( config.givenOptions & CL_NEWMAILONLY ))
 			    ReadBool( value, line, &config.newMailsOnly );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Ticker.Mode", 11 ))
+		    if( PREFIX_MATCHES( id, "Ticker.Mode", false ))
 		    {
 			if( !( config.givenOptions & CL_TICKERMODE ))
 			    ReadEnum( value, line, (int *)&config.tickerMode, tickerEnum );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Ticker.Frames", 13 ))
+		    if( PREFIX_MATCHES( id, "Ticker.Frames", false ))
 		    {
 			if( !( config.givenOptions & CL_FPS ))
 			    ReadInt( value, line, &config.fps );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Colors.Symbols", 14 ))
+		    if( PREFIX_MATCHES( id, "Colors.Symbols", false ))
 		    {
 			if( !( config.givenOptions & CL_SYMBOLCOLOR ))
 			    ReadString( value, line, &config.symbolColor );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Colors.Font", 11 ))
+		    if( PREFIX_MATCHES( id, "Colors.Font", false ))
 		    {
 			if( !( config.givenOptions & CL_FONTCOLOR ))
 			    ReadString( value, line, &config.fontColor );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Colors.Backlight", 16 ))
+		    if( PREFIX_MATCHES( id, "Colors.Backlight", false ))
 		    {
 			if( !( config.givenOptions & CL_BACKCOLOR ))
 			    ReadString( value, line, &config.backColor );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Colors.OffLight", 15 ))
+		    if( PREFIX_MATCHES( id, "Colors.OffLight", false ))
 		    {
 			if( !( config.givenOptions & CL_OFFLIGHTCOLOR ))
 			    ReadString( value, line, &config.offlightColor );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Colors.NonShapedFrame", 21 ))
+		    if( PREFIX_MATCHES( id, "Colors.NonShapedFrame", false ))
 		    {
 			if( !( config.givenOptions & CL_NOSHAPE ))
 			    ReadString( value, line, &config.backgroundColor );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Ticker.X11Font", 14 ))
+		    if( PREFIX_MATCHES( id, "Ticker.X11Font", false ))
 		    {
 			if( !( config.givenOptions & CL_USEX11FONT ))
 			    ReadString( value, line, &config.useX11Font );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.SkipSender", 15 ))
+		    if( PREFIX_MATCHES( id, "Mail.SkipSender", false ))
 		    {
 			/*
 			 * No corresponding command-line option.
@@ -388,21 +388,21 @@ void ReadConfigFile( bool resetConfigStrings )
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.OnNew.Command", 18 ))
+		    if( PREFIX_MATCHES( id, "Mail.OnNew.Command", false ))
 		    {
 			if( !( config.givenOptions & CL_CMDONMAIL ))
 			    ReadString( value, line, &config.cmdOnMail );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.UseStatusField", 19 ))
+		    if( PREFIX_MATCHES( id, "Mail.UseStatusField", false ))
 		    {
 			if( !( config.givenOptions & CL_CONSIDERSTATUSFIELD ))
 			    ReadBool( value, line, &config.considerStatusField );
 			continue;
 		    }
 
-		    if( !strncasecmp( id, "Mail.ReadStatus", 15 ))
+		    if( PREFIX_MATCHES( id, "Mail.ReadStatus", false ))
 		    {
 			if( !( config.givenOptions & CL_READSTATUS ))
 			    ReadString( value, line, &config.readStatus );

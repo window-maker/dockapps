@@ -949,7 +949,7 @@ static void ParseMBoxFile( struct stat *fileStat )
 
     while( fgets( buf, sizeof buf, f ) != NULL )
     {
-	if( strncmp( buf, "From ", 5 ) == 0 ) {
+	if( PREFIX_MATCHES( buf, "From ", true )) {
 	    fromFound = 1;
 	    checksum = 0;
 	    continue;
@@ -958,7 +958,7 @@ static void ParseMBoxFile( struct stat *fileStat )
 	if( fromFound )
 	    UpdateChecksum( &checksum, buf );
 
-	if( fromFound && strncasecmp( buf, "from: ", 6 ) == 0 )
+	if( fromFound && PREFIX_MATCHES( buf, "from: ", false ))
 	{
 	    if( SkipSender( buf+6 ))
 		goto NEXTMAIL;
@@ -974,7 +974,8 @@ static void ParseMBoxFile( struct stat *fileStat )
 	    ++numMails;
 	    fromFound = 0;
 	    checksum = 0;
-	} else if( config.considerStatusField && strncasecmp( buf, "status: ", 8 ) == 0 &&
+	} else if( config.considerStatusField &&
+		   PREFIX_MATCHES( buf, "status: ", false ) &&
 		   strstr( buf+8, config.readStatus ) == NULL )
 	{
 	    RemoveLastName();
@@ -1009,7 +1010,7 @@ static void ParseMaildirFile( const char *fileName, unsigned long checksum,
 
     while( fgets( buf, sizeof buf, f ) != NULL )
     {
-	if( strncasecmp( buf, "from: ", 6 ) == 0 )
+	if( PREFIX_MATCHES( buf, "from: ", false ))
 	{
 	    if( SkipSender( buf+6 ))
 		break;

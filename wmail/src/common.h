@@ -97,4 +97,6 @@ void TRACE( const char *fmt, ... );
 
 #endif
 
+#define PREFIX_MATCHES(S, P, CS) ( CS ? strncmp : strncasecmp ) ( (S), (P), sizeof (P) - 1) == 0
+
 #endif
