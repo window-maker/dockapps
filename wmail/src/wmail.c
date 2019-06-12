@@ -810,7 +810,6 @@ static void CheckMaildir( void )
     if(( dir = opendir( config.mailBox )) != NULL )
     {
 	struct dirent *dirEnt = NULL;
-	//bool writeChecksums = false;
 	name_t *name;
 
 	for( name = names; name != NULL; name = name->next )
