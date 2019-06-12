@@ -14,6 +14,7 @@ PKG_CHECK_MODULES([dockapp], [dockapp])
 
 dnl Checks for header files.
 AC_HEADER_DIRENT
+AC_HEADER_STDBOOL
 AC_HEADER_STDC
 AC_CHECK_HEADERS([limits.h strings.h sys/time.h])
 CPPFLAGS_old="$CPPFLAGS"

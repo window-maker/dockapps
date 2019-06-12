@@ -497,7 +497,7 @@ static bool ReadEnum( const char *from, unsigned int line, int *to,
 
 static bool IsWhiteSpace( const char *chr )
 {
-    return ( chr != NULL && ( *chr == ' ' || *chr == '\t' || *chr == '\n' )) ? true : false;
+    return chr != NULL && ( *chr == ' ' || *chr == '\t' || *chr == '\n' );
 }
 
 static const char *SkipWhiteSpaces( const char *str )
