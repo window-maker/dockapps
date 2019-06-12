@@ -180,9 +180,9 @@ Compile:
  1. Call "./configure", try "./configure --help" for a list of options.
  2. Call "make" to build the binary (or gmake if make isn't GNU make compliant)
 
- If compiling does not succeed due to missed header files or libraries
- you have to make use of configure's `--includedir=DIR' and/or `--libdir=DIR'
- cmdline options in order to specify paths to those files.
+ If compiling does not succeed due to missed header files or libraries you have
+ to make use of the environment variables listed by "configure --help" in order
+ to pass the flags that specify the paths to those files.
 
 Porting:
 
