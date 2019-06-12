@@ -332,28 +332,8 @@ int main( int argc, char **argv )
     DACallbacks callbacks = { NULL, &ButtonPressed, &ButtonReleased,
 			      NULL, NULL, NULL, &TimedOut };
 
-    // read the config file and override the default-settings
-    ReadConfigFile( false );
-
-    if( config.checksumFileName == NULL ) {
-	if(( usersHome = getenv( "HOME" )) == NULL ) {
-	    WARNING( "HOME environment-variable is not set, placing %s in current directory!\n", WMAIL_CHECKSUM_FILE );
-	    config.checksumFileName = strdup( WMAIL_CHECKSUM_FILE );
-	} else
-	    config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
-    }
-
-    if( config.checksumFileName == NULL )
-    {
-	WARNING( "Cannot allocate checksum file-name.\n");
-	exit( EXIT_FAILURE );
-    }
-
-    TRACE( "using checksum-file \"%s\"\n", config.checksumFileName );
-
-    // parse cmdline-args and override defaults and cfg-file settings
-    DAParseArguments( argc, argv, options,
-		      sizeof(options) / sizeof(DAProgramOption),
+    // parse cmdline-args
+    DAParseArguments( argc, argv, options, sizeof options / sizeof *options,
 		      PACKAGE_NAME, PACKAGE_STRING );
 
     if( options[OPT_INDEX_DISPLAY].used )
@@ -402,6 +382,25 @@ int main( int argc, char **argv )
 	config.givenOptions |= CL_READSTATUS;
     if( options[OPT_INDEX_TICKER_FONT].used )
 	config.givenOptions |= CL_USEX11FONT;
+
+    // read the config file
+    ReadConfigFile( false );
+
+    if( config.checksumFileName == NULL ) {
+	if(( usersHome = getenv( "HOME" )) == NULL ) {
+	    WARNING( "HOME environment-variable is not set, placing %s in current directory!\n", WMAIL_CHECKSUM_FILE );
+	    config.checksumFileName = strdup( WMAIL_CHECKSUM_FILE );
+	} else
+	    config.checksumFileName = MakePathName( usersHome, WMAIL_CHECKSUM_FILE );
+    }
+
+    if( config.checksumFileName == NULL )
+    {
+	WARNING( "Cannot allocate checksum file-name.\n");
+	exit( EXIT_FAILURE );
+    }
+
+    TRACE( "using checksum-file \"%s\"\n", config.checksumFileName );
 
     if( config.mailBox == NULL )
 	ABORT( "no mailbox specified - please define at least your $MAIL environment-variable!\n" );
