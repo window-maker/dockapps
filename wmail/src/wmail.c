@@ -351,13 +351,15 @@ int main( int argc, char **argv )
 	config.givenOptions |= CL_RUNCMD;
     if( options[OPT_INDEX_INTERVAL].used )
 	config.givenOptions |= CL_CHECKINTERVAL;
-    if( options[OPT_INDEX_FAMILY_NAME].used ) {
+    if( options[OPT_INDEX_FAMILY_NAME].used )
+    {
 	config.givenOptions |= CL_TICKERMODE;
 	config.tickerMode = TICKER_FAMILYNAME;
     }
     if( options[OPT_INDEX_FRAMES].used )
 	config.givenOptions |= CL_FPS;
-    if( options[OPT_INDEX_SHORT_NAME].used ) {
+    if( options[OPT_INDEX_SHORT_NAME].used )
+    {
 	config.givenOptions |= CL_TICKERMODE;
 	config.tickerMode = TICKER_NICKNAME;
     }
@@ -371,11 +373,13 @@ int main( int argc, char **argv )
 	config.givenOptions |= CL_OFFLIGHTCOLOR;
     if( options[OPT_INDEX_BACK_COLOR].used )
 	config.givenOptions |= CL_BACKGROUNDCOLOR;
-    if( options[OPT_INDEX_NO_SHAPE].used ) {
+    if( options[OPT_INDEX_NO_SHAPE].used )
+    {
 	config.givenOptions |= CL_NOSHAPE;
 	config.noshape = true;
     }
-    if( options[OPT_INDEX_NEW].used ) {
+    if( options[OPT_INDEX_NEW].used )
+    {
 	config.givenOptions |= CL_NEWMAILONLY;
 	config.newMailsOnly = true;
     }
@@ -383,7 +387,8 @@ int main( int argc, char **argv )
 	config.givenOptions |= CL_MAILBOX;
     if( options[OPT_INDEX_EXECUTE].used )
 	config.givenOptions |= CL_CMDONMAIL;
-    if( options[OPT_INDEX_STATUS_FIELD].used ) {
+    if( options[OPT_INDEX_STATUS_FIELD].used )
+    {
 	config.givenOptions |= CL_CONSIDERSTATUSFIELD;
 	config.considerStatusField = true;
     }
@@ -416,7 +421,8 @@ int main( int argc, char **argv )
     // read the config file
     ReadConfigFile( configFile, false );
 
-    if( config.checksumFileName == NULL ) {
+    if( config.checksumFileName == NULL )
+    {
 	if( usersHome == NULL )
 	{
 	    WARNING( "HOME environment-variable is not set, placing %s in current directory!\n",
@@ -838,6 +844,7 @@ static void CheckMaildir( void )
 	    }
 	    free( fullName );
 	}
+
 	closedir( dir );
 	CleanupNames();
     } else
