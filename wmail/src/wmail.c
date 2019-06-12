@@ -992,13 +992,15 @@ static void ParseMBoxFile( struct stat *fileStat )
 	if( fromFound )
 	    UpdateChecksum( &checksum, buf );
 
-	if( fromFound && PREFIX_MATCHES( buf, "from: ", false ))
+	if( fromFound && PREFIX_MATCHES( buf, "From:", false ))
 	{
-	    if( SkipSender( buf+6 ))
+	    char *addr = buf + sizeof "From:";
+
+	    if( SkipSender( addr ))
 		goto NEXTMAIL;
 
 	    char *name;
-	    if(( name = ParseFromField( buf+6 )) == NULL )
+	    if(( name = ParseFromField( addr )) == NULL )
 	    {
 		WARNING( "Could not parse From field\n" );
 		break;
@@ -1008,9 +1010,10 @@ static void ParseMBoxFile( struct stat *fileStat )
 	    ++numMails;
 	    fromFound = 0;
 	    checksum = 0;
-	} else if( config.considerStatusField &&
-		   PREFIX_MATCHES( buf, "status: ", false ) &&
-		   strstr( buf+8, config.readStatus ) == NULL )
+	}
+	else if( config.considerStatusField &&
+		   PREFIX_MATCHES( buf, "Status:", false ) &&
+		   strstr( buf + sizeof "Status:", config.readStatus ) == NULL )
 	{
 	    RemoveLastName();
 	    --numMails;
@@ -1030,7 +1033,7 @@ NEXTMAIL:
 }
 
 static void ParseMaildirFile( const char *fileName, unsigned long checksum,
-		       struct stat *fileStat, bool isNewMail )
+			      struct stat *fileStat, bool isNewMail )
 {
     char buf[1024];
     struct utimbuf timeStruct;
@@ -1044,13 +1047,15 @@ static void ParseMaildirFile( const char *fileName, unsigned long checksum,
 
     while( fgets( buf, sizeof buf, f ) != NULL )
     {
-	if( PREFIX_MATCHES( buf, "from: ", false ))
+	if( PREFIX_MATCHES( buf, "From:", false ))
 	{
-	    if( SkipSender( buf+6 ))
+	    char *addr = buf + sizeof "From:";
+
+	    if( SkipSender( addr ))
 		break;
 
 	    char *name;
-	    if(( name = ParseFromField( buf+6 )) == NULL )
+	    if(( name = ParseFromField( addr )) == NULL )
 	    {
 		WARNING( "Could not parse From field\n" );
 		break;
@@ -1254,6 +1259,9 @@ static bool SkipSender( char *address )
     // remove trailing '\n' got from fgets
     if( address[len - 1] == '\n' )
 	address[len - 1] = '\0';
+
+    while( isspace( *address ))
+	address++;
 
     for( skipName = config.skipNames;
 	 skipName != NULL && *skipName != NULL; skipName++ )
