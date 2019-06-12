@@ -1,6 +1,6 @@
 #-*-shell-script-*-############################################################
 #
-# .wmailrc - wmail v2.0 configuration file
+# .wmailrc - wmail v2.1 configuration file
 # note: cmd-line options always overide the settings in this file unless you
 # force runtime reconfiguration by clicking on the docklets display area
 #

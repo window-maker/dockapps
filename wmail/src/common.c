@@ -2,8 +2,9 @@
 // common.c
 // common defines and typedefs, part of wmail
 //
-// Copyright 2000~2002, Sven Geisenhainer <sveng@informatik.uni-jena.de>.
-// All rights reserved.
+// Copyright 2000-2002, Sven Geisenhainer <sveng@informatik.uni-jena.de>.
+// Copyright 2016-2017, Doug Torrance <dtorrance@piedmont.edu>.
+// Copyright 2019, Jeremy Sowden <jeremy@azazel.net>.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
