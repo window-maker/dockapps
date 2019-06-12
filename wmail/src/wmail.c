@@ -975,7 +975,7 @@ static void ParseMBoxFile( struct stat *fileStat )
     char buf[1024];
     struct utimbuf timeStruct;
     int fromFound = 0;
-    FILE *f = fopen( config.mailBox, "rt" );
+    FILE *f = fopen( config.mailBox, "r" );
     unsigned long checksum;
 
     state = STATE_READMAIL;
@@ -1044,7 +1044,7 @@ static void ParseMaildirFile( const char *fileName, unsigned long checksum,
 {
     char buf[1024];
     struct utimbuf timeStruct;
-    FILE *f = fopen( fileName, "rt" );
+    FILE *f = fopen( fileName, "r" );
 
     if( f == NULL )
     {
