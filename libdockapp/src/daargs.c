@@ -117,13 +117,11 @@ DAParseArguments(
 int
 contains(char *needle, char *haystack)
 {
-	char c, *pos;
+	char *pos = NULL;
 
-	assert(strlen(needle) == 2);
-
-	c = needle[1];
-
-	pos = strchr(haystack, c);
+	if (strlen(needle) == 2 && needle[0] == '-') {
+		pos = strchr(haystack, needle[1]);
+	}
 
 	return (pos != NULL);
 }
