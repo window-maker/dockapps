@@ -86,14 +86,16 @@ char *MakePathName( const char *dir, const char *file );
 #ifdef DEBUG
 
 void TRACE( const char *fmt, ... );
-#define ASSERT( EXPR ) ((void)(EXPR ? 0 : ABORT( "%s(%i): Assertion failed: \"%s\"\n", __FILE__, __LINE__, #EXPR )))
-#define VERIFY( EXPR ) ASSERT( EXPR )
+#define ASSERT( EXPR ) do {                          \
+    if ( !(EXPR) )                                   \
+	ABORT( "%s(%i): Assertion failed: \"%s\"\n", \
+	       __FILE__, __LINE__, #EXPR );          \
+} while (0)
 
 #else
 
 #define TRACE( fmt... )
 #define ASSERT( EXPR )
-#define VERIFY( EXPR )
 
 #endif
 
