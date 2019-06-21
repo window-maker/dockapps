@@ -981,9 +981,9 @@ static int TraverseDirectory( const char *name, bool isNewMail )
 	    }
 	    free( fullName );
 	}
-    }
 
-    closedir( dir );
+	closedir( dir );
+    }
 
     return mails;
 }
