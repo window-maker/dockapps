@@ -83,12 +83,14 @@
 ///////////////////////////////////////////////////////////////////////////////
 // typedefs
 
-typedef enum {
+typedef enum
+{
     FLAG_INITIAL = 0,
     FLAG_READ    = 1
 } flag_t;
 
-typedef struct _name_t {
+typedef struct _name_t
+{
     char *name;
     unsigned long checksum;
     flag_t flag;
@@ -96,13 +98,15 @@ typedef struct _name_t {
     struct _name_t *next;
 } name_t;
 
-typedef enum {
+typedef enum
+{
     STATE_NOMAIL,
     STATE_NEWMAIL,
     STATE_READMAIL
 } mail_state_t;
 
-typedef enum {
+typedef enum
+{
     STATE_ADDRESS,
     STATE_QUOTED_ADDRESS,
     STATE_FULLNAME,
@@ -163,128 +167,148 @@ enum
       OPT_INDEX_CONFIG_FILE,
 };
 
-static DAProgramOption options[] = {
-    [OPT_INDEX_DISPLAY] = {
-      .shortForm   = "-display",
-      .description = "display to use",
-      .type        = DOString,
-      .value       = { .string = &config.display }
+static DAProgramOption options[] =
+{
+    [OPT_INDEX_DISPLAY] =
+    {
+	.shortForm   = "-display",
+	.description = "display to use",
+	.type        = DOString,
+	.value       = { .string = &config.display }
     },
-    [OPT_INDEX_COMMAND] = {
-      .shortForm   = "-c",
-      .longForm    = "--command",
-      .description = "cmd to run on btn-click (\"xterm -e mail\" is default)",
-      .type        = DOString,
-      .value       = { .string = &config.runCmd }
+    [OPT_INDEX_COMMAND] =
+    {
+	.shortForm   = "-c",
+	.longForm    = "--command",
+	.description = "cmd to run on btn-click (\"xterm -e mail\" is default)",
+	.type        = DOString,
+	.value       = { .string = &config.runCmd }
     },
-    [OPT_INDEX_INTERVAL] = {
-      .shortForm   = "-i",
-      .longForm    = "--interval",
-      .description = "number of secs between mail-status updates (1 is default)",
-      .type        = DONatural,
-      .value       = { .integer = &config.checkInterval }
+    [OPT_INDEX_INTERVAL] =
+    {
+	.shortForm   = "-i",
+	.longForm    = "--interval",
+	.description = "number of secs between mail-status updates (1 is default)",
+	.type        = DONatural,
+	.value       = { .integer = &config.checkInterval }
     },
-    [OPT_INDEX_FAMILY_NAME] = {
-      .shortForm   = "-f",
-      .longForm    = "--familyname",
-      .description = "tickers the family-name if available",
+    [OPT_INDEX_FAMILY_NAME] =
+    {
+	.shortForm   = "-f",
+	.longForm    = "--familyname",
+	.description = "tickers the family-name if available",
     },
-    [OPT_INDEX_FRAMES] = {
-      .shortForm   = "-fps",
-      .longForm    = "--frames",
-      .description = "ticker frames per second",
-      .type        = DONatural,
-      .value       = { .integer = &config.fps }
+    [OPT_INDEX_FRAMES] =
+    {
+	.shortForm   = "-fps",
+	.longForm    = "--frames",
+	.description = "ticker frames per second",
+	.type        = DONatural,
+	.value       = { .integer = &config.fps }
     },
-    [OPT_INDEX_SHORT_NAME] = {
-      .shortForm   = "-s",
-      .longForm    = "--shortname",
-      .description = "tickers the nickname (all before the '@')",
+    [OPT_INDEX_SHORT_NAME] =
+    {
+	.shortForm   = "-s",
+	.longForm    = "--shortname",
+	.description = "tickers the nickname (all before the '@')",
     },
-    [OPT_INDEX_SYMBOL_COLOR] = {
-      .shortForm   = "-sc",
-      .longForm    = "--symbolcolor",
-      .description = "symbol color-name",
-      .type        = DOString,
-      .value       = { .string = &config.symbolColor }
+    [OPT_INDEX_SYMBOL_COLOR] =
+    {
+	.shortForm   = "-sc",
+	.longForm    = "--symbolcolor",
+	.description = "symbol color-name",
+	.type        = DOString,
+	.value       = { .string = &config.symbolColor }
     },
-    [OPT_INDEX_FONT_COLOR] = {
-      .shortForm   = "-fc",
-      .longForm    = "--fontcolor",
-      .description = "ticker-font color-name",
-      .type        = DOString,
-      .value       = { .string = &config.fontColor }
+    [OPT_INDEX_FONT_COLOR] =
+    {
+	.shortForm   = "-fc",
+	.longForm    = "--fontcolor",
+	.description = "ticker-font color-name",
+	.type        = DOString,
+	.value       = { .string = &config.fontColor }
     },
-    [OPT_INDEX_BACK_COLOR] = {
-      .shortForm   = "-bc",
-      .longForm    = "--backcolor",
-      .description = "backlight color-name",
-      .type        = DOString,
-      .value       = { .string = &config.backColor }
+    [OPT_INDEX_BACK_COLOR] =
+    {
+	.shortForm   = "-bc",
+	.longForm    = "--backcolor",
+	.description = "backlight color-name",
+	.type        = DOString,
+	.value       = { .string = &config.backColor }
     },
-    [OPT_INDEX_OFF_COLOR] = {
-      .shortForm   = "-oc",
-      .longForm    = "--offcolor",
-      .description = "off-light color-name",
-      .type        = DOString,
-      .value       = { .string = &config.offlightColor }
+    [OPT_INDEX_OFF_COLOR] =
+    {
+	.shortForm   = "-oc",
+	.longForm    = "--offcolor",
+	.description = "off-light color-name",
+	.type        = DOString,
+	.value       = { .string = &config.offlightColor }
     },
-    [OPT_INDEX_BACKGROUND] = {
-      .shortForm   = "-bg",
-      .longForm    = "--background",
-      .description = "frame-background for non-shaped window",
-      .type        = DOString,
-      .value       = { .string = &config.backgroundColor }
+    [OPT_INDEX_BACKGROUND] =
+    {
+	.shortForm   = "-bg",
+	.longForm    = "--background",
+	.description = "frame-background for non-shaped window",
+	.type        = DOString,
+	.value       = { .string = &config.backgroundColor }
     },
-    [OPT_INDEX_NO_SHAPE] = {
-      .shortForm   = "-ns",
-      .longForm    = "--noshape",
-      .description = "make the dockapp non-shaped (combine with -w)",
+    [OPT_INDEX_NO_SHAPE] =
+    {
+	.shortForm   = "-ns",
+	.longForm    = "--noshape",
+	.description = "make the dockapp non-shaped (combine with -w)",
     },
-    [OPT_INDEX_NEW] = {
-      .shortForm   = "-n",
-      .longForm    = "--new",
-      .description = "forces wmail to show new mail exclusively",
+    [OPT_INDEX_NEW] =
+    {
+	.shortForm   = "-n",
+	.longForm    = "--new",
+	.description = "forces wmail to show new mail exclusively",
     },
-    [OPT_INDEX_MAILBOX] = {
-      .shortForm   = "-mb",
-      .longForm    = "--mailbox",
-      .description = "specify another mailbox ($MAIL is default)",
-      .type        = DOString,
-      .value       = { .string = &config.mailBox }
+    [OPT_INDEX_MAILBOX] =
+    {
+	.shortForm   = "-mb",
+	.longForm    = "--mailbox",
+	.description = "specify another mailbox ($MAIL is default)",
+	.type        = DOString,
+	.value       = { .string = &config.mailBox }
     },
-    [OPT_INDEX_EXECUTE] = {
-      .shortForm   = "-e",
-      .longForm    = "--execute",
-      .description = "command to execute when receiving a new mail",
-      .type        = DOString,
-      .value       = { .string = &config.cmdOnMail }
+    [OPT_INDEX_EXECUTE] =
+    {
+	.shortForm   = "-e",
+	.longForm    = "--execute",
+	.description = "command to execute when receiving a new mail",
+	.type        = DOString,
+	.value       = { .string = &config.cmdOnMail }
     },
-    [OPT_INDEX_STATUS_FIELD] = {
-      .shortForm   = "-sf",
-      .longForm    = "--statusfield",
-      .description = "consider the status-field of the mail header to distinguish unread mails",
+    [OPT_INDEX_STATUS_FIELD] =
+    {
+	.shortForm   = "-sf",
+	.longForm    = "--statusfield",
+	.description = "consider the status-field of the mail header to distinguish unread mails",
     },
-    [OPT_INDEX_READ_STATUS] = {
-      .shortForm   = "-rs",
-      .longForm    = "--readstatus",
-      .description = "status field content that your client uses to mark read mails",
-      .type        = DOString,
-      .value       = { .string = &config.readStatus }
+    [OPT_INDEX_READ_STATUS] =
+    {
+	.shortForm   = "-rs",
+	.longForm    = "--readstatus",
+	.description = "status field content that your client uses to mark read mails",
+	.type        = DOString,
+	.value       = { .string = &config.readStatus }
     },
-    [OPT_INDEX_TICKER_FONT] = {
-      .shortForm   = "-fn",
-      .longForm    = "--tickerfont",
-      .description = "use specified X11 font to draw the ticker",
-      .type        = DOString,
-      .value       = { .string = &config.useX11Font }
+    [OPT_INDEX_TICKER_FONT] =
+    {
+	.shortForm   = "-fn",
+	.longForm    = "--tickerfont",
+	.description = "use specified X11 font to draw the ticker",
+	.type        = DOString,
+	.value       = { .string = &config.useX11Font }
     },
-    [OPT_INDEX_CONFIG_FILE] = {
-      .shortForm   = "-rc",
-      .longForm    = "--rcfile",
-      .description = "specify another rc-file ($HOME/.wmailrc is default)",
-      .type        = DOString,
-      .value       = { .string = &configFile }
+    [OPT_INDEX_CONFIG_FILE] =
+    {
+	.shortForm   = "-rc",
+	.longForm    = "--rcfile",
+	.description = "specify another rc-file ($HOME/.wmailrc is default)",
+	.type        = DOString,
+	.value       = { .string = &configFile }
     }
 };
 
@@ -454,12 +478,14 @@ int main( int argc, char **argv )
     outPixmap = DAMakePixmap();
     PreparePixmaps( false );
 
-    if( sigaction( SIGINT, &sa, NULL ) == -1 ) {
+    if( sigaction( SIGINT, &sa, NULL ) == -1 )
+    {
 	perror( "wmail error: sigaction" );
 	exit( EXIT_FAILURE );
     }
 
-    if( sigaction( SIGTERM, &sa, NULL ) == -1 ) {
+    if( sigaction( SIGTERM, &sa, NULL ) == -1 )
+    {
 	perror( "wmail error: sigaction" );
 	exit( EXIT_FAILURE );
     }
@@ -491,23 +517,35 @@ static void PreparePixmaps( bool freeMem )
 
     XGCValues values;
 
-    if( config.symbolColor != NULL ) { // symbol color ?
+    /*
+     * Symbol color?
+     */
+    if( config.symbolColor != NULL )
+    {
 	symbols_xpm[2] = XpmColorLine( config.symbolColor, symbols_xpm[2],
 				       freeMem && ( config.colorsUsed & SYM_COLOR ));
 	config.colorsUsed |= SYM_COLOR;
-    } else {
+    }
+    else
+    {
 	symbols_xpm[2] = XpmColorLine( "#20B2AA", symbols_xpm[2],
 				       freeMem && ( config.colorsUsed & SYM_COLOR ));
 	config.colorsUsed |= SYM_COLOR;
     }
 
-    if( config.fontColor != NULL ) { // font color ?
+    /*
+     * Font color?
+     */
+    if( config.fontColor != NULL )
+    {
 	chars_xpm[3] = XpmColorLine( config.fontColor, chars_xpm[3],
 				     freeMem && ( config.colorsUsed & FNT_COLOR ));
 	numbers_xpm[3] = XpmColorLine( config.fontColor, numbers_xpm[3],
 				       freeMem && ( config.colorsUsed & FNT_COLOR ));
 	config.colorsUsed |= FNT_COLOR;
-    } else {
+    }
+    else
+    {
 	chars_xpm[3] = XpmColorLine( "#D3D3D3", chars_xpm[3],
 				     freeMem && ( config.colorsUsed & FNT_COLOR ));
 	numbers_xpm[3] = XpmColorLine( "#D3D3D3", numbers_xpm[3],
@@ -515,7 +553,11 @@ static void PreparePixmaps( bool freeMem )
 	config.colorsUsed |= FNT_COLOR;
     }
 
-    if( config.backColor != NULL ) { // backlight color ?
+    /*
+     * Backlight color?
+     */
+    if( config.backColor != NULL )
+    {
 	main_xpm[3] = XpmColorLine( config.backColor, main_xpm[3],
 				    freeMem && ( config.colorsUsed & BCK_COLOR ));
 	symbols_xpm[3] = XpmColorLine( config.backColor, symbols_xpm[3],
@@ -525,7 +567,9 @@ static void PreparePixmaps( bool freeMem )
 	numbers_xpm[2] = XpmColorLine( config.backColor, numbers_xpm[2],
 				       freeMem && ( config.colorsUsed & BCK_COLOR ));
 	config.colorsUsed |= BCK_COLOR;
-    } else {
+    }
+    else
+    {
 	main_xpm[3] = XpmColorLine( "#282828", main_xpm[3],
 				    freeMem && ( config.colorsUsed & BCK_COLOR ));
 	symbols_xpm[3] = XpmColorLine( "#282828", symbols_xpm[3],
@@ -537,13 +581,19 @@ static void PreparePixmaps( bool freeMem )
 	config.colorsUsed |= BCK_COLOR;
     }
 
-    if( config.offlightColor != NULL ) { // off-light color ?
+    /*
+     * Off-light color?
+     */
+    if( config.offlightColor != NULL )
+    {
 	main_xpm[2] = XpmColorLine( config.offlightColor, main_xpm[2],
 				    freeMem && ( config.colorsUsed & OFF_COLOR ));
 	numbers_xpm[4] = XpmColorLine( config.offlightColor, numbers_xpm[4],
 				       freeMem && ( config.colorsUsed & OFF_COLOR ));
 	config.colorsUsed |= OFF_COLOR;
-    } else {
+    }
+    else
+    {
 	main_xpm[2] = XpmColorLine( "#000000", main_xpm[2],
 				    freeMem && ( config.colorsUsed & OFF_COLOR ));
 	numbers_xpm[4] = XpmColorLine( "#000000", numbers_xpm[4],
@@ -551,7 +601,11 @@ static void PreparePixmaps( bool freeMem )
 	config.colorsUsed |= OFF_COLOR;
     }
 
-    if( config.backgroundColor != NULL ) { // window-frame background (only seen if nonshaped) ?
+    /*
+     * Window-frame background (only seen if nonshaped)?
+     */
+    if( config.backgroundColor != NULL )
+    {
 	main_xpm[1] = XpmColorLine( config.backgroundColor, main_xpm[1],
 				    freeMem && ( config.colorsUsed & BGR_COLOR ));
 	config.colorsUsed |= BGR_COLOR;
@@ -570,7 +624,8 @@ static void PreparePixmaps( bool freeMem )
 	{
 	    XFreeGC( DADisplay, tickerGC );
 	    tickerGC = NULL;
-	    if( tickerFS != NULL ) {
+	    if( tickerFS != NULL )
+	    {
 		XFreeFont( DADisplay, tickerFS );
 		tickerFS = NULL;
 	    }
@@ -617,8 +672,10 @@ static void MarkName( unsigned long checksum )
 {
     name_t *name;
 
-    for( name = names; name != NULL; name = name->next ) {
-	if( name->checksum == checksum ) {
+    for( name = names; name != NULL; name = name->next )
+    {
+	if( name->checksum == checksum )
+	{
 	    name->flag |= FLAG_READ;
 	    if( config.newMailsOnly )
 		numMails--;
@@ -632,10 +689,12 @@ static void DetermineState( void )
     name_t *name;
 
     for( name = names; name != NULL; name = name->next )
-	if(!( name->flag & FLAG_READ )) {
+	if(!( name->flag & FLAG_READ ))
+	{
 	    state = STATE_NEWMAIL;
 
-	    if( config.cmdOnMail != NULL ) {
+	    if( config.cmdOnMail != NULL )
+	    {
 		int ret = system( config.cmdOnMail );
 
 		if( ret == 127 || ret == -1 )
@@ -650,13 +709,14 @@ static void ReadChecksumFile( void )
 {
     FILE *f = fopen( config.checksumFileName, "rb" );
     if( f != NULL )
-        while( !feof( f )) {
-            unsigned long checksum;
-            if( fread( &checksum, sizeof(long), 1, f ) != 1 )
-                continue;
+	while( !feof( f ))
+	{
+	    unsigned long checksum;
+	    if( fread( &checksum, sizeof(long), 1, f ) != 1 )
+		continue;
 
-            MarkName( checksum );
-        }
+	    MarkName( checksum );
+	}
     else
 	return;
 
@@ -668,15 +728,19 @@ static void WriteChecksumFile( bool writeAll )
     FILE *f;
     TRACE( "writing checksums:" );
 
-    if(( f = fopen( config.checksumFileName, "wb" )) != NULL ) {
+    if(( f = fopen( config.checksumFileName, "wb" )) != NULL )
+    {
 	name_t *name;
-	for( name = names; name != NULL; name = name->next ) {
-	    if( writeAll || (name->flag & FLAG_READ)) {
+	for( name = names; name != NULL; name = name->next )
+	{
+	    if( writeAll || (name->flag & FLAG_READ))
+	    {
 		fwrite( &name->checksum, sizeof(long), 1, f );
 		TRACE( " %X", name->checksum );
 	    }
 	}
-    } else
+    }
+    else
 	return;
 
     TRACE( "\n" );
@@ -686,7 +750,8 @@ static void WriteChecksumFile( bool writeAll )
 
 static void UpdateChecksum( unsigned long *checksum, const char *buf )
 {
-    if( buf != NULL ) {
+    if( buf != NULL )
+    {
 	size_t i, len = strlen( buf );
 
 	for( i = 0; i < len; ++i )
@@ -708,7 +773,8 @@ static void ExitHandler( int sig )
 
 static void TimedOut( void )
 {
-    if( caughtSig ) {
+    if( caughtSig )
+    {
 	ClearAllNames();
 	ResetConfigStrings();
 	if( !options[OPT_INDEX_CONFIG_FILE].used )
@@ -733,7 +799,8 @@ static void CheckTimeOut( bool force )
 
     lastTimeOut = nowMs;
 
-    if( readConfigFile ) {
+    if( readConfigFile )
+    {
 	readConfigFile = false;
 	UpdateConfiguration();
 	checkMail = 0;
@@ -760,28 +827,42 @@ static void CheckMBox( void )
 {
     struct stat fileStat;
 
-    // error retrieving file-stats -> no/zero-size file and no new/read mails
-    // available
-    if( stat( config.mailBox, &fileStat ) == -1 || fileStat.st_size == 0 ) {
-	if( state != STATE_NOMAIL ) {
+    if( stat( config.mailBox, &fileStat ) == -1 || fileStat.st_size == 0 )
+    {
+	/*
+	 * Error retrieving file-stats or file is empty -> no new/read mails
+	 * available.
+	 */
+	if( state != STATE_NOMAIL )
+	{
 	    state = STATE_NOMAIL;
 	    ClearAllNames();
 	    RemoveChecksumFile();
 	    forceRedraw = true;
 	}
-    } else {
-	// file has changed -> new mails arrived or some mails removed
-	if( lastModifySeconds != fileStat.st_mtime || forceRead ) {
+    }
+    else
+    {
+	if( lastModifySeconds != fileStat.st_mtime || forceRead )
+	{
+	    /*
+	     * File has been updated -> new mails arrived or some mails removed
+	     */
 	    forceRead = false;
 	    ParseMBoxFile( &fileStat );
 	    stat( config.mailBox, &fileStat );
 	    forceRedraw = true;
-	    // file has accessed (read) -> mark all mails as "read", because
-	    // it cannot be decided which mails the user has read...
-	} else if( lastAccessSeconds != fileStat.st_atime ) {
+	}
+	else if( lastAccessSeconds != fileStat.st_atime )
+	{
+	    /*
+	     * File has been accessed (read) -> mark all mails as "read", because it
+	     * cannot be decided which mails the user has read...
+	     */
 	    state = STATE_READMAIL;
 	    WriteChecksumFile( true );
-	    if( config.newMailsOnly ) {
+	    if( config.newMailsOnly )
+	    {
 		numMails = 0;
 		SetMailFlags( FLAG_READ );
 	    }
@@ -799,7 +880,8 @@ static void CheckMaildir( void )
     mail_state_t lastState = state;
     unsigned lastMailCount = numMails;
 
-    if( forceRead ) {
+    if( forceRead )
+    {
 	forceRead = false;
 	ClearAllNames();
 	TRACE( "all names cleared\n" );
@@ -830,11 +912,13 @@ static void CheckMaildir( void )
 		WARNING( "Can't stat file/path \"%s\"\n", fullName );
 	    else if( S_ISDIR( fileStat.st_mode ))
 	    {
-		if( strcmp( dirEnt->d_name, "new" ) == 0 ) {
+		if( strcmp( dirEnt->d_name, "new" ) == 0 )
+		{
 		    if( TraverseDirectory( fullName, true ) > 0 )
 			state = STATE_NEWMAIL;
 		}
-		else if( strcmp( dirEnt->d_name, "cur" ) == 0 ) {
+		else if( strcmp( dirEnt->d_name, "cur" ) == 0 )
+		{
 		    if( TraverseDirectory( fullName, false ) > 0 )
 			if( state != STATE_NEWMAIL )
 			    state = STATE_READMAIL;
@@ -846,7 +930,8 @@ static void CheckMaildir( void )
 
 	closedir( dir );
 	CleanupNames();
-    } else
+    }
+    else
 	WARNING( "can't open directory \"%s\"\n", config.mailBox );
 
     if( lastState != state || lastMailCount != numMails )
@@ -887,7 +972,8 @@ static int TraverseDirectory( const char *name, bool isNewMail )
 		    TRACE( "-> new file - parsing it\n" );
 		    ParseMaildirFile( fullName, checksum, &fileStat, isNewMail );
 		}
-		else {
+		else
+		{
 		    name->flag = isNewMail ? FLAG_INITIAL : FLAG_READ;
 		    name->visited = true;
 		}
@@ -930,7 +1016,8 @@ static void UpdatePixmap( bool flashMailSymbol )
 	XCopyArea( DADisplay, numbersPixmap, outPixmap, DAGC,
 		   50, 0, 5, 9, 6, 49 );
 	drawCount = 999;
-    } else
+    }
+    else
 	drawCount = numMails;
 
     for( i = 0; i < 3; ++i, drawCount /= 10 )
@@ -942,12 +1029,11 @@ static void UpdatePixmap( bool flashMailSymbol )
     }
 
     if( buttonPressed )
-    {
 	XCopyArea( DADisplay, buttonPixmap, outPixmap, DAGC,
 		   0, 0, 23, 11, 36, 48 );
-    }
 
-    switch( state ) {
+    switch( state )
+    {
     case STATE_NEWMAIL:
 	if( flashMailSymbol )
 	    XCopyArea( DADisplay, symbolsPixmap, outPixmap, DAGC,
@@ -982,14 +1068,16 @@ static void ParseMBoxFile( struct stat *fileStat )
 
     numMails = 0;
 
-    if( f == NULL ) {
+    if( f == NULL )
+    {
 	WARNING( "can't open mbox \"%s\"\n", config.mailBox );
 	return;
     }
 
     while( fgets( buf, sizeof buf, f ) != NULL )
     {
-	if( PREFIX_MATCHES( buf, "From ", true )) {
+	if( PREFIX_MATCHES( buf, "From ", true ))
+	{
 	    fromFound = 1;
 	    checksum = 0;
 	    continue;
@@ -1112,10 +1200,12 @@ static char *ParseFromField( char *buf )
 
     for( c = buf; *c != '\0'; ++c )
     {
-	switch( state ) {
+	switch( state )
+	{
 	case STATE_FULLNAME:
 
-	    switch( *c ) {
+	    switch( *c )
+	    {
 	    case '"':
 		state = STATE_QUOTED_FULLNAME;
 		continue;
@@ -1134,7 +1224,8 @@ static char *ParseFromField( char *buf )
 		state = STATE_COMMENT;
 		continue;
 	    case '=':
-		if( *(c+1) == '?' ) {
+		if( *(c+1) == '?' )
+		{
 		    ++c;
 		    fullNameEncoded = 1;
 		    state = STATE_ENCODED_FULLNAME;
@@ -1149,7 +1240,8 @@ static char *ParseFromField( char *buf )
 
 	case STATE_QUOTED_FULLNAME:
 
-	    switch( *c ) {
+	    switch( *c )
+	    {
 	    case '\\':
 		fullName[ fullNameLen++ ] = *(++c);
 		continue;
@@ -1163,9 +1255,11 @@ static char *ParseFromField( char *buf )
 
 	case STATE_ENCODED_FULLNAME:
 
-	    switch( *c ) {
+	    switch( *c )
+	    {
 	    case '?':
-		if( *(c+1) == '=' ) {
+		if( *(c+1) == '=' )
+		{
 		    ++c;
 		    state = STATE_FULLNAME;
 		    continue;
@@ -1177,7 +1271,8 @@ static char *ParseFromField( char *buf )
 
 	case STATE_ADDRESS:
 
-	    switch( *c ) {
+	    switch( *c )
+	    {
 	    case '"':
 		state = STATE_QUOTED_ADDRESS;
 	    case '>':
@@ -1196,7 +1291,8 @@ static char *ParseFromField( char *buf )
 
 	case STATE_QUOTED_ADDRESS:
 
-	    switch( *c ) {
+	    switch( *c )
+	    {
 	    case '"':
 		state = STATE_ADDRESS;
 		continue;
@@ -1208,7 +1304,8 @@ static char *ParseFromField( char *buf )
 	    }
 	    continue;
 	case STATE_COMMENT:
-	    switch( *c ) {
+	    switch( *c )
+	    {
 	    case ')':
 		    state = STATE_FULLNAME;
 		    continue;
@@ -1219,16 +1316,20 @@ static char *ParseFromField( char *buf )
 	}
     }
 
-    if( *comment ) {
+    if( *comment )
+    {
 	//WARNING("Comment seen: %s\nIn: %s\nFullname: %s\nAddress: %s\n", comment, buf, fullName, addressName);
 	// Comment seen: if there's an address, append to
 	// fullname.  If no address, copy fullname to address
 	// and comment to fullname.
-	if( *addressName ) {
+	if( *addressName )
+	{
 	    strcat(fullName, "(");
 	    strcat(fullName, comment);
 	    strcat(fullName, ")");
-	} else {
+	}
+	else
+	{
 	    strcpy(addressName, fullName);
 	    strcpy(fullName, comment);
 	}
@@ -1238,16 +1339,21 @@ static char *ParseFromField( char *buf )
     //WARNING("Fullname: %s\nAddress: %s\n", fullName, addressName);
 
     // what name should be tickered
-    if( config.tickerMode == TICKER_FAMILYNAME && fullName[0] != '\0' && !fullNameEncoded ) {
+    if( config.tickerMode == TICKER_FAMILYNAME && fullName[0] != '\0' && !fullNameEncoded )
+    {
 	free( addressName );
 	return fullName;
-    } else {
-	if( state == STATE_FULLNAME ) {
+    }
+    else
+    {
+	if( state == STATE_FULLNAME )
+	{
 	    strcpy( addressName, fullName );
 	    if( saveAtCharPos != -1 )
 		atChar = &addressName[saveAtCharPos];
 	}
-	if( config.tickerMode == TICKER_NICKNAME ) {
+	if( config.tickerMode == TICKER_NICKNAME )
+	{
 	    if( atChar != NULL )
 		*atChar = '\0';
 	}
@@ -1274,7 +1380,8 @@ static bool SkipSender( char *address )
 	TRACE( "comparing \"%s\" and \"%s\"\n", *skipName, address );
 
 	// call libc-fnmatch (wildcard-match :-) !
-	if( !fnmatch( *skipName, address, 0 )) {
+	if( !fnmatch( *skipName, address, 0 ))
+	{
 	    TRACE( "skipping sender \"%s\"\n", *skipName );
 	    return true;
 	}
@@ -1306,7 +1413,8 @@ static void InsertName( char *name, unsigned long checksum, flag_t flag )
 
 static void RemoveLastName( void )
 {
-    if( names != NULL ) {
+    if( names != NULL )
+    {
 	name_t *name = names;
 	names = names->next;
 	free( name->name );
@@ -1318,7 +1426,8 @@ static void ClearAllNames( void )
 {
     name_t *name, *nextName;
 
-    for( name = names; name != NULL; name = nextName ) {
+    for( name = names; name != NULL; name = nextName )
+    {
 	nextName = name->next;
 
 	free( name->name );
@@ -1341,15 +1450,17 @@ static void SetMailFlags( flag_t flag )
 
 static void DrawTickerX11Font( void )
 {
-    // 49x21+7+20 out-drawable size
+    // 49 x 21 + 7 + 20 out-drawable size
 
     static int insertAt;
 
     if( curTickerName == NULL || namesChanged )
     {
 	for( curTickerName = names;
-	     curTickerName != NULL && config.newMailsOnly && ( curTickerName->flag & FLAG_READ );
-	     curTickerName = curTickerName->next );
+	     curTickerName != NULL && config.newMailsOnly &&
+		 ( curTickerName->flag & FLAG_READ );
+	     curTickerName = curTickerName->next )
+	    ;
 
 	if( curTickerName == NULL )
 	    return;
@@ -1367,20 +1478,20 @@ static void DrawTickerX11Font( void )
     if( insertAt < -XTextWidth( tickerFS, curTickerName->name,
 				strlen( curTickerName->name )) + 6 )
     {
-	do {
+	do
 	    curTickerName = curTickerName->next;
-	} while( curTickerName != NULL && config.newMailsOnly && ( curTickerName->flag & FLAG_READ ));
+	while( curTickerName != NULL && config.newMailsOnly &&
+		   ( curTickerName->flag & FLAG_READ ));
 
-	if( curTickerName != NULL ) {
+	if( curTickerName != NULL )
 	    insertAt = 54;
-	}
     }
 }
 
 static void DrawTickerBuildinFont( void )
 {
-    // 49x21+7+20 out-drawable size
-    // 14x21 font-character size
+    // 49 x 21 + 7 + 20 out-drawable size
+    // 14 x 21 font-character size
 
     static unsigned insertAt;
     static unsigned takeItFrom;
@@ -1392,11 +1503,12 @@ static void DrawTickerBuildinFont( void )
     if( names == NULL )
 	return;
 
-    if( curTickerName == NULL || namesChanged ) {
-
+    if( curTickerName == NULL || namesChanged )
+    {
 	for( curTickerName = names;
 	     curTickerName != NULL && config.newMailsOnly && ( curTickerName->flag & FLAG_READ );
-	     curTickerName = curTickerName->next );
+	     curTickerName = curTickerName->next )
+	    ;
 
 	if( curTickerName == NULL )
 	    return;
@@ -1411,13 +1523,12 @@ static void DrawTickerBuildinFont( void )
     for( currentChar = (unsigned char *)&curTickerName->name[takeItFrom/14],
 	 drawTo = insertAt; *currentChar != '\0'; ++currentChar )
     {
-
 	int outChar = (*currentChar < 32 || *currentChar >= 128) ? '?' :
 	    *currentChar;
-	int charWidth = 57-drawTo >= 14 ? 14 - leftSpace : 57-drawTo;
+	int charWidth = 57 - drawTo >= 14 ? 14 - leftSpace : 57 - drawTo;
 
 	XCopyArea( DADisplay, charsPixmap, outPixmap, DAGC,
-		   (outChar-32)*14+leftSpace, 0, charWidth, 21, drawTo, 20 );
+		   (outChar - 32) * 14 + leftSpace, 0, charWidth, 21, drawTo, 20 );
 
 	leftSpace = 0;
 	drawTo += charWidth;
@@ -1426,17 +1537,20 @@ static void DrawTickerBuildinFont( void )
 	    break;
     }
 
-    if( --insertAt < 7 ) {
+    if( --insertAt < 7 )
+    {
 	insertAt = 7;
 	takeItFrom++;
 
-	if( takeItFrom/14 >= strlen( curTickerName->name )) {
-
-	    do {
+	if( takeItFrom/14 >= strlen( curTickerName->name ))
+	{
+	    do
 		curTickerName = curTickerName->next;
-	    } while( curTickerName != NULL && config.newMailsOnly && ( curTickerName->flag & FLAG_READ ));
+	    while( curTickerName != NULL && config.newMailsOnly &&
+		   ( curTickerName->flag & FLAG_READ ));
 
-	    if( curTickerName != NULL ) {
+	    if( curTickerName != NULL )
+	    {
 		takeItFrom = 0;
 		insertAt = 57;
 	    }
@@ -1449,10 +1563,12 @@ static void ButtonPressed( int button, int state, int x, int y )
     (void) button;
     (void) state;
 
-    if( x >= 35 && x <= 59 && y >= 47 && y <= 59 ) {
+    if( x >= 35 && x <= 59 && y >= 47 && y <= 59 )
+    {
 	buttonPressed = true;
 	forceRedraw = true;
-    } else
+    }
+    else
 	// reread the config file
 	readConfigFile = true;
 
@@ -1467,7 +1583,8 @@ static void ButtonReleased( int button, int state, int x, int y )
     buttonPressed = false;
     forceRedraw = true;
 
-    if( x >= 35 && x <= 59 && y >= 47 && y <= 59 ) {
+    if( x >= 35 && x <= 59 && y >= 47 && y <= 59 )
+    {
 	int ret = system( config.runCmd );
 
 	if( ret == 127 || ret == -1 )
@@ -1484,10 +1601,9 @@ static void GetHexColorString( const char *colorName, char *xpmLine )
     if( XParseColor( DADisplay,
 		     DefaultColormap( DADisplay, DefaultScreen( DADisplay )),
 		     colorName, &color ))
-    {
 	sprintf( xpmLine, "%02X%02X%02X", color.red>>8, color.green>>8,
 		  color.blue>>8 );
-    } else
+    else
 	WARNING( "unknown colorname: \"%s\"\n", colorName );
 }
 
@@ -1497,7 +1613,9 @@ static char *XpmColorLine( const char *colorName, char *colorLine,
     char *newLine = strdup( colorLine );
     char *from = strrchr( newLine, '#' );
 
-    if( from == NULL && !strcasecmp( &colorLine[ strlen( colorLine ) - 4 ], "none" ))  {
+    if( from == NULL &&
+	strcasecmp( &colorLine[ strlen( colorLine ) - 4 ], "none" ) == 0 )
+    {
 	// if no # found, it should be a None-color line
 	free( newLine );
 	newLine = malloc( 12 );
@@ -1550,7 +1668,8 @@ static void CleanupNames( void )
     {
 	nextName = name->next;
 
-	if( !name->visited ) {
+	if( !name->visited )
+	{
 	    if( last == NULL )
 		names = name->next;
 	    else
@@ -1558,7 +1677,9 @@ static void CleanupNames( void )
 
 	    free( name->name );
 	    free( name );
-	} else {
+	}
+	else
+	{
 	    last = name;
 
 	    if( !config.newMailsOnly || (name->flag & FLAG_READ) == 0 )
@@ -1574,11 +1695,14 @@ static bool HasTickerWork( void )
     if( names == NULL )
 	return false;
 
-    if( curTickerName == NULL || namesChanged ) {
+    if( curTickerName == NULL || namesChanged )
+    {
 
 	for( nextTickerName = names;
-	     nextTickerName != NULL && ( config.newMailsOnly && ( nextTickerName->flag & FLAG_READ ));
-	     nextTickerName = nextTickerName->next );
+	     nextTickerName != NULL && config.newMailsOnly &&
+		( nextTickerName->flag & FLAG_READ );
+	     nextTickerName = nextTickerName->next )
+	    ;
 
 	if( nextTickerName == NULL )
 	    return false;

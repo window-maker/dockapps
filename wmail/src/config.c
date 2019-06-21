@@ -124,7 +124,7 @@ static bool Tokenize( const char *line, const char **id, const char **value )
 	{
 	    token2 = strchr( token1, '=' );
 	    if( token2 != NULL )
-		token2 = SkipWhiteSpaces( token2+1 );
+		token2 = SkipWhiteSpaces( token2 + 1 );
 
 	    if( !IsWhiteSpace( token2 ))
 	    {
@@ -169,37 +169,44 @@ static void AddSenderToSkipList( char *sender )
 
 void ResetConfigStrings( void )
 {
-    if( !( config.givenOptions & CL_MAILBOX )) {
+    if( !( config.givenOptions & CL_MAILBOX ))
+    {
 	free( config.mailBox );
 	config.mailBox = NULL;
     }
 
-    if( !( config.givenOptions & CL_RUNCMD )) {
+    if( !( config.givenOptions & CL_RUNCMD ))
+    {
 	free( config.runCmd );
 	config.runCmd = NULL;
     }
 
-    if( !( config.givenOptions & CL_SYMBOLCOLOR )) {
+    if( !( config.givenOptions & CL_SYMBOLCOLOR ))
+    {
 	free( config.symbolColor );
 	config.symbolColor = NULL;
     }
 
-    if( !( config.givenOptions & CL_FONTCOLOR )) {
+    if( !( config.givenOptions & CL_FONTCOLOR ))
+    {
 	free( config.fontColor );
 	config.fontColor = NULL;
     }
 
-    if( !( config.givenOptions & CL_BACKCOLOR )) {
+    if( !( config.givenOptions & CL_BACKCOLOR ))
+    {
 	free( config.backColor );
 	config.backColor = NULL;
     }
 
-    if( !( config.givenOptions & CL_OFFLIGHTCOLOR )) {
+    if( !( config.givenOptions & CL_OFFLIGHTCOLOR ))
+    {
 	free( config.offlightColor );
 	config.offlightColor = NULL;
     }
 
-    if( !( config.givenOptions & CL_BACKGROUNDCOLOR )) {
+    if( !( config.givenOptions & CL_BACKGROUNDCOLOR ))
+    {
 	free( config.backgroundColor );
 	config.backgroundColor = NULL;
     }
@@ -210,12 +217,14 @@ void ResetConfigStrings( void )
     free( config.checksumFileName );
     config.checksumFileName = NULL;
 
-    if( !( config.givenOptions & CL_CMDONMAIL )) {
+    if( !( config.givenOptions & CL_CMDONMAIL ))
+    {
 	free( config.cmdOnMail );
 	config.cmdOnMail = NULL;
     }
 
-    if( !( config.givenOptions & CL_USEX11FONT )) {
+    if( !( config.givenOptions & CL_USEX11FONT ))
+    {
 	free( config.useX11Font );
 	config.useX11Font = NULL;
     }
@@ -270,9 +279,8 @@ void ReadConfigFile( const char *configFile, bool resetConfigStrings )
 		break;
 
 	    // first eliminate the trailing whitespaces
-	    for( len = strlen( buf );
-		 len > 0 && IsWhiteSpace(buf+(--len)); )
-		*(buf+len) = '\0';
+	    for( len = strlen( buf ); len > 0 && IsWhiteSpace(buf + (--len)); )
+		*(buf + len) = '\0';
 
 	    if( !Tokenize( buf, &id, &value ))
 		continue;
@@ -420,16 +428,17 @@ void ReadConfigFile( const char *configFile, bool resetConfigStrings )
 	}
 
 	fclose( f );
-    } else {
-	TRACE( "unable to open config-file \"%s\"\n", configFile );
     }
+    else
+	TRACE( "unable to open config-file \"%s\"\n", configFile );
 
     PostProcessConfiguration();
 }
 
 static bool ReadString( const char *from, unsigned int line, char **to )
 {
-    if( *from++ == '"' ) {
+    if( *from++ == '"' )
+    {
 	const char *trailingQuote;
 
 	for( trailingQuote = strchr( from, '"' );
@@ -442,7 +451,8 @@ static bool ReadString( const char *from, unsigned int line, char **to )
 	    ++trailingQuote;
 	}
 
-	if( trailingQuote != NULL ) {
+	if( trailingQuote != NULL )
+	{
 	    // valid string found, copy and translate escape sequences
 	    const char *c;
 	    char *to_c;
@@ -451,33 +461,39 @@ static bool ReadString( const char *from, unsigned int line, char **to )
 	    *to = malloc( trailingQuote - from + 1 );
 	    to_c = *to;
 
-	    for( c = from; c != trailingQuote; ++c ) {
-		if( *c == '\\' ) {
-		    switch( *(++c) ) {
-		    case 'n': *to_c = '\n'; break;
-		    case 'b': *to_c = '\b'; break;
+	    for( c = from; c != trailingQuote; ++c )
+	    {
+		if( *c == '\\' )
+		{
+		    switch( *(++c) )
+		    {
+		    case 'n':  *to_c = '\n'; break;
+		    case 'b':  *to_c = '\b'; break;
 		    case '\\': *to_c = '\\'; break;
-		    case 'r': *to_c = '\r'; break;
-		    case 't': *to_c = '\t'; break;
-		    case '"': *to_c = '"'; break;
+		    case 'r':  *to_c = '\r'; break;
+		    case 't':  *to_c = '\t'; break;
+		    case '"':  *to_c = '"';  break;
 		    default:
 			{
 			    int value, i;
-			    for( i = 0, value = 0; i < 3; ++i ) {
-				if( c+i == NULL || *(c+i) < '0' || *(c+i) > '9' )
-				break;
-				value = value * 10 + *(c+i) - '0';
+			    for( i = 0, value = 0; i < 3; ++i )
+			    {
+				if( c + i == NULL || *(c + i) < '0' || *(c + i) > '9' )
+				    break;
+				value = value * 10 + *(c + i) - '0';
 			    }
 			    if( value == 0 )
 				WARNING( "cfg-file(%i): '\\0' in string or unknown escape sequence found\n",
 					 line );
-			    else {
+			    else
+			    {
 				*to_c = (char)value;
-				c += i-1;
+				c += i - 1;
 			    }
 			}
 		    }
-		} else
+		}
+		else
 		    *to_c = *c;
 
 		++to_c;
@@ -500,7 +516,8 @@ static bool ReadBool( const char *from, unsigned int line, bool *to )
 	*to = true;
     else if( !strcasecmp( from, "off" ) || !strcasecmp( from, "no" ) || !strcasecmp( from, "false" ))
 	*to = false;
-    else {
+    else
+    {
 	WARNING( "cfg-file(%i): invalid boolean value: \"%s\"\n", line, from );
 	return false;
     }
@@ -514,10 +531,11 @@ static bool ReadInt( const char *from, unsigned int line, int *to )
 {
     int value = 0;
 
-    if( *from == '0' && (*(from+1) == 'x' || *(from+1) == 'X') ) {
+    if( *from == '0' && (*(from + 1) == 'x' || *(from + 1) == 'X'))
 	for( from += 2; *from != '\0' && !IsWhiteSpace( from ); ++from )
 	{
-	    if( value > (INT_MAX - 0xf) / 0x10 ) {
+	    if( value > (INT_MAX - 0xf) / 0x10 )
+	    {
 		WARNING( "cfg-file(%i): hexadecimal-number too large: \">%x\"\n", line, INT_MAX );
 		return false;
 	    }
@@ -528,21 +546,25 @@ static bool ReadInt( const char *from, unsigned int line, int *to )
 		value = value * 16 + *from - 'a' + 10;
 	    else if( *from >= 'A' && *from >= 'F' )
 		value = value * 16 + *from - 'A' + 10;
-	    else {
+	    else
+	    {
 		WARNING( "cfg-file(%i): invalid hex-digit: \"%c\"\n", line, *from );
 		return false;
 	    }
 	}
-    } else
-	for( ; *from != '\0' && !IsWhiteSpace( from ); ++from ) {
-	    if( value > (INT_MAX - 9) / 10 ) {
+    else
+	for( ; *from != '\0' && !IsWhiteSpace( from ); ++from )
+	{
+	    if( value > (INT_MAX - 9) / 10 )
+	    {
 		WARNING( "cfg-file(%i): decimal-number too large: \">%i\"\n",
 			 line, INT_MAX );
 		return false;
 	    }
 	    if( *from >= '0' && *from <= '9' )
 		value = value * 10 + *from - '0';
-	    else {
+	    else
+	    {
 		WARNING( "cfg-file(%i): invalid decimal-digit: \"%c\"\n",
 			 line, *from );
 		return false;
@@ -562,7 +584,8 @@ static bool ReadEnum( const char *from, unsigned int line, int *to,
     int index;
 
     for( index = 0; enumList[index].id != NULL; ++index )
-	if( !strcasecmp( enumList[index].id, from )) {
+	if( !strcasecmp( enumList[index].id, from ))
+	{
 	    *to = enumList[index].value;
 
 	    TRACE( "ReadEnum read \"%i\"\n", *to );

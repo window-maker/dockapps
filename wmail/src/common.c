@@ -88,17 +88,17 @@ char *MakePathName( const char *dir, const char *file )
 
     if( dir[dir_len - 1] != '/' )
     {
-        len = dir_len + 1 + file_len + 1;
-        fmt = "%s/%s";
+	len = dir_len + 1 + file_len + 1;
+	fmt = "%s/%s";
     }
     else
     {
-        len = dir_len + file_len + 1;
-        fmt = "%s%s";
+	len = dir_len + file_len + 1;
+	fmt = "%s%s";
     }
 
     fullName = malloc( len );
     if( fullName != NULL )
-        snprintf( fullName, len, fmt, dir, file );
+	snprintf( fullName, len, fmt, dir, file );
     return fullName;
 }
