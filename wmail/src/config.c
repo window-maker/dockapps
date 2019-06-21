@@ -124,14 +124,16 @@ static bool Tokenize( const char *line, const char **id, const char **value )
 	{
 	    token2 = strchr( token1, '=' );
 	    if( token2 != NULL )
+	    {
 		token2 = SkipWhiteSpaces( token2 + 1 );
 
-	    if( !IsWhiteSpace( token2 ))
-	    {
-		*id = token1;
-		*value = token2;
+		if( !IsWhiteSpace( token2 ))
+		{
+		    *id = token1;
+		    *value = token2;
 
-		return true;
+		    return true;
+		}
 	    }
 	}
     }
