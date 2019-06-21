@@ -1091,7 +1091,7 @@ static void ParseMBoxFile( struct stat *fileStat )
 	    char *addr = buf + sizeof "From:";
 
 	    if( SkipSender( addr ))
-		goto NEXTMAIL;
+		continue;
 
 	    char *name;
 	    if(( name = ParseFromField( addr )) == NULL )
@@ -1112,8 +1112,6 @@ static void ParseMBoxFile( struct stat *fileStat )
 	    RemoveLastName();
 	    --numMails;
 	}
-NEXTMAIL:
-	;
     }
 
     fclose( f );
