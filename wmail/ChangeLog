@@ -1,3 +1,53 @@
+2019-06-21  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/ChangeLog, wmail/README, wmail/configure.ac,
+	wmail/wmailrc-sample: wmail: updated change-log and bumped to 2.3.
+
+2019-06-21  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: fixed use-after-free.  The CleanupNames() function removed the sender-addresses for deleted
+	mails, but did not set the namesChanged flag to true.  This meant
+	that if the ticker was displaying the address of a mail which had
+	been deleted it would continue doing so after the address had been
+	freed.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/config.c, wmail/src/wmail.c: wmail: handle allocation
+	failures.  Check the return values of some invocations of malloc and strdup and
+	ensure that any NULL's are handled correctly.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/config.c: wmail: fixed possible NULL-pointer dereference
+	in config-parser.  The code calling Tokenize assumed that if it returned true, value
+	would not be NULL.  However, in the case of a line containing no
+	equals sign:   blah that would not be the case.  Changed Tokenize to return false unless
+	id and value are both defined.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: fixed NULL-pointer dereference if
+	opendir(3) fails.  Code was:   if (( dir = opendir( ... )))   {     // ...    }   closedir( dir ); // dir may be NULL Moved closedir(3) inside if-block.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/wmail.c: wmail: use continue instead of goto.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/common.c, wmail/src/config.c, wmail/src/wmail.c: wmail:
+	formatting improvements.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/src/common.h: wmail: debug macro fixes.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmail/README, wmail/src/config.c, wmail/wmailrc-sample: wmail:
+	fixed config typo.  The old spelling is still supported.
+
 2019-06-12  Jeremy Sowden <jeremy@azazel.net>
 
 	* wmail/ChangeLog, wmail/README, wmail/configure.ac,
