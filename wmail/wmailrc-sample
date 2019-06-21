@@ -40,7 +40,7 @@ Mail.ShowOnlyNew = Yes
 
 # mail-check interval in seconds
 # integer value, default: 1
-Mail.CheckIntervall = 5
+Mail.CheckInterval = 5
 
 # setup the ticker-line: allowed values are: Address | NickName | FamilyName
 # enum value, default: Address

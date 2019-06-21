@@ -62,9 +62,9 @@ Description:
  rc-file statement: Mail.ShowOnlyNew = Yes|No
  default value    : No
 
- item             : mail check intervall (sec)
+ item             : mail check interval (sec)
  cmd-line option  : -i <num>
- rc-file statement: Mail.CheckIntervall = <num>
+ rc-file statement: Mail.CheckInterval = <num>
  default value    : 1
 
  item             : consider status-field (not used when in maildir mode)

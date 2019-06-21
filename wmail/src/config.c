@@ -57,7 +57,7 @@
 // Window.Button.Command = "string"
 // Mail.MailBox = "string"
 // Mail.ChecksumFile = "string"
-// Mail.CheckIntervall = number
+// Mail.CheckInterval = number
 // Mail.ShowOnlyNew = On|Off
 // Mail.SkipSender = "string"
 // Mail.OnNew.Command = "string"
@@ -314,7 +314,7 @@ void ReadConfigFile( const char *configFile, bool resetConfigStrings )
 		continue;
 	    }
 
-	    if( PREFIX_MATCHES( id, "Mail.CheckIntervall", false ))
+	    if( PREFIX_MATCHES( id, "Mail.CheckInterval", false ))
 	    {
 		if( !( config.givenOptions & CL_CHECKINTERVAL ))
 		    ReadInt( value, line, &config.checkInterval );
