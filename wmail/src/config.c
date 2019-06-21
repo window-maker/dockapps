@@ -460,8 +460,11 @@ static bool ReadString( const char *from, unsigned int line, char **to )
 	    char *to_c;
 
 	    // disposing of "to" is up to the caller...
-	    *to = malloc( trailingQuote - from + 1 );
-	    to_c = *to;
+	    to_c = malloc( trailingQuote - from + 1 );
+	    if( to_c == NULL )
+		return false;
+
+	    *to = to_c;
 
 	    for( c = from; c != trailingQuote; ++c )
 	    {
@@ -502,8 +505,8 @@ static bool ReadString( const char *from, unsigned int line, char **to )
 	    }
 
 	    *to_c = '\0';
-	    TRACE( "ReadString read \"%s\"\n", *to );
 
+	    TRACE( "ReadString read \"%s\"\n", *to );
 	    return true;
 	}
     }

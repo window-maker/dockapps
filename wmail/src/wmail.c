@@ -316,7 +316,7 @@ static DAProgramOption options[] =
 ///////////////////////////////////////////////////////////////////////////////
 // prototypes
 
-static void PreparePixmaps( bool freeThemFirst );
+static int  PreparePixmaps( bool freeMem );
 static void ExitHandler( int sig );
 static void TimedOut( void );
 static void CheckTimeOut( bool force );
@@ -330,14 +330,14 @@ static void ParseMaildirFile( const char *fileName, unsigned long checksum,
 			      struct stat *fileStat, bool isNewMail );
 static char *ParseFromField( char *buf );
 static bool SkipSender( char *address );
-static void InsertName( char *name, unsigned long checksum, flag_t flag );
+static int  InsertName( char *name, unsigned long checksum, flag_t flag );
 static void RemoveLastName( void );
 static void ClearAllNames( void );
 static void DrawTickerX11Font( void );
 static void DrawTickerBuildinFont( void );
 static void ButtonPressed( int button, int state, int x, int y );
 static void ButtonReleased( int button, int state, int x, int y );
-static char *XpmColorLine( const char *colorName, char *colorLine,
+static int  XpmColorLine( const char *colorName, char **colorLine,
 			   bool disposeLine );
 static void ReadChecksumFile( void );
 static void WriteChecksumFile( bool writeAll );
@@ -476,7 +476,11 @@ int main( int argc, char **argv )
     DAInitialize( config.display, "wmail", 64, 64, argc, argv );
 
     outPixmap = DAMakePixmap();
-    PreparePixmaps( false );
+    if( PreparePixmaps( false ) < 0 )
+    {
+	WARNING( "Cannot allocate color.\n" );
+	exit( EXIT_FAILURE );
+    }
 
     if( sigaction( SIGINT, &sa, NULL ) == -1 )
     {
@@ -504,10 +508,16 @@ int main( int argc, char **argv )
     return 0;
 }
 
-static void PreparePixmaps( bool freeMem )
+static int PreparePixmaps( bool freeMem )
 {
     // simple recoloring of the raw xpms befor creating Pixmaps of them
     // this works as long as you don't "touch" the images...
+
+    bool freeSymColor = freeMem && ( config.colorsUsed & SYM_COLOR );
+    bool freeFntColor = freeMem && ( config.colorsUsed & FNT_COLOR );
+    bool freeBckColor = freeMem && ( config.colorsUsed & BCK_COLOR );
+    bool freeOffColor = freeMem && ( config.colorsUsed & OFF_COLOR );
+    bool freeBgrColor = freeMem && ( config.colorsUsed & BGR_COLOR );
 
 #if DA_VERSION < 20030126
     unsigned dummy;
@@ -522,14 +532,16 @@ static void PreparePixmaps( bool freeMem )
      */
     if( config.symbolColor != NULL )
     {
-	symbols_xpm[2] = XpmColorLine( config.symbolColor, symbols_xpm[2],
-				       freeMem && ( config.colorsUsed & SYM_COLOR ));
+	if( XpmColorLine( config.symbolColor, &symbols_xpm[2], freeSymColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= SYM_COLOR;
     }
     else
     {
-	symbols_xpm[2] = XpmColorLine( "#20B2AA", symbols_xpm[2],
-				       freeMem && ( config.colorsUsed & SYM_COLOR ));
+	if( XpmColorLine( "#20B2AA", &symbols_xpm[2], freeSymColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= SYM_COLOR;
     }
 
@@ -538,18 +550,22 @@ static void PreparePixmaps( bool freeMem )
      */
     if( config.fontColor != NULL )
     {
-	chars_xpm[3] = XpmColorLine( config.fontColor, chars_xpm[3],
-				     freeMem && ( config.colorsUsed & FNT_COLOR ));
-	numbers_xpm[3] = XpmColorLine( config.fontColor, numbers_xpm[3],
-				       freeMem && ( config.colorsUsed & FNT_COLOR ));
+	if( XpmColorLine( config.fontColor, &chars_xpm[3], freeFntColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( config.fontColor, &numbers_xpm[3], freeFntColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= FNT_COLOR;
     }
     else
     {
-	chars_xpm[3] = XpmColorLine( "#D3D3D3", chars_xpm[3],
-				     freeMem && ( config.colorsUsed & FNT_COLOR ));
-	numbers_xpm[3] = XpmColorLine( "#D3D3D3", numbers_xpm[3],
-				       freeMem && ( config.colorsUsed & FNT_COLOR ));
+	if( XpmColorLine( "#D3D3D3", &chars_xpm[3], freeFntColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( "#D3D3D3", &numbers_xpm[3], freeFntColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= FNT_COLOR;
     }
 
@@ -558,26 +574,34 @@ static void PreparePixmaps( bool freeMem )
      */
     if( config.backColor != NULL )
     {
-	main_xpm[3] = XpmColorLine( config.backColor, main_xpm[3],
-				    freeMem && ( config.colorsUsed & BCK_COLOR ));
-	symbols_xpm[3] = XpmColorLine( config.backColor, symbols_xpm[3],
-				       freeMem && ( config.colorsUsed & BCK_COLOR ));
-	chars_xpm[2] = XpmColorLine( config.backColor, chars_xpm[2],
-				     freeMem && ( config.colorsUsed & BCK_COLOR ));
-	numbers_xpm[2] = XpmColorLine( config.backColor, numbers_xpm[2],
-				       freeMem && ( config.colorsUsed & BCK_COLOR ));
+	if( XpmColorLine( config.backColor, &main_xpm[3], freeBckColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( config.backColor, &symbols_xpm[3], freeBckColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( config.backColor, &chars_xpm[2], freeBckColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( config.backColor, &numbers_xpm[2], freeBckColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= BCK_COLOR;
     }
     else
     {
-	main_xpm[3] = XpmColorLine( "#282828", main_xpm[3],
-				    freeMem && ( config.colorsUsed & BCK_COLOR ));
-	symbols_xpm[3] = XpmColorLine( "#282828", symbols_xpm[3],
-				       freeMem && ( config.colorsUsed & BCK_COLOR ));
-	chars_xpm[2] = XpmColorLine( "#282828", chars_xpm[2],
-				     freeMem && ( config.colorsUsed & BCK_COLOR ));
-	numbers_xpm[2] = XpmColorLine( "#282828", numbers_xpm[2],
-				       freeMem && ( config.colorsUsed & BCK_COLOR ));
+	if( XpmColorLine( "#282828", &main_xpm[3], freeBckColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( "#282828", &symbols_xpm[3], freeBckColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( "#282828", &chars_xpm[2], freeBckColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( "#282828", &numbers_xpm[2], freeBckColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= BCK_COLOR;
     }
 
@@ -586,18 +610,22 @@ static void PreparePixmaps( bool freeMem )
      */
     if( config.offlightColor != NULL )
     {
-	main_xpm[2] = XpmColorLine( config.offlightColor, main_xpm[2],
-				    freeMem && ( config.colorsUsed & OFF_COLOR ));
-	numbers_xpm[4] = XpmColorLine( config.offlightColor, numbers_xpm[4],
-				       freeMem && ( config.colorsUsed & OFF_COLOR ));
+	if( XpmColorLine( config.offlightColor, &main_xpm[2], freeOffColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( config.offlightColor, &numbers_xpm[4], freeOffColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= OFF_COLOR;
     }
     else
     {
-	main_xpm[2] = XpmColorLine( "#000000", main_xpm[2],
-				    freeMem && ( config.colorsUsed & OFF_COLOR ));
-	numbers_xpm[4] = XpmColorLine( "#000000", numbers_xpm[4],
-				       freeMem && ( config.colorsUsed & OFF_COLOR ));
+	if( XpmColorLine( "#000000", &main_xpm[2], freeOffColor) < 0 )
+	    return -1;
+
+	if( XpmColorLine( "#000000", &numbers_xpm[4], freeOffColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= OFF_COLOR;
     }
 
@@ -606,8 +634,9 @@ static void PreparePixmaps( bool freeMem )
      */
     if( config.backgroundColor != NULL )
     {
-	main_xpm[1] = XpmColorLine( config.backgroundColor, main_xpm[1],
-				    freeMem && ( config.colorsUsed & BGR_COLOR ));
+	if( XpmColorLine( config.backgroundColor, &main_xpm[1], freeBgrColor) < 0 )
+	    return -1;
+
 	config.colorsUsed |= BGR_COLOR;
     }
 
@@ -666,6 +695,8 @@ static void PreparePixmaps( bool freeMem )
 	DASetShape( None );
     else
 	DASetShape( mainPixmap_mask );
+
+    return 0;
 }
 
 static void MarkName( unsigned long checksum )
@@ -1099,7 +1130,11 @@ static void ParseMBoxFile( struct stat *fileStat )
 		WARNING( "Could not parse From field\n" );
 		break;
 	    }
-	    InsertName( name, checksum, FLAG_INITIAL );
+	    if ( InsertName( name, checksum, FLAG_INITIAL ) < 0 )
+	    {
+		WARNING( "Could not allocate name\n" );
+		break;
+	    }
 
 	    ++numMails;
 	    fromFound = 0;
@@ -1152,7 +1187,12 @@ static void ParseMaildirFile( const char *fileName, unsigned long checksum,
 		WARNING( "Could not parse From field\n" );
 		break;
 	    }
-	    InsertName( name, checksum, isNewMail ? FLAG_INITIAL : FLAG_READ );
+	    if ( InsertName( name, checksum,
+			     isNewMail ? FLAG_INITIAL : FLAG_READ ) < 0 )
+	    {
+		WARNING( "Could not allocate name\n" );
+		break;
+	    }
 
 	    //++numMails;
 	}
@@ -1388,7 +1428,7 @@ static bool SkipSender( char *address )
     return false;
 }
 
-static void InsertName( char *name, unsigned long checksum, flag_t flag )
+static int InsertName( char *name, unsigned long checksum, flag_t flag )
 {
     name_t *item;
 
@@ -1396,10 +1436,10 @@ static void InsertName( char *name, unsigned long checksum, flag_t flag )
     if(( item = malloc( sizeof( name_t ))) == NULL )
     {
 	free( name );
-	return;
+	return -1;
     }
 
-    item->name = name; /*strdup( name );*/
+    item->name = name;
     item->checksum = checksum;
     item->flag = flag;
     item->visited = true;
@@ -1407,6 +1447,7 @@ static void InsertName( char *name, unsigned long checksum, flag_t flag )
     names = item;
 
     namesChanged = true;
+    return 0;
 }
 
 static void RemoveLastName( void )
@@ -1605,29 +1646,42 @@ static void GetHexColorString( const char *colorName, char *xpmLine )
 	WARNING( "unknown colorname: \"%s\"\n", colorName );
 }
 
-static char *XpmColorLine( const char *colorName, char *colorLine,
+static int XpmColorLine( const char *colorName, char **colorLine,
 			   bool disposeLine )
 {
-    char *newLine = strdup( colorLine );
-    char *from = strrchr( newLine, '#' );
+    char *newLine, *from;
 
+    newLine = strdup( *colorLine );
+    if ( newLine == NULL )
+	return -1;
+
+    from = strrchr( newLine, '#' );
     if( from == NULL &&
-	strcasecmp( &colorLine[ strlen( colorLine ) - 4 ], "none" ) == 0 )
+	strcasecmp( &(*colorLine)[ strlen( *colorLine ) - 4 ], "none" ) == 0 )
     {
-	// if no # found, it should be a None-color line
+	/*
+	 * if no # found, it should be a None-color line
+	 */
 	free( newLine );
 	newLine = malloc( 12 );
-	strcpy( newLine, " \tc #" );
-	newLine[11] = '\0';
-	from = newLine + 4;
+	if ( newLine != NULL )
+	{
+	    strcpy( newLine, " \tc #" );
+	    newLine[11] = '\0';
+	    from = newLine + 4;
+	}
     }
 
+    if( newLine == NULL)
+	return -1;
+
     if( disposeLine )
-	free( colorLine );
+	free( *colorLine );
 
-    GetHexColorString( colorName, from+1 );
+    GetHexColorString( colorName, from + 1 );
 
-    return newLine;
+    *colorLine = newLine;
+    return 0;
 }
 
 static void UpdateConfiguration( void )
@@ -1651,7 +1705,8 @@ static void UpdateConfiguration( void )
 
     TRACE( "mailbox is of type %s\n", isMaildir ? "maildir" : "mbox" );
 
-    PreparePixmaps( true );
+    if( PreparePixmaps( true ) < 0 )
+	WARNING( "Cannot allocate color.\n" );
 
     DASetTimeout( 1000 / config.fps );
 }
