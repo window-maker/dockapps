@@ -1730,6 +1730,8 @@ static void CleanupNames( void )
 
 	    free( name->name );
 	    free( name );
+
+	    namesChanged = true;
 	}
 	else
 	{
