@@ -88,7 +88,7 @@ typedef struct _mbox_t {
 			/* using the msglst feature, fetch the headers
 			   to have them on hand */
 			unsigned int wantCacheHeaders:1;
-			unsigned char password_len;	/* memfrob may shorten passwords */
+			size_t password_len;	/* memfrob may shorten passwords */
 		} pop_imap;
 	} u;
 

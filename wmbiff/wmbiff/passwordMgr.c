@@ -51,7 +51,7 @@ typedef struct password_binding_struct {
 	char user[BUF_SMALL];
 	char server[BUF_BIG];
 	char password[BUF_SMALL];	/* may be frobnicated */
-	unsigned char password_len;	/* frobnicated *'s are nulls */
+	size_t password_len;	/* frobnicated *'s are nulls */
 } *password_binding;
 
 static password_binding pass_list = NULL;
@@ -113,8 +113,7 @@ static void
 get_password_from_keychain(Pop3 pc, const char *username,
 						   const char *servername,
 						   /*@out@ */ char *password,
-						   /*@out@ */
-						   unsigned char *password_len)
+						   /*@out@ */ size_t *password_len)
 {
 	SecKeychainRef kc;
 	OSStatus rc;
@@ -145,7 +144,7 @@ get_password_from_keychain(Pop3 pc, const char *username,
 		*password_len = pwdlen;
 	} else {
 		DM(pc, DEBUG_ERROR,
-		   "passmgr: warning: your password appears longer (%lu) than expected (%d)\n",
+		   "passmgr: warning: your password appears longer (%zu) than expected (%zu)\n",
 		   strlen(secpwd), *password_len - 1);
 	}
 	rc = SecKeychainItemFreeContent(NULL, secpwd);
@@ -159,7 +158,7 @@ get_password_from_command(Pop3 pc, const char *username,
 						  const char *servername,
 						  /*@out@ */ char *password,
 						  /*@out@ */
-						  unsigned char *password_len)
+						  size_t *password_len)
 {
 	password[*password_len - 1] = '\0';
 	password[0] = '\0';
@@ -195,8 +194,8 @@ get_password_from_command(Pop3 pc, const char *username,
 		strncpy(password, password_ptr, *password_len);
 		if (password[*password_len - 1] != '\0') {
 			DM(pc, DEBUG_ERROR,
-			   "passmgr: warning: your password appears longer (%lu) than expected (%d)\n",
-			   (unsigned long) strlen(password_ptr), *password_len - 1);
+			   "passmgr: warning: your password appears longer (%zu) than expected (%zu)\n",
+			   strlen(password_ptr), *password_len - 1);
 		}
 		free(password_ptr);
 		password[*password_len - 1] = '\0';
@@ -230,7 +229,7 @@ char *passwordFor(const char *username,
 			if (bFlushCache == 0) {
 				char *ret = strdup(p->password);
 #ifdef HAVE_MEMFROB
-				unsigned short ret_len = p->password_len;
+				size_t ret_len = p->password_len;
 				DEFROB(ret);
 #endif
 				return (ret);

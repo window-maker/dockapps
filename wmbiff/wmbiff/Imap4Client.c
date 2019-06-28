@@ -579,8 +579,8 @@ int imap4Create( /*@notnull@ */ Pop3 pc, const char *const str)
 	free(unaliased_str);
 
 	IMAP_DM(pc, DEBUG_INFO, "userName= '%s'\n", PCU.userName);
-	IMAP_DM(pc, DEBUG_INFO, "password is %d characters long\n",
-			(int) PCU.password_len);
+	IMAP_DM(pc, DEBUG_INFO, "password is %zu characters long\n",
+			PCU.password_len);
 	IMAP_DM(pc, DEBUG_INFO, "serverName= '%s'\n", PCU.serverName);
 	IMAP_DM(pc, DEBUG_INFO, "serverPath= '%s'\n", pc->path);
 	IMAP_DM(pc, DEBUG_INFO, "serverPort= '%d'\n", PCU.serverPort);
