@@ -52,8 +52,8 @@ void regulo_strcpy_skip1(void *dest, const char *source)
 /* deprecated as unportable */
 
 int
-regulo_match(const char *regex,
-			 const char *string, const struct regulo *instructions)
+regulo_match(const char *regex, const char *string,
+	     struct regulo *instructions)
 {
 	struct re_registers regs;
 	int ret;
@@ -108,8 +108,8 @@ int compile_and_match_regex_posix(const char *regex, const char *str,	/*@out@ */
 
 
 int
-regulo_match(const char *regex,
-			 const char *string, const struct regulo *instructions)
+regulo_match(const char *regex, const char *string,
+	     struct regulo *instructions)
 {
 	regmatch_t regs[20];
 	int ret;

@@ -13,5 +13,5 @@ struct regulo {
 	void (*match_handler) (void *dest, const char *source);
 };
 
-int regulo_match(const char *regex,
-				 const char *string, const struct regulo *instructions);
+int regulo_match(const char *regex, const char *string,
+		 struct regulo *instructions);
