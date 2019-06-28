@@ -501,13 +501,19 @@ int imap4Create( /*@notnull@ */ Pop3 pc, const char *const str)
 		NULL
 	};
 	char *unaliased_str;
+	/*
+	 * regulo_atoi expects a pointer-to-int and pop_imap.serverPort is a
+	 * uint16_t, so &pop_imap.serverPort is not compatible and we need to use an
+	 * int temporary variable to avoid endianness problems.
+	 */
+	int serverPort;
 
 	struct regulo regulos[] = {
 		{1, PCU.userName, regulo_strcpy},
 		{2, PCU.password, regulo_strcpy},
 		{3, PCU.serverName, regulo_strcpy},
 		{4, pc->path, regulo_strcpy_skip1},
-		{7, &PCU.serverPort, regulo_atoi},
+		{7, &serverPort, regulo_atoi},
 		{9, PCU.authList, regulo_strcpy_tolower},
 		{0, NULL, NULL}
 	};
@@ -536,7 +542,7 @@ int imap4Create( /*@notnull@ */ Pop3 pc, const char *const str)
 	}
 
 	/* defaults */
-	PCU.serverPort = (PCU.dossl != 0) ? 993 : 143;
+	serverPort = (PCU.dossl != 0) ? 993 : 143;
 	PCU.authList[0] = '\0';
 
 	/* argh, str and pc->path are aliases, so we can't just write the default
@@ -558,6 +564,8 @@ int imap4Create( /*@notnull@ */ Pop3 pc, const char *const str)
 				"  of your mail server.\n", unaliased_str, matchedchars);
 		return -1;
 	}
+
+	PCU.serverPort = serverPort;
 
 	PCU.password_len = strlen(PCU.password);
 	if (PCU.password[0] == '\0') {
