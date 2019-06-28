@@ -51,9 +51,9 @@ static int sanity_check_hostname(const char *hostname)
 static int ipv4_sock_connect(struct in_addr *address, uint16_t port)
 {
 	struct sockaddr_in addr = {
-		.sin_family      = AF_INET,
-		.sin_addr.s_addr = *(u_long *) address,
-		.sin_port        = htons(port)
+		.sin_family = AF_INET,
+		.sin_addr   = *address,
+		.sin_port   = htons(port)
 	};
 	struct sockaddr *addrp = (struct sockaddr *) &addr;
 	socklen_t addrlen = sizeof addr;
