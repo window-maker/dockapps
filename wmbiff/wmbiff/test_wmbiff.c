@@ -383,10 +383,10 @@ int test_sock_connect(void)
 		perror("listen");
 		return 1;
 	}
-	if (sock_connect("127.0.0.1", htons(addr.sin_port)) < 0) {
+	if (sock_connect("127.0.0.1", ntohs(addr.sin_port)) < 0) {
 		return 1;
 	}
-	if (sock_connect("localhost", htons(addr.sin_port)) < 0) {
+	if (sock_connect("localhost", ntohs(addr.sin_port)) < 0) {
 		return 1;
 	}
 	return 0;
