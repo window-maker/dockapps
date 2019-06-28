@@ -64,7 +64,7 @@ static int ipv4_sock_connect(struct in_addr *address, uint16_t port)
 	addr.sin_family = AF_INET;
 	addr.sin_addr.s_addr = *(u_long *) address;
 	addr.sin_port = htons(port);
-	i = connect(fd, (struct sockaddr *) &addr, sizeof(struct sockaddr));
+	i = connect(fd, (struct sockaddr *) &addr, sizeof addr);
 	if (i == -1) {
 		int saved_errno = errno;
 		perror("Error connecting");
