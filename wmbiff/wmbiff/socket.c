@@ -50,21 +50,25 @@ static int sanity_check_hostname(const char *hostname)
 
 static int ipv4_sock_connect(struct in_addr *address, uint16_t port)
 {
-	struct sockaddr_in addr;
+	struct sockaddr_in addr = {
+		.sin_family      = AF_INET,
+		.sin_addr.s_addr = *(u_long *) address,
+		.sin_port        = htons(port)
+	};
+	struct sockaddr *addrp = (struct sockaddr *) &addr;
+	socklen_t addrlen = sizeof addr;
 	int fd, i;
+
 	fd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (fd == -1) {
 		perror("Error opening socket");
 		printf("socket() failed.\n");
 		return (-1);
 	};
-       if (fcntl(fd, F_SETFD, FD_CLOEXEC) == -1)
-               perror("fcntl(FD_CLOEXEC)");
+    if (fcntl(fd, F_SETFD, FD_CLOEXEC) == -1)
+		perror("fcntl(FD_CLOEXEC)");
 
-	addr.sin_family = AF_INET;
-	addr.sin_addr.s_addr = *(u_long *) address;
-	addr.sin_port = htons(port);
-	i = connect(fd, (struct sockaddr *) &addr, sizeof addr);
+	i = connect(fd, addrp, addrlen);
 	if (i == -1) {
 		int saved_errno = errno;
 		perror("Error connecting");

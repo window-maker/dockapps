@@ -364,21 +364,21 @@ int test_charutil(void)
 #include <sys/socket.h>
 int test_sock_connect(void)
 {
-	struct sockaddr_in addr;
-	int s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	socklen_t addrlen = sizeof(struct sockaddr_in);
+	struct sockaddr_in addr = { .sin_family = AF_INET };
+	struct sockaddr *addrp = (struct sockaddr *) &addr;
+	socklen_t addrlen = sizeof addr;
+	int s;
+
+	s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (s < 0) {
 		perror("socket");
 		return 1;
 	}
-	addr.sin_family = AF_INET;
-	addr.sin_addr.s_addr = 0;
-	addr.sin_port = 0;
-	if (bind(s, (const struct sockaddr *)&addr, sizeof(struct sockaddr_in)) < 0) {
+	if (bind(s, addrp, addrlen) < 0) {
 		perror("bind");
 		return 1;
 	}
-	getsockname(s, (struct sockaddr *)&addr, &addrlen);
+	getsockname(s, addrp, &addrlen);
 	if (listen(s, 5) < 0) {
 		perror("listen");
 		return 1;
