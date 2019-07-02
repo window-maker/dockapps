@@ -7,7 +7,6 @@ dnl  installation prefix
 dnl  version
 
 AC_INIT(WMBiff, 0.4.33, wmaker-dev@googlegroups.com, wmbiff)
-AC_CONFIG_AUX_DIR(autoconf)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADER([config.h])
 dnl make sure autoheader finds version, implicitly defined above.
@@ -180,7 +179,7 @@ AC_DEFINE_UNQUOTED(DEFAULT_SKIN_PATH,
                    "$SKINDIR:/usr/share/wmbiff/skins:/usr/local/share/wmbiff/skins:.", [Path to use when finding skins (modified pixmaps)] )
 
 dnl We're done.
-AC_CONFIG_FILES(Makefile wmbiff/Makefile wmgeneral/Makefile wmbiff/wmbiffrc.5 autoconf/Makefile scripts/Makefile)
+AC_CONFIG_FILES(Makefile wmbiff/Makefile wmgeneral/Makefile wmbiff/wmbiffrc.5 scripts/Makefile)
 AC_OUTPUT
 dnl remind not to write the file.
 chmod 0444 wmbiff/wmbiffrc.5
