@@ -882,7 +882,6 @@ static int periodic_mail_check(void)
 	}
 
 	if (NeedRedraw) {
-		NeedRedraw = 0;
 		RedrawWindow();
 	}
 
