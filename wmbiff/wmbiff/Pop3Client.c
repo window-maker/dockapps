@@ -74,14 +74,11 @@ struct connection_state *pop3Login(Pop3 *pc)
 {
 	int fd;
 	char buf[BUF_SIZE];
-	char apop_str[BUF_SIZE];
+	char apop_str[BUF_SIZE] = "";
 	char *ptr1, *ptr2;
 	struct authentication_method *a;
 	struct connection_state *scs;
 	char *connection_name;
-
-
-	apop_str[0] = '\0';			/* if defined, server supports apop */
 
 	if ((fd = sock_connect(PCU.serverName, PCU.serverPort)) == -1) {
 		POP_DM(pc, DEBUG_ERROR, "Not Connected To Server '%s:%d'\n",
@@ -111,13 +108,11 @@ struct connection_state *pop3Login(Pop3 *pc)
 			ptr2 = ptr1;
 		} else if (*ptr1 == '<') {
 			if (ptr2) {
-				*(ptr2 + 1) = 0;
-				strncpy(apop_str, ptr1, BUF_SIZE);
+				memcpy(apop_str, ptr1, 1 + ptr2 - ptr1);
 			}
 			break;
 		}
 	}
-
 
 	/* try each authentication method in turn. */
 	for (a = auth_methods; a->name != NULL; a++) {
