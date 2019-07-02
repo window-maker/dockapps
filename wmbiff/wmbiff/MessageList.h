@@ -8,6 +8,6 @@ struct msglst {
 	unsigned int in_use:1;
 };
 
-void msglst_show(Pop3 pc, int x, int y);
+void msglst_show(Pop3 *pc, int x, int y);
 void msglst_hide(void);
 void msglst_redraw(void);

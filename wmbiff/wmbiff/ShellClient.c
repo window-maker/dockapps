@@ -63,7 +63,7 @@ FILE *kind_popen(const char *command, const char *type)
 /* returns as a mailcheck function does: -1 on fail, 0 on success */
 static int kind_pclose( /*@only@ */ FILE * F,
 					   const char *command,
-					   /*@null@ */ Pop3 pc)
+					   /*@null@ */ Pop3 *pc)
 {
 	int exit_status = pclose(F);
 
@@ -87,7 +87,7 @@ static int kind_pclose( /*@only@ */ FILE * F,
 	return (exit_status);
 }
 
-int grabCommandOutput(Pop3 pc, const char *command,	/*@out@ */
+int grabCommandOutput(Pop3 *pc, const char *command,	/*@out@ */
 					  char **output, /*@out@ *//*@null@ */ char **details)
 {
 	FILE *F;
@@ -121,7 +121,7 @@ int grabCommandOutput(Pop3 pc, const char *command,	/*@out@ */
 
 /* returns null on failure */
 /*@null@*/
-char *backtickExpand(Pop3 pc, const char *path)
+char *backtickExpand(Pop3 *pc, const char *path)
 {
 	char bigbuffer[1024];
 	const char *tickstart;
@@ -152,7 +152,7 @@ char *backtickExpand(Pop3 pc, const char *path)
 	return (strdup_ordie(bigbuffer));
 }
 
-int shellCmdCheck(Pop3 pc)
+int shellCmdCheck(Pop3 *pc)
 {
 	int count_status = 0;
 	char *commandOutput;
@@ -220,7 +220,7 @@ int shellCmdCheck(Pop3 pc)
 	return (0);
 }
 
-struct msglst *shell_getHeaders( /*@notnull@ */ Pop3 pc)
+struct msglst *shell_getHeaders( /*@notnull@ */ Pop3 *pc)
 {
 	struct msglst *message_list = NULL;
 
@@ -247,7 +247,7 @@ struct msglst *shell_getHeaders( /*@notnull@ */ Pop3 pc)
 }
 
 void
-shell_releaseHeaders(Pop3 pc __attribute__ ((unused)), struct msglst *h)
+shell_releaseHeaders(Pop3 *pc __attribute__((unused)), struct msglst *h)
 {
 	for (; h != NULL;) {
 		struct msglst *n = h->next;
@@ -256,7 +256,7 @@ shell_releaseHeaders(Pop3 pc __attribute__ ((unused)), struct msglst *h)
 	}
 }
 
-int shellCreate( /*@notnull@ */ Pop3 pc, const char *str)
+int shellCreate( /*@notnull@ */ Pop3 *pc, const char *str)
 {
 	/* SHELL format: shell:::/path/to/script */
 	const char *reserved1, *reserved2, *commandline;

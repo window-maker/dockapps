@@ -55,16 +55,16 @@ static struct fdmap_struct {
 	/*@owned@ */ struct connection_state *cs;
 } fdmap[FDMAP_SIZE];
 
-static void ask_user_for_password( /*@notnull@ */ Pop3 pc,
+static void ask_user_for_password( /*@notnull@ */ Pop3 *pc,
 								  int bFlushCache);
 
 /* authentication callbacks */
 #ifdef HAVE_GCRYPT_H
-static int authenticate_md5( /*@notnull@ */ Pop3 pc,
+static int authenticate_md5( /*@notnull@ */ Pop3 *pc,
 							struct connection_state *scs,
 							const char *capabilities);
 #endif
-static int authenticate_plaintext( /*@notnull@ */ Pop3 pc,
+static int authenticate_plaintext( /*@notnull@ */ Pop3 *pc,
 								  struct connection_state *scs,
 								  const char *capabilities);
 
@@ -73,9 +73,9 @@ static int authenticate_plaintext( /*@notnull@ */ Pop3 pc,
 static struct imap_authentication_method {
 	const char *name;
 	/* callback returns 1 if successful, 0 if failed */
-	int (*auth_callback) ( /*@notnull@ */ Pop3 pc,
-						  struct connection_state * scs,
-						  const char *capabilities);
+	int (*auth_callback) ( /*@notnull@ */ Pop3 *pc,
+						 struct connection_state * scs,
+						 const char *capabilities);
 } auth_methods[] = {
 	{
 #ifdef HAVE_GCRYPT_H
@@ -89,7 +89,7 @@ static struct imap_authentication_method {
 /* recover a socket from the connection cache */
 /*@null@*/
 /*@dependent@*/
-static struct connection_state *state_for_pcu(Pop3 pc)
+static struct connection_state *state_for_pcu(Pop3 *pc)
 {
 	char *connection_id;
 	struct connection_state *retval = NULL;
@@ -108,7 +108,7 @@ static struct connection_state *state_for_pcu(Pop3 pc)
 }
 
 /* bind to the connection cache */
-static void bind_state_to_pcu(Pop3 pc,
+static void bind_state_to_pcu(Pop3 *pc,
 							  /*@owned@ */ struct connection_state *scs)
 {
 	char *connection_id;
@@ -156,7 +156,7 @@ struct connection_state *unbind(
 /* creates a connection to the server, if a matching one doesn't exist. */
 /* *always* returns null, just declared this wasy to match other protocols. */
 /*@null@*/
-FILE *imap_open(Pop3 pc)
+FILE *imap_open(Pop3 *pc)
 {
 	static int complained_already;	/* we have to succeed once before
 									   complaining again about failure */
@@ -287,9 +287,9 @@ FILE *imap_open(Pop3 pc)
 
 }
 
-void imap_cacheHeaders( /*@notnull@ */ Pop3 pc);
+void imap_cacheHeaders( /*@notnull@ */ Pop3 *pc);
 
-int imap_checkmail( /*@notnull@ */ Pop3 pc)
+int imap_checkmail( /*@notnull@ */ Pop3 *pc)
 {
 	/* recover connection state from the cache */
 	struct connection_state *scs = state_for_pcu(pc);
@@ -358,7 +358,7 @@ int imap_checkmail( /*@notnull@ */ Pop3 pc)
 }
 
 void
-imap_releaseHeaders(Pop3 pc __attribute__ ((unused)), struct msglst *h)
+imap_releaseHeaders(Pop3 *pc __attribute__((unused)), struct msglst *h)
 {
 	assert(h != NULL);
 	/* allow the list to be released next time around */
@@ -374,7 +374,7 @@ imap_releaseHeaders(Pop3 pc __attribute__ ((unused)), struct msglst *h)
 	}
 }
 
-void imap_cacheHeaders( /*@notnull@ */ Pop3 pc)
+void imap_cacheHeaders( /*@notnull@ */ Pop3 *pc)
 {
 	struct connection_state *scs = state_for_pcu(pc);
 	char *msgid;
@@ -479,7 +479,7 @@ void imap_cacheHeaders( /*@notnull@ */ Pop3 pc)
 
 /* a client is asking for the headers, hand em a reference, increase the
    one-bit reference counter */
-struct msglst *imap_getHeaders( /*@notnull@ */ Pop3 pc)
+struct msglst *imap_getHeaders( /*@notnull@ */ Pop3 *pc)
 {
 	if (pc->headerCache == NULL)
 		imap_cacheHeaders(pc);
@@ -489,7 +489,7 @@ struct msglst *imap_getHeaders( /*@notnull@ */ Pop3 pc)
 }
 
 /* parse the config line to setup the Pop3 structure */
-int imap4Create( /*@notnull@ */ Pop3 pc, const char *const str)
+int imap4Create( /*@notnull@ */ Pop3 *pc, const char *const str)
 {
 	int i;
 	int matchedchars;
@@ -603,7 +603,7 @@ int imap4Create( /*@notnull@ */ Pop3 pc, const char *const str)
 	return 0;
 }
 
-static int authenticate_plaintext( /*@notnull@ */ Pop3 pc,
+static int authenticate_plaintext( /*@notnull@ */ Pop3 *pc,
 								  struct connection_state *scs,
 								  const char *capabilities)
 {
@@ -652,7 +652,7 @@ static int authenticate_plaintext( /*@notnull@ */ Pop3 pc,
 
 #ifdef HAVE_GCRYPT_H
 static int
-authenticate_md5(Pop3 pc,
+authenticate_md5(Pop3 *pc,
 				 struct connection_state *scs, const char *capabilities)
 {
 	char buf[BUF_SIZE];
@@ -715,7 +715,7 @@ authenticate_md5(Pop3 pc,
 }
 #endif
 
-static void ask_user_for_password( /*@notnull@ */ Pop3 pc, int bFlushCache)
+static void ask_user_for_password( /*@notnull@ */ Pop3 *pc, int bFlushCache)
 {
 	/* see if we already have a password, as provided in the config file, or
 	   already requested from the user. */

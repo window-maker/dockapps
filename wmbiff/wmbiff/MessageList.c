@@ -32,7 +32,7 @@ static int fontHeight;
 extern const char *foreground;
 extern const char *background;
 
-Pop3 Active_pc;
+Pop3 *Active_pc;
 
 static int loadFont(const char *fontname)
 {
@@ -63,7 +63,7 @@ static int flush_expose(Window w)
 }
 
 struct msglst *Headers;
-void msglst_show(Pop3 pc, int x, int y)
+void msglst_show(Pop3 *pc, int x, int y)
 {
 	int maxfrm = 0;
 	int maxsubj = 0;

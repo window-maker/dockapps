@@ -75,7 +75,7 @@ printf("FAILED: expected '" #shouldbe "' but got '%s'\n", x); \
 int test_passwordMgr(void)
 {
 	const char *b;
-	mbox_t m;
+	Pop3 m;
 	strcpy(m.label, "x");
 
 	/* sh is almost certainly conforming; owned by root, etc. */
@@ -183,7 +183,7 @@ printf("Failed: expected '" #shouldbe "' but got '%d'\n", x); \
  return 1; }
 int test_imap4creator(void)
 {
-	mbox_t m;
+	Pop3 m;
 
 	if (imap4Create(&m, "imap:foo:@bar/mybox")) {
 		return 1;

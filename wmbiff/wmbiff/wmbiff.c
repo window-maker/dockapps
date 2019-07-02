@@ -55,7 +55,7 @@ static const int wmbiff_mask_width = 64;
 #define DEFAULT_LOOP 5
 
 #define MAX_NUM_MAILBOXES 40
-static mbox_t mbox[MAX_NUM_MAILBOXES];
+static Pop3 mbox[MAX_NUM_MAILBOXES];
 
 /* this is the normal pixmap. */
 static const char *skin_filename = "wmbiff-master-led.xpm";
@@ -191,7 +191,7 @@ static int ReadLine(FILE * fp, /*@out@ */ char *setting,
 
 struct path_demultiplexer {
 	const char *id;				/* followed by a colon */
-	int (*creator) ( /*@notnull@ */ Pop3 pc, const char *path);
+	int (*creator)( /*@notnull@ */ Pop3 *pc, const char *path);
 };
 
 static struct path_demultiplexer paths[] = {

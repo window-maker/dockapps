@@ -26,7 +26,7 @@
 #define FROM_STR   "From "
 #define STATUS_STR "Status: "
 
-FILE *openMailbox(Pop3 pc, const char *mbox_filename)
+FILE *openMailbox(Pop3 *pc, const char *mbox_filename)
 {
 	FILE *mailbox;
 
@@ -40,7 +40,7 @@ FILE *openMailbox(Pop3 pc, const char *mbox_filename)
 }
 
 /* count the messages in a mailbox */
-static void countMessages(Pop3 pc, const char *mbox_filename)
+static void countMessages(Pop3 *pc, const char *mbox_filename)
 {
 	FILE *F;
 	char buf[BUF_SIZE];
@@ -126,7 +126,7 @@ fileHasChanged(const char *mbox_filename, time_t * atime,
 	return 0;
 }
 
-int mboxCheckHistory(Pop3 pc)
+int mboxCheckHistory(Pop3 *pc)
 {
 	char *mbox_filename = backtickExpand(pc, pc->path);
 	struct utimbuf ut;
@@ -147,7 +147,7 @@ int mboxCheckHistory(Pop3 pc)
 	return 0;
 }
 
-int mboxCreate(Pop3 pc, const char *str)
+int mboxCreate(Pop3 *pc, const char *str)
 {
 	/* MBOX format: mbox:fullpathname */
 

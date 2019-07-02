@@ -20,14 +20,16 @@ struct connection_state;
 /* take a socket descriptor and negotiate a TLS connection
    over it */
 /*@only@*/
-struct connection_state *initialize_gnutls(intptr_t sd, /*@only@ */ char *name,
-										   Pop3 pc, const char *hostname);
+struct connection_state *initialize_gnutls(intptr_t sd,
+										   /* @only@ */ char *name,
+										   Pop3 *pc,
+										   const char *hostname);
 
 /* take a socket descriptor and bundle it into a connection
    state structure for later communication */
 /*@only@*/
 struct connection_state *initialize_unencrypted(int sd,	/*@only@ */
-												char *name, Pop3 pc);
+												char *name, Pop3 * pc);
 
 /* store a binding when connect() times out. these should be
    skipped when trying to check mail so that other mailboxes

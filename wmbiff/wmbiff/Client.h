@@ -11,6 +11,7 @@
 
 #ifndef CLIENT
 #define CLIENT
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -34,8 +35,8 @@ typedef unsigned int off_t;
 #define BUF_SIZE 1024
 
 struct msglst;
-typedef struct _mbox_t *Pop3;
-typedef struct _mbox_t {
+
+typedef struct Pop3_ {
 	char label[BUF_SMALL];		/* Printed at left; max 5 chars */
 	char path[BUF_BIG];			/* Path to mailbox */
 	char notify[BUF_BIG];		/* Program to notify mail arrivation */
@@ -92,12 +93,12 @@ typedef struct _mbox_t {
 		} pop_imap;
 	} u;
 
-	int (*checkMail) ( /*@notnull@ */ Pop3);
+	int (*checkMail) ( /*@notnull@ */ struct Pop3_ *);
 
 	/* collect the headers to show in a pop up */
-	struct msglst *(*getHeaders) ( /*@notnull@ */ Pop3);
+	struct msglst *(*getHeaders) ( /*@notnull@ */ struct Pop3_ *);
 	/* allow the client to free the headers, or keep them cached */
-	void (*releaseHeaders) ( /*@notnull@ */ Pop3, struct msglst * ml);
+	void (*releaseHeaders) ( /*@notnull@ */ struct Pop3_ *, struct msglst * ml);
 
 	time_t prevtime;
 	time_t prevfetch_time;
@@ -105,24 +106,24 @@ typedef struct _mbox_t {
 
 	/* command to execute to get a password, if needed */
 	const char *askpass;
-} mbox_t;
+} Pop3;
 
 /* creation calls must have this prototype */
-int pop3Create( /*@notnull@ */ Pop3 pc, const char *str);
-int imap4Create( /*@notnull@ */ Pop3 pc, const char *str);
-int shellCreate( /*@notnull@ */ Pop3 pc, const char *str);
-int mboxCreate( /*@notnull@ */ Pop3 pc, const char *str);
-int maildirCreate( /*@notnull@ */ Pop3 pc, const char *str);
+int pop3Create( /*@notnull@ */ Pop3 *pc, const char *str);
+int imap4Create( /*@notnull@ */ Pop3 *pc, const char *str);
+int shellCreate( /*@notnull@ */ Pop3 *pc, const char *str);
+int mboxCreate( /*@notnull@ */ Pop3 *pc, const char *str);
+int maildirCreate( /*@notnull@ */ Pop3 *pc, const char *str);
 
 int sock_connect(const char *hostname, uint16_t port);
-FILE *openMailbox(Pop3 pc, const char *mbox_filename);
+FILE *openMailbox(Pop3 *pc, const char *mbox_filename);
 
 /* backtickExpand returns null on failure */
 /*@null@ */
-char *backtickExpand(Pop3 pc, const char *path);
+char *backtickExpand(Pop3 *pc, const char *path);
 int fileHasChanged(const char *mbox_filename, time_t * atime,
 				   time_t * mtime, off_t * size);
-int grabCommandOutput(Pop3 pc, const char *command,
+int grabCommandOutput(Pop3 *pc, const char *command,
 					  /*@out@ */ char **output,
 					  /*@out@ *//*@null@ */ char **details);
 int exists(const char *filename);	/* test -f */

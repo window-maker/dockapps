@@ -65,7 +65,7 @@ struct connection_state {
 	/*@null@ */ void *xcred;
 #endif
 	char unprocessed[BUF_SIZE];
-	Pop3 pc;					/* mailbox handle for debugging messages */
+	Pop3 *pc;					/* mailbox handle for debugging messages */
 };
 
 /* gotta do our own line buffering, sigh */
@@ -200,7 +200,7 @@ getline_from_buffer(char *readbuffer, char *linebuffer, int linebuflen)
 		/* return the length of the line */
 	}
 	if (i < 0 || i > linebuflen) {
-		DM((Pop3) NULL, DEBUG_ERROR, "bork bork bork!: %d %d\n", i,
+		DM((Pop3 *) NULL, DEBUG_ERROR, "bork bork bork!: %d %d\n", i,
 		   linebuflen);
 	}
 	return i;
@@ -541,7 +541,7 @@ tls_check_certificate(struct connection_state *scs,
 	return;
 }
 
-struct connection_state *initialize_gnutls(intptr_t sd, char *name, Pop3 pc,
+struct connection_state *initialize_gnutls(intptr_t sd, char *name, Pop3 *pc,
 										   const char *remote_hostname)
 {
 	static int gnutls_initialized;
@@ -661,7 +661,7 @@ void handle_gnutls_read_error(int readbytes, struct connection_state *scs)
 /* declare stubs when tls isn't compiled in */
 struct connection_state *initialize_gnutls(UNUSED(intptr_t sd),
 										   UNUSED(char *name),
-										   UNUSED(Pop3 pc),
+										   UNUSED(Pop3 *pc),
 										   UNUSED(const char
 												  *remote_hostname))
 {
@@ -674,7 +674,7 @@ struct connection_state *initialize_gnutls(UNUSED(intptr_t sd),
 /* either way: */
 struct connection_state *initialize_unencrypted(int sd,
 												/*@only@ */ char *name,
-												Pop3 pc)
+												Pop3 *pc)
 {
 	struct connection_state *ret = malloc(sizeof(struct connection_state));
 	assert(sd >= 0);

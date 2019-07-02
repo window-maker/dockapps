@@ -50,7 +50,7 @@ static int count_msgs(char *path)
 	return count;
 }
 
-int maildirCheckHistory(Pop3 pc)
+int maildirCheckHistory(Pop3 *pc)
 {
 	struct stat st_new;
 	struct stat st_cur;
@@ -137,7 +137,7 @@ int maildirCheckHistory(Pop3 pc)
 	return 0;
 }
 
-int maildirCreate(Pop3 pc, const char *str)
+int maildirCreate(Pop3 *pc, const char *str)
 {
 	int i;
 	char c;

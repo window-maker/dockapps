@@ -46,22 +46,22 @@
 #define ENFROB(x)
 #endif
 
-typedef struct password_binding_struct {
-	struct password_binding_struct *next;
+typedef struct password_binding_ {
+	struct password_binding_ *next;
 	char user[BUF_SMALL];
 	char server[BUF_BIG];
 	char password[BUF_SMALL];	/* may be frobnicated */
-	size_t password_len;	/* frobnicated *'s are nulls */
-} *password_binding;
+	size_t password_len;		/* frobnicated *'s are nulls */
+} password_binding;
 
-static password_binding pass_list = NULL;
+static password_binding *pass_list;
 
 /* verifies that askpass_fname, if it has no spaces, exists as
    a file, is owned by the user or by root, and is not world
    writeable.   This is just a sanity check, and is not intended
    to ensure the integrity of the password-asking program. */
 /* would be static, but used in test_wmbiff */
-int permissions_ok(Pop3 pc, const char *askpass_fname)
+int permissions_ok(Pop3 *pc, const char *askpass_fname)
 {
 	struct stat st;
 	if (index(askpass_fname, ' ')) {
@@ -110,7 +110,7 @@ int permissions_ok(Pop3 pc, const char *askpass_fname)
 #include<Security/Security.h>
 
 static void
-get_password_from_keychain(Pop3 pc, const char *username,
+get_password_from_keychain(Pop3 *pc, const char *username,
 						   const char *servername,
 						   /*@out@ */ char *password,
 						   /*@out@ */ size_t *password_len)
@@ -154,7 +154,7 @@ get_password_from_keychain(Pop3 pc, const char *username,
 
 
 static void
-get_password_from_command(Pop3 pc, const char *username,
+get_password_from_command(Pop3 *pc, const char *username,
 						  const char *servername,
 						  /*@out@ */ char *password,
 						  /*@out@ */
@@ -208,20 +208,19 @@ get_password_from_command(Pop3 pc, const char *username,
 	}
 }
 
-char *passwordFor(const char *username,
-				  const char *servername, Pop3 pc, int bFlushCache)
+char *passwordFor(const char *username, const char *servername, Pop3 *pc,
+				  int bFlushCache)
 {
 
-	password_binding p;
+	password_binding *p;
 
 	assert(username != NULL);
 	assert(username[0] != '\0');
 
 	/* find the binding */
 	for (p = pass_list;
-		 p != NULL
-		 && (strcmp(username, p->user) != 0 ||
-			 strcmp(servername, p->server) != 0); p = p->next);
+		 p != NULL && (strcmp(username, p->user) != 0 ||
+					   strcmp(servername, p->server) != 0); p = p->next);
 
 	/* if so, return the password */
 	if (p != NULL) {
@@ -241,8 +240,7 @@ char *passwordFor(const char *username,
 			return (NULL);
 		}
 	} else {
-		p = (password_binding)
-			malloc(sizeof(struct password_binding_struct));
+		p = malloc(sizeof *p);
 	}
 
 	/* else, try to get it. */

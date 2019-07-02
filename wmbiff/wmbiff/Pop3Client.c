@@ -28,33 +28,37 @@
 
 extern int Relax;
 /* temp */
-static void ask_user_for_password( /*@notnull@ */ Pop3 pc, int bFlushCache);
+static void ask_user_for_password( /*@notnull@ */ Pop3 *pc, int bFlushCache);
 
 #define	PCU	(pc->u).pop_imap
 #define POP_DM(pc, lvl, args...) DM(pc, lvl, "pop3: " args)
 
 #ifdef HAVE_GCRYPT_H
-static struct connection_state *authenticate_md5( /*@notnull@ */ Pop3 pc, struct connection_state * scs,
-							  char *unused);
-static struct connection_state *authenticate_apop( /*@notnull@ */ Pop3 pc, struct connection_state * scs,
-							   char *apop_str);
+static struct connection_state *authenticate_md5( /*@notnull@ */ Pop3 *pc,
+												 struct connection_state *scs,
+												 char *unused);
+static struct connection_state *authenticate_apop( /*@notnull@ */ Pop3 *pc,
+												  struct connection_state *scs,
+												  char *apop_str);
 #endif
-static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 pc, struct connection_state * scs,
-									char *unused);
+static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 *pc,
+													   struct connection_state *scs,
+													   char *unused);
 
-void pop3_cacheHeaders( /*@notnull@ */ Pop3 pc);
+void pop3_cacheHeaders( /*@notnull@ */ Pop3 *pc);
 
-extern void imap_releaseHeaders(Pop3 pc
-								__attribute__ ((unused)),
+extern void imap_releaseHeaders(Pop3 *pc __attribute__((unused)),
 								struct msglst *h);
 
-extern struct connection_state *state_for_pcu(Pop3 pc);
+extern struct connection_state *state_for_pcu(Pop3 *pc);
 
 static struct authentication_method {
 	const char *name;
 	/* callback returns the connection state pointer if successful,
 	   NULL if failed */
-	struct connection_state  *(*auth_callback) (Pop3 pc, struct connection_state * scs, char *apop_str);
+	struct connection_state *(*auth_callback) (Pop3 *pc,
+											   struct connection_state *scs,
+											   char *apop_str);
 } auth_methods[] = {
 	{
 #ifdef HAVE_GCRYPT_H
@@ -66,7 +70,7 @@ static struct authentication_method {
 };
 
 /*@null@*/
-struct connection_state *pop3Login(Pop3 pc)
+struct connection_state *pop3Login(Pop3 *pc)
 {
 	int fd;
 	char buf[BUF_SIZE];
@@ -134,7 +138,7 @@ struct connection_state *pop3Login(Pop3 pc)
 	return NULL;
 }
 
-int pop3CheckMail( /*@notnull@ */ Pop3 pc)
+int pop3CheckMail( /*@notnull@ */ Pop3 *pc)
 {
 	struct connection_state *scs;
 	int read;
@@ -182,7 +186,7 @@ int pop3CheckMail( /*@notnull@ */ Pop3 pc)
 }
 
 
-struct msglst *pop_getHeaders( /*@notnull@ */ Pop3 pc)
+struct msglst *pop_getHeaders( /*@notnull@ */ Pop3 *pc)
 {
 	if (pc->headerCache == NULL)
 		pop3_cacheHeaders(pc);
@@ -193,7 +197,7 @@ struct msglst *pop_getHeaders( /*@notnull@ */ Pop3 pc)
 
 
 
-int pop3Create(Pop3 pc, const char *str)
+int pop3Create(Pop3 *pc, const char *str)
 {
 	/* POP3 format: pop3:user:password@server[:port] */
 	/* new POP3 format: pop3:user password server [port] */
@@ -291,8 +295,9 @@ int pop3Create(Pop3 pc, const char *str)
 
 
 #ifdef HAVE_GCRYPT_H
-static struct connection_state *authenticate_md5(Pop3 pc, struct connection_state * scs, char *apop_str
-							  __attribute__ ((unused)))
+static struct connection_state *authenticate_md5(Pop3 *pc,
+												 struct connection_state *scs,
+												 char *apop_str __attribute__((unused)))
 {
 	char buf[BUF_SIZE];
 	char buf2[BUF_SIZE];
@@ -349,7 +354,9 @@ static struct connection_state *authenticate_md5(Pop3 pc, struct connection_stat
 	}
 }
 
-static struct connection_state *authenticate_apop(Pop3 pc, struct connection_state * scs, char *apop_str)
+static struct connection_state *authenticate_apop(Pop3 *pc,
+												  struct connection_state *scs,
+												  char *apop_str)
 {
 	gcry_md_hd_t gmh;
 	gcry_error_t rc;
@@ -392,9 +399,9 @@ static struct connection_state *authenticate_apop(Pop3 pc, struct connection_sta
 #endif							/* HAVE_GCRYPT_H */
 
 /*@null@*/
-static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 pc,
-									struct connection_state * scs, char *apop_str
-									__attribute__ ((unused)))
+static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 *pc,
+													   struct connection_state *scs,
+													   char *apop_str __attribute__((unused)))
 {
 	char buf[BUF_SIZE];
 
@@ -448,7 +455,7 @@ static struct connection_state *authenticate_plaintext( /*@notnull@ */ Pop3 pc,
 	return scs;
 }
 
-void pop3_cacheHeaders( /*@notnull@ */ Pop3 pc)
+void pop3_cacheHeaders( /*@notnull@ */ Pop3 *pc)
 {
 	char buf[BUF_SIZE];
 	struct connection_state *scs;
@@ -502,7 +509,7 @@ void pop3_cacheHeaders( /*@notnull@ */ Pop3 pc)
 }
 
 /* vim:set ts=4: */
-static void ask_user_for_password( /*@notnull@ */ Pop3 pc, int bFlushCache)
+static void ask_user_for_password( /*@notnull@ */ Pop3 *pc, int bFlushCache)
 {
 	/* see if we already have a password, as provided in the config file, or
 	   already requested from the user. */
