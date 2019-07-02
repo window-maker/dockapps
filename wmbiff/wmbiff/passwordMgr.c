@@ -235,9 +235,11 @@ char *passwordFor(const char *username, const char *servername, Pop3 *pc,
 				return (ret);
 			}
 			/* else fall through, overwrite */
-		} else if (pc) {
-			/* if we've asked, but received nothing, disable this box */
-			pc->checkMail = NULL;
+		} else {
+			if (pc) {
+				/* if we've asked, but received nothing, disable this box */
+				pc->checkMail = NULL;
+			}
 			return (NULL);
 		}
 	} else {
