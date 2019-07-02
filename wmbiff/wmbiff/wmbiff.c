@@ -908,48 +908,56 @@ static char **CreateBackingXPM(int width, int height,
 	const int colors = 5;
 	const int base = colors + 1;
 	const int margin = 4;
+
 	int i;
 	int top = findTopOfMasterXPM(skin_xpm);
+
 	ret[0] = malloc_ordie(30);
 	sprintf(ret[0], "%d %d %d %d", width, height, colors, 1);
 	ret[1] = (char *) " \tc #0000FF";	/* no color */
-	ret[2] = (char *) ".\tc #505075";	/* background gray */
 	ret[2] = malloc_ordie(30);
 	sprintf(ret[2], ".\tc %s", background);
 	ret[3] = (char *) "+\tc #000000";	/* shadowed */
 	ret[4] = (char *) "@\tc #C7C3C7";	/* highlight */
 	ret[5] = (char *) ":\tc #004941";	/* led off */
-	for (i = base; i < base + height; i++) {
-		ret[i] = malloc_ordie(width);
-	}
-	for (i = base; i < base + margin; i++) {
-		memset(ret[i], ' ', width);
-	}
-	for (i = base + margin; i < height + base - margin; i++) {
-		memset(ret[i], ' ', margin);
 
-		if (i == base + margin) {
-			memset(ret[i] + margin, '+', width - margin - margin);
-		} else if (i == base + height - margin - 1) {
-			memset(ret[i] + margin, '@', width - margin - margin);
+	for (i = base; i < base + height; i++) {
+
+		ret[i] = malloc_ordie(width);
+
+		if (i < base + margin) {
+			memset(ret[i], ' ', width);
+		} else if (i < height + base - margin) {
+
+			memset(ret[i], ' ', margin);
+
+			if (i == base + margin) {
+				memset(ret[i] + margin, '+', width - margin - margin);
+			} else if (i == base + height - margin - 1) {
+				memset(ret[i] + margin, '@', width - margin - margin);
+			} else {
+				// "    +..:::...:::...:::...:::...:::.......:::...:::...:::...@    "
+				// "    +.:...:.:...:.:...:.:...:.:...:..:..:...:.:...:.:...:..@    "                                                                                               ",
+				ret[i][margin] = '+';
+				memset(ret[i] + margin + 1, '.',
+					   width - margin - margin - 1);
+				ret[i][width - margin - 1] = '@';
+				memcpy(ret[i],
+					   skin_xpm[((i - (base + margin) - 1) % 11) + top + 1],
+					   width);
+			}
+
+			memset(ret[i] + width - margin, ' ', margin);
+
 		} else {
-			// "    +..:::...:::...:::...:::...:::.......:::...:::...:::...@    "
-			// "    +.:...:.:...:.:...:.:...:.:...:..:..:...:.:...:.:...:..@    "                                                                                               ",
-			ret[i][margin] = '+';
-			memset(ret[i] + margin + 1, '.', width - margin - margin - 1);
-			ret[i][width - margin - 1] = '@';
-			memcpy(ret[i],
-				   skin_xpm[((i - (base + margin) - 1) % 11) + top + 1],
-				   width);
+			memset(ret[i], ' ', width);
 		}
 
-		memset(ret[i] + width - margin, ' ', margin);
 	}
-	for (i = base + height - margin; i < height + base; i++) {
-		memset(ret[i], ' ', width);
-	}
-	ret[height + base] = NULL;	/* not sure if this is necessary, it just
-								   seemed like a good idea  */
+	/*
+	 * Not sure if this is necessary, it just seemed like a good idea
+	 */
+	ret[height + base] = NULL;
 	return (ret);
 }
 
