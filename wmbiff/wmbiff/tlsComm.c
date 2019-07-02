@@ -386,9 +386,9 @@ static int tls_compare_certificates(const gnutls_datum_t * peercert)
 
 	fd1 = fopen(certificate_filename, "r");
 	if (fd1 == NULL) {
+		free(b64_data_data);
 		return 0;
 	}
-
 	b64_data.size = fread(b64_data.data, 1, b64_data.size, fd1);
 	fclose(fd1);
 

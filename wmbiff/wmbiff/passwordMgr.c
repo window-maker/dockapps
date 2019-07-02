@@ -213,6 +213,7 @@ char *passwordFor(const char *username, const char *servername, Pop3 *pc,
 {
 
 	password_binding *p;
+	int p_allocked = 0;
 
 	assert(username != NULL);
 	assert(username[0] != '\0');
@@ -241,6 +242,7 @@ char *passwordFor(const char *username, const char *servername, Pop3 *pc,
 		}
 	} else {
 		p = malloc(sizeof *p);
+		p_allocked = 1;
 	}
 
 	/* else, try to get it. */
@@ -282,6 +284,9 @@ char *passwordFor(const char *username, const char *servername, Pop3 *pc,
 		return (retval);
 	}
 
+	if (p_allocked) {
+		free(p);
+	}
 	return (NULL);
 }
 

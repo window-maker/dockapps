@@ -200,6 +200,7 @@ FILE *imap_open(Pop3 *pc)
 			   mailboxes more often while remote things are
 			   unavailable or disconnected.  */
 		}
+		free(connection_name);
 		return NULL;
 	}
 
@@ -463,6 +464,7 @@ void imap_cacheHeaders( /*@notnull@ */ Pop3 *pc)
 				pc->headerCache = m;
 				pc->headerCache->in_use = 0;	/* initialize that it isn't locked */
 			} else {
+				free(m);
 				IMAP_DM(pc, DEBUG_ERROR, "error fetching: %s", hdrbuf);
 			}
 			if (!fetch_command_done) {

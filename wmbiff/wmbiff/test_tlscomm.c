@@ -106,6 +106,7 @@ main(int argc __attribute__ ((unused)), char **argv
 		memset(scs.unprocessed, 0, BUF_SIZE);
 		printf("%d\n", tlscomm_expect(&scs, "prefix", buf, 255));
 	}
+	free(scs.name);
 	return 0;
 
 }
