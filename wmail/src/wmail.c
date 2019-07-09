@@ -499,6 +499,7 @@ int main( int argc, char **argv )
 
     XStringListToTextProperty( &name, 1, &windowName );
     XSetWMName( DADisplay, DAWindow, &windowName );
+    XSetCommand( DADisplay, DAWindow, argv, argc );
 
     UpdatePixmap( false );
     DAShow();
