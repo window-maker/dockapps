@@ -20,7 +20,8 @@
 
 void		dockapp_init	(Display *x_display, Bool randr);
 
-void		new_window	(char *name, int width, int height);
+void		new_window	(char *name, int width, int height,
+                                 int argc, char **argv);
 
 void		new_osd		(int height);
 void		update_osd	(float volume, bool up);

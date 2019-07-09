@@ -235,7 +235,7 @@ void scroll_text(int x, int y, int width, bool reset)
     return;
 }
 
-void new_window(char *name, int width, int height)
+void new_window(char *name, int width, int height, int argc, char **argv)
 {
     XpmAttributes attr;
     Pixel fg, bg;
@@ -331,6 +331,8 @@ void new_window(char *name, int width, int height)
     norm_cursor = XCreateFontCursor(display, XC_left_ptr);
     bar_cursor = XCreateFontCursor(display, XC_sb_up_arrow);
     null_cursor = create_null_cursor(display);
+
+    XSetCommand(display, win, argv, argc);
 
     XMapWindow(display, win);
 }

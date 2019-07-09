@@ -106,7 +106,7 @@ int main(int argc, char **argv)
     display_height = (float)DisplayHeight(display, DefaultScreen(display)) / 2.0;
 
     dockapp_init(display, have_randr);
-    new_window("wmix", 64, 64);
+    new_window("wmix", 64, 64, argc, argv);
     new_osd(60);
 
     if (config.mmkeys)
