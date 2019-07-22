@@ -1,3 +1,93 @@
+2019-07-22  Jeremy Sowden <jeremy@azazel.net>
+
+	* ChangeLog, NEWS, configure.ac: bumped to 0.4.34.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/wmbiff.c: use one for-loop when creating backing XPM.  Fixes
+	static analysis warning about uninitialized value.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/passwordMgr.c: fixed possible null-pointer dereference.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/Imap4Client.c, wmbiff/passwordMgr.c, wmbiff/test_tlscomm.c,
+	wmbiff/tlsComm.c, wmgeneral/wmgeneral.c: fixed leaks.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/wmbiff.c: removed superfluous assignment.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/Pop3Client.c: replaced strncpy with memcpy.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/Client.h, wmbiff/Imap4Client.c, wmbiff/MessageList.c,
+	wmbiff/MessageList.h, wmbiff/Pop3Client.c, wmbiff/ShellClient.c,
+	wmbiff/maildirClient.c, wmbiff/mboxClient.c, wmbiff/passwordMgr.c,
+	wmbiff/passwordMgr.h, wmbiff/test_wmbiff.c, wmbiff/tlsComm.c,
+	wmbiff/tlsComm.h, wmbiff/wmbiff.c: stop hiding pointers behind typedefs.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* .gitignore: added .gitignore.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile.am, autoconf/Makefile.am, configure.ac: removed autoconf
+	directory.
+
+2019-07-02  Jeremy Sowden <jeremy@azazel.net>
+
+	* autogen: added autogen.
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/Client.h, wmbiff/Imap4Client.c, wmbiff/passwordMgr.c: use
+	`size_t` for password-lengths.
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/Imap4Client.c: fixed endianness problems parsing server-ports.
+	`regulo_atoi` expects a pointer-to-int and `PCU.serverPort` is a
+	`uint16_t`, so `&PCU.serverPort` is not compatible and we need to use an
+	`int` temporary variable to avoid endianness problems.
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/socket.c: fixed endianness problems connecting to POP and IMAP
+	servers.  `addr.sin_addr.s_addr` is a `uint32_t` in NBO, so assigning a
+	`struct in_addr` cast to `unsigned long` will break on 64-bit big-endian
+	architectures.
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/test_wmbiff.c: `addr.sin_port` is in NBO, so we should use
+	ntohs(3), not htons(3).
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/socket.c, wmbiff/test_wmbiff.c: tidy up socket connexions.
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/socket.c: correct the address size passed to connect(2).
+	`addr` is a `struct sockaddr_in`, not a `struct sockaddr`; using `sizeof
+	var` instead of `sizeof (type)` ensures that the right size is used.
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/regulo.c, wmbiff/wmbiff/regulo.h: `regulo_match` modifies
+	`instructions[i].destination`, so remove `const`.
+
+2019-06-28  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/regulo.c: use temporary variables and remove casts.
+
 2019-03-01  Doug Torrance <dtorrance@piedmont.edu>
 
 	* ChangeLog, NEWS, configure.ac: Bump to version 0.4.33

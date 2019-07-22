@@ -1,5 +1,10 @@
 Release Notes
 ~~~~~~~~~~~~~
+Release 0.4.34 - July 23, 2019
+  * Bug fixes.
+  * Code cleanup.
+  * Call XSetCommand.
+
 Release 0.4.33 - March 1, 2019
   * Code cleanup.
 
