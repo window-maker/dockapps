@@ -1,3 +1,30 @@
+2019-07-23  Jeremy Sowden <jeremy@azazel.net>
+
+	* ChangeLog, NEWS, configure.ac: bumped to 0.4.35.
+
+2019-07-23  Jeremy Sowden <jeremy@azazel.net>
+
+	* AUTHORS: added Doug Torrance and myself to the list.
+
+2019-07-23  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmbiff/tlsComm.c: added support for TLS SNI.
+
+	  From Debian bug #917993:
+	    From: Nye Liu <nyet@nyet.org>
+	    Subject: wmbiff: gmail (and many other IMAP servers) now require SNI
+	    Date: Tue, 01 Jan 2019 18:33:51 -0800
+
+	    wmbiff/gmail imap4: Need new connection to
+	      ***@gmail.com@imap.gmail.com
+	    wmbiff/gmail comm: certificate passed time check.
+	    wmbiff/gmail comm: server's certificate (OU=No SNI provided\; please
+	      fix your client.,CN=invalid2.invalid) does not match its hostname
+	      (imap.gmail.com).  wmbiff/gmail comm: server's certificate does
+	      not match its hostname.
+	    wmbiff/gmail comm: to ignore this error, run wmbiff with the
+	      -skip-certificate-check option
+
 2019-07-22  Jeremy Sowden <jeremy@azazel.net>
 
 	* ChangeLog, NEWS, configure.ac: bumped to 0.4.34.

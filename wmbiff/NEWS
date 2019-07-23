@@ -1,5 +1,8 @@
 Release Notes
 ~~~~~~~~~~~~~
+Release 0.4.35 - July 23, 2019
+  * TLS SNI support.
+
 Release 0.4.34 - July 23, 2019
   * Bug fixes.
   * Code cleanup.
