@@ -597,6 +597,8 @@ struct connection_state *initialize_gnutls(intptr_t sd, char *name, Pop3 *pc,
 			}
 		}
 
+		gnutls_server_name_set(scs->tls_state, GNUTLS_NAME_DNS,
+							   remote_hostname, strlen(remote_hostname));
 		gnutls_cred_set(scs->tls_state, GNUTLS_CRD_CERTIFICATE,
 						scs->xcred);
 		gnutls_transport_set_ptr(scs->tls_state,
