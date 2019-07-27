@@ -1,3 +1,8 @@
+3.4 NEWS:
+Call `XSetCommand()`.
+Added autogen and .gitignore.
+Update mailing list links to new Google Groups.
+
 3.3 NEWS:
 Remove trailing whitespace.
 Fix a buffer overflow (how did this ever work?)
