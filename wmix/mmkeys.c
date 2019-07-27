@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 /*
- * mmkeys.c: functions related to grabing the Multimedia Keys on keyboard
+ * mmkeys.c: functions related to grabbing the Multimedia Keys on keyboard
  */
 
 #include <stdio.h>

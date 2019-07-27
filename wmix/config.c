@@ -43,7 +43,7 @@
 	"  -e <name> exclude channel, can be used many times\n" \
 	"  -f <file> parse this config [~/.wmixrc]\n" \
 	"  -h        print this help\n" \
-	"  -k        disable grabing volume control keys\n" \
+	"  -k        disable grabbing volume control keys\n" \
 	"  -m <dev>  oss mixer device [/dev/mixer]\n" \
 	"            or alsa card name [default]\n" \
 	"  -o <num>  display osd on this monitor number or name [0]\n" \
@@ -152,7 +152,7 @@ void parse_cli_options(int argc, char **argv)
 
 		switch (opt) {
 		case '?':
-			fprintf(stderr, "wmix:error: unknow option '-%c'\n", optopt);
+			fprintf(stderr, "wmix:error: unknown option '-%c'\n", optopt);
 			error_found = true;
 			break;
 
@@ -262,7 +262,7 @@ void config_read(void)
 	fp = fopen(filename, "r");
 	if (fp == NULL) {
 		if (config.file != NULL) {
-			/* The config file was explicitely specified by user, tell him there's a problem */
+			/* The config file was explicitly specified by user, tell him there's a problem */
 			fprintf(stderr, "wmix: error, could not load configuration file \"%s\"\n", filename);
 			exit(EXIT_FAILURE);
 		}
@@ -395,7 +395,7 @@ void config_read(void)
 				fprintf(stderr, "wmix:error: value '%s' not understood for wheelstep in %s at line %d\n",
 				        value, filename, line);
 		} else {
-			fprintf(stderr, "wmix:warning: unknow keyword '%s' at line %d of \"%s\", ignored\n",
+			fprintf(stderr, "wmix:warning: unknown keyword '%s' at line %d of \"%s\", ignored\n",
 			        keyword, line, filename);
 		}
 	}

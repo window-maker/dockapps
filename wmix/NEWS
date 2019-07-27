@@ -83,7 +83,7 @@ patch from Gilles QUERRET <gilles.querret@free.fr>.  Now instead of
 dragging the knob, you can use your mouse wheel to adjust the current channel
 volume.  Position the cursor anywhere on the dockapp, and move the wheel.
 This behaviour is off by default, but you can compile wmix with -DMOUSEWHEEL
-in the Makefile to enable this feature.  Incase your mouse has more than 2
+in the Makefile to enable this feature.  In case your mouse has more than 2
 buttons and a wheel, you can set which button signals the wheel generates as
 "up" and "down" in mix.c, lines 45 and 46.  The default is for a standard
 mouse with 2 buttons and a wheel.  WHEEL_STEP is the amount to adjust the knob.
