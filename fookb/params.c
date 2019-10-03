@@ -19,16 +19,40 @@ char *read_param(char *string)
 
 /* Command line parameters take precedence over all */
 
-	if (!strcmp(string, "Icon1") && icon1)
-		return icon1;
-	if (!strcmp(string, "Icon2") && icon2)
-		return icon2;
-	if (!strcmp(string, "Icon3") && icon3)
-		return icon3;
-	if (!strcmp(string, "Icon4") && icon4)
-		return icon4;
-	if (!strcmp(string, "IconBoom") && iconboom)
-		return iconboom;
+	if (!strcmp(string, "Icon1")) {
+		if (icon1)
+			return icon1;
+
+		result = DEFAULT_ICON1;
+	}
+	if (!strcmp(string, "Icon2")) {
+		if (icon2)
+			return icon2;
+
+		result = DEFAULT_ICON2;
+	}
+	if (!strcmp(string, "Icon3")) {
+		if (icon3)
+			return icon3;
+
+		result = DEFAULT_ICON3;
+	}
+	if (!strcmp(string, "Icon4")) {
+		if (icon4)
+			return icon4;
+
+		result = DEFAULT_ICON4;
+	}
+	if (!strcmp(string, "IconBoom")) {
+		if (iconboom)
+			return iconboom;
+
+		result = DEFAULT_ICON_BOOM;
+	}
+	if (!strcmp(string, "Sound"))
+		result = DEFAULT_SOUND;
+	if (!strcmp(string, "Command"))
+		result = DEFAULT_COMMAND;
 
 	/*
 	 * Here we start the game with property lists.
@@ -44,9 +68,7 @@ char *read_param(char *string)
 	wfree(path);
 
 	if (!pl) {
-		lputs("Cannot open config file: ");
-		lputs(DEFAULTS_FILE);
-		exit(EXIT_FAILURE);
+		return result;
 	}
 
 	tmp = WMCreatePLString(string);
