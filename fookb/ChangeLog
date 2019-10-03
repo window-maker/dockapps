@@ -1,3 +1,7 @@
+4.1
+
+Use default parameter values if there is no config-file in $HOME.
+
 4.0
 
 Now maintained by the Window Maker Team.
