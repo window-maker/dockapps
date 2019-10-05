@@ -1,0 +1,6 @@
+#!/bin/sh
+
+AUTOMAKE="automake --add-missing"
+export AUTOMAKE
+
+exec autoreconf "$@"
