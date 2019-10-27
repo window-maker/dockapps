@@ -47,4 +47,4 @@ AC_PROG_GCC_TRADITIONAL
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS(strdup)
 
-AC_OUTPUT(makeinfo:autoconf/makeinfo.in)
+AC_OUTPUT(Makefile)
