@@ -1,3 +1,18 @@
+wmbattery (2.52)
+  * Add .gitignore.
+  * Use PKG_CHECK_MODULES for X libraries and headers.
+  * Use PKG_CHECK_MODULES, rather than calling pkg-config explicitly.
+  * Use CPPFLAGS for defining preprocessor macros.
+  * Add $datarootdir to Makefile.in.
+  * Move Makefile to Makefile.in, inline the contents of makeinfo.in and
+    remove it.
+  * Remove rules generating autoconf artefacts.
+  * Add autogen.
+  * Move labels to the beginning of the line.
+  * Fix format-specifier.
+  * Update mailing list links to new Google Groups.
+  * Fix typo in manpage.
+
 wmbattery (2.51)
   * Fix memory leak (Debian bug #816872).
     Thanks to David Johnson <davijoh3@cisco.com> for the patch.
