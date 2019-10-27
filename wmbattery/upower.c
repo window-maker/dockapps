@@ -180,11 +180,11 @@ static int upower_read_work(int battery, apm_info *info)
 	close(sp[0]);
 	return 0;
 
-	fail_close:
+fail_close:
 	close(sp[1]);
-	fail_close0:
+fail_close0:
 	close(sp[0]);
-	fail:
+fail:
 	return -1;
 }
 
