@@ -173,7 +173,7 @@ static int upower_read_work(int battery, apm_info *info)
 		goto fail_close0;
 	}
 	else if (cv != sizeof(*info)) {
-		fprintf(stderr, "recv: unexpected size %d", cv);
+		fprintf(stderr, "recv: unexpected size %zd", cv);
 		goto fail_close0;
 	}
 
