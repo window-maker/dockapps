@@ -8,8 +8,8 @@ man1dir		= @mandir@/man1
 srcdir		= @srcdir@
 
 CC		= @CC@
-CFLAGS		= @CFLAGS@ -Wall -DACPI_APM
-CPPFLAGS	= @CPPFLAGS@ -DICONDIR=\"$(icondir)\"
+CFLAGS		= @CFLAGS@ -Wall
+CPPFLAGS	= @CPPFLAGS@ -DACPI_APM -DICONDIR=\"$(icondir)\"
 INSTALL		= @INSTALL@
 INSTALL_DATA	= @INSTALL_DATA@
 INSTALL_PROGRAM	= @INSTALL_PROGRAM@
@@ -42,17 +42,17 @@ uninstall:
 OBJS=wmbattery.o acpi.o sonypi.o
 
 ifdef USE_HAL
-LIBS+=$(shell pkg-config --libs hal)
-OBJS+=simplehal.o
-CFLAGS+=-DHAL
+CPPFLAGS += -DHAL
+LIBS += $(shell pkg-config --libs hal)
+OBJS += simplehal.o
 simplehal.o: simplehal.c
-	$(CC) $(CFLAGS) $(shell pkg-config --cflags hal) -c simplehal.c -o simplehal.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(shell pkg-config --cflags hal) -c simplehal.c -o simplehal.o
 endif
 
 ifdef USE_UPOWER
-LIBS+=$(shell pkg-config --libs upower-glib)
-OBJS+=upower.o
-CFLAGS+=-DUPOWER
+CPPFLAGS += -DUPOWER
+LIBS += $(shell pkg-config --libs upower-glib)
+OBJS += upower.o
 upower.o: upower.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(shell pkg-config --cflags upower-glib) -c upower.c -o upower.o
 endif
