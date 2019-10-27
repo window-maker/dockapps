@@ -24,17 +24,15 @@ if test "x${x_libraries}" != "x"; then
 fi
 
 dnl Checks for libraries.
-AC_CHECK_LIB(X11, XOpenDisplay)
-AC_CHECK_LIB(Xext, XShapeCombineMask)
-AC_CHECK_LIB(Xpm, XpmReadFileToPixmap)
+PKG_CHECK_MODULES([Xlib], [x11])
+PKG_CHECK_MODULES([Xext], [xext])
+PKG_CHECK_MODULES([libXpm], [xpm])
 AC_CHECK_LIB(apm, apm_read)
 dnl PKG_CHECK_MODULES([HAL], [hal])
 PKG_CHECK_MODULES([UPOWER_GLIB], [upower-glib])
 
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS(X11/xpm.h)
-AC_CHECK_HEADERS(X11/extensions/shape.h)
 AC_CHECK_HEADERS(getopt.h)
 dnl FreeBSD needs apm_bios.h
 AC_CHECK_HEADERS(machine/apm_bios.h)

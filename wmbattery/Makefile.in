@@ -8,13 +8,13 @@ man1dir		= @mandir@/man1
 srcdir		= @srcdir@
 
 CC		= @CC@
-CFLAGS		= @CFLAGS@ -Wall
+CFLAGS		= @CFLAGS@ -Wall @Xlib_CFLAGS@ @Xext_CFLAGS@ @libXpm_CFLAGS@
 CPPFLAGS	= @CPPFLAGS@ -DACPI_APM -DICONDIR=\"$(icondir)\"
 INSTALL		= @INSTALL@
 INSTALL_DATA	= @INSTALL_DATA@
 INSTALL_PROGRAM	= @INSTALL_PROGRAM@
 LDFLAGS		= @LDFLAGS@
-LIBS		= @LIBS@
+LIBS		= @LIBS@ @Xlib_LIBS@ @Xext_LIBS@ @libXpm_LIBS@
 
 #remove hal support
 #USE_HAL		= 1
