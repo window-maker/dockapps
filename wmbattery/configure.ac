@@ -28,6 +28,8 @@ AC_CHECK_LIB(X11, XOpenDisplay)
 AC_CHECK_LIB(Xext, XShapeCombineMask)
 AC_CHECK_LIB(Xpm, XpmReadFileToPixmap)
 AC_CHECK_LIB(apm, apm_read)
+dnl PKG_CHECK_MODULES([HAL], [hal])
+PKG_CHECK_MODULES([UPOWER_GLIB], [upower-glib])
 
 dnl Checks for header files.
 AC_HEADER_STDC

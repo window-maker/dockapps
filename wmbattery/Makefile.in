@@ -43,18 +43,20 @@ OBJS=wmbattery.o acpi.o sonypi.o
 
 ifdef USE_HAL
 CPPFLAGS += -DHAL
-LIBS += $(shell pkg-config --libs hal)
+CFLAGS += @HAL_CFLAGS@
+LIBS += @HAL_LIBS@
 OBJS += simplehal.o
 simplehal.o: simplehal.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(shell pkg-config --cflags hal) -c simplehal.c -o simplehal.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c simplehal.c -o simplehal.o
 endif
 
 ifdef USE_UPOWER
 CPPFLAGS += -DUPOWER
-LIBS += $(shell pkg-config --libs upower-glib)
+CFLAGS += @UPOWER_GLIB_CFLAGS@
+LIBS += @UPOWER_GLIB_LIBS@
 OBJS += upower.o
 upower.o: upower.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(shell pkg-config --cflags upower-glib) -c upower.c -o upower.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c upower.c -o upower.o
 endif
 
 wmbattery: $(OBJS)
