@@ -40,13 +40,3 @@ wmbattery: $(OBJS)
 	$(CC) -o wmbattery $(LDFLAGS) $(OBJS) $(LIBS)
 
 wmbattery.o: wmbattery.c wmbattery.h
-
-configure: configure.ac
-	autoconf
-	autoheader
-
-config.status: configure
-	./configure
-
-makeinfo: autoconf/makeinfo.in config.status
-	./config.status
