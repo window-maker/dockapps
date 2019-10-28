@@ -31,13 +31,13 @@ AC_CHECK_LIB(apm, apm_read)
 AC_ARG_ENABLE(hal, AS_HELP_STRING([--enable-hal], [enable hal]),
               [], [enable_hal=no])
 AS_IF([test x$enable_hal != xno], [
-  PKG_CHECK_MODULES([HAL], [hal])
+  PKG_CHECK_MODULES([hal], [hal])
   AC_SUBST(USE_HAL, 1)
 ])
 AC_ARG_ENABLE(upower, AS_HELP_STRING([--disable-upower], [disable upower]),
               [], [enable_upower=yes])
 AS_IF([test x$enable_upower != xno], [
-  PKG_CHECK_MODULES([UPOWER_GLIB], [upower-glib])
+  PKG_CHECK_MODULES([upower], [upower-glib])
   AC_SUBST(USE_UPOWER, 1)
 ])
 
