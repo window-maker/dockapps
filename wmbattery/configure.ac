@@ -28,8 +28,18 @@ PKG_CHECK_MODULES([Xlib], [x11])
 PKG_CHECK_MODULES([Xext], [xext])
 PKG_CHECK_MODULES([libXpm], [xpm])
 AC_CHECK_LIB(apm, apm_read)
-dnl PKG_CHECK_MODULES([HAL], [hal])
-PKG_CHECK_MODULES([UPOWER_GLIB], [upower-glib])
+AC_ARG_ENABLE(hal, AS_HELP_STRING([--enable-hal], [enable hal]),
+              [], [enable_hal=no])
+AS_IF([test x$enable_hal != xno], [
+  PKG_CHECK_MODULES([HAL], [hal])
+  AC_SUBST(USE_HAL, 1)
+])
+AC_ARG_ENABLE(upower, AS_HELP_STRING([--disable-upower], [disable upower]),
+              [], [enable_upower=yes])
+AS_IF([test x$enable_upower != xno], [
+  PKG_CHECK_MODULES([UPOWER_GLIB], [upower-glib])
+  AC_SUBST(USE_UPOWER, 1)
+])
 
 dnl Checks for header files.
 AC_HEADER_STDC

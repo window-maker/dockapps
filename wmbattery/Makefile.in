@@ -15,11 +15,8 @@ INSTALL_DATA	= @INSTALL_DATA@
 INSTALL_PROGRAM	= @INSTALL_PROGRAM@
 LDFLAGS		= @LDFLAGS@
 LIBS		= @LIBS@ @Xlib_LIBS@ @Xext_LIBS@ @libXpm_LIBS@
-
-#remove hal support
-#USE_HAL		= 1
-
-USE_UPOWER = 1
+USE_HAL         = @USE_HAL@
+USE_UPOWER      = @USE_UPOWER@
 
 all: wmbattery
 
