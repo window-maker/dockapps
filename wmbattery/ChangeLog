@@ -1,3 +1,8 @@
+wmbattery (2.53)
+  * Add --enable-hal and --enable-upower options.  By default hal is disabled
+    and upower is enabled.
+  * Use lower-case prefixes for PKG_CHECK_MODULES checks.
+
 wmbattery (2.52)
   * Add .gitignore.
   * Use PKG_CHECK_MODULES for X libraries and headers.
