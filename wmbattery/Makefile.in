@@ -7,6 +7,10 @@ icondir		= @datadir@/icons/wmbattery
 man1dir		= @mandir@/man1
 srcdir		= @srcdir@
 
+PACKAGE_NAME    = @PACKAGE_NAME@
+PACKAGE_TARNAME = @PACKAGE_TARNAME@
+PACKAGE_VERSION = @PACKAGE_VERSION@
+
 CC		= @CC@
 CFLAGS		= @CFLAGS@ -Wall @Xlib_CFLAGS@ @Xext_CFLAGS@ @libXpm_CFLAGS@
 CPPFLAGS	= @CPPFLAGS@ -DACPI_APM -DICONDIR=\"$(icondir)\"
@@ -35,6 +39,26 @@ install: all
 
 uninstall:
 	rm -rf $(bindir)/wmbattery $(man1dir)/wmbattery.1 $(icondir)
+
+dist:
+	@test -d $(PACKAGE_NAME)-$(PACKAGE_VERSION) \
+	  && rm -fr $(PACKAGE_NAME)-$(PACKAGE_VERSION) || :
+	@$(INSTALL) -d $(PACKAGE_NAME)-$(PACKAGE_VERSION)
+	@$(INSTALL) -d $(PACKAGE_NAME)-$(PACKAGE_VERSION)/autoconf
+	@find . -type f \
+	  ! -name autogen ! -name configure ! -name .gitignore \
+	  ! -name config.status ! -name config.cache ! -name config.log \
+	  ! -name config.h ! -name Makefile \
+	  ! -name $(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz \
+	  ! -path './autoconf/*' \
+	  ! -path './autom4te.cache/*' \
+	  ! -path './$(PACKAGE_NAME)-$(PACKAGE_VERSION)/*' \
+	  -exec $(INSTALL_DATA) '{}' $(PACKAGE_NAME)-$(PACKAGE_VERSION) \;
+	@$(INSTALL_PROGRAM) autogen configure $(PACKAGE_NAME)-$(PACKAGE_VERSION)
+	@$(INSTALL_PROGRAM) autoconf/install-sh $(PACKAGE_NAME)-$(PACKAGE_VERSION)/autoconf
+	@tar cf - $(PACKAGE_NAME)-$(PACKAGE_VERSION) \
+	  | gzip >$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz
+	@rm -fr $(PACKAGE_NAME)-$(PACKAGE_VERSION)
 
 OBJS=wmbattery.o acpi.o sonypi.o
 
