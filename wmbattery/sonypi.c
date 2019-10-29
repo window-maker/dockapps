@@ -1,10 +1,15 @@
 #include <stdio.h>
+#ifdef __sun
+#include <sys/filio.h>
+#include <sys/sockio.h>
+#endif
 #include <sys/ioctl.h>
 #include "apm.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdint.h>
+#include <unistd.h>
 
 #include "sonypi.h"
 
