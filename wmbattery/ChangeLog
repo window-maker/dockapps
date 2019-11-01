@@ -1,3 +1,19 @@
+wmbattery (2.54)
+  * Fix a couple of potential memory-leaks.
+    In `cmd_crit`, if there is an allocation failure, we return from the
+    function immediately and leak any previously allocated memory.  Go to
+    the clean-up code at the end of the function instead.
+  * add `dist` target.
+    Running `make dist` creates a gzipped tar-ball.
+  * AC_INIT changes.
+    Change package-name to "wmbattery" and add bug-report e-mail address.
+  * SunOS fixes.
+    Add includes needed to get the sonypi ioctl code to compile on Solaris.
+  * `make distclean` fixes.
+    Remove Makefile instead of obsolete makeinfo.
+    Remove autom4te.cache.
+    Don't remove configure or config.h.in.
+
 wmbattery (2.53)
   * Add --enable-hal and --enable-upower options.  By default hal is disabled
     and upower is enabled.

@@ -1,5 +1,5 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([wmbattery], [2.53], [wmaker-dev@googlegroups.com])
+AC_INIT([wmbattery], [2.54], [wmaker-dev@googlegroups.com])
 AC_CONFIG_HEADER(config.h)
 AC_CONFIG_AUX_DIR(autoconf)
 
