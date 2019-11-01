@@ -359,18 +359,20 @@ void cmd_crit(const char *cmd, int percentage, int time)
 		return;
 	tmp_b = replace_str(tmp_a, STR_SUB_MINUTES, min_str);
 	if (!tmp_b)
-		return;
+		goto free_tmp_a;
 	command = replace_str(tmp_b, STR_SUB_SECONDS, sec_str);
 	if (!command)
-		return;
+		goto free_tmp_b;
 
 	ret = system(command);
 	if (ret == -1)
 		error("unable to run command: %s", command);
 
-	free(tmp_a);
-	free(tmp_b);
 	free(command);
+free_tmp_b:
+	free(tmp_b);
+free_tmp_a:
+	free(tmp_a);
 }
 
 /* Returns the display to run on (or NULL for default). */
