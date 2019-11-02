@@ -34,6 +34,9 @@ versions:
  -
   number: 2.52
   download: wmbattery-2.52.tar.gz
+ -
+  number: 2.54
+  download: wmbattery-2.54.tar.gz
 categories: power
 ---
 Wmbattery displays the status of your laptop's battery in a small icon. This includes if it is plugged in, if the battery is charging, how many minutes of battery life remain, battery life remaining (with both a percentage and a graph), and battery status (high - green, low - yellow, or critical - red).
