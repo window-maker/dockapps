@@ -508,16 +508,13 @@ int process_parse_procfs(struct process *process) {
      * Extract cpu times from data in /proc filesystem.
      * For conversion types see man proc(5).
      */
-    rc = sscanf(line,"%*s %s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %lu %lu %*s %*s %*s %*s %*s %*s %*s %lu %ld",
+    rc = sscanf(line,"%*s (%[^)]) %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %lu %lu %*s %*s %*s %*s %*s %*s %*s %lu %ld",
 	    procname,
 	    &process->user_time,&process->kernel_time,
 	    &process->vsize,&process->rss);
     if (rc<5)
 	return 1;
-    /*
-     * Remove parentheses from the process name stored in /proc/ under Linux...
-     */
-    r = procname+1;
+    r = procname;
     /* remove any "kdeinit: " */
     if (r == strstr(r, "kdeinit"))
      {
@@ -559,7 +556,7 @@ int process_parse_procfs(struct process *process) {
     else
     {
       q = deparenthesised_name;
-      while (*r && *r!=')')
+      while (*r)
         *q++ = *r++;
        *q = 0;
     }
