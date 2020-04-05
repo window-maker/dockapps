@@ -6,6 +6,28 @@ title: News
 News
 ====
 
+Version 0.95.9 released
+-----------------------
+
+Window Maker 0.95.9 was released on April 4th 2020
+
+* SwitchPanel is now more configurable: you can configure the switch
+  panel icon size by setting the "SwitchPanelIconSize" option to your
+  preferred value in ~/GNUstep/Defaults/WindowMaker. The font size used
+  in this panel now is also sensible to changes in the system font.
+* New user configuration directory environment variable.  In previous
+  versions, the GNUstep directory used to store a user's Window Maker
+  configuration files was specified by the GNUSTEP_USER_ROOT environment
+  variable, which defaulted to ~/GNUstep.  However, this environment
+  variable was deprecated in gnustep-make v2.  Therefore, it has been
+  replaced by the WMAKER_USER_ROOT environment variable.
+* libXmu is now an optional dependency.If the library is not found,
+  compilation work, the only limitation will arise when trying to
+  install the standard colormap on displays which are not TrueColor.
+  Please note that if you have the library but not the headers,
+  configure will still stop; there is no user option to explicitly
+  disable the library use.
+
 Version 0.95.8 released
 -----------------------
 
