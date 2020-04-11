@@ -10,7 +10,7 @@ layout: default
   <h3><a href="{{ dockapp.url }}">
       {{ dockapp.title }}</a></h3>
   <img src="/img/{{ dockapp.images | first }}"
-       style="float: left; margin: 5px;">
+       style="float: left; margin: 5px;" alt="{{ dockapp.title }}">
   {{ dockapp.content | markdownify }}
 </p>
 {% endfor %}
