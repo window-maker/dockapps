@@ -1,55 +1,62 @@
 ---
 layout: default
 ---
-<article class="post">
+<h2>{{ page.title }}</h2>
 
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-  </header>
-
-  <div class="post-content">
-    Category: <a href="/category/{{ page.categories }}">{{ page.categories }}</a><br>
-    {% if page.hosted == 0 %}
-      Website: <a href="{{ page.website }}">{{ page.website }}</a>
-    {% else %}
-      {% if page.website %}
-        Original website: <a href="{{ page.website }}">{{ page.website }}</a>
-      {% endif %}
-    {% endif %}
-    <p>
-    {{ content }}
-    {% if page.dockapps %}
-      <p>
-      <i>For comments, see the
-      <a href="https://web.archive.org/web/20121130090946/http://dockapps.windowmaker.org/file.php/id/{{ page.dockapps }}">
-        original dockapps.org entry</a>.</i>
-    {% endif %}
-    <h2>Screenshots:</h2>
-      {% for image in page.images %}
-        <img src="/img/{{ image }}" alt="{{ page.title }} screenshot">
-      {% endfor %}
-        <p>
-      <h2>Available Versions:</h2>
-     {% if page.hosted == 0 %}
- 	This dockapp is not maintained by the Window Maker Developers Team.
-	Please visit the dockapp's
-        <a href="{{ page.website }}">
-	  website
-	</a>
-	for downloads.
-      {% else %}
-      {% for version in page.versions reversed %}
-      <a href="/download/{{ version.download }}">{{ version.number }}</a><br>
-      {% endfor %}
-      <p><p>
-      A newer version may be available in the Window Maker dockapps git
-      repository:
-      <br>
-      <code>git clone https://repo.or.cz/dockapps.git</code>
-      <a href="http://repo.or.cz/dockapps.git/tree/HEAD:/{{ page.title }}">
-	(View in browser.)
-      </a>
-      {% endif %}
-  </div>
-
-</article>
+<p>
+  Category: <a href="/category/{{ page.categories }}">{{ page.categories }}</a>
+</p>
+{% if page.hosted == 0 %}
+<p>
+  Website: <a href="{{ page.website }}">{{ page.website }}</a>
+</p>
+  {% else %}
+{% if page.website %}
+<p>
+  Original website: <a href="{{ page.website }}">{{ page.website }}</a>
+</p>
+{% endif %}
+{% endif %}
+<p>
+  {{ content }}
+</p>
+{% if page.dockapps %}
+<p>
+  <i>For comments, see the
+    <a href="https://web.archive.org/web/20121130090946/http://dockapps.windowmaker.org/file.php/id/{{ page.dockapps }}">
+      original dockapps.org entry</a>.</i>
+</p>
+{% endif %}
+<h3>Screenshots:</h3>
+<p>
+  {% for image in page.images %}
+  <img src="/img/{{ image }}" alt="{{ page.title }} screenshot">
+  {% endfor %}
+</p>
+<h3>Available Versions:</h3>
+{% if page.hosted == 0 %}
+<p>
+  This dockapp is not maintained by the Window Maker Developers Team.
+  Please visit the dockapp's
+  <a href="{{ page.website }}">
+    website
+  </a>
+  for downloads.
+</p>
+{% else %}
+<ul>
+  {% for version in page.versions reversed %}
+  <li><a href="/download/{{ version.download }}">{{ version.number }}</a></li>
+  {% endfor %}
+</ul>
+<p>
+  A newer version may be available in the Window Maker dockapps git
+  repository:
+</p>
+<pre class="highlight">git clone https://repo.or.cz/dockapps.git</pre>
+<p>
+  <a href="http://repo.or.cz/dockapps.git/tree/HEAD:/{{ page.title }}">
+    (View in browser.)
+  </a>
+</p>
+{% endif %}
