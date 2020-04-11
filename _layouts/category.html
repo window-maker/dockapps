@@ -1,27 +1,16 @@
 ---
 layout: default
 ---
-<article class="post">
+<h2>{{ page.title }}</h2>
+{{ content }}
 
-
-    <header class="post-header">
-      <h1 class="post-title">{{ page.title }}</h1>
-    </header>
-
-    <div class="page-content">
-      <div class="wrapper">
-        {{ content }}
-	{% assign sorted_dockapps = site.categories.[page.title] | sort %}
-	{% for dockapp in sorted_dockapps %}
-	  <div class="post-content">
-	  <img src="/img/{{ dockapp.images | first }}"
-	       style="float: left; margin: 5px;">
-	  <a href="{{ dockapp.url }}">{{ dockapp.title }}</a>
-	  <br>
-	  {{ dockapp.content | markdownify }}
-	  </div>
-	  {% endfor %}
-      </div>
-    </div>
-
-</article>
+{% assign sorted_dockapps = site.categories[page.title] | sort %}
+{% for dockapp in sorted_dockapps %}
+<div class="dockapp">
+  <h3><a href="{{ dockapp.url }}">
+      {{ dockapp.title }}</a></h3>
+  <img src="/img/{{ dockapp.images | first }}"
+       style="float: left; margin: 5px;">
+  {{ dockapp.content | markdownify }}
+</p>
+{% endfor %}
