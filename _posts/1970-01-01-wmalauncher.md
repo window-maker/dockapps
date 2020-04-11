@@ -5,6 +5,7 @@ permalink: wmalauncher
 hosted: 0
 website: https://sourceforge.net/projects/wmalauncher/
 images:
+ - wmalauncher.png
  - wmalauncher.jpg
 categories: launchers
 ---
