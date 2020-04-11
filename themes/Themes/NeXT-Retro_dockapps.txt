@@ -1,8 +1,0 @@
-Dockapps used in this screenshot (from above):
-
-- fookb-wmaker
-- wmtime
-- wmcube
-- wmacpi
-- wmmixer
-- docker
