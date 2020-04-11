@@ -1,9 +1,3 @@
----
-layout: page
-title: help
-permalink: help
----
-
 # What is a dockapp?
 
 Dockapps are small applications that run inside a 64x64 icon, often
