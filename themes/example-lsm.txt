@@ -1,0 +1,7 @@
+Theme Name      : Foobar
+Author          : Chuck Effbiesdee <chuck@effbiesdee.com>
+Description     : A theme about being Chuck and stuff such as that.
+Copyright       : Chuck Effbiesdee background is courtesy of
+                  www.chuck-effbiesdee.com
+                  Background is in .jpg format.
+                  Colors, tiles and title/menu bars are courtesy of me.

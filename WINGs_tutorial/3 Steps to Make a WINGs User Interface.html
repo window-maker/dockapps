@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0074)WINGsIntro.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>3 Steps to Make a WINGs User Interface</title>
+<meta http-equiv="Content-Type" content="text/html"> 
+<meta name="keywords" content="WINGs, tutorial, Introduction, C, programming, GUI, Window Maker, Linux">
+<meta name="description" content="WINGs library tutorial">
+<meta name="license" content="GNU Free Documentation License">
+</head>
+
+<body>
+<table align="JUSITFY" width="100%"><tbody><tr><td align="LEFT"><a href="WINGtoc.html">LAST: Contents</a></td><td align="RIGHT"><a href="WINGStep1.html">NEXT: Step 1 Drawing a Window</a></td></tr></tbody></table>
+
+<h3>Make a WINGs based Graphical User Interface in 3 Steps</h3>
+
+The WINGs library is the library with routines for a graphical user interface which comes with the Window Maker window manager. In 2010 the library's web page is <a href="http://windowmaker.org/development.php?show=wings">here</a> on the windowmaker.org website. You can download windowmaker with the WINGs libraries <a href="http://windowmaker.org/index.php">here</a>. The library provides widgets which you can use to make a graphical user interface. A widget is a software module which is used to interact with the user. Buttons and menus are widgets. The WINGs library offers the possibility to programme these widgets in a few lines of C code, so that you can dedicate the rest of your time to the functionality in your application.
+
+<p>This tutorial shows in three simple steps how to write a graphical user interface with WINGs. Those three steps will cover all that is needed to write the major dialogs and widgets needed for communication between application and user.  It assumes that you know how to programme in C, but you do not need to know anything about GUI-programming. 
+
+</p><p> Step 1 in this tutorial will show the framework for an application which uses a WINGS graphical user interface. It shows how you have the WINGs library create a widget for you, and how you set its properties. Step 2 briefly explains what events are, and how you make your application react to incoming events. This is what makes your interface work. Step 3 shows how to insert two buttons and a text area into the application's window, and how to implement the handling of events for them. Along the explanations in the main text, there are a few examples of source code. Most  WINGs function names speak for themselves, and therefore, not everything in the source code is repeated in the text. You can just read the code. The example developed in the three steps is a sufficient blueprint to allow you to use the other widgets in the WINGs library. To do that, just look up the functions in the relevant section in the library description section.
+
+</p><p>There are three programming detail sections after the three tutorial sections. They explain how to use Xlib code along with the WINGs code, how to set up a widget in which you can draw OpenGL images, and how to change part of the WINGs library source for your own needs, among other things.
+
+</p><p>To compile WINGs widgets, you need a C-compiler, the WINGs library, and an X-server on your computer. The first few libraries which you need will be libWINGs and libwraster, and the X11 library libXft. If the WINGs library <em>directory</em> is in the /usr/lib path, and your X11 libraries in /usr/X11/lib, you can compile the code with gcc as follows
+</p><p><kbd>gcc  -x c  FileName -lXft  -L/usr/X11/lib -L/usr/lib -lwraster -lWINGs -o FileName</kbd> 
+</p><p>This will get you a binary called FileName which you can run, either by double clicking, or by running the <kbd>./FileName</kbd> command in an xterm.
+</p><p> To compile in C++, just replace the <code> fprintf(stderr, ..)</code> command with an appropriate <code>cerr &lt;&lt; </code>, add the namespace command, and replace the &lt;stdio.h&gt; with the iostream header,  then compile as 
+<kbd>
+g++ -x c++ -lXft  FileName -L/usr/X11/lib -L/usr/lib -lwraster -lWINGs-o FileName</kbd>
+
+
+
+</p><p>The function prototypes in the library description were retrieved from the information in the WINGs man pages which were compiled by Alexey Voinov. His page was <a href="http://voins.program.ru/windowmaker/wingsman.html">here</a> in 2010. 
+
+
+<br>
+<br>
+</p><p>
+</p><table align="JUSITFY" width="100%"><tbody><tr><td align="LEFT"><a href="WINGtoc.html">LAST: Contents</a></td><td align="RIGHT"><a href="WINGStep1.html">NEXT: Step 1 Drawing a Window</a></td></tr></tbody></table>
+
+
+
+</body><style type="text/css">embed[type*="application/x-shockwave-flash"],embed[src*=".swf"],object[type*="application/x-shockwave-flash"],object[codetype*="application/x-shockwave-flash"],object[src*=".swf"],object[codebase*="swflash.cab"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"],object[classid*="d27cdb6e-ae6d-11cf-96b8-444553540000"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"]{	display: none !important;}</style></html>

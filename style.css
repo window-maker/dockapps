@@ -1,0 +1,476 @@
+/* common */
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #515171;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+header {
+    padding: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {font-size: 1.7em}
+a:link {color: #1e527e}
+a:hover {color: #2c7abc}
+a:visited {color: #371e7e}
+a:visited {color: #574882}
+img {max-width: 100%}
+
+pre {
+    color: #dddddd;
+    overflow-x: auto;
+    padding: 0.3em;
+}
+
+.caption {
+    font-style: italic;
+    font-size: 0.8em;
+    line-height: 5px;
+    margin-bottom: 3em;
+}
+
+.caption {text-align: center}
+
+.center:not(.section), .center>h1, .center>h2{ text-align: center }
+
+p.screenshot a img {
+    border: 1px solid black;
+    box-shadow: 3px 7px 7px #606060;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right:0;
+    margin: auto;
+}
+
+/* guided tour */
+
+#window-maker h1.title { text-align: center }
+#window-maker #guided-tour img {
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* gallery */
+
+p.gallery {
+    float: left;
+    margin: 5px;
+    width: 300px;
+}
+
+p.gallery a img {
+    border: 1px solid black;
+    box-shadow: 3px 7px 7px #606060;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right:0;
+    margin: auto;
+}
+
+div.gallery img {
+    width: 100%;
+    height: auto;
+}
+
+.clear {
+    clear: left;
+}
+
+div.figure img {
+    display: block;
+    border: 1px solid black;
+    box-shadow: 3px 7px 7px #606060;
+    margin: 0 auto;
+}
+
+div.figure.borderless img {
+    border: 0
+}
+
+/* logo */
+header h1 a {
+    font-family: "DejaVu Sans", sans-serif;
+    text-shadow: 0 4px 4px #666;
+    display: block;
+    padding-left: 1.4em;
+    background-image: url(/img/gnustep.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    text-decoration: none;
+    color: black;
+    font-size: 1.8em;
+}
+
+header h1 a:link {text-decoration: none}
+header h1 a span.second {color: white}
+header h1 a span.first {color: black}
+
+/* wrapper decorations */
+#minimize, #close {
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    width: 21px;
+    border-left: 1px solid #b6b6b6;
+    border-top: 1px solid #b6b6b6;
+    border-right: 1px solid #616161;
+    border-bottom: 1px solid #616161;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#minimize {
+    margin-right: 1px;
+    background-image: url(/img/minimize.png);
+}
+
+#close {
+    margin-left: 1px;
+    background-image: url(/img/close.png);
+}
+
+#titlebar {
+    position: absolute;
+    top: 0px;
+    display: inline-flex;
+    width: 100%;
+    margin: 0;
+    margin-top: 0px;
+    padding: 0;
+    background: black;
+    height: 23px;
+}
+
+#titlebar-inner {
+    margin: 0;
+    padding: 0;
+    margin-top: 0px;
+    background: black;
+    height: 20px;
+    width: 100%;
+    border-left: 1px solid #b6b6b6;
+    border-top: 1px solid #b6b6b6;
+    border-right: 1px solid #616161;
+    border-bottom: 1px solid #616161;
+    font-size: 0.8em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 19px;
+}
+
+#wrapper {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    box-shadow: 0 0 15px #000000;
+    background-color: #aeaaae;
+    border: 1px solid black;
+}
+
+#resizel, #resizer {
+    margin: 0;
+    padding: 0;
+    height: 6px;
+    width: 28px;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid #555555;
+}
+
+#resizebar {
+    position: absolute;
+    bottom: 2px;
+    display: inline-flex;
+    width: 100%;
+    margin: 0;
+    margin-top: 0px;
+    padding: 0;
+    background: #aaaaaa;
+    height: 5px;
+    border-top: 1px solid #555555;
+}
+
+#resizebar-inner {
+    margin: 0;
+    padding: 0;
+    margin-top: 0px;
+    height: 6px;
+    width: 100%;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 1px solid #555555;
+}
+
+/* TOC */
+.contents p {
+    margin: 0.2em;
+}
+
+/* pre/code highlighted theme - taken from wombat256grf vim colorscheme */
+.highlight { background-color: #242424 }
+.highlight .c { color: #99968b; font-style: italic} /* Comment */
+.highlight .err { color: #dddddd} /* Error */
+.highlight .g { color: #dddddd } /* Generic */
+.highlight .k { color: #87afff } /* Keyword */
+.highlight .l { color: #dddddd } /* Literal */
+.highlight .n { color: #dddddd } /* Name */
+.highlight .o { color: #dddddd } /* Operator */
+.highlight .x { color: #dddddd } /* Other */
+.highlight .p { color: #dddddd } /* Punctuation */
+.highlight .cm { color: #99968b; font-style: italic} /* Comment.Multiline */
+.highlight .cp { color: #e5786d } /* Comment.Preproc */
+.highlight .c1 { color: #99968b; font-style: italic} /* Comment.Single */
+.highlight .cs { color: #99968b; font-style: italic} /* Comment.Special */
+.highlight .gd { color: #dddddd } /* Generic.Deleted */
+.highlight .ge { color: #dddddd } /* Generic.Emph */
+.highlight .gr { color: #dddddd } /* Generic.Error */
+.highlight .gh { color: #f6f3e8; font-weight: bold} /* Generic.Heading */
+.highlight .gi { color: #dddddd } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #dddddd } /* Generic.Prompt */
+.highlight .gs { color: #dddddd } /* Generic.Strong */
+.highlight .gu { color: #f6f3e8; font-weight: bold} /* Generic.Subheading */
+.highlight .gt { color: #dddddd } /* Generic.Traceback */
+.highlight .kc { color: #87afff } /* Keyword.Constant */
+.highlight .kd { color: #87afff } /* Keyword.Declaration */
+.highlight .kn { color: #87afff } /* Keyword.Namespace */
+.highlight .kp { color: #87afff } /* Keyword.Pseudo */
+.highlight .kr { color: #87afff } /* Keyword.Reserved */
+.highlight .kt { color: #caeb82 } /* Keyword.Type */
+.highlight .ld { color: #dddddd } /* Literal.Date */
+.highlight .m { color: #e5786d } /* Literal.Number */
+.highlight .s { color: #95e454; font-style: italic} /* Literal.String */
+.highlight .na { color: #caeb82 } /* Name.Attribute */
+.highlight .nb { color: #dddddd } /* Name.Builtin */
+.highlight .nc { color: #dddddd } /* Name.Class */
+.highlight .no { color: #e5786d } /* Name.Constant */
+.highlight .nd { color: #dddddd } /* Name.Decorator */
+.highlight .ni { color: #ffdead } /* Name.Entity */
+.highlight .ne { color: #dddddd } /* Name.Exception */
+.highlight .nf { color: #caeb82 } /* Name.Function */
+.highlight .nl { color: #dddddd } /* Name.Label */
+.highlight .nn { color: #dddddd } /* Name.Namespace */
+.highlight .nx { color: #dddddd } /* Name.Other */
+.highlight .py { color: #dddddd } /* Name.Property */
+.highlight .nt { color: #87afff } /* Name.Tag */
+.highlight .nv { color: #caeb82 } /* Name.Variable */
+.highlight .ow { color: #dddddd } /* Operator.Word */
+.highlight .w { color: #dddddd } /* Text.Whitespace */
+.highlight .mf { color: #e5786d } /* Literal.Number.Float */
+.highlight .mh { color: #e5786d } /* Literal.Number.Hex */
+.highlight .mi { color: #e5786d } /* Literal.Number.Integer */
+.highlight .mo { color: #e5786d } /* Literal.Number.Oct */
+.highlight .sb { color: #95e454; font-style: italic } /* Literal.String.Backtick */
+.highlight .sc { color: #95e454; font-style: italic } /* Literal.String.Char */
+.highlight .sd { color: #95e454; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #95e454; font-style: italic } /* Literal.String.Double */
+.highlight .se { color: #95e454; font-style: italic } /* Literal.String.Escape */
+.highlight .sh { color: #95e454; font-style: italic } /* Literal.String.Heredoc */
+.highlight .si { color: #95e454; font-style: italic } /* Literal.String.Interpol */
+.highlight .sx { color: #95e454; font-style: italic } /* Literal.String.Other */
+.highlight .sr { color: #95e454; font-style: italic } /* Literal.String.Regex */
+.highlight .s1 { color: #95e454; font-style: italic } /* Literal.String.Single */
+.highlight .ss { color: #95e454; font-style: italic } /* Literal.String.Symbol */
+.highlight .bp { color: #dddddd } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #caeb82 } /* Name.Variable.Class */
+.highlight .vg { color: #caeb82 } /* Name.Variable.Global */
+.highlight .vi { color: #caeb82 } /* Name.Variable.Instance */
+.highlight .il { color: #e5786d } /* Literal.Number.Integer.Long */
+
+.gutter{
+    background-color: black;
+    color: #857b6f;
+}
+
+.post > .highlight .lineno {
+    display:inline-block;
+    padding: 0 5px;
+    border-right:1px solid #ccc;
+}
+
+.post > .highlight pre code {
+    display: block;
+    white-space: pre;
+    overflow-x: auto;
+    word-wrap: normal;
+}
+
+/* main content */
+article {padding: 1em}
+
+/*
+ * size specific styles
+ */
+
+/* large screens. size: 64 * 2 + width of the wrapper (800) == 928 + margin */
+@media screen and (min-width: 940px) {
+
+    /* menu as a vertical dock */
+    aside {
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 64px;
+    }
+
+    nav.menu li#dock {background-image: url(/img/dock_dock.png)}
+    nav.menu li#home {background-image: url(/img/dock_home.png)}
+    nav.menu li#news {background-image: url(/img/dock_news.png)}
+    nav.menu li#docs {background-image: url(/img/dock_docs.png)}
+    nav.menu li#devel {background-image: url(/img/dock_devel.png)}
+    nav.menu li#screenshots {background-image: url(/img/dock_mag.png)}
+    nav.menu li#themes {background-image: url(/img/dock_themes.png)}
+    nav.menu li#links {background-image: url(/img/dock_links.png)}
+    nav.menu li#mail {background-image: url(/img/dock_mail.png)}
+
+    nav.menu {padding: 0}
+
+    nav.menu ul {
+        padding: 0;
+        margin: 0;
+        list-style:none;
+    }
+
+    nav.menu li {
+        float: left;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline;
+    }
+
+    nav.menu a {
+        padding: 3px 12px;
+        text-decoration: none;
+        color: #999;
+        line-height: 100%;
+    }
+
+    nav.menu a:hover {color: #BBB}
+
+    nav.menu form {display: inline}
+
+    nav.menu .current a {color: #fff}
+
+    nav.menu li {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+    }
+
+    nav.menu li a {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+        line-height: 0;
+        font-size: 0;
+        color: transparent;
+    }
+
+}
+
+/* small screens */
+@media screen and (max-width: 939px) {
+
+    #wrapper {
+        width: 100%;
+        margin: 0;
+        border: 0;
+    }
+
+    /* menu as a horizontal, scrollable icon list */
+    article {width: auto}
+
+    nav.menu {padding: 0 1em 0 1em}
+
+    nav.menu ul {
+        border: 3px groove black;
+        padding: 0;
+        margin: 0;
+        list-style:none;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    nav.menu li {
+        float: left;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline;
+    }
+
+    nav.menu a {
+        padding: 3px 12px;
+        text-decoration: none;
+        color: #999;
+        line-height: 100%;
+    }
+
+    nav.menu a:hover {color: #BBB}
+    nav.menu form {display: inline}
+    nav.menu .current a {color: #fff}
+
+    nav.menu li {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+    }
+
+    nav.menu li a {
+        display: block;
+        width: 64px;
+        height: 64px;
+        border: 0;
+        padding:0;
+        line-height: 0;
+        font-size: 0;
+        color: transparent;
+    }
+
+    nav.menu li#dock {display: none}
+    nav.menu li#home {background-image: url(/img/prefs_home.png)}
+    nav.menu li#news {background-image: url(/img/prefs_news.png)}
+    nav.menu li#docs {background-image: url(/img/prefs_docs.png)}
+    nav.menu li#devel {background-image: url(/img/prefs_devel.png)}
+    nav.menu li#screenshots {background-image: url(/img/prefs_mag.png)}
+    nav.menu li#themes {background-image: url(/img/prefs_themes.png)}
+    nav.menu li#links {background-image: url(/img/prefs_links.png)}
+    nav.menu li#mail {background-image: url(/img/prefs_mail.png)}
+
+    .highlight {
+        padding: 0;
+        margin: 0;
+    }
+
+}
+
+/* very small - usually mobile phone screens */
+@media screen and (max-width: 600px) {
+
+    header h1 a {font-size: 1.5em}
+
+}

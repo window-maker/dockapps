@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0074)WINGStep2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"><title>3 Steps to Make a WINGs User Interface</title>
+<meta http-equiv="Content-Type" content="text/html"> 
+<meta name="keywords" content="WINGs, tutorial, Introduction, C, programming, GUI, Window Maker, Linux">
+<meta name="description" content="WINGs library tutorial">
+<meta name="license" content="GNU Free Documentation License">
+<!-- <META http-equiv="Content-Type" content="text/html>  -->
+</head>
+
+<body>
+<table align="JUSTIFY" width="100%"><tbody><tr><td align="LEFT"><a href="WINGstep1.html">LAST: Step 1 Drawing a Window</a></td><td align="CENTER"><a href="WINGtoc.html">Contents</a></td><td align="RIGHT"><a href="WINGstep3.html">NEXT: Step 3 Adding Widgets</a></td></tr></tbody></table>
+
+<h4>Step 2: Processing events</h4>
+
+<h5>Closing the window</h5>
+
+<p>Every widget can  process <a name="talkEvents">events</a> if it wants to. An event is a structure with information, which is created by the X-server, when certain things happen, such as a mouse click, a pressed key, or the raising of a window. These Xevents are queued. You can select for a window or widget, which events, sent by the X-server, you want it to use. The other events will be ignored. The widget takes these events out of the queue. You must specify which function will be executed for which event. In our FirstWindow application, we have not done anything of this kind.
+
+</p><p>In the FirstWindow application, the <code>WMScreenMainLoop(screen)</code> call puts the application into a loop to wait for events. We had not specified any events to be processed, however, and the application does not react to the event that you told the window manager to close it by clicking on the close button. For this, there is an easy fix. It is the <a name="WindowCloseAction">function</a>
+<br><code>void WMSetWindowCloseAction (WMWindow *window,  WMAction *action, void *clientData)</code><br>
+This should be called after the window's creation and before its mapping with <code>WMMapWidget()</code>. The argument <a name="WMAction"><code>WMAction</code></a> must be a function, which looks like this:<br><code>void action(WMWidget *self,void *data){ commands}</code>.<br> It is automatically called when the window is closed. Typically, it handles the data, it destroys the widget where the CloseAction event arrived, in this case our only window. In our simple programme, we would simply exit the application. If there can be more than a single window, we should keep track of their number, and exit only if we are on the last window (if we wish to do so). Widgets are deleted by <code>void WMDestroyWidget (WMWidget *widget)</code> Now , to the <a href="WINGStep1.html#FirstWindow">FirstWindow</a> code, we can, somewhere before the <code>main</code> function, define this function:
+</p><pre><code>
+void closeAll(WMWidget *self,void *data){
+  WMDestroyWidget(self);
+  fprintf(stderr, "I've been used!\n");
+  exit(0);
+}
+</code></pre>
+We write a message to the standard error output when the function is used. After the <code>WMCreateWindow()</code> line, we insert the line:
+<pre><code>WMSetWindowCloseAction(window, closeAll, NULL);</code></pre>
+<p><img src="./WINGstep2_files/FirstWindow.jpeg" align="right">Compile it. The source code now looks like <a href="SecondWindow.c">this</a>. Do the experiments <a href="WINGStep1.html#talkCloseWindow">above</a> again. In Windowmaker the close button now is enabled. In the other window managers, the error messages have disappeared, and our function lets us know it has been used.
+The title bar reads "untitled", because we have not used <code>WMSetWindowTitle</code>. The destroy-button now is enabled, however. The colour was created by the red, green, and blue values : <code>124&lt;&lt;9, 206&lt;&lt;8</code>, and <code>162&lt;&lt;8</code>.
+
+
+</p><h5>Closing the window in a different way</h5>
+The <code>WMSetWindowCloseAction()</code> hides many details. Suppose we like to close the window and end the application in a different way. We can use the same <code>closeAll</code> function as above for this. We are going to close the window whenever there is a mouse click in it. When there is a click, the system notifies the window that there is an X-event "ButtonPress".  To use this, we must specify which events we want to use for the window, and specify which function will be called in case such an event arrives. The function to do this, is <br><code> void WMCreateEventHandler (WMView *view, unsigned long mask, WMEventProc *eventProc,void *clientData)</code>.<br> The <var>mask</var> argument in it will be an "OR"ed combination of masks. <a href="WINGLib.html#EventsList">Here</a> is a list of Events and their event masks. For the moment, we just need "ButtonPressMask". The WMEventProc is a function which must look like <code>void eventProc(XEvent *event, void *data)</code>. The clientData is our window to which we like to give access for these events. (WMView *) is a member in the WMWidget structure. It can be obtained from the window by the function <code> WMWidgetView(WMWindow *window)</code>.
+Now, insert the following function after our closeAll function in the programme
+<pre><code>
+static void handleEvents(XEvent *event, void *data)
+{
+    WMWidget *widget = (WMWidget*)data;
+    switch (event-&gt;type) {
+    case ButtonPress:
+        closeAll(widget,NULL);
+        break;
+    }
+}
+</code></pre>
+It says that if the incoming event for the window is of type ButtonPress, it will call the function closeAll. We really do not need the switch statement now, because we do not specify anything for <code>ButtonRelease</code>. Usually we define functions for all the event types which we have specified by the mask in the WMCreateEventHandler function. Now, after the line with <code>WMCreateWindow()</code>, insert the following line in our programme:
+<br><pre><code> WMCreateEventHandler(WMWidgetView(win), ButtonPressMask,handleEvents, win)</code></pre>
+The full source code now looks like <a href="ThirdWindow.c">this</a>. Compile the code. Run the programme, and find that the window closes as soon as you click in it. We have given window access to the ButtonPress Xevent, and specified that in case this event comes up, the closeAll function should be called. We'll remove this annoying feature again in the next step, when we shall show a button in the window, which will duely close the window when clicked.
+
+<br>
+<p>
+</p><table align="JUSTIFY" width="100%"><tbody><tr><td align="LEFT"><a href="WINGStep1.html">LAST: Step 1 Drawing a Window</a></td><td align="CENTER"><a href="WINGtoc.html">Contents</a></td><td align="RIGHT"><a href="WINGStep3.html">NEXT: Step 3 Adding Widgets</a></td></tr></tbody></table>
+
+
+</body><style type="text/css">embed[type*="application/x-shockwave-flash"],embed[src*=".swf"],object[type*="application/x-shockwave-flash"],object[codetype*="application/x-shockwave-flash"],object[src*=".swf"],object[codebase*="swflash.cab"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"],object[classid*="d27cdb6e-ae6d-11cf-96b8-444553540000"],object[classid*="D27CDB6E-AE6D-11cf-96B8-444553540000"]{	display: none !important;}</style></html>
