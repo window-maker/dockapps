@@ -63,3 +63,6 @@
 	- Add manpage from Debian package.
 	- Now maintained by the Window Maker Developers Team
 	  <wmaker-dev@googlegroups.com>.
+
+0.11    Bugfix
+	- Use extern when declaring global variables in header file.
