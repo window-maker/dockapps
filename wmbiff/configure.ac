@@ -6,7 +6,7 @@ dnl and configure:
 dnl  installation prefix
 dnl  version
 
-AC_INIT(WMBiff, 0.4.35, wmaker-dev@googlegroups.com, wmbiff)
+AC_INIT(WMBiff, 0.4.36, wmaker-dev@googlegroups.com, wmbiff)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADER([config.h])
 dnl make sure autoheader finds version, implicitly defined above.

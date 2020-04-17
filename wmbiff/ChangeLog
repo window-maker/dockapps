@@ -1,3 +1,19 @@
+2020-04-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* ChangeLog, configure.ac: wmbiff: bump to 0.4.36.
+
+2020-04-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* wmgeneral/wmgeneral.c, wmgeneral/wmgeneral.h:
+	wmbiff: fix multiple definitions of display variable.  The display
+	variable is declared in a header with no explicit linkage.  This results
+	in there being multiple definitions of it in wmbiff.o and libwmgeneral.a
+	and a failure during linking with gcc 10.  Add `extern` to the header
+	declaration and a separate declaration with no linkage in wmgeneral.c
+	where it is assigned.
+	Link: https://bugs.debian.org/957937
+	Signed-off-by: Jeremy Sowden <jeremy@azazel.net>
+
 2019-07-23  Jeremy Sowden <jeremy@azazel.net>
 
 	* ChangeLog, NEWS, configure.ac: bumped to 0.4.35.

@@ -1,5 +1,8 @@
 Release Notes
 ~~~~~~~~~~~~~
+Release 0.4.36 - April 4, 2020
+  * GCC 10 linkage fix.
+
 Release 0.4.35 - July 23, 2019
   * TLS SNI support.
 
