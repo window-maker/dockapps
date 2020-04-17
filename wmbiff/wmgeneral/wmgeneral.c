@@ -65,6 +65,7 @@
  /* X11 Variables */
 /*****************/
 
+Display *display;
 Window Root;
 int screen;
 int x_fd;
