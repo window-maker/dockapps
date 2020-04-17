@@ -41,6 +41,12 @@
 #include "xutils.h"
 
 
+Display		*display;
+Window          Root;
+Window          iconwin, win;
+int             screen;
+int             DisplayDepth;
+
 
 /*
  *   X11 Variables
