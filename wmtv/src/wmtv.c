@@ -41,7 +41,7 @@
 #include <X11/Xutil.h>
 #include <X11/Xmd.h>
 #include <X11/StringDefs.h>
-#include <X11/keysym.h>
+#include <X11/XKBlib.h>
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 #include <X11/extensions/Xxf86dga.h>
@@ -666,7 +666,7 @@ main(int argc, char *argv[])
 					break;
 				case KeyPress:
 					if ((Event.xany.window == fmwin) && fmode) {
-							switch(XKeycodeToKeysym(display, Event.xkey.keycode, 0)) {
+							switch(XkbKeycodeToKeysym(display, Event.xkey.keycode, 0, 0)) {
 								case XK_Up:
 									if (isource == TELEVISION)
 									ChanUp();
