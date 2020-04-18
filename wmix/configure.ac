@@ -1,4 +1,4 @@
-AC_INIT([wmix], [3.4], [wmaker-dev@googlegroups.com])
+AC_INIT([wmix], [3.5], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([wmix.c])
 

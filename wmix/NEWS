@@ -1,3 +1,7 @@
+3.5 NEWS:
+Fixed link failure with GCC 10.
+Fixed some typo's.
+
 3.4 NEWS:
 Call `XSetCommand()`.
 Added autogen and .gitignore.
