@@ -1,3 +1,10 @@
+version 0.6.7
+-------------
+Date	-	18/4/20
+		-	Use extern when declaring global variables in header
+			file.
+		-	Switch deprecated XKeycodeToKeysym to XkbKeycodeToKeysym
+
 version 0.6.6
 -------------
 Date	-	1/2/16

@@ -1,4 +1,4 @@
-AC_INIT([wmtv], [0.6.6], [wmaker-dev@googlegroups.com])
+AC_INIT([wmtv], [0.6.7], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC
