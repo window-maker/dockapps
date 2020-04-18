@@ -85,6 +85,7 @@
 #endif
 
 /* Global Variables */
+Display		*display;
 int tfd;
 int card_present = FALSE;
 int ntfb_status  = SETOFF;
