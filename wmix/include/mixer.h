@@ -55,28 +55,28 @@
  * - Muting must occur independently of the volume level.
  */
 
-void (*mixer_init)(const char *mixer_device,
-                   bool verbose,
-                   const char *exclude[]);
-bool (*mixer_is_changed)(void);
-int (*mixer_get_channel_count)(void);
-int (*mixer_get_channel)(void);
-const char *(*mixer_get_channel_name)(void);
-const char *(*mixer_get_short_name)(void);
-void (*mixer_set_channel)(int channel);
-void (*mixer_set_channel_rel)(int delta_channel);
-float (*mixer_get_volume)(void);
-void (*mixer_set_volume)(float volume);
-void (*mixer_set_volume_rel)(float delta_volume);
-float (*mixer_get_balance)(void);
-void (*mixer_set_balance)(float balance);
-void (*mixer_set_balance_rel)(float delta_balance);
-void (*mixer_toggle_mute)(void);
-void (*mixer_toggle_rec)(void);
-bool (*mixer_is_muted)(void);
-bool (*mixer_is_stereo)(void);
-bool (*mixer_is_rec)(void);
-bool (*mixer_can_rec)(void);
-bool (*is_exclude)(const char *short_name,
-                   const char *exclude[]);
-void (*mixer_tick)(void);
+extern void (*mixer_init)(const char *mixer_device,
+                          bool verbose,
+                          const char *exclude[]);
+extern bool (*mixer_is_changed)(void);
+extern int (*mixer_get_channel_count)(void);
+extern int (*mixer_get_channel)(void);
+extern const char *(*mixer_get_channel_name)(void);
+extern const char *(*mixer_get_short_name)(void);
+extern void (*mixer_set_channel)(int channel);
+extern void (*mixer_set_channel_rel)(int delta_channel);
+extern float (*mixer_get_volume)(void);
+extern void (*mixer_set_volume)(float volume);
+extern void (*mixer_set_volume_rel)(float delta_volume);
+extern float (*mixer_get_balance)(void);
+extern void (*mixer_set_balance)(float balance);
+extern void (*mixer_set_balance_rel)(float delta_balance);
+extern void (*mixer_toggle_mute)(void);
+extern void (*mixer_toggle_rec)(void);
+extern bool (*mixer_is_muted)(void);
+extern bool (*mixer_is_stereo)(void);
+extern bool (*mixer_is_rec)(void);
+extern bool (*mixer_can_rec)(void);
+extern bool (*is_exclude)(const char *short_name,
+                          const char *exclude[]);
+extern void (*mixer_tick)(void);
