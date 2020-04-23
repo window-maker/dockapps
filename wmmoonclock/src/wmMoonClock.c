@@ -848,7 +848,7 @@ void print_usage(){
     printf("                   [-bc <Color>] [-lc <Color>] [-dc <Color>]\n\n");
     printf("\t-display <Display>\tUse alternate X display.\n");
     printf("\t-bc <Color>   \t\tBackground color. (e.g. #ffbb00 or orange)\n");
-    printf("\t-lc <Color>   \t\tColor for lables.\n");
+    printf("\t-lc <Color>   \t\tColor for labels.\n");
     printf("\t-dc <Color>   \t\tColor for data entries.\n");
     printf("\t-low           \t\tUse lower color pixmap (for 8-bit displays).\n");
     printf("\t-lat <Latitude>\t\tObservers Latitude. Positive in northern\n");
