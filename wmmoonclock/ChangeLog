@@ -1,4 +1,11 @@
 Changes:
+Version 1.30 -  released April 23, 2020
+		Update report email address.
+		Declare some file-scope variables static.
+		Fix build failure with GCC 10.
+		Add autogen.
+		Usage typo fixed.
+
 Version 1.29 -  released August 14, 2017
 		Update GPLv2 license text.
 		Update FSF address.
