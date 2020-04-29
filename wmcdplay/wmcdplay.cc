@@ -353,7 +353,7 @@ unsigned long mixColor(char *colorname1, int prop1, char *colorname2, int prop2)
 void scanArgs(int argc, char **argv){
    for(int i=1;i<argc;i++){
       if(strcmp(argv[i], "-h")==0 || strcmp(argv[i], "-help")==0 || strcmp(argv[i], "--help")==0){
-         fprintf(stderr, "wmcdplay - A cd player designed for WindowMaker\nRelease "VERSION"\n");
+         fprintf(stderr, "wmcdplay - A cd player designed for WindowMaker\nRelease " VERSION "\n");
          fprintf(stderr, "Copyright (C) 1998  Sam Hawker <shawkie@geocities.com>\n");
          fprintf(stderr, "This software comes with ABSOLUTELY NO WARRANTY\n");
          fprintf(stderr, "This software is free software, and you are welcome to redistribute it\n");
