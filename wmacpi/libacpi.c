@@ -111,6 +111,7 @@ static int sysfs_init_batteries(global_t *globals)
 	snprintf(batteries[i].name, MAX_NAME, "%s", names[i]);
 	pdebug("battery detected at /sys/class/power_supply/%s\n", batteries[i].name);
 	pinfo("found battery %s\n", names[i]);
+	free(names[i]);
 
 	if (read_sysfs_file(batteries[i].name, "energy_now", ps_type, sizeof(ps_type)) == 0)
 	    batteries[i].sysfs_capa_mode = SYSFS_CAPA_ENERGY;
@@ -176,6 +177,7 @@ static int procfs_init_batteries(global_t *globals)
 		 "/proc/acpi/battery/%s/state", names[i]);
 	pdebug("battery detected at %s\n", batteries[i].info_file);
 	pinfo("found battery %s\n", names[i]);
+	free(names[i]);
     }
 
     /* tell user some info */
