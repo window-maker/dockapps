@@ -25,7 +25,7 @@ dockapp.pc: Makefile
 
 CLEANFILES = dockapp.pc
 
-EXTRA_DIST = BUGS
+EXTRA_DIST = BUGS autogen
 
 update-changelog:
 	@git log `git log -1 --pretty=%h -- ChangeLog`..HEAD \
