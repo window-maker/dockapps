@@ -371,6 +371,7 @@ int power_reinit(global_t *globals)
     if (!(retval = reinit_batteries(globals)))
 	retval = reinit_ac_adapters(globals);
 
+    fclose (acpi);
     return retval;
 }
 
