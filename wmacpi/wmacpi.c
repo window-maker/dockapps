@@ -35,7 +35,6 @@
 #include <X11/xpm.h>
 
 #include "libacpi.h"
-#include "wmacpi.h"
 
 #define WMACPI_VER "2.3"
 
@@ -46,6 +45,8 @@ static char **master_xpm = master_low_xpm;
 #else
 #include "master.xpm"
 #endif
+
+static int battery_no;
 
 /* Do NOT change the BASE_PERIOD without reading the code ... */
 #define BASE_PERIOD 100000 /* base period, 100 ms (in usecs) */

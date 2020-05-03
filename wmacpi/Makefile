@@ -17,7 +17,7 @@ CFLAGS	+= $(OPT) -Wall -W -g -ansi
 LDFLAGS += $(OPT) -lX11 -ldockapp
 
 WMSRC	:= wmacpi.c libacpi.c
-HEADERS := libacpi.h wmacpi.h
+HEADERS := libacpi.h
 targets := wmacpi
 doc_targets := wmacpi.1
 
