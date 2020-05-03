@@ -23,6 +23,15 @@ static int data_source;
 /* local proto */
 int acpi_get_design_cap(int batt);
 
+static int
+cmpstr (const void *va, const void *vb)
+{
+    const char *a = *(const char **) va;
+    const char *b = *(const char **) vb;
+
+    return strcmp (a, b);
+}
+
 static int read_sysfs_file(char *node, char *prop, char *buf, size_t buflen)
 {
     char tmp[256];
@@ -63,7 +72,7 @@ static int sysfs_init_batteries(global_t *globals)
     char *name;
     char *names[MAXBATT];
     char ps_type[16];
-    int i, j;
+    int i;
 
     /* now enumerate batteries */
     globals->battery_count = 0;
@@ -96,20 +105,7 @@ static int sysfs_init_batteries(global_t *globals)
     }
     closedir(battdir);
 
-    /* A nice quick insertion sort, ala CLR. */
-    {
-	char *tmp1, *tmp2;
-
-	for (i = 1; i < globals->battery_count; i++) {
-	    tmp1 = names[i];
-	    j = i - 1;
-	    while ((j >= 0) && ((strcmp(tmp1, names[j])) < 0)) {
-		tmp2 = names[j+1];
-		names[j+1] = names[j];
-		names[j] = tmp2;
-	    }
-	}
-    }
+    qsort(names, globals->battery_count, sizeof *names, cmpstr);
 
     for (i = 0; i < globals->battery_count; i++) {
 	snprintf(batteries[i].name, MAX_NAME, "%s", names[i]);
@@ -143,7 +139,7 @@ static int procfs_init_batteries(global_t *globals)
     struct dirent *batt;
     char *name;
     char *names[MAXBATT];
-    int i, j;
+    int i;
 
     /* now enumerate batteries */
     globals->battery_count = 0;
@@ -170,20 +166,7 @@ static int procfs_init_batteries(global_t *globals)
     }
     closedir(battdir);
 
-    /* A nice quick insertion sort, ala CLR. */
-    {
-	char *tmp1, *tmp2;
-
-	for (i = 1; i < globals->battery_count; i++) {
-	    tmp1 = names[i];
-	    j = i - 1;
-	    while ((j >= 0) && ((strcmp(tmp1, names[j])) < 0)) {
-		tmp2 = names[j+1];
-		names[j+1] = names[j];
-		names[j] = tmp2;
-	    }
-	}
-    }
+    qsort(names, globals->battery_count, sizeof *names, cmpstr);
 
     for (i = 0; i < globals->battery_count; i++) {
 	snprintf(batteries[i].name, MAX_NAME, "%s", names[i]);
