@@ -26,8 +26,6 @@
 
 #include "libacpi.h"
 
-#define ACPI_VER "2.3"
-
 global_t *globals;
 
 void usage(char *name)
@@ -45,7 +43,7 @@ void usage(char *name)
 
 void print_version(void)
 {
-	printf("wmacpi-cli version %s\n", ACPI_VER);
+	printf("wmacpi-cli version %s\n", WMACPI_VER);
 	printf(" Using libacpi version %s\n", LIBACPI_VER);
 }
 

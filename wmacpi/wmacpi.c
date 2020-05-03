@@ -36,8 +36,6 @@
 
 #include "libacpi.h"
 
-#define WMACPI_VER "2.3"
-
 /* main pixmap */
 #ifdef LOW_COLOR
 #include "master_low.xpm"

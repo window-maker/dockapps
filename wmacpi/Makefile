@@ -1,6 +1,8 @@
 # set options.  pick one, acpi or apm.  comment out the other one.  don't
 # uncomment both, bad things will happen :)
 
+WMACPI_VER = 2.3
+
 OPT	:= -O2
 
 # uncomment this to build the command line acpi tool
@@ -13,7 +15,7 @@ BUILD_CLI = 1
 #OPT	= -pg -g
 
 CC	:= gcc
-CFLAGS	+= $(OPT) -Wall -W -g -ansi
+CFLAGS	+= $(OPT) -Wall -W -g -ansi -DWMACPI_VER='"$(WMACPI_VER)"'
 LDFLAGS += $(OPT) -lX11 -ldockapp
 
 WMSRC	:= wmacpi.c libacpi.c
