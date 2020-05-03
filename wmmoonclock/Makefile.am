@@ -6,7 +6,7 @@ wmmoonclock_SOURCES = src/CalcEphem.c src/CalcEphem.h src/Moon.c src/Moon.h \
 	src/wmMoonClock_masterLow.xpm \
 	src/wmMoonClock_master.xpm \
 	src/xutils.c src/xutils.h
-EXTRA_DIST = BUGS
+EXTRA_DIST = BUGS autogen
 
 AM_CFLAGS = $(x11_CFLAGS) $(xext_CFLAGS) $(xpm_CFLAGS)
 LIBS += $(x11_LIBS) $(xext_LIBS) $(xpm_LIBS) -lm
