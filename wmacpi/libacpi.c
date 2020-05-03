@@ -13,6 +13,9 @@
 
 extern char *state[];
 
+battery_t batteries[MAXBATT];
+int verbosity;
+
 #define PROC_DATA_SOURCE    0
 #define SYSFS_DATA_SOURCE   1
 static int data_source;

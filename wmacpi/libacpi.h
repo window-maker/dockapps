@@ -128,8 +128,8 @@ typedef struct {
 
 
 /* Since these /are/ needed here . . . */
-battery_t batteries[MAXBATT];
-int verbosity;
+extern battery_t batteries[MAXBATT];
+extern int verbosity;
 
 /* check if apm/acpi is enabled, etc */
 int power_init(global_t *globals);
