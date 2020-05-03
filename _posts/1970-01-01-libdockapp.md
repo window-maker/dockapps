@@ -43,6 +43,9 @@ versions:
  -
   number: 0.7.2
   download: libdockapp-0.7.2.tar.gz
+ -
+  number: 0.7.3
+  download: libdockapp-0.7.3.tar.gz
 categories: libraries
 ---
 Simple library that eases the creation of Window Maker dock apps. It provides functions that set up a dock app in such a way that they can be properly docked. It also provides some event handlers and makes it very simple to write dockapps.
