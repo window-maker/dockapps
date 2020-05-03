@@ -1,4 +1,4 @@
-AC_INIT([libdockapp],[0.7.2],[wmaker-dev@googlegroups.com])
+AC_INIT([libdockapp],[0.7.3],[wmaker-dev@googlegroups.com])
 AC_CONFIG_SRCDIR([src/dockapp.h])
 AM_INIT_AUTOMAKE
 

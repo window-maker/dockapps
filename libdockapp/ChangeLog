@@ -1,3 +1,117 @@
+2020-05-03  Jeremy Sowden <jeremy@azazel.net>
+
+	* configure.ac: bump version to 0.7.3.
+
+2020-05-03  Jeremy Sowden <jeremy@azazel.net>
+
+	* src/Makefile.am: bump library version to 3.0.1.
+
+2020-05-03  Jeremy Sowden <jeremy@azazel.net>
+
+	* src/wmgeneral.c, src/wmgeneral.h: fix multiple definitions of
+	global variable.  The `display` variable is declared in
+	wmgeneral.h with no explicit linkage.  This may result in there
+	being definitions of it in the library and the object-files of
+	applications which link against it, which causes link failures
+	when building these applications with GCC 10, since this uses
+	-fno-common by default.  Add `extern` to the header declaration
+	and a separate declaration with no linkage in wmgeneral.c where it
+	is initialized.
+
+2020-05-03  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile.am, autogen: add autogen.
+
+2019-06-13  Jeremy Sowden <jeremy@azazel.net>
+
+	* src/daargs.c: removed assertion that short-form options have
+	length 2.  The mixed-option parsing code includes an assertion
+	that short-form options have a length of two.  However, there is
+	no other validation of this requirement and some dock-apps do not
+	comply with it, which means that if one exec's them with an
+	unrecognized option or a mix of short options, the assertion fails
+	and the app aborts.  For example:
+
+	  $ /usr/bin/wmail --help | grep '\<display\>'
+	  -display <string>            display to use
+	  $ /usr/bin/wmail --blah
+	  wmail: daargs.c:126: contains: Assertion `strlen(needle) == 2' failed.
+	  Aborted
+
+	Since there is no explicit statement of this requirement, let's
+	replace the assertion with a conditional.
+
+2019-01-04  Anil N' via Window Maker Development <wmaker-dev@googlegroups.com>
+
+	* src/damain.c: Fix for missing windowname and one more.
+	- "Untitled window" appears in xfce4-wmdock-plugin's enumeration
+	of dockapps using libdockapp.
+	- Reference to string buffer that might not live long enough.
+
+2018-06-27  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Makefile.am, NEWS: Update old windowmaker.org/dockapps urls to
+	dockapps.net
+
+2018-05-14  Doug Torrance <dtorrance@piedmont.edu>
+
+	* NEWS, configure.ac: Update mailing list links to new Google
+	Groups.
+
+2017-08-31  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/dapixmap.c, src/dockapp.h: Add DAMakeShapeFromData() and
+	DAMakeShapeFromFile() functions.  libdockapp supports shaped
+	dockapps with the DASetShape() function, but this function
+	requires as input a bitmap.  Previously, there was no support for
+	creating such a bitmap from XBM data without using Xlib directly.
+	We add two functions, DAMakeShapeFromData(), which is a wrapper
+	around XCreateBitmapFromData and allows developers to #include XBM
+	data, and DAMakeShapeFromFile(), which is a wrapper around
+	XReadBitmapfile and lets developers specify the path to an XBM
+	file.
+
+2017-08-30  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/daargs.c, src/daargs.h, src/damain.c: Make
+	DAParseArguments() optional.  Some dockapps may want to handle
+	command line options themselves, so we make this function
+	optional.  Previously, if this function was skipped, then a
+	segfault would result when trying to access the _daContext global
+	while first creating the dockapp window.  Now we check if
+	_daContext has been initialized first, and if not, we initialize
+	it.
+
+2017-08-12  Doug Torrance <dtorrance@piedmont.edu>
+
+	* Makefile.am: Use Requires.private in pkg-config file to avoid
+	overlinking.
+
+2017-04-27  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/damain.c: Don't withdraw dockapps in windowed mode.  In
+	Window Maker, windows with application class "DockApp" are
+	automatically withdrawn.  We don't want this in windowed mode. We
+	use the application name instead, with the usual convention of
+	capitalizing the initial letter.
+
+2017-04-26  Doug Torrance <dtorrance@piedmont.edu>
+
+	* src/wmgeneral.c: Do not include pathnames in Window Name and
+	Class Properties Patch by Corin-EU from GitHub [1].  In
+	libdockapps file wmgeneral.c, wname is set from argv[0] and is
+	then used to set the window name and class resource. Often
+	applications are called with their full path which then means that
+	the window name has a path in it, thereby requiring an unwieldy
+	path specific string for "Name" in WMState if the applet is to be
+	captured in the WM dock.  The simple solution is that wname should
+	be the basename of argv[0] to ensure that the window name for the
+	applet is the simple and obvious one.  Thus the inclusion of
+	header file libgen.h is required.  Just say "no" to path slashes
+	"/" in window name/class resources ....
+
+	[1] https://github.com/d-torrance/dockapps/issues/5
+
 2015-10-20  Doug Torrance <dtorrance@piedmont.edu>
 
 	* configure.ac: Bump to version 0.7.2.
