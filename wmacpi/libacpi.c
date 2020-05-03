@@ -305,7 +305,7 @@ int reinit_ac_adapters(global_t *globals)
 int power_init(global_t *globals)
 {
     FILE *acpi;
-    char buf[4096];
+    char buf[4096] = "";
     int acpi_ver = 0;
     int retval;
     size_t buflen;
