@@ -3,7 +3,7 @@ AUTOMAKE_OPTIONS = no-dependencies
 
 lib_LTLIBRARIES = libdockapp.la
 
-libdockapp_la_LDFLAGS = -version-info 3:0:0
+libdockapp_la_LDFLAGS = -version-info 3:1:0
 
 otherincludedir = $(includedir)/libdockapp
 otherinclude_HEADERS = dockapp.h \
