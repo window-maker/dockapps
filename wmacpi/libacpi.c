@@ -222,23 +222,19 @@ static int sysfs_init_ac_adapters(global_t *globals)
     }
     name = NULL;
     while ((adapter = readdir(acdir)) != NULL) {
-	name = adapter->d_name;
 
-	if (name[0] == '.') {
-	  name = NULL;
+	if (adapter->d_name[0] == '.') {
 	  continue;
 	}
 
-	if (read_sysfs_file(name, "type", ps_type, sizeof(ps_type)) < 0) {
-	  name = NULL;
+	if (read_sysfs_file(adapter->d_name, "type", ps_type, sizeof(ps_type)) < 0) {
 	  continue;
 	}
 
 	if (strncmp("Mains", ps_type, 5) == 0) {
-	  pdebug("found adapter %s\n", name);
+	  pdebug("found adapter %s\n", adapter->d_name);
+	  name = strdup(adapter->d_name);
 	  break;
-	} else {
-	  name = NULL;
 	}
     }
     closedir(acdir);
@@ -249,7 +245,7 @@ static int sysfs_init_ac_adapters(global_t *globals)
     }
 
     /* we'll just use the first adapter we find ... */
-    ap->name = strdup(name);
+    ap->name = name;
     pinfo("libacpi: found ac adapter %s\n", ap->name);
 
     return 0;
@@ -279,10 +275,10 @@ static int procfs_init_ac_adapters(global_t *globals)
 	    continue;
 	pdebug("found adapter %s\n", name);
     }
+    ap->name = strdup(name);
     closedir(acdir);
     /* we /should/ only see one filename other than . and .. so
      * we'll just use the last value name acquires . . . */
-    ap->name = strdup(name);
     snprintf(ap->state_file, MAX_NAME, "/proc/acpi/ac_adapter/%s/state",
 	     ap->name);
     pinfo("libacpi: found ac adapter %s\n", ap->name);
