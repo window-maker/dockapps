@@ -1,3 +1,14 @@
+2020 May 3 2.4
+	Fix some resource leaks.
+
+	Fix a link failure with gcc-10.
+
+	Fix UAF's and reading of uninitialized buffer.
+
+	Remove header.
+
+	Define version once in Makefile.
+
 2014 November 23 2.3
 	Remove trailing whitespace.
 

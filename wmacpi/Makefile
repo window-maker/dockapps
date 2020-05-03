@@ -1,7 +1,7 @@
 # set options.  pick one, acpi or apm.  comment out the other one.  don't
 # uncomment both, bad things will happen :)
 
-WMACPI_VER = 2.3
+WMACPI_VER = 2.4
 
 OPT	:= -O2
 
