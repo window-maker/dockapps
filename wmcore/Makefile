@@ -1,3 +1,6 @@
+PREFIX	 = /usr
+BINDIR	 = $(PREFIX)/bin
+
 INSTALL	 = /usr/bin/install
 LD	 = $(CC)
 
@@ -27,7 +30,8 @@ clean:
 	rm -f $(OBJS) wmcore
 
 install:
-	$(INSTALL) -m 0755 wmcore $(DESTDIR)/usr/bin
+	$(INSTALL) -d             $(DESTDIR)$(BINDIR)
+	$(INSTALL) -m 0755 wmcore $(DESTDIR)$(BINDIR)
 
 uninstall:
 	rm -f /usr/bin/wmcore
