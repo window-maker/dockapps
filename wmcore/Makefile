@@ -1,23 +1,29 @@
-INSTALL = /usr/bin/install
-LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11 -ldockapp
-OBJS =  wmcore.o \
-		misc.o \
-		list.o
+INSTALL	 = /usr/bin/install
+LD	 = $(CC)
 
+CFLAGS	+= -Wall -O3
+LDFLAGS += -Wall
+
+LIBDIR	 = -L/usr/X11R6/lib
+LIBS	 = -lXpm -lXext -lX11 -ldockapp
+
+OBJS	 = wmcore.o \
+	   misc.o \
+	   list.o
+
+all : wmcore
 
 .c.o:
-	$(CC) $(CPPFLAGS) $(CFLAGS) -Wall -c -O3 $< -o $*.o
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
-wmlmon: $(OBJS)
-	$(CC) $(LDFLAGS) -Wall -o wmcore $^ $(LIBDIR) $(LIBS)
+wmcore: $(OBJS)
+	$(LD) $(LDFLAGS) $^ -o $@ $(LIBDIR) $(LIBS)
 
-clean::
-	for i in $(OBJS) ; do \
-		rm -f $$i;\
-	done
-	rm -f wmcore
-install::
-	$(INSTALL) -c wmcore $(DESTDIR)/usr/bin/wmcore
+clean:
+	rm -f $(OBJS) wmcore
+
+install:
+	$(INSTALL) -m 0755 wmcore $(DESTDIR)/usr/bin
+
 uninstall:
 	rm -f /usr/bin/wmcore
