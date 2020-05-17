@@ -2,13 +2,14 @@
 
  wmcube.c
 
- Version 1.0.1  (2015-02-19)
+ Version 1.0.2  (2016-02-28)
  Cezary M. Kruk <c.kruk@bigfoot.com>
  http://linux-bsd-unix.strefa.pl
 
  Contributions:
 	A few patches, three new objects, and other updates by Doug Torrance
-	<dtorrance@monmouthcollege.edu> (2015-02-19)
+	A small improvement of the manpage by Doug Torrance
+	<dtorrance@piedmont.edu> (2016-02-28)
 
  Versions 0.98  (2000-10-23)
  Robert Kling   <robkli-8@student.luth.se>
@@ -31,10 +32,10 @@
 
 */
 
-#define CK_WMCUBE_VERSION "1.0.1"
-#define CK_REV_YEAR "2014-2015"
-#define CK_REV_DATE "2015-02-19"
-#define DT_REV_YEAR "2015"
+#define CK_WMCUBE_VERSION "1.0.2"
+#define CK_REV_YEAR "2014-2016"
+#define CK_REV_DATE "2016-02-28"
+#define DT_REV_YEAR "2015-2016"
 #define RK_WMCUBE_VERSION "0.98"
 #define RK_REV_YEAR "2000"
 #define RK_REV_DATE "2000-10-23"
@@ -908,7 +909,7 @@ void setupobj(char *filename)
 
 void print_help() {
 	printf("\nwmcube %s  (C) %s Cezary M. Kruk (%s)\n", CK_WMCUBE_VERSION, CK_REV_YEAR, CK_REV_DATE);
-	printf("              (C)      %s Doug Torrance\n", DT_REV_YEAR);
+	printf("              (C) %s Doug Torrance\n", DT_REV_YEAR);
 	printf("wmCube %s   (C)      %s Robert Kling   (%s)\n\n", RK_WMCUBE_VERSION, RK_REV_YEAR, RK_REV_DATE);
 	
 	printf("  Usage: wmcube [-o <filename>] [-drcfnbipRGBh]\n\n");

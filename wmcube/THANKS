@@ -1,9 +1,13 @@
 
-I would like to thank to Doug Torrance for his contribution to
+I would like to thank to Douglas Torrance for his contribution to
 wmcube including:
 
 * a set of patches:
 
+  - remove_inline_keywords.patch -- removes inline keywords; allows
+      builds using gcc5.
+  - manpage_escape_hyphens.patch -- avoids hyphen-used-as-minus-sign
+      Lintian warning.
   - 30_bts-386850_fix_smp.patch -- fixes smp support, reading
       all the fields in /proc/stat;
   - 40_bts-357072_long_uptime_fix.patch -- fixes execution on

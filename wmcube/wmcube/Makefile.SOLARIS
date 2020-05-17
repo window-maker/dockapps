@@ -1,7 +1,7 @@
 CC = gcc
 OS = -DSOLARIS
 
-VERSION = 1.0.1
+VERSION = 1.0.2
 
 LIBDIR = -L/usr/X11R6/lib
 LIBDIR = -L/usr/openwin/lib -L/opt/sfw/lib -L/usr/local/lib -R/usr/openwin/lib -R/opt/sfw/lib -R/usr/local/lib

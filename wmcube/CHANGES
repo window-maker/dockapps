@@ -1,3 +1,8 @@
+wmcube 1.0.2 (February 28, 2016):
+	* Two following patches by Douglas Torrance: avoiding
+	  hyphen-used-as-minus-sign Lintian warning as well as removing
+	  inline keywords and allowing builds using gcc5.
+
 wmcube 1.0.1 (February 19, 2015):
 	* Applied a few patches written by Doug Torrance (see: THANKS
 	  file).

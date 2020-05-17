@@ -1,7 +1,7 @@
 CC = gcc
 OS = -DNETBSD
 
-VERSION = 1.0.1
+VERSION = 1.0.2
 
 LIBDIR = -L/usr/X11R6/lib -L./libdocapp/
 
