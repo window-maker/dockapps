@@ -19,6 +19,6 @@ clean::
 	done
 	rm -f wmcore
 install::
-	$(INSTALL) -c wmcore /usr/bin/wmcore
+	$(INSTALL) -c wmcore $(DESTDIR)/usr/bin/wmcore
 uninstall:
 	rm -f /usr/bin/wmcore
