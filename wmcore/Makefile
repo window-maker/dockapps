@@ -1,11 +1,17 @@
 INSTALL	 = /usr/bin/install
 LD	 = $(CC)
 
-CFLAGS	+= -Wall -O3
+CFLAGS	+= -Wall -O3 \
+	   $(shell pkg-config dockapp --cflags) \
+	   $(shell pkg-config x11     --cflags) \
+	   $(shell pkg-config xext    --cflags) \
+	   $(shell pkg-config xpm     --cflags)
 LDFLAGS += -Wall
 
-LIBDIR	 = -L/usr/X11R6/lib
-LIBS	 = -lXpm -lXext -lX11 -ldockapp
+LIBS	 = $(shell pkg-config dockapp --libs) \
+	   $(shell pkg-config x11     --libs) \
+	   $(shell pkg-config xext    --libs) \
+	   $(shell pkg-config xpm     --libs)
 
 OBJS	 = wmcore.o \
 	   misc.o \
@@ -17,7 +23,7 @@ all : wmcore
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
 
 wmcore: $(OBJS)
-	$(LD) $(LDFLAGS) $^ -o $@ $(LIBDIR) $(LIBS)
+	$(LD) $(LDFLAGS) $^ -o $@ $(LIBS)
 
 clean:
 	rm -f $(OBJS) wmcore
