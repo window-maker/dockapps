@@ -39,8 +39,8 @@
 #include <X11/Xlib.h>
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
+#include <libdockapp/wmgeneral.h>
 
-#include "wmgeneral.h"
 #include "misc.h"
 #include "wmcore_master.xpm"
 #include "wmcore_mask.xbm"

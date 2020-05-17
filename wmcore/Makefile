@@ -1,8 +1,7 @@
 INSTALL = /usr/bin/install
 LIBDIR = -L/usr/X11R6/lib
-LIBS   = -lXpm -lXext -lX11
+LIBS   = -lXpm -lXext -lX11 -ldockapp
 OBJS =  wmcore.o \
-		wmgeneral.o \
 		misc.o \
 		list.o
 
