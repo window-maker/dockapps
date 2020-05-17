@@ -1,7 +1,7 @@
 
 INTRODUCTION
 
-	This is a dockapp that shows the usage of each core in the system. 
+	This is a dockapp that shows the usage of each core in the system.
 	The dockapp splits into two displays, the upper one showing the common usage of the system and the
 	lower display showing one graph per each core.
 
@@ -38,7 +38,12 @@ THANKS TO
     Ben Jarvis for wmlm and wmgeneral part of code (list.h misc.h & wmgeneral.h)
 
 
+ORIGINAL AUTHOR
+
+    bitman <bitman@bitmania.de>
+
+
 CONTACT
 
-    bitman@bitmania.de
-    http://www.bitmania.de
+    wmaker-dev@googlegroups.com
+    https://www.dockapps.net/wmcore
