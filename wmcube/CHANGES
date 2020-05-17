@@ -1,0 +1,34 @@
+wmcube 0.98:
+	* Added solid flat-shading to 3d-engine
+	* New tag in object-files (WMCUBE_PLANES) for solid objects
+
+wmCube 0.97:
+	* NetBSD support
+	* New improved automatic scaling of objects
+	* Click cpu-load to hide/reveal usage
+	* More bundled objects
+	* Bugfixes in object-loading
+	* Bugfixes in intro-sequence
+	* Bugfixes in Linux SMP
+	* Removed scanning directory for objects in Solaris (doesnt work)
+
+wmCube 0.96:
+	* Solaris (Sparc/x86) support
+	* OpenBSD support
+	* FreeBSD support
+	* More bundled objects
+	* Possibility to change object at run-time by clicking the app
+	  (Scans the specified directory for objects)
+
+wmCube 0.95: 
+	* You can now design and use other objects than the default cube
+	* SMP-support: Commandline option to choose which cpu to monitor 
+	* Commandline option to leave out "nice" processes when calculating
+	  cpu-load (Thanks Thorsten Jens)
+	* Commandline option to invert the relationship between rotation-
+	  speed and cpu-load
+	* Commandline option not to display cpu-load
+	* Improvements in the cpu-load calculation (Thanks Jakob Borg)
+
+wmCube 0.90: 
+	* Initial release

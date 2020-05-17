@@ -1,0 +1,38 @@
+CC = gcc
+OS = -DFREEBSD
+
+LIBDIR = -L/usr/X11R6/lib
+LIBDIR = -L/usr/X11R6/lib
+INCDIR = -I/usr/X11R6/include
+
+# Edit OSLIBS as appropriate to include OS specific libraries.
+
+OSLIBS = -lkvm
+LIBS   = -lXpm -lXext -lX11 -lm $(OSLIBS)
+CFLAGS = -Wall -O2 $(OS)
+
+OBJS =	wmcube.o \
+	../wmgeneral/wmgeneral.o \
+	../wmgeneral/misc.o \
+	../wmgeneral/list.o
+
+.c.o:
+	$(CC) $(CFLAGS) $(INCDIR) -c $< -o $*.o
+
+wmcube: $(OBJS)
+	$(CC) -o wmcube $(OBJS) -lXext $(LIBDIR) $(LIBS)
+
+all:: wmcube
+
+clean::
+	for i in $(OBJS) ; do \
+		rm -f $$i ; \
+	done
+	rm -f wmcube
+	rm -f *~
+
+install:: wmcube
+	cp -f wmcube /usr/local/bin/
+	chmod g+s /usr/local/bin/wmcube
+	chown root.kmem /usr/local/bin/wmcube
+	@echo "wmCube installation finished..."

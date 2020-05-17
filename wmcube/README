@@ -1,0 +1,41 @@
+wmCube 0.98
+--------------------------------------------------------------
+Author:	Robert Kling
+	robkli-8@student.luth.se
+	http://boombox.campus.luth.se
+
+Contributions by:
+	Thorsten Jens (thodi@et-inf.fho-emden.de)
+ 	Jakob Borg (email-adress goes here)
+	Dan Price (dp@rampant.org)
+	Brian Joseph Czapiga (rys@godsey.net)
+	Tai-hwa Liang (avatar@mmlab.cse.yzu.edu.tw)
+	Jared Smolens (jsmolens+@andrew.cmu.edu)
+
+Description
+--------------------------------------------------------------
+
+wmCube is a dockapp that displays a realtime rotating 3d-object 
+and the current CPU load.
+
+Files
+--------------------------------------------------------------
+3dObjects/	In here you will find bundled object-files.
+README		This file.
+INSTALL		Installation instructions.
+CHANGES		Description of changes.
+TODO		Things I've already planned for wmCube
+COPYING		GNU General Public License Version 2.
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to robkli-8@student.luth.se and describe the
+problem as detailed as you can.
+
+Copyright
+--------------------------------------------------------------
+wmCube is Copyright (C) 2000/01 by Robert Kling, Lulea SWEDEN
+
+wmCube is licensed through the GNU General Public License.
+Read the COPYING file for the complete GNU license.
