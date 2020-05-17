@@ -1,4 +1,15 @@
-wmcube 1.0.0:
+wmcube 1.0.1 (February 19, 2015):
+	* Applied a few patches written by Doug Torrance (see: THANKS
+	  file).
+	* Updated Makefile (Makefile.LINUX) file according to the
+	  modifications by Doug Torrance.
+	* Added three new objects -- X-lines.wmc, X-planes.wmc, and
+	  beryllium.wmc -- all of them recommended by Doug Torrance.
+	* Added updated version of wmcube.1 manual page borrowed from
+	  Debian.
+	* Added THANKS file.
+
+wmcube 1.0.0 (November 26, 2014):
 	* Default color scheme changed to the gray one.
 	* Added red, green, and blue color schemes (you may combine them
 	  in order to get cyan, magenta, and yellow ones).
@@ -12,7 +23,7 @@ wmcube 1.0.0:
 	* Licence changed to GNU GPL v. 3.
 	* The program since this version is maintained by Cezary M. Kruk.
 
-wmcube 0.98:
+wmCube 0.98:
 	* Added solid flat-shading to 3d-engine.
 	* New tag in object-files (WMCUBE_PLANES) for solid objects.
 
@@ -32,17 +43,17 @@ wmCube 0.96:
 	* FreeBSD support.
 	* More bundled objects.
 	* Possibility to change object at run-time by clicking the app
-	  (Scans the specified directory for objects).
+	  (scans the specified directory for objects).
 
 wmCube 0.95:
 	* You can now design and use other objects than the default cube.
 	* SMP-support: Commandline option to choose which cpu to monitor.
 	* Commandline option to leave out "nice" processes when calculating
-	  cpu-load (Thanks Thorsten Jens).
+	  cpu-load (thanks to Thorsten Jens).
 	* Commandline option to invert the relationship between rotation-
 	  speed and cpu-load.
 	* Commandline option not to display cpu-load.
-	* Improvements in the cpu-load calculation (Thanks Jakob Borg).
+	* Improvements in the cpu-load calculation (thanks to Jakob Borg).
 
 wmCube 0.90:
 	* Initial release.

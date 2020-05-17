@@ -1,0 +1,85 @@
+.\" -*- nroff -*-
+.TH WMCUBE 1 "February 19, 2015" "Version 1.0.1" "3D object CPU Load display applet"
+
+.SH NAME
+wmcube \-\- spinning 3D object that shows the current CPU load
+
+.SH SYNOPSIS
+wmcube
+[\fI\,OPTIONS\/\fR]
+
+.SH DESCRIPTION
+.I wmcube
+is a dockapp that displays a realtime rotating 3D-object which indicates
+current CPU load.  The higher the load, the faster the object spins.
+
+.SH OPTIONS
+.TP
+\fB\-o\fR <filename>
+load external 3D object (plugin).
+.TP
+\fB\-d\fR x
+rotate x degrees/step when the CPU is idle (default 1).
+.TP
+\fB\-r\fR x
+rotate 1 degree faster every x percent of the CPU usage (default 25).
+.TP
+\fB\-c\fR x
+which CPU (0, 1, 2...) to monitor (default average over all).
+.TP
+\fB\-f\fR
+use smooth font (default OFF).
+.TP
+\fB\-n\fR
+exclude "nice" processes (default OFF).
+.TP
+\fB\-b\fR
+draw the cube in a brighter color (default OFF).
+.TP
+\fB\-i\fR
+invert cube speed (default OFF).
+.TP
+\fB\-p\fR
+do not display the CPU load (default OFF).
+.TP
+\fB\-R\fR
+use red image.
+.TP
+\fB\-G\fR
+use green image.
+.TP
+\fB\-B\fR
+use blue image.
+.TP
+\fB\-h\fR
+display this help.
+
+.SH TIPS & TRICKS
+By combining together -RG, -RB, or -GB switches you get yellow, magenta, or cyan
+images.  Combining -RGB switches produces the gray image \-\- the same as without
+any swiches.
+
+.SH PROGRAM AUTHORS
+wmcube 1.0.1:
+.IP
+(C) 2014-2015 Cezary M. Kruk  <\fIc.kruk@bigfoot.com\fP>
+.IP
+(C)      2015 Doug Torrance
+.LP
+wmCube 0.98:
+.IP
+(C)      2000 Robert Kling
+
+.SH MANPAGE AUTHORS
+Evelyn Mitchell <efm@tummy.com> \-\- manpage for the Debian prepackaged version of wmcube.
+.LP
+Filip Van Raemdonck <mechanix@digibel.org> \-\- manpage for version 0.98 of wmcube.
+.LP
+Sandro Tosi <matrixhasu@gmail.com> \-\- manpage for version 0.99-pre1 of wmcube.
+.LP
+Doug Torrance <dtorrance@monmouthcollege.edu> \-\- manpage for version 1.0.0.
+.LP
+Cezary M. Kruk <c.kruk@bigfoot.com> \-\- manpage for version 1.0.1.
+
+.SH SEE ALSO
+.BR fvwm (1), wmaker (1)

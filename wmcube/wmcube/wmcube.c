@@ -2,37 +2,42 @@
 
  wmcube.c
 
- Version 1.0.0  (2014-11-26)
+ Version 1.0.1  (2015-02-19)
  Cezary M. Kruk <c.kruk@bigfoot.com>
  http://linux-bsd-unix.strefa.pl
+
+ Contributions:
+	A few patches, three new objects, and other updates by Doug Torrance
+	<dtorrance@monmouthcollege.edu> (2015-02-19)
 
  Versions 0.98  (2000-10-23)
  Robert Kling   <robkli-8@student.luth.se>
  http://boombox.campus.luth.se/projects.php
 
  Contributions:
-	-n option patch by Thorsten Jens (thodi@et-inf.fho-emden.de) (2000-05-12)
+	-n option patch by Thorsten Jens <thodi@et-inf.fho-emden.de> (2000-05-12)
 	Various bugfixes and optimizations by Jakob Borg (2000-05-13)
-	Solaris Port by Dan Price (dp@rampant.org) (2000-07-16)
-	OpenBSD Port by Brian Joseph Czapiga (rys@godsey.net) (2000-07-19)
-	FreeBSD Port by Tai-hwa Liang (avatar@mmlab.cse.yzu.edu.tw) (2000-07-20)
+	Solaris Port by Dan Price <dp@rampant.org> (2000-07-16)
+	OpenBSD Port by Brian Joseph Czapiga <rys@godsey.net> (2000-07-19)
+	FreeBSD Port by Tai-hwa Liang <avatar@mmlab.cse.yzu.edu.tw> (2000-07-20)
 	NetBSD Port by Jared Smolens <jsmolens+@andrew.cmu.edu> (2000-09-23)
 
  This software is licensed through the GNU General Public Licence.
 
- See http://www.BenSinclair.com/dockapp/ for more wm dock apps.
+ See http://www.BenSinclair.com/dockapp/ for more Window Maker dockapps.
 
  If you want to port wmcube to another OS the system specific code is
  sectioned the bottom of this file. See instructions there.
 
 */
 
-#define WMCUBE_VERSION "1.0.0"
-#define REV_YEAR "2014"
-#define REV_DATE "2014-11-26"
-#define WMCUBE_OLDVERSION "0.98"
-#define OLDREV_YEAR "2000"
-#define OLDREV_DATE "2000-10-23"
+#define CK_WMCUBE_VERSION "1.0.1"
+#define CK_REV_YEAR "2014-2015"
+#define CK_REV_DATE "2015-02-19"
+#define DT_REV_YEAR "2015"
+#define RK_WMCUBE_VERSION "0.98"
+#define RK_REV_YEAR "2000"
+#define RK_REV_DATE "2000-10-23"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -58,7 +63,9 @@
 #include <X11/extensions/shape.h>
 
 #ifdef FREEBSD
-#include <kvm.h>
+#include <sys/resource.h>
+#include <sys/sysctl.h>
+#include <errno.h>
 #endif
 
 #include "../wmgeneral/wmgeneral.h"
@@ -142,11 +149,6 @@ int		font = 0;
 int		but_stat = -1;
 
 float	lum_vector[3] = { 0, 0, 100 };  // Lightsource vector
-
-#ifdef FREEBSD
-static kvm_t            *kd;
-static struct nlist     nlst[] = { {"_cp_time"}, {0} };
-#endif
 
 	char	obj_filename[256];
 	char	*plugin = {""};
@@ -414,7 +416,7 @@ void startup_seq()
 	char *tmp = malloc(32);
 	int oldzoff = 3600;
 
-	sprintf(tmp,"%s",WMCUBE_VERSION);
+	sprintf(tmp,"%s",CK_WMCUBE_VERSION);
 	
 	RedrawWindow();
 	BlitString("WMCUBE",13,22);
@@ -437,6 +439,7 @@ void startup_seq()
 		usleep(9000);
 	}
 
+	free(tmp);
 	zoff = 3600;
 }	
 
@@ -904,8 +907,9 @@ void setupobj(char *filename)
 //*************************************************
 
 void print_help() {
-	printf("\nwmcube %s  (C) %s Cezary M. Kruk (%s)\n", WMCUBE_VERSION, REV_YEAR, REV_DATE);
-	printf("wmCube %s   (C) %s Robert Kling   (%s)\n\n", WMCUBE_OLDVERSION, OLDREV_YEAR, OLDREV_DATE);
+	printf("\nwmcube %s  (C) %s Cezary M. Kruk (%s)\n", CK_WMCUBE_VERSION, CK_REV_YEAR, CK_REV_DATE);
+	printf("              (C)      %s Doug Torrance\n", DT_REV_YEAR);
+	printf("wmCube %s   (C)      %s Robert Kling   (%s)\n\n", RK_WMCUBE_VERSION, RK_REV_YEAR, RK_REV_DATE);
 	
 	printf("  Usage: wmcube [-o <filename>] [-drcfnbipRGBh]\n\n");
 	
@@ -992,7 +996,8 @@ int loadobj(char *filename) {
 		exit(0);
 	}
 
-	fscanf(fp,"%s",tmp);
+	if (fscanf(fp,"%s",tmp) < 1)
+		printf("WARNING: Could not read first line of object-file (%s).\n",filename);
 	
 	if (strcmp(tmp,"WMCUBE_COORDINATES") != 0) {
 		printf("\nError in objectfile: it must start with WMCUBE_COORDINATES\n\n");
@@ -1000,13 +1005,15 @@ int loadobj(char *filename) {
 		exit(0);
 	}
 
-	fscanf(fp,"%s",tmp);
+	if (fscanf(fp,"%s",tmp) < 1)
+		printf("WARNING: Could not read second line of object-file (%s).\n",filename);
 
 	while ((strcmp(tmp,"WMCUBE_LINES") != 0) && (strcmp(tmp,"WMCUBE_PLANES") != 0)) {		
 
 	 	matrix = (float **)realloc(matrix,(i+1)*sizeof(float *)); mem_alloc_error(matrix);
 		matrix[i] = (float *)malloc(3*sizeof(float)); mem_alloc_error(matrix[i]);
-		fscanf(fp,"%f %f %f",&matrix[i][0],&matrix[i][1],&matrix[i][2]);
+		if (fscanf(fp,"%f %f %f",&matrix[i][0],&matrix[i][1],&matrix[i][2]) < 3 )
+			printf("WARNING: Could not read coordinates in object-file (%s).\n",filename);
 		//printf("\n%d: %f %f %f",atoi(tmp), matrix[i][0],matrix[i][1],matrix[i][2]);
 
 		if (atoi(tmp) != (++i)) { 
@@ -1016,7 +1023,8 @@ int loadobj(char *filename) {
 			fclose(fp);
 			exit(0);
 		}
-		fscanf(fp,"%s",tmp);
+		if (fscanf(fp,"%s",tmp) < 1)
+			printf("WARNING: Could not read next line of object-file (%s).\n",filename);
 
 		if (feof(fp)) {
 			printf("\nError in objectfile: you must have a section WMCUBE_LINES or WMCUBE_PLANES\n\n");
@@ -1034,14 +1042,18 @@ int loadobj(char *filename) {
 		while (1) {
 		
 			cline = (int *)realloc(cline,(i+2)*sizeof(int)); mem_alloc_error(cline);
-			fscanf(fp,"%d %d",&cline[i],&cline[i+1]);
+			if (fscanf(fp,"%d %d",&cline[i],&cline[i+1]) < 2) {
+				if (feof(fp))
+					break;
+				else
+					printf("WARNING: Could not read line coordinates in object-file (%s).\n",filename);
+			}
 			i += 2;
 			//printf("\n%d %d",cline[i-2],cline[i-1]);
-			if (feof(fp)) break;
 		
 			if (cline[i-2] > nofcoords || cline[i-1] > nofcoords) { 
 				printf("\nError in objectfile (WMCUBE_LINES section):\n"
-					   "coordinates %d or/and %d doesnt exist\n\n",cline[i-2],cline[i-1]);
+					   "coordinates %d and/or %d don't exist\n\n",cline[i-2],cline[i-1]);
 				fclose(fp);
 				exit(0);
 			}
@@ -1054,17 +1066,20 @@ int loadobj(char *filename) {
 		while (1) {	
 			planes = (int **)realloc(planes,(i+1)*sizeof(int *)); mem_alloc_error(planes);
 			planes[i] = (int *)malloc(3*sizeof(int)); mem_alloc_error(planes[i]);
-			fscanf(fp,"%d %d %d",&planes[i][0],&planes[i][1],&planes[i][2]);
+			if (fscanf(fp,"%d %d %d",&planes[i][0],&planes[i][1],&planes[i][2]) < 3) {
+				if (feof(fp))
+					break;
+				else
+					printf("WARNING: Could not read plane coordinates in object-file (%s).\n",filename);
+			}
 			//printf("\n%d: %d %d %d",i,planes[i][0],planes[i][1],planes[i][2]);
 
 			planes[i][0]--; planes[i][1]--; planes[i][2]--;
 			//printf("\n%d: %d %d %d\n",i,planes[i][0],planes[i][1],planes[i][2]);
 			
-			if (feof(fp)) break;
-		
 			if (planes[i][0] > nofcoords || planes[i][1] > nofcoords || planes[i][2] > nofcoords) { 
 				printf("\nError in objectfile (WMCUBE_PLANES section):\n"
-				 	   "coordinates %d or/and %d or/and %d doesnt exist\n\n",planes[i][0],planes[i][1],planes[i][2]);
+				 	   "coordinates %d and/or %d and/or %d don't exist\n\n",planes[i][0],planes[i][1],planes[i][2]);
 				fclose(fp);
 				exit(0);
 			}
@@ -1118,6 +1133,7 @@ int init_calc_cpu()
 	int i;
 	char cpuid[6];
 	char check_cpu[6];
+	char tmp[32];
 
 	sprintf(check_cpu, "cpu%d", which_cpu);
 
@@ -1130,7 +1146,8 @@ int init_calc_cpu()
 		return 0;
 
 	for (i = -2; i < which_cpu; i++) {
-                fscanf(fp, "%s", cpuid);
+		if (fscanf(fp, "%5s %31s %31s %31s %31s %31s %31s %31s %31s", cpuid, tmp, tmp, tmp, tmp, tmp, tmp, tmp, tmp) < 1)
+			fprintf(stderr, "WARNING: could not read cpuid from /proc/stat\n");
         }
 
 	if (strcmp(check_cpu,cpuid) != 0) {
@@ -1138,20 +1155,24 @@ int init_calc_cpu()
 		    "sure you have an SMP system?\n",check_cpu);
                 return -1;
         }
+	fclose(fp);
 	return (0); 
 }
 
 int calc_cpu_total() {
-	int total, used, t=0, i;
+	unsigned int total, used;
+	int t=0, i;
 	static int previous_total = 0, previous_used = 0;
 	char cpuid[6];
-	int cpu,nice,system,idle;
+	unsigned int cpu,nice,system,idle;
+	char tmp[32];
 	FILE *fp;
 	
 	fp = fopen("/proc/stat","rt");
 
 	for (i = -2; i < which_cpu; i++) {
-		fscanf(fp,"%s %d %d %d %d",cpuid,&cpu,&nice,&system,&idle);
+		if (fscanf(fp,"%5s %u %u %u %u %31s %31s %31s %31s", cpuid, &cpu, &nice, &system, &idle, tmp, tmp, tmp, tmp) < 5)
+			fprintf(stderr, "WARNING: could not read statistics from /proc/stat\n");
 	}
 
 	fclose(fp);
@@ -1300,26 +1321,28 @@ int calc_cpu_total()
 }
 
 #elif defined FREEBSD
-#include <nlist.h>
-#include <fcntl.h>
-#include <sys/dkstat.h>
 
 int init_calc_cpu()
 {
-
-        if ((kd = kvm_open(NULL, NULL, NULL, O_RDONLY, "kvm_open")) == NULL)
-        {
-                printf("\nError: unable to open kvm\n\n");
-                exit(0);
-        }
-        kvm_nlist(kd, nlst);
-        if (nlst[0].n_type == 0) 
-        {
-                printf("\nError: unable to get nlist\n\n");
-                exit(1);
-        }
-
         return 0;
+}
+
+#define GETSYSCTL(name, var) getsysctl(name, &(var), sizeof(var))
+
+static void getsysctl(const char *name, void *ptr, size_t len)
+{
+	size_t nlen = len;
+
+	if (sysctlbyname(name, ptr, &nlen, NULL, 0) == -1) {
+		fprintf(stderr, "sysctl(%s...) failed: %s\n", name,
+			strerror(errno));
+		exit(1);
+	}
+	if (nlen != len) {
+		fprintf(stderr, "sysctl(%s...) expected %lu, got %lu\n",
+			name, (unsigned long)len, (unsigned long)nlen);
+		exit(1);
+	}
 }
 
 int calc_cpu_total() {
@@ -1328,12 +1351,7 @@ int calc_cpu_total() {
         int cpu,nice,system,idle;
         unsigned long int cpu_time[CPUSTATES];
 
-        if (kvm_read(kd, nlst[0].n_value, &cpu_time, sizeof(cpu_time))
-                != sizeof(cpu_time))
-        {
-                printf("\nError reading kvm\n\n");
-                exit(0);
-        }
+        GETSYSCTL("kern.cp_time", cpu_time);
 
         cpu = cpu_time[CP_USER];
         nice = cpu_time[CP_NICE];

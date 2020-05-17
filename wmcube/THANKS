@@ -1,0 +1,28 @@
+
+I would like to thank to Doug Torrance for his contribution to
+wmcube including:
+
+* a set of patches:
+
+  - 30_bts-386850_fix_smp.patch -- fixes smp support, reading
+      all the fields in /proc/stat;
+  - 40_bts-357072_long_uptime_fix.patch -- fixes execution on
+      machine with long uptime;
+  - fix_-Wunused-result_v2.patch -- fixes -Wunused-result
+      compiler warnings;
+  - fix_cppcheck_warnings.patch -- fixes warnings found by
+      cppcheck;
+  - fix_grammar.patch -- fixes grammar in error message;
+  - freebsd_sysctl.patch -- uses sysctl instead of kvm to get
+      cpu stats on kfreebsd;
+
+* a few updates in Makefile (Makefile.LINUX) file;
+
+* three new objects:
+
+  - X-lines.wmc,
+  - X-planes.wmc,
+  - beryllium.wmc;
+
+* wmcube.1 manual page.
+
