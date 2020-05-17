@@ -39,7 +39,6 @@ clean::
 install:: wmcube
 	cp -f wmcube $(BINDIR)
 	chmod 755 $(BINDIR)/wmcube
-	chown root:root $(BINDIR)/wmcube
 	mkdir -p $(DOCDIR)
 	cp -p ../CHANGES ../COPYING ../INSTALL ../README ../THANKS $(DOCDIR)
 	cp -pr ../3D-objects $(DOCDIR)
