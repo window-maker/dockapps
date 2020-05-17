@@ -8,10 +8,10 @@ OBJS =  wmcore.o \
 
 
 .c.o:
-	cc $(CFLAGS) -Wall -c -O3 $< -o $*.o
+	cc $(CPPFLAGS) $(CFLAGS) -Wall -c -O3 $< -o $*.o
 
 wmlmon: $(OBJS)
-	cc $(CFLAGS) -Wall -o wmcore $^ $(LIBDIR) $(LIBS)
+	cc $(LDFLAGS) -Wall -o wmcore $^ $(LIBDIR) $(LIBS)
 
 clean::
 	for i in $(OBJS) ; do \
