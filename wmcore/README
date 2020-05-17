@@ -1,0 +1,44 @@
+
+INTRODUCTION
+
+	This is a dockapp that shows the usage of each core in the system. 
+	The dockapp splits into two displays, the upper one showing the common usage of the system and the
+	lower display showing one graph per each core.
+
+	It detects the number of cores and computes the usage to be represented as a bar graph.
+	wmcore works with a variable number of cores, I have tested the display with 1 up to 16 (simulated) cores.
+
+PURPOSE
+
+
+
+INSTALLATION
+
+	# cd wmcore
+	# make
+	# make install
+
+
+REQUIRES
+
+    Appropriate Window Manager
+    Some header files (The debian package xlibs-dev contains them all)
+
+
+TO DO
+
+
+
+FURTHER INFORMATION
+
+
+
+THANKS TO
+
+    Ben Jarvis for wmlm and wmgeneral part of code (list.h misc.h & wmgeneral.h)
+
+
+CONTACT
+
+    bitman@bitmania.de
+    http://www.bitmania.de
