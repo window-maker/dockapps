@@ -1,0 +1,31 @@
+Requirements
+--------------------------------------------------------------
+
+- Linux (glibc at least 2.1) tested on various distributions
+  or Solaris 8 Sparc/x86 (should work on Solaris 2.x and 7),
+  or OpenBSD,
+  or FreeBSD 3-stable, 4-stable,
+  or NetBSD
+
+- root access
+
+  To be able to install the application system-wide you need
+  the root access.
+
+Installation
+--------------------------------------------------------------
+1)  $ tar -zxf wmcube-1.0.0.tar.gz
+
+2)  $ cd wmcube-1.0.0/wmcube
+
+3)  $ make                    # if you run Linux
+    $ make -f Makefile.XXX    # for XXX OS running
+
+Optional:
+
+4)  $ su -
+
+5)  # make install
+
+6)  # exit
+

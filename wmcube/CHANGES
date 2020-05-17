@@ -1,54 +1,49 @@
-wmCube 0.99-pre1
-	* Rewrite to C++ using the wmApp toolkit.
-		- Full color depth
-		- User definable for/background colors 
-		- User definable shading
-		- New window layout added with cpu meter
-		- Switch to classic (simple) layout with a mouseclick
-	* Uses the CpuMonitorCC library (also in pre-stage)
-	* Place lightsource with mouseclick or have it move around by itself
-	* Solid wireframe mode added
-	* "Reflex" effect
-	* 3- and 5-button mouse (mouse wheel support)
-	* wmc file format updates
-		- Both planes and lines in the same file (preferably even)
-		- No specific order of sections is required
-		- Comments allowed (all lines starting with a #)
-		- Should be fully backwards compatible
-	* If no object(s) defined looks in /usr/share/wmcube
-	* Rewritten scandir function to be POSIX compliant
+wmcube 1.0.0:
+	* Default color scheme changed to the gray one.
+	* Added red, green, and blue color schemes (you may combine them
+	  in order to get cyan, magenta, and yellow ones).
+	* Added smooth font.
+	* Program installs the plugins in /usr/share/wmcube directory.
+	* Added the recognition of the plugins directory.
+	* Added three versions of Slackware Linux logo.
+	* Updated Makefiles.
+	* Updated the documentation.
+	* The name of the program changed from wmCube to wmcube.
+	* Licence changed to GNU GPL v. 3.
+	* The program since this version is maintained by Cezary M. Kruk.
 
-wmCube 0.98:
-	* Added solid flat-shading to 3d-engine
-	* New tag in object-files (WMCUBE_PLANES) for solid objects
+wmcube 0.98:
+	* Added solid flat-shading to 3d-engine.
+	* New tag in object-files (WMCUBE_PLANES) for solid objects.
 
 wmCube 0.97:
-	* NetBSD support
-	* New improved automatic scaling of objects
-	* Click cpu-load to hide/reveal usage
-	* More bundled objects
-	* Bugfixes in object-loading
-	* Bugfixes in intro-sequence
-	* Bugfixes in Linux SMP
-	* Removed scanning directory for objects in Solaris (doesnt work)
+	* NetBSD support.
+	* New improved automatic scaling of objects.
+	* Click cpu-load to hide/reveal usage.
+	* More bundled objects.
+	* Bugfixes in object-loading.
+	* Bugfixes in intro-sequence.
+	* Bugfixes in Linux SMP.
+	* Removed scanning directory for objects in Solaris (doesnt work).
 
 wmCube 0.96:
-	* Solaris (Sparc/x86) support
-	* OpenBSD support
-	* FreeBSD support
-	* More bundled objects
+	* Solaris (Sparc/x86) support.
+	* OpenBSD support.
+	* FreeBSD support.
+	* More bundled objects.
 	* Possibility to change object at run-time by clicking the app
-	  (Scans the specified directory for objects)
+	  (Scans the specified directory for objects).
 
-wmCube 0.95: 
-	* You can now design and use other objects than the default cube
-	* SMP-support: Commandline option to choose which cpu to monitor 
+wmCube 0.95:
+	* You can now design and use other objects than the default cube.
+	* SMP-support: Commandline option to choose which cpu to monitor.
 	* Commandline option to leave out "nice" processes when calculating
-	  cpu-load (Thanks Thorsten Jens)
+	  cpu-load (Thanks Thorsten Jens).
 	* Commandline option to invert the relationship between rotation-
-	  speed and cpu-load
-	* Commandline option not to display cpu-load
-	* Improvements in the cpu-load calculation (Thanks Jakob Borg)
+	  speed and cpu-load.
+	* Commandline option not to display cpu-load.
+	* Improvements in the cpu-load calculation (Thanks Jakob Borg).
 
-wmCube 0.90: 
-	* Initial release
+wmCube 0.90:
+	* Initial release.
+

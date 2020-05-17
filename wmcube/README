@@ -1,83 +1,84 @@
-wmCube 0.99-pre1
-(C) Copyright 2003 Robert Kling
-robkli-8@student.luth.se
-http://kling.mine.nu/wmcube.htm
+wmcube 1.0.0
+---------------------------------------------------------------
+Author: Cezary M. Kruk
+        c.kruk@bigfoot.com
+        http://linux-bsd-unix.strefa.pl
 
-DESCRIPTION
-wmCube is a dockapp for monitoring the cpu load. A 3D object spins
-faster/slower relative to the load and you can even design your own
-objects for it. Objects can be traditional wireframe or solid shaded or 
-a combination of the two.
+wmCube 0.98
+---------------------------------------------------------------
+Author: Robert Kling
+        robkli-8@student.luth.se
+        http://boombox.campus.luth.se
 
-REQUIREMENTS
-wmCube uses the CpuMonitorCC (cpumoncc) library (spawned from 
-previous versions of wmCube) to read the cpu load which supports a 
-range of different operating systems. Further, the wmApp toolkit is 
-used to do the drawing to the X server. Both cpumoncc and wmApp 
-are included in the distribution, versions 0.0.1-pre1 and 0.0.4.1
-respectively.
+Contributors:
+        Thorsten Jens (thodi@et-inf.fho-emden.de)
+        Jakob Borg (email-adress goes here)
+        Dan Price (dp@rampant.org)
+        Brian Joseph Czapiga (rys@godsey.net)
+        Tai-hwa Liang (avatar@mmlab.cse.yzu.edu.tw)
+        Jared Smolens (jsmolens+@andrew.cmu.edu)
 
-INSTALL
-THIS PRE-VERSION ONLY WORKS ON LINUX! Please report
-all bugs. Note though that wmCube _should_ compile on all archs
-supported in earlier versions by simply editing the Makefile for
-the particular OS in the cpumoncc directory as well as copying 
-and modifying the main makefile. IF YOU GET WMCUBE 
-WORKING IN ANOTHER OS THAN LINUX, PLEASE SEND
-ME THE SUCCESSFUL MAKEFILES OR A PATCH! (sorry
-for the shouting)
+Description
+---------------------------------------------------------------
+wmcube is a dockapp displaying a realtime rotating 3D object
+(plugin) together with the current CPU load.  The speed of the
+rotation depends on the CPU load.
 
-To install wmCube:
+Commands
+---------------------------------------------------------------
+Display help:
 
-# make
+    $ wmcube -h
 
-then as root
+Run cube.wmc plugin from the current or default directory:
 
-# make install
+    $ wmcube -o cube.wmc &
 
-This will install wmc-objects into /usr/share/wmcube
-and the binary into /usr/local/bin.
+Run random plugin from the default directory:
 
-Alternatively you can run wmcube with '-o <directory>' which will
-load objects from the <directory>. More objects will
-be bundled in the stable release.
+    $ wmcube &
 
-USAGE
+Run random plugin from the current directory:
 
-# wmcube -h
+    $ wmcube -o . &
 
-will give you a list of all availible command line options. When
-running you control the program by clicking with your mouse on the
-canvas where the object is displayed.
+Run sample.wmc plugin from the selected directory:
 
-For a 3-button mouse:
+    $ wmcube -o ~/myplugins/sample.wmc &
 
-First mouse button (left):
-	Upper left corner: Switches between new and classic window mode.
-	Left hand side: Zoom away from the object.
-	Right hand side: Zoom in on the object.
-	Upper edge: Scroll in the next object from below.
-	Lower edge: Scroll in the previous object from above.
-	In the middle (approx): Change 3d mode on object.
-	
-Second mouse button (middle button):
-	Changes 3d mode on object.
-	
-Third mouse button (right):
-	Sets the position of the lightsource.
-	
-For a 5-button mouse (mouse wheel):
-Exactly the same as 3-button mouse except
-that you can also zoom in/out with the wheel
-(button 4 and 5).
+(The default directory is set to /usr/share/wmcube).
 
-CONTRIBUTIONS
-I only test wmCube thoroughly on Linux so anyone running on a
-different OS/architecture please let me now if there are any bugs.
-Suggestions, patches etc. are also very welcome. If you package
-wmCube for a certain distribution/OS and it is not represented on
-this page feel free to send it to me. You can also send me new
-objects (if they're cool) and I will include them in the next release
-alt. put them up on this page. Make sure to put a comment
-(new in 0.99) with your name etc in the wmc-file if you want credit 
-for them.
+Mouse actions
+---------------------------------------------------------------
+Display the next plugin (works with the directories including
+the plugins):
+
+    click the center of the dockapp
+
+Zoom the plugin out or in:
+
+    click - or +
+
+Hide or show CPU usage:
+
+    click XX%
+
+Files
+---------------------------------------------------------------
+3D-objects  3D object files (plugins)
+COPYING     GNU General Public License Version 3
+CHANGES     Description of the changes
+INSTALL     Installation instructions
+README      This file
+
+Bugs
+---------------------------------------------------------------
+If you discover any bugs in this software, please send a
+bugreport to c.kruk@bigfoot.com and describe the problem as
+detailed as you can.
+
+Copyright
+---------------------------------------------------------------
+wmcube (C) 2014 by Cezary M. Kruk, Wrocław, Poland
+wmCube (C) 2000-2001 by Robert Kling, Lulea, Sweden
+
