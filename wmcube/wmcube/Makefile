@@ -16,13 +16,10 @@ OBJDIR = $(PREFIX)/share/wmcube
 # Edit OSLIBS as appropriate to include OS specific libraries.
 
 OSLIBS =
-LIBS   = -lXpm -lXext -lX11 -lm $(OSLIBS)
+LIBS   = -lXpm -lXext -lX11 -ldockapp -lm $(OSLIBS)
 CFLAGS = -Wall -O2
 
-OBJS =	wmcube.o \
-	../wmgeneral/wmgeneral.o \
-	../wmgeneral/misc.o \
-	../wmgeneral/list.o
+OBJS =	wmcube.o
 
 .c.o:
 	$(CC) $(OS) $(CPPFLAGS) $(CFLAGS) $(INCDIR) -c $< -o $*.o

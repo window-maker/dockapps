@@ -69,8 +69,8 @@
 #include <errno.h>
 #endif
 
-#include "../wmgeneral/wmgeneral.h"
-#include "../wmgeneral/misc.h"
+#include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 
 #include "wmcube.xpm"
 #include "wmcubered.xpm"
