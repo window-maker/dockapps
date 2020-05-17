@@ -13,9 +13,7 @@ LIBS	 = $(shell pkg-config dockapp --libs) \
 	   $(shell pkg-config xext    --libs) \
 	   $(shell pkg-config xpm     --libs)
 
-OBJS	 = wmcore.o \
-	   misc.o \
-	   list.o
+OBJS	 = wmcore.o
 
 all : wmcore
 

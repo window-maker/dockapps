@@ -1,9 +1,9 @@
-/* 
-	wmcore by bitman 	<bitman@bitmania.de> 
+/*
+	wmcore by bitman 	<bitman@bitmania.de>
 
 				 http://www.bitmania.de
-	
-	based on wmlm by ben jarvis <bjarvis@bresnanlink.net> 
+
+	based on wmlm by ben jarvis <bjarvis@bresnanlink.net>
 
 	This is a dockapp that shows the usage of each core in the system.
 	The dockapp splits into two displays, the upper one showing the common usage of the system and the
@@ -25,7 +25,7 @@
 	You should have received a copy of the GNU General Public License
 	along with this program; if not, write to the Free Software
 	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-*/	
+*/
 
 #define VERSION "0.0.2"
 
@@ -40,8 +40,8 @@
 #include <X11/xpm.h>
 #include <X11/extensions/shape.h>
 #include <libdockapp/wmgeneral.h>
+#include <libdockapp/misc.h>
 
-#include "misc.h"
 #include "wmcore_master.xpm"
 #include "wmcore_mask.xbm"
 
@@ -103,17 +103,17 @@ int main(int argc, char **argv) {
 			usage();
 			exit(0);
 		}
-	} 
+	}
 
 	#if DEBUG == 1
-	#endif 
+	#endif
 
 	openXwindow(argc,argv,wmcore_master_xpm,wmcore_mask_bits,wmcore_mask_width,wmcore_mask_height);
 	RedrawWindow();
 
 
 	// Check how many cpu cores are present
- 	if((in = fopen("/proc/stat","r")) == NULL) 
+ 	if((in = fopen("/proc/stat","r")) == NULL)
  	{
 	  printf("\nUnable to open file /proc/stat\n");
 	  exit(1);
@@ -155,9 +155,9 @@ int main(int argc, char **argv) {
 	    }
 	  }
 
-	 
+
 	  // get the cpu core usage
- 	  if((in = fopen("/proc/stat","r")) == NULL) 
+ 	  if((in = fopen("/proc/stat","r")) == NULL)
  	  {
 	    printf("\nUnable to open file /proc/stat\n");
 	    exit(1);
@@ -195,7 +195,7 @@ int main(int argc, char **argv) {
 
 
 	  // Display the bar graphs for each core in lower display field
-	  for(cpu=0; cpu<cpu_max; cpu++) {	    
+	  for(cpu=0; cpu<cpu_max; cpu++) {
 	    // erase preveous bar
 	    copyXPMArea(129,0,   61,h, 1, 18+(cpu*h));
 
