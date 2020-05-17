@@ -1,0 +1,278 @@
+WMApp DockApp Library -- FAQ
+
+Starred items below are new or significantly updated for the latest release
+of WMApp, 0.0.4, or bug-fix release 0.0.4.1.
+
+1. Widget Layout
+	1.1. Can I specify widget positions in absolute coordinates?
+	*1.2. Help! My layout is all messed up!
+	1.3. Widgets that are all supposed to be the same size aren't.
+	1.4. How do I keep a frame from having transparent padding?
+
+2. Callbacks and timed-execution functions
+	2.1. How do I write a callback function?
+	2.2. Can I attach a callback to widgets other than the WMButton?
+	2.3. Which mouse button was pressed?
+	2.4. At what location was the widget clicked?
+	2.5. What is the story with callbacks on a WMWindow? (a.k.a.
+		executing functions at regular intervals)
+
+3. Specific widget questions
+	*3.1. How to use a WMCanvas?
+	*3.2. How to use a WMEllipse?
+	*3.3. How to create other shapes of widget?
+
+4. Memory issues
+	4.1. Why do I get a (segmentation fault | runtime error saying "pure
+		virtual function called") in my program?
+
+1.1. Can I specify widget positions in absolute coordinates?
+
+Yes, if you really must.
+
+Make sure the widget fits inside its parent widget, or there will probably be
+a mess.  The easiest way to do this is probably to set its position relative
+to its parent's:
+
+	widget.setposition(WMRectangle(parent.left()+wleft, parent.top()+wtop,
+			   wwidth, wheight));
+
+where wleft, wtop are the desired coordinates of the widget relative to the
+top left corner of its parent.  Remember that the 56x56 pixel WMWindow will
+have a different offset in Afterstep vs. WindowMaker mode, so at least
+operate relative to a previously declared WMWindow in all of your coordinates.
+
+If you are using both absolute positioning and automatic layout with
+setaspectratios(), you may get unexpected results.  See 1.3 for a better way.
+
+1.2. Help! My layout is all messed up!
+
+Always lay out widgets in the order from parent to child:
+
+	window.addchild(frame1);
+	window.addchild(frame2);
+	window.setaspectratios(2, 3);
+
+	frame1.addchild(textbar);
+	frame1.addchild(led);
+	frame1.addchild(meterbar);
+	textbar.setwidth(24);
+	frame1.setaspectratios(0, 4, 1);
+	// etc.
+
+Always set the border and padding for a frame before calling setaspectratios()
+on it.  [As of WMApp 0.0.4, you no longer have to call setaspectratios()
+explicitly when a frame has only one child, or when you want all children of a
+frame to be of equal size.]  And don't forget that borders around any widgets
+are included in their dimensions.
+
+1.3. Widgets that are all supposed to be the same size aren't.
+
+This is due to rounding in the process of setting widget aspect ratios.
+All accumulated rounding error ends up on the last widget in the frame.
+(TODO: spread out the rounding error more evenly)
+
+If you are a stickler for accuracy, you can draw your widget layout on
+a 56x56 grid.  Use the grid to determine the exact sizes, then in all calls
+to setaspectratios(), use these sizes.
+
+1.4. How do I keep a frame from having transparent padding?
+
+	frame.settransparency(false);
+
+Note: In order for a frame to _have_ transparent padding, its border thickness
+must also be zero.
+
+2.1. How do I write a callback function?
+
+There are two types of callback, with the prototypes
+
+	void callback1(const WMApp *a, void *data)
+	void callback2(const WMApp *a, WMWidget *w, void *data)
+
+First you write a function with one of these prototypes.  For instance,
+to exit the application, the callback function is simply
+
+	void halt(const WMApp *a, void *) { a->stop(); }
+
+Any additional data needed by the callback function may be passed as a pointer
+to void.  For convenience, you may pass in the address of one WMWidget to the
+second callback prototype without dealing with pointers to void.  Dynamic
+casting in the body of the callback function may be necessary; see the example
+program code in example/window0.cc for details.
+
+Given this, you may attach callbacks to a WMButton or other WMCallback object
+as follows:
+
+	button.addcallback(stop, 0 /* no additional data needed */);
+	button.addcallback(another_callback, &other_widget, &some_data);
+
+(Notice that the name changed from setcallback to addcallback!)
+When a WMButton is pressed, all the callbacks will be executed in the order
+in which they were attached.
+
+2.2. Can I attach a callback to widgets other than the WMButton or WMWindow?
+
+Yes!  Define a new class that inherits from both the desired widget and from
+WMCallback.  For example, the following code lets you clear a WMHistory
+widget by clicking on it.
+
+Note: if you are using a pointer to the inherited class as the "void *"
+argument of a callback function, be sure to first statically cast it to a
+"WMWidget *".  Dynamic casts from "void *" aren't guaranteed to work in C++.
+
+	// Define the new class
+	class WMHistoryCallback : public WMCallback, public WMHistory {
+	    public: WMHistoryCallback() : WMCallback(), WMHistory() { }
+	};
+
+	// Callback to clear a WMHistory widget when it's clicked on
+	void clearhistory(const WMApp *a, WMWidget *w, void *)
+	{       
+	    WMHistoryCallback *h = dynamic_cast<WMHistoryCallback *>(w);
+
+	    // check that dynamic_cast doesn't return null pointer!  maybe you
+	    // even want "assert(h)" instead of "if (h)"
+	    if (h) h->clear();
+	}
+
+	int main(int argc, char **argv)
+	{
+	    WMApp::initialize(argc, argv);
+	
+	    WMHistoryCallback h;
+	    h.addcallback(clearhistory, &h, 0);
+	    // ...
+	}
+
+2.3. Which mouse button was pressed?
+
+This can be retrieved from the application class.  The following code
+fragment is a callback that will execute only when mouse button 1 is
+released:
+
+	void callback(WMApp *a, void *)
+	{
+	    if (a->mouseclick().button != Button1) return;
+	    // body of function goes here
+	}
+
+Recall that in most cases (if XFree86 has been set up correctly), the "up" and
+"down" directions of a mouse scroll wheel correspond to Button4 and Button5.
+But don't forget while designing your program interface that not everyone has a
+scroll-wheel mouse!
+
+2.4. At what location was the widget clicked?
+
+Position of the mouse click relative to the _application_ may be retrieved
+within a callback via a->mouseclick().x and a->mouseclick().y .  Note that
+these are the coordinates of the cursor when the mouse button is _released_,
+which is when the callbacks are executed.  To make these coordinates useful,
+you probably want to use a->mouseclick().relative_to(w).x and .y, where w is a
+pointer to the widget executing the callback.  This gives the coordinates
+of the mouseclick relative to the left and top bounds of the widget.  You
+can get the coordinates relative only to the part of the widget INSIDE its
+border using the b_relative_to() function.
+
+The most recent mouse button release may also be examined outside any callback
+functions.  Keep in mind that this will not necessarily correspond to the
+execution of any callback functions, since the mouse may have been clicked
+over a widget with no callbacks.
+
+2.5. What is the story with callbacks on a WMWindow? (a.k.a. executing
+functions at regular intervals)
+
+In version 0.0.1, there existed a WMWindow::setcallback() method.  This
+actually didn't set callbacks, but instead set functions to execute at regular
+intervals (for use in clocks, timing out internet connections, etc.).  Since
+the name was confusing, in 0.0.2 I've replaced it by the
+WMWindow::add_timed_function() method.
+
+As with callbacks, there are two types of possible timed-execution functions:
+
+	void timed_function1(WMApp *, WMWidget *);
+	void timed_function2(WMApp *, WMWidget *, void * data);
+
+They should be attached to a window as follows:
+
+	window.add_timed_function(period, timed_function1, &some_data);
+	window.add_timed_function(period, timed_function2, &a_widget, &data);
+
+where "period" is an integer that specifies how often the timed-execution
+function should run, in centiseconds (e.g. to run a function every 5 seconds,
+use a period of 500).  You can change this base time interval of 10 millisec
+using the WMWindow::setupdatefreq() member function.
+
+Of course, these regular intervals are not exact, since they do not take into
+account the times needed to redraw widgets, execute callback functions, and
+execute the timed-execution functions themselves.  Don't rely on them for
+air traffic control.  (Of course, Jason went ahead and did just that --
+see the code in the example2 directory, or just "make wmatc")
+
+For an example use, see the code for the clock in example/window0.cc.
+
+3.1. How to use a WMCanvas?
+
+The canvas widget may be used in two modes: buffered and unbuffered.  To
+switch between them: wmcanvas_ptr->setbuffered(true) [or false, whichever].
+In unbuffered mode (the default), any drawings upon the widget will immediately
+be copied to the WMWindow pixmap, and will show up the next time the
+WMApp::repaint() method is called.  In buffered mode, changes to the WMCanvas
+will not be copied to the WMWindow's pixmap until the WMCanvas::display()
+method is called.  The advantage to buffered mode is that it uses less CPU
+and it lets you make a number of changes that display all at once.
+
+There are a number of drawing functions available.  WMCanvas is stateful, so
+you must set the drawing color with WMCanvas::setcolor each time you want to
+draw in a different color.  Having set the desired color (if unset, it defaults
+to the traditional WMApp foreground turquoise-ish color), you may use various
+drawing methods.  The x and y coordinates in these drawing methods are always
+relative to the INSIDE of the WMCanvas widget (i.e. not including the border).
+
+setcolor(Color c)
+	Set the current drawing color to c.
+draw_point(int x, int y)
+	Draw a [1-pixel wide] point at position (x,y).
+draw_line(int x1, int y1, int x2, int y2)
+	Draw a line from (x1,y1) to (x2,y2).
+draw_lines(const vector<X::XPoint> & points)
+	Draw a set of connected lines (think connect-the-dots) from point to
+	point.
+
+The full list of drawing methods may of course be found in wmcanvas.h.
+For a somewhat trivial example use of a WMCanvas with an attached callback
+function (the world's dumbest paint program), see the code located in
+example1/window1.cc.  A more interesting use is prototyped in
+example2/wmradar.h.
+
+3.2. How to use a WMEllipse?
+
+To create an elliptical widget, make a new class that inherits from both the
+desired widget and from the WMEllipse.  This will usually work trivially as
+shown in the two example programs.
+
+3.3. How to create other shapes of widget?
+
+Using wmellipse.h and wmellipse.cc as models, you just have to write a
+"contains" method that specifies which points are inside the borders of
+your shape, and a "draw_border" method that tells how to draw a border for
+your shape.  Inherit from both your shape and from some WMWidget.  Clipping,
+execution of callbacks when the mouse is clicked inside your shape, and so on,
+will be done automagically by the library.
+
+4.1. Why do I get a (segmentation fault | runtime error saying "pure virtual
+function called") in my program?
+
+If you write a function that returns a WMFrame or WMWindow complete with
+all its child widgets set up, the child widgets must have been either declared
+static inside that function, or else allocated on the heap with "new".
+Otherwise they do not exist in memory at the time the WMApp tries to display
+them.  This is clearly bad :-)
+
+I presume that the misleading "pure virtual function called" error occurs
+because the run-time type identification of the C++ program sees garbage at a
+memory location which is supposed to be a class inherited from WMWidget.  Then,
+having no idea what to make of the garbage, the program casts it to the base
+class WMWidget, resulting in a call to WMWidget::real_display(), a pure virtual
+function.  Or something like that.
+

@@ -1,0 +1,66 @@
+WMApp: version 0.0.4.1
+Copyright (C) 2001-2003 Kevin and Jason McCarty <kmccarty@princeton.edu>
+			and others (see code for details)
+Licensed under the GNU GPL (see COPYING file).
+
+This is WMApp, a C++ graphics library written exclusively for developing
+WindowMaker dockapps.  If you like dockapps, but you also like C++ and you
+are tired of trying to work with the code in wmgeneral.c, this library is
+for you!
+
+For an example program based on this library, check out the source code
+in the example directory.  This program is long on eyecandy and short
+on usefulness, but it gives an idea of what is possible.  "make wmexample"
+to build it.
+
+Features
+--------
+- Dockapp windows are set up automatically for you.
+- State model: a dockapp may be in one of several states ("windows"), which
+  can each look different and have different functionality
+- On-the-fly clipping; no more masking xpms needed!
+- Simple callback model: attach as many callback functions to each button
+  as desired.  Callbacks can take arbitrary data as an argument, change
+  the properties of other widgets, and even switch between dockapp states.
+- You may automatically execute a list of functions (different for each window)
+  at set intervals of time.  Useful for clocks, CPU load displays, etc.
+- Numerous widgets, all with the familiar dockapp look.  The color scheme
+  of many may be changed.  Many common WindowMaker dockapps could already
+  be rewritten to use this library.
+
+Widgets
+-------
+- Text box for conveying information; comes with three font sizes.
+- Progress meter to show changes in a quantity, e.g. percent download.
+- History display to show how a quantity changes over time, e.g. CPU load.
+- Buttons (optionally with an image) that can have callback functions set
+  and can be activated and deactivated.
+- Images that may display an XPM icon.
+- Glowing LED-type things that may be in one of four states:
+  off, green, yellow, and red.
+- Frames in which widgets (including other frames) may be nested.  Frames
+  may have a border and / or padding between their contents.
+- Sliders that may be moved up and down with the mouse wheel
+  (or by clicking) to set a value.
+- Canvas that may be drawn upon with various drawing functions.
+
+Most of the above widgets may also inherit from one or more of the following
+for additional features:
+
+- Elliptical widget that clips contents to an ellipse
+- Callback widget that can execute actions when clicked upon
+
+Limitations
+-----------
+- Still not guaranteed not to leak memory or X resources
+- API is not guaranteed to be backwards compatible when it changes
+  (note the version number)
+- The executables produced with this library are several times larger
+  than those created using wmgeneral.c.
+- WMApp does not support dynamic widget resizing.
+- Text box fonts do not have lowercase letters.  (They can easily be
+  implemented -- just edit the character maps in the xpm directory --
+  but I think they would look quite bad due to the small fonts.)
+- Changing the color of the fonts is not supported at runtime.  (You can
+  of course do this at compile time by editing the font XPMs.)
+

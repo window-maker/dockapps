@@ -1,0 +1,17 @@
+These are two small programs that show how to use the cpumoncc library.
+
+The first one, cpu, is a 'state-ful' cpu monitor that returns the average 
+cpu load for the elapsed time between now and the last time you
+ran the program. Useful (in a geeky way) in promts for example:
+
+geoff@rama [CPU: 1%] ~/workspace/cpumoncc > ls
+README  base  darwin  freebsd  linux  netbsd  openbsd  programs  solaris
+geoff@rama [CPU: 4%] ~/workspace/cpumoncc >
+
+This particular prompt is (in bash): 
+PS1='\u@\h [CPU: `cpu`%] \w > '
+
+
+The second program, cpuload, is a simple text mode cpu monitor.
+
+To build these programs type 'make'. To install, type, as root, 'make install'.

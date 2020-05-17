@@ -1,4 +1,24 @@
-wmcube 0.98:
+wmCube 0.99-pre1
+	* Rewrite to C++ using the wmApp toolkit.
+		- Full color depth
+		- User definable for/background colors 
+		- User definable shading
+		- New window layout added with cpu meter
+		- Switch to classic (simple) layout with a mouseclick
+	* Uses the CpuMonitorCC library (also in pre-stage)
+	* Place lightsource with mouseclick or have it move around by itself
+	* Solid wireframe mode added
+	* "Reflex" effect
+	* 3- and 5-button mouse (mouse wheel support)
+	* wmc file format updates
+		- Both planes and lines in the same file (preferably even)
+		- No specific order of sections is required
+		- Comments allowed (all lines starting with a #)
+		- Should be fully backwards compatible
+	* If no object(s) defined looks in /usr/share/wmcube
+	* Rewritten scandir function to be POSIX compliant
+
+wmCube 0.98:
 	* Added solid flat-shading to 3d-engine
 	* New tag in object-files (WMCUBE_PLANES) for solid objects
 

@@ -1,41 +1,83 @@
-wmCube 0.98
---------------------------------------------------------------
-Author:	Robert Kling
-	robkli-8@student.luth.se
-	http://boombox.campus.luth.se
+wmCube 0.99-pre1
+(C) Copyright 2003 Robert Kling
+robkli-8@student.luth.se
+http://kling.mine.nu/wmcube.htm
 
-Contributions by:
-	Thorsten Jens (thodi@et-inf.fho-emden.de)
- 	Jakob Borg (email-adress goes here)
-	Dan Price (dp@rampant.org)
-	Brian Joseph Czapiga (rys@godsey.net)
-	Tai-hwa Liang (avatar@mmlab.cse.yzu.edu.tw)
-	Jared Smolens (jsmolens+@andrew.cmu.edu)
+DESCRIPTION
+wmCube is a dockapp for monitoring the cpu load. A 3D object spins
+faster/slower relative to the load and you can even design your own
+objects for it. Objects can be traditional wireframe or solid shaded or 
+a combination of the two.
 
-Description
---------------------------------------------------------------
+REQUIREMENTS
+wmCube uses the CpuMonitorCC (cpumoncc) library (spawned from 
+previous versions of wmCube) to read the cpu load which supports a 
+range of different operating systems. Further, the wmApp toolkit is 
+used to do the drawing to the X server. Both cpumoncc and wmApp 
+are included in the distribution, versions 0.0.1-pre1 and 0.0.4.1
+respectively.
 
-wmCube is a dockapp that displays a realtime rotating 3d-object 
-and the current CPU load.
+INSTALL
+THIS PRE-VERSION ONLY WORKS ON LINUX! Please report
+all bugs. Note though that wmCube _should_ compile on all archs
+supported in earlier versions by simply editing the Makefile for
+the particular OS in the cpumoncc directory as well as copying 
+and modifying the main makefile. IF YOU GET WMCUBE 
+WORKING IN ANOTHER OS THAN LINUX, PLEASE SEND
+ME THE SUCCESSFUL MAKEFILES OR A PATCH! (sorry
+for the shouting)
 
-Files
---------------------------------------------------------------
-3dObjects/	In here you will find bundled object-files.
-README		This file.
-INSTALL		Installation instructions.
-CHANGES		Description of changes.
-TODO		Things I've already planned for wmCube
-COPYING		GNU General Public License Version 2.
+To install wmCube:
 
-Bugs
---------------------------------------------------------------
-If you discover any bugs in this software, please send a 
-bugreport to robkli-8@student.luth.se and describe the
-problem as detailed as you can.
+# make
 
-Copyright
---------------------------------------------------------------
-wmCube is Copyright (C) 2000/01 by Robert Kling, Lulea SWEDEN
+then as root
 
-wmCube is licensed through the GNU General Public License.
-Read the COPYING file for the complete GNU license.
+# make install
+
+This will install wmc-objects into /usr/share/wmcube
+and the binary into /usr/local/bin.
+
+Alternatively you can run wmcube with '-o <directory>' which will
+load objects from the <directory>. More objects will
+be bundled in the stable release.
+
+USAGE
+
+# wmcube -h
+
+will give you a list of all availible command line options. When
+running you control the program by clicking with your mouse on the
+canvas where the object is displayed.
+
+For a 3-button mouse:
+
+First mouse button (left):
+	Upper left corner: Switches between new and classic window mode.
+	Left hand side: Zoom away from the object.
+	Right hand side: Zoom in on the object.
+	Upper edge: Scroll in the next object from below.
+	Lower edge: Scroll in the previous object from above.
+	In the middle (approx): Change 3d mode on object.
+	
+Second mouse button (middle button):
+	Changes 3d mode on object.
+	
+Third mouse button (right):
+	Sets the position of the lightsource.
+	
+For a 5-button mouse (mouse wheel):
+Exactly the same as 3-button mouse except
+that you can also zoom in/out with the wheel
+(button 4 and 5).
+
+CONTRIBUTIONS
+I only test wmCube thoroughly on Linux so anyone running on a
+different OS/architecture please let me now if there are any bugs.
+Suggestions, patches etc. are also very welcome. If you package
+wmCube for a certain distribution/OS and it is not represented on
+this page feel free to send it to me. You can also send me new
+objects (if they're cool) and I will include them in the next release
+alt. put them up on this page. Make sure to put a comment
+(new in 0.99) with your name etc in the wmc-file if you want credit 
+for them.

@@ -1,0 +1,70 @@
+CpuMonitorCC (cpumoncc)
+Version: 0.0.1-pre1 (aka "Expect Things To Be Broken")
+
+(C) Copyright 2003 Robert Kling
+
+robkli-8@student.luth.se
+http://kling.mine.nu
+
+DESCRIPTION
+
+This is a small library for reading the instantaneous cpu load
+in many different operating systems. It started out as a part of
+wmCube but as it [wmCube] got ported to more and more OS's it 
+seemed tidier to put the OS-specific code into its
+on package. As the name implies it is written in C++.
+
+REQUIREMENTS/FEATURES
+
+Supported systems and their features so far are:
+
+    * Darwin - Basic functionality.
+    * FreeBSD - Basic functionality, discarding of 'nice' processes.
+    * Linux - Multiprocessor support, discarding of 'nice' processes.
+    * NetBSD - Basic functionality, discarding of 'nice' processes.
+    * OpenBSD - Basic functionality.
+    * Solaris - Multiprocessor support.
+    
+INSTALLATION
+
+Change to the directory of the OS your building cpumoncc for.
+Type (as root):
+
+make install
+
+To build the programs that come with cpumoncc, go into the directory
+'programs' and type
+
+make
+
+and optionally, as root
+
+make install
+
+CONTRIBUTIONS
+
+Solaris codebase by Dan Price (dp@rampant.org)
+OpenBSD codebase by Brian Joseph Czapiga (rys@godsey.net)
+FreeBSD codebase by Tai-hwa Liang (avatar@mmlab.cse.yzu.edu.tw)
+NetBSD codebase by Jared Smolens <jsmolens+@andrew.cmu.edu>
+
+I only test cpumoncc thoroughly on Linux so anyone running on a 
+different OS/architecture please let me now if there are any bugs
+or if everything's hunky dory. Suggestions, patches, more ports 
+etc. are also very welcome.
+
+LICENSE
+     
+cpumoncc is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+cpumoncc is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with cpumoncc; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
