@@ -1,3 +1,15 @@
+2020-05-18  Jeremy Sowden <jeremy@azazel.net>
+
+	* ChangeLog, wmcore.c: bump to 0.0.3.
+
+2020-05-18  Jeremy Sowden <jeremy@azazel.net>
+
+	* .gitignore: update .gitignore.
+
+2020-05-18  Jeremy Sowden <jeremy@azazel.net>
+
+	* ChangeLog: add change-log.
+
 2020-05-17  Jeremy Sowden <jeremy@azazel.net>
 
 	* Makefile: install bin directory.

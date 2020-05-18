@@ -27,7 +27,7 @@
 	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-#define VERSION "0.0.2"
+#define VERSION "0.0.3"
 
 #include <stdlib.h>
 #include <stdio.h>
