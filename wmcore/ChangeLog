@@ -1,0 +1,69 @@
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile: install bin directory.
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* README: update contacts.
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile, list.c, list.h, misc.c,
+	misc.h, wmcore.c, wmgeneral.c,
+	wmgeneral.h: use misc.* and list.* from libdockapp.
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile: use pkg-config in Makefile.
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* .gitignore: Add .gitignore.
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile: tidy up Makefile.
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile: use CC variable.
+
+	wmcore fails to cross build from source, because the Makefile hard
+	codes the build architecture compiler.
+
+	Author: Helmut Grohne <helmut@subdivi.de>
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile, wmcore.c: use wmgeneral functions
+	in libdockapp instead of the private copy.
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile: use CPPFLAGS and LDFLAGS.
+
+	Author: Doug Torrance <dtorrance@piedmont.edu>
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* Makefile: set DESTDIR so binary installs correctly.
+
+	Author: Doug Torrance <dtorrance@piedmont.edu>
+
+2020-05-17  Jeremy Sowden <jeremy@azazel.net>
+
+	* list.c, list.h: remove inline keywords.
+
+	Previously, if we attempted to build using C99 or later, we got "inline
+	function declared but never defined" warnings and eventual "undefined
+	reference" errors.  As a result, it fails to build from source using
+	gcc5.  However, if we move the definitions to list.h and add "extern
+	inline" declarations to list.c, which does compile using C99 and later,
+	then it no longer compiles using gnu90, the default for gcc4.  To avoid
+	this mess, we remove the inline keywords altogether.
+
+	Author: Doug Torrance <dtorrance@piedmont.edu>
+
+2020-05-17  Doug Torrance <dtorrance@piedmont.edu>
+
+	* imported Upstream version 0.0.2
