@@ -1,3 +1,21 @@
+2020-05-25  Jeremy Sowden <jeremy@azazel.net>
+
+	* ChangeLog, configure.ac: bump to 0.0.4.
+
+2020-05-25  Jeremy Sowden <jeremy@azazel.net>
+
+	* README: remove reference to deleted code.
+
+2020-05-25  Jeremy Sowden <jeremy@azazel.net>
+
+	* .gitignore, Makefile.am, configure.ac, wmcore.1.in: add Debian
+	man-page.
+
+2020-05-25  Jeremy Sowden <jeremy@azazel.net>
+
+	* .gitignore, Makefile, Makefile.am, autogen, configure.ac, wmcore.c:
+	switch to autotools.
+
 2020-05-18  Jeremy Sowden <jeremy@azazel.net>
 
 	* ChangeLog, wmcore.c: bump to 0.0.3.

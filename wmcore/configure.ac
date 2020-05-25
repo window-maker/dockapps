@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([wmcore], [0.0.3], [wmaker-dev@googlegroups.com])
+AC_INIT([wmcore], [0.0.4], [wmaker-dev@googlegroups.com])
 AC_CONFIG_SRCDIR([wmcore.c])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-xz])
