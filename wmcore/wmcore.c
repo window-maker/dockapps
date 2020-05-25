@@ -27,7 +27,7 @@
 	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
-#define VERSION "0.0.3"
+#include "config.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
 
 	XEvent Event;
 
-	printf("wmcore %s by bitman@bitmania.de\n", VERSION);
+	fputs(PACKAGE_STRING " by bitman@bitmania.de\n", stdout);
 	for (c=1;c<=argc;c++) {
 		if (argv[c] == NULL) {}
 		else if (!strcmp(argv[c],"-d")) {
