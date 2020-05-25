@@ -1,0 +1,18 @@
+.TH WMCORE "1" "February 2016" "@PACKAGE_VERSION@"
+.SH NAME
+wmcore \- Dockapp that shows the usage of each core in the system
+.SH SYNOPSIS
+.B wmcore
+[\fI\,OPTIONS\/\fR]
+.SH OPTIONS
+.TP
+.BI \-h
+Print the help screen.
+.TP
+.BI \-d \ n
+Number of microseconds of delay between each screen update.  (The default is
+1000000 = 1 sec.)
+.SH AUTHOR
+wmcore was written by bitman <bitman@bitmania.de>.
+This manual page was written by Doug Torrance <dtorrance@piedmont.edu> for the
+Debian GNU/Linux system (but may be used by others).

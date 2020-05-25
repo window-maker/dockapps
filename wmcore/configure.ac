@@ -25,5 +25,5 @@ AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/param.h unistd.h])
 # Checks for library functions.
 AC_CHECK_FUNCS([strstr])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile wmcore.1])
 AC_OUTPUT

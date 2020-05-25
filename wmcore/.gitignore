@@ -16,4 +16,5 @@ missing
 *.o
 stamp-h1
 wmcore
+wmcore.1
 wmcore-*.tar.xz
