@@ -498,8 +498,8 @@ int imap4Create( /*@notnull@ */ Pop3 *pc, const char *const str)
 	/* special characters aren't allowed in hostnames, rfc 1034 */
 	const char *regexes[] = {
 		// type : username     :   password @ hostname (/ name)?(:port)?
-               ".*imaps?:([^: ]{1,32}):([^@]{0,32})@([A-Za-z1-9][-A-Za-z0-9_.]+)(/(\"[^\"]+\")|([^:@ ]+))?(:[0-9]+)?(  *([CcAaPp][-A-Za-z5 ]*))?$",
-               ".*imaps?:([^: ]{1,32}) ([^ ]{1,32}) ([A-Za-z1-9][-A-Za-z0-9_.]+)(/(\"[^\"]+\")|([^: ]+))?( [0-9]+)?(  *([CcAaPp][-A-Za-z5 ]*))?$",
+               ".*imaps?:([^: ]{1,255}):([^@]{0,32})@([A-Za-z1-9][-A-Za-z0-9_.]+)(/(\"[^\"]+\")|([^:@ ]+))?(:[0-9]+)?(  *([CcAaPp][-A-Za-z5 ]*))?$",
+               ".*imaps?:([^: ]{1,255}) ([^ ]{1,32}) ([A-Za-z1-9][-A-Za-z0-9_.]+)(/(\"[^\"]+\")|([^: ]+))?( [0-9]+)?(  *([CcAaPp][-A-Za-z5 ]*))?$",
 		NULL
 	};
 	char *unaliased_str;
