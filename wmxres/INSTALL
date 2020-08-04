@@ -1,0 +1,24 @@
+Installation instructions for WMXRES. 
+
+Requirements
+------------
+- X must be configured with more than on mode.
+
+Installation
+------------
+1)  % tar -zxvf wmxres-1.0-0.tar.gz
+2)  % cd wmxres.app
+3)  % make 
+4)  % make install
+
+
+Change Log
+--------------------------------------------------------------------------------
+Sun Nov 14 1999 : [ by Stephen Crane <sc@darkstar.szyzygy.org> ]
+
+* sleep for 200mS at the end of each loop to stop wmxres busy-waiting,
+* change to coordinate offsets, mask and pixmap to allow it to be
+  swallowed properly in FvwmWharf.
+--------------------------------------------------------------------------------
+
+
