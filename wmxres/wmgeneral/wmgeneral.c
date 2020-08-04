@@ -45,6 +45,7 @@ Window		iconwin, win;
 GC			NormalGC;
 XpmIcon		wmgen;
 Pixmap		pixmask;
+Display		*display;
 
   /*****************/
  /* Mouse Regions */
