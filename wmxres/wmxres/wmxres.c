@@ -19,6 +19,8 @@
 #include "wmxres-master.xpm"
 #include "wmxres-mask.xbm"
 
+#define VERSION "1.3"
+
 /*
  * Les Definitions
  */
@@ -49,6 +51,11 @@ void GetXActiveMode(void);
  */
 int main(int argc,char *argv[])
 {
+	if (argc == 2 && strcmp(argv[1], "-v") == 0) {
+		printf("wmxres "VERSION"\n");
+		return 0;
+	}
+
 	openXwindow(argc, argv, wmxres_master_xpm, wmxres_mask_bits,
 				wmxres_mask_width, wmxres_mask_height);
 
