@@ -13,7 +13,7 @@
 #include <string.h>
 #include <X11/xpm.h>
 #include <X11/Xlib.h>
-#include <X11/extensions/xf86dga.h>
+#include <X11/extensions/Xxf86dga.h>
 #include <X11/extensions/xf86vmode.h>
 #include "../wmgeneral/wmgeneral.h"
 #include "wmxres-master.xpm"
