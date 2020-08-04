@@ -28,7 +28,7 @@ int	isw;
 int	res_count=-1;
 int	res_selected;
 int	res_i_active=-1;
-char	res_active[10];
+char	res_active[12];
 char	res_list[100][20];
 XF86VidModeModeInfo **res_modelines; 
 XEvent  Event;
