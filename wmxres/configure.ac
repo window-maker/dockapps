@@ -1,4 +1,4 @@
-AC_INIT([wmxres], [1.3], [wmaker-dev@googlegroups.com])
+AC_INIT([wmxres], [1.4], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC
