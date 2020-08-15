@@ -15,11 +15,9 @@
 #include <X11/Xlib.h>
 #include <X11/extensions/Xxf86dga.h>
 #include <X11/extensions/xf86vmode.h>
-#include "../wmgeneral/wmgeneral.h"
+#include "wmgeneral/wmgeneral.h"
 #include "wmxres-master.xpm"
 #include "wmxres-mask.xbm"
-
-#define VERSION "1.3"
 
 /*
  * Les Definitions

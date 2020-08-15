@@ -1,4 +1,4 @@
-Installation instructions for WMXRES. 
+Installation instructions for WMXRES.
 
 Requirements
 ------------
@@ -6,9 +6,9 @@ Requirements
 
 Installation
 ------------
-1)  % tar -zxvf wmxres-1.0-0.tar.gz
-2)  % cd wmxres.app
-3)  % make 
+1)  % tar -zxvf wmxres-*.tar.gz
+2)  % ./configure
+3)  % make
 4)  % make install
 
 
