@@ -100,3 +100,5 @@ Release 1.8   28 Aug 2017 Update GPLv2 text
 			  Use autotools for build.
 			  Add desktop entry file.
 			  Update documentation.
+
+Release 1.9   03 Mar 2021 Remove obsolete dynamic exception specification.
