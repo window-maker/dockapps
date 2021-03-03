@@ -13,7 +13,7 @@
 #include "mixctl.h"
 
 //----------------------------------------------------------------------
-MixCtl::MixCtl(char *device_name) throw(MixerDeviceException)
+MixCtl::MixCtl(char *device_name)
 {
   device_ = new char[strlen(device_name)+1];
   strcpy(device_, device_name);

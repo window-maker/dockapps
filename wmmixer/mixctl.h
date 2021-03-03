@@ -71,7 +71,7 @@ class MixCtl
   void doStatus();
 
  public:
-  MixCtl(char *dname) throw(MixerDeviceException);
+  MixCtl(char *dname);
   virtual ~MixCtl();
   int readVol(int, bool);
   int readLeft(int);
