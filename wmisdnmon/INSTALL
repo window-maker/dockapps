@@ -1,0 +1,15 @@
+Installation instructions for wmisdnmon.
+
+Requirements
+--------------------------------------------------------------
+i4lmondaemons-0.6.tar.gz or i4lmondaemons-0.6-1.i386.rpm
+
+Installation
+--------------------------------------------------------------
+1) % tar -zxvf wmisdnmon-0.9b.tar.gz
+2) % cd wmisdnmon/wmisdnmon
+3) % make
+4) become root. "su"
+5) % make install
+6) % wmisdnmon & (or wmisdnmon -h for help)
+

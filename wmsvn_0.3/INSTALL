@@ -1,0 +1,5 @@
+Installation:
+
+1) edit wmsvn.h to match your needs.
+2) make
+3) run it 

@@ -1,0 +1,22 @@
+/**
+  *				___ wmsvn version 0.1 ___
+  */
+
+
+
+wmsvn is svn repository log monitor.
+It displays last svn rvision number, author and last log message.
+It can be used to display output of any shell commands( see wmsvn.h )
+
+made by Martin Spelina  <shpelda@seznam.cz>
+based on wmlog by Tom Pycke <Tom.Pycke@advalvas.be> 
+
+LICENSE: GNUGPL
+
+TODO:
+	-- configuration file instead that wmsvn.h constants.
+	-- better look.
+
+Please mail me your experience.
+
+

@@ -1,0 +1,11 @@
+XPMLIB = -lXpm
+DEPLIBS = $(DEPXLIB)
+
+LOCAL_LIBRARIES = $(XPMLIB) $(XLIB)
+
+LINTLIBS = $(LINTXLIB)
+
+SRCS = wmisdncid.c
+OBJS = wmisdncid.o
+
+ComplexProgramTarget(wmisdncid)

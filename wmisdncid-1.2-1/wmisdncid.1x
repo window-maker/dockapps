@@ -1,0 +1,71 @@
+.TH WMisdnCID 1 "WindowMaker isdn Caller IDentification DockApp"
+.SH NAME
+WMisdnCID - ISDN monitor, version 1.2-1
+.SH SYNOPSIS
+.B wmisdncid
+[-h][-w][-s][-b color][-l color]
+          [-t ttyI phone][-d display]
+.SH DESCRIPTION
+WMisdnCID displays information about the first two isdn devices.
+It also can display the last two incoming calls (upper one is last then),
+toggle between current calls and last two incoming with a mouseclick.
+.br
+The color of the lamps indicates the state of the line:
+.BR green
+offline,
+.BR red
+incoming,
+.BR yellow
+outgoing,
+.BR blue
+last two incoming calls.
+.br
+The letter next to the lamp indicates the type of call:
+.BR V oice,
+.BR R aw,
+.BR F ax,
+.BR M odem,
+.BR N et.
+.br
+The displayed digits are the phone numbers of the calls of course.
+.SH OPTIONS
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Show help.
+.TP
+\fB\-w\fR
+Withdraw state. Use this with WindowMaker.
+.TP
+\fB\-s\fR
+Shaped window.
+.TP
+\fB\-b\fR \fIcolor\fR
+Change color of display's background.
+.TP
+\fB\-l\fR \fIcolor\fR
+Change display color.
+.TP
+\fB\-t\fR \fIttyI\fR \fIlocal-number\fR
+Set ttyI to ring all calls to your local phone number, to make
+the kernel report all incoming calls. Example:
+"wmisdncid -t /dev/ttyI0 12345"
+.br
+This may be used 3 times.
+.TP
+\fB\-display\fR \fIdisplay\fR
+Set display to display.
+.SH BUGS
+There probably are bugs. Report them to wmisdncid@carl-eike-hofmeister.de.
+.SH AUTHORS
+WMisdnCID was written by Carl Eike Hofmeister
+(wmisdncid@carl-eike-hofmeister.de), using parts of code/graphics from
+.TP
+wmmount 0.8, wmmixer 0.8 (X11/wm code)
+by Sam Hawker <shawkie@geocities.com>
+.TP
+kxicq (parts of the icon)
+by Herwin Jan Steehouwer (steehouwer@kde.org)
+.TP
+iMON, extended version (reading /dev/isdninfo)
+original iMON source (c) Michael Knigge,
+heavily modified and extended by Fritz Elfert

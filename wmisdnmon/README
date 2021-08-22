@@ -1,0 +1,42 @@
+wmisdnmon-0.9b - Public BETA release
+--------------------------------------------------------------
+Authors...: Marcelo Morgade (marcelomorgade@ig.com.br)
+		
+
+Description
+--------------------------------------------------------------
+wmisdnmon logs the 5 latest calls for your ISDN line. Click in
+a number logged to see details about calls. It use the 
+isdninfo daemon distributed with kisdnmon (a similar 
+application for kde). You must install i4ldaemons set the 
+init.d to initialize it. wmisdnmon use only the isdninfo daemon
+(you can disable i4lmon for security purposes).
+If you have a sound card and installed the sox package, you 
+will listen a ring when there is a incoming call.
+
+wmisdnmon is being developped on a machine running 
+Conectiva Linux 7.0 (Brazilian RedHat like distro)
+
+Files
+--------------------------------------------------------------
+README		This file.
+INSTALL		Installation instructions.
+BUGS		Things you don't want to know ;-)
+COPYING		GNU General Public License Version 2.
+TODO		FFF (Features For the Future).
+	
+
+Bugs
+--------------------------------------------------------------
+If you discover any bugs in this software, please send a 
+bugreport to marcelomorgade@ig.com.br  and describe
+the problem as detailed as you can.
+
+
+Copyright
+--------------------------------------------------------------
+wmisdnmon is copyright (c) 2002 by Marcelo Morgade and 
+licensed through the GNU General Public License. 
+Read the COPYING file for the complete GNU license.
+
+

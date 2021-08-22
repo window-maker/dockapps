@@ -1,0 +1,43 @@
+ABOUT WMsensors.pl
+------------------
+
+wmsensors.pl-0.1 by Karsten Eiser <k.eiser@web.de> ©2003
+This is a "dock application" for Windowmaker, which monitors the temperature
+and voltages of CPU and motherboard and also shows the fan-speed.
+
+REQUIREMENTS
+------------
+You need a proper configured installation of lmsensors.
+The output of the command "sensors" should contain lines like this one.
+
+CPU core:  +1.87 V  (min =  +1.98 V, max =  +2.49 V)   ALARM
++2.5V:     +0.36 V  (min =  +2.24 V, max =  +2.74 V)   ALARM
+I/O:       +3.40 V  (min =  +2.95 V, max =  +3.62 V)   
++5V:       +4.89 V  (min =  +4.47 V, max =  +5.49 V)   
++12V:     +12.04 V  (min = +10.79 V, max = +13.18 V)   
+CPU Fan:     0 RPM  (min = 3000 RPM, div = 2)          
+P/S Fan:     0 RPM  (min = 3000 RPM, div = 2)          
+SYS Temp:  +34.4°C  (limit =  +45°C, hysteresis =  +40°C) 
+CPU Temp:  +40.3°C  (limit =  +60°C, hysteresis =  +55°C) 
+SBr Temp:  +24.8°C  (limit =  +65°C, hysteresis =  +60°C) 
+
+INSTALLATION
+------------
+
+First step:
+	Be sure you have installed the Perlmodule "Wharf::JDockApp" from the CPAN.
+	If you didn't have this Perlmodule type on the shell:
+	$ perl -MCPAN -e 'install Wharf::JDockApp'
+	(This will install the needed Perl-module)
+
+Second step:
+	$ cp wmsensors.pl /usr/local/bin
+	
+Third step:
+	Run wmsensors.pl
+	$ wmsensors.pl or
+	$ wmsensors.pl --help 
+
+Fourth step:
+	Have a lot of fun ;-)
+

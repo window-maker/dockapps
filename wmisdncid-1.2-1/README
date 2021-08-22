@@ -1,0 +1,123 @@
+
+                 ------------------------------------
+                 WMisdnCID - WindowMaker isdn monitor
+                 ------------------------------------
+
+Jul 09th 2000  Release 1.2-1
+Copyright (C) 1999-2000 Carl Eike Hofmeister<wmisdncid@carl-eike-hofmeister.de>
+                        and many others (see section CREDITS in README)
+This software comes with ABSOLUTELY NO WARRANTY
+This software is free software, and you are welcome to redistribute it
+under certain conditions
+See the COPYING file for details.
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+
+THE AUTHOR:       Carl Eike Hofmeister
+-----------
+                  wmisdncid@carl-eike-hofmeister.de
+                  FidoNet 2:2426/2280
+                  http://www.carl-eike-hofmeister.de/ (me)
+                  http://www.carl-eike-hofmeister.de/wmisdncid/ (wmisdncid)
+                  snailmail: Beethovenstr. 5, 26135 Oldenburg, Germany
+
+
+CREDITS:          This program contains sources from other programs:
+--------
+                  - wmmount 0.8, wmmixer 0.8 (X11/wm code)
+                    by Sam Hawker <shawkie@geocities.com>
+                  - kxicq (parts of the icon)
+                    by Herwin Jan Steehouwer (steehouwer@kde.org)
+                  - iMON, extended version (reading /dev/isdninfo)
+                    original iMON source (c) Michael Knigge
+                    heavily modified and extended by Fritz Elfert
+
+
+DOWNLOAD:         WMisdnCID can be downloaded from the following sites:
+---------
+                  - http://www.carl-eike-hofmeister.de/wmisdncid/
+                  - http://www.tu-bs.de/~y0005347/wmisdncid/
+
+
+INSTALLATION:     Type at the command line (as root):
+-------------
+                  make
+                  make install
+
+                  If this doesn't work, try xmkmf, make -f Makefile, make install.
+
+                  Or just install the binary rpm:
+                  rpm -i wmisdncid-1.2-1.i386.rpm
+
+USAGE:            wmisdncid displays information about the first two
+------            isdn devices. displayed information:
+
+                  - "lamps"
+                    - green  : offline
+                      red    : incoming
+                      yellow : outgoing
+                      blue   : last two incoming
+                               (upper is last, lower is last but one)
+                  - letter next to lamps:
+                      - v      : voice
+                      - r      : raw
+                      - f      : fax
+                      - m      : modem
+                      - n      : net
+                  - other digits: caller's/called phone number
+
+                  Click the icon's displays to switch between current
+                  and last-incoming call.
+
+                  Run "wmisdncid --help" for a summary of command line
+                  options (e.g. -w for withdrawn state for use with
+                  WindowMaker).
+
+
+HINT:             If incoming voice calls are not shown they are probably
+-----             not listed in the isdninfo device. You then might need
+                  to read a ttyI that waits for rings.
+
+                  There are two possibilities:
+
+                  a) use the -t option:
+                     example: -t /dev/ttyI0 12345
+                     where 12345 is your local phone number.
+
+                  b) Run a program in the background than constantly
+                     waits for anything on a ttyI, readttyIforever.
+                     Compile it with
+                     "gcc readttyIforever.c -o readttyIforever"
+                     Pass a device-name (e.g. /dev/ttyI4) and a MSN as
+                     command-line parameters. Example:
+                     /usr/local/bin/readttyIforever /dev/ttyI4 123456 &
+                     The program will then tell the isdn-device to report
+                     incoming calls of all types to the given MSN and read
+                     all of it's output to nowhere. The kernel I use reports
+                     all incoming calls to the given MSN then.
+
+                  If you know of an easier solution, let me now ;)
+
+
+RELEASE HISTORY:  Sep 25th 1999  - wmisdn-1.0.tar.gz, first release
+----------------  Jun 25th 2000  - wmisdncid-1.1.tar.gz, changed name
+                                   to WMisdnCID, because in the meantime
+                                   another "wmisdn" (for controlling
+                                   ipppd-devices) appeared.
+                  Jul 09th 2000  - wmisdncid-1.2-1.tar.gz, switched from
+                                   c++ish c to plain c, added -t option,
+                                   wrote man-page, created RPMs.
+
