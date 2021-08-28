@@ -1,3 +1,10 @@
+Version 1.06 - released August 28, 2021
+	Update mailing list links to new Google Groups.
+	Update old windowmaker.org/dockapps urls to dockapps.net
+	Fix typo in manpage.
+	Move version number definition to Makefile
+	Add 'dist' target to Makefile to generate tarball
+
 Version 1.05 - released August 24, 2015
 	wmsun uses now the new library libdockapp that includes the old
 	  wmgeneral library.

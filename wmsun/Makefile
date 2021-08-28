@@ -4,7 +4,7 @@ PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 MANDIR = $(PREFIX)/share/man/man1
 INSTALL = install
-WMSUN_VERSION = 1.05
+WMSUN_VERSION = 1.06
 
 # If you need to compile on a Linux, dont change anything. If
 # compiling for Solaris, swap the LIBS below...
