@@ -63,7 +63,6 @@
  *  Delay between refreshes (in microseconds)
  */
 #define DELAY 1000000L
-#define WMSUN_VERSION "1.05"
 
 #define DegPerRad       57.29577951308232087680
 #define RadPerDeg        0.01745329251994329576

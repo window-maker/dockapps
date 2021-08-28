@@ -4,6 +4,7 @@ PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 MANDIR = $(PREFIX)/share/man/man1
 INSTALL = install
+WMSUN_VERSION = 1.05
 
 # If you need to compile on a Linux, dont change anything. If
 # compiling for Solaris, swap the LIBS below...
@@ -19,7 +20,8 @@ LIBS   = -lXpm -lX11 -lXext -lm -ldockapp
 OBJS   = wmsun.o SunRise.o
 
 .c.o:
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $*.o
+	$(CC) $(CPPFLAGS) -DWMSUN_VERSION=\"$(WMSUN_VERSION)\" $(CFLAGS) -c $< \
+		-o $*.o
 
 all:	wmsun.o wmsun
 
