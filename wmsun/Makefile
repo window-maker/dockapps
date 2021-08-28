@@ -34,10 +34,16 @@ clean:
 	for i in $(OBJS) ; do \
 		rm -f $$i; \
 	done
-	rm -f wmsun
+	rm -f wmsun wmsun-$(WMSUN_VERSION).tar.gz
 
 install:: wmsun
 	$(INSTALL) -d $(DESTDIR)$(BINDIR)
 	$(INSTALL) wmsun $(DESTDIR)$(BINDIR)
 	$(INSTALL) -d $(DESTDIR)$(MANDIR)
 	$(INSTALL) -m 644 wmsun.1 $(DESTDIR)$(MANDIR)
+
+dist: BUGS COPYING ChangeLog COPYING Makefile README SunRise.c TODO wmsun.1 \
+	wmsun.c wmSun_mask.xbm wmSun_master.xpm
+	tar -cf wmsun-$(WMSUN_VERSION).tar \
+		--transform "s|^|wmsun-$(WMSUN_VERSION)/|" $^
+	gzip -n wmsun-$(WMSUN_VERSION).tar
