@@ -10,6 +10,9 @@ wmlongrun_SOURCES =   \
 	backdrop_off.xpm \
 	backdrop_on.xpm \
 	backdrop_led.xpm \
+	backdrop_off_g.xpm \
+        backdrop_on_g.xpm \
+	backdrop_led_g.xpm \
 	parts.xpm
 
 EXTRA_wmlongrun_SOURCES = \

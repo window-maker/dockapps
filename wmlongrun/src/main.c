@@ -38,6 +38,9 @@
 #include "backdrop_on.xpm"
 #include "backdrop_off.xpm"
 #include "backdrop_led.xpm"
+#include "backdrop_on_g.xpm"
+#include "backdrop_off_g.xpm"
+#include "backdrop_led_g.xpm"
 #include "parts.xpm"
 
 #define SIZE	58
@@ -49,6 +52,9 @@ Pixmap pixmap;
 Pixmap backdrop_on;
 Pixmap backdrop_off;
 Pixmap backdrop_led;
+Pixmap backdrop_on_g;
+Pixmap backdrop_off_g;
+Pixmap backdrop_led_g;
 Pixmap parts;
 Pixmap mask;
 static char	*display_name = "";
@@ -88,11 +94,15 @@ int main(int argc, char **argv)
     /* change raw xpm data to pixmap */
     if (dockapp_iswindowed)
 	backdrop_on_xpm[1] = backdrop_off_xpm[1] = WINDOWED_BG;
+    	backdrop_on_g_xpm[1] = backdrop_off_g_xpm[1] = WINDOWED_BG;
     if (!is_led_style) {
 	dockapp_xpm2pixmap(backdrop_on_xpm, &backdrop_on, &mask, colors,ncolor);
 	dockapp_xpm2pixmap(backdrop_off_xpm, &backdrop_off, NULL, NULL, 0);
+   	dockapp_xpm2pixmap(backdrop_on_g_xpm, &backdrop_on_g, &mask, colors,ncolor);
+	dockapp_xpm2pixmap(backdrop_off_g_xpm, &backdrop_off_g, NULL, NULL, 0);
     } else {
 	dockapp_xpm2pixmap(backdrop_led_xpm, &backdrop_led, &mask, colors, ncolor);
+    	dockapp_xpm2pixmap(backdrop_led_g_xpm, &backdrop_led_g, &mask, colors, ncolor);
     }
     dockapp_xpm2pixmap(parts_xpm, &parts, NULL, colors, ncolor);
     /* shape window */
@@ -152,13 +162,14 @@ static void update(void)
     static int mhz;		/* LongRun frequency */
     static int voltz;		/* LongRun voltage */
 
-    int digit1 = 0, digit10 = 0, digit100 = 0;
+    int digit1 = 0, digit10 = 0, digit100 = 0, digit1000=0;
 
     longrun_get_stat(&percent, &flags, &mhz, &voltz);
 
-    digit100 = mhz / 100;
-    digit10 = (mhz - digit100 * 100) / 10;
-    digit1 = mhz - digit100 * 100 - digit10 * 10;
+    digit1000 = mhz / 1000;
+    digit100 = (mhz - digit1000 * 1000) / 100;
+    digit10 = (mhz - digit1000 * 1000 - digit100 * 100) / 10;
+    digit1 = mhz - digit1000 * 1000 - digit100 * 100 - digit10 * 10;
 
     /* LCD interface */
     if (!is_led_style) {
@@ -167,13 +178,23 @@ static void update(void)
 	/* clear */
 	switch (backlight) {
 	    case LIGHTON:
-		dockapp_copyarea(backdrop_on, pixmap, 0, 0, 58, 58, 0, 0);
+		if (digit1000==0) {
+			dockapp_copyarea(backdrop_on, pixmap, 0, 0, 58, 58, 0, 0);
+		}
+		else {
+			dockapp_copyarea(backdrop_on_g, pixmap, 0, 0, 58, 58, 0, 0);
+		}
 		y_lrmode = 11;
 		y_gauge = 14;
 		y_digit = 13;
 		break;
 	    case LIGHTOFF:
-		dockapp_copyarea(backdrop_off, pixmap, 0, 0, 58, 58, 0, 0);
+		if (digit1000==0) {
+			dockapp_copyarea(backdrop_off, pixmap, 0, 0, 58, 58, 0, 0);
+		}
+		else {
+			dockapp_copyarea(backdrop_off_g, pixmap, 0, 0, 58, 58, 0, 0);
+		}
 		break;
 	}
 
@@ -190,18 +211,29 @@ static void update(void)
 	}
 
 	/* draw digit (frequency) */
-	dockapp_copyarea(parts, pixmap, digit100*7,y_digit+33,  7,13,   6,22);
-	dockapp_copyarea(parts, pixmap,  digit10*7,y_digit+33,  7,13,  15,22);
-	dockapp_copyarea(parts, pixmap,   digit1*7,y_digit+33,  7,13,  24,22);
-
+	if (digit1000==0) {
+		dockapp_copyarea(parts, pixmap, digit100*7,y_digit+33,  7,13,   6,22);
+		dockapp_copyarea(parts, pixmap,  digit10*7,y_digit+33,  7,13,  15,22);
+		dockapp_copyarea(parts, pixmap,   digit1*7,y_digit+33,  7,13,  24,22);
+	}
+	else {
+		dockapp_copyarea(parts, pixmap, digit1000*7,y_digit+33,  7,13,   6,22);
+                dockapp_copyarea(parts, pixmap,  digit100*7,y_digit+33,  7,13,  15,22);
+                dockapp_copyarea(parts, pixmap,   digit10*7,y_digit+33,  7,13,  24,22);
+	}
 	/* draw level gauge */
 	dockapp_copyarea(parts, pixmap, 0,y_gauge+72, 49*percent/100,14,5,40);
     }
 
     /* LED interface */
     else {
-	dockapp_copyarea(backdrop_led, pixmap, 0, 0, 58, 58, 0, 0);
-	/* longrun flags (performance or economy) */
+	if (!digit1000) {
+		dockapp_copyarea(backdrop_led, pixmap, 0, 0, 58, 58, 0, 0);
+	}
+	else {
+		dockapp_copyarea(backdrop_led_g, pixmap, 0, 0, 58, 58, 0, 0);
+	}
+		/* longrun flags (performance or economy) */
 	switch (flags) {
 	case LONGRUN_FLAGS_PEFORMANCE:
 	    dockapp_copyarea(parts, pixmap, 24, 22, 24, 11, 30, 3);
@@ -214,10 +246,16 @@ static void update(void)
 	}
 
 	/* draw digit (frequency) */
-	dockapp_copyarea(parts, pixmap, digit100*7,59,  7,13,   4,22);
-	dockapp_copyarea(parts, pixmap,  digit10*7,59,  7,13,  13,22);
-	dockapp_copyarea(parts, pixmap,   digit1*7,59,  7,13,  22,22);
-
+	if (digit1000==0) {
+		dockapp_copyarea(parts, pixmap, digit100*7,59,  7,13,   4,22);
+		dockapp_copyarea(parts, pixmap,  digit10*7,59,  7,13,  13,22);
+		dockapp_copyarea(parts, pixmap,   digit1*7,59,  7,13,  22,22);
+	}
+	else {
+		dockapp_copyarea(parts, pixmap, digit1000*7,59,  7,13,   4,22);
+	        dockapp_copyarea(parts, pixmap,  digit100*7,59,  7,13,  13,22);
+	        dockapp_copyarea(parts, pixmap,   digit10*7,59,  7,13,  22,22);
+	}
 	/* draw level gauge */
 	dockapp_copyarea(parts, pixmap, 0, 100, 56 * percent / 100, 16, 1, 41);
     }
