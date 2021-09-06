@@ -255,10 +255,14 @@ void create_popup(int selected_screen)
 			submenu_ptr = create_screen_submenu(i);
 			sprintf(label_str, "Screen %i",i);
 			menuitem_ptr = gtk_menu_item_new_with_label(label_str);
-			gtk_menu_item_set_submenu(GTK_MENU_ITEM (menuitem_ptr), submenu_ptr);
 			gtk_menu_shell_append(GTK_MENU_SHELL (menu_ptr), menuitem_ptr);
 			gtk_widget_show(menuitem_ptr);
-			gtk_widget_show(submenu_ptr);
+			if (submenu_ptr) {
+				gtk_menu_item_set_submenu(
+					GTK_MENU_ITEM (menuitem_ptr),
+					submenu_ptr);
+				gtk_widget_show(submenu_ptr);
+			}
         }
     } else {
 		menu_ptr = create_screen_submenu(selected_screen);
@@ -359,8 +363,11 @@ GtkWidget *create_screen_submenu (int screen)
 	XF86VidModeModeInfo **vm_modelines;
 	XF86VidModeModeLine modeline;
 
-	XF86VidModeGetAllModeLines(display, screen, &vm_count, &vm_modelines);
-	XF86VidModeGetModeLine(display, screen, &dotclock, &modeline);
+	if (!XF86VidModeGetAllModeLines(display, screen, &vm_count,
+					&vm_modelines))
+		return NULL;
+	if (!XF86VidModeGetModeLine(display, screen, &dotclock, &modeline))
+		return NULL;
 
 	menu_ptr = gtk_menu_new();
 
