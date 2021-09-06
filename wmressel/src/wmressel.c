@@ -63,7 +63,8 @@ void MenuEvent (GtkWidget *, gpointer);
 void on_deactivate(void);
 void create_popup(int);
 GtkWidget *create_screen_submenu (int);
-char *create_submenu_label(XF86VidModeModeInfo *, XF86VidModeModeLine, int);
+char *create_submenu_label(XF86VidModeModeInfo *, XF86VidModeModeLine,
+			   unsigned int);
 void update_res_display(int);
 void show_screen_number(int);
 int get_screen_count(void);
@@ -314,7 +315,8 @@ void on_deactivate(void) {
 /*********************************
 * Create a label for a menu item *
 **********************************/
-char *create_submenu_label(XF86VidModeModeInfo *modeline, XF86VidModeModeLine current, int dotclock)
+char *create_submenu_label(XF86VidModeModeInfo *modeline,
+			   XF86VidModeModeLine current, unsigned int dotclock)
 {
 	char *label_str;
 	char def[3], res[12];
