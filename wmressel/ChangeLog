@@ -1,3 +1,13 @@
+[0.10] 2021-09-06
+ - Update mailing list links to new Google Groups.
+ - Convert README from ISO-8859-1 to UTF-8.
+ - Switch manpage section from deprecated 1x to 1.
+ - Fix multiscreen support.
+ - Increase buffer size for string to avoid compiler warning.
+ - Use correct type for dotclock from XF86VidModeModeInfo.
+ - Check return values from XF86VidMode* for submenus.
+ - Display error message if XF86VidModeGetModeLine fails
+
 [0.9] 2017-08-27
  - Now maintained by the Window Maker Team.
  - Rename configure.in -> configure.ac.
