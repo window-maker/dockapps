@@ -391,10 +391,15 @@ void update_res_display(int screen)
 {
 	int dotclock;
 	XF86VidModeModeLine modeline;
-	XF86VidModeGetModeLine(display, screen, &dotclock, &modeline);
 
 	/* Clear screen zone */
 	copyXPMArea(76, 12, 35, 29, 14, 13);
+
+	if (!XF86VidModeGetModeLine(display, screen, &dotclock, &modeline)) {
+		BlitString("error", 16, 23);
+		RedrawWindow();
+		return;
+	}
 
 	/* Show resolution */
 	BlitNum(modeline.hdisplay, 41, 14);
