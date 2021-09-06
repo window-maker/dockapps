@@ -244,7 +244,7 @@ void create_popup(int selected_screen)
 	GtkWidget *menu_ptr;
 
 	int i;
-	char label_str[14];
+	char label_str[18];
 	GtkWidget *submenu_ptr, *menuitem_ptr;
 	int screen_count = get_screen_count();
 
