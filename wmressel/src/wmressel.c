@@ -251,7 +251,7 @@ void create_popup(int selected_screen)
 	if (screen_count > 1 && !show_only_selected) {
 		menu_ptr = gtk_menu_new();
 		for (i=0; i<screen_count; i++) {
-			submenu_ptr = create_screen_submenu(0);
+			submenu_ptr = create_screen_submenu(i);
 			sprintf(label_str, "Screen %i",i);
 			menuitem_ptr = gtk_menu_item_new_with_label(label_str);
 			gtk_menu_item_set_submenu(GTK_MENU_ITEM (menuitem_ptr), submenu_ptr);
