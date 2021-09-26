@@ -22,6 +22,10 @@
 #ifndef WMG_HEADER_H
 #define WMG_HEADER_H
 
+#ifndef MY_EXTERN
+#define MY_EXTERN extern
+#endif
+
 /* customization : see wmgoption.h */
 
 #include <stdlib.h>
@@ -46,7 +50,6 @@
 #include <locale.h>
 
 #include "wraster.h"
-
 #include "wmgoption.h"
 
 #define FALSE 	0
@@ -83,17 +86,16 @@ typedef struct {
     int right;
 } MOUSE_REGION;
 
-MOUSE_REGION mouse_region[MAX_MOUSE_REGION];
+MY_EXTERN MOUSE_REGION mouse_region[MAX_MOUSE_REGION];
 
 typedef struct MPO {
     int r, g, b;
 } MPO;
 
-MPO *md[4], *mn[4];
-
-double solu[DIAMETRE][DIAMETRE][3];
-int tabsolu[DIAMETRE][DIAMETRE];
-int solution;
+MY_EXTERN MPO *md[4], *mn[4];
+MY_EXTERN double solu[DIAMETRE][DIAMETRE][3];
+MY_EXTERN int tabsolu[DIAMETRE][DIAMETRE];
+MY_EXTERN int solution;
 
 typedef struct {
     Pixmap pixmap;
@@ -101,79 +103,67 @@ typedef struct {
     XpmAttributes attributes;
 } XpmIcon;
 
+MY_EXTERN Display *dpy;
+MY_EXTERN char *dayfile, *nightfile, *dpy_name;
+MY_EXTERN Pixmap pix, pixmask;
+MY_EXTERN XEvent Event;
+MY_EXTERN RImage *map, *small, *mapnight;
+MY_EXTERN XpmIcon screenpos, scrdate, scrdiv, numpix, txtpix, wmg;
+MY_EXTERN Window iconwin, win;
 
-Display *dpy;
-
-char *dayfile, *nightfile, *dpy_name;
-
-Pixmap pix, pixmask;
-
-XEvent Event;
-
-RImage *map, *small, *mapnight;
-
-XpmIcon screenpos, scrdate, scrdiv, numpix, txtpix, wmg;
-
-Window iconwin, win;
-int onlyshape, option_iw;
-GC NormalGC;
+MY_EXTERN int onlyshape, option_iw;
+MY_EXTERN GC NormalGC;
 
 /********* rendering********/
 
 #if WITH_MARKERS
-double marker[MAX_MARKERS][3];
-int nb_marker, sun_marker, moon_marker;
-RColor sun_col, moon_col;
-double moon_lat,moon_long;
+MY_EXTERN double marker[MAX_MARKERS][3];
+MY_EXTERN int nb_marker, sun_marker, moon_marker;
+MY_EXTERN RColor sun_col, moon_col;
+MY_EXTERN double moon_lat,moon_long;
 #endif
 
-double delay, time_multi;
+MY_EXTERN double delay, time_multi;
 /*
  * struct timeval delta_tim, last_tim, next_tim, render_tim, base_tim,
  *  vec_tim;
  *
  * time_t beg_time, ini_time,t1901;
  */
-struct timeval tlast, tnext, trend, tdelay, tini, tbase;
-time_t tsunpos;
+MY_EXTERN struct timeval tlast, tnext, trend, tdelay, tini, tbase;
+MY_EXTERN time_t tsunpos;
 
-int sens, fun, funx, funy, oknimap, mratiox, mratioy, gotoscr;
+MY_EXTERN int sens, fun, funx, funy, oknimap, mratiox, mratioy, gotoscr;
 
-int typecadre, p_type, use_nightmap, use_default_nightmap, use_nmap_ini,
-firstTime, stoprand, do_something, iop;
+MY_EXTERN int typecadre, p_type, use_nightmap,
+    use_default_nightmap, use_nmap_ini, firstTime,
+    stoprand, do_something, iop;
 
-double v_lat, v_long, old_dvlat, old_dvlong, dv_lat, dv_long;
-double dlat, dlong, addlat, addlong, ratiox, ratioy, dawn;
+MY_EXTERN double v_lat, v_long, old_dvlat, old_dvlong, dv_lat, dv_long;
+MY_EXTERN double dlat, dlong, addlat, addlong, ratiox, ratioy, dawn;
+MY_EXTERN double sun_lat;
+MY_EXTERN double sun_long;
+MY_EXTERN double fov;
+MY_EXTERN double radius;
+MY_EXTERN double proj_dist;		/* distance to projection plane */
+MY_EXTERN double center_dist;		/*  distance to center of earth */
+MY_EXTERN double ambient_light;		/* how dark is the dark side? */
+MY_EXTERN double light_x, light_y, light_z;	/* vector of sunlight with lengt 1 */
+MY_EXTERN double c_coef, b_coef;
+MY_EXTERN double zoom;
+MY_EXTERN int radius_proj, aml;		/* radius of sphere on screen */
 
-double sun_lat;
-double sun_long;
-
-double fov;
-double radius;
-double proj_dist;		/* distance to projection plane */
-
-double center_dist;		/*  distance to center of earth */
-
-double ambient_light;		/* how dark is the dark side? */
-
-double light_x, light_y, light_z;	/* vector of sunlight with lengt 1 */
-
-double c_coef, b_coef;
-double zoom;
-int radius_proj, aml;		/* radius of sphere on screen */
-
-RColor noir;
+MY_EXTERN RColor noir;
 #ifdef DEBUG
-double minhz;
+MY_EXTERN double minhz;
 #endif
 
-int stable;
+MY_EXTERN int stable;
 
 /****************************************************************/
 /* Function Prototypes                                          */
 /****************************************************************/
 int main(int argc, char *argv[]);
-
 
 void AddMouseRegion(int index, int left, int top, int right, int bottom);
 int CheckMouseRegion(int x, int y);
@@ -187,7 +177,6 @@ void zooming(int facto);
 struct timeval diftimev(struct timeval t1, struct timeval t2);
 struct timeval addtimev(struct timeval t1, struct timeval t2);
 struct timeval getimev();
-
 
 void setZoom(double z);
 void calcDistance();
