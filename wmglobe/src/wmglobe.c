@@ -24,6 +24,8 @@
  * wmglobe.c uses functions of : Xglobe, Xearth, wmgeneral, wmaker/wrlib
  ***************************************************************************/
 
+#define MY_EXTERN
+
 #include "wmglobe.h"
 
 #include "cadre0.xbm"
