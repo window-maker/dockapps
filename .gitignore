@@ -1,0 +1,9 @@
+autom4te.cache
+aclocal.m4
+*.o
+compile
+config.log
+config.status
+depcomp
+missing
+*.Po

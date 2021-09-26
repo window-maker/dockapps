@@ -18,3 +18,16 @@ will cause the player to randomly select songs from the current directory.
 More documentation can be found at http://dotfiles.com/software/wmmp3/
 
 If you find any bugs, please let me know at <xb@dotfiles.com>
+
+Compile
+-------
+This program requires special instructions for compiling old C programs.
+See [readme.md](../readme.md) in the dockapps project.
+
+Install
+-------
+
+    sudo mkdir -p /usr/local/bin
+    sudo cp wmmp3 /usr/local/bin/
+    cp sample.wmmp3 ~/.wmmp3
+    echo "* You should edit ~/.wmmp3 to specify the correct mp3 directories before running wmmp3."
