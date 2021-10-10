@@ -933,7 +933,7 @@ void parse_options(int argc, char **argv) {
           if (p) *p++ = 0;
           BLAHBLAH(1,printf("adding device %s to monitored disc list\n",optarg));
           if (add_device_by_name(optarg, p) != 0)
-            fprintf(stderr, "Warning: device %s not found or not recognized -- try option -v to get additionnal information\n", optarg);
+            fprintf(stderr, "Warning: device %s not found or not recognized -- try option -v to get additional information\n", optarg);
           d_opt_used = 1;
         } break;
       case '@':
