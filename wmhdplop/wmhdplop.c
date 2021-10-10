@@ -421,7 +421,9 @@ static void draw_hdlist(App *app) {
     //printf("update : first displayed(%d) = %p\n", cnt, dl);
 
     for (dl = first_dev_in_list(), dev_cnt=hd_cnt=-1; dl; dl = dl->next) {
-      if (dl->part_id == 0) ++hd_cnt; if (!is_displayed(dl->hd_id, dl->part_id)) continue; ++dev_cnt;
+      if (dl->part_id == 0) ++hd_cnt;
+      if (!is_displayed(dl->hd_id, dl->part_id)) continue;
+      ++dev_cnt;
       imlib_get_text_size(shorten_name(dl),&w,&h);
       lw = MAX(w,lw);
       lh += h;
@@ -440,7 +442,9 @@ static void draw_hdlist(App *app) {
   imlib_image_draw_rectangle(lx-1,ly-1,lw+2,lh+2);
 
   for (dl = first_dev_in_list(), dev_cnt=hd_cnt=-1; dl; dl = dl->next) {
-    if (dl->part_id==0) ++hd_cnt; if (!is_displayed(dl->hd_id, dl->part_id)) continue; ++dev_cnt;
+    if (dl->part_id==0) ++hd_cnt;
+    if (!is_displayed(dl->hd_id, dl->part_id)) continue;
+    ++dev_cnt;
     int x = lx, y = ly + lh - dev_cnt * h;
     if (!Prefs.disable_hd_leds) {
       if (dl->touched_r) {
