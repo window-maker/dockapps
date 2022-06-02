@@ -1,0 +1,42 @@
+diff -Naur enlightenment-0.16.6-orig/src/buttons.c enlightenment-0.16.6/src/buttons.c
+--- enlightenment-0.16.6-orig/src/buttons.c	2003-11-05 18:58:50.000000000 +0100
++++ enlightenment-0.16.6/src/buttons.c	2004-03-30 10:16:10.000000000 +0200
+@@ -427,13 +427,13 @@
+ 		  if (!done)
+ 		    {
+ 		       if (dirtomove == ICON_RIGHT)
+-			  bt->x += bt->w;
++			  bt->x = blst[j]->w + blst[j]->x;
+ 		       else if (dirtomove == ICON_LEFT)
+-			  bt->x -= bt->w;
++			  bt->x = blst[j]->x - bt->w;
+ 		       else if (dirtomove == ICON_DOWN)
+-			  bt->y += bt->h;
++			  bt->y = blst[j]->h + blst[j]->y;
+ 		       else if (dirtomove == ICON_UP)
+-			  bt->y -= bt->h;
++			  bt->y = blst[j]->y - bt->h;
+ 		    }
+ 	       }
+ 	  }
+diff -Naur enlightenment-0.16.6-orig/src/dock.c enlightenment-0.16.6/src/dock.c
+--- enlightenment-0.16.6-orig/src/dock.c	2003-11-05 18:58:50.000000000 +0100
++++ enlightenment-0.16.6/src/dock.c	2004-03-30 10:14:29.000000000 +0200
+@@ -36,13 +36,15 @@
+    ic = FindItem("DEFAULT_DOCK_BUTTON", 0, LIST_FINDBY_NAME, LIST_TYPE_ICLASS);
+    if (mode.dockstartx >= 0)
+      {
+-	bt = CreateButton(id, ic, ac, NULL, NULL, 1, 0, 64, 64, 64, 64, 0, 0,
++	bt = CreateButton(id, ic, ac, NULL, NULL, 1, 0, ewin->w, ewin->w, 
++			  ewin->h, ewin->h, 0, 0,
+ 			  mode.dockstartx, 0, mode.dockstarty, 0, 0, 0, 0, 0, 1,
+ 			  0, 1);
+      }
+    else
+      {
+-	bt = CreateButton(id, ic, ac, NULL, NULL, 1, 0, 64, 64, 64, 64, 0, 2046,
++	bt = CreateButton(id, ic, ac, NULL, NULL, 1, 0, ewin->w, ewin->w, 
++			  ewin->h, ewin->h, 0, 2046,
+ 			  0, 0, 0, 1023, 0, 0, 0, 0, 1, 0, 1);
+      }
+    UngrabX();

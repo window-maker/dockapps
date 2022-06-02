@@ -1,0 +1,42 @@
+
+		    General Applet Interface Library - GAI
+		    
+Thanks for downloading and trying GAI!
+
+This library is intended to simplify the development and use of
+Dockapps, ROX panel applets and Gnome 2 Panel Applets. With this 
+library the programmer can focus on what the applet shall do, 
+not on the interface.
+
+What this library provides:
+ - Dockapp support.
+ - Gnome 2 Panel support.
+ - ROX panel support. (BETA)
+ - Handeling of all sizes of the Gnome Panel. 
+   From the programs view, the size is always the same.
+ - Handle Gnome Panel rotation.
+ - Simple image file handeling via gdk_pixbuf.
+ - Loading and storing of configuration values and strings.
+ - A simple structual way of making preferences window.
+   Very little code needed.
+ - Generates images from ascii text based upon fonts.
+ - Support for both Gnome 2 Panel Applets, ROX panel applets and 
+   Dockaps/wmapplets.
+   The applet programmer doesn't have to bother about what the user
+   will use.
+ - Support for OpenGL applets.
+ - Simple interface to connect events, like mouse button clicks, joystick
+   events and so on.
+ - Easy to add support for other panels.
+ - Nice configure and makefile scripts that generates the needed files
+   for ROX and Gnome.
+ - All you applet programmers wish for! ;-)
+
+ See docs/ for more.
+
+See the ChangeLog for a detailed list of changes between the versions.
+
+PLEASE PLEASE don't fill in any bug reports in bugzilla, sourceforge.net, 
+dockapps.org and at some other place. I don't have the time to go around
+and check them. PLEASE mail bug reports/problems to me directly. Thanks!
+Jonas Aaberg, <cja@gmx.net> Please include the word "gai" in the subject.

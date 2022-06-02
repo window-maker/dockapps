@@ -1,0 +1,126 @@
+Name:		gai
+Version:	@GAI_MAJOR@.@GAI_MINOR@.@GAI_MICRO@
+Release:	1%{?dist}
+Summary:	Generic Applet Interface
+
+Group:		User Interface/Desktops
+License:	LGPL
+URL:		http://gai.sourceforge.net
+Source0:	http://download.sf.net/gai/gai-%{version}.tar.bz2
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:	libgnomeui-devel, gtk2-devel >= 2.2, gnome-panel-devel
+BuildRequires:	SDL-devel gtkglext-devel
+
+%package	devel
+Summary:	Library and headers for Generic Applet Interface
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
+Requires:	pkgconfig, pango-devel, gtk2-devel, gnome-panel-devel
+Requires:	libgnomeui-devel gtkglext-devel
+
+%description
+This library provides a generic interface for developing applets for Gnome 2
+and Windowmaker(Dockapps).
+
+This is the package required to run precompiled GAI applets.
+
+%description devel
+This library provides a generic interface for developing applets for Gnome 2
+and Windowmaker.
+
+You should install the gai-devel package if you would like to compile
+GAI applets.
+
+%prep
+%setup -q
+%patch0 -p1 -b .install
+
+%build
+%ifarch x86_64
+export CFLAGS="-fPIC $RPM_OPT_FLAGS"
+%endif
+
+%configure --disable-rox
+make %{?_smp_mflags}
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make DESTDIR=${RPM_BUILD_ROOT} install
+%find_lang %name
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
+%files -f %name.lang
+%defattr(-,root,root,-)
+%doc AUTHORS BUGS COPYING.LIB ChangeLog README* THANKS TODO WINDOWMANAGERS
+%{_libdir}/libgai.so.*
+
+%files devel
+%defattr(-,root,root,-)
+%doc docs/*
+%{_includedir}/gai/
+%{_libdir}/pkgconfig/*
+%{_libdir}/libgai.so
+
+%changelog
+* Mon Jun 20 2005 Jonas Aaberg <cja[AT]gmx.net> - 0.5.10.0
+  - Added this file to the official gai tar-ball.
+
+* Mon Jun  6 2005 Fabrice Colin <fabrice.colin[AT]gmail.com> - 0.5.9-1
+- Updated for version 0.5.9.
+- mschwendt: multilib install patch no longer necessary, patch
+  two Makefiles, disable ROX panel support, use find_lang macro.
+
+* Fri Apr  1 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.5.8-8
+- Include gai headers directory.
+
+* Sun Mar 20 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.5.8-7
+- Fix lvalue assignment errors for GCC4.
+
+* Sun Mar 20 2005 Fabrice Colin <fabrice.colin[AT]gmail.com> - 0.5.8-6
+- Make gai.pc multilib friendly so that 'pkg-config --exists gai' 
+  doesn't fail on x86_64.
+
+* Sun Mar 13 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.5.8-5
+- Really add gtkglext-devel dependencies (Fabrice Colin).
+
+* Sun Feb 27 2005 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.5.8-4
+- licence LGPL
+- BR SDL-devel gtkglext-devel
+
+* Tue Feb 25 2005 Thorsten Leemhuis <fedora[AT]leemhuis.info> - 0.5.8-3
+- add multilib-patch
+- compile with -fPIC on x86_64
+
+* Mon Nov 22 2004 Michael Schwendt <mschwendt[AT]users.sf.net> - 0.5.8-2
+- s/gnome-panel/gnome-panel-devel/g for FC2.
+
+* Sat Nov  6 2004 Michel Alexandre Salim <michel.salim@gmail.com> - 0.5.8-0.fdr.1
+- Updated to latest release
+
+* Fri Oct 31 2003 Michel Alexandre Salim <salimma[AT]users.sf.net> - 0.5.0-0.fdr.0.4.pre4
+- BuildRequires: gnome-panel added
+
+* Thu Oct 30 2003 Michel Alexandre Salim <salimma[AT]users.sf.net> - 0.5.0-0.fdr.0.3.pre4
+- Added missing dependency on libgnomeui-devel (bad gnome-panel dep)
+- Minimum version specified for gtk2
+
+* Wed Oct 29 2003 Michel Alexandre Salim <salimma[AT]users.sf.net> - 0.5.0-0.fdr.0.2.pre4
+- Added dependencies to gai-devel
+- Removed unnecessary macros from URLs
+- Moved libgai.so to -devel
+
+* Tue Oct 28 2003 Michel Alexandre Salim <salimma[AT]users.sf.net> - 0.5.0-0.fdr.0.1.pre4
+- Fixed broken library naming (thanks Michael Schwendt)
+
+* Mon Oct 27 2003 Michel Alexandre Salim <salimma[AT]users.sourceforge.net> - 0.5.0-0.fdr.0.pre4
+- Update to 0.5.0pre4; API change between 0.4.x and 0.5.0.
+- Most GAI applets now developed for 0.5.0, since 0.4.1 is not in Fedora yet one might as well move to 0.5.0 now.
+
+* Tue May 13 2003 Michel Alexandre Salim <salimma[AT]users.sourceforge.net> - 0.4.1-0.fdr.1
+- Adapted from upstream spec

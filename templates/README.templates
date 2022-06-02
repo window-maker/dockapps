@@ -1,0 +1,33 @@
+
+Here are some template files that you can use for your GAI applet.
+
+Some information about the files:
+
+COPYING          - GNU General Public License
+INSTALL          - General installation instructions for GAI applets
+Makefile.in      - Template Makefile. Works nicely together with configure.in
+README.gai       - General README for GAI applets.
+README.templates - This file.
+config.h.in      - The settings provided by the configuration script
+                   will be saved here.
+configure.in     - A template configuration script. Run autoconf to 
+                   generate a configure script from this file.
+gai-example.spec - Template spec file. You need a spec if you want to
+                   generate rpm's of your applet. 
+gai-icon.png     - A template icon if you don't feel for making your own.
+                   Used on the Gnome panel and in the about box. 
+aclocal.m4       - For NLS support. Just needed if your applet has NLS support
+                   However, if missing, autoconf will yield an error, but
+		   the outputed configure file will be ok.
+po/*             - For NLS support. Also only needed if your applet supports 
+                   NLS.
+
+Please mail me if you find something unclear or you need some help!
+Always willing to help!
+
+Jonas <cja@gmx.net>
+
+PS: You generate a configure script from configure.in by running "autoconf"
+
+
+

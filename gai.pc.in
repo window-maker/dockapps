@@ -1,0 +1,15 @@
+prefix=@prefix@
+exec_prefix=${prefix}
+libdir=@libdir@/lib
+includedir=${prefix}/include
+gnome=@gnome_installed@
+gl=@gl_installed@
+rox=@with_rox@
+roxpath=@ROX_PATH@
+
+Name: gai
+Description: A library that simplifies development of applets
+Requires: gthread-2.0 gtk+-2.0 pangoft2 @REQ_PC@ @REQ_PC_GL@
+Version: @GAI_MAJOR@.@GAI_MINOR@.@GAI_MICRO@
+Libs: -L${libdir} -lgai
+Cflags: -I${includedir}

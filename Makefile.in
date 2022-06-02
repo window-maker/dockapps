@@ -1,0 +1,32 @@
+
+# Makefile for gai
+
+all:	
+	(cd gai;make all)
+
+clean:  @po_clean@
+	rm -f *~
+	(cd gai;make clean)
+
+
+po_clean:
+	(cd po; make clean)
+
+po_install:
+	(cd po; make install)
+
+dist:	clean
+	autoconf
+	rm -rf autom4te.cache
+	rm -f config.cache gai/Makefile po/Makefile config.h config.status config.log gai.pc gai.spec
+	(cd examples/gai-clock;rm -rf autom4te.cache; rm -f config.cache Makefile config.h config.status config.log *~)
+	(cd examples/gai-helloworld;rm -rf autom4te.cache; rm -f config.cache Makefile config.h config.status config.log *~)
+	(cd examples/gai-pref;rm -rf autom4te.cache; rm -f config.cache Makefile config.h config.status config.log *~)
+	(cd examples/morning_on_earth;rm -rf autom4te.cache; rm -f config.cache Makefile config.h config.status config.log *~)
+	(cd docs; rm -f *~)
+	(cd ..;tar cvf gai-@GAI_MAJOR@.@GAI_MINOR@.@GAI_MICRO@.tar gai-@GAI_MAJOR@.@GAI_MINOR@.@GAI_MICRO@/;bzip2 -9 gai-@GAI_MAJOR@.@GAI_MINOR@.@GAI_MICRO@.tar)
+install: @po_install@
+	(cd gai;make install)
+uninstall:
+	(cd gai;make uninstall)
+.PHONY: all clean install uninstall

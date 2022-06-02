@@ -1,0 +1,6 @@
+
+Update: This patch is accepted into the Enlightenment CVS.
+
+If you apply this patch to Enlightenment 0.16.6, you can use
+applets of any size instead of only 64x64 sized applets.
+

@@ -1,0 +1,614 @@
+0.5.10 - 26th June 2005 
+      - Fixed bug that caused the preference menu not to work on the Gnome
+        panel.
+      - Applied Michael Schwendt <bugs.michael@gmx.net> Makefile patch.
+      - Added Fabrice Colins <fabrice.colin@gmail.com> new gai.spec file.
+      
+0.5.9 - 6th June 2005
+      - Updated the example applets.
+      - The preference dialog is now nicely resized.
+      - Fixed some minor memory leaks in the preference dialog.
+      - API change: The function connected to gai_signal_on_preferences() shall now take:
+	(gboolean changed, gpointer data) as argument. changed is true if the user changed
+	anything in the preference window. False if the user did nothing.
+      - Added two new preference window items. GAI_LISTSTORE and GAI_EDITLISTSTORE. The first
+	shows just a list, no altering is possible. The second provide a list that can be
+	increased and reduced by the user. (NOT YET FINISHED!)
+      - Cleaned up parts of the preference generator. Several minor memory leaks fixed.
+      - Update gai.spec. Some Fedora Core changes by Michael Schwendt mschwendt@users.sf.net,
+	and Michel Alexandre Salim salimma@users.sf.net
+      - Allowing applet to be bigger than 1000 pixels (2560 is now max).
+	Ashley V <ashley@digiverse.net> wants to have Sherman's 
+	aquarium real big :-)
+      - Destroying (clicking on the window manager "X" icon) the preference
+        window now works fine.
+      - Destroying About box is now handled correctly.
+      - Rewrote large part of the right mouse click menu handleling code. Now you can remove,
+        change, insert and add menu items during run time.
+	gai_menu_insert(...), gai_menu_change(...) and
+	gai_menu_remove(...) is new. gai_menu_add now returns an integer
+	that is the ID of the menu item.
+      - Fixed broken libdir link in gai.pc
+      - Make sure GdkColor is never null when given to applet.
+      - Documentation updates.
+      - Various minor fixes found on the fedora extras by  Michael Schwendt <mschwendt@users.sf.net>
+	and Thorsten Leemhuis fedora@leemhuis.info. Please mail me fixes directly!!
+      - GtkFileChooser dialog is now used instead of GtkFileSelector when GTK+ 2.4 or later is detected.
+      - If gtk+ 2.4 or later, use varously updated widgets instead of older ones. 
+      - Merged big nls patch by Olaf Leidinger <leidola@newcon.de> Thanks! 
+      - NLS is finally supported for GAI. Not yet there for applets
+      - The BonoboUIVerb array canary was missing and that caused the GNOME to crash. Patch by
+        Jean-Yves Lefort <jylefort@FreeBSD.org>
+	
+0.5.8 - 25th September 2004
+      - Fixed memory leak in gai_load_background reported by Olaf Leidinger <leidola@web.de>
+      - Fixed memory leak in gai_create_text_simple reported by several persons.
+      - configure script updates to help people that uses a dist which split up libs and
+	header files. 
+
+0.5.7 - 25th August 2004.
+      - Fixed a memory leak when the gnome panel is vertical.
+      - gai_signal_on_mouse_move() added. Now you can get the mouse
+        location when you move the mouse above the applet. 
+      - Added transparency options. Now applets can be semi-transparent.
+	(Only dockapps are the moment!)
+        GAI_FLAGS_TRANSPARENT turns it on. (Off by default, since it will
+	just eat processor power if the applet does not use alpha channeled
+	backgrounds.)
+      - The GAI_FLAGS_PANEL flag lets your applet act like a panel 
+        (How useful! ;-) I.e, the applet becomes sticky and borderless.
+      - Olaf Leidinger <leidola@newcon.de> fixed some backward compability 
+        issues in the template configuration script.
+      - Some documentation updates.
+      - Text entries are now filling all the space it can use.
+        Maybe it does not look too nice, but it is far more efficient.
+      - gai_load_image_at_size(char name, int width, int height)
+	Olaf Leidinger <leidola@newcon.de> pointed out that the new
+	Gnome icons are vector graphics and do not have an original size.
+      - Fixed a minor leak in gai_create_menu() (Nothing serious at all.)
+      - The gai_display_error* functions are now usual at any stage.
+	(Even before gai_start(). It was not before.)
+      - Fixed flickering when losing/gaining focus on the gnome panel is fixed.
+
+0.5.6 - 3rd June 2004
+      - Minor changes to the template configure script.
+      - Added gai_text_create_simple, since people has reported problem with decided
+        manually which font to use. It just wants a text string and colors and you 
+	get an image of it. Please have a look in the documentation.
+      - Documentation updates.
+      - English corrections by Fabrice.
+      - Started on python bindings (not included in this release.)
+      
+0.5.5 - 19th April 2004
+      - Added some code that fixes dockapps problems with GTK 2.4.0 and IceWM
+	(Reported and tested by Thomas Zajic <zlatko@gmx.at>)
+      - The same code fixes some problems with WindowMaker and Gtk 2.4.0
+      - Fix for 2.95 compile problem by Thomas Zajic <zlatko@gmx.at>
+
+0.5.4 - 11th April 2004
+      - Fixed Stock button callback bug reported by Greg.
+      - Fixed bug when it comes to the default value of GAI_FILESELECTOR.
+	(Bug reported by Greg)
+      - Changed void * to const void * to reduce c++ compile problems.
+	Thanks to Fabrice.
+      - Fixed the black background bug in dockapp mode. Reported by
+        Greg and Fabrice.
+      - Applet configure file fixes and spec file updates by Fabrice.
+
+0.5.3 - 3rd April 2004
+      - Add preference window generator example applet.
+      - Patch for variable sized dockapps in Enlightenment 0.16.6 comes along.
+      - Documentation for the new preference window generator started.
+      - WindowMaker docked GAI applets now receive keypresses
+      - Enlightenment works now fine.
+      - GTK v2.4.x is now supported. (Both WindowMaker and Blackbox tested)
+      - New flags to stop GTKs autoupdating. Useful for TV in a Box. 
+      - Many more bug fixes when it comes to sizing and resizing on the 
+        gnome panel.
+      - gai_init2() now returns GAI_GNOME1, GAI_DOCKAPP or GAI_GNOME2 instead of
+	always 0. 
+      - Fixed broken preference window name.
+      - Small fix for 2.9x compilers (Thanks to Ying-Chieh Liao 
+	<ijliao@csie.nctu.edu.tw>)
+      - "Beautification" of gai.h
+      - New preference window generator added! 
+      - gai.h is now c++ friendly (hopefully) 
+      - Now it is possible to move GAI applets with pressing the middle button
+	on the Gnome panel (Thanks Diego!)
+      - ROX panel support!! (But still quite BETA)
+        Applets must update to a new configure script in order get the
+	correct files installed.
+      - Fixed alignment bug when the gnome panel is rotated.
+      - Now you can have no icon and any image(from file) on the
+        right button menu. See referenceguide, gai_menu_add()
+      - gai_draw*bg can now be used before gai_start() is called.
+      - The template configure script sets #define LINUX26 for Linux 2.6.x and
+        #define LINUX24 for Linux 2.4.x and so on in config.h.
+	Useful nowadays when you can be sure if people are using 2.6.x
+	or 2.4.x
+      - Important bugfix in the template configure script concerning
+	installation prefix when GAI is compiled without Gnome support.
+      - gai_tooltips* now works before gai_start is called. (GTK v2.2 seems to
+	leak memory when changing tooltips, so you better don't change them 
+	often.)
+      - Some "const" added to gai_save/load
+      - Documentation updates. Reference Guide is finaly completed!!
+        Lots of spelling and grammer corrections by Fabrice.(Thanks!)
+      - Added gai_save_glist(..) and gai_load_glist_with_default(..)
+        Useful for combobox preference windows.
+      - Fixed background bug for dockapps when Gnome is missing.
+        Thanks Greg! 
+      - GAI_COMBO implemented. Now you can have combo boxes in your
+        preference window.
+      - NULL as function on preference signal is now accepted and works. 
+      - Keyboard input now works on the dock for fluxbox(and possible
+        other window managers) Thanks Luca!
+0.5.2 - 25th January
+      - Changed optimization level to -O2 instead of -O3 on request.
+      - Fixed transperency bug when it comes to draw_bg on on backgrounds. 
+      - Removed -Wl,-no-undefined since Darwin dislikes it and it isn't
+        really needed.
+0.5.1 - 18th January
+      - No more undefined pangoft2 externals.
+      - Applets that are smaller than the panel gets a different resizing
+	strategy(=no scaling at all, no matter size changes.) This looks 
+	better.
+      - Changed transperency level to 0x80 for backgrounds. Looks better 
+	like this.
+      - A few spelling corrections and gai.spec updates by
+        Fabrice Colin <fabrice.colin@ntlworld.com>
+      - Fixed colour bug on the gnome panel.
+      - Added a very simple panel that can dock GAI applets. See docking/
+      - Added how to dock an GAI applet example using GTK. See docking/
+      - Added code so it is easy to dock a GAI applet into any program. Just 
+	provide the Window id and the wished size via the two enviromental 
+	variables:
+	"GAI_APPLET_SIZE" and "GAI_APPLET_XWINDOW".
+      - Compile fix for Solaris (Thanks to Patrik Hill <pdh@emss.com>)
+      - Fixed bug that could cause alpha channeled backgrounds get weird
+        colour shades on the gnome panel.
+      - Mouse release now returns correct X and Y coordinates.
+      - New command: "--gai-size X" where X is the wished size. Usable for
+	dockapps, when you think for example 64x64 is too large.
+      - Commandline options bug fixed.
+      - Added always link against X11 and refuse to link if undefined symbols.
+      - Fixed configure script bug. Now it's enable/disable, not with/disable.
+        (Thanks to Seemant Kulleen <seemant@gentoo.org>)
+      - Debug random ID is removed.
+      - Darwin compile bugfixes. (Thanks to Ben Hines)
+      - The size is now correct on the gnome panel. Forgot that gnome steals
+        a one pixel frame around the applet. 
+0.5.0 - 11th January 2003 
+      - Fixed sizing bugs with the Gnome panel.
+      - No more info in /tmp/gai-debug-output when debug is turned off.
+      - Small bugfix in the debug init function.
+      - The template configuration script can now demand an OS, if OS
+        specific code is used.(For example, CPU load code is OS specific.)
+      - Fixed bug that make the updated function get called twice during
+        initialization.
+      - Small documentation updates.
+      - Removed gdk-pixbuf warning message in the aboutbox when the applet has
+        no icon image.
+      - Small makefile updates.
+0.5.0rc1 - 27th Decemeber 2003 (Never made public)
+      - Removed Linux depending Joystick Code and added SDL Joystick support.
+      - Joystick actions are only intercepted when the applet is focused.
+      - WindowMaker is now autodetected.
+      - Lanching a second instance of an applet on the gnome panel
+        now showns an error message instead of crashes.
+	(The gnome panel starts a second thread, and GAI and the
+	applets are not thread safe.)
+      - Applied Darwin/MacOSX patch. (Thanks Ben!)
+      - Button click now returns correct X and Y coordinates. 
+      - Now all applets get the right size from the gnome panel.
+      - gthread-2.0 is required.(Part of glib by default)
+0.5.0pre6 - 16th November 2003
+      - Added joystick support. gai_on_signal_joystick(..)
+      - Some changes to the template files.
+      - Added -fPIC
+      - Menu separator now works on the right button menu on the gnome panel.
+      - Fixed template makefile. XMMS depending applets will now compile ok.
+0.5.0pre5 - 31st October 2003
+      - Examples updated with the new configure script.
+      - Compiles fine again with gcc 2.9x. Thanks to Eric Altendorf 
+        <EricAltendorf@orst.edu>
+      - Makefile fixes by Michael Schwendt <ms-nospam-0306@arcor.de>
+      - Finally decided to name the library files to libgai.so instead of
+        libgai-0.so (Thanks to Michael Schwendt <ms-nospam-0306@arcor.de>)
+      - gai_applet_mode() added. Returns the GAI_GNOME1/2 or GAI_DOCKAPP
+        for those applets that are interested in that.
+      - Behavior changes. gai_get_size() in dockapp mode returns the
+        smallest one of the height and width. (Sherman's aquarium wants that) 
+      - Now you can have different gai library settings for different
+        applets. broken-wm/working-wm, debug-on/off and window-maker-on/off
+	can differ. Add "-this" on the command to change the settings for
+	just one applet. This is justful for applet developers and for me. 
+	(Buggy at the moment.)
+      - More gai.spec fixes by Fabrice.
+      - New nicer about window in dockapp mode.
+      - Tooltip update fix by Magnus Nordfelth.      
+      - ~/.gnome2 is created if not existing.
+      - Internal changes to reduce the size of the GAI struct
+      - gai_init2() which wants a pointer to a type structure is
+        introduced. It makes gai_about_from() useless. It takes
+	the data entered in the configure.in file and makes a about 
+	box from it.
+      - New nice about box for dockapps. The applets icon is now shown on it.
+      - New configure and Makefile for applet! It reduces the lines
+        of codes needed together with gai_init2()
+      - You can add your own entries to the right button menu via
+        gai_menu_add(...)
+	
+0.5.0pre4 - 3nd October 2003 <cja@gmx.net>
+      - Fixed typo in gai.spec (Thanks Fabrice!)
+      - Removed broken g_assert()
+      - Fixed bug that made updates on the background very slow.(Thanks Greg!)
+0.5.0pre3 - 1st October 2003 <cja@gmx.net>
+      - Window maker part rewritten, now it works as for any other wm.
+      - OpenGL applets are now supported.
+        (At the moment only in dockapp mode and not for Windowmaker.
+	 Gnome disallow gai to make a GL widget)
+      - Tested with Gnome 2.4.0 and got disappointed. No panel bugs fixed
+        and new bugs added.
+      - Added some g_assert() to help applet programmers.
+      - Added some better window destroyed catchers.
+      - Added -soname when linking gai. (Thanks to Michael Schwendt!)
+      - New function: gai_get_orient(). Returns the gnome panel orient.
+      - gai_get_size() works correctly with gnome.
+      - Fixed maxsize bug with gai_background_set(..)
+      - Fixed Fileselector bug introduced in pre2.
+      - The menu won't disapear in gnome mode when the applet has a
+        menu_help_text.
+      - Fixed bug introduced in gai 0.5.0preX WindowMaker works now again.
+
+0.5.0pre2 - 3rd September 2003 <cja@gmx.net>
+      - Late API change: gai_signal_on_change_size() -> gai_signal_on_change()
+        Since given function will also be called on orientation changes, 
+	size changes and background change. (New: called on bg change)
+	 
+      - Bug fix: gai_tooltip doesn't leak memory anymore.
+      - Bug fix/feature: Preference menu doesn't leak memory anymore if
+        target ptr and source ptr are the same for TextEntries.
+      - Bug fixes (Gnome):  
+    	         - Applets changes background colour when the panel does it.
+		 - No more slow starts when it comes to background drawing.
+		 - The size is correctly calculated when the applet isn't
+		   a square.
+      - Bug fixes (dockapp):
+                 - Drawing on background now starts directly, not after awhile. 
+0.5.0pre1 - 17th August <cja@gmx.net>
+      - Some fix in the old configure/makefiles and in some C files to make
+        installion and compilation work fine.
+      - Released on gai.sf.net
+0.5.0pre0 - 11th August <cja@gmx.net>
+      - Update textfiles.
+      - Reversed configure/makefile scripts.       
+0.5.0(0809j) - 9th August <cja@gmx.net>
+      - Fixed change update interval bug.
+      - Fixed yesterdays use of deprecated resizing method to an ok method.
+      - No widgets are returned on signals, since applets shall not
+        care about widgets, nor know about them.
+	(Sorry Guidio!)
+0.5.0(0808j) - 8th August <cja@gmx.net>
+      - Fixed resizing bug in dockapp mode.
+      - Fixed making gtk update rotated applet correctly in gnome mode.
+      - Updated gai-clock, moe and gai-helloworld.
+0.5.0(0805j) - 5th August <cja@gmx.net>
+      - Changed about window credits text.
+0.5.0(0726j) - 26th July 2003 <cja@gmx.net>
+      - Fixed sizing bug for no rectangular applets on the gnome panel.
+      - Drawing and background functions are now in gai-draw.c
+      - Added gai_exec(.) runs a commandline in the background.
+0.5.0(0724j) - 24th July 2003 <cja@gmx.net>
+      - Fixed drawing on background bugs.
+0.5.0(0723j) - 23rd July 2003 <cja@gmx.net>
+      - Fixed bug with colour backgrounds and transparent pic backgrounds.
+0.5.0(0721j) - 21st July 2003 <cja@gmx.net>
+      - Fixed bug with floats and GaiSpinButtonFloat.
+      - Fixed memory leak in gai_text_create(.)
+      - Fixed not rotate applet scaling bug.
+0.5.0(0720j) - 20th July 2003 <cja@gmx.net>
+      - More flags for gai_flags* And not having a flag set, means not alter it.
+	
+0.5.0(0719j) - 19th July 2003 <cja@gmx.net>
+      - Fix scaling bug in gnome.
+      - Rotation is no more mirrored.
+      - Some tweeks to try to make drawing on bg in gnome to work better.
+0.5.0(0716j) - 16th July 2003 <cja@gmx.net>
+      - Fixed bug with background colour in gnome
+      - Fixed bug with border in gnome
+      - How GAI handles the stupid gnome rule "I give you 2 pixels less
+        than you want" with scaling the image to two pixels smaller.
+	This is not a final fix, just a temperary one until the Gnome
+	panel guys fix their bugs.
+0.5.0(0714j) - 14th July 2003 <cja@gmx.net>
+      - Documentation updates
+      - Not displaying a help box when there is no help to get.
+0.5.0(0709j) - 9th July 2003 <cja@gmx.net>
+      - gai_background_from_gdkpixbuf(...) added.
+      - API change: gai_init_start -> gai_start().
+0.5.0(0707j) - 7th July 2003 <cja@gmx.net>
+      - Correct my own bug when it comes to the standard bg in gnome.
+      - Removed the possibility to change the background colour on the
+        default background. This helps knowing what colour that is 
+	interesting in gnome.
+      - Added code to alert the library if the gnome panel background is
+        changed.
+      - The background colour of the gnome panel now shines through
+        on the transparent pixels of the background of the applet.
+      - Installed latest gnome-panel 2.2.2.1 and still the panel can't
+        give gai a correct background image, nor transparent colour.
+	(Which will be handeled the same.)
+      - Changing the applet size during runtime now works. (Maybe
+        with setting background image doesn't work. Havn't tested)
+0.5.0(0706j) - 6th July 2003 <cja@gmx.net>
+      - Now the API is pretty fine.
+      - More changes in the background drawing routines.
+      - Example applet changes.
+      - It is now possible to change background during runtime.
+      - The applet detects now when the gnome panel changes background.
+      - More API changes.
+0.5.0(0704j) - 4th July 2003  <cja@gmx.net>
+      - Large API changes to improve the library. Functions removed,
+        functions merged, functions renamed..
+        All old applets has to be updated in order to work!
+      - Put the log/debug functions into an own file.
+      - Backward compability removed completly
+      - Mem leak fixed 
+      - Removing alot of _init_ since they are pretty unnessicary.
+0.5.0(0702g) - 2nd July 2003 <guidod@gmx.de>
+      - add gai-static variant using install-hooks in gai/Makefile.am,
+        it should be fine to use `pkg-config gai-static --libs` to
+        ensure to staticlink with gai but leave all other deps intact.
+        Since we are in devel stage of gai, it is best to staticlink
+        current applets simply because some API parts might change.
+        <guidod@gmx.de> on request of <cja@gmx.net>
+      - changing style of #ifndef-header in the header files of gai,
+        it does now match with the style of gtk headers <guidod@gmx.de>
+      - adding gaidefs.h, ported from another project of mine <guidod@gmx.de>
+      - oops, gnome-config.* and gnome-util.* are copies from  somewhere
+        else, so better wrap them via gai-gnome-util.c and gai-gnome-config.c
+      - invent gai-gnome-config.h that renames gnome functions - just
+        in case that a libgnome is installed later which might result
+	in symbol-clashes when both libgai and libgnome are references 
+        where libgai was compiled without gnome support.
+      - fix all files to include hint to "Lesser GNU GPL" using the
+        same text snippet as found in gtk headers.
+      - rename COPYING into COPYING.LIB, and CHANGES into ChangeLog
+        these two are found automatically be `automake`
+      - remove handmade gai.pc.in, rename automatically generated .pc file
+ 	into gai.pc, change example to only check for gai >= 0.5.0 instead
+	of the old temporary hack of using libgai >= 0.5.0 out of libgai.pc
+      - add again a symbol exported as gai_init_set_pix_path but add a gcc
+	hint "depracated" in the gai.h header file. That's similar to what
+	gtk does with outdated/obsoleted functions.
+      - remove remainings of SYSTEM_SPECIFIC_LIBS in gai/Makefile.am
+      - convert many "char*" arguments into "const char*" where apropriate
+      - big change - add a dozen new callback functions that shall 
+        replace the old ones. The old ones still exist but they are 
+	marked as deprecated, and the gcc3-compatible compilers will warn
+	on every usage of these functions. If you even compile sources with 
+	-DGAI_DISABLE_DEPRECATED then they are not even declared in headers.
+
+0.5.0(0615j) - 15th June 2003
+      - Now compiles on XFree86 3.x <cja@gmx.net>
+      - No waring when turing on mouse ptr in the init face <cja@gmx.net>
+      - add gai_create_applet_info.m4 <guidod@gmx.de>
+      - and change appletname defaults to GAI-$PACKAGE-Applet <guidod@gmx.de>
+        instead of the older GNOME_${PACKAGE}Applet <guidod@gmx.de>
+      - Rewrote large parts of the internal debug system <guidod@gmx.de>
+      - Simplified about window call:
+        gai_init_about_from(char *msg); <guidod@gmx.de>
+      - Updated refernce guide <cja@gmx.net>
+      - gai_text_create() - Makes GdkPixbuf of text string based on given
+        font <cja@gmx.net>
+		
+0.4.2 - 14th June 2003 <guidod@gmx.de> (Never made public)
+      - make full automake
+      - fix a few "char*" into "const char*"
+0.4.1a- 6th May 2003
+      - Now compiles without warnings on exit() and atexit() and gtk+
+        only support compiles.
+	(Thanks to Noah!) 
+0.4.1 - 4th May 2003
+      - Background drawing is still done with gdk_pixbuf. Tell me if
+        it has problems with the alpha channel. 
+      -	New function:
+	void gai_init_draw_foreground_with_alpha(void);
+	If your applet will draw images on the foreground that has
+	an alpha channel, you have to call this function at start-up
+ 	to assure that things works as expected.
+	But don't call this function if you don't have images with
+	alpha channel, since it will comsume some cpu power. Not much,
+	but unnessecary.
+      - gdk-pixbuf is buggy with alpha channel. Wrote own routine to
+        draw alpha channel images.
+      - Fixed bug with xpm backgrounds didn't know it's size.
+      - More Makefile fixes. This time to make it work with FreeBSD.
+      - Updated template configure.in script with version check.
+      - Makefile fixes (Thanks Francois!)
+      - Added gai_init_on_exit_function(gai_function *). 
+	Tells GAI if the applet needs to run something when it quits.
+      - Menu help is off by default now.
+ 	gai_init_menu_no_help() is outdated.
+      - Fixed bug with transparent background images.
+      - Added function to change the updating interval when the
+	applet is running.
+	void gai_update_interval_change(int);
+      - Started to work on different background settings in Gnome Panel
+        mode, but it seems like the Panel is abit buggy and not
+	really finished. So I'll leave this open until next stable
+	release of gnome. It isn't worth trying to change something
+	from the default gray colour on the Panel.
+	It will just look odd on everything except on the built in
+	buttons.
+        Also, removing the boarder around each panel seems to be
+	impossible. I've heard that you can change the colour on it
+	in the gtkrc file, but don't ask me how.
+      - Fixed sizing bug with vertical panels.
+      - Updated documentation.
+      - Started on a "GAI programmer's FAQ"
+      
+0.4.0 - 21st April - First public release! 
+      - Correct help icon is shown in Gnome mode.
+      - Fixes bug in new configure.in template.
+      - Now it is possible for applets to call
+        gai_display_error(char *str) when a fatal error happends
+	and it will be displayed printed on screen(in dockapp mode) 
+	and as a box.
+	This function can be called both at init face and running
+	face. Remember that this function exits the applet.
+      - No warnings with gcc 3.2.x
+      - Added make uninstall.
+      - Changed default pkgconfig path to /usr/lib/pkgconfig
+      - Changes in configure and Makefiles, so all files are
+        recompiled when you rerun the configure script
+      - Added function for drawing raw RGB data with alpha channel.
+	gai_draw_raw_alpha_bg(..) for background and
+	gai_draw_raw_alpha(..) for foreground.
+      - Improved debug functions and now gai_init has to be called
+	first for all functions.    
+      - Fixed difference in code generation between gcc 2.x and 3.x
+      - Updated reference guide.
+      
+0.3.3 - 28th March 2003
+      - Started to write a tutorial
+      - Added template icon for applet developers.
+      - Tested GAI with a couple of windowmanagers. See
+        WINDOWMANGERS for more details.
+      - Applied template Makefile patch from  Franois Bochatay 
+        <francois.bochatay@epfl.ch> and did some changes to fix
+	bug with installing images when gnome isn't installed.
+      - With gai_init_menu_no_help() you can remove the help icon
+        in the button3 menu. 
+      - Now GAI works ok with WindowMaker, use --gai-window-maker
+        switch.
+      - Added about window in dockapp mode. Pretty ugly, but works.
+      - Fixed bug between gai_init_load_background() and 
+        gai_init_set_background_size() The background wasn't scaled,
+	if needed.
+      - Fixed Glib warning if the background doesn't include any
+        transparent pixels.
+	
+      - gai_init_about_set_license() - Set license text. Default is
+        "Released under GPL".
+      - gai_init_menu_set_help_text() - Text to show when help is selected in 
+        the button 3 click menu.
+
+      - Added some command line options for the library:
+      GAI library command line options:
+      --gai-debug-on          Stores debug info in /tmp/gai-debug-output.
+                              Notice that it eats some processor power.
+      --gai-debug-off         Turns off debug mode.
+      --gai-window-maker      If your window manager only displays
+                              the background of the applets, try this.
+      --gai-no-window-maker   Remove the window maker settings.
+      --gai-broken-wm         Lets all applets run as a normal program.
+      --gai-working-wm        Lets all applets run as
+                              dockapps/wmapplets
+      --gai-list-settings     Displays current settings.
+      --gai-help              Shows this text.
+      Remember that this affects all applets.
+      
+																			      
+0.3.2 - 19th March 2003
+      - gai_init_preferences_simple_set_help_text(char *) is added.
+        This text string will be shown when you press the help
+	button in the preference window.
+      - gai_init_set_max_size(int ) is added.
+        Now you can tell the maximum size gnome is allowed to
+	scale the applet. Remember, that it is the height you shall
+	give in here, if you applet has different height and width.
+      - Code clean up on gai-gnome and some changes in gai-wmapplet.
+
+0.3.1 - 18th March 2003
+      - Now GAI works fine without Gnome installed.
+      - Documentation updates.
+      - Password text entry added to preference generator.
+        (Displays a "*" instead of the actual typed letter)
+      - Compability break:
+        gai_init_about_set_text() -> gai_init_about() and wants a
+	fourth char * to an image file, if you wan to show an image
+	in the about dialog. It is ok to send with NULL as an image.
+	(But the image isn't yet drawn, neither is the aboutbox
+	 working in dockapp mode.)
+	
+0.3.0 - 17th March 2003
+      - Fixed gai-pref layout bug for double frames.
+      - Fixed Gtk-Critical warning.
+      - Tooltip is now displayed in wmapplet mode.
+      - GaiCheckButton layout is different.
+      - More gai-pref layout changes to make things appear on better places.
+      - Added new layout order, GAI_FRAME3, adds three frames side by side
+        if wished.
+      - Added new preference option, GAI_OPTIONMENU.
+      - Added menu on button 3 in wmapplet mode.
+      - Added possiblity to save/load boolean values.
+      - Settings are now saved under the applet name, not under gai as before.
+      - gai_init_show_mouse_ptr() is added.
+      - Fixed colour selection bug.
+      - Added forgotten code for handeling enter and leave applet area
+        with mouse pointer.
+      - Now allow applets to take care of Gnome's size and orientation
+        changes itself. gai_init_change_size_function();
+      - Added gai_get_drawingarea(void) for applets that wants to
+        modify it's drawingarea.
+      - Fixed stupid bug that caused the transparency to be wrong.
+      - Now the default background image is always generated, not
+        scaled. 
+      - gai_scale() is now made external for programs that needs
+        to know the current scaling.
+      - Now the updating function is automatically turned off during
+        restarting of the applet and reloading of settings.
+	Just to be on the safe side.
+      - Fixed GaiFileSelector/GaiTextEntry bug
+	            
+0.2.0 - 3rd February 2003
+      - Code for generating preference window from a structure is added.
+        Combobox is missing. gai_init_preferences_simple(..)
+      - Rewrote most parts of the wmapplet functions.
+        Now all parts, except the tooltip works for both gnome and wmapplet.
+        Redrawing background now works for Enlightenment too.
+      - Mouse click and mouse release is splitted into two functions
+        each, button 1 and 2, button 3 is reserved from gnome.
+      - gai_init_preferences_function now wants a gai_function, not
+        a gai_function_pref.
+      - Fixed updateing of background bug.
+      - Fixed gai_load/save bug in wmapplet mode.
+      - Now ignores setting tooltips in wmapplet mode.
+	
+0.1.2 - 28th January 2003
+      - Fixed sizing problem when the wishes size of the background 
+        isn't the image's size. 
+      - Library Debug info is outputed in /tmp/gai-debug-output 
+        (Remove -DDEBUG from the src/Makefile.in, if you don't wish 
+	to have it.
+	It will stay until I feel the library isn't just a test lib.)
+      - Missing picture file now results in a readable error message. 
+      - If a gai_* function is called before gai_init(), then an
+        error message is displayed.
+
+0.1.1 - 23rd January 2003
+      - Fixed rotation bug.
+      
+      - Fixed some memory leaks.
+      
+      - Added option to hide mouse pointer when over. 
+        * void gai_init_hide_mouse_ptr(void);
+	
+      - Alot of small fixes in the gnome parts.
+      
+      - Added new function:
+        * int gai_get_size(void);
+	This returns the height(if horizontal, otherwise width) 
+	of the gnome-panel.
+	
+      - Added new function
+        void gai_init_scroll_buttons_function(gai_function_int *);
+	Hooks the scrollbuttons, returns the direction.
+	
+      - Added code for handeling keypresses in gnome mode. Forgot that
+        earlier.
+
+0.1.0 - Middle January 2003.
+      - First test version.

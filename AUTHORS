@@ -1,0 +1,72 @@
+
+The General Applet Library (GAI) is written by:
+----------------------------------------------
+Jonas Aaberg <cja@gmx.net>
+Guido Draheim <guidod@gmx.de> (Passive)
+
+ Patches:
+----------
+Eric Altendorf <EricAltendorf@orst.edu>
+    - Compilation fix with gcc 2.9x
+François Bochatay <francois.bochatay@epfl.ch>
+    - Makefile patches.
+Michael Schwendt <ms-nospam-0306@arcor.de>
+    - Linker option and makefile fixes.
+Fabrice Colin <fabrice.colin@ntlworld.com>
+    - Many fixes for gai.spec plus splitting it into devel and library package.
+      Also some suggestions.
+    - Lots of spelling and grammer corrections of the Reference guide.
+    - Applet configure script fixes.
+Magnus Nordfelth <magno837@student.liu.se>
+    - Fix that forces the tooltip to get updated directly.
+Ben Hines <bhines@alumni.ucsd.edu>
+    - Darwin (MacOS X) patch
+Patrik Hill <pdh@emss.com>
+    - Compile fix for Solaris
+Luca Ognibene <skaboy81@virgilio.it>
+    - Keyboard input works on dockapps.
+Ying-Chieh Liao <ijliao@csie.nctu.edu.tw>
+    - Compile fix for gcc 2.9x
+Thomas Zajic <zlatko@gmx.at>
+    - Long detailed bug report for 0.5.[3,4] about docking problems, testings
+      the text about IceWM in WINDOWMANAGERS and compile fixes for gcc 2.9x 
+Goetz Waschk <waschk@informatik.uni-rostock.de>
+    - ROX installation lacsk of DESTDIR patch for template Makefile.in 
+Thomas Mathys <mathys66@bluewin.ch>
+    - Destroying preference box is no good.
+
+ Suggestions of improvements:
+------------------------------
+François Bochatay <francois.bochatay@epfl.ch>
+    - Tons of them! Thanks alot!
+Draghicioiu Mihai Andrei <misuceldestept@go.ro> 
+    - Help with fixing windowmaker bug and suggestions.
+Stefano Ciancio <s.ciancio@pisa.iol.it>
+    - gai_signal_on_update_interval_change() is his idea.
+Raschbacher Thomas <lordvan@gentoo.org>
+    - Add $(DESTDIR)
+Fabrice Colin <fabrice.colin@ntlworld.com>
+    - Some kind of text entry thingy for applets.
+
+ Bug reports:
+--------------
+François Bochatay <francois.bochatay@epfl.ch>
+    - Can't even remember how many bugs you've found!
+Draghicioiu Mihai Andrei <misuceldestept@go.ro> 
+    - Bug with WindowMaker.
+Stefano Ciancio <s.ciancio@pisa.iol.it>
+    - Slow updating on bg drawing bug and some more.
+Eric W. Eubank <eweuba@wm.edu>			
+    - Found bugs with GdkPixbuf, button click coordinates problem.
+Noah  Silva <nsilva@atari-source.com>
+    - Found compile warning and gtk+ only compile problems. 
+Seemant Kulleen <seemant@gentoo.org>
+    - configure script inconsistency.
+Gregory Wilson <gdw1@cornell.edu>
+    - Drawing problem that was caused by --disable-gnome and stupid
+      #ifdefs.
+Diego Zamboni <diego@zzamboni.org>
+    - Reporting that you can't move GAI applets on the Gnome panel
+      as other applets.
+Gregory Wilson <gdw1@cornell.edu>
+    - A whole bunch of them :-)

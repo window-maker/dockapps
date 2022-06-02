@@ -1,0 +1,1700 @@
+<html>
+<head><title>GAI - Library calls - Reference Manual</title>
+<style type="text/css">
+        .synopsis, .classsynopsis {
+            background: #eeeeee;
+            border: solid 1px #aaaaaa;
+            padding: 0.5em;
+        }
+        .programlisting {
+            background: #eeeeff;
+            border: solid 1px #aaaaff;
+            padding: 0.5em;
+        }
+        .variablelist {
+            padding: 4px;
+            margin-left: 3em;
+        }
+        .navigation {
+            background: #ffeeee;
+            border: solid 1px #ffaaaa;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+        .navigation a {
+            color: #770000;
+        }
+        .navigation a:visited {
+            color: #550000;
+        }
+        .navigation .title {
+            font-size: 200%;
+        }
+      </style>
+</head>
+</html>
+
+<body bgcolor="white" text="black" link="#0000FF" 
+vlink="#840084" alink="#0000FF">
+
+
+<table class="navigation" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+<th width="100%" align="center">GAI - Library calls - Reference Manual</th>
+</tr></table>
+
+<table class="navigation" width="100%" summary="Navigation header" cellpadding="2" cellspacing="2">
+<tr valign="middle">
+
+<h2>Sections</h2>
+<p>
+
+<a href="librarycalls.html#synposis">Synopsis - Library calls</a><br>
+<a href="librarycalls.html#description">Description</a><br>
+<a href="librarycalls.html#structures">Structures</a><br>
+<a href="librarycalls.html#base">Base</a><br>
+<a href="librarycalls.html#background">Background handling</a><br>
+<a href="librarycalls.html#image">Image loading</a><br>
+<a href="librarycalls.html#menu">Right button menu</a><br>
+<a href="librarycalls.html#text">Text handling</a><br>
+<a href="librarycalls.html#event">Event hooks and time outs</a><br>
+
+<a href="librarycalls.html#misc">Miscellaneous functions</a><br>
+<a href="librarycalls.html#drawings">Drawing</a><br>
+<a href="librarycalls.html#settings">Saving and loading of settings</a><br>
+</p>
+
+<a name="synposis">
+<div class="refsynopsisdiv"><h2>Synopsis - Library calls</h2>
+</a>
+<pre class="synopsis">
+
+
+#include &lt;gai/gai.h&gt;
+
+int            <a href="librarycalls.html#gai-init">gai_init</a>                            (const char *name, 
+                                                    const char *version, 
+                                                    const char *image_path, 
+                                                    int *argc, 
+                                                    char ***argv);
+int            <a href="librarycalls.html#gai-init2">gai_init2</a>                           (<a href="librarycalls.html#gaiapplet">GaiApplet*</a> applet_info, 
+                                                    int *argc, 
+                                                    char ***argv);
+void           <a href="librarycalls.html#gai-start">gai_start</a>                           (void);
+void           <a href="librarycalls.html#gai-background-set">gai_background_set</a>                  (int width, 
+                                                    int height, 
+                                                    int max_size, 
+                                                    int border);
+void           <a href="librarycalls.html#gai-background-from-xpm">gai_background_from_xpm</a>             (const char **xpmimagename,
+                                                    int max_size);
+void           <a href="librarycalls.html#gai-background-from-gdkpixbuf">gai_background_from_gdkpixbuf</a>       (<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a> pixbuf, 
+                                                    int max_size);
+void           <a href="librarycalls.html#gai-background-from-file">gai_background_from_file</a>            (const char *image_file, 
+                                                    int max_size);
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     <a href="librarycalls.html#gai-load-image">gai_load_image</a>                      (char *imagefilename);
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     <a href="librarycalls.html#gai-load-image-at-size">gai_load_image_at_size</a>              (char *imagefilename,
+                                                    int width, 
+                                                    int height);
+void           <a href="librarycalls.html#gai-menu-add-help-text">gai_menu_add_help_text</a>              (const char *msg);
+int            <a href="librarycalls.html#gai-menu-add">gai_menu_add</a>                        (const char *name, 
+                                                    const char *icon, 
+                                                    int type, 
+                                                    void *func, 
+                                                    void *ptr);
+gboolean       <a href="librarycalls.html#gai-menu-change">gai_menu_change</a>                     (int id, 
+                                                    const char *name, 
+                                                    const char *icon, 
+                                                    int type, 
+                                                    void *func, 
+                                                    void *ptr);
+int            <a href="librarycalls.html#gai-menu-insert">gai_menu_insert</a>                     (int num, 
+                                                    const char *name, 
+                                                    const char *icon, 
+                                                    int type, 
+                                                    void *func, 
+                                                    void *ptr);
+void           <a href="librarycalls.html#gai-menu-remove">gai_menu_remove</a>                     (int id);
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     <a href="librarycalls.html#gai-text-create">gai_text_create</a>                     (char *msg,
+                                                    char *font, 
+                                                    int font_size, 
+                                                    int feature, 
+                                                    char red, 
+                                                    char green, 
+                                                    char blue);
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     <a href="librarycalls.html#gai-text-create-simple">gai_text_create_simple</a>              (char *msg,
+                                                    char red, 
+                                                    char green, 
+                                                    char blue);
+void           <a href="librarycalls.html#gai-signal-on-update">gai_signal_on_update</a>                (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    int delay, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-update-interval-change">gai_signal_on_update_interval_change</a>(int delay);
+void           <a href="librarycalls.html#gai-signal-on-exit">gai_signal_on_exit</a>                  (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-enter">gai_signal_on_enter</a>                 (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-leave">gai_signal_on_leave</a>                 (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-keypress">gai_signal_on_keypress</a>              (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func,
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-mouse-button-click">gai_signal_on_mouse_button_click</a>    (<a href="librarycalls.html#gaicallback">GaiCallback2</a> func, 
+                                                    int button, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-mouse-button-release">gai_signal_on_mouse_button_release</a>  (<a href="librarycalls.html#gaicallback">GaiCallback2</a> func,
+                                                    int button, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-mouse-move">gai_signal_on_mouse_move</a>            (<a href="librarycalls.html#gaicallback">GaiCallback2</a> func,
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-scroll-buttons">gai_signal_on_scroll_buttons</a>        (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-change">gai_signal_on_change</a>                (<a href="librarycalls.html#gaicallback">GaiCallback3</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-preferences">gai_signal_on_preferences</a>           (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func,
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-signal-on-joystick">gai_signal_on_joystick</a>              (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func,
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-about-from">gai_about_from</a>                      (const char *text);
+void           <a href="librarycalls.html#gai-preferences">gai_preferences</a>                     (const char *name,
+                                                    GaiNoteBook *pref_tree, 
+                                                    const char *help_text,
+                                                    <a href="librarycalls.html#gaicallback">GaiCallback1</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+void           <a href="librarycalls.html#gai-preferences">gai_preferences2</a>                    (const char *name,
+                                                    <a href="preferencewindow.html#gaipi">GaiPI</a> *pref_struct, 
+                                                    const char *help_text,
+                                                    <a href="librarycalls.html#gaicallback">GaiCallback1</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+void           <a href="librarycalls.html#gai-gl-init-func">gai_gl_init_func</a>                    (<a href="librarycalls.html#gaicallback">GaiCallback0</a> function);
+void           <a href="librarycalls.html#gai-flags-set">gai_flags_set</a>                       (<a href="librarycalls.html#gaiflagstype">GaiFlagsType</a> flags);
+<a href="librarycalls.html#gaiflagstype">GaiFlagsType</a>   <a href="librarycalls.html#gai-flags-get">gai_flags_get</a>                       (void);
+<a href="librarycalls.html#gdk">GdkWindow*</a>     <a href="librarycalls.html#gai-get-window">gai_get_window</a>                      (void);
+<a href="librarycalls.html#gtk">GtkWidget*</a>     <a href="librarycalls.html#gai-get-drawingarea">gai_get_drawingarea</a>                 (void);
+<a href="librarycalls.html#gdk">GdkGC*</a>         <a href="librarycalls.html#gai-get-gc">gai_get_gc</a>                          (void);
+int            <a href="librarycalls.html#gai-get-size">gai_get_size</a>                        (void);
+int            <a href="librarycalls.html#gai-scale">gai_scale</a>                           (int size);
+int            <a href="librarycalls.html#gai-get-orient">gai_get_orient</a>                      (void);
+void           <a href="librarycalls.html#gai-tooltip-set">gai_tooltip_set</a>                     (const char *msg);
+void           <a href="librarycalls.html#gai-tooltip-remove">gai_tooltip_remove</a>                  (void);
+void           <a href="librarycalls.html#gai-exec">gai_exec</a>                            (const char *prg);
+void           <a href="librarycalls.html#gai-display-error-quit">gai_display_error_quit</a>              (const char *msg);
+void           <a href="librarycalls.html#gai-display-error-continue">gai_display_error_continue</a>          (const char *msg);
+void           <a href="librarycalls.html#gai-draw">gai_draw<a>                            (<a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> *image, 
+                                                    int sx, 
+                                                    int sy, 
+                                                    int sw, 
+                                                    int sh, 
+                                                    int dx, 
+                                                    int dy);
+void           <a href="librarycalls.html#gai-draw-raw">gai_draw_raw</a>                        (unsigned char *rawRGB, 
+                                                    int x,  
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+void           <a href="librarycalls.html#gai-draw-raw-alpha">gai_draw_raw_alpha</a>                  (unsigned char *rawRGBA,
+                                                    int x, 
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+void           <a href="librarycalls.html#gai-draw-update">gai_draw_update</a>                     (void);
+void           <a href="librarycalls.html#gai-draw-bg">gai_draw_bg</a>                         (<a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> *image, 
+                                                    int sx, 
+                                                    int sy, 
+                                                    int sw,
+                                                    int sh, 
+                                                    int dx, 
+                                                    int dy);
+void           <a href="librarycalls.html#gai-draw-raw-bg">gai_draw_raw_bg</a>                     (unsigned char *rawRGB, 
+                                                    int x, 
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+void           <a href="librarycalls.html#gai-draw-raw-alpha-bg">gai_draw_raw_alpha_bg</a>               (unsigned char *rawRGBA, 
+                                                    int x, 
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+void           <a href="librarycalls.html#gai-draw-update-bg">gai_draw_update_bg</a>                  (void);
+void           <a href="librarycalls.html#gai-save-int">gai_save_int</a>                        (const char *name, 
+                                                    int value);
+void           <a href="librarycalls.html#gai-save-bool">gai_save_bool</a>                       (const char *name, 
+                                                    int value);
+void           <a href="librarycalls.html#gai-save-float">gai_save_float</a>                      (const char *name, 
+                                                    float value);
+void           <a href="librarycalls.html#gai-save-string">gai_save_string</a>                     (const char *name, 
+                                                    const char *value);
+void           <a href="librarycalls.html#gai-save-raw-data">gai_save_raw_data</a>                   (const char *name, 
+                                                    unsigned const char *data, 
+                                                    int size);
+void           <a href="librarycalls.html#gai-save-glist">gai_save_glist</a>                      (const char *name, 
+                                                    <a href="librarycalls.html#glib">GList</a> *list);
+int            <a href="librarycalls.html#gai-load-int-with-default">gai_load_int_with_default</a>           (const char *name, 
+                                                    int default);
+int            <a href="librarycalls.html#gai-load-bool-with-default">gai_load_bool_with_default</a>          (const char *name, 
+                                                    int default);
+float          <a href="librarycalls.html#gai-load-float-with-default">gai_load_float_with_default</a>         (const char *name, 
+                                                    float default);
+char*          <a href="librarycalls.html#gai-load-string-with-default">gai_load_string_with_default</a>        (const char *name, 
+                                                    const char *default);
+unsigned char* <a href="librarycalls.html#gai-load-raw-data">gai_load_raw_data</a>                   (const char *name, 
+                                                    int size);
+<a href="librarycalls.html#glib">GList*</a>         <a href="librarycalls.html#gai-load-glist-with-default">gai_load_glist_with_default</a>         (const char *name,
+                                                    <a href="librarycalls.html#glib">GList</a> *list);
+</pre>
+</div>
+
+
+<a name="description">
+<h2>Description</h2>
+</a>
+
+<p> 
+This document describes all GAI library calls and structures. 
+</p>
+<p>
+Some functions can only be called during initialization of the applet, ie between
+<tt>gai_init</tt> or <tt>gai_init2</tt> and <tt>gai_start</tt>. Unless specified otherwise,
+functions can be called anytime during the applets lifetime.
+</p>
+
+<a name="structures">
+<h2>Structures</h2>
+</a>
+<h3><a name="gaiapplet"></a>GaiApplet</h3><pre class="programlisting">
+typedef struct
+{
+    char *name;
+    char *version;
+    char *nice_name;
+    char *author;
+    char *license;
+    char *description;
+    char *icon;
+    char *image_path;
+} GaiApplet;
+
+</pre><p>
+The <a href="librarycalls.html#gaiapplet">GaiApplet</a> struct contains information about the applet.
+If you use the template scripts, the configure script will generate a config.h file that includes
+this structure. 
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term">char <i><tt>*name</tt></i></span></td><td>The Unix name of the applet. Example: &quot;gai-test&quot;</td></tr>
+<tr><td><span class="term">char <i><tt>*version</tt></i></span></td><td>The version of your applet. Example: &quot;0.1beta&quot;</td></tr>
+<tr><td><span class="term">char <i><tt>*nice_name</tt></i></span></td><td>This string will be used on the Gnome panel and in the about box. Example &quot;GAI Test applet&quot;.</td></tr>
+<tr><td><span class="term">char <i><tt>*author</tt></i></span></td><td>A string identifying the author of the applet. Example: &quot;Jonas Aaberg &lt;cja@gmx.net&gt;&quot;</td></tr>
+<tr><td><span class="term">char <i><tt>*license</tt></i></span></td><td>The license of your applet. If you wrote it from scratch, you can give it any license. Example: &quot;GNU GPL&quot;.</td></tr>
+<tr><td><span class="term">char <i><tt>*description</tt></i></span></td><td>A short description of the applet. \n means new line. Example: &quot;This a simple test applet.\nblah blah..\n&quot;</td></tr>
+<tr><td><span class="term">char <i><tt>*icon</tt></i></span></td><td>This a unique full path to the icon of this applet. This is used on the Gnome panel and in the about box. Example:"/usr/local/share/pixmap/gai-test/gai-test-icon.png"</td></tr>
+<tr><td><span class="term">char <i><tt>*image_path</tt></i></span></td><td>The path to where the applet images are stored. Example &quot;/usr/local/share/pixmaps/gai-test/&quot;</td></tr>
+</tbody></table></div>
+
+
+<h3><a name="gaiflagstype"></a>GaiFlagsType</h3><pre class="programlisting">
+typedef enum
+{
+    GAI_FLAGS_MOUSE_PTR_HIDE = 1 << 0,
+    GAI_FLAGS_MOUSE_PTR_SHOW = 1 << 1,
+    GAI_FLAGS_ALLOW_ROTATE   = 1 << 2,
+    GAI_FLAGS_NEVER_ROTATE   = 1 << 3,
+    GAI_FLAGS_OPEN_GL_WINDOW = 1 << 4,
+    GAI_FLAGS_FREEZE_UPDATES = 1 << 5,
+    GAI_FLAGS_THAW_UPDATES   = 1 << 6,
+    GAI_FLAGS_TRANSPARENT    = 1 << 7,
+    GAI_FLAGS_PANEL          = 1 << 8
+} GaiFlagsType;
+</pre>
+
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_MOUSE_PTR_HIDE</tt></i></span></td><td>Hide the mouse pointer when over the applet</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_MOUSE_PTR_SHOW</tt></i></span></td><td>Normal behaviour (Default)</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_ALLOW_ROTATE</tt></i></span></td><td>Allow non-rectangular applets to be rotated on the Gnome panel when it is vertical (Default)</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_NEVER_ROTATE</tt></i></span></td><td>Do not rotate the applet, regardless of the Gnome panel orientation.</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_OPEN_GL_WINDOW</tt></i></span></td><td>Makes the applet an OpenGL applet. This flag can only be set during initialization. It does not work on the Gnome panel or with WindowMaker!</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_FREEZE_UPDATES</tt></i></span></td><td>Stops graphic updates. Only useful for very special applets, like TV in a Box.</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_THAW_UPDATES</tt></i></span></td><td>Resets graphic updates to normal behaviour.</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_TRANSPARENT</tt></i></span></td><td>If you turn this flag on, dockapps can be semi-transparent with the background. It requires that the background image has an alpha channel.</td></tr>
+<tr><td><span class="term"><i><tt>GAI_FLAGS_PANEL</tt></i></span></td><td>Forces GAI to make the applet sticky and borderless, ie not for docking.</td></tr>
+</tbody></table></div>
+
+<h3><a name="gaicallback"></a>GaiCallback</h3><pre class="programlisting">
+
+typedef gboolean GaiCallback0(gpointer userdata);
+typedef gboolean GaiCallback1(int, gpointer userdata);
+typedef gboolean GaiCallback2(int, int, gpointer userdata);
+typedef gboolean GaiCallback3(int, int, int, gpointer userdata);
+</pre>
+
+<p>
+These are the prototypes of the different callback functions that signals can be attached to.
+</p>
+
+<hr>
+<p>
+<br>
+<h3><a name="glib"></a>
+<a name="gdk"></a> 
+<a name="gdkpixbuf"></a>
+<a name="gtk"></a> 
+Glib, Gdk, Gdkpixbuf, Gtk</h3>
+For functions or structures that are part of <tt>Glib</tt> v2.x or <tt>GTK+</tt> v2.x, refer to the official documentation. The documentation of those libraries and the source can be found on <a href="http://www.gtk.org">http://www.gtk.org/</a>.<br>
+<tt>GdkPixbuf</tt> and <tt>GDK</tt> are parts of <tt>GTK+</tt>.<br>
+<br>
+</p>
+<hr>
+
+
+<a name="Base">
+<h3>Base</h3>
+</a>
+<br>
+
+<div class="refsect2"><h3><a name="gai-init"></a>gai_init()</h3><pre class="programlisting">
+int            gai_init                            (const char *name, 
+                                                    const char *version, 
+                                                    const char *image_path, 
+                                                    int *argc, 
+                                                    char ***argv);
+</pre>
+</div>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3><p><tt>gai_init</tt> is deprecated and should not be used in new code. Use <a href="librarycalls.html#gai-init2">gai_init2</a> instead</p></div>
+
+<p>
+Initialization of the GAI library. This call should be the first GAI function called by your program.
+You have to pass pointers to the command line parameters and a lowercase name
+for your applet. No spaces or non-alphabetic letters.
+Note that this name must be the same as in the one in the GNOME_*.server
+file, otherwise Gnome will be unable to find your applet and start it correctly.
+This call also initializes GTK+ and Gnome, if the library is compiled with Gnome
+support. So no need for gtk_init(..) nor gnome_program_init(..)<br>
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The unix name of your applet.</td></tr>
+<tr><td><span class="term"><i><tt>*version</tt></i> :</span></td><td>The version of the applet as text string.</td></tr>
+<tr><td><span class="term"><i><tt>*image_path</tt></i> :</span></td><td>The directory where the applet shall
+look for its images.</td></tr>
+<tr><td><span class="term"><i><tt>*argc</tt></i> :</span></td><td>Pointer to the argc provided to the main function.</td></tr>
+<tr><td><span class="term"><i><tt>***argv</tt></i> :</span></td><td>Pointer to the **argv provided to the main function.</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>0 if everything went well.</td></tr>
+</tbody></table></div>
+
+
+
+
+<br>
+<div class="refsect2"><h3><a name="gai-init2"></a>gai_init2()</h3><pre class="programlisting">
+int            gai_init2                           (<a href="librarycalls.html#gaiapplet">GaiApplet*</a> applet_info, 
+                                                    int *argc, 
+                                                    char ***argv);
+</pre></div>
+
+<p>
+This will replace <tt><a href="librarycalls.html#gai-init">gai_init</a></tt> in GAI version 0.6.0 and later.  
+<tt>gai_init2</tt> provides more information than <tt><a href="librarycalls.html#gai-init">gai_init</a></tt> in order to make it possible to automatically
+generate an about box. Together with the current <tt>configure</tt> and <tt>Makefile</tt> template scripts,
+the information passed here will be used to generate the <a href="librarycalls.html#gaiapplet">GaiApplet*</a> structure. 
+Otherwise <tt>gai_init2</tt> does about the same thing as <tt><a href="librarycalls.html#gai-init">gai_init</a></tt>.
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*applet_info</tt></i> :</span></td><td>A struct with information about the applet.
+If you use the GAI template scripts, this information is provided in <tt>config.h</tt> that is generated by the <tt>configure</tt> script.
+</td></tr>
+<tr><td><span class="term"><i><tt>*argc</tt></i> :</span></td><td>Pointer to the argc provided to the main function.</td></tr>
+<tr><td><span class="term"><i><tt>***argv</tt></i> :</span></td><td>Pointer to the **argv provided to the main function.</td></tr><tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>1 if Gnome, 2 if Dock/ROX panel.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-start"></a>gai_start()</h3><pre class="programlisting">
+void           gai_start                           (void);
+</pre></div>
+
+<p>
+When everything is set, call this function and the applet will be drawn and displayed.
+This function <b>MUST</b> be called last, after all other things are done.
+This function returns when the applet stops running, ie when the applet is terminated.
+</p>
+
+<hr>
+
+
+<br>
+<a name="Background">
+<h3> Background handling </h3></a>
+<p>
+Note that at the moment applets apply to the normal X-Window rules when it comes to transparency.
+That means that a pixel is either completly transparent, or the given a colour. Transparency levels can not
+be handled. Backgrounds can be changed at any time during an applet's life.
+</p>
+<br>
+<div class="refsect2"><h3><a name="gai-background-set"></a>gai_background_set()</h3><pre class="programlisting">
+void           gai_background_set                  (int width, 
+                                                    int height, 
+                                                    int max_size, 
+                                                    int border);
+</pre></div>
+<p>
+Sets the background of the applet. Normally for dockapps the background
+should be a 64x64 image with a border. That results in a drawing area of 56x56 at 4x4. This
+is the default library settings if no function connected to the background is
+called during the initialization phase. Note that not all window managers allow applet of sizes other
+than 64x64. From the applet's point of view, the applet will always seem to be of the requested size, GAI will
+take care of any scaling.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>width</tt></i> :</span></td><td>The width of your applet.</td></tr>
+<tr><td><span class="term"><i><tt>height</tt></i> :</span></td><td>The height of your applet.</td></tr>
+<tr><td><span class="term"><i><tt>max_size</tt></i> :</span></td><td>The maximal scaling size of your applet. Use it
+when you do not want your applet to be scaled up above a certain size when the Gnome panel is larger than your applet. Else
+pass with <tt>GAI_BACKGROUND_MAX_SIZE_NONE</tt>. Note that it's always the height that counts as <i><tt>max_size</tt></i>. (Default layout for the Gnome panel is horizontal, and when it's vertical, the library takes care of it.)
+</td></tr>
+<tr><td><span class="term"><i><tt>border</tt></i> :</span></td><td>Set it to <tt>TRUE</tt> if you want a 4x4 partly transparent border around. <tt>FALSE</tt> if not wanting a border.</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+
+<br>
+<div class="refsect2"><h3><a name="gai-background-from-xpm"></a>gai_background_from_xpm()</h3><pre class="programlisting">
+void           gai_background_from_xpm             (const char **xpmimagename,
+                                                    int max_size);
+</pre></div>
+<p>
+Sets the background to a specified XPM image. 
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>xpmimagename</tt></i> :</span></td><td>The pointer to an XPM image.</td></tr>
+<tr><td><span class="term"><i><tt>max_size</tt></i> :</span></td><td>As for <a href="librarycalls.html#gai-background-set"><tt>gai_background_set</tt></a>. Set it to <tt>GAI_BACKGROUND_MAX_SIZE_IMAGE</tt> if you do not want your applet to be scaled up over the
+original size.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-background-from-gdkpixbuf"></a>gai_background_from_gdkpixbuf()</h3><pre class="programlisting">
+void           gai_background_from_gdkpixbuf       (<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a> pixbuf, 
+                                                    int max_size);
+</pre></div>
+<p>
+Sets the background from an image stored in a <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> structure.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>pixbuf</tt></i> :</span></td><td>The pointer to an image in a <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> structure.</td></tr>
+<tr><td><span class="term"><i><tt>max_size</tt></i> :</span></td><td>As for <a href="librarycalls.html#gai-background-set"><tt>gai_background_set</tt></a>. Set it to <tt>GAI_BACKGROUND_MAX_SIZE_IMAGE</tt> if you do not want your applet to be scaled up over the
+original size.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+<div class="refsect2"><h3><a name="gai-background-from-file"></a>gai_background_from_file()</h3><pre class="programlisting">
+void           gai_background_from_file            (const char *image_file, 
+                                                    int max_size);
+
+</pre></div>
+<p>
+Sets the background from a file. The image can be stored in nearly any image format. Note that the image
+name is relative to the image path passed to <a href="librarycalls.html#gai-init"><tt>gai_init</tt></a> or <a href="librarycalls.html#gai-init2"><tt>gai_init2</tt></a>. 
+If the file pointed to is not found, a message box is displayed to inform the user that the image
+can not be loaded. The applet then quits.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>imagefile</tt></i> :</span></td><td>The name of the file to be used as background. The name is relative to the image path provided to <a href="librarycalls.html#gai-init"><tt>gai_init</tt></a> or <a href="librarycalls.html#gai-init2"><tt>gai_init2</tt></a></td></tr>
+<tr><td><span class="term"><i><tt>max_size</tt></i> :</span></td><td>As for <a href="librarycalls.html#gai-background-set"><tt>gai_background_set</tt></a>. Set it to <tt>GAI_BACKGROUND_MAX_SIZE_IMAGE</tt> if you do not want your applet to be scaled up over the original size.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<hr>
+<a name="image">
+<h3> Image loading </h3><br>
+</a>
+
+<div class="refsect2"><h3><a name="gai-load-image"></a>gai_load_image()</h3><pre class="programlisting">
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     gai_load_image</a>                      (char *imagefilename);
+</pre></div>
+
+<p>
+Loads an image into a <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> struct.
+If a file is missing it displays an error dialog and quits.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>imagefilename</tt></i> :</span></td><td>The name of the file to load. The name is relative to the image path provided to <a href="librarycalls.html#gai-init"><tt>gai_init</tt></a> or <a href="librarycalls.html#gai-init2"><tt>gai_init2</tt></a></td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>A <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> with the
+requested image.</td></tr>
+</tbody></table></div>
+
+<hr>
+
+
+<div class="refsect2"><h3><a name="gai-load-image-at-size"></a>gai_load_image_at_size()</h3><pre class="programlisting">
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     gai_load_image_at_size</a>              (char *imagefilename
+                                                    int width, 
+                                                    int height);
+</pre></div>
+
+<p>
+Loads an image into a <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> struct and scales it. Useful for vector images.
+If a file is missing it displays an error dialog and quits.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>imagefilename</tt></i> :</span></td><td>The name of the file to load. The name is relative to the image path provided to <a href="librarycalls.html#gai-init"><tt>gai_init</tt></a> or <a href="librarycalls.html#gai-init2"><tt>gai_init2</tt></a></td></tr>
+<tr><td><span class="term"><i><tt>width</tt></i> :</span></td><td>The wished width of the image.</td></tr>
+<tr><td><span class="term"><i><tt>height</tt></i> :</span></td><td>The wished height of the image.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>A <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> with the
+requested image.</td></tr>
+</tbody></table></div>
+
+<hr>
+
+
+<a name="menu">
+<h3> Right button menu </h3></a>
+<br>
+You can not change the right button menu entries during the running phase.
+<div class="refsect2"><h3><a name="gai-menu-add-help-text"></a>gai_menu_add_help_text()</h3><pre class="programlisting">
+void           gai_menu_add_help_text              (const char *msg);
+</pre></div><p>
+
+This will add a menu item named &quot;Help&quot; with the right help icon. When selected, the
+passed text string will be displayed in a message box. You can only add a help text during the startup of the applet,
+ie before <a href="librarycalls.html#gai-start"><tt>gai_start()</tt></a>.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>imagefilename</tt></i> :</span></td><td>The help text. &quot;\n&quot; can be used for a new line.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-menu-add"></a>gai_menu_add()</h3><pre class="programlisting">
+int            gai_menu_add                        (const char *name, 
+                                                    const char *icon, 
+                                                    int type, 
+                                                    void *func, 
+                                                    void *ptr);
+</pre></div>
+
+<p>
+This function call will add an entry to the right button menu. The returned integer is the menuitem id.
+</p> 
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name of the entry to add to the menu.</td></tr>
+
+<tr><td><span class="term"><i><tt>*icon</tt></i> :</span></td><td>Pointer to the name of the <tt><a href="referrenceguide.html#gtk">gtk-stock</a></tt> image or file that will be used.</td></tr>
+<tr><td><span class="term"><i><tt>type</tt></i> :</span></td><td>Can at the moment only be <tt>GAI_MENU_STOCK</tt>, <tt>GAI_MENU_NONE</tt>, <tt>GAI_MENU_FILE</tt> or <tt>GAI_MENU_SEPARATOR</tt>. <tt>GAI_MENU_STOCK</tt> means that 
+you will use a <a href="librarycalls.html#gtk"><tt>GTK</tt></a> stock image as icon and <tt>GAI_MENU_SEPARATOR</tt> means that there will be a horizontal line there instead of a menu entry. <tt>GAI_MENU_NONE</tt> means that there will be no image for this
+entry. <tt>GAI_MENU_FILE</tt> Defines that an image, stored as a file shall be used on the right button menu. Note that
+a suitable size of 16x16 pixels large, since the other icons are of that size.
+</td></tr>
+<tr><td><span class="term"><i><tt>*func</tt></i> :</span></td><td>Callback function to call when the menu entry is selected.</td></tr>
+<tr><td><span class="term"><i><tt>*ptr</tt></i> :</span></td><td>A pointer to optional user data to pass to the callback function.</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The ID of the menu item.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-menu-change"></a>gai_menu_change()</h3><pre class="programlisting">
+gboolean       <a href="librarycalls.html#gai-menu-change">gai_menu_change</a>                     (int id, 
+                                                    const char *name, 
+                                                    const char *icon, 
+                                                    int type, 
+                                                    void *func, 
+                                                    void *ptr);
+</pre></div>
+
+<p>
+This function will can an existing menu entry. This can be done anytime.
+</p> 
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>id</tt></i> :</span></td><td>The ID of the menu entry..</td></tr>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The new name of the menu entry.</td></tr>
+<tr><td><span class="term"><i><tt>*icon</tt></i> :</span></td><td>Pointer to the name of the <tt><a href="referrenceguide.html#gtk">gtk-stock</a></tt> image or file that will be used.</td></tr>
+<tr><td><span class="term"><i><tt>type</tt></i> :</span></td><td>Can at the moment only be <tt>GAI_MENU_STOCK</tt>, <tt>GAI_MENU_NONE</tt>, <tt>GAI_MENU_FILE</tt> or <tt>GAI_MENU_SEPARATOR</tt>. <tt>GAI_MENU_STOCK</tt> means that 
+you will use a <a href="librarycalls.html#gtk"><tt>GTK</tt></a> stock image as icon and <tt>GAI_MENU_SEPARATOR</tt> means that there will be a horizontal line there instead of a menu entry. <tt>GAI_MENU_NONE</tt> means that there will be no image for this
+entry. <tt>GAI_MENU_FILE</tt> Defines that an image, stored as a file shall be used on the right button menu. Note that
+a suitable size of 16x16 pixels large, since the other icons are of that size.
+</td></tr>
+<tr><td><span class="term"><i><tt>*func</tt></i> :</span></td><td>Callback function to call when the menu entry is selected.</td></tr>
+<tr><td><span class="term"><i><tt>*ptr</tt></i> :</span></td><td>A pointer to optional user data to pass to the callback function.</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>True if an entry with the give ID exists and was sucessfully changed.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-menu-insert"></a>gai_menu_insert()</h3><pre class="programlisting">
+int            <a href="librarycalls.html#gai-menu-insert">gai_menu_insert</a>                     (int num, 
+                                                    const char *name, 
+                                                    const char *icon, 
+                                                    int type, 
+                                                    void *func, 
+                                                    void *ptr);
+</pre></div>
+
+<p>
+This function will insert a new menu item at any place on the menu. num equals zero means putting it first, num equals one means 
+put it after the first menu entry and so on.
+</p> 
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>num</tt></i> :</span></td><td>The placement of this new menu entry.</td></tr>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name of the entry to add to the menu.</td></tr>
+<tr><td><span class="term"><i><tt>*icon</tt></i> :</span></td><td>Pointer to the name of the <tt><a href="referrenceguide.html#gtk">gtk-stock</a></tt> image or file that will be used.</td></tr>
+<tr><td><span class="term"><i><tt>type</tt></i> :</span></td><td>Can at the moment only be <tt>GAI_MENU_STOCK</tt>, <tt>GAI_MENU_NONE</tt>, <tt>GAI_MENU_FILE</tt> or <tt>GAI_MENU_SEPARATOR</tt>. <tt>GAI_MENU_STOCK</tt> means that 
+you will use a <a href="librarycalls.html#gtk"><tt>GTK</tt></a> stock image as icon and <tt>GAI_MENU_SEPARATOR</tt> means that there will be a horizontal line there instead of a menu entry. <tt>GAI_MENU_NONE</tt> means that there will be no image for this
+entry. <tt>GAI_MENU_FILE</tt> Defines that an image, stored as a file shall be used on the right button menu. Note that
+a suitable size of 16x16 pixels large, since the other icons are of that size.
+</td></tr>
+<tr><td><span class="term"><i><tt>*func</tt></i> :</span></td><td>Callback function to call when the menu entry is selected.</td></tr>
+<tr><td><span class="term"><i><tt>*ptr</tt></i> :</span></td><td>A pointer to optional user data to pass to the callback function.</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The ID of the menu item.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-menu-remove"></a>gai_menu_remove()</h3><pre class="programlisting">
+void           <a href="librarycalls.html#gai-menu-remove">gai_menu_remove</a>                     (int id);
+
+</pre></div>
+
+<p>
+bla 
+</p> 
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name of the entry to add to the menu.</td></tr>
+
+<tr><td><span class="term"><i><tt>*icon</tt></i> :</span></td><td>Pointer to the name of the <tt><a href="referrenceguide.html#gtk">gtk-stock</a></tt> image or file that will be used.</td></tr>
+<tr><td><span class="term"><i><tt>type</tt></i> :</span></td><td>Can at the moment only be <tt>GAI_MENU_STOCK</tt>, <tt>GAI_MENU_NONE</tt>, <tt>GAI_MENU_FILE</tt> or <tt>GAI_MENU_SEPARATOR</tt>. <tt>GAI_MENU_STOCK</tt> means that 
+you will use a <a href="librarycalls.html#gtk"><tt>GTK</tt></a> stock image as icon and <tt>GAI_MENU_SEPARATOR</tt> means that there will be a horizontal line there instead of a menu entry. <tt>GAI_MENU_NONE</tt> means that there will be no image for this
+entry. <tt>GAI_MENU_FILE</tt> Defines that an image, stored as a file shall be used on the right button menu. Note that
+a suitable size of 16x16 pixels large, since the other icons are of that size.
+</td></tr>
+<tr><td><span class="term"><i><tt>*func</tt></i> :</span></td><td>Callback function to call when the menu entry is selected.</td></tr>
+<tr><td><span class="term"><i><tt>*ptr</tt></i> :</span></td><td>A pointer to optional user data to pass to the callback function.</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The ID of the menu item.</td></tr>
+</tbody></table></div>
+
+
+<hr>
+<br>
+<a name="text">
+<h3> Text handling </h3></a>
+<br>
+
+<div class="refsect2"><h3><a name="gai-text-create"></a>gai_text_create()</h3><pre class="programlisting">
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     gai_text_create                     (char *msg,
+                                                    char *font, 
+                                                    int font_size, 
+                                                    int feature, 
+                                                    char red, 
+                                                    char green, 
+                                                    char blue);
+</pre></div>
+<p>
+This function renders a given text string into a <a href="librarycalls.html#gdkpixbuf">GdkPixbuf<a>. Please consider to use <a href="librarycalls.html#gai-text-create-simple">gai_text_create_simple</a> instead. 
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*msg</tt></i> :</span></td><td>The text message to be rendered to an image.</td></tr>
+<tr><td><span class="term"><i><tt>*font</tt></i> :</span></td><td>The name of the font that you wish to us, eg "times", "arial" or "utopia". Please try to use a font that is installed by default on most systems.</td></tr>
+<tr><td><span class="term"><i><tt>font_size</tt></i> :</span></td><td>The size of the text just in like any word processor.</td></tr>
+<tr><td><span class="term"><i><tt>feature</tt></i> :</span></td><td>Font features. Possible options are: <br>
+<tt>GAI_TEXT_NORMAL</tt> - Just plain normal text<br>
+<tt>GAI_TEXT_BOLD</tt> - Bold text<br>
+<tt>GAI_TEXT_ITALIC</tt> - Italic text<br>
+<tt>GAI_TEXT_SMOOTH</tt> - Smooth the rendered text a little<br>
+</td></tr>
+<tr><td><span class="term"><i><tt>red</tt></i> :</span></td><td>The red part of the font colour (0-255)</td></tr>
+<tr><td><span class="term"><i><tt>green</tt></i> :</span></td><td>The green part of the font colour (0-255)</td></tr>
+<tr><td><span class="term"><i><tt>blue</tt></i> :</span></td><td>The blue part of the font colour (0-255)</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>A <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> image containing the provided text as image.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-text-create-simple"></a>gai_text_create_simple()</h3><pre class="programlisting">
+<a href="librarycalls.html#gdkpixbuf">GdkPixbuf*</a>     gai_text_create_simple              (char *msg,
+                                                    char red, 
+                                                    char green, 
+                                                    char blue);
+</pre></div>
+
+<p>
+This function renders a given text string into a <a href="librarycalls.html#gdkpixbuf">GdkPixbuf<a>. It uses the default font decided by the current 
+<a href="librarycalls.html#gtk">GTK</a> theme. It is recommended that you use this function instead of <a href="librarycalls.html#gai-text-create">gai_text_create</a>, because you can never know how a font will behave on another system. Also your applet will fit nicely with the users theme.<br>If you believe this function lacks some feature, like changing font size, please mail me.
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*msg</tt></i> :</span></td><td>The text message to be rendered to an image.</td></tr>
+<tr><td><span class="term"><i><tt>red</tt></i> :</span></td><td>The red part of the font colour (0-255)</td></tr>
+<tr><td><span class="term"><i><tt>green</tt></i> :</span></td><td>The green part of the font colour (0-255)</td></tr>
+<tr><td><span class="term"><i><tt>blue</tt></i> :</span></td><td>The blue part of the font colour (0-255)</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>A <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> image containing the provided text as image.</td></tr>
+</tbody></table></div>
+
+<br>
+<hr>
+<br>
+<a name="event">
+<h3>Event hooks and time outs</h3></a>
+<br>
+<p>
+All signal callbacks take user data as last argument (in the form of a <a href="librarycalls.html#glib"><tt>gpointer</tt></a>.
+The functions that you can connect signals to shall be of the <tt><a href="librarycalls.html#gaicallback">GaiCallback</a></tt> types.
+</p>
+
+<div class="refsect2"><h3><a name="gai-signal-on-update"></a>gai_signal_on_update()</h3><pre class="programlisting">
+void           gai_signal_on_update                (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    int delay, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+</pre></div>
+
+<p>
+Tells gai which function to call for updating the applet. This function is the heart of most applets. After <tt>delay</tt>
+ms, the given function will be called over and over again until the applet quits.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>delay</tt></i> :</span></td><td>The delay is in ms between each update function call.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<br>
+
+<div class="refsect2"><h3><a name="gai-signal-on-update-interval-change"></a>gai_signal_on_update_interval_change()</h3><pre class="programlisting">
+void           gai_signal_on_update_interval_change (int delay);
+</pre></div><p>
+
+With this function you can change how often, in ms, the callback specified via <a href="librarycalls.html#gai-signal-on-update"><tt>gai_signal_on_update</tt></a> should be called. </p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>delay</tt></i> :</span></td><td>The delay is in ms between each update function call.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-signal-on-exit"></a>gai_signal_on_exit()</h3><pre class="programlisting">
+void           gai_signal_on_exit                  (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+</pre></div><p>
+
+Tells the library that a function should be called when the applet exits.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-signal-on-enter"></a>gai_signal_on_enter()</h3><pre class="programlisting">
+void           gai_signal_on_enter                 (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+</pre></div><p>
+Function to call when the mouse pointer enters the applet area.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+<br>
+<div class="refsect2"><h3><a name="gai-signal-on-leave"></a>gai_signal_on_leave()</h3><pre class="programlisting">
+void           gai_signal_on_leave                 (<a href="librarycalls.html#gaicallback">GaiCallback0</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+</pre><p>
+Function to call when the mouse pointer leaves the applet area.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+<br>
+<div class="refsect2"><h3><a name="gai-signal-on-keypress"></a>gai_signal_on_keypress()</h3><pre class="programlisting">
+void           gai_signal_on_keypress              (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func,
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div>
+<p>
+Function to call when a key is pressed. The <tt>int</tt> parameter to <tt><a href="librarycalls.html#gaicallback">GaiCallback1</a></tt>is the code of the key that's been pressed. Look in <tt>gdk/gdkkeysym.h</tt> in <tt><a href="librarycalls.html#gtk">GTK+</a></tt> for the name of the keys.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+<br>
+<div class="refsect2"><h3><a name="gai-signal-on-mouse-button-click"></a>gai_signal_on_mouse_button_click()</h3><pre class="programlisting">
+void           gai_signal_on_mouse_button_click    (<a href="librarycalls.html#gaicallback">GaiCallback2</a> func, 
+                                                    int button, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+</pre></div><p>
+
+Function to call when the specified mouse button is pressed. <a href="librarycalls.html#gaicallback"><tt>GaiCallback2</tt></a> 
+is called with the <tt>X</tt> and <tt>Y</tt> coordinates of where the click occured as arguments. Note that the
+<tt>X</tt> and <tt>Y</tt> coordinates are completly independent of the actual scaling of the applet that is
+done by the Gnome Panel or general size settings. <tt>X</tt> and <tt>Y</tt> always depends on the size that the applet
+believes it has. The coordinates are relative to the top left corner of the applet.
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>button</tt></i> :</span></td><td>The argument button defines which button the signal shall be connected to. It can be <tt>GAI_MOUSE_BUTTON_1</tt> or <tt>GAI_MOUSE_BUTTON_2</tt>. The third (right) mouse button cannot be connected to
+a signal since it handles the menu.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+
+<br>
+
+
+<div class="refsect2"><h3><a name="gai-signal-on-mouse-button-release"></a>gai_signal_on_mouse_button_release()</h3><pre class="programlisting">
+void           gai_signal_on_mouse_button_release  (<a href="librarycalls.html#gaicallback">GaiCallback2</a> func,
+                                                    int button, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div><p>
+
+The same as for <tt><a href="librarycalls.html#gai-signal-on-mouse-button-click">gai_signal_on_mouse_button_click</a></tt>, but the signal is triggered on mouse button release.</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>button</tt></i> :</span></td><td>The argument button defines which button the signal shall be connected to. It can be <tt>GAI_MOUSE_BUTTON_1</tt> or <tt>GAI_MOUSE_BUTTON_2</tt>. The third (right) mouse button cannot be connected to
+a signal since it handles the menu.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-signal-on-mouse-move"></a>gai_signal_on_mouse_move()</h3><pre class="programlisting">
+void           gai_signal_on_mouse_move            (<a href="librarycalls.html#gaicallback">GaiCallback2</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+</pre></div><p>
+
+This function registers a callback that will be called each time the mouse pointer is moved. It will only be called
+when the mouse pointer is above the applet area. <a href="librarycalls.html#gaicallback"><tt>GaiCallback2</tt></a> 
+is called with the <tt>X</tt> and <tt>Y</tt> coordinates of the mouse pointer arguments. Note that the
+<tt>X</tt> and <tt>Y</tt> coordinates are completly independent of the actual scaling of the applet that is
+done by the Gnome Panel or general size settings. <tt>X</tt> and <tt>Y</tt> always depends on the size that the applet
+believes it has. The coordinates are relative to the top left corner of the applet.
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+
+<br>
+
+
+
+
+
+<div class="refsect2"><h3><a name="gai-signal-on-scroll-buttons"></a>gai_signal_on_scroll_buttons()</h3><pre class="programlisting">
+void           gai_signal_on_scroll_buttons        (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div><p>
+
+Function to call when the mouse wheel is scrolled. The connected function is called
+with the direction of the scroll event as parameter. 
+The different scroll directions are:<br>
+<tt>GDK_SCROLL_UP</tt>, <tt>GDK_SCROLL_DOWN</tt>, <tt>GDK_SCROLL_LEFT</tt> and <tt>GDK_SCROLL_RIGHT</tt>
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<br>
+<div class="refsect2"><h3><a name="gai-signal-on-change"></a>gai_signal_on_change()</h3><pre class="programlisting">
+void           gai_signal_on_change                (<a href="librarycalls.html#gaicallback">GaiCallback3</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div><p>
+
+Connects a function to the event that occurs when Gnome panel's size or direction is changed. 
+In dockapp mode this function is never called. However, remember that <tt>GAI</tt> takes care of all
+scaling and rotating.<br>
+This function is just there to report to the applet its size and layout direction. 
+The connected funtion is passed as parameters the <tt>orientation</tt>, either
+<tt>GAI_HORIZONTAL</tt> or <tt>GAI_VERTICAL</tt>, followed by the new <tt>width</tt> and <tt>height</tt>.
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-signal-on-preferences"></a>gai_signal_on_preferences()</h3><pre class="programlisting">
+void           gai_signal_on_preferences           (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func,
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div><p>
+If you want to use your own preferences window instead of the one generated by GAI, hook a function to this event. The
+first argument of the hooked function will be an <tt>Integer</tt> that is <tt>TRUE</tt> if the user changed anything in
+the preference dialog and <tt>FALSE</tt> when the user didn't.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-signal-on-joystick"></a>gai_signal_on_joystick()</h3><pre class="programlisting">
+void           gai_signal_on_joystick              (<a href="librarycalls.html#gaicallback">GaiCallback1</a> func,
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div><p>
+
+Function to call when a joystick event happens. The provided data is bit mapped with:<br>
+<tt>GAI_JOYSTICK_NOTHING,</tt><br>
+<tt>GAI_JOYSTICK_LEFT,</tt><br>
+<tt>GAI_JOYSTICK_RIGHT,</tt><br>
+<tt>GAI_JOYSTICK_UP,</tt><br>
+<tt>GAI_JOYSTICK_DOWN,</tt><br>
+<tt>GAI_JOYSTICK_BUTTON_A,</tt><br>
+<tt>GAI_JOYSTICK_BUTTON_B</tt><br>
+All combinations are possible except that GAI_JOYSTICK_NOTHING can never cooexist with another flag.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>Function to call when this event occurs.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<br>
+<a name="misc">
+<h3> Miscellaneous functions</h3>
+</a>
+<br>
+
+<div class="refsect2"><h3><a name="gai-about-from"></a>gai_about_from()</h3><pre class="programlisting">
+void           gai_about_from                      (const char *text);
+</pre></div>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3><p><tt>gai_about_from</tt> is deprecated and should not be used in new code. Use <a href="librarycalls.html#gai-init2">gai_init2</a> instead</p></div>
+
+<p>
+A simple function for creating the about window. 
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*text</tt></i> :</span></td><td>A pointer to
+a string with &quot;summary,author,description,icon,license&quot; as keywords in order to describe how to generate
+an about window. The syntax is the same as of
+a <tt>.spec</tt> file.<br>
+Note that the icon part is ignored.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-preferences"></a>gai_preferences()</h3><pre class="programlisting">
+void           gai_preferences                     (const char *name,
+                                                    GaiNoteBook *pref_tree, 
+                                                    const char *help_text,
+                                                    <a href="librarycalls.html#gaicallback">GaiCallback1</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div>
+<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Warning</h3><p><tt>gai_preferences</tt> is deprecated and should not be used in new code. Use <a href="librarycalls.html#gai-preferences2">gai_preferences2</a> instead</p></div>
+
+<p>
+This function was used to generate a preferences window. It is undocumented and it will stay that way. Do not use it.
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The title of the preferences window.</td></tr>
+<tr><td><span class="term"><i><tt>*pref_tree</tt></i> :</span></td><td>A tree struture that describes the preferences window.</td></tr>
+<tr><td><span class="term"><i><tt>*help_text</tt></i> :</span></td><td>The text that is displayed when the user presses the help button in the preferences window.</td></tr>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>The function called when the preferences are changed.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-preferences2"></a>gai_preferences2()</h3><pre class="programlisting">
+void           gai_preferences2                    (const char *name,
+                                                    <a href="preferencewindow.html#gaipi">GaiPI</a> *pref_struct, 
+                                                    const char *help_text,
+                                                    <a href="librarycalls.html#gaicallback">GaiCallback1</a> func, 
+                                                    <a href="librarycalls.html#glib">gpointer</a> userdata);
+
+</pre></div>
+<p>
+This function is a powerful tool to to generate a preferences window. See the <a href="preferencewindow.html">Preferences Window Reference Manual</a> for description.
+The first argument of the hooked function will be an <tt>Integer</tt> that is <tt>TRUE</tt> if the user changed anything in
+the preference dialog and <tt>FALSE</tt> when the user didn't.
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The title of the preferences window.</td></tr>
+<tr><td><span class="term"><i><tt>*pref_struct</tt></i> :</span></td><td>A struture that describes the preferences window.</td></tr>
+<tr><td><span class="term"><i><tt>*help_text</tt></i> :</span></td><td>The text that is displayed when the user presses the help button in the preferences window.</td></tr>
+<tr><td><span class="term"><i><tt>func</tt></i> :</span></td><td>The function called when the preferences are changed.</td></tr>
+<tr><td><span class="term"><i><tt>userdata</tt></i> :</span></td><td>Data to pass to the connected function when this
+event occurs.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+
+<div class="refsect2"><h3><a name="gai-gl-init-func"></a>gai_gl_init_func()</h3><pre class="programlisting">
+void           gai_gl_init_func                    (<a href="librarycalls.html#gaicallback">GaiCallback0</a> function);
+</pre></div>
+
+<p>
+There is a basic <tt>OpenGL</tt> support via <a href="http://gtkglext.sourceforge.net"><tt>gtkglext</tt></a>
+At the moment, OpenGL support works only for dockapps and NOT for the Gnome Panel. 
+This call specifies the function that performs OpenGL initalization. This is required by gtkglext.
+Note that you have to pass <tt>GAI_FLAGS_OPEN_GL_WINDOW</tt> with <a href="librarycalls.html#gai-flags-set"><tt>gai_flags_set</tt></a> in order to make it all work.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>function</tt></i> :</span></td><td>The function that includes all <tt>OpenGL</tt>
+depending code that has to be preformed during start up.
+</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+<div class="refsect2"><h3><a name="gai-flags-set"></a>gai_flags_set()</h3><pre class="programlisting">
+void           gai_flags_set                       (<a href="librarycalls.html#gaiflagstype">GaiFlagsType</a> flags);
+</pre></div>
+
+<p>
+Sets the behaviour flags. Note that activating OpenGL support can only be done during the initialization of the
+applets. The other flags can be altered during run time.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>flags</tt></i> :</span></td><td>Flags that describe the behavior of this applet.
+See <a href="librarycalls.html#gaiflagstype"><tt>GaiFlagsType</tt></a> for more information.
+</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-flags-get"></a>gai_flags_get()</h3><pre class="programlisting">
+<a href="librarycalls.html#gaiflagstype">GaiFlagsType</a>   gai_flags_get                       (void);
+</pre></div>
+<p>
+Returns the current flags. Default settings are <tt>GAI_FLAGS_MOUSE_PTR_SHOW</tt>, <tt>GAI_FLAGS_ALLOW_ROTATE</tt>
+and <tt>GAI_FLAGS_THAW_UPDATES</tt>.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The current flags.</td></tr>
+</tbody></table></div>
+
+
+<br>
+
+<div class="refsect2"><h3><a name="gai-get-window"></a>gai_get_window()</h3><pre class="programlisting">
+<a href="librarycalls.html#gdk">GdkWindow*</a>     gai_get_window                      (void);
+</pre></div>
+<p>
+Returns the <a href="librarycalls.html#gdk"><tt>GdkWindow</tt></a> of the applet. Useful if you want to handle drawing manually.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The <a href="librarycalls.html#gdk"><tt>GdkWindow</tt></a> of the applet.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-get-drawingarea"></a>gai_get_drawingarea()</h3><pre class="programlisting">
+<a href="librarycalls.html#gtk">GtkWidget*</a>     gai_get_drawingarea                 (void);
+</pre></div>
+<p>
+Returns the drawing area widget, if for some reason it is required by your code.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The drawing area <a href="librarycalls.html#gtk"><tt>GtkWidget</tt></a>.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-get-gc"></a>gai_get_gc()</h3><pre class="programlisting">
+<a href="librarycalls.html#gdk">GdkGC*</a>         gai_get_gc                          (void);
+</pre></div>
+<p>
+If you need to know the <a href="librarycalls.html#gdk"><tt>GdkGC</tt></a> of the applet, call this function.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The <a href="librarycalls.html#gdk"><tt>GdkGC</tt></a> of the applet.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-get-size"></a>gai_get_size()</h3><pre class="programlisting">
+int            gai_get_size                        (void);
+</pre></div>
+
+<p>
+If you want to know how large the applet really is when scaling is taken into account. Note: the <tt>height</tt> of the applet  is considered the main size.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The real visual size of the applet.</td></tr>
+</tbody></table></div>
+
+
+
+<div class="refsect2"><h3><a name="gai-scale"></a>gai_scale()</h3><pre class="programlisting">
+int            gai_scale                           (int size);
+</pre></div>
+<p>
+If you wish to know how large a size is in the current visual size of the applet,
+call this function and the real size will be returned. For example, say that the applet
+is 64x64 from the beginning, but Gnome made it 48x48 (this isn't shown to
+the applet, if the applet doesn't want to know.) This function will return 24 if the input size
+is 32.
+<p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>size</tt></i> :</span></td><td>The value to scale
+</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The scaled value of the given value, based upon the real visual size of the applet.</td></tr>
+</tbody></table></div>
+
+
+
+<div class="refsect2"><h3><a name="gai-get-orient"></a>gai_get_orient()</h3><pre class="programlisting">
+int            gai_get_orient                      (void);
+</pre></div>
+
+
+<p>
+Returns the current orientation of the applet.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>
+Either <tt>GAI_VERTICAL</tt> or <tt>GAI_HORIZONTAL</tt> depending on the rotation of the applet.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-tooltip-set"></a>gai_tooltip_set()</h3><pre class="programlisting">
+void           gai_tooltip_set                     (const char *msg);
+</pre></div.
+<p>
+Makes a given message show when you the mouse pointer hovers on the applet.</p>
+
+<p><i>WARNING:</i> I have strong reasons to believe
+that at least GTK 2.2.4 leaks memory when changing a window tooltip, so use it with caution! ie set the
+tooltip only once to be on the sure side.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*msg</tt></i> :</span></td><td>The message to show.
+</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-tooltip-remove"></a>gai_tooltip_remove()</h3><pre class="programlisting">
+void           gai_tooltip_remove                  (void);
+</pre></div>
+<p>
+Removes the current tooltip, if any. See the note on <a href="librarycalls.html#gai-tooltip-set"><tt>gai_tooltip_set</tt></a>.
+</p>
+
+
+<div class="refsect2"><h3><a name="gai-exec"></a>gai_exec()</h3><pre class="programlisting">
+void           gai_exec                            (const char *prg);
+</pre></div>
+
+<p>
+Executes a given program in parallel with the applet. The return value of the executed
+program is not returned. The current path will be searched for the given program, if no unique
+executable name is given. An error dialog will be displayed if gai_exec() fails to execute the
+given program.
+
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*msg</tt></i> :</span></td><td>The program to run.
+</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-display-error-quit"></a>gai_display_error_quit()</h3><pre class="programlisting">
+void           gai_display_error_quit              (const char *msg);
+</pre></div>
+<p>
+Shows the given message as an error and quits the applet. 
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*msg</tt></i> :</span></td><td>The message to show.
+</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Never.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-display-error-continue"></a>gai_display_error_continue()</h3><pre class="programlisting">
+void           gai_display_error_continue          (const char *msg);
+</pre></div>
+
+<p>
+Shows the given message as an error but continues executing the applet.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*msg</tt></i> :</span></td><td>The message to show.
+</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+<a name="drawing"><h3>Drawing</h3></a>
+GAI fools the applet into believing that it is always in the original size, if
+the applet doesn't want to know. I decided to do it like this because
+the Gnome Panel can have variable sizes, anything between 16 and 128 pixels large.
+The library takes care of all scaling.<br>
+
+Drawing on the foreground is much faster than drawing on the background. But what you 
+draw on the background will remain forever, no matter what happens with the applet, 
+since you don't have to refresh a background. With the foreground you will need to refresh
+it many times a second. If you don't refresh it that often, what you have drawn will
+disapear when you move a window over your applet, and the background will reappear.
+I have noticed that if the applet needs to be redrawn less than two times a second, it is better
+to draw on the background, instead of drawing on the foreground, say 10 times a second just to
+make sure that you keep the look nice.<br>
+
+Foreground pixels must be drawn upon existing background pixels, ie the background
+must be set to a colour via <tt>gai_background*</tt> or <tt>gai_draw_*_bg</tt>. If a pixel is defined 
+transparent by the background, it will stay like that regardless of attempts to draw
+on it.<br>
+</p>
+<div class="refsect2"><h3><a name="gai-draw"></a>gai_draw()</h3><pre class="programlisting">
+void           gai_draw                            (<a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> *image, 
+                                                    int sx, 
+                                                    int sy, 
+                                                    int sw, 
+                                                    int sh, 
+                                                    int dx, 
+                                                    int dy);
+
+</pre></div>
+<p>
+Draws the <a href="librarycalls.html#gdkpixbuf"><tt>GdkPixbuf</tt></a> <tt>image</tt> from (<tt>sx</tt>, <tt>sy</tt>) that is (<tt>sw</tt>, <tt>sh</tt>) large at (<tt>dx</tt>, <tt>dy</tt>).
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*image</tt></i> :</span></td><td>The source image.</td></tr>
+
+<tr><td><span class="term"><i><tt>sx</tt></i> :</span></td><td>X coordinate in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a>.</td></tr>
+<tr><td><span class="term"><i><tt>sy</tt></i> :</span></td><td>Y coordinate in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a>.</td></tr>
+
+<tr><td><span class="term"><i><tt>sw</tt></i> :</span></td><td>Width of the part of the image in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>sh</tt></i> :</span></td><td>Height of the part of the image in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>dx</tt></i> :</span></td><td>X coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>dy</tt></i> :</span></td><td>Y coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-draw-raw"></a>gai_draw_raw()</h3><pre class="programlisting">
+void           gai_draw_raw                        (unsigned char *rawRGB, 
+                                                    int x,  
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+
+</pre></div>
+
+<p>
+Draws a raw 24 bit image, at (<tt>x</tt>, <tt>y</tt>) The image has the size (<tt>width</tt>, <tt>height</tt>).
+Normally the <tt>rowstride</tt> is <tt>3*width</tt>, but not always.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*rawRGB</tt></i> :</span></td><td>The source image as rawdata.</td></tr>
+
+<tr><td><span class="term"><i><tt>x</tt></i> :</span></td><td>X coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>y</tt></i> :</span></td><td>Y coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>width</tt></i> :</span></td><td>Width of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>height</tt></i> :</span></td><td>Height of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>rowstride</tt></i> :</span></td><td>The size of each row in bytes. (Sometimes data is padded up, when needed)</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-draw-raw-alpha"></a>gai_draw_raw_alpha()</h3><pre class="programlisting">
+void           gai_draw_raw_alpha                  (unsigned char *rawRGBA,
+                                                    int x, 
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+</pre></div>
+
+<p>
+The same as above, but with an alpha channel. Note that the <tt>rowstride</tt> for raw images with an alpha channel
+is normally <tt>4*width</tt>.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*rawRGBA</tt></i> :</span></td><td>The source image as rawdata.</td></tr>
+
+<tr><td><span class="term"><i><tt>x</tt></i> :</span></td><td>X coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>y</tt></i> :</span></td><td>Y coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>width</tt></i> :</span></td><td>Width of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>height</tt></i> :</span></td><td>Height of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>rowstride</tt></i> :</span></td><td>The size of each row in bytes. (Sometimes data is padded up, when needed)</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+
+<div class="refsect2"><h3><a name="gai-draw-update"></a>gai_draw_update()</h3><pre class="programlisting">
+void           gai_draw_update                     (void);
+</pre><p>
+
+Makes all drawings done to the applet become visible. This function should be called when all drawing 
+updates have been done.<br>
+
+
+<div class="refsect2"><h3><a name="gai-draw-bg"></a>gai_draw_bg()</h3><pre class="programlisting">
+void           gai_draw_bg                         (<a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> *image, 
+                                                    int sx, 
+                                                    int sy, 
+                                                    int sw,
+                                                    int sh, 
+                                                    int dx, 
+                                                    int dy);
+
+</pre></div>
+<p>
+
+Same as <a href="librarycalls.html#gai-draw"><tt>gai_draw</tt></a> but draws on the background instead.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*image</tt></i> :</span></td><td>The source image.</td></tr>
+
+<tr><td><span class="term"><i><tt>sx</tt></i> :</span></td><td>X coordinate in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a>.</td></tr>
+<tr><td><span class="term"><i><tt>sy</tt></i> :</span></td><td>Y coordinate in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a>.</td></tr>
+
+<tr><td><span class="term"><i><tt>sw</tt></i> :</span></td><td>Width of the part of the image in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>sh</tt></i> :</span></td><td>Height of the part of the image in the source <a href="librarycalls.html#gdkpixbuf">GdkPixbuf</a> that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>dx</tt></i> :</span></td><td>X coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>dy</tt></i> :</span></td><td>Y coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-draw-raw-bg"></a>gai_draw_raw_bg()</h3><pre class="programlisting">
+void           gai_draw_raw_bg                     (unsigned char *rawRGB, 
+                                                    int x, 
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+
+</pre></div>
+<p>
+Same as <a href="librarycalls.html#gai-draw-raw"><tt>gai_draw_raw</tt></a> but draws on the background instead.
+</p>
+
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*rawRGB</tt></i> :</span></td><td>The source image as rawdata.</td></tr>
+
+<tr><td><span class="term"><i><tt>x</tt></i> :</span></td><td>X coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>y</tt></i> :</span></td><td>Y coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>width</tt></i> :</span></td><td>Width of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>height</tt></i> :</span></td><td>Height of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>rowstride</tt></i> :</span></td><td>The size of each row in bytes. (Sometimes data is padded up, when needed)</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-draw-raw-alpha-bg"></a>gai_draw_raw_alpha_bg()</h3><pre class="programlisting">
+void           gai_draw_raw_alpha_bg               (unsigned char *rawRGBA, 
+                                                    int x, 
+                                                    int y, 
+                                                    int width, 
+                                                    int height, 
+                                                    int rowstride);
+</pre></div>
+<p>
+Same as <a href="librarycalls.html#gai-draw-raw-alpha"><tt>gai_draw_raw_alpha</tt></a> but draws on the background instead.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*rawRGBA</tt></i> :</span></td><td>The source image as rawdata.</td></tr>
+
+<tr><td><span class="term"><i><tt>x</tt></i> :</span></td><td>X coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>y</tt></i> :</span></td><td>Y coordinate in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>width</tt></i> :</span></td><td>Width of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>height</tt></i> :</span></td><td>Height of the part of the image in the source image data that you want to draw in the applet window.</td></tr>
+<tr><td><span class="term"><i><tt>rowstride</tt></i> :</span></td><td>The size of each row in bytes. (Sometimes data is padded up, when needed)</td></tr>
+
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-draw-update-bg"></a>gai_draw_update_bg()</h3><pre class="programlisting">
+void           gai_draw_update_bg                  (void);
+</pre><p>
+
+This forces all queued updates to the background to be done. It should be called when all background drawing
+calls have been done. This call is pretty slow.<br>
+</p>
+
+<hr>
+
+<a name="settings">
+<h3>Saving and loading settings</h3>
+</a>
+<p>
+The settings file will be stored under ~.gnome2/&quot;applet_name&quot; even if Gnome isn't 
+installed. &quot;name&quot; shall be of the form &quot;background/red&quot;, with a top name and a variable
+name.</p>
+<br>
+
+<div class="refsect2"><h3><a name="gai-save-int"></a>gai_save_int()</h3><pre class="programlisting">
+void           gai_save_int                        (const char *name, 
+                                                    int value);
+</pre></div><p>
+
+Stores an integer.</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the value shall be stored under.</td></tr>
+<tr><td><span class="term"><i><tt>value</tt></i> :</span></td><td>The value to store.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+
+<div class="refsect2"><h3><a name="gai-save-bool"></a>gai_save_bool()</h3><pre class="programlisting">
+void           gai_save_bool                       (const char *name, 
+                                                    int value);
+</pre></div><p>
+Stores a boolean.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the value shall be stored under.</td></tr>
+<tr><td><span class="term"><i><tt>value</tt></i> :</span></td><td>The value to store.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-save-float"></a>gai_save_float()</h3><pre class="programlisting">
+void           gai_save_float                      (const char *name, 
+                                                    float value);
+</pre></div>
+<p>
+Stores a float.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the value shall be stored under.</td></tr>
+<tr><td><span class="term"><i><tt>value</tt></i> :</span></td><td>The value to store.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-save-string"></a>gai_save_string()</h3><pre class="programlisting">
+void           gai_save_string                     (const char *name, 
+                                                    const char *value);
+</pre></div>
+
+<p>
+Stores a string.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the string shall be stored under.</td></tr>
+<tr><td><span class="term"><i><tt>*value</tt></i> :</span></td><td>The string to store.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-save-raw-data"></a>gai_save_raw_data()</h3><pre class="programlisting">
+void           gai_save_raw_data                   (const char *name, 
+                                                    const char *data,
+                                                    int size);
+</pre></div><p>
+Saves rawdata with a given size under a special name.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the rawdata shall be stored under.</td></tr>
+<tr><td><span class="term"><i><tt>*data</tt></i> :</span></td><td>The rawdata to store.</td></tr>
+<tr><td><span class="term"><i><tt>size</tt></i> :</span></td><td>The size of the rawdata.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-save-glist"></a>gai_save_glist()</h3><pre class="programlisting">
+void           gai_save_glist                      (const char *name, 
+                                                    <a href="librarycalls.html#glib">GList</a> *list);
+</pre></div>
+<p>
+Saves a <a href="librarycalls.html#glib"><tt>GList</tt></a> that contains character strings.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the list shall be stored under.</td></tr>
+<tr><td><span class="term"><i><tt>*list</tt></i> :</span></td><td>The list to store.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>Nothing.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-load-int-with-default"></a>gai_load_int_with_default()</h3><pre class="programlisting">
+int            gai_load_int_with_default           (const char *name, 
+                                                    int default);
+</pre></div>
+<p>
+Loads an interger. If not found, the default value will be returned.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the value is stored under.</td></tr>
+<tr><td><span class="term"><i><tt>default</tt></i> :</span></td><td>The default value.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The stored value, if it
+exist. Otherwise the default value is returned.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-load-bool-with-default"></a>gai_load_bool_with_default()</h3><pre class="programlisting">
+int            gai_load_bool_with_default          (const char *name, 
+                                                    int default);
+</pre></div>
+<p>
+Loads a bool. If not found, the default value will be returned.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the value is stored under.</td></tr>
+<tr><td><span class="term"><i><tt>default</tt></i> :</span></td><td>The default value.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The stored value, if
+it exist. Otherwise the default value is returned.</td></tr>
+</tbody></table></div>
+
+
+
+<div class="refsect2"><h3><a name="gai-load-float-with-default"></a>gai_load_float_with_default()</h3><pre class="programlisting">
+float          gai_load_float_with_default         (const char *name,
+                                                    float default);
+</pre></div>
+<p>
+Loads a float. If not found, the default value will be returned.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the value is stored under.</td></tr>
+<tr><td><span class="term"><i><tt>default</tt></i> :</span></td><td>The default value.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The stored value, if
+it exist. Otherwise the default value is returned.</td></tr>
+</tbody></table></div>
+
+
+<div class="refsect2"><h3><a name="gai-load-string-with-default"></a>gai_load_string_with_default()</h3><pre class="programlisting">
+char*          gai_load_string_with_default        (const char *name,
+                                                    const char *default);
+</pre></div>
+<p>
+Loads a string. If not found, the default value will be returned.
+</p>
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the string is stored under.</td></tr>
+<tr><td><span class="term"><i><tt>*default</tt></i> :</span></td><td>The default string.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The stored string, if
+it exist. Otherwise the default string is returned.</td></tr>
+</tbody></table></div>
+
+
+
+<div class="refsect2"><h3><a name="gai-load-raw-data"></a>gai_load_raw_data()</h3><pre class="programlisting">
+unsigned char* gai_load_raw_data                   (const char *name,
+                                                    int size);
+</pre></div>
+<p>
+Loads saved rawdata of a given size. If no data of that name and size is found a <tt>NULL</tt>
+pointer is returned.</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the raw data is stored under.</td></tr>
+<tr><td><span class="term"><i><tt>size</tt></i> :</span></td><td>The size of the stored raw data.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The stored rawdata, if it
+exist. Otherwise <tt>NULL</tt> is returned.</td></tr>
+</tbody></table></div>
+
+<div class="refsect2"><h3><a name="gai-load-glist-with-default"></a>gai_load_glist_with_default()</h3><pre class="programlisting">
+<a href="librarycalls.html#glib">GList*</a>         gai_load_glist_with_default         (const char *name,
+                                                    <a href="librarycalls.html#glib">GList</a> *list);
+
+</pre></div>
+<p>
+Loads saved list.
+</p>
+
+<div class="variablelist"><table border="0"><col align="left"><tbody>
+<tr><td><span class="term"><i><tt>*name</tt></i> :</span></td><td>The name the list is stored under.</td></tr>
+<tr><td><span class="term"><i><tt>*list</tt></i> :</span></td><td>The default list. Can be <tt>NULL</tt>.</td></tr>
+<tr><td><span class="term"><span class="emphasis"><em>Returns</em></span> :</span></td><td>The stored list, if it
+exist. Otherwise the default list is returned.</td></tr>
+</tbody></table></div>
+
+<hr>
+<i>Errors in this document? Need help? Then mail me, Jonas Aaberg, cja@gmx.net.</i><br>
+</div>
+
+</body>
+</html>
+
+

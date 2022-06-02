@@ -1,0 +1,78 @@
+
+Installation documentation for the GAI (General Applet Interface) Library:
+--------------------------------------------------------------------------
+
+Requirements:
+----------------
+
+This library requires GTK+ 2.0 or later
+Pango must be compiled with FreeType2 support. 
+Gnome 2.0 or later will be used, if detected during the 
+configuration step. (The unstable serie will probably work as well, but
+untested.)
+Gtkglext(gtkglext.sf.net) is optional, but if you have it and don't 
+use the gnome panel you can have OpenGL applets on your dock.
+However, the OpenGL applets won't work on the Gnome panel.
+SDL is optional, and if found will be used for joystick.
+
+
+To compile and install:
+-----------------------
+If you have Gnome installed but you don't use the Gnome Panel, you can
+remove the Gnome support and save some memory with the option:
+--disable-gnome
+
+--disable-sdl
+will remove joystick support.
+
+--disable-gl
+will remove OpenGL support.
+
+I recommend that you disable sdl, if you don't have a joystick and
+disable gnome, if you don't use the gnome-panel. 
+You will otherwise waste some memory. Also, if you plan to use GAI
+applets on the gnome panel, you can disable OpenGL (--disable-gl) since
+OpenGL applets won't work on the gnome panel nor for Window Maker. 
+I have no idea why.
+
+./configure
+make
+(possible change to root)
+make install
+ldconfig
+
+Please have a look in the examples/ directories for some simple 
+example applets. Can be useful for both people that wants to
+know how to program GAI and users.
+
+In the docking/ directory there are two examples how GAI applets
+can be integrated into panels and other programs.
+(compiled with make. See the docking/README)
+
+If the configure script fails to detect Gnome and you're sure
+that you have Gnome installed, please make sure that you have
+the libpanelapplet dev package installed. (If you have an rpm
+based system.) This package isn't always installed by default
+on alot of distrubutions.
+
+If you have problems compling applets, make sure that the gai.pc 
+file ended up your systems pkgconfig/ catalog.
+Normally it is located in /usr/lib/pkgconfig, but it can depend
+on your distrubution. If you don't give any --prefix option,
+the gai.pc file will end up in /usr/local/lib/pkgconfig.
+
+See README.gai for more information about library settings.
+
+Don't hessitate to contact me if you have problems, ideas, bug reports
+or anything that matters GAI.
+
+Have fun!
+ Jonas <cja@gmx.net>
+--
+
+
+PLEASE PLEASE don't fill in any bug reports in bugzilla, sourceforge.net,
+dockapps.org and at some other place. I don't have the time to go around
+and check them. PLEASE mail bug reports/problems to me directly. Thanks!
+Jonas Aaberg, <cja@gmx.net> Please include the word "gai" in the subject.
+

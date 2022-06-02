@@ -1,0 +1,16 @@
+
+These are the general installation instructions for GAI applets. 
+
+Make sure that you have gai installed. If not, you can
+get it at http://gai.sourceforge.net
+Then do:
+./configure
+make
+(change to root)
+make install
+
+If you're running the Gnome Panel, you have to restart the panel
+in order to see the newly installed applet.
+
+Regards,
+ Jonas Aaberg <cja@gmx.net>
