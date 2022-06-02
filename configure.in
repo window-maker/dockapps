@@ -4,13 +4,22 @@ dnl Configure script for General Applet Interface
 dnl Written by Jonas Aaberg <cja@gmx.net> 2002-2005
 dnl
 
-AC_PREREQ(2.53)
-AC_INIT(gai/gai.c)
+AC_PREREQ([2.71])
+AC_INIT
+AC_CONFIG_SRCDIR([gai/gai.c])
 
 
 AC_PROG_CC
-AC_ISC_POSIX
-AC_HEADER_STDC
+AC_SEARCH_LIBS([strerror],[cposix])
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
 AC_HEADER_SYS_WAIT
 
 
@@ -149,7 +158,7 @@ AC_SUBST(LIB_DARWIN)
 
 dnl Checking for X header file.
 
-AC_CHECK_HEADER(/usr/X11R6/include/X11/X.h, [], [
+AC_CHECK_HEADER(/usr/include/X11/X.h, [], [
        AC_MSG_ERROR(No header files for X windows is found. Is xlib devel installed?)
 ])
 
@@ -391,7 +400,8 @@ AC_SUBST(PANGO_LIBS)
 AC_SUBST(ALL_LINGUAS)
 
 
-AC_OUTPUT(gai/Makefile gai.pc Makefile gai.spec config.h po/Makefile)
+AC_CONFIG_FILES([gai/Makefile gai.pc Makefile gai.spec config.h po/Makefile])
+AC_OUTPUT
 
 echo
 echo " General Applet Interface $GAI_VERSION will be compiled with these settings:"
