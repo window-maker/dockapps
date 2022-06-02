@@ -1,6 +1,6 @@
 prefix=@prefix@
 exec_prefix=${prefix}
-libdir=@libdir@/lib
+libdir=@libdir@
 includedir=${prefix}/include
 gnome=@gnome_installed@
 gl=@gl_installed@
