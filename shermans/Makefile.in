@@ -12,8 +12,8 @@ INSTALL_PATH=$(DESTDIR)@INSTALL_PATH@
 
 # Setting up the CFLAGS and LDFLAGS variables 
 CFLAGS += -Wall -Wno-strict-aliasing -O3 -DIMAGE_PATH=\"@APPLET_IMAGE_PATH@\" @DGAI@ @GAI_CFLAGS@ @XMMS_CFLAGS@ @SDL_CFLAGS@ @GTK_CFLAGS@
-LDFLAGS_GAI = $(LDFLAGS) @GAI_LIBS@ @XMMS_LIBS@ @SYSTEM_SPECIFIC_LIBS@
-LDFLAGS_SDL = $(LDFLAGS) @SDL_LIBS@ @SYSTEM_SPECIFIC_LIBS@ @GTK_LIBS@
+LDFLAGS_GAI = $(LDFLAGS) -lm -lX11 @GAI_LIBS@ @XMMS_LIBS@ @SYSTEM_SPECIFIC_LIBS@
+LDFLAGS_SDL = $(LDFLAGS) -lm -lX11 @SDL_LIBS@ @SYSTEM_SPECIFIC_LIBS@ @GTK_LIBS@
 
 OBJS = fish.o background.o bubble.o draw.o bottom.o soundeffects.o images.o
 OBJS_GAI = settings.o pref.o date.o clock.o matrix.o over.o thermometer.o leds.o aquarium.o tetris.o plasma.o @XMMS_OBJ@ @STATUS@
