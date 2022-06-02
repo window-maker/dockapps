@@ -34,7 +34,6 @@ AC_SUBST(GAI_MAJOR)
 AC_SUBST(GAI_MINOR)
 AC_SUBST(GAI_MICRO)
 
-
 dnl - Flags
 with_gnome=yes
 AC_MSG_CHECKING(whether to try to include gnome support)
