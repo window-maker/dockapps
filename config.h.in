@@ -1,0 +1,32 @@
+
+/* 
+   Generic config.h file for GAI applets.
+    
+   You don't have to use it for your applet, but a few things will be simpler. 
+
+   @REMARK@
+   @REMARK2@
+*/
+#ifndef GAI_CONFIG_H
+#define GAI_CONFIG_H
+
+#include <gai/gai.h>
+
+#ifdef GAI_APPLET_DEFINES
+static GaiApplet applet_defines = {
+	    	"@APPLET_NAME@",
+		"@APPLET_VERSION@",
+		"@APPLET_NICE_NAME@",
+		"@APPLET_AUTHOR@",
+		"@APPLET_LICENSE@",
+		"@APPLET_DESCRIPTION@",
+		"@APPLET_ICON@",
+		"@APPLET_IMAGE_PATH@"
+};
+#endif
+#define @HOST@
+#define IMAGE_PATH "@APPLET_IMAGE_PATH@"
+#define APPLET_NAME "@APPLET_NAME@"
+#define APPLET_VERSION "@APPLET_VERSION@"
+@XMMS@
+#endif

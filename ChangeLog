@@ -1,0 +1,164 @@
+
+3.0.1 - 20th February 2005.
+    - Fixed compile problem with Linux 2.4 reported by yogib 
+      <zban@intermedia.net.pl>
+    - Fixed configure problem when you didn't have gai installed, but
+      has XMMS installed. (Both gtk 1.2 and 2.0 get included.)
+      Reported by Jozef Riha <zefo@seznam.cz> and others.
+    - Fixed applet initialization bug noticable sometimes with new gccs.
+	
+3.0.0 - 5th September 2004. 
+    - The current desktop can be used as background in screensaver mode.
+    - Sherman's aquarium now interacts with xscreensaver-demo nicely.
+    - Fish are now knowing about high aquariums.
+    - Bottom creatures shall not come flying.
+    - You can have comics on the background in screensaver mode. 
+      (some comics included)
+    - Fixed bug in plasma with heights >300.
+    - Tetris now seems to work..
+    - Matrix scroller bug finally fixed.
+    - Documentation updates.
+    - Thermometer now works with both Linux 2.4 and Linux 2.6
+    - Many minor tweeks and fixes.
+    - Lots of bugfixes
+    - The ChangeLog is incomplete!! (Again!)
+    
+3.0.0pre2 - 
+    - Added patch that solves endian problems for screensaver.
+    - Sound effects are quiet when in "over" mode.
+    - Screensaver support added, allthough abit buggy when selecting
+      from the xscreensaver-demo menu.
+    - The screensaver got xscreensaver configuration support.
+    - Fixed Gnome panel sizing bug caused by correcting bugs in gai.
+
+3.0.0pre1 - 
+    Not complete!
+    - Rebirth added.
+    - Thermometer pic is now ok.
+    - Thermometer can messure a lot of stuff.
+    - exploded fishes and eaten fished cooperated now.(Thanks to?)
+    - New size organization.
+    - Sherman's aquarium is splitted into:
+	Sherman's aquarium - Applet
+	Sherman's aquarium - Screensaver 
+    - Command line options are now completly removed.
+      You have to configure Sherman's aquarium via the preference menu.
+      It can be started by clicking on it with the right mouse button.
+      It works no matter if you use gnome or not.
+    - You can have a background shade between any two colours.
+    - Great parts are rewritten and the code is modulized.
+    - Code "prettification" and reorganization. Still alot to do.
+    - Uses now the "General Applet Interface Library" (GAI) for basic
+      wmapplet/dockapp and gnome2 applet routines. (Gnome 1.x is no
+      more supported.) 
+    - Removed some warnings on Redhat systems.(Thanks to Gerald Schuberth!)
+    - More plants and rocks.
+    - Megan added. 
+    - Fixed fvwm2 problem. (Thanks to Fabio Stumbo!)
+    - Fixed SDL problem that made Sherman's living on after quit and
+      eating alot of processor power.
+    - Made fish scared by the mouse pointer acting better. 
+    - No outputs in xscreensaver mode.
+    - Hiding mouse pointer when over applet option added.
+    - Matrix scroller is partly rewritten. (Bug fixed hopefully)
+    - Tetris with levels, score and highscore table is added.
+    - Added code for a plasma.
+    - Now it is possible to load and save settings without compile 
+      in gnome support. (Thanks to GAI.)
+    - Unnessecary configure options are removed.
+    - Added some different bottom colour shades.
+    - Bottom now possible option as applet.
+    - The scale of the bottom can be set.
+    - Fixed bug that made some fish sometimes come behind the moving
+      "bottom" creatures.
+    - Added more colours of the leds and maximum of four leds instead of
+      three. 
+    - Fish can have abit variable size, so two fish from the same
+      spiece don't have the same size.
+    - The speed of each fish variables alittle for the normal speed for
+      that spiece.
+    - Fixed a rounding up bug that could cause some fish get the images
+      of the moment animation somewhat wrong for some scales.
+    - Makefile dependency fixes.
+    - New feature can display XMMS(www.xmms.org) current song name.
+    - Added the original sound effects. Sean Maguire <maguire@mit.edu>
+      missed them. 
+      
+    
+
+2.2.0 - 31st August 2002
+    - Makefile & configure fixes.
+    - Swedish and German translation for the Gnome menu.
+      (But not yet for the preference window.)
+    - Fixed preference window and keyleds bug.
+    - Gnome 2 panel detection. Notice that gnome 2 applets must be started from
+      the panel.
+    - XScreenSaver is now supported! Finally!
+    - Internal changes makes it possible to run more than one instance at
+      the same time. (Screensaver and applet, for example.)
+    - Resize blowfish blow up action to correct size. Strangly it was two
+      time too big. 
+    - The blowfish now explodes and updates correctly in fullscreen.
+    - The pray gets eaten correctly now.
+    - You can have a seafloor(-f)in fullscreen mode now. 
+    - Some changes for SunOs. But still no thermometer code.
+    - New graphics taken from the Swedish version of Sherman's Lagoon.
+    - Added graphics includes plants and stones for the sea floor.
+    - Hawthorne and Bob the bottom dweller are added. They appear only in
+      fullscreen/xscreensaver mode.
+    - Added new command line option "-m" for activate the matrix scroller
+      for those that hasn't gnome installed.
+    - Changed solid blue to solid colour. Now you can choose any colour
+      you want instead.
+    
+2.1.1 - 20th July 2002
+    - Fixed bad bug making just a blue box under many window managers.
+    - FreeBSD port. (Hopefully it will work. Please mail me if otherwise!)
+    - Some loading speed ups.
+    - Adding fullscreen option -K, keep current resolution.
+    - Option --numfishes is changed to --numfish, since the plural of fish
+      is fish, not fishes.
+    - Some Gnome 2 fixes.
+    
+2.1.0 - 8th July 2002
+    - Gnome version 2.0.x support
+    - GTK+ version 2.0.x support
+    - Bug fixes (preference windows, automagical detection bug, and more.)
+    - Resizing speed ups.
+    - configure script instead of messy makefiles.
+    - Matrix scroller is now a valid option + fixing some matrix bugs.
+    - Better handeling of missing files when running as gnome applet
+    - New option. "-r" Reset settings. Default settings, if something
+      has gone wrong.
+    - Fullscreen("-l") using SDL. This is most for testing.
+      In the future it will become a screensaver.
+      
+2.0.1 - 23rd(late) June 2002
+    - Mac Os X port and thermometer code
+    - Fixing a floating point exception bug
+    - Some Makefile errors fixed.
+    - Documentation updates and some new sections
+    
+2.0 - 23rd(early) June 2002
+    - Name change to "Sherman's aquarium"
+    - Gnome panel applet version
+    - Prefrences window
+    - Remember your settings
+    - Scaling of fishes
+    - Size of window can be choosen.
+    - Choose your own background.
+    - ALOT of internal changes
+    - Automagical detection of window manager and gnome panel.
+    - Swordfish can make the blowfish explode
+    - Much better animation of all fishes.
+    - One big fish can eats a special kind of fish
+
+1.01 - 11th May 2002
+    - Minor bug fixes.
+    - New switches: -x and -y for selecting location on screen.
+		    -u for selecting number of bubbles.
+
+1.0 - 24th April 2002 (Public 4th May)
+    - First release.
+
+

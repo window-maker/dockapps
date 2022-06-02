@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<screensaver name="shermans" _label="Sherman's aquarium">
+<command arg="-root" />
+
+
+<hgroup>
+<boolean id="seafloor" _label="Sea floor" arg-set="-seafloor"/>
+<boolean id="sound" _label="Sound effects" arg-set="-sound"/>
+</hgroup>
+
+<hgroup>
+<number id="plants" arg="-plants %" type="spinbutton" _label="Number of plants" low="0" high="100" default="8"/>
+<number id="plantscale" arg="-plantscale %" type="spinbutton" _label="Scale of plants" low="1" high="1000" default="75"/>
+<number id="bottomanimals" arg="-bottomanimals %" type="spinbutton" _label="Number of bottom animals" low="0" high="100" default="1"/>
+</hgroup>
+
+<string id="soundprg" _label="External sound playing program (Default mpg123)" arg="-soundprg %"/>
+
+<select id="soundtype">
+    <option id="mp3" _label="MP3 sound effects"/>
+    <option id="ogg" _label="OGG sound effects" arg-set="-ogg"/>
+</select>
+
+<select id="bg">
+    <option id="solidbg" _label="Solid background" arg-set="-bg_solid"/>
+    <option id="shadedbg" _label="Shaded background" arg-set="-bg_shaded"/>
+    <option id="waterbg" _label="Wateralike background" arg-set="-bg_wateralike"/>
+    <option id="imagebg" _label="Image background" arg-set="-bg_image"/>
+    <option id="desktopbg" _label="Use current desktop as background" arg-set="-desktop"/>
+</select>
+
+<hgroup>
+<number id="lcolorr" arg="-lcr %" type="slider" _label=" Lower colour: Red," low="0" high="255" default="0"/>
+<number id="lcolorg" arg="-lcg %" type="slider" _label=" Lower colour: Green," low="0" high="255" default="130"/>
+<number id="lcolorb" arg="-lcb %" type="slider" _label=" Lower colour: Blue" low="0" high="255" default="200"/>
+</hgroup>
+
+<hgroup>
+<number id="ucolorr" arg="-ucr %" type="slider" _label=" Upper colour: Red," low="0" high="255" default="0"/>
+<number id="ucolorg" arg="-ucg %" type="slider" _label=" Upper colour: Green," low="0" high="255" default="200"/>
+<number id="ucolorb" arg="-ucb %" type="slider" _label=" Upper colour: blue" low="0" high="255" default="250"/>
+</hgroup>
+<file id="imagefile" _label="Background image file" arg="-bg_image_file %" />
+
+<boolean id="comics" _label="Show comics on background" arg-set="-comics"/>
+<file id="comics_dir" _label="Directories where to look for comics(separete with ;)" arg="-comics_dir %"/>
+<number id="comics_delay" arg="-comics_delay %" type="slider" _label="Time between changing comic in seconds:" low="10" high="6000" default="50"/>
+
+<select id="population">
+    <option id="random" _label="Random fish, population size given below" arg-set="-random"/>
+    <option id="selelection" _label="User defined population" arg-set="-selected"/>
+</select>
+<number id="randompop" arg="-random_pop %" type="spinbutton" _label="Population size" low="1" high="100" default="15"/>
+
+<hgroup>
+<number id="fish1" arg="-fish1 %" type="spinbutton" _label="Fish1" low="0" high="255" default="1"/>
+<number id="fish2" arg="-fish2 %" type="spinbutton" _label="Fish2" low="0" high="255" default="1"/>
+<number id="fish3" arg="-fish3 %" type="spinbutton" _label="Fish3" low="0" high="255" default="1"/>
+<number id="fish4" arg="-fish4 %" type="spinbutton" _label="Fish4" low="0" high="255" default="1"/>
+</hgroup>
+
+<hgroup>
+<number id="fish5" arg="-fish5 %" type="spinbutton" _label="Fish5" low="0" high="255" default="1"/>
+<number id="fish6" arg="-fish6 %" type="spinbutton" _label="Fish6" low="0" high="255" default="1"/>
+<number id="swordfish" arg="-swordfish %" type="spinbutton" _label="Swordfish" low="0" high="255" default="1"/>
+<number id="blowfish" arg="-blowfish %" type="spinbutton" _label="Blowfish" low="0" high="255" default="1"/>
+</hgroup>
+
+<hgroup>
+<number id="bdweller" arg="-bdweller %" type="spinbutton" _label="Bottomdweler" low="0" high="255" default="1"/>
+<number id="fillmore" arg="-fillmore %" type="spinbutton" _label="Fillmore" low="0" high="255" default="1"/>
+<number id="sherman" arg="-sherman %" type="spinbutton" _label="Sherman" low="0" high="255" default="1"/>
+<number id="megan" arg="-megan %" type="spinbutton" _label="Megan" low="0" high="255" default="1"/>
+</hgroup>
+
+<hgroup>
+<number id="prey" arg="-prey %" type="spinbutton" _label="Prey" low="0" high="255" default="1"/>
+<number id="hunter" arg="-hunter %" type="spinbutton" _label="Hunter" low="0" high="255" default="1"/>
+<number id="lori" arg="-lori %" type="spinbutton" _label="Lori" low="0" high="255" default="1"/>
+<number id="ernest" arg="-ernest %" type="spinbutton" _label="Ernest" low="0" high="255" default="1"/>
+</hgroup>
+<hgroup>
+<number id="squid" arg="-squid %" type="spinbutton" _label="Squid" low="0" high="255" default="1"/>
+<number id="hawthorne" arg="-hawthorne %" type="spinbutton" _label="Hawthorne" low="0" high="255" default="1"/>
+</hgroup>
+
+
+<hgroup>
+<boolean id="eat" _label="Eating prey fish is ok" arg_set="-eat"/>
+<boolean id="rebirth" _label="Dead fish might be reborn" arg_set="-rebirth"/>
+</hgroup>
+
+<hgroup>
+<boolean id="explode" _label="Make the blowfish explode is ok" arg_set="-explode"/>
+<boolean id="scalediff" _label="Fish from the same kind may differ in size" arg_set="-scalediff"/>
+</hgroup>
+
+<hgroup>
+<number id="speed" arg="-speed %" type="spinbutton" _label="Speed (in %)" low="0" high="1000" default="100"/>
+<number id="size" arg="-scale %" type="spinbutton" _label="Scale (in %)" low="0" high="1000" default="75"/>
+</hgroup>
+
+<hgroup>
+<number id="huntera" arg="-huntera %" type="spinbutton" _label="Hunter agressiveness (in %)" low="0" high="100" default="75"/>
+<number id="sworda" arg="-sworda %" type="spinbutton" _label="Swordfish agressiveness (in %)" low="0" high="100" default="75"/>
+</hgroup>
+
+<number id="bubble" arg="-bubble %" type="spinbutton" _label="Number of bubbles" low="0" high="1000" default="15"/>
+
+
+<_description>
+This is a screensaver is an aquarium featuring the
+characters from the awesome comic Sherman's Lagoon by
+Jim Toomey.
+
+Sherman's aquarium website: http://aquariumapplet.sourceforge.net
+</_description>
+
+
+</screensaver>

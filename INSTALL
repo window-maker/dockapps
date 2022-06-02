@@ -1,0 +1,43 @@
+
+ Installation instructions for Sherman's aquarium
+--------------------------------------------------
+
+Quick installation:
+
+./configure
+make
+make install (become root might be required.)
+
+See XSCREENSAVER for howto install Sherman's aquarium as screensaver
+
+ Required libraries and programs
+---------------------------------
+
+The General Applet Interface Library (GAI) is required for applet
+support. You can get it at http://gai.sf.net
+
+SDL is required for Screensaver support. (www.libsdl.org)
+
+GTK+ v2.2.0 or later is required for everything.
+
+On some distributions, Like Redhat, the include headers are 
+sometimes not installed by default. If you believe that the
+configure script fails to detect some library that you are
+sure that you have installed, please make sure that you have
+install the "devel" part of that library too.
+
+
+ Supported Operative Systems and limitations
+----------------------------------------------
+All features are supported with Linux 2.4 and Linux 2.6.
+CPU load only is supported for FreeBSD and Mac OSX/Darwin.
+
+If you want to have more features for your favorite Unix system 
+and are prepared to do some testing, please don't hessitate to mail me!
+
+
+Any problems? I hope not. If you hit some, please mail me! 
+Jonas Aaberg <cja@gmx.net> (Please include the word Sherman in the subject)
+
+
+

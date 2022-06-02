@@ -1,0 +1,67 @@
+
+ Sherman's aquarium - Applet v3.0.1
+====================================
+(Formly known as Aquarium applet)
+
+This is a wm(Window maker) applet(dockapp), Gnome 2 Panel Applet and
+a XscreenSaver "hack" that gives you an aquarium with some randomly 
+selected fishes that lives there. Well, to tell you the truth, you 
+can get some other strange sea animals in your aquarium too.
+It can display the status of alot of different things in various ways.
+
+The fishes are done by Jim Toomey, the author of the "Sherman's Lagoon"
+comics.
+
+
+Fish Images:
+------------
+
+The fish images are taken from a freeware windows screen saver by 
+Jim Toomey.(www.slagoon.com) He draws a really great cartoon strip 
+named "Sherman's lagoon". (You can ready a daily strip at his site,
+and in many news papers.)
+I have to point out that NO reverse engineering nor disassembling
+of the code was made in order to extract the fish images. I did 
+just look at the hex code and wrote a program that read the 
+interesting parts, and converted them to readable images.
+So the fish images are copyrighted by Jim Toomey, and released
+in his screensaver as freeware. 
+I've manage to get in contact with Jim Toomey and he told me
+he likes "Sherman's aquarium" and that it's ok that I use that
+name for my program. But he didn't give me permission to use
+his graphics, but neither did he tell me to remove his graphics,
+which I'm very thankfull for. (Jim, THANKS ALOT!!)
+
+
+History:
+--------
+
+I saw the "Sherman's lagoon" screensaver for Windows about 1997 or so.
+From the very start I wanted to have it for Linux too. Quite quick I 
+made a program that extracted the graphics and the sounds. Then I 
+tried to make a screensaver, but I  got stuck in gtk+/gdk problems 
+that I couldn't solve at that time.
+Then one day, years later, I played with the code Timecop's 
+wmfishmon code, and years later this is the result. 
+
+
+See ChangeLog for a more recent history.
+
+See the AUTHOR file for credits.
+
+
+If you enjoy this small program, please send me (Jonas Aaberg <cja@gmx.net>)
+an email. For every email I get, the chances that I add new features 
+and/or make other applets get larger. (Please include Sherman's 
+aquarium in the subject.)
+
+Patches, constructive critizism, extra features, sudjestions(good ones :-), 
+better graphics, pizzas,.. are very welcome! :-)
+
+If you need help with anything, don't hessitate to contact me! 
+
+Sherman's aquarium home is: http://aquariumapplet.sourceforge.net
+(Big thanks to the SF team for providing a home for Sherman's aquarium!)
+
+Have fun,
+    Jonas Aaberg <cja@gmx.net>

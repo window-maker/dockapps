@@ -1,0 +1,17 @@
+
+This is the general readme for all applets that uses GAI.
+
+These options are recognized by the library:
+
+      --gai-debug-on          Stores debug info in /tmp/gai-debug-output.
+                              Notice that it eats some processor power.
+      --gai-debug-off         Turns off debug mode.
+      --gai-broken-wm         Lets all applets run as a normal program.
+      --gai-working-wm        Lets all applets run as
+                              dockapps/wmapplets.
+      --gai-list-settings     List current settings.
+      --gai-help              Shows this text. 
+																			      
+The --gai-debug-on option should only be used by developers that
+suspects that there is something wrong with the library itself.
+																			      

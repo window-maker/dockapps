@@ -1,0 +1,17 @@
+
+The sound effects are copyrighted by Jim Toomey, and are 
+extracted from the screensaver "Sherman's Lagoon".
+
+The original sound files are in WAVE format, but since most
+people have a command line mp3 player and no command line wave
+file player, I've converted them to mp3s, using LAME 3.92.
+
+lame -m a --r3mix -q 9 -v -c -p --tt "Many bubbles" --tc \
+"Copyright by Jim Toomey" manybubbles.wav manybubbles.mp3
+
+For those of you that dislikes mp3s for various reaons
+and prefer oggs there are ogg files too.
+
+oggenc -q 7 -t "Prey death scream" -c "Copyright by Jim Toomey" \
+deathscream.wav
+

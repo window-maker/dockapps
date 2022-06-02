@@ -1,0 +1,15 @@
+
+TODO:
+
+ - Add more features to leds. Like ping, tempeature, battery warning, cpu load level, sawp load level... 
+    - Be able to invert levels.
+ - Add more features to thermometer, battery level, cpu speed..
+ - Comic download.
+ - Comic next/prev.
+ - Comic storage.
+ - Internationalization.
+ - Teletext/web text scroller. (Not just XMMS)
+ - Background could change on differnet events.
+ - Surface a la wmbubble?
+ - Tetris backgrounds.
+
