@@ -1,3 +1,11 @@
+first download gai
+
+git clone https://github.com/norayr/gai
+cd gai
+./configure --prefix=/opt/gai
+
+now build shermans_aquarium with:
+
 PKG_CONFIG_PATH="/opt/gai/lib/pkgconfig" ./configure --with-gai --with-gailibs=/opt/gai
 
 
