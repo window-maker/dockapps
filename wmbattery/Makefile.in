@@ -67,8 +67,6 @@ CPPFLAGS += -DHAL
 CFLAGS += @hal_CFLAGS@
 LIBS += @hal_LIBS@
 OBJS += simplehal.o
-simplehal.o: simplehal.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c simplehal.c -o simplehal.o
 endif
 
 ifdef USE_UPOWER
@@ -76,8 +74,6 @@ CPPFLAGS += -DUPOWER
 CFLAGS += @upower_CFLAGS@
 LIBS += @upower_LIBS@
 OBJS += upower.o
-upower.o: upower.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) -c upower.c -o upower.o
 endif
 
 wmbattery: $(OBJS)
