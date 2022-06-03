@@ -1,6 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
+AC_PREREQ([2.61])
 AC_INIT([wmbattery], [2.54], [wmaker-dev@googlegroups.com])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_SRCDIR([wmbattery.c])
 AC_CONFIG_AUX_DIR([autoconf])
 
 dnl Checks for the apm device other than /proc/apm.
@@ -27,7 +29,7 @@ PKG_CHECK_MODULES([Xlib], [x11])
 PKG_CHECK_MODULES([Xext], [xext])
 PKG_CHECK_MODULES([libXpm], [xpm])
 AC_CHECK_LIB([apm], [apm_read])
-AC_ARG_ENABLE([hal, [AS_HELP_STRING([--enable-hal], [enable hal])],
+AC_ARG_ENABLE([hal], [AS_HELP_STRING([--enable-hal], [enable hal])],
               [], [enable_hal=no])
 AS_IF([test x$enable_hal != xno], [
   PKG_CHECK_MODULES([hal], [hal])
@@ -41,19 +43,25 @@ AS_IF([test x$enable_upower != xno], [
 ])
 
 dnl Checks for header files.
-AC_HEADER_STDC
-AC_CHECK_HEADERS([getopt.h])
+AC_CHECK_HEADERS([fcntl.h getopt.h stdint.h sys/ioctl.h sys/socket.h unistd.h])
 dnl FreeBSD needs apm_bios.h
 AC_CHECK_HEADERS([machine/apm_bios.h])
 dnl NetBSD and OpenBSD need apmvar.h
 AC_CHECK_HEADERS([i386/apmvar.h])
 
 dnl Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_TYPE_SSIZE_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT8_T
+AC_CHECK_TYPES([ptrdiff_t])
 
 dnl Checks for library functions.
-AC_PROG_GCC_TRADITIONAL
-AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([strdup])
+AC_FUNC_ERROR_AT_LINE
+AC_FUNC_FORK
+AC_FUNC_MALLOC
+AC_CHECK_FUNCS([alarm strcasecmp strchr strdup strerror strstr])
 
-AC_OUTPUT([Makefile])
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
