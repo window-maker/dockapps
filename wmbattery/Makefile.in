@@ -55,7 +55,7 @@ dist:
 	  ! -path './$(PACKAGE_NAME)-$(PACKAGE_VERSION)/*' \
 	  -exec $(INSTALL_DATA) '{}' $(PACKAGE_NAME)-$(PACKAGE_VERSION) \;
 	@$(INSTALL_PROGRAM) autogen configure $(PACKAGE_NAME)-$(PACKAGE_VERSION)
-	@$(INSTALL_PROGRAM) autoconf/install-sh $(PACKAGE_NAME)-$(PACKAGE_VERSION)/autoconf
+	@$(INSTALL_PROGRAM) autoconf/* $(PACKAGE_NAME)-$(PACKAGE_VERSION)/autoconf
 	@tar cf - $(PACKAGE_NAME)-$(PACKAGE_VERSION) \
 	  | gzip >$(PACKAGE_TARNAME)-$(PACKAGE_VERSION).tar.gz
 	@rm -fr $(PACKAGE_NAME)-$(PACKAGE_VERSION)
