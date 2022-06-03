@@ -68,8 +68,8 @@ inline char *get_acpi_file(const char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return NULL;
-	end = read(fd, buf, sizeof(buf));
-	buf[end-1] = '\0';
+	end = read(fd, buf, sizeof(buf) - 1);
+	buf[end] = '\0';
 	close(fd);
 	return buf;
 }
