@@ -1,3 +1,8 @@
+3.0.2 - 2th June 2022.
+    - Fixed compile problem in 2022 environment. 
+      https://github.com/norayr/shermans_aquarium/commit/570e5b4137a25d81775b33d1fbed2316a4cccfcd
+    - For that gai also had to be changed:
+      https://github.com/norayr/gai/commit/c546d6c8161846ae9af2fe6be3299ccec9077181
 
 3.0.1 - 20th February 2005.
     - Fixed compile problem with Linux 2.4 reported by yogib 
