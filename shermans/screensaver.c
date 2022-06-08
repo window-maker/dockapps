@@ -329,6 +329,9 @@ void screensaver_main_sdl(void)
 	    SDL_UpdateRect(screen,0,0,0,0);
 	    counter = 25*comics_delay;
 	}
+	if(wallpaper){
+	    SDL_UpdateRect(screen,0,0,0,0);
+        }
 	counter --;
 
 
@@ -537,6 +540,7 @@ void screensaver_init()
 	display=XOpenDisplay(NULL);
 	sdl_command = g_strdup_printf("SDL_WINDOWID=%d",
 				      (int)RootWindowOfScreen(ScreenOfDisplay(display, DefaultScreen(display))));
+
 	putenv(sdl_command);
 	ad.proximity = 0;
 	sdl_flags |= SDL_FULLSCREEN;
@@ -855,7 +859,9 @@ void screensaver_init_param(int argc, char **argv)
 	case ARG_WALLPAPER:
 	    wallpaper = 1;
 	    //bg->type = BG_WATER;
+	    //bg->type = BG_IMAGE;
 	    bg->type = BG_SHADED;
+	    //bg->type = BG_SOLID;
 	    bg->desktop = 0;
 	    b->have_sea_floor = 1;
             b->num_bottom_animals = 7;
