@@ -118,6 +118,7 @@ typedef struct {
 #define ARG_COMICS 52
 #define ARG_COMICS_DIR 53
 #define ARG_COMICS_DELAY 54
+#define ARG_WALLPAPER 55
 
 #define DEPTH 24
 
@@ -133,6 +134,7 @@ static SDL_Surface *screen=NULL, *screen_image, *background, **thisfish;
 static SDL_Rect *fish_dest, *fish_src, *clean_dest;
 static int curr_dest, clean_count,  no_sdl_quit = 0, comics_delay = 50;
 int window_id = -1, fullscreen = 0;
+int wallpaper = 0;
 static unsigned char *original_bg;
 static AquariumData ad;
 
@@ -389,20 +391,26 @@ void screensaver_main_sdl(void)
 		main_loop=1;
 		break;
 	    case SDL_KEYDOWN:
-		num_events++;
-		if(num_events==2)
-		    main_loop=1;
-		break;
+		if(!wallpaper){
+		  num_events++;
+		  if(num_events==2)
+		      main_loop=1;
+		  break;
+		}
 	    case SDL_MOUSEMOTION:
-		num_events++;
-		if(num_events==2)
-		    main_loop=1;
-		break;
+		if(!wallpaper){
+		  num_events++;
+		  if(num_events==2)
+		      main_loop=1;
+		  break;
+		}
 	    case  SDL_MOUSEBUTTONDOWN:
-		num_events++;
-		if(num_events==2)
+		if(!wallpaper){
+		  num_events++;
+		  if(num_events==2)
 		    main_loop=1;
-		break;
+		  break;
+		}
 	    }
 	}    
     }
@@ -480,8 +488,9 @@ void init_sdl(int sdl_flags)
 
 
     /* Hide the mouse cursor */
+    if (!wallpaper){
     SDL_ShowCursor(0);
-
+    }
     /* Start with all black */
     SDL_FillRect(screen,NULL,0x000000);
 
@@ -521,7 +530,7 @@ void screensaver_init()
 	gc = gdk_gc_new(window);
     }
 
-    if(fullscreen){
+    if(fullscreen || wallpaper){
 	screen_width = gdk_screen_width();
 	screen_height = gdk_screen_height();
 
@@ -555,7 +564,7 @@ void screensaver_init()
     memcpy(original_bg, ad.bgr, ad.xmax*3*ad.ymax);
 
 
-    if(fullscreen || window_id == -1)
+    if(fullscreen || wallpaper || window_id == -1)
 	init_sdl(sdl_flags);
 
 
@@ -670,6 +679,7 @@ void screensaver_init_param(int argc, char **argv)
 	{"sworda", required_argument, NULL, ARG_SWORDA},
 	{"window-id", required_argument, NULL, ARG_WINDOW_ID},
 	{"root", no_argument, NULL, ARG_FULLSCREEN},
+	{"wallpaper", no_argument, NULL, ARG_WALLPAPER},
 	{"bubble", required_argument, NULL, ARG_BUBBLE},
 	{"desktop", no_argument, NULL, ARG_DESKTOP},
 	{0,0,0,0}};
@@ -841,6 +851,9 @@ void screensaver_init_param(int argc, char **argv)
 	    break;
 	case ARG_FULLSCREEN:
 	    fullscreen = 1;
+	    break;
+	case ARG_WALLPAPER:
+	    wallpaper = 1;
 	    break;
 	case ARG_BUBBLE:
 	    bub->max_bubbles = atoi(optarg);
