@@ -133,6 +133,7 @@ static GdkGC *gc;
 static SDL_Surface *screen=NULL, *screen_image, *background, **thisfish;
 static SDL_Rect *fish_dest, *fish_src, *clean_dest;
 static int curr_dest, clean_count,  no_sdl_quit = 0, comics_delay = 50;
+static int wallpaper_delay = 23;
 int window_id = -1, fullscreen = 0;
 int wallpaper = 0;
 static unsigned char *original_bg;
@@ -332,7 +333,7 @@ void screensaver_main_sdl(void)
 	if(wallpaper && counter == 0){
 	//SDL_UpdateRect(screen,0,0,0,0);
 	  SDL_Flip(screen);
-	  counter = comics_delay;
+	  counter = wallpaper_delay;
         }
 	counter --;
 
