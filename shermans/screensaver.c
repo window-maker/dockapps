@@ -331,8 +331,8 @@ void screensaver_main_sdl(void)
 	    counter = 25*comics_delay;
 	}
 	if(wallpaper && counter == 0){
-	//SDL_UpdateRect(screen,0,0,0,0);
-	  SDL_Flip(screen);
+	  SDL_UpdateRect(screen,0,0,0,0);
+	  //SDL_Flip(screen);
 	  counter = wallpaper_delay;
         }
 	counter --;
