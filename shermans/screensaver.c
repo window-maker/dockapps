@@ -854,6 +854,12 @@ void screensaver_init_param(int argc, char **argv)
 	    break;
 	case ARG_WALLPAPER:
 	    wallpaper = 1;
+	    //bg->type = BG_WATER;
+	    bg->type = BG_SHADED;
+	    bg->desktop = 0;
+	    b->have_sea_floor = 1;
+            b->num_bottom_animals = 7;
+	    b->max_plants = 23;
 	    break;
 	case ARG_BUBBLE:
 	    bub->max_bubbles = atoi(optarg);
