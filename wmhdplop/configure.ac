@@ -1,7 +1,7 @@
 AC_INIT(wmhdplop, 0.9.11)
 AC_CONFIG_SRCDIR(wmhdplop.c)
 AM_INIT_AUTOMAKE
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 AC_SUBST(VERSION)
 
