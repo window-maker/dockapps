@@ -1,4 +1,4 @@
-AC_INIT(wmhdplop, 0.9.11)
+AC_INIT([wmhdplop], [0.9.11], [wmaker-dev@googlegroups.com])
 AC_CONFIG_SRCDIR(wmhdplop.c)
 AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([config.h])
