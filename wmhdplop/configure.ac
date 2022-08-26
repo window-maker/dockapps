@@ -77,7 +77,8 @@ fi
 AC_SUBST(GKHDPLOP)
 
 
-AC_OUTPUT(Makefile)
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
 
 echo "- - - - - - - - - - - - - - - -"
 echo -e "${YELLOW}wmhdplop    will be built${RESET}"
