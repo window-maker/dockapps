@@ -130,8 +130,8 @@ int main(int argc, char **argv)
 	fg_pixel = BlackPixel(display, screen);
 
 	xsizehints.flags  = USSize | USPosition;
-	xsizehints.width  = 64;
-	xsizehints.height = 64;
+	xsizehints.width  = 80;
+	xsizehints.height = 80;
 
 	/* Parse Geometry string and fill in sizehints fields */
 	XWMGeometry(display, screen,
@@ -415,7 +415,7 @@ int main(int argc, char **argv)
  *   main window and the icon window which is the main window's icon image.)
  ***********************************************************************/
 void redraw() {
-	int n, i, j, dest_x, dest_y, space, offset, bsize = 18;
+  int n, i, j, dest_x, dest_y, space, offset, bsize = 22;  /* 18 for 54pixel grid, 22 for 66pixel grid 80x80 */
 
 	if (Config.Verbose)
 		fprintf(stdout, "In Redraw()\n");
