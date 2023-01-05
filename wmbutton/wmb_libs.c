@@ -33,7 +33,7 @@ void parseargs(int argc, char **argv)
 	int current;
 	char *Home = getenv("HOME");
 
-	while (-1 != (current = getopt(argc, argv, "vhnmsF:b:g:d:f:"))) {
+	while (-1 != (current = getopt(argc, argv, "vhnmsF:b:g:d:f:I"))) {
 		switch (current) {
 		case 'v':
 			Config.Verbose = 1;
@@ -66,6 +66,9 @@ void parseargs(int argc, char **argv)
 		case 'b':
 			Config.buttonfile = strdup(optarg);
 			break;
+		case 'I':
+		  Config.bigicon = 1;
+		  break;
 		}
 	}
 

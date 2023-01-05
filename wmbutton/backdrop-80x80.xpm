@@ -1,5 +1,5 @@
 /* XPM */
-static char * backdrop_xpm[] = {
+static char * backdrop_80x80_xpm[] = {
 "80 80 59 1",
 " 	c None",
 ".	c #F3F3F3",
