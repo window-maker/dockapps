@@ -124,6 +124,9 @@ int main(int argc, char **argv)
 	  mask_width = 64;
 	  mask_height = 64;
 	}
+
+
+
 	/* Catch fire if no configuration file exists */
 	if (!canOpenFile(Config.configfile)) {
 		if(!canOpenFile(CONFIGGLOBAL)) {
@@ -182,13 +185,24 @@ int main(int argc, char **argv)
 
 	/* Set up shaped windows */
 	/* Gives the appicon a border so you can grab and move it. */
-	if ((pixmask = XCreateBitmapFromData(display,
-					     win,
-					     mask_bits,
-					     mask_width,
-					     mask_height)) == 0)
-		err_mess(FAILXPM, NULL);
-
+	if (Config.bigicon == 0) {
+	  /* 64x64 icon path */
+	  if ((pixmask = XCreateBitmapFromData(display,
+					       win,
+					       mask_bits,
+					       mask_width,
+					       mask_height)) == 0)
+	    err_mess(FAILXPM, NULL);
+	} else {
+	  /* 80x80 icon path */
+	  if ((pixmask = XCreateBitmapFromData(display,
+					       win,
+					       mask_80x80_bits,
+					       mask_width,
+					       mask_height)) == 0)
+	    err_mess(FAILXPM, NULL);
+	}
+	  
 	XShapeCombineMask(display, win, ShapeBounding, 0, 0, pixmask, ShapeSet);
 	XShapeCombineMask(display, iconwin, ShapeBounding, 0, 0, pixmask, ShapeSet);
 
@@ -429,10 +443,15 @@ int main(int argc, char **argv)
  *   main window and the icon window which is the main window's icon image.)
  ***********************************************************************/
 void redraw() {
-  int n, i, j, dest_x, dest_y, space, offset, bsize = 22;  /* 18 for 54pixel grid, 22 for 66pixel grid 80x80 */
+  int n, i, j, dest_x, dest_y, space, offset, bsize; 
 
 	if (Config.Verbose)
 		fprintf(stdout, "In Redraw()\n");
+	if (Config.bigicon != 1) { /* 18 for 54pixel grid, 22 for 66pixel grid 80x80 */
+	  bsize = 18;
+	} else {
+	  bsize = 22;
+	}
 
 	space = 0;
 	offset = 5;
@@ -536,8 +555,8 @@ void getPixmaps()
 	if (Config.Verbose)
 		fprintf(stdout, "In getPixmaps\n");
 
-	if (Config.bigicon == 0) {
-	  /* Template Pixmap. Never Drawn To. */
+	if (Config.bigicon == 0) {  
+	  /* 64x64 icon path.  Template Pixmap. Never Drawn To. */
 	  if (XpmCreatePixmapFromData(display, rootwin, backdrop_xpm,
 				&template.pixmap, &template.mask,
 				&template.attributes) != XpmSuccess)
@@ -563,7 +582,7 @@ void getPixmaps()
 	  if (!loaded) {
 		/* Use Builtin Button Pixmap.  */
 	    if (Config.Verbose)
-	      fprintf(stdout, "Using builtin buttons pixmap\n");
+	      fprintf(stdout, "Using builtin buttons pixmap 64x64\n");
 
 	    if (XpmCreatePixmapFromData(display, rootwin, buttons_xpm,
 					&buttons.pixmap, &buttons.mask,
@@ -572,9 +591,9 @@ void getPixmaps()
 	  }
 
 	  if (Config.Verbose)
-		fprintf(stdout, "Leaving getPixmaps\n");
-	} else {
-	  /* Template Pixmap. Never Drawn To. */
+		fprintf(stdout, "Leaving small icon getPixmaps\n");
+	} else { 
+	  /* 80x80 icon path. Template Pixmap. Never Drawn To. */
 	  if (XpmCreatePixmapFromData(display, rootwin, backdrop_80x80_xpm,
 				&template.pixmap, &template.mask,
 				&template.attributes) != XpmSuccess)
@@ -600,7 +619,7 @@ void getPixmaps()
 	  if (!loaded) {
 		/* Use Builtin Button Pixmap.  */
 	    if (Config.Verbose)
-	      fprintf(stdout, "Using builtin buttons pixmap\n");
+	      fprintf(stdout, "Using builtin buttons pixmap 80x80\n");
 
 	    if (XpmCreatePixmapFromData(display, rootwin, buttons_80x80_xpm,
 					&buttons.pixmap, &buttons.mask,
@@ -609,7 +628,7 @@ void getPixmaps()
 	  }
 
 	  if (Config.Verbose)
-		fprintf(stdout, "Leaving getPixmaps\n");
+		fprintf(stdout, "Leaving big icon getPixmaps\n");
 	}	  
 }
 /*********************************************************************/
