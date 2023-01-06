@@ -88,8 +88,12 @@ void parseargs(int argc, char **argv)
 		}
 	}
 
-	if (!Config.Geometry_str)
+	if (!Config.Geometry_str) {
+	  if (!Config.bigicon)
 		Config.Geometry_str = "64x64+0+0";
+	  else
+	    Config.Geometry_str = "80x80+10+10";
+	}
 
 	if (!Config.Display_str)
 		Config.Display_str = "";
