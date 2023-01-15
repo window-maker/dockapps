@@ -193,6 +193,7 @@ _message(const char *label, const char *fmt, va_list args)
 
 	/* print the message */
 	vfprintf(stderr, w_fmt, args);
+	free(w_fmt);
 }
 
 
