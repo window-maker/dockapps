@@ -23,6 +23,8 @@
 #define SEPARATOR " ** "	/* The separator for the scrolling title */
 #define DISPLAYSIZE 6		/* width of text to display (running title) */
 
+#define PLAYER_INSTANCE_FROM_LIST(x) ((PlayerctlPlayerName *)x->data)->instance
+
 #include <libdockapp/dockapp.h>
 #include <playerctl/playerctl.h>
 #include <unistd.h>
@@ -279,6 +281,30 @@ void ActionPause(int x, int y, DARect rect, void *data)
 	}
 }
 
+int CurrentPlayerIndex(GList *players)
+{
+	int i, n;
+	char *player_instance;
+
+	i = 0;
+	n = g_list_length(players);
+	g_object_get(player, "player-instance", &player_instance, NULL);
+
+	for (; i < n; i++) {
+		if (g_strcmp0(PLAYER_INSTANCE_FROM_LIST(
+				      g_list_nth(players, i)),
+			      player_instance) == 0)
+			break;
+	}
+
+	if (i == n)
+		i = -1;
+
+	g_free(player_instance);
+
+	return i;
+}
+
 void ActionEject(int x, int y, DARect rect, void *data)
 {
 	if (data) {
@@ -489,31 +515,46 @@ int PlayerConnect(void)
 {
 	GError *error = NULL;
 	static int previous_error_code = 0;
-	static char* player_name = NULL;
+	GList *players;
 
-	if (!player)
-		player = playerctl_player_new(NULL, &error);
-	else
-		g_main_context_iteration(NULL, FALSE);
+	players = playerctl_list_players(&error);
+	if (error)
+		DAWarning("%s", error->message);
+	g_clear_error(&error);
 
-	if (error != NULL) {
-		/* don't spam error message */
-		if (error->code != previous_error_code)
-			DAWarning("Connection to player failed: %s",
-				  error->message);
-		previous_error_code = error->code;
-		g_clear_error(&error);
-		player_name = NULL;
-		return 0;
-	} else {
-		previous_error_code = 0;
-		if (!player_name) {
-			g_object_get(player, "player_name", &player_name, NULL);
+	/* check that current player is still connected */
+	if (player && CurrentPlayerIndex(players) == -1) {
+		DAWarning("Disconnected from player");
+		g_object_unref(player);
+		player = NULL;
+	}
+
+	if (!player && g_list_length(players) > 0) {
+		player = playerctl_player_new_from_name(
+			g_list_nth_data(players, 0), &error);
+		if (error != NULL) {
+			/* don't spam error message */
+			if (error->code != previous_error_code)
+				DAWarning("Connection to player failed: %s",
+					  error->message);
+			previous_error_code = error->code;
+		} else {
+			char *player_name;
+
+			g_object_get(player, "player-name",
+				     &player_name, NULL);
 			if (player_name)
 				DAWarning("Connected to %s", player_name);
-		}
-		return 1;
-	}
+			g_free(player_name);
+			}
+		g_clear_error(&error);
+	} else
+		g_main_context_iteration(NULL, FALSE);
+
+	g_list_free_full(players,
+			 (GDestroyNotify)playerctl_player_name_free);
+
+	return player ? 1 : 0;
 }
 
 void DisplayRoutine()
