@@ -1,6 +1,7 @@
-/*  wmusic - a xmms remote-controlling DockApp
+/*  wmusic - an MPRIS-compatible media player remote-controlling DockApp
  *  Copyright (C) 2000-2001 Bastien Nocera <hadess@hadess.net>
- *  Maintained by John Chapin <john+wmusic@jtan.com>
+ *  Copyright (C) 2002-2004 John Chapin <john+wmusic@jtan.com>
+ *  Copyright (C) 2018-2023 Window Maker Team <wmaker-dev@googlegroups.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
