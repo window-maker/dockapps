@@ -532,9 +532,10 @@ void DisplayRoutine()
 					player, "mpris:length", &error);
 			if (error != NULL)
 				DAWarning("%s", error->message);
-			if (length_str)
+			if (length_str) {
 				length = atoi(length_str);
-			else
+				g_free(length_str);
+			} else
 				length = 0;
 
 			position_str =
@@ -543,9 +544,10 @@ void DisplayRoutine()
 					&error);
 			if (error != NULL)
 				DAWarning("%s", error->message);
-			if (position_str)
+			if (position_str) {
 				position = atoi(position_str);
-			else
+				g_free(position_str);
+			} else
 				position = 0;
 		} else { /* not playing or paused */
 			title = strdup("--");
