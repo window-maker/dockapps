@@ -1,4 +1,4 @@
-AC_INIT([wmusic], [2.0.0], [wmaker-dev@googlegroups.com])
+AC_INIT([wmusic], [2.1.0], [wmaker-dev@googlegroups.com])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_SRCDIR([configure.ac])
 AC_PROG_CC
