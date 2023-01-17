@@ -482,7 +482,11 @@ int PlayerConnect(void)
 	static int previous_error_code = 0;
 	static char* player_name = NULL;
 
-	player = playerctl_player_new(NULL, &error);
+	if (!player)
+		player = playerctl_player_new(NULL, &error);
+	else
+		g_main_context_iteration(NULL, FALSE);
+
 	if (error != NULL) {
 		/* don't spam error message */
 		if (error->code != previous_error_code)
