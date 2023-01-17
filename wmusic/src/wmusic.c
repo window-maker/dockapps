@@ -310,7 +310,45 @@ void ActionEject(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		DAWarning("Eject function is no longer supported.");
+		GList *players;
+		GError *error;
+		int i, n;
+
+		error = NULL;
+		players = playerctl_list_players(&error);
+		if (error)
+			DAWarning("%s", error->message);
+		g_clear_error(&error);
+
+		n = g_list_length(players);
+		if (n > 0) {
+			if (!player)
+				i = 0;
+			else {
+				i = CurrentPlayerIndex(players);
+
+				if (i == -1) /* can't find current player */
+					i = 0;
+				else
+					i = (i + 1) % n;
+
+				g_object_unref(player);
+
+				player = playerctl_player_new_from_name(
+					g_list_nth_data(players, i), &error);
+				if (error)
+					DAWarning("Connection to player "
+						  "failed: %s", error->message);
+				g_clear_error(&error);
+
+				DAWarning("Connected to %s",
+					  PLAYER_INSTANCE_FROM_LIST(
+						  g_list_nth(players, i)));
+			}
+		}
+
+		g_list_free_full(players,
+				 (GDestroyNotify)playerctl_player_name_free);
 	}
 }
 
