@@ -510,49 +510,44 @@ void DisplayRoutine()
 		title_pos = 0;
 		arrow_pos = 5;
 	} else {
-		char *length_str, *position_str, *status;
+		char *length_str, *position_str;
+		PlayerctlPlaybackStatus status;
 
-		g_object_get(player, "status", &status, NULL);
-		if (status) {
-			if (!strcmp(status, "Playing") ||
-			    !strcmp(status, "Paused")) {
-				g_object_get(player, "position", &time, NULL);
-
-				title = playerctl_player_get_title(player,
-								   &error);
-				if (error != NULL)
-					DAWarning("%s", error->message);
-
-				length_str =
-					playerctl_player_print_metadata_prop(
-						player, "mpris:length", &error);
-				if (error != NULL)
-					DAWarning("%s", error->message);
-				if (length_str)
-					length = atoi(length_str);
-				else
-					length = 0;
-
-				position_str =
-					playerctl_player_print_metadata_prop(
-						player, "xesam:trackNumber",
-						&error);
-				if (error != NULL)
-					DAWarning("%s", error->message);
-				if (position_str)
-					position = atoi(position_str);
-				else
-					position = 0;
-
-				if (!strcmp(status, "Paused") && pause_norotate)
-					arrow_pos = 5;
-			} else { /* not playing or paused */
-				title = strdup("--");
-				title_pos = 0;
+		g_object_get(player, "playback-status", &status, NULL);
+		if (status == PLAYERCTL_PLAYBACK_STATUS_PLAYING ||
+		    status == PLAYERCTL_PLAYBACK_STATUS_PAUSED) {
+			if (status == PLAYERCTL_PLAYBACK_STATUS_PAUSED &&
+			    pause_norotate)
 				arrow_pos = 5;
-			}
 
-		} else { /* status undefined */
+			g_object_get(player, "position", &time, NULL);
+
+			title = playerctl_player_get_title(player,
+							   &error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+
+			length_str =
+				playerctl_player_print_metadata_prop(
+					player, "mpris:length", &error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+			if (length_str)
+				length = atoi(length_str);
+			else
+				length = 0;
+
+			position_str =
+				playerctl_player_print_metadata_prop(
+					player, "xesam:trackNumber",
+					&error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+			if (position_str)
+				position = atoi(position_str);
+			else
+				position = 0;
+		} else { /* not playing or paused */
 			title = strdup("--");
 			title_pos = 0;
 			arrow_pos = 5;
