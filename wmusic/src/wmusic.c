@@ -486,7 +486,6 @@ int PlayerConnect(void)
 		previous_error_code = 0;
 		if (!player_name) {
 			g_object_get(player, "player_name", &player_name, NULL);
-			player_name++; /* get rid of opening dot */
 			if (player_name)
 				DAWarning("Connected to %s", player_name);
 		}
