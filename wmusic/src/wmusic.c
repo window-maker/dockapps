@@ -373,6 +373,7 @@ void ToggleVol(int x, int y, DARect rect, void *data)
 {
 	double volume;
 	double factor;
+	GError *err;
 
 	g_object_get(player, "volume", &volume, NULL);
 
@@ -387,13 +388,21 @@ void ToggleVol(int x, int y, DARect rect, void *data)
 	if (volume < 0)
 		volume = 0;
 
-	g_object_set(player, "volume", volume, NULL);
+	err = NULL;
+	playerctl_player_set_volume(player, volume, &err);
+	if (err)
+		DAWarning("Error setting volume: %s", err->message);
 }
 
 void ChangeVol(int x, int y, DARect rect, void *data)
 {
 	float volume = ((float)x)/38;
-	g_object_set(player, "volume", volume, NULL);
+	GError *err;
+
+	err = NULL;
+	playerctl_player_set_volume(player, volume, &err);
+	if (err)
+		DAWarning("Error setting volume: %s", err->message);
 }
 
 void ToggleTime(int x, int y, DARect rect, void *data)
