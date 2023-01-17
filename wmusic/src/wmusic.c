@@ -260,6 +260,7 @@ void ActionPlay(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -274,6 +275,7 @@ void ActionPause(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -297,6 +299,7 @@ void ActionPrev(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -311,6 +314,7 @@ void ActionNext(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -325,6 +329,7 @@ void ActionStop(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -339,6 +344,7 @@ void ActionFastr(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -353,6 +359,7 @@ void ActionFastf(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -392,6 +399,7 @@ void ToggleVol(int x, int y, DARect rect, void *data)
 	playerctl_player_set_volume(player, volume, &err);
 	if (err)
 		DAWarning("Error setting volume: %s", err->message);
+	g_clear_error(&err);
 }
 
 void ChangeVol(int x, int y, DARect rect, void *data)
@@ -403,6 +411,7 @@ void ChangeVol(int x, int y, DARect rect, void *data)
 	playerctl_player_set_volume(player, volume, &err);
 	if (err)
 		DAWarning("Error setting volume: %s", err->message);
+	g_clear_error(&err);
 }
 
 void ToggleTime(int x, int y, DARect rect, void *data)
@@ -493,6 +502,7 @@ int PlayerConnect(void)
 			DAWarning("Connection to player failed: %s",
 				  error->message);
 		previous_error_code = error->code;
+		g_clear_error(&error);
 		player_name = NULL;
 		return 0;
 	} else {
@@ -539,12 +549,14 @@ void DisplayRoutine()
 							   &error);
 			if (error != NULL)
 				DAWarning("%s", error->message);
+			g_clear_error(&error);
 
 			length_str =
 				playerctl_player_print_metadata_prop(
 					player, "mpris:length", &error);
 			if (error != NULL)
 				DAWarning("%s", error->message);
+			g_clear_error(&error);
 			if (length_str) {
 				length = atoi(length_str);
 				g_free(length_str);
@@ -557,6 +569,7 @@ void DisplayRoutine()
 					&error);
 			if (error != NULL)
 				DAWarning("%s", error->message);
+			g_clear_error(&error);
 			if (position_str) {
 				position = atoi(position_str);
 				g_free(position_str);
