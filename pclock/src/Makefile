@@ -1,5 +1,3 @@
-BINDIR = /usr/X11R6/bin
-
 PROG = pclock
 OBJS = Main.o Graphics.o getopt.o getopt1.o
 
@@ -11,12 +9,20 @@ CC = gcc
 CFLAGS = -O -s -Wall
 LIBS = -lXpm -lXext -lX11 -lm
 
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+MKDIR_P = mkdir -p
+INSTALL = install
+INSTALL_PROGRAM = $(INSTALL)
+
 ###############################################################################
 
 all: $(PROG)
 
 install: all
-	install -s -m 111 -o bin -g bin $(PROG) $(BINDIR)
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) $(PROG) $(DESTDIR)$(bindir)/$(PROG)
 
 clean:
 	rm -f *.o Makefile.bak Default.xpm *~ #*
