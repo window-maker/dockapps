@@ -5,7 +5,8 @@
 AM_CPPFLAGS = \
 	-DPACKAGE_LOCALE_DIR=\""$(prefix)/$(DATADIRNAME)/locale"\" \
 	-DPACKAGE_SRC_DIR=\""$(srcdir)"\" \
-	-DPACKAGE_DATA_DIR=\""$(datadir)"\" $(BUTTONMAKER_CFLAGS)
+	-DPACKAGE_DATA_DIR=\""$(datadir)"\" $(BUTTONMAKER_CFLAGS) \
+	$(DOCKAPP_CFLAGS)
 
 AM_CFLAGS =\
 	 -Wall\
@@ -14,13 +15,12 @@ AM_CFLAGS =\
 bin_PROGRAMS = buttonmaker
 
 buttonmaker_SOURCES = \
-	main.c \
-	wmgeneral.c
+	main.c
 
 buttonmaker_LDFLAGS =
 
 buttonmaker_LDADD = \
-	$(BUTTONMAKER_LIBS) \
+	$(BUTTONMAKER_LIBS) $(DOCKAPP_LIBS) \
 	-lX11 -lXpm -lXext \
 	$(X_LIBS) \
 	$(X_EXTRA_LIBS)
