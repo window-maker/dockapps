@@ -79,19 +79,6 @@ typedef struct {
 
 #define NUM_COLORS  10
 
-enum {          /* don't change the order! */
-    GRAY = 0,
-    YELLOW,
-    GREEN,
-    CYAN,
-    SKYBLUE,
-    ORANGE,
-    RED,
-    MAGENTA,
-    BROWN,
-    WHITE
-} led_colors;
-
 enum {
     F_NOT_AVAILABLE = 0,
     F_REGULAR,
