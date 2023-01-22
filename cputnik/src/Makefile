@@ -2,7 +2,12 @@
 CFLAGS			= -Wall -Os
 INCS			= -I/usr/X11R6/include/X11
 LIBS			= -L/usr/X11R6/lib -lXpm -lXext -lX11
-INSTALL_PREFIX	= /usr/local
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+MKDIR_P = mkdir -p
+INSTALL = install
+INSTALL_PROGRAM = $(INSTALL)
 
 
 all: cputnik.c docklib.o master.h mask.h
@@ -12,10 +17,11 @@ docklib.o: docklib.c docklib.h
 	gcc $(CFLAGS) $(INCS) -c docklib.c
 
 install:
-	cp ./cputnik $(INSTALL_PREFIX)/bin
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) cputnik $(DESTDIR)$(bindir)
 
 uninstall:
-	rm -f $(INSTALL_PREFIX)/bin/cputnik
+	rm -f $(DESTDIR)$(bindir)/cputnik
 
 clean:
 	rm -f *.o cputnik *~
