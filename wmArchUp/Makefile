@@ -2,7 +2,7 @@ CC=gcc
 INSTALL=install
 PREFIX=/usr/local
 CFLAGS+=-Wall -Wextra -O3 `pkg-config --cflags dockapp`
-LIBS=`pkg-config --libs dockapp`
+LIBS=`pkg-config --libs dockapp x11`
 
 wmarchup: wmarchup.o
 	$(CC) $(LDFLAGS) -o $@ $^ $(LIBS)
