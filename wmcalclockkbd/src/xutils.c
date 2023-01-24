@@ -54,6 +54,11 @@ GC		NormalGC;
 XpmIcon		wmgen;
 Pixmap		pixmask;
 
+Display		*display;
+Window		Root;
+Window		iconwin, win;
+int		screen;
+int		DisplayDepth;
 
 /*
  *  Colors for wmCalClock
