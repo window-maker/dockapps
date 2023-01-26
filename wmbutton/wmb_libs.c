@@ -98,8 +98,12 @@ void parseargs(int argc, char **argv)
 	if (!Config.Display_str)
 		Config.Display_str = "";
 
-	if (!Config.szTooltipFont)
+	if (!Config.szTooltipFont) {
+	  if (!Config.bigicon)
 		Config.szTooltipFont = TOOLTIP_FONT;
+	  else
+	    Config.szTooltipFont = TOOLTIP_FONT_18;
+	}
 
 	if (!Config.bTooltipDisable)
 		Config.bTooltipDisable = !TOOLTIP_SUPPORT;
@@ -127,6 +131,7 @@ void show_usage(void)
 	fprintf(stderr, "-m             Disable Middle Mouse functionality.\n");
 	fprintf(stderr, "-s             Swap tooltip colors.\n");
 	fprintf(stderr, "-n             Turn off tooltips.\n");
+	fprintf(stderr, "-I             Use 80x80 icons.\n");
 	fprintf(stderr, "\n");
 	exit(0);
 }
