@@ -2,6 +2,12 @@ LIBDIR = -L/usr/X11R6/lib -L/usr/lib -L/opt/gnome/lib
 LIBS   = -lXpm -lXext -lX11 `pkg-config gtk+-2.0 --libs` -ldockapp
 CFLAGS = `pkg-config gtk+-2.0 --cflags`
 OBJS =	washerDryer.o
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+MKDIR_P = mkdir -p
+INSTALL = install
+INSTALL_PROGRAM = $(INSTALL)
 
 .c.o:
 	cc -c -O2 -Wall $< -o $*.o $(CFLAGS)
@@ -24,9 +30,8 @@ install::   washerDryer
 	chmod 600 $(HOME)/.wdryerrc
 	@echo
 	@echo "Installing executable..."
-	cp -f washerDryer /usr/local/bin/
-	chmod 755 /usr/local/bin/washerDryer
-	chown root:root /usr/local/bin/washerDryer
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) washerDryer $(DESTDIR)$(bindir)/washerDryer
 	@echo
 	@echo "Installing man page..."
 	cp -f man/washerDryer.1.gz /usr/man/man1/
@@ -37,7 +42,7 @@ install::   washerDryer
 uninstall::
 	@echo
 	@echo "Removing executable..."
-	rm -f /usr/local/bin/washerDryer
+	rm -f $(DESTDIR)$(bindir)/washerDryer
 	@echo
 	@echo "Removing config file..."
 	rm -f $(HOME)/.wdryerrc
