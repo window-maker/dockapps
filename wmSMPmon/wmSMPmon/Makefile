@@ -1,9 +1,8 @@
 #(c)1999-2003 redseb
 # Adapted for wmSMPmon 2.9.x and higher: Thomas Ribbrock
 
-# Change the following two to determine installation location
-BINDIR=/usr/local/bin/
-MANDIR=/usr/local/share/man/
+# Change the following to determine installation location
+MANDIR=/usr/local/share/man
 
 OS := $(shell uname -s)
 
@@ -11,7 +10,12 @@ SRC = general.c wmSMPmon.c
 EXE = wmSMPmon
 MAN = wmSMPmon.1
 OBJ = $(SRC:.c=.o)
-INSTALL = /usr/bin/install
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+MKDIR_P = mkdir -p
+INSTALL = install
+INSTALL_PROGRAM = $(INSTALL)
 INSTALLEXEFLAGS = -m 755 -s
 INSTALLMANFLAGS = -m 644
 CC = gcc
@@ -37,6 +41,7 @@ clean:
 	rm -rf *.o
 
 install:
-	$(INSTALL) $(INSTALLEXEFLAGS) $(EXE) $(BINDIR)
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) $(INSTALLEXEFLAGS) $(EXE) $(DESTDIR)$(bindir)
 	$(INSTALL) -d $(MANDIR)/man1
 	$(INSTALL) $(INSTALLMANFLAGS) $(MAN) $(MANDIR)/man1
