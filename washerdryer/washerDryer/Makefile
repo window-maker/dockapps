@@ -34,8 +34,8 @@ install::   washerDryer
 	$(INSTALL_PROGRAM) washerDryer $(DESTDIR)$(bindir)/washerDryer
 	@echo
 	@echo "Installing man page..."
-	cp -f man/washerDryer.1.gz /usr/man/man1/
-	chmod 644 /usr/man/man1/washerDryer.1.gz
+	cp -f man/washerDryer.1.gz /usr/local/man/man1/
+	chmod 644 /usr/local/man/man1/washerDryer.1.gz
 	@echo
 	@echo "washerDryer installation finished."
 
@@ -48,7 +48,7 @@ uninstall::
 	rm -f $(HOME)/.wdryerrc
 	@echo
 	@echo "Removing man page..."
-	rm -f /usr/man/man1/washerDryer.1.gz
+	rm -f /usr/local/man/man1/washerDryer.1.gz
 	@echo
 	@echo "washerDryer uninstall finished."
 
