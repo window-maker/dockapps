@@ -33,7 +33,7 @@ fi
     echo
     echo "**Error**: You must have \`intltool' installed."
     echo "You can get it from:"
-    echo "  ftp://ftp.gnome.org/pub/GNOME/"
+    echo "  https://download.gnome.org/sources/intltool/"
     DIE=1
   }
 }
