@@ -1,4 +1,4 @@
-LIBS   = -lXpm -lXext -lX11 -lm -ldockapp
+LIBS   = -lXpm -lXext -lX11 -lm -ldockapp -liconv
 OBJS =	wmtime.o
 XPMS = wmtime-master.xpm wmtime-mask.xbm
 PREFIX = /usr/local
