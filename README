@@ -1,7 +1,54 @@
 
- Sherman's aquarium - Applet v3.0.1
+ Sherman's aquarium - Applet v3.0.2
 ====================================
 (Formly known as Aquarium applet)
+
+The software was brought back to life by me.
+
+In order to build it, you need to:
+
+First download and build GAI:
+
+```
+git clone https://github.com/norayr/gai
+cd gai
+./configure --prefix=/opt/gai
+make
+sudo make install
+```
+
+Then build shermans_aquarium with:
+
+```
+PKG_CONFIG_PATH="/opt/gai/lib/pkgconfig" ./configure --with-gai --with-gailibs=/opt/gai --prefix=/opt/aquarium
+make
+sudo make install
+```
+
+Now, make install does not install shermans/shermans_applet for some reason.
+so you need to copy it yourself:
+
+```
+sudo cp shermans/shermans_applet /opt/aquarium/bin/
+```
+
+And it runs with:
+
+
+```
+LD_LIBRARY_PATH="/opt/gai/lib" ./shermans_applet
+```
+
+or
+
+```
+LD_LIBRARY_PATH="/opt/gai/lib" /opt/aquarium/bin/shermans_applet
+```
+
+     Norayr Chilingarian <norayr@arnet.am>
+
+
+Below you'll find the original README file:
 
 This is a wm(Window maker) applet(dockapp), Gnome 2 Panel Applet and
 a XscreenSaver "hack" that gives you an aquarium with some randomly 
@@ -65,3 +112,4 @@ Sherman's aquarium home is: http://aquariumapplet.sourceforge.net
 
 Have fun,
     Jonas Aaberg <cja@gmx.net>
+
