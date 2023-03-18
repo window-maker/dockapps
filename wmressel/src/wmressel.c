@@ -326,10 +326,21 @@ char *create_submenu_label(XF86VidModeModeInfo *modeline,
 	char def[3], res[12];
 	char rr[8]="";
 	char ds[3]="";
+	char il[2]="";
+	int rrate, crrate;
 
 	label_str = malloc(sizeof(def)+sizeof(res)+sizeof(rr)+sizeof(ds)-3);
 
-	if ((current.hdisplay==modeline->hdisplay) && (current.vdisplay==modeline->vdisplay) && (dotclock==modeline->dotclock)) {
+	if ((modeline->flags) & V_DBLSCAN) {
+		rrate = modeline->dotclock*500/(modeline->htotal*modeline->vtotal);
+		crrate = dotclock*500/(current.htotal*current.vtotal);
+	} else {
+		rrate = modeline->dotclock*1000/(modeline->htotal*modeline->vtotal);
+		crrate = dotclock*1000/(current.htotal*current.vtotal);
+	}
+
+	if ((current.hdisplay==modeline->hdisplay) && (current.vdisplay==modeline->vdisplay) &&
+		(rrate==crrate) && (current.flags==modeline->flags)) {
 			sprintf(def, "* ");
 	} else {
 			sprintf(def, "  ");
@@ -338,16 +349,13 @@ char *create_submenu_label(XF86VidModeModeInfo *modeline,
 	sprintf(res, "%ix%i", modeline->hdisplay, modeline->vdisplay);
 
 	if (show_refresh_rate) {
-		if ((modeline->flags) & V_DBLSCAN) {
-			sprintf(rr, "@%iHz", modeline->dotclock*500/(modeline->htotal*modeline->vtotal));
-		} else {
-			sprintf(rr, "@%iHz", modeline->dotclock*1000/(modeline->htotal*modeline->vtotal));
-		}
+		sprintf(rr, "@%iHz", rrate);
 	}
 
 	if (show_doublescan && ((modeline->flags) & V_DBLSCAN)) sprintf (ds, " D");
+	if (modeline->flags & V_INTERLACE) sprintf (il, "i");
 
-	sprintf(label_str, "%s%s%s%s", def, res, rr, ds);
+	sprintf(label_str, "%s%s%s%s%s", def, res, il, rr, ds);
 	return (label_str);
 }
 
