@@ -147,8 +147,8 @@ int main(int argc, char **argv)
 	fg_pixel = BlackPixel(display, screen);
 
 	xsizehints.flags  = USSize | USPosition;
-	xsizehints.width  = 80;
-	xsizehints.height = 80;
+	xsizehints.width  = mask_width;
+	xsizehints.height = mask_height;
 
 	/* Parse Geometry string and fill in sizehints fields */
 	XWMGeometry(display, screen,
