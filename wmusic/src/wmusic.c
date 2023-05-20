@@ -1,6 +1,7 @@
-/*  wmusic - a xmms remote-controlling DockApp
+/*  wmusic - an MPRIS-compatible media player remote-controlling DockApp
  *  Copyright (C) 2000-2001 Bastien Nocera <hadess@hadess.net>
- *  Maintained by John Chapin <john+wmusic@jtan.com>
+ *  Copyright (C) 2002-2004 John Chapin <john+wmusic@jtan.com>
+ *  Copyright (C) 2018-2023 Window Maker Team <wmaker-dev@googlegroups.com>
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -22,6 +23,8 @@
 #define SCROLL_INTERVAL 300	/* scroll update interval in milliseconds */
 #define SEPARATOR " ** "	/* The separator for the scrolling title */
 #define DISPLAYSIZE 6		/* width of text to display (running title) */
+
+#define PLAYER_INSTANCE_FROM_LIST(x) ((PlayerctlPlayerName *)x->data)->instance
 
 #include <libdockapp/dockapp.h>
 #include <playerctl/playerctl.h>
@@ -260,6 +263,7 @@ void ActionPlay(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -274,7 +278,32 @@ void ActionPause(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
+}
+
+int CurrentPlayerIndex(GList *players)
+{
+	int i, n;
+	char *player_instance;
+
+	i = 0;
+	n = g_list_length(players);
+	g_object_get(player, "player-instance", &player_instance, NULL);
+
+	for (; i < n; i++) {
+		if (g_strcmp0(PLAYER_INSTANCE_FROM_LIST(
+				      g_list_nth(players, i)),
+			      player_instance) == 0)
+			break;
+	}
+
+	if (i == n)
+		i = -1;
+
+	g_free(player_instance);
+
+	return i;
 }
 
 void ActionEject(int x, int y, DARect rect, void *data)
@@ -282,7 +311,45 @@ void ActionEject(int x, int y, DARect rect, void *data)
 	if (data) {
 		buttonDraw(rect);
 	} else {
-		DAWarning("Eject function is no longer supported.");
+		GList *players;
+		GError *error;
+		int i, n;
+
+		error = NULL;
+		players = playerctl_list_players(&error);
+		if (error)
+			DAWarning("%s", error->message);
+		g_clear_error(&error);
+
+		n = g_list_length(players);
+		if (n > 0) {
+			if (!player)
+				i = 0;
+			else {
+				i = CurrentPlayerIndex(players);
+
+				if (i == -1) /* can't find current player */
+					i = 0;
+				else
+					i = (i + 1) % n;
+
+				g_object_unref(player);
+
+				player = playerctl_player_new_from_name(
+					g_list_nth_data(players, i), &error);
+				if (error)
+					DAWarning("Connection to player "
+						  "failed: %s", error->message);
+				g_clear_error(&error);
+
+				DAWarning("Connected to %s",
+					  PLAYER_INSTANCE_FROM_LIST(
+						  g_list_nth(players, i)));
+			}
+		}
+
+		g_list_free_full(players,
+				 (GDestroyNotify)playerctl_player_name_free);
 	}
 }
 
@@ -297,6 +364,7 @@ void ActionPrev(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -311,6 +379,7 @@ void ActionNext(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -325,6 +394,7 @@ void ActionStop(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -339,6 +409,7 @@ void ActionFastr(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -353,6 +424,7 @@ void ActionFastf(int x, int y, DARect rect, void *data)
 		if (error != NULL)
 			DAWarning("Could not execute command: %s",
 				  error->message);
+		g_clear_error(&error);
 	}
 }
 
@@ -373,6 +445,7 @@ void ToggleVol(int x, int y, DARect rect, void *data)
 {
 	double volume;
 	double factor;
+	GError *err;
 
 	g_object_get(player, "volume", &volume, NULL);
 
@@ -387,13 +460,23 @@ void ToggleVol(int x, int y, DARect rect, void *data)
 	if (volume < 0)
 		volume = 0;
 
-	g_object_set(player, "volume", volume, NULL);
+	err = NULL;
+	playerctl_player_set_volume(player, volume, &err);
+	if (err)
+		DAWarning("Error setting volume: %s", err->message);
+	g_clear_error(&err);
 }
 
 void ChangeVol(int x, int y, DARect rect, void *data)
 {
 	float volume = ((float)x)/38;
-	g_object_set(player, "volume", volume, NULL);
+	GError *err;
+
+	err = NULL;
+	playerctl_player_set_volume(player, volume, &err);
+	if (err)
+		DAWarning("Error setting volume: %s", err->message);
+	g_clear_error(&err);
 }
 
 void ToggleTime(int x, int y, DARect rect, void *data)
@@ -471,27 +554,46 @@ int PlayerConnect(void)
 {
 	GError *error = NULL;
 	static int previous_error_code = 0;
-	static char* player_name = NULL;
+	GList *players;
 
-	player = playerctl_player_new(NULL, &error);
-	if (error != NULL) {
-		/* don't spam error message */
-		if (error->code != previous_error_code)
-			DAWarning("Connection to player failed: %s",
-				  error->message);
-		previous_error_code = error->code;
-		player_name = NULL;
-		return 0;
-	} else {
-		previous_error_code = 0;
-		if (!player_name) {
-			g_object_get(player, "player_name", &player_name, NULL);
-			player_name++; /* get rid of opening dot */
+	players = playerctl_list_players(&error);
+	if (error)
+		DAWarning("%s", error->message);
+	g_clear_error(&error);
+
+	/* check that current player is still connected */
+	if (player && CurrentPlayerIndex(players) == -1) {
+		DAWarning("Disconnected from player");
+		g_object_unref(player);
+		player = NULL;
+	}
+
+	if (!player && g_list_length(players) > 0) {
+		player = playerctl_player_new_from_name(
+			g_list_nth_data(players, 0), &error);
+		if (error != NULL) {
+			/* don't spam error message */
+			if (error->code != previous_error_code)
+				DAWarning("Connection to player failed: %s",
+					  error->message);
+			previous_error_code = error->code;
+		} else {
+			char *player_name;
+
+			g_object_get(player, "player-name",
+				     &player_name, NULL);
 			if (player_name)
 				DAWarning("Connected to %s", player_name);
-		}
-		return 1;
-	}
+			g_free(player_name);
+			}
+		g_clear_error(&error);
+	} else
+		g_main_context_iteration(NULL, FALSE);
+
+	g_list_free_full(players,
+			 (GDestroyNotify)playerctl_player_name_free);
+
+	return player ? 1 : 0;
 }
 
 void DisplayRoutine()
@@ -511,49 +613,49 @@ void DisplayRoutine()
 		title_pos = 0;
 		arrow_pos = 5;
 	} else {
-		char *length_str, *position_str, *status;
+		char *length_str, *position_str;
+		PlayerctlPlaybackStatus status;
 
-		g_object_get(player, "status", &status, NULL);
-		if (status) {
-			if (!strcmp(status, "Playing") ||
-			    !strcmp(status, "Paused")) {
-				g_object_get(player, "position", &time, NULL);
-
-				title = playerctl_player_get_title(player,
-								   &error);
-				if (error != NULL)
-					DAWarning("%s", error->message);
-
-				length_str =
-					playerctl_player_print_metadata_prop(
-						player, "mpris:length", &error);
-				if (error != NULL)
-					DAWarning("%s", error->message);
-				if (length_str)
-					length = atoi(length_str);
-				else
-					length = 0;
-
-				position_str =
-					playerctl_player_print_metadata_prop(
-						player, "xesam:trackNumber",
-						&error);
-				if (error != NULL)
-					DAWarning("%s", error->message);
-				if (position_str)
-					position = atoi(position_str);
-				else
-					position = 0;
-
-				if (!strcmp(status, "Paused") && pause_norotate)
-					arrow_pos = 5;
-			} else { /* not playing or paused */
-				title = strdup("--");
-				title_pos = 0;
+		g_object_get(player, "playback-status", &status, NULL);
+		if (status == PLAYERCTL_PLAYBACK_STATUS_PLAYING ||
+		    status == PLAYERCTL_PLAYBACK_STATUS_PAUSED) {
+			if (status == PLAYERCTL_PLAYBACK_STATUS_PAUSED &&
+			    pause_norotate)
 				arrow_pos = 5;
-			}
 
-		} else { /* status undefined */
+			g_object_get(player, "position", &time, NULL);
+
+			title = playerctl_player_get_title(player,
+							   &error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+			g_clear_error(&error);
+
+			length_str =
+				playerctl_player_print_metadata_prop(
+					player, "mpris:length", &error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+			g_clear_error(&error);
+			if (length_str) {
+				length = atoi(length_str);
+				g_free(length_str);
+			} else
+				length = 0;
+
+			position_str =
+				playerctl_player_print_metadata_prop(
+					player, "xesam:trackNumber",
+					&error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+			g_clear_error(&error);
+			if (position_str) {
+				position = atoi(position_str);
+				g_free(position_str);
+			} else
+				position = 0;
+		} else { /* not playing or paused */
 			title = strdup("--");
 			title_pos = 0;
 			arrow_pos = 5;

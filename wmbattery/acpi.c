@@ -68,8 +68,8 @@ inline char *get_acpi_file(const char *file)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return NULL;
-	end = read(fd, buf, sizeof(buf));
-	buf[end-1] = '\0';
+	end = read(fd, buf, sizeof(buf) - 1);
+	buf[end] = '\0';
 	close(fd);
 	return buf;
 }
@@ -183,17 +183,13 @@ int find_items(char *itemname, char infoarray[ACPI_MAXITEM][128],
 	int i;
 	char **devices = malloc(ACPI_MAXITEM * sizeof(char *));
 
-	char pathname[128];
-
-	sprintf(pathname, SYSFS_PATH);
-
-	dir = opendir(pathname);
+	dir = opendir(SYSFS_PATH);
 	if (dir == NULL) {
 		free(devices);
 		return 0;
 	}
 	while ((ent = readdir(dir))) {
-		char filename[128];
+		char filename[sizeof(SYSFS_PATH) + 1 + sizeof(ent->d_name) + 6];
 		char buf[1024];
 
 		if (!strcmp(".", ent->d_name) ||

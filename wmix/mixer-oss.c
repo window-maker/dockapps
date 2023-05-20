@@ -179,8 +179,8 @@ static void set_mixer_state(void)
 	vb_to_lr(mixer[cur_channel].volume,
 		 mixer[cur_channel].balance, &left, &right);
 
-    dev_left_volume = (int) (100.0 * left);
-    dev_right_volume = (int) (100.0 * right);
+    dev_left_volume = (int) (100.0 * left + 0.5);
+    dev_right_volume = (int) (100.0 * right + 0.5);
     dev_lr_volume = (dev_right_volume << 8) | dev_left_volume;
     ioctl(mixer_fd, MIXER_WRITE(mixer[cur_channel].dev), &dev_lr_volume);
 }

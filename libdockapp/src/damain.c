@@ -175,6 +175,7 @@ DACreateIcon(char *name, unsigned width, unsigned height, int argc, char **argv)
 		printf("%s: can't allocate window name.\n",
 			_daContext->programName), exit(1);
 	XSetWMName(DADisplay, DALeader, &window_name);
+	XFree(window_name.value);
 
 	/* Set WMHints */
 	wmHints = XAllocWMHints();

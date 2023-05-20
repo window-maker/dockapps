@@ -12,7 +12,7 @@ NAME=wmifinfo
 VERSION=0.11
 
 CC = gcc
-LD = gcc
+LD = $(CC)
 INSTALL = install
 CFLAGS = -Wall -O2
 COPTS = -D'VERSION="$(VERSION)"' -D'NAME="$(NAME)"'

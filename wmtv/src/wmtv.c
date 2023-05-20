@@ -778,7 +778,7 @@ TVOn(void)
 	/* This part was taken from xawtv's source code */
 	switch (system("v4l-conf -q")) {
 	case -1: /* can't run */
-		fprintf(stderr,"could'nt start v4l-conf\n");
+		fprintf(stderr,"couldn't start v4l-conf\n");
 		break;
 	case 0: /* ok */
 		break;

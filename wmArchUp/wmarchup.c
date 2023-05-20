@@ -1,5 +1,5 @@
 /* Also includes Xlib, Xresources, XPM, stdlib and stdio */
-#include <dockapp.h>
+#include <libdockapp/dockapp.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>

@@ -1,3 +1,14 @@
+wmbattery (2.56)
+  * Update `dist` target to ensure config.guess and config.sub are
+    added to dist tar-balls.
+  * Remove cached install-sh and let autoreconf install it.
+
+wmbattery (2.55)
+  * Fix possible truncation when reading ACPI /proc files.
+  * Update .gitignore.
+  * Update configure.ac.
+  * Remove superfluous Makefile rules.
+
 wmbattery (2.54)
   * Fix a couple of potential memory-leaks.
     In `cmd_crit`, if there is an allocation failure, we return from the

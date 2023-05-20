@@ -170,6 +170,9 @@ main(int argc, char **argv)
 	/* set the default window size */
 	gtk_window_set_default_size(GTK_WINDOW(dock_app), icon_size, icon_size);
 
+	/* set default icon */
+	icon_file = "ico_60x060_gray.png";
+
 	if (icon_size) {
 		/* create icon_mask */
 		if (icon_size == 60) {

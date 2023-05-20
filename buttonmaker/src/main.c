@@ -29,11 +29,12 @@
 #include <X11/Xlib.h>
 #include <Imlib2.h>
 
-#include "wmgeneral.h"
+#include <libdockapp/wmgeneral.h>
 #include "pixmaps.h"
 
 char *cmd, *fname;
 int isize=50;
+GC NormalGC;
 
 /* Prototypes */
 static void print_usage(char *);

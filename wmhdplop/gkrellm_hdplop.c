@@ -238,7 +238,7 @@ static void create_plugin_tab(GtkWidget *tab_vbox)
       "http://quadaemon.free.fr\n\n"
       "Based on wmhdplop\nCopyright (c) 2003,2004 pouaite\n"
       PLUGIN_URL "\n\n"
-      "Released under the GNU Public Licence"
+      "Released under the GNU Public License"
       );
 
   tabs = gtk_notebook_new();

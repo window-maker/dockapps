@@ -7,6 +7,12 @@
 LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lX11 $(SOLARIS_LIBS) -ldockapp
 OBJS =  asmon.o $(SOLARIS_OBJS)
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+MKDIR_P = mkdir -p
+INSTALL = install
+INSTALL_PROGRAM = $(INSTALL)
 
 .c.o:
 	gcc -c -Wall $(SOLARIS) $< -o $*.o
@@ -21,4 +27,5 @@ clean::
 	rm asmon
 
 install::
-	cp -f asmon /usr/local/bin
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) asmon $(DESTDIR)$(bindir)/asmon

@@ -1,10 +1,11 @@
 srcCC ?= gcc
+PKG_CONFIG ?= pkg-config
 INSTALL = install
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 DATADIR = $(PREFIX)/share/wmcliphist
 MAN1DIR = $(PREFIX)/share/man/man1
-INCLUDES = `pkg-config --cflags gtk+-3.0 x11`
+INCLUDES = `$(PKG_CONFIG) --cflags gtk+-3.0 x11`
 
 # for normal use
 CFLAGS += -Wall -ansi -pedantic $(INCLUDES) -DDATADIR=\"$(DATADIR)\"
@@ -16,7 +17,7 @@ DEBUG =
 #CFLAGS += -Wall -g -ansi $(INCLUDES) -DFNCALL_DEBUG -DDATADIR=\"$(DATADIR)\"
 #DEBUG = debug.o
 
-LIBS = `pkg-config --libs gtk+-3.0 x11`
+LIBS = `$(PKG_CONFIG) --libs gtk+-3.0 x11`
 
 OBJECTS = wmcliphist.o clipboard.o gui.o rcconfig.o history.o hotkeys.o utils.o $(DEBUG)
 TARGET = wmcliphist

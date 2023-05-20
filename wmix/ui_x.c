@@ -93,7 +93,7 @@ static Cursor create_null_cursor(Display *x_display);
 static void draw_stereo_led(void);
 static void draw_rec_led(void);
 static void draw_mute_led(void);
-static void draw_percent(void);
+static void draw_percent(float volume);
 static void draw_knob(float volume);
 static void draw_slider(float offset);
 
@@ -590,16 +590,16 @@ static void draw_mute_led(void)
 	copy_xpm_area(65, 21, 20, 7, 39, 14);	/* turn off LCD */
 }
 
-static void draw_percent(void)
+static void draw_percent(float volume)
 {
-    int volume = (int)(mixer_get_volume() * 100);
+    int vol = (int)(volume*100 + 0.5);
 
     copy_xpm_area(0, 87, 18, 9, 41, 22);	/* clear percentage */
 
-    if (volume < 100) {
-	if (volume >= 10)
-	    copy_xpm_area((volume / 10) * 6, 67, 6, 9, 47, 22);
-	copy_xpm_area((volume % 10) * 6, 67, 6, 9, 53, 22);
+    if (vol < 100) {
+	if (vol >= 10)
+	    copy_xpm_area((vol / 10) * 6, 67, 6, 9, 47, 22);
+	copy_xpm_area((vol % 10) * 6, 67, 6, 9, 53, 22);
     } else {
 	copy_xpm_area(6, 67, 6, 9, 41, 22);
 	copy_xpm_area(0, 67, 6, 9, 47, 22);
@@ -631,7 +631,7 @@ static void draw_knob(float volume)
 
     XCopyArea(display, led_pixmap, dockapp.pixmap, dockapp.gc,
 	    0, 0, LED_WIDTH, LED_HEIGHT, led_topleft_x, led_topleft_y);
-    draw_percent();
+    draw_percent(volume);
 }
 
 static void draw_slider(float offset)

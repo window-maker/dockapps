@@ -1,7 +1,7 @@
-AC_INIT(wmhdplop, 0.9.11)
+AC_INIT([wmhdplop], [0.9.12], [wmaker-dev@googlegroups.com])
 AC_CONFIG_SRCDIR(wmhdplop.c)
 AM_INIT_AUTOMAKE
-AM_CONFIG_HEADER(config.h)
+AC_CONFIG_HEADERS([config.h])
 
 AC_SUBST(VERSION)
 
@@ -12,7 +12,6 @@ AC_CANONICAL_HOST
 
 AC_PROG_INSTALL
 AC_PROG_CC
-AC_HEADER_STDC
 
 
 AC_DEFINE(ENABLE_HDDTEMP_QUERY,[],[enable queries to hddtemp])
@@ -37,14 +36,7 @@ CFLAGS="$CFLAGS $X_CFLAGS"
 dnl Checks for library functions.
 AC_CHECK_HEADERS(linux/hdreg.h)
 
-AC_CHECK_PROG([IMLIB2_CONFIG_IN_PATH],[imlib2-config],[yes],[no])
-if test "x$IMLIB2_CONFIG_IN_PATH" = "xno"; then
-  AC_ERROR([imlib2-config not found in PATH.. You need to install Imlib2 (and its developpement package)])
-fi
-IMLIB2_CFLAGS=$(imlib2-config --cflags)
-IMLIB2_LIBS=$(imlib2-config --libs)
-AC_SUBST(IMLIB2_CFLAGS)
-AC_SUBST(IMLIB2_LIBS)
+PKG_CHECK_MODULES([IMLIB2], [imlib2])
 
 YELLOW="\\033\\1331;33m"
 RESET="\\033\\1330m"
@@ -85,7 +77,8 @@ fi
 AC_SUBST(GKHDPLOP)
 
 
-AC_OUTPUT(Makefile)
+AC_CONFIG_FILES([Makefile])
+AC_OUTPUT
 
 echo "- - - - - - - - - - - - - - - -"
 echo -e "${YELLOW}wmhdplop    will be built${RESET}"

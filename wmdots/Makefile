@@ -1,6 +1,12 @@
 LIBDIR = -L/usr/X11R6/lib
 LIBS   = -lXpm -lXext -lX11 -ldockapp
 OBJS =	wmdots.o
+prefix = /usr/local
+exec_prefix = $(prefix)
+bindir = $(exec_prefix)/bin
+MKDIR_P = mkdir -p
+INSTALL = install
+INSTALL_PROGRAM = $(INSTALL)
 
 .c.o:
 	cc -c -g -O2 -Wall $< -o $*.o
@@ -17,7 +23,5 @@ clean::
 	rm -f wmdots
 
 install::
-	cp -f wmdots /usr/local/bin/
-	chmod 755 /usr/local/bin/wmdots
-	chown root:root /usr/local/bin/wmdots
-
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(INSTALL_PROGRAM) wmdots $(DESTDIR)$(bindir)/wmdots

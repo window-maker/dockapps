@@ -1,3 +1,10 @@
+- 2.1.0
+* Updated for playerctl 2.
+* Eject button now cycles between media players.
+* When media player exits (and wmusic is run without the -R option), wmusic
+  will now try to connect to a different player.
+* Various bug fixes, including some memory leaks.
+
 - 2.0.0
 * Now maintained by the Window Maker Team.
 * Remove debian directory, spec file, and generated autotools files.
