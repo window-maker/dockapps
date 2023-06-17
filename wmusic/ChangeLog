@@ -1,3 +1,6 @@
+- 2.1.1
+* Fix integer overflow in time remaining for long tracks.
+
 - 2.1.0
 * Updated for playerctl 2.
 * Eject button now cycles between media players.
