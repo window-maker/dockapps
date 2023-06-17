@@ -663,10 +663,7 @@ void DisplayRoutine()
 	}
 
 	/*Draw everything */
-	if (t_time && length)
-		DrawTime((length - position) / 1000);
-	else
-		DrawTime(position / 1000);
+	DrawTime(t_time && length ? length - position : position);
 	DrawTrackNum(track_num);
 	DrawArrow();
 	DrawVolume();
@@ -701,7 +698,7 @@ void DrawTime(int time)
 	char *p = timestr;
 	int i=0;
 
-	time = time / 1000;
+	time /= 1000000;
 
 	/* 3 cases:
 	 *     up to 99 minutes and 59 seconds
