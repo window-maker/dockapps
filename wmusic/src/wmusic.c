@@ -60,7 +60,7 @@ void buttonPress(int button, int state, int x, int y);
 void buttonRelease(int button, int state, int x, int y);
 int PlayerConnect(void);
 void DisplayRoutine();
-void DrawPos (int pos);
+void DrawTrackNum (int track_num);
 void DrawTime(int time);
 void DrawArrow(void);
 void DrawVolume(void);
@@ -598,7 +598,7 @@ int PlayerConnect(void)
 
 void DisplayRoutine()
 {
-	int time = 0, length = 0, position = 100;
+	int time = 0, length = 0, track_num = 100;
 	char *title = NULL;
 	GError *error = NULL;
 
@@ -613,7 +613,7 @@ void DisplayRoutine()
 		title_pos = 0;
 		arrow_pos = 5;
 	} else {
-		char *length_str, *position_str;
+		char *length_str, *track_num_str;
 		PlayerctlPlaybackStatus status;
 
 		g_object_get(player, "playback-status", &status, NULL);
@@ -643,18 +643,18 @@ void DisplayRoutine()
 			} else
 				length = 0;
 
-			position_str =
+			track_num_str =
 				playerctl_player_print_metadata_prop(
 					player, "xesam:trackNumber",
 					&error);
 			if (error != NULL)
 				DAWarning("%s", error->message);
 			g_clear_error(&error);
-			if (position_str) {
-				position = atoi(position_str);
-				g_free(position_str);
+			if (track_num_str) {
+				track_num = atoi(track_num_str);
+				g_free(track_num_str);
 			} else
-				position = 0;
+				track_num = 0;
 		} else { /* not playing or paused */
 			title = strdup("--");
 			title_pos = 0;
@@ -665,7 +665,7 @@ void DisplayRoutine()
 	/*Draw everything */
 	if (t_time && length) DrawTime((length-time) / 1000);
 	else DrawTime(time / 1000);
-	DrawPos(position);
+	DrawTrackNum(track_num);
 	DrawArrow();
 	DrawVolume();
 	DrawTitle(title);
@@ -676,14 +676,15 @@ void DisplayRoutine()
 		free(title);
 }
 
-void DrawPos (int pos)
+void DrawTrackNum (int track_num)
 {
-	char posstr[16];
-	char *p = posstr;
+	char track_num_str[16];
+	char *p = track_num_str;
 	int i=1;
 
-	if (pos > 99) pos=0;
-	sprintf(posstr, "%02d", pos);
+	if (track_num > 99)
+		track_num = 0;
+	sprintf(track_num_str, "%02d", track_num);
 
 	for (;i<3; i++)
 	{
