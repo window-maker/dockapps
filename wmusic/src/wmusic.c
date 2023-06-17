@@ -61,7 +61,7 @@ void buttonRelease(int button, int state, int x, int y);
 int PlayerConnect(void);
 void DisplayRoutine();
 void DrawTrackNum (int track_num);
-void DrawTime(int time);
+void DrawTime(gint64 time);
 void DrawArrow(void);
 void DrawVolume(void);
 void DrawTitle(char *title);
@@ -598,7 +598,8 @@ int PlayerConnect(void)
 
 void DisplayRoutine()
 {
-	int position = 0, length = 0, track_num = 100;
+	gint64 position = 0, length = 0;
+	int track_num = 100;
 	char *title = NULL;
 	GError *error = NULL;
 
@@ -623,7 +624,11 @@ void DisplayRoutine()
 			    pause_norotate)
 				arrow_pos = 5;
 
-			g_object_get(player, "position", &position, NULL);
+			position = playerctl_player_get_position(player,
+								 &error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+			g_clear_error(&error);
 
 			title = playerctl_player_get_title(player,
 							   &error);
@@ -638,7 +643,8 @@ void DisplayRoutine()
 				DAWarning("%s", error->message);
 			g_clear_error(&error);
 			if (length_str) {
-				length = atoi(length_str);
+				length = g_ascii_strtoull(length_str,
+							  NULL, 10);
 				g_free(length_str);
 			} else
 				length = 0;
@@ -692,7 +698,7 @@ void DrawTrackNum (int track_num)
 	}
 }
 
-void DrawTime(int time)
+void DrawTime(gint64 time)
 {
 	char timestr[16];
 	char *p = timestr;
@@ -707,16 +713,18 @@ void DrawTime(int time)
 	 */
 	if (time < 6000)
 	{
-		sprintf(timestr, "%02d%02d", time / 60, time % 60);
-	} else {
-		if (time < 360000)
-		{
-			sprintf(timestr, "%02d%02d", time / 3600,
-					time % 3600 / 60);
-		} else {
-			sprintf(timestr, "%02d%02d", 0, 0);
-		}
+		int m = time / 60, s = time % 60;
+
+		sprintf(timestr, "%02d%02d", m, s);
 	}
+	else if (time < 360000)
+	{
+		int h = time / 3600, m = time % 3600;
+
+		sprintf(timestr, "%02d%02d", h, m);
+	}
+	else
+		strcpy (timestr, "0000");
 
 	for (;i<4; i++)
 	{
