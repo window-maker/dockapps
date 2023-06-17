@@ -598,7 +598,7 @@ int PlayerConnect(void)
 
 void DisplayRoutine()
 {
-	int time = 0, length = 0, track_num = 100;
+	int position = 0, length = 0, track_num = 100;
 	char *title = NULL;
 	GError *error = NULL;
 
@@ -623,7 +623,7 @@ void DisplayRoutine()
 			    pause_norotate)
 				arrow_pos = 5;
 
-			g_object_get(player, "position", &time, NULL);
+			g_object_get(player, "position", &position, NULL);
 
 			title = playerctl_player_get_title(player,
 							   &error);
@@ -663,8 +663,10 @@ void DisplayRoutine()
 	}
 
 	/*Draw everything */
-	if (t_time && length) DrawTime((length-time) / 1000);
-	else DrawTime(time / 1000);
+	if (t_time && length)
+		DrawTime((length - position) / 1000);
+	else
+		DrawTime(position / 1000);
 	DrawTrackNum(track_num);
 	DrawArrow();
 	DrawVolume();
