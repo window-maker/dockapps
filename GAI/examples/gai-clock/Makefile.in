@@ -1,0 +1,59 @@
+
+#
+# Template Makefile for GAI applets v0.5.x
+#
+
+CC = @CC@
+
+PREFIX = @prefix@
+GNOMEDIR = @GNOMEDIR@
+
+INSTALL_PATH=$(DESTDIR)@INSTALL_PATH@
+
+# Setting up the CFLAGS and LDFLAGS variables 
+CFLAGS += -Wall -O3 @GAI_CFLAGS@ @XMMS_CFLAGS@
+LDFLAGS += @GAI_LIBS@ @XMMS_LIBS@ @SYSTEM_SPECIFIC_LIBS@
+
+OBJS = @APPLET_NAME@.o @APPLET_EXTRA_OBJS@
+
+.PHONY: all install install-gnome install-images clean install-rox
+
+all: @APPLET_NAME@
+
+@APPLET_NAME@: $(OBJS)
+	$(CC) -o @APPLET_NAME@ $(OBJS) $(LDFLAGS)
+	strip @APPLET_NAME@
+
+install: @APPLET_NAME@ @INSTALL_GNOME@ @INSTALL_IMAGES@ @INSTALL_ROX@ @INSTALL_NLS@
+	mkdir -p $(INSTALL_PATH)/bin
+	install -m 755 @APPLET_NAME@ $(INSTALL_PATH)/bin
+	mkdir -p $(INSTALL_PATH)/share/pixmaps/
+	install -m 644 @APPLET_NAME_ICON@ $(INSTALL_PATH)/share/pixmaps
+
+install-nls:
+	(cd po; make install)
+
+install-gnome: 
+	mkdir -p $(INSTALL_PATH)/lib/bonobo/servers/
+	install -m 644 GNOME_@APPLET_NAME@Applet.server $(INSTALL_PATH)/lib/bonobo/servers/GNOME_@APPLET_NAME@Applet.server
+
+
+install-images:
+	mkdir -p $(INSTALL_PATH)/share/pixmaps/@APPLET_NAME@
+	cp -r @APPLET_IMAGES@ $(INSTALL_PATH)/share/pixmaps/@APPLET_NAME@/
+
+install-rox:
+	mkdir -p "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@"
+	rm -f "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/.DirIcon"
+	ln -s $(PREFIX)/share/pixmaps/@APPLET_NAME_ICON@ "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/.DirIcon"
+	install -m 755 AppRun "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@"
+	rm -f "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/AppletRun"
+	ln -s "@ROX_PATH@/@APPLET_NICE_NAME@/AppRun" "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/AppletRun"
+	rm -f "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/@APPLET_NAME@"
+	ln -s $(PREFIX)/bin/@APPLET_NAME@ "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/@APPLET_NAME@"
+	install -m 644 AppInfo.xml "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@"
+clean:
+	rm -rf *.o .xvpics *~ @APPLET_NAME@
+
+# Dependencies:
+@APPLET_NAME@.o: @APPLET_NAME@.c config.h

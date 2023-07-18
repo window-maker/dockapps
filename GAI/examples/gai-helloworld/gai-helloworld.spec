@@ -1,0 +1,39 @@
+%define name gai-helloworld
+%define version 0.2
+%define release 1mdk
+
+Summary: GAI Hello World!
+Name: %{name}
+Version: %{version}
+Release: %{release}
+Source0: %{name}-%{version}.tar.bz2
+License: GPL
+Group: Development/Example
+BuildRoot: %{_tmppath}/%{name}-buildroot
+Prefix: %{_prefix}
+BuildRequires: gai
+Requires: gai
+
+%description
+  This is GAI Hello world!
+%prep
+%setup -q
+sh configure --prefix=%_prefix
+
+%build
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=%buildroot
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root)
+ /*
+
+%changelog
+
+# end of file

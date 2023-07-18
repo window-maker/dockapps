@@ -1,0 +1,233 @@
+#: ../gai-pref.c:42
+msgid "Jonas"
+msgstr ""
+
+#: ../gai-pref.c:43
+msgid "Hello_fem_bananer"
+msgstr ""
+
+#: ../gai-pref.c:45 ../gai-pref.c:78
+msgid "Hello"
+msgstr ""
+
+#: ../gai-pref.c:47
+msgid "Apples"
+msgstr ""
+
+#: ../gai-pref.c:47
+msgid "Bananas"
+msgstr ""
+
+#: ../gai-pref.c:47
+msgid "Pears"
+msgstr ""
+
+#: ../gai-pref.c:48
+msgid "Strawberry"
+msgstr ""
+
+#: ../gai-pref.c:49
+msgid "Cake"
+msgstr ""
+
+#: ../gai-pref.c:49
+msgid "Milk"
+msgstr ""
+
+#: ../gai-pref.c:49
+msgid "Icecream"
+msgstr ""
+
+#: ../gai-pref.c:50
+msgid "Nuts"
+msgstr ""
+
+#: ../gai-pref.c:57
+msgid "Mounted"
+msgstr ""
+
+#: ../gai-pref.c:57
+msgid "auto-mount"
+msgstr ""
+
+#: ../gai-pref.c:57
+msgid "Source dir"
+msgstr ""
+
+#: ../gai-pref.c:58
+msgid "Mountpoint"
+msgstr ""
+
+#: ../gai-pref.c:58
+msgid "Idle time"
+msgstr ""
+
+#: ../gai-pref.c:59
+msgid "some name"
+msgstr ""
+
+#: ../gai-pref.c:64
+msgid "Good ol' iomega jaz"
+msgstr ""
+
+#: ../gai-pref.c:65
+msgid "MP3 player"
+msgstr ""
+
+#: ../gai-pref.c:76
+msgid "Book one"
+msgstr ""
+
+#: ../gai-pref.c:77
+msgid "Folder 1"
+msgstr ""
+
+#: ../gai-pref.c:80
+msgid "Banana"
+msgstr ""
+
+#: ../gai-pref.c:83
+msgid "Folder 2"
+msgstr ""
+
+#: ../gai-pref.c:84
+msgid "Kalle anka"
+msgstr ""
+
+#: ../gai-pref.c:85
+msgid "Apple"
+msgstr ""
+
+#: ../gai-pref.c:86
+msgid "Network interface:"
+msgstr ""
+
+#: ../gai-pref.c:89
+msgid "Folder 3"
+msgstr ""
+
+#: ../gai-pref.c:92
+msgid "Folder Inside"
+msgstr ""
+
+#: ../gai-pref.c:96
+msgid "Apple2"
+msgstr ""
+
+#: ../gai-pref.c:99
+msgid "Right frame"
+msgstr ""
+
+#: ../gai-pref.c:105
+msgid "Book two"
+msgstr ""
+
+#: ../gai-pref.c:108
+msgid "My checkbutton"
+msgstr ""
+
+#: ../gai-pref.c:110
+msgid ""
+"<span foreground=\"blue\" size=\"x-large\">Blue Hello</span> is <i>cool</i>!"
+msgstr ""
+
+#: ../gai-pref.c:111
+msgid "Background colour:"
+msgstr ""
+
+#: ../gai-pref.c:112
+msgid "Image file:"
+msgstr ""
+
+#: ../gai-pref.c:115
+msgid "<b>Bold stock button</b>"
+msgstr ""
+
+#: ../gai-pref.c:118
+msgid "Book three"
+msgstr ""
+
+#: ../gai-pref.c:119
+msgid "Enter your name:"
+msgstr ""
+
+#: ../gai-pref.c:121
+msgid "Some value"
+msgstr ""
+
+#: ../gai-pref.c:122
+msgid "Float values"
+msgstr ""
+
+#: ../gai-pref.c:123
+msgid "Options:"
+msgstr ""
+
+#: ../gai-pref.c:124
+msgid "Secret"
+msgstr ""
+
+#: ../gai-pref.c:126
+msgid "ListStore Text"
+msgstr ""
+
+#: ../gai-pref.c:133
+msgid "ListStore Text - Edit"
+msgstr ""
+
+#: ../gai-pref.c:151
+#, c-format
+msgid ""
+"Text entry returns:%s\n"
+"Check button returns: %d\n"
+msgstr ""
+
+#: ../gai-pref.c:153
+#, c-format
+msgid "Combo box (%d)\n"
+msgstr ""
+
+#: ../gai-pref.c:155
+#, c-format
+msgid "Entry %d is: %s\n"
+msgstr ""
+
+#: ../gai-pref.c:159
+#, c-format
+msgid "Radio button choise is: %d\n"
+msgstr ""
+
+#: ../gai-pref.c:160
+#, c-format
+msgid "File selector result is: %s\n"
+msgstr ""
+
+#: ../gai-pref.c:161
+#, c-format
+msgid "Option menu result is: %d\n"
+msgstr ""
+
+#: ../gai-pref.c:162
+#, c-format
+msgid "Password entry is: %s\n"
+msgstr ""
+
+#: ../gai-pref.c:163
+#, c-format
+msgid "Spin button float: %f\n"
+msgstr ""
+
+#: ../gai-pref.c:164
+#, c-format
+msgid "Spin button: %d\n"
+msgstr ""
+
+#: ../gai-pref.c:193
+msgid "Hello, this is a preference window"
+msgstr ""
+
+#: ../gai-pref.c:194
+msgid ""
+"Example code for the prefrence window generator\n"
+"Try it from the commandprompt to see how it works.\n"
+msgstr ""

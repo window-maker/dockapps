@@ -1,0 +1,389 @@
+dnl
+dnl Template Configure script for "General applet interface" applets
+dnl version 0.5.9
+dnl Written by Jonas Aaberg <cja@gmx.net> 2002-2005
+dnl
+dnl run autoconf to generate a configure script from this file.
+dnl
+
+AC_PREREQ(2.13)
+AC_INIT()
+
+dnl **************************************************************************
+dnl                 Change those things between the star lines.
+dnl ***************************************************************************
+
+dnl This is the name of your applet, low level. $(APPLET_NAME).c is the main
+dnl c file. 
+APPLET_NAME="gai-helloworld"
+
+dnl The version of your applet
+APPLET_VERSION="0.2"
+
+dnl The display name in the gnome 2 menu and for the About box.
+APPLET_NICE_NAME="GAI Helloworld"
+
+dnl Your name and email for the "Written by " field in the about box
+APPLET_AUTHOR="Jonas Aaberg, <cja@gmx.net>"
+
+dnl Change the group. (This is just for gnome)
+dnl Valid groups are: 
+dnl "Accessories", "Amusements", "Internet", "Multimedia" and "Utility"
+APPLET_GROUP="Accessories"
+
+dnl The name file of the icon for the menu.
+APPLET_NAME_ICON="gai-helloworld-icon.png"
+
+dnl Images to install.
+APPLET_IMAGES=""
+
+dnl A one line description for the gnome menu.
+APPLET_DESCRIPTION_SHORT="GAI - Hello World!"
+
+dnl This is the text displayed in the about box.
+APPLET_DESCRIPTION="A GAI Hello World example applet"
+
+dnl This is for the license line in the about box.
+APPLET_LICENSE="Released under GNU GPL"
+
+dnl Version of GAI that is required
+APPLET_REQUIRES_GAI_VERSION="0.5.9"
+
+dnl Add here if your applet depends on more than on .c file
+dnl example: "utils.o"
+APPLET_EXTRA_OBJS=""
+
+dnl Require OpenGL support (yes or no)
+APPLET_GL=no
+
+dnl Require XMMS (yes or no or checkfor)
+APPLET_XMMS=no
+
+dnl Leave blank if the applet is os independent, else
+dnl set it to "LINUX" "DARWIN" "FREEBSD" and so on.
+dnl More than one os is not supported at the moment.
+APPLET_OS=
+
+dnl The applet has NLS information
+APPLET_NLS=no
+
+dnl ****************************************************************************
+
+AC_PROG_CC
+AC_SUBST(APPLET_NAME)
+AC_SUBST(APPLET_EXTRA_OBJS)
+AC_SUBST(APPLET_VERSION)
+AC_SUBST(APPLET_NICE_NAME)
+AC_SUBST(APPLET_AUTHOR)
+AC_SUBST(APPLET_GROUP)
+AC_SUBST(APPLET_NAME_ICON)
+AC_SUBST(APPLET_IMAGES)
+AC_SUBST(APPLET_DESCRIPTION_SHORT)
+AC_SUBST(APPLET_DESCRIPTION)
+AC_SUBST(APPLET_LICENSE)
+
+
+if test x$APPLET_NLS = xyes ; then
+
+   with_nls=yes
+   AC_MSG_CHECKING(whether to include nls support)
+
+   AC_ARG_ENABLE(nls, [  --disable-nls	  Compile the library without NLS support],
+	 	      [with_nls="$enableval"],
+		      [with_nls=yes])
+
+   if test x$with_nls = xno; then
+      AC_MSG_RESULT(no)
+   else
+     AC_MSG_RESULT(yes)
+   fi
+else
+  with_nls=no
+fi
+
+
+dnl OS check
+
+AC_MSG_CHECKING(operating system)
+OSTYPE=`uname -s`
+AC_MSG_RESULT($OSTYPE)
+HOST="UNKNOWN"
+OSVERSION=""
+
+SYSTEM_SPECIFIC_LIBS=
+case $OSTYPE in
+
+     Linux)
+	HOST="LINUX"
+	AC_MSG_CHECKING(Linux version)
+	LINUXVERSION=`uname -r`
+	AC_MSG_RESULT($LINUXVERSION)
+	MINOR=`uname -r | sed 's/\([[0-9]]*\).\([[0-9]]*\).*/\2/'`
+	OSVERSION="#define LINUX2"$MINOR
+	;;
+     Darwin)
+        HOST="DARWIN"
+	;;
+     FreeBSD)
+	HOST="FREEBSD"
+	SYSTEM_SPECIFIC_LIBS="-lkvm"
+	;;
+     OpenBSD)
+	HOST="OPENBSD"
+	;;
+     NetBSD)
+        HOST="NETBSD"
+	;;
+     SunOS)
+        HOST="SUNOS"
+	;;
+esac
+
+if test x$APPLET_OS != x ; then
+    if test x$APPLET_OS != x$HOST ; then
+	AC_MSG_ERROR(Unsupported OS! 
+This applet contains $APPLET_OS specific code that will not run on $HOST
+Please contact the applet author if you are interested to help with add 
+support for your OS.)
+    fi
+fi
+
+AC_SUBST(OSVERSION)
+AC_SUBST(HOST)
+AC_SUBST(SYSTEM_SPECIFIC_LIBS)
+
+
+dnl gai
+
+AC_CHECK_PROG(PKGCONF, pkg-config, true, false)
+
+if $PKGCONF ; then
+    AC_MSG_CHECKING(for gai)
+    if `pkg-config --exists gai`  ; then
+	AC_MSG_RESULT(yes)
+	GAI_CFLAGS=`pkg-config --cflags gai`
+	GAI_LIBS=`pkg-config --libs gai`
+    else
+        AC_MSG_RESULT(not found
+You can download GAI from http://gai.sf.net
+If you are sure that you have installed GAI please make sure that the gai.pc
+file did end up in /usr/lib/pkgconfig or some directory that pkg-config 
+knows about.
+(Default gai.pc ends up in /usr/local/lib/pkgconfig.))
+	AC_MSG_ERROR(GAI not found!)
+
+    fi
+else
+    AC_MSG_ERROR("can not find pkg-config!")
+fi
+
+dnl gai version
+AC_MSG_CHECKING(for gai version >= $APPLET_REQUIRES_GAI_VERSION)
+if `pkg-config gai --atleast-version $APPLET_REQUIRES_GAI_VERSION` ; then
+   AC_MSG_RESULT(yes)
+else
+   AC_MSG_RESULT(no)
+   AC_MSG_ERROR(A newer version of gai is required!\nPlease visit http://gai.sf.net)
+fi
+
+AC_SUBST(GAI_CFLAGS)
+AC_SUBST(GAI_LIBS)
+
+
+dnl OpenGL
+GL=
+
+if test x$APPLET_GL = xyes ; then
+   AC_MSG_CHECKING(if gai is compiled with OpenGL (gtkglext) support)
+
+   if test `pkg-config gai --variable=gl` = yes; then
+      AC_MSG_RESULT(yes)
+      GL="#define GL"
+   else
+      AC_MSG_RESULT(no)
+      AC_MSG_ERROR(This applet require that gai is compiled with gtkglext!)
+   fi 
+fi
+AC_SUBST(GL)
+
+dnl Gnome support
+AC_MSG_CHECKING(if gai is compiled with gnome support)
+
+INSTALL_GNOME=
+GNOME_SERVER=
+
+if test `pkg-config gai --variable=gnome` = yes; then
+    AC_MSG_RESULT(yes)
+
+    AC_MSG_CHECKING([for gnome prefix])
+    with_gnome_prefix=`(pkg-config --variable=prefix libpanelapplet-2.0) 2>/dev/null`
+    if test $? -ne 0; then
+       with_gnome_prefix='${prefix}'
+    fi
+    AC_MSG_RESULT([$with_gnome_prefix])
+
+    GNOMEDIR=$with_gnome_prefix
+    INSTALL_GNOME=install-gnome
+    INSTALL_PATH='$(GNOMEDIR)'
+
+    GNOMESERVER=`echo -n GNOME_$APPLET_NAME;echo -n "Applet.server"`
+    cat >$GNOMESERVER.in << EOF
+<oaf_info>
+	<oaf_server iid="OAFIID:GNOME_@APPLET_NAME@Applet_Factory" type="exe" location="@GNOMEDIR@/bin/@APPLET_NAME@">
+		<oaf_attribute name="repo_ids" type="stringv">
+			<item value="IDL:Bonobo/GenericFactory:1.0"/>
+			<item value="IDL:Bonobo/Unknown:1.0"/>
+		</oaf_attribute>
+		<oaf_attribute name="name" type="string" value="@APPLET_NAME@ applet Factory"/>
+		<oaf_attribute name="description" type="string" value="Factory for @APPLET_NAME@ applet"/>
+	</oaf_server>
+
+	<oaf_server iid="OAFIID:GNOME_@APPLET_NAME@Applet" type="factory" location="OAFIID:GNOME_@APPLET_NAME@Applet_Factory">
+		<oaf_attribute name="repo_ids" type="stringv">
+			<item value="IDL:GNOME/Vertigo/PanelAppletShell:1.0"/>
+			<item value="IDL:Bonobo/Control:1.0"/>
+			<item value="IDL:Bonobo/Unknown:1.0"/>
+		</oaf_attribute>
+		<oaf_attribute name="name" type="string" value="@APPLET_NICE_NAME@"/>
+		<oaf_attribute name="description" type="string" value="@APPLET_DESCRIPTION_SHORT@"/>
+		<oaf_attribute name="panel:category" type="string" value="@APPLET_GROUP@"/>
+		<oaf_attribute name="panel:icon" type="string" value="@APPLET_NAME_ICON@"/>
+	</oaf_server>
+</oaf_info>
+EOF
+
+
+else
+    AC_MSG_RESULT(no)
+    if test x$prefix = xNONE ; then
+	GNOMEDIR=/usr/local/
+	INSTALL_PATH=/usr/local/
+    else
+	GNOMEDIR=$prefix
+	INSTALL_PATH=$prefix
+    fi
+fi 
+
+AC_SUBST(GNOMEDIR)
+AC_SUBST(INSTALL_GNOME)
+AC_SUBST(INSTALL_PATH)
+
+ROX_APPRUN=
+ROX_APPINFO=
+INSTALL_ROX=
+ROX_PATH=
+dnl ROX
+AC_MSG_CHECKING(if gai knows about the ROX panel)
+if test `pkg-config gai --variable=rox` = yes; then
+    AC_MSG_RESULT(yes)
+    ROX_APPRUN=AppRun
+
+    cat >AppRun.in << EOF
+#!/bin/sh
+# Slightly modified by Jonas Aaberg <cja@gmx.net> to suit GAI applets.
+
+PROG=@APPLET_NAME@
+
+APP_DIR=\`dirname "\$0"\`
+APP_DIR=\`cd "\$APP_DIR";pwd\`; export APP_DIR
+
+BIN="\$APP_DIR/\$PROG"
+
+exec "\$BIN" --gai-rox "\$@"
+EOF
+
+    ROX_APPINFO=AppInfo.xml
+
+    cat >AppInfo.xml.in << EOF
+<?xml version="1.0"?>
+<AppInfo>
+  <Summary>@APPLET_DESCRIPTION_SHORT@</Summary>
+</AppInfo>
+
+EOF
+
+
+    INSTALL_ROX=install-rox
+    ROX_PATH=`pkg-config gai --variable=roxpath`
+    AC_MSG_CHECKING(for ROX path)
+    AC_MSG_RESULT($ROX_PATH)
+else
+    AC_MSG_RESULT(no)
+fi
+
+AC_SUBST(INSTALL_ROX)
+AC_SUBST(ROX_PATH)
+
+dnl images
+if test x$APPLET_IMAGES = x; then
+   INSTALL_IMAGES=
+else
+   INSTALL_IMAGES=install-images
+fi
+AC_SUBST(INSTALL_IMAGES)
+
+
+dnl Setup image path and icon
+APPLET_IMAGE_PATH=$GNOMEDIR/share/pixmaps/$APPLET_NAME
+AC_SUBST(APPLET_IMAGE_PATH)
+APPLET_ICON=$GNOMEDIR/share/pixmaps/$APPLET_NAME_ICON
+AC_SUBST(APPLET_ICON)
+
+dnl XMMS
+XMMS=
+XMMS_CFLAGS=
+XMMS_LIBS=
+
+if test x$APPLET_XMMS = xyes ; then
+   AC_CHECK_PROG(XMMS_CONFIG, xmms-config, true, false)
+
+   if $XMMS_CONFIG ; then
+      XMMS_CFLAGS=`xmms-config --cflags`
+      XMMS_LIBS=`xmms-config --libs`
+      XMMS="#define XMMS"
+   else
+      AC_MSG_ERROR("can not find xmms-config! XMMS installed?")
+   fi
+fi
+if test x$APPLET_XMMS = xcheckfor ; then
+   AC_CHECK_PROG(XMMS_CONFIG, xmms-config, true, false)
+
+   if $XMMS_CONFIG ; then
+      XMMS_CFLAGS=`xmms-config --cflags`
+      XMMS_LIBS=`xmms-config --libs`
+      XMMS="#define XMMS"
+   fi
+fi
+AC_SUBST(XMMS_CFLAGS)
+AC_SUBST(XMMS_LIBS)
+AC_SUBST(XMMS)
+
+REMARK="This file is autogenerated by the configure script."
+REMARK2="So do not add things you want permanent here."
+AC_SUBST(REMARK)
+AC_SUBST(REMARK2)
+
+GETTEXT_PACKAGE=$APPLET_NAME
+AC_SUBST(GETTEXT_PACKAGE)
+
+NLS_OUT=
+INSTALL_NLS=
+dnl NLS
+if test x$with_nls = xyes ; then
+	GETTEXT_PACKAGE=$APPLET_NAME
+	AC_SUBST(GETTEXT_PACKAGE)
+	AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
+
+	ALL_LINGUAS="de"
+	AC_SUBST(ALL_LINGUAS)
+	AM_GLIB_GNU_GETTEXT
+
+	slicelocaledir='${prefix}/${DATADIRNAME}/locale'
+	AC_SUBST(slicelocaledir)
+        NLS_OUT=po/Makefile
+        INSTALL_NLS=install-nls
+fi
+AC_SUBST(INSTALL_NLS)
+AC_OUTPUT($GNOMESERVER $ROX_APPRUN $ROX_APPINFO Makefile config.h $NLS_OUT)
+
+

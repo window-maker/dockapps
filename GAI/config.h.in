@@ -1,0 +1,34 @@
+
+/* Config.h for GAI */
+
+
+#define HOST @HOST@
+#define VERSION "@GAI_VERSION@"
+/* GAI_WITH_GL */
+@GL@
+
+/* GAI_WITH_JOYSTICK */
+@JOYSTICK@
+
+/* GAI_WITH_ROX */
+@ROX@
+
+/* GAI_WITH_GNOME */
+@GNOME@
+
+/* GTK+ 2.4. x*/
+@GTK24@
+
+/* GTK+ 2.6.x */
+@GTK26@
+
+/* PACKAGE LOCALE DIR */
+#define GAILOCALEDIR "@prefix@/share/locale"
+#define GETTEXT_PACKAGE "@GETTEXT_PACKAGE@"
+
+@ENABLE_NLS@
+
+#ifdef ENABLE_NLS
+#define BONOBO_EXPLICIT_TRANSLATION_DOMAIN "@GETTEXT_PACKAGE@"
+#endif
+

@@ -1,0 +1,71 @@
+
+
+ Future plans
+==============
+
+ 0.5.x serie:
+-------------
+ - Update documentation - Preference window guide. (Just started.)
+ - Verify that as many windowmangers as possible works.
+ - KDE docking seems not to work (Eric reported) (Not verified)
+ - Allow size requests for dockapps. (Partly done, but behaves abit odd.)
+ - Be able to change the preference window on the fly.
+ - Make sure ROX panel support works good.
+ - "withdraw" docking mode for window maker (see wmrack)
+ - Fix so that applets started before a windowmanager gets docked. (Greg's fluxbox)
+ - dpi option for fonts.
+ - Test gnome 2.6 & 2.8
+ - fix *-this options.
+ - Notification area on KDEs Kicker something useful?
+ 
+Planned changed for 0.6.0 serie
+--------------------------------
+ - Use ~/.gai instead of ~/.gnome (Some automagical import function?)
+ - Introduce ~/.gai/private and safty options
+ - Cryptation of sensitive data. (Library?)
+ - gai_get_* -> gai_*_get; (Like: gai_get_orient -> gai_orient_get)
+ - gai_load_raw_data_with_default(..) instead of gai_load_raw_data(..)
+ - gai_init -> removed or gai_init_develop? gai_init_simple?
+ - gai_init2 -> gai_init
+ - gai_about_text_from(..) removed.
+ - Add possibility to add a function BEFORE the preference window is
+   displayed, if something has to be taken care of.
+ - keep gai_signal*(.. GPOINTER D)? Any use of GPOINTER D? I doubt.
+ - gai_draw_raw_alpha -> gai_draw_raw(has_alpha)
+ - Look over GaiCallback* and void * and see when they are needed.
+ - gboolean is not needed to be return from gai_signal.
+ - Maybe change to one gai_signal with options instead of many.
+ - Change some int to enum.
+ - mouse_button_click -> mouse_button_press
+ - GAI control center?
+ - gai server to make the applets talk with each other? 
+ - Man pages for each function call.
+
+ Sometime:
+-----------
+ - Investigate text entry on applets.
+ - Investigate transperency levels for dockapp and gnome.
+ - Investigate if it's possible to change the menu entries during
+   runtime in gnome.
+ - OpenGL in WindowMaker & Gnome Panel
+ - Invesitage possibility to make GAI applets run on:
+   - KDE panel -  Kicker (shared library)
+   - Gkrellm (shared library)
+   - xfce4 (shared library)
+ - Write tutorial.
+ - Converting the html reference guide to XML to it can be converted into
+   man pages.
+ - Investigate why GTK theme changes behaves like it does.
+ - Nice configuration window for all applets including general settings.
+ - Internationalization. Personally, I happy with having everything in
+   english(with swedish and german dictionaries installed) so I believe
+   I will not do anything on this level. But I'm willing to help if someone
+   would like to put energy into it.
+  
+ Preference rewrite (gai_preferences2)
+--------------------------------------------------------
+ - OptionMenu widgets isn't sized correctly at start up. (Done with gtk+ >=2.4)
+ - Support the new gtk+ 2.4.0 input widgets. (Done)
+ - Add hscale/vscale widget
+ - Alignments are not working as they should.
+

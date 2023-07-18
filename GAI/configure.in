@@ -1,0 +1,429 @@
+
+dnl
+dnl Configure script for General Applet Interface 
+dnl Written by Jonas Aaberg <cja@gmx.net> 2002-2005
+dnl
+
+AC_PREREQ([2.71])
+AC_INIT
+AC_CONFIG_SRCDIR([gai/gai.c])
+
+
+AC_PROG_CC
+AC_SEARCH_LIBS([strerror],[cposix])
+m4_warn([obsolete],
+[The preprocessor macro `STDC_HEADERS' is obsolete.
+  Except in unusual embedded environments, you can safely include all
+  ISO C90 headers unconditionally.])dnl
+# Autoupdate added the next two lines to ensure that your configure
+# script's behavior did not change.  They are probably safe to remove.
+AC_CHECK_INCLUDES_DEFAULT
+AC_PROG_EGREP
+
+AC_HEADER_SYS_WAIT
+
+
+dnl
+GAI_MAJOR=0
+GAI_MINOR=5
+GAI_MICRO=10
+
+GAI_VERSION="$GAI_MAJOR.$GAI_MINOR.$GAI_MICRO"
+AC_SUBST(GAI_VERSION)
+AC_SUBST(GAI_MAJOR)
+AC_SUBST(GAI_MINOR)
+AC_SUBST(GAI_MICRO)
+
+dnl - Flags
+with_gnome=yes
+AC_MSG_CHECKING(whether to try to include gnome support)
+AC_ARG_ENABLE(gnome, [  --disable-gnome	  Compile the library without gnome support],
+		     [with_gnome="$enableval"],
+		     [with_gnome=yes])
+
+if test x$with_gnome = xno; then
+   GNOME_CONFIG="gnome-config.o gnome-util.o"
+   AC_MSG_RESULT(no)
+else
+   GNOME_CONFIG=
+   AC_MSG_RESULT(yes)
+fi
+
+with_gl=yes
+AC_MSG_CHECKING(whether to try to include OpenGL support)
+AC_ARG_ENABLE(gl, [  --disable-gl	  Compile the library without OpenGL support],
+		  [with_gl="$enableval"],
+		  [with_gl=yes])
+
+
+if test x$with_gl = xno; then
+   AC_MSG_RESULT(no)
+else
+   AC_MSG_RESULT(yes)
+fi
+
+
+with_sdl=yes
+AC_MSG_CHECKING(whether to try to include SDL(Joystick) support)
+
+AC_ARG_ENABLE(sdl, [  --disable-sdl	  Compile the library without SDL support(No Joystick)],
+	 	   [with_sdl="$enableval"],
+		   [with_sdl=yes])
+
+
+if test x$with_sdl = xno; then
+   AC_MSG_RESULT(no)
+else
+   AC_MSG_RESULT(yes)
+fi
+
+
+with_rox=yes
+AC_MSG_CHECKING(whether to try to include ROX Panel support)
+
+AC_ARG_ENABLE(rox, [  --disable-rox	  Compile the library without ROX Panel support],
+	 	   [with_rox="$enableval"],
+		   [with_rox=yes])
+
+if test x$with_rox = xno; then
+   AC_MSG_RESULT(no)
+else
+   AC_MSG_RESULT(yes)
+fi
+
+with_nls=yes
+AC_MSG_CHECKING(whether to include nls support)
+
+AC_ARG_ENABLE(rox, [  --disable-nls	  Compile the library without NLS support],
+	 	   [with_nls="$enableval"],
+		   [with_nls=yes])
+
+if test x$with_nls = xno; then
+   AC_MSG_RESULT(no)
+else
+   AC_MSG_RESULT(yes)
+fi
+
+
+
+dnl OS check
+
+
+
+AC_MSG_CHECKING(operating system)
+OSTYPE=`uname -s`
+AC_MSG_RESULT("$OSTYPE")
+HOST="UNKNOWN"
+
+SYSTEM_SPECIFIC_LIBS="-shared -Wl,-soname=libgai.so.$GAI_MAJOR"
+LIB_END=".so"
+LIB_START=".so"
+LIB_DARWIN=""
+
+case $OSTYPE in
+
+     Linux)
+	HOST="LINUX"
+	;;
+     Darwin)
+        HOST="DARWIN"
+	SYSTEM_SPECIFIC_LIBS="-dynamiclib -compatibility_version $GAI_MAJOR.$GAI_MINOR.$GAI_MICRO -current_version $GAI_MAJOR.$GAI_MINOR.$GAI_MICRO -install_name $prefix/lib/libgai.$GAI_MAJOR.dylib"
+        LIB_END=".dylib"
+	LIB_DARWIN=".dylib"
+	LIB_START=""
+	;;
+
+dnl I have no idea about the *BSD settings.
+     FreeBSD)
+	HOST="FREEBSD"
+	;;
+     OpenBSD)
+	HOST="OPENBSD"
+	;;
+     SunOS)
+        HOST="SUNOS"
+	SYSTEM_SPECIFIC_LIBS="-G -Wl,-soname=libgai.so.$GAI_MAJOR"
+	;;
+     NetBSD)
+        HOST="NETBSD"
+	;;
+esac
+AC_SUBST(HOST)
+AC_SUBST(SYSTEM_SPECIFIC_LIBS)
+AC_SUBST(LIB_END)
+AC_SUBST(LIB_START)
+AC_SUBST(LIB_DARWIN)
+
+
+dnl Checking for X header file.
+
+AC_CHECK_HEADER(/usr/include/X11/X.h, [], [
+       AC_MSG_ERROR(No header files for X windows is found. Is xlib devel installed?)
+])
+
+
+
+dnl GTK v2.x.x
+
+GTK24=
+GTK26=
+
+AC_CHECK_PROG(PKGCONF, pkg-config, true, false)
+
+if $PKGCONF ; then
+    AC_MSG_CHECKING(for gtk+ version 2.0.x/2.2.x)
+    if `pkg-config --exists gtk+-2.0` ; then
+	AC_MSG_RESULT(yes)
+	GTK_CFLAGS=`pkg-config --cflags gtk+-2.0`
+	GTK_LIBS=`pkg-config --libs gtk+-2.0`
+	GTRHEAD_CFLAGS=`pkg-config --cflags gthread-2.0`
+	GTHREAD_LIBS=`pkg-config --libs gthread-2.0`
+	GTK_MINORVERSION=`pkg-config --modversion gtk+-2.0 | sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+	if test $GTK_MINORVERSION -ge 4 ; then
+	   GTK24="#define GTK24"
+	fi
+	if test $GTK_MINORVERSION -ge 6 ; then
+	   GTK26="#define GTK26"
+	fi
+
+    else
+	AC_MSG_RESULT(no)
+	AC_CHECK_LIB(gtk-x11-2.0, gtk_init, [
+	    AC_MSG_ERROR(You need to install the GTK+ 2.x devel package!)
+	], [
+	    AC_MSG_ERROR(GTK+ 2.0 or later is missing. It is required! Visit http://www.gtk.org)
+	])
+
+	AC_MSG_ERROR(gtk+ 2.0 or later is required! Development packages installed?)
+    fi
+
+    AC_MSG_CHECKING(for Pango with FreeType2 support)
+    if `pkg-config --exists pangoft2` ; then
+        PANGO_CFLAGS=`pkg-config --cflags pangoft2`
+	PANGO_LIBS=`pkg-config --libs pangoft2`
+        AC_MSG_RESULT(yes)
+    else
+	AC_MSG_RESULT(no)
+        AC_MSG_ERROR(Pango is not compiled with support for FreeType 2. Freetype can be found at www.freetype.org)
+    fi
+
+
+    
+else
+    AC_MSG_ERROR(Cannot find pkg-config! It is required for compiling GTK+ v2.x programs.)
+fi
+AC_SUBST(GTK24)
+AC_SUBST(GTK26)
+
+GNOME=
+GNOME_CFLAGS=
+GNOME_LIBS=
+GNOME_HEADER_MISSING=
+
+gnome_installed=no
+if test x$with_gnome = xyes ; then
+   AC_MSG_CHECKING(for gnome version 2.x)
+   if `pkg-config --exists libpanelapplet-2.0` ; then
+       AC_MSG_RESULT(yes)
+
+       GNOME_CFLAGS=`pkg-config --cflags libpanelapplet-2.0`
+       GNOME_LIBS=`pkg-config --libs libpanelapplet-2.0`
+       GTK_CFLAGS=
+       GTK_LIBS=  
+       gnome_installed=yes  
+       GNOME="#define GAI_WITH_GNOME"
+       REQ_PC=libpanelapplet-2.0
+
+       AC_MSG_CHECKING(for gnome version 2.4.x)
+       if `pkg-config --atleast-version=2.4.0 libpanelapplet-2.0` ; then
+	  AC_MSG_RESULT(yes)
+       else
+          AC_MSG_RESULT(no)
+       fi
+       
+   else
+	AC_CHECK_LIB(gnome-2, gnome_program_init, [
+	    AC_MSG_RESULT(You need to install the libpanelapplet devel package in order to use GAI and GNOME!)
+	    GNOME_HEADER_MISSING="(devel package of libpanelapplet is missing)"
+	], [
+	    AC_MSG_RESULT(no)
+	])
+
+       GNOME_CONFIG="gai-gnome-config.o gai-gnome-util.o"
+       with_gnome=no
+       REQ_PC=
+   fi 
+fi
+GL=
+gl_installed=no
+REQ_PC_GL=
+if test x$with_gl = xyes ; then
+   AC_MSG_CHECKING(for gtkglext-1.0.x)
+   if `pkg-config --exists gtkglext-1.0` ; then
+       AC_MSG_RESULT(yes)
+       GL_CFLAGS=`pkg-config --cflags gtkglext-1.0`
+       GL_LIBS=`pkg-config --libs gtkglext-1.0`
+       gl_installed=yes  
+       GL="#define GAI_WITH_GL"
+       REQ_PC_GL=gtkglext-1.0
+       AC_DEFINE(HAVE_GL,1,"have gl")
+
+   else
+       AC_MSG_RESULT(no)
+       with_gl=no
+   fi 
+fi
+
+SDL_CFLAGS=
+SDL_LIBS=
+JOYSTICK=
+
+if test x$with_sdl = xyes ; then
+   AC_CHECK_PROG(SDLCONF, sdl-config, true, false)
+
+   if $SDLCONF ; then
+      sdl_version=`sdl-config --version`
+      AC_MSG_CHECKING([for SDL version ($sdl_version) >= 1.2.0])
+      dnl copied from yawmppp that copied it from gtk+'s aclocal.m4. These guys must love sed
+      SDL_MAJOR=`sdl-config --version | \
+		 sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\1/'`
+      SDL_MINOR=`sdl-config --version | \
+	         sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\2/'`
+      SDL_MICRO=`sdl-config --version | \
+		 sed 's/\([[0-9]]*\).\([[0-9]]*\).\([[0-9]]*\)/\3/'`
+      SDL_FINE=1
+
+      if test $SDL_MAJOR -eq 1 ; then
+	 if test $SDL_MINOR -eq 2 ; then
+	     SDL_FINE=1;
+	 else
+	     SDL_FINE=0;
+         fi      
+      else
+	 SDL_FINE=0
+      fi   
+
+      if test $SDL_FINE = 1 ; then
+	 with_sdl=yes
+	 SDL_CFLAGS=`sdl-config --cflags`
+	 SDL_LIBS=`sdl-config --libs`
+	 JOYSTICK="#define GAI_WITH_JOYSTICK"
+	 AC_MSG_RESULT(yes)
+      else
+	 with_sdl=no
+	 AC_MSG_RESULT(no)
+      fi
+  fi
+fi
+
+AC_SUBST(SDL_CFLAGS)
+AC_SUBST(SDL_LIBS)
+AC_SUBST(JOYSTICK)
+
+
+
+
+
+
+ROX=
+ROX_OBJ=
+ROX_PATH=
+dnl Check for ROX
+if test x$with_rox = xyes ; then
+    dnl Check for ROX itself
+    AC_CHECK_PROG(HAVEROX, rox, true, false)
+    if $HAVEROX ; then
+        with_rox=yes
+	ROX_FILE=`which rox`
+	dnl Sedding..
+	ROX_PATH=`cat $ROX_FILE |grep exec | sed 's/exec //'| sed 's/AppRun \"\W\W\"//' | sed 's/\WROX-Filer\W//'`
+	ROX="#define GAI_WITH_ROX"
+        ROX_OBJ=gai-rox.o
+    else
+        with_rox=no
+    fi
+fi
+
+
+dnl INTL stuff
+po_clean=
+po_install=
+if test x$with_nls = xyes ; then
+
+   dnl AC_PROG_INTLTOOL([0.23])
+   GETTEXT_PACKAGE=gai
+   AC_SUBST(GETTEXT_PACKAGE)
+   AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE")
+   dnl Languages to install
+   ALL_LINGUAS="de"
+
+   AM_GLIB_GNU_GETTEXT
+
+   gailocaledir='${prefix}/share/locale'
+           
+   AC_SUBST(gailocaledir)
+
+   ENABLE_NLS="#define ENABLE_NLS"
+   AC_SUBST(ENABLE_NLS)
+   po_install=po_install
+   po_clean=po_clean
+fi
+
+AC_SUBST(po_install)
+AC_SUBST(po_clean)
+
+dnl end of INTL stuff
+
+AC_SUBST(with_rox)
+AC_SUBST(ROX_PATH)
+AC_SUBST(ROX_OBJ)
+AC_SUBST(ROX)
+AC_SUBST(GL)
+AC_SUBST(REQ_PC_GL)
+AC_SUBST(gnome_installed)
+AC_SUBST(gl_installed)
+AC_SUBST(GNOME_CFLAGS)
+AC_SUBST(GL_CFLAGS)
+AC_SUBST(GNOME_LIBS)
+AC_SUBST(GL_LIBS)
+AC_SUBST(GNOME)
+AC_SUBST(GTK_CFLAGS)
+AC_SUBST(GTK_LIBS)
+AC_SUBST(GTHREAD_CFLAGS)
+AC_SUBST(GTHREAD_LIBS)
+AC_SUBST(GNOME_CONFIG)
+AC_SUBST(REQ_PC)
+AC_SUBST(PANGO_CFLAGS)
+AC_SUBST(PANGO_LIBS)
+
+AC_SUBST(ALL_LINGUAS)
+
+
+AC_CONFIG_FILES([gai/Makefile gai.pc Makefile gai.spec config.h po/Makefile])
+AC_OUTPUT
+
+echo
+echo " General Applet Interface $GAI_VERSION will be compiled with these settings:"
+echo "--------------------------------------------------------------------------"
+echo
+echo " - Dockapp/wmapplet support = yes"
+echo " - Gnome Panel support      = $with_gnome $GNOME_HEADER_MISSING"
+echo " - ROX Panel support        = $with_rox"
+if test x$with_rox = xyes ; then
+   echo " - ROX path                 = $ROX_PATH"
+fi
+echo " - OpenGL(gtkglext)         = $with_gl"
+echo " - Joystick(SDL)            = $with_sdl"
+echo " - NLS support              = $with_nls"
+echo " - Installation prefix      = $prefix"
+echo " - Operative system         = $HOST"
+echo
+echo "type \"make\" to compile gai v$GAI_VERSION"
+echo
+
+echo 
+if test x$prefix != x/usr ; then
+echo "It might be that the gai.pc file will be installed into a directory which"
+echo "pkg-config doesn't know about(=you won't be able to install applets)."
+echo "See README for help."
+fi

@@ -1,0 +1,249 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2005-04-05 01:50+0100\n"
+"Last-Translator: Olaf Leidinger <leidola@newcon.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../gai-pref.c:42
+msgid "Jonas"
+msgstr "Jonas"
+
+#: ../gai-pref.c:43
+msgid "Hello_fem_bananer"
+msgstr ""
+
+#: ../gai-pref.c:45
+#: ../gai-pref.c:78
+msgid "Hello"
+msgstr "Hallo"
+
+#: ../gai-pref.c:47
+msgid "Apples"
+msgstr "Äpfel"
+
+#: ../gai-pref.c:47
+msgid "Bananas"
+msgstr "Bananen"
+
+#: ../gai-pref.c:47
+msgid "Pears"
+msgstr "Birnen"
+
+#: ../gai-pref.c:48
+msgid "Strawberry"
+msgstr "Erdbeeren"
+
+#: ../gai-pref.c:49
+msgid "Cake"
+msgstr "Kuchen"
+
+#: ../gai-pref.c:49
+msgid "Milk"
+msgstr "Milch"
+
+#: ../gai-pref.c:49
+msgid "Icecream"
+msgstr "Eiscreme"
+
+#: ../gai-pref.c:50
+msgid "Nuts"
+msgstr "Nüsse"
+
+#: ../gai-pref.c:57
+msgid "Mounted"
+msgstr "eingehängt"
+
+#: ../gai-pref.c:57
+msgid "auto-mount"
+msgstr "automatisch einhängen"
+
+#: ../gai-pref.c:57
+msgid "Source dir"
+msgstr "Quellverzeichnis"
+
+#: ../gai-pref.c:58
+msgid "Mountpoint"
+msgstr "Einhängpunkt"
+
+#: ../gai-pref.c:58
+msgid "Idle time"
+msgstr "Leerlaufzeit"
+
+#: ../gai-pref.c:59
+msgid "some name"
+msgstr "irgend ein Name"
+
+#: ../gai-pref.c:64
+msgid "Good ol' iomega jaz"
+msgstr "Gutes, altes Iomega Jaz"
+
+#: ../gai-pref.c:65
+msgid "MP3 player"
+msgstr "MP3 Abspieler"
+
+#: ../gai-pref.c:76
+msgid "Book one"
+msgstr "Buch eins"
+
+#: ../gai-pref.c:77
+msgid "Folder 1"
+msgstr "1. Ordner"
+
+#: ../gai-pref.c:80
+msgid "Banana"
+msgstr "Banane"
+
+#: ../gai-pref.c:83
+msgid "Folder 2"
+msgstr "2. Ordner"
+
+#: ../gai-pref.c:84
+msgid "Kalle anka"
+msgstr ""
+
+#: ../gai-pref.c:85
+msgid "Apple"
+msgstr "Apfel"
+
+#: ../gai-pref.c:86
+msgid "Network interface:"
+msgstr "Netzwerkschnittstelle"
+
+#: ../gai-pref.c:89
+msgid "Folder 3"
+msgstr "3. Ordner"
+
+#: ../gai-pref.c:92
+msgid "Folder Inside"
+msgstr "innerer Ordner"
+
+#: ../gai-pref.c:96
+msgid "Apple2"
+msgstr "zweiter Apflel"
+
+#: ../gai-pref.c:99
+msgid "Right frame"
+msgstr "rechter Rahmen"
+
+#: ../gai-pref.c:105
+msgid "Book two"
+msgstr "Buch zwei"
+
+#: ../gai-pref.c:108
+msgid "My checkbutton"
+msgstr "Mein Abhakknopf"
+
+#: ../gai-pref.c:110
+msgid "<span foreground=\"blue\" size=\"x-large\">Blue Hello</span> is <i>cool</i>!"
+msgstr "Ein <span foreground=\"blue\" size=\"x-large\">blaues Hallo</span> ist <i>cool</i>!"
+
+#: ../gai-pref.c:111
+msgid "Background colour:"
+msgstr "Hintergrundfarbe"
+
+#: ../gai-pref.c:112
+msgid "Image file:"
+msgstr "Bilddatei:"
+
+#: ../gai-pref.c:115
+msgid "<b>Bold stock button</b>"
+msgstr "<b>Fetter Standartknopf</b>"
+
+#: ../gai-pref.c:118
+msgid "Book three"
+msgstr "Buch drei"
+
+#: ../gai-pref.c:119
+msgid "Enter your name:"
+msgstr "Geben Sie ihren Namen ein:"
+
+#: ../gai-pref.c:121
+msgid "Some value"
+msgstr "Irgend ein Wert"
+
+#: ../gai-pref.c:122
+msgid "Float values"
+msgstr "Fkießkommazahl"
+
+#: ../gai-pref.c:123
+msgid "Options:"
+msgstr "Alternativen:"
+
+#: ../gai-pref.c:124
+msgid "Secret"
+msgstr "Geheimnis"
+
+#: ../gai-pref.c:126
+msgid "ListStore Text"
+msgstr ""
+
+#: ../gai-pref.c:133
+msgid "ListStore Text - Edit"
+msgstr ""
+
+#: gai-pref.c:151
+#, c-format
+msgid ""
+"Text entry returns:%s\n"
+"Check button returns: %d\n"
+msgstr ""
+"Textfeld gibt \"%s\" zurück,\n"
+"Auswahlknopf gibt %d zurück.\n"
+
+#: gai-pref.c:153
+#, c-format
+msgid "Combo box (%d)\n"
+msgstr "Kombinationsfeld (%d)\n"
+
+#: gai-pref.c:155
+#, c-format
+msgid "Entry %d is: %s\n"
+msgstr "Eintrag %d ist: %s\n"
+
+#: gai-pref.c:159
+#, c-format
+msgid "Radio button choise is: %d\n"
+msgstr "Optionenknopf ist %d\n"
+
+#: gai-pref.c:160
+#, c-format
+msgid "File selector result is: %s\n"
+msgstr "Dateidialog meldet \"%s\"\n"
+
+#: gai-pref.c:161
+#, c-format
+msgid "Option menu result is: %d\n"
+msgstr "Optionenmenü gibt %d zurück\n"
+
+#: gai-pref.c:162
+#, c-format
+msgid "Password entry is: %s\n"
+msgstr "Passwort ist \"%s\"\n"
+
+#: gai-pref.c:163
+#, c-format
+msgid "Spin button float: %f\n"
+msgstr "Fließkomma-Drehknopf: %f\n"
+
+#: gai-pref.c:164
+#, c-format
+msgid "Spin button: %d\n"
+msgstr "Drehknopf: %d\n"
+
+#: gai-pref.c:193
+msgid "Hello, this is a preference window"
+msgstr "Hallo, dies ist ein Einstellungsfenster"
+
+#: gai-pref.c:194
+msgid ""
+"Example code for the prefrence window generator\n"
+"Try it from the commandprompt to see how it works.\n"
+msgstr ""
+"Beispielcode aus dem Einstellungsdialoggenerator.\n"
+"Versuchen Sie es aus der Kommandozeile um zu sehen, wie es funktioniert.\n"
+

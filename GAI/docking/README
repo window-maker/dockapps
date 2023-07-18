@@ -1,0 +1,28 @@
+
+The two programs in this directory, gtk-panel and gtk-dock are there to
+illustrate how easy it is to add support for gai applets into any
+program. Both requires GTK+ v2.x.x.
+
+I plan to write a pure Xlib example, for those that dislike GTK+.
+(Request will definitly improve the changes that it will be made.)
+
+
+At the moment, the communication between the program and the GAI applet
+is limited to enviromental variables, but if someone wishes and motivates,
+some socket communication could be added.
+
+The size request is abit primitive at the moment. It in relationship to
+64, which is the default size. For applets with another size, it will
+be abit strange. (A fix is in the todo list)
+
+gtk-dock syntax:
+./gtk-dock
+
+gtk-panel syntax:
+./gtk-panel [--size XX] applets..
+exampel:
+./gtk-panel --size 56 gai-pal gai-va
+(Starts the panel with GAI Pal and GAI Visual audio of size 56x56 each.)
+
+
+

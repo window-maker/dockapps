@@ -1,0 +1,38 @@
+
+
+Overall:
+ - Not all functions understand that NULL means never bother it.
+ - OpenGL doesn't work on the gnome panel and on the dock in WindowMaker.
+ - Tell me!
+ - The new --gai-*-this command line argument doesn't work correctly.
+   (or?)
+ - Change GTK theme makes some applets loose their graphics. 
+
+Preference Window
+ - GAI_EDITLISTSTORE and GAI_LISTSTORE is not completly finished,
+   therefore buggy.
+   
+WindowMaker:
+ - Open GL does not work
+ - Starting an applet from an icon should make the applet dock into that
+   icon. That does not happen.
+   
+Gnome panel (v2.0.x and v2.2.x):
+ - If you select a different background colour or image, the boarder
+   around will still be gray. (This is actually a gnome panel feature
+   but a very annoying one.)
+ - Transparency and background images don't work! Again, the panel
+   has problems.
+   
+Gnome panel (v2.4.0 and later)
+ - The applet background becomes wrong if you use something else than
+   normal settings. (Not even colour works now!)
+ - The panel is two pixels wider in normal bg mode than in any other bg mode.
+ - Is the applet not notified when the background changes? My fault?
+ 
+See TODO for more things that shall be done.
+
+PLEASE PLEASE don't fill in any bug reports in bugzilla, sourceforge.net,
+dockapps.org and at some other place. I don't have the time to go around
+and check them. PLEASE mail bug reports/problems to me directly. Thanks!
+Jonas Aaberg, <cja@gmx.net> Please include the word "GAI" in the subject.

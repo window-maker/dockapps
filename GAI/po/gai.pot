@@ -1,0 +1,231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-02-18 00:05+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: gai/gai-dockapp.c:272
+msgid ""
+"You're trying to run an applet that uses OpenGL.\n"
+"gtkglext doesn't work together with WindowMaker\n"
+"special way of docking applets.\n"
+"I'm sorry.\n"
+msgstr ""
+
+#: gai/gai-dockapp.c:408
+#, c-format
+msgid "create menu %d\n"
+msgstr ""
+
+#: gai/gai-draw.c:392
+msgid ""
+"No image_path is set!\n"
+"That is required before loading images.\n"
+msgstr ""
+
+#: gai/gai-gnome.c:56 gai/gai-gnome.c:69
+msgid ""
+"You're trying to run this applet as a Gnome panel applet\n"
+"and there is no Gnome support compiled in for the GAI library.\n"
+msgstr ""
+
+#: gai/gai-gnome.c:426
+msgid ""
+"You're trying to run an applet that uses OpenGL.\n"
+"Open GL doesn't work on the Gnome Panel. Or it is\n"
+"a bug in the GAI library. Which ever it is,\n"
+"I'm sorry..\n"
+msgstr ""
+
+#: gai/gai-gnome.c:598
+msgid ""
+"Sorry, it's not possible to run\n"
+"two instances of the same applet.\n"
+msgstr ""
+
+#: gai/gai-gnome.c:700
+msgid ""
+"\n"
+"This applet uses the GAI library\n"
+" - http://gai.sourceforge.net - \n"
+msgstr ""
+
+#: gai/gai-pref.c:116
+msgid "apply"
+msgstr ""
+
+#: gai/gai-pref.c:374
+msgid " Ok  "
+msgstr ""
+
+#: gai/gai-pref.c:375
+msgid "Apply"
+msgstr ""
+
+#: gai/gai-pref.c:376
+msgid "Close"
+msgstr ""
+
+#: gai/gai-pref.c:377
+msgid "Help "
+msgstr ""
+
+#: gai/gai-pref.c:1028
+msgid "GAI: Didn't find colour selection!\n"
+msgstr ""
+
+#: gai/gai-pref2.c:1451 gai/gai-pref2.c:1452
+msgid "If you want to use Notebooks, the first entry must be a GAI_NOTEBOOK\n"
+msgstr ""
+
+#: gai/gai-pref2.c:1481 gai/gai-pref2.c:1482
+msgid "A GAI_NOTEBOOK_E must be followed by a new GAI_NOTEBOOK!\n"
+msgstr ""
+
+#: gai/gai-pref2.c:1498
+msgid "ROX settings"
+msgstr ""
+
+#: gai/gai-pref2.c:1501
+msgid "Applet size:"
+msgstr ""
+
+#: gai/gai-settings.c:378
+msgid "Error open raw data:"
+msgstr ""
+
+#: gai/gai-settings.c:379
+msgid "Error open raw data! Permissions ok?"
+msgstr ""
+
+#: gai/gai-settings.c:385
+msgid "Error saving raw data!"
+msgstr ""
+
+#: gai/gai-settings.c:387
+msgid "Error saving raw data! Diskfull? Permissions?"
+msgstr ""
+
+#: gai/gai.c:59
+msgid "First function must be gai_init()!"
+msgstr ""
+
+#: gai/gai.c:168 gai/gai.c:1481
+msgid ""
+"You're trying to run an applet that uses OpenGL.\n"
+"You have not compiled with OpenGL support in GAI.\n"
+"Please visit http://gtkglext.sf.net for GtkGlExt\n"
+"which is required for OpenGL support.\n"
+msgstr ""
+
+#: gai/gai.c:258
+msgid "Preferences..."
+msgstr ""
+
+#: gai/gai.c:260
+msgid "Help"
+msgstr ""
+
+#: gai/gai.c:265 gai/gai.c:274 gai/gai.c:282 gai/gai.c:291
+msgid "About..."
+msgstr ""
+
+#: gai/gai.c:267
+msgid "Remove From Dock"
+msgstr ""
+
+#: gai/gai.c:284
+msgid "Remove from Rox Panel"
+msgstr ""
+
+#: gai/gai.c:293
+msgid "Remove from KDE Panel"
+msgstr ""
+
+#: gai/gai.c:449
+msgid "Sorry, no help available.\n"
+msgstr ""
+
+#: gai/gai.c:451
+msgid ""
+"Sorry, this new applet has no help how to use its preference window.\n"
+"I can only recommend trial and error.\n"
+msgstr ""
+
+#: gai/gai.c:698
+msgid ""
+"** GAI: Debug mode ON for ALL applets. The output will be in /tmp/gai-debug-"
+"output\n"
+msgstr ""
+
+#: gai/gai.c:704
+msgid ""
+"** GAI: Debug mode ON for THIS applets. The output will be in /tmp/gai-debug-"
+"output\n"
+msgstr ""
+
+#: gai/gai.c:711
+msgid "** GAI: Debug mode OFF for ALL applets.\n"
+msgstr ""
+
+#: gai/gai.c:717
+msgid "** GAI: Debug mode OFF for THIS applets.\n"
+msgstr ""
+
+#: gai/gai.c:724
+msgid ""
+"** GAI: Setting broken Window Manager mode for ALL applets.\n"
+"To turn off, use the switch --gai-working-wm\n"
+msgstr ""
+
+#: gai/gai.c:731
+msgid ""
+"** GAI: Setting broken Window Manager mode for THIS applet.\n"
+"To turn off, use the switch --gai-working-wm-this\n"
+msgstr ""
+
+#: gai/gai.c:737
+msgid ""
+"** GAI: Removing broken Window Mananger mode for ALL applets.\n"
+"To turn on, use the switch --gai-broken-wm\n"
+msgstr ""
+
+#: gai/gai.c:744
+msgid ""
+"** GAI: Removing broken Window Mananger mode for THIS applets.\n"
+"To turn on, use the switch --gai-broken-wm-this\n"
+msgstr ""
+
+#: gai/gai.c:751
+#, c-format
+msgid ""
+"** GAI: Changes the default Dockapp/wmapplet size to %d for all applets\n"
+"Original size is 64\n"
+msgstr ""
+
+#: gai/gai.c:758
+#, c-format
+msgid ""
+"** GAI: Changes the default Dockapp/wmapplet size to %d for this applet\n"
+"Original size is 64\n"
+msgstr ""
+
+#: gai/gai.c:962
+msgid "You can only change the updating interval after the init stage!"
+msgstr ""
+
+#: gai/gai.c:1086 gai/gai.c:1111
+msgid "Only mouse button one and two can be connected!"
+msgstr ""

@@ -1,0 +1,86 @@
+
+
+ Status of different Window Managers and panels with GAI 0.5.4:
+----------------------------------------------------------------
+
+Please mail me <cja@gmx.net> statuses of untested window managers,
+specially if there is a problem!
+
+ Works prefect:
+----------------
+ * BlackBox - 0.64.0alpha7, 0.65.0
+ * FluxBox - 0.1.14, 0.96pre1 
+ * KDE - 3.? (Kicker's dockapp panel)
+ * Waimea - 0.4.0
+
+
+ Some flaws:
+-------------
+ * Enlightenment - 0.16.5/0.16.6 
+	- Only accepts applets of size 64x64 
+	  A patch for 0.16.6 can be found in the directory patches/
+	  (Just do "patch -p0 <the_patch above the enlightenment src
+	  tree and compile)
+
+ * Fvwm2 - 2.4.7 
+	- Only accepts applets of size 64x64
+	- Configure .fvwm2rc like 
+	   *FvwmButtons: (2x2, Swallow gai-pal `Exec gai-pal`)
+
+ * Gnome - 2.0.x, 2.2.x, 2.4.x
+	- No OpenGL support.
+
+ * ROX Panel 2
+	- Basic support. Pretty BETA at the moment.
+
+ * WindowMaker - 0.80.1, 0.80.2 
+	- Only accepts applets of size 64x64
+	- When a dialog is displayed and closed, the icon for it is still there.
+	- OpenGL support doesn't work!
+
+ * IceWM - 1.2.14pre*
+    	- Works fine in standalone mode (tested with icewm-1.2.14pre*)
+    	- No dock support. IceWM does provide support for NetWM compliant
+      	  (GNOME/KDE) systray apps, but obviously either in a way that GAI
+      	  doesn't detect/like, or IceWM doesn't detect/like GAI's request
+      	  for a systray application/icon. It would probably not look good
+      	  anyway, as IceWM's taskbar/systray area is only about 24 pixels
+      	  high. :-)
+    	- Sample configuration for gai-album (set in ~/.icewm/winoptions):
+
+	Gai-album.icon: gai-album-icon.png
+	gai-album.icon: gai-album-icon.png
+	gai-album.gai-album.geometry: 64x64-0-25
+	gai-album.gai-album.tray: Ignore
+	gai-album.gai-album.ignoreTaskBar: 1
+	gai-album.gai-album.dTitleBar: 0
+	gai-album.gai-album.dSysMenu: 0
+	gai-album.gai-album.dBorder: 0
+	gai-album.gai-album.dResize: 0
+	gai-album.gai-album.dClose: 0
+	gai-album.gai-album.dMinimize: 0
+	gai-album.gai-album.dMaximize: 0
+
+
+ Untested/Missing dock:
+------------------------
+ * Afterstep
+ * Fvwm95 
+ * Hackbox
+ * Metacity
+ * Sawfish
+ * TWM
+ * XFCE
+
+
+ Not supported for the moment:
+-------------------------------
+ * Gkrellm
+	- Maybe
+ * Gnome 1.x
+	- Never will be supported
+ * KDE (native applets)
+	- Planned, but help with KDE/QT programming would be very apprechated!
+ * XFCE 4 
+	- Planned.
+  

@@ -1,0 +1,55 @@
+<html>
+<head>
+<title> GAI Programmer's FAQ</title>
+</head>
+<body>
+<br>
+<center><h2>GAI Programmer's FAQ: (Outdated!)</h2></center>
+<br>
+Thanks goes out to Eric W. Eubank derbaff at yahoo dot com for asking
+questions!
+<br><br>
+
+<b>Q:</b> <i>How is the different size of the Gnome panel handled?</i><br>
+<b>A:</b> The size of the applet is completely handeled by the library. You tell
+the library what image you want as background and your applet will become
+as small/large as the background image. Or you tell the library how large 
+you want your applet to be and it'll be of that size. 
+From the programmers point of view, the applet will always have the
+original size, no matter the real size. The library handles the
+scaling.<br>
+But sometime you want your applet to be say 16x16, no matter the size
+of the gnome panel. Then you call the the library what the maximum
+size of the applet should be.
+<br>
+<br>
+
+<b>Q:</b> <i>How do you correctly use gai_draw() and gai_draw_update() ?</i><br>
+<b>A:</b> First you call gai_draw() as many times as you need in order to
+complete all things you wish to draw. gai_draw() draws the given 
+data into a buffer, which you put on the screen with gai_draw_update().<br><br>
+
+
+<b>Q:</b> <i>When shall I use gai_draw_bg() instead of gai_draw()?</i><br>
+<b>A:</b> If you update the graphics of the applet more often than once a
+second, use gai_draw(). gai_draw_bg() changes the background of the
+applet and is much slower than gai_draw. But the changes on the background
+stays there no matter what the window manger does.(For example, laying
+a window upon it and then moves it.)<br>
+Except from that the orignal background stays until you change it,
+gai_draw_bg() only exists after the following gai_draw_update_bg () until 
+a new gai_draw_update_bg() is called.<br> 
+<br>
+
+<b>Q:</b> <i>How does the background and foreground interact with each other?</i><br>
+<b>A:</b> Foreground pixels can only be drawn upon a non transparent background
+pixel. So having a transparent background pixel and then trying
+to draw a foreground pixel makes no good. You will never see it.<br><br>
+   
+
+<br>
+Having an unanswered question? Mail it to me! Jonas Aaberg, cja at gmx dot net.
+<br>
+</body>
+</html>
+
