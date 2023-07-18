@@ -1,0 +1,85 @@
+
+ How to install Sherman's aquarium as a Xscreensaver hack
+==========================================================
+
+First make sure that you have libSDL 1.2.x (www.libsdl.org),
+xscreensaver (www.jwz.org/xscreensaver) and that you have compiled
+Sherman's aquarium with Screensaver support.
+(Notice that some distributions differes the library and the
+headers. So make sure you have installed the "devel" package
+of SDL, if you use such a distribution.)
+
+The rest of the text in this file assumes that you have a 
+working xscreensaver installation.
+
+If you have installed the screensaver part of Sherman's aquarium
+executing "shermans" will demostrate Sherman's aquarium.
+So try:
+
+shermans
+
+(Assuming that you have sherman's aquarium in your path)
+This will show you sherman's aquarium screensaver in window mode.
+
+Then go on and edit ~/.xscreensaver (If you don't have such a file,
+run xscreensaver-demo, it will generate one for you.)
+
+Find the line:
+--
+programs:
+--
+
+Insert after that line a new line that says:
+
+--
+"Sherman's aquarium" shermans -root \n\
+--
+
+Save the changes.
+
+Now you have to see if the Xscreensaver configuration XML file did
+end up correctly. Default installation path for GNU programs is
+/usr/local/, while program that comes with distributions nearly always
+is installed in /usr/
+So if you didn't give --prefix=somethingelse to "configure", the 
+Xscreensaver XML configuration file for Sherman's aquarium(shermans.xml) 
+did end up in:
+
+/usr/local/share/control-center/screensavers
+
+If "shermans.xml" is the only file there, the Xscreensaver is configured
+with another path. Maybe /usr/share/control-center/screensaver
+See if you have that directory, and if it contains a lot of .xml files
+then move the shermans.xml into that directory.
+
+If you can't find the directory, search for "ant.xml", which is a
+xscreensaver hack that is installed by default.
+
+Now it's time to configure Sherman's aquarium and the Xscreensaver.
+Run xscreensaver-demo. Click on the settings button to configure
+the apperence of Sherman's aquarium. If the settings window is
+empty, Xscreensaver can't find "shermans.xml" and if you can't
+find "Sherman's aquarium" among the Hacks, you might have done
+something wrong when you edited your ~/.xscreensaver file.
+
+I think you have to restart the Xscreensaver daemon when you change
+settings, but I might be wrong on that point.
+
+If you want to use "Current desktop as background", i.e. let the fish
+swim over your screen without changing the background, sometimes you
+have to click in the "Grab Desktop Images" checkbox in the "Advanced"
+menu in xscreensaver-demo (Just besides Display Modes) or else you
+might end up with an error message that says something like "Bad Access". 
+
+The comic strips that are included by default in the Sherman's Lagoon
+windows screensaver is included in Sherman's aquarium too and
+can normally be found in:
+
+/usr/share/pixmaps/shermans/strips/
+
+(When installed with --prefix=/usr)
+
+Any questions? Mail them to me, Jonas Aaberg <cja@gmx.net>
+Please include the word "Shermans" in the subject. Or else your
+mail might be considered as spam.
+

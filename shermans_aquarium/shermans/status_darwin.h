@@ -1,0 +1,2 @@
+
+#define STATUS_HAVE_CPU

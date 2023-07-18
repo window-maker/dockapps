@@ -1,0 +1,55 @@
+
+Sherman's aquarium was written by Jonas Aaberg <cja@gmx.net> during
+2002-2005.
+
+ Code sources:
+---------------
+
+Timecop <timecop@japan.co.jp>   
+		- Many functions are based upon his wmfishmon applet		  
+Mathias Meisfjordskar <mathiasm@ifi.uio.no>
+    		- Code for reading led status.
+Ben Hines <bhines@alumni.ucsd.edu>
+		- Mac osx port and cpu load measurement code for osx.
+		  Makefile fixes.
+Brett Nash <brettn@cse.unsw.edu.au>
+		- Gnome 2 applet fixes and improvments. Also some
+		  grammer corrections.
+
+ Graphics:
+-----------
+Jim Toomey		- All fish graphics (www.slagoon.com)
+Tarzeau          	- Themormeter and bubbles <tarzeau@space.ch>
+Mathias Meisfjordskar	- The led "lights" <mathiasm@ifi.uio.no>
+
+ Bugfixes:
+----------
+Stefan Schatzl <pulaski@gmx.net>
+		- Compiling problems and more
+Wladimir J. van der Laan <gnufnork@hetdigitalegat.nl>
+		- Patch for removing a bad "Floating Point Exception"
+Bodnar Istvan <bistvan@sliced.hu>
+		- Compiling problems on FreeBSD, testing of FreeBSD port and
+		  bug reports. And feature sudjections.
+Gerald Schuberth <count.zero@aon.at>
+		- Patches for avoiding warnings on Redhat systems.
+Michael Baron <michael.baron@bbsrc.ac.uk>
+	        - Big/little endian fix.	
+
+ Translations:
+--------------
+Gerald Schuberth <count.zero@aon.at> 
+		- Some german translation.
+
+ 
+ Suggestions/Ideas/Helps/Nice emails ;-) :
+-------------------------------------------
+(I will add the names of all people that send a creative mail to me here.)
+Jordan Mack <cybermint@iname.com>		- Helped finding a bug.
+Matus Telgarsky <matusa@ultrasoul.com>		- For telling me how much
+						  he likes Sherman's aquarium.
+Onno Freringa <onno@solidcode.net>		- Feature sudjestion.
+Christian Fredrik Kalager Schaller <uraeus@gnome.org> - Feature sudjestion.						  
+Fabio Stumbo <f.stumbo@unife.it>		- Found fvwm2 problems
+						  and unclear things in README.
+Michal Ambroz <rebus@seznam.cz>                 - Redhat .spec file.

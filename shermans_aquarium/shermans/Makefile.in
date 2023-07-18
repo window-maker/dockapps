@@ -1,0 +1,101 @@
+
+#
+# Makefile for Sherman's aquarium
+#
+
+CC = @CC@
+
+PREFIX = @prefix@
+GNOMEDIR = @GNOMEDIR@
+
+INSTALL_PATH=$(DESTDIR)@INSTALL_PATH@
+
+# Setting up the CFLAGS and LDFLAGS variables 
+CFLAGS += -Wall -Wno-strict-aliasing -O3 -DIMAGE_PATH=\"@APPLET_IMAGE_PATH@\" @DGAI@ @GAI_CFLAGS@ @XMMS_CFLAGS@ @SDL_CFLAGS@ @GTK_CFLAGS@
+LDFLAGS_GAI = $(LDFLAGS) -lm -lX11 @GAI_LIBS@ @XMMS_LIBS@ @SYSTEM_SPECIFIC_LIBS@
+LDFLAGS_SDL = $(LDFLAGS) -lm -lX11 @SDL_LIBS@ @SYSTEM_SPECIFIC_LIBS@ @GTK_LIBS@
+
+OBJS = fish.o background.o bubble.o draw.o bottom.o soundeffects.o images.o
+OBJS_GAI = settings.o pref.o date.o clock.o matrix.o over.o thermometer.o leds.o aquarium.o tetris.o plasma.o @XMMS_OBJ@ @STATUS@
+OBJS_SDL = screensaver.o grabscreen.o
+
+.PHONY: all install clean @APPLET@ @SCREENSAVER@ @INSTALL_IMAGES@ @INSTALL_APPLET@ @INSTALL_SCREENSAVER@
+
+all: @APPLET@ @SCREENSAVER@
+
+shermans_applet: $(OBJS_GAI) $(OBJS)
+	$(CC) -o shermans_applet $(OBJS) $(OBJS_GAI) $(LDFLAGS_GAI)
+
+
+shermans: $(OBJS) $(OBJS_SDL)
+	$(CC) -o shermans $(OBJS) $(OBJS_SDL) $(LDFLAGS_SDL)
+
+install:  @APPLET@ @SCREENSAVER@ @INSTALL_IMAGES@ @INSTALL_APPLET@ @INSTALL_SCREENSAVER@
+
+install_applet: @INSTALL_GNOME@
+	mkdir -p $(INSTALL_PATH)/bin
+	install -m 755 @APPLET_NAME@ $(INSTALL_PATH)/bin
+	mkdir -p $(INSTALL_PATH)/share/pixmaps/
+	install -m 644 ../@APPLET_NAME_ICON@ $(INSTALL_PATH)/share/pixmaps
+install_screensaver: shermans
+	mkdir -p $(INSTALL_PATH)/bin
+	install -m 755 @SCREENSAVER@ $(INSTALL_PATH)/bin
+	mkdir -p $(INSTALL_PATH)/share/control-center/screensavers
+	install -m 644 ../shermans.xml $(INSTALL_PATH)/share/control-center/screensavers
+
+install-gnome: 
+	mkdir -p $(INSTALL_PATH)/lib/bonobo/servers/
+	install -m 644 ../GNOME_@APPLET_NAME@Applet.server $(INSTALL_PATH)/lib/bonobo/servers/GNOME_@APPLET_NAME@Applet.server
+
+
+install-images:
+	mkdir -p $(INSTALL_PATH)/share/pixmaps/shermans
+	cp -r ../@APPLET_IMAGES@ $(INSTALL_PATH)/share/pixmaps/shermans/
+
+install-rox:
+	mkdir -p "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@"
+	rm -f "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/.DirIcon"
+	ln -s $(INSTALL_PATH)/share/pixmaps/@APPLET_NAME_ICON@ "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/.DirIcon"
+	install -m 755 AppRun "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@"
+	rm -f "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/AppletRun"
+	ln -s "@ROX_PATH@/@APPLET_NICE_NAME@/AppRun" "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/AppletRun"
+	rm -f "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/@APPLET_NAME@"
+	ln -s $(INSTALL_PATH)/bin/@APPLET_NAME@ "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@/@APPLET_NAME@"
+	install -m 644 AppInfo.xml "$(DESTDIR)@ROX_PATH@/@APPLET_NICE_NAME@"
+clean:
+	rm -rf *.o .xvpics *~ @APPLET@ @SCREENSAVER@
+
+# Dependencies:
+
+aquarium.h: 	defines.h
+aquarium.o: 	aquarium.c aquarium.h draw.h settings.h \
+		clock.h date.h bubble.h over.h leds.h thermometer.h fish.h background.h xmms_sn.h bottom.h \
+		pref.h ../config.h
+background.o: 	background.c aquarium.h draw.h grabscreen.h background.h ../config.h
+images.o:	images.c aquarium.h ../config.h
+screensaver.o:	screensaver.c bottom.h bubble.h aquarium.h background.h fish.h soundeffects.h ../config.h
+bottom.o: 	bottom.c aquarium.h draw.h bottom.h fish.h ../config.h
+bubble.o:	bubble.c bubble.h aquarium.h draw.h soundeffects.h ../config.h
+clock.o:	clock.c clock.h draw.h aquarium.h ../config.h
+date.o:		date.c date.h aquarium.h draw.h ../config.h
+
+draw.o:		draw.c draw.h aquarium.h ../config.h
+fish.o:		fish.c fish.h draw.h aquarium.h soundeffects.h ../config.h
+grabscreen.o:	grabscreen.c grabscreen.h ../config.h
+
+leds.o:		leds.c leds.h draw.h aquarium.h ../config.h
+matrix.o:	matrix.c matrix.h draw.h over.h aquarium.h ../config.h
+over.o:		over.c over.h aquarium.h draw.h matrix.h plasma.h tetris.h ../config.h
+plasma.o:	plasma.c plasma.h aquarium.h over.h ../config.h
+pref.o:		pref.c pref.h clock.h date.h background.h soundeffects.h bottom.h bubble.h fish.h over.h \
+		leds.h thermometer.h xmms_sn.h ../config.h
+settings.o:	settings.c settings.h aquarium.h fish.h bubble.h date.h clock.h background.h over.h \
+		leds.h bottom.h xmms_sn.h matrix.h plasma.h tetris.h ../config.h
+soundeffects.o: soundeffects.c soundeffects.h aquarium.h settings.h ../config.h
+status_linux24.o: status_linux24.c status_linux.h status.h defines.h ../config.h
+status_linux26.o: status_linux26.c status_linux.h status.h defines.h ../config.h
+status_darwin.o:status_darwin.c status_darwin.h status.h defines.h ../config.h
+status_freebsd.o:status_freebsd.c status_freebsd.h status.h defines.h ../config.h
+tetris.o:	tetris.c tetris.h aquarium.h over.h settings.h ../config.h
+thermometer.o:	thermometer.c thermometer.h aquarium.h draw.h status.h ../config.h
+xmms_sn.o: 	xmms_sn.c xmms_sn.h aquarium.h draw.h ../config.h
