@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "song_hash.h"
 
 #define HASH_TABLE_SIZE 11

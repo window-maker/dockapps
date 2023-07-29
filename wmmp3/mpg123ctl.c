@@ -14,6 +14,8 @@
  * $Id: mpg123ctl.c,v 1.15 1999/10/12 04:41:20 pcrosby Exp $
  */
 
+#include <time.h>
+#include <ctype.h>
 #include "mpg123ctl.h"
 
 #define MAXDIRS 100

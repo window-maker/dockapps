@@ -11,6 +11,7 @@
  * $Id: main.c,v 1.11 1999/10/08 22:21:32 pcrosby Exp $
  */
 
+#include <ctype.h>
 #include "main.h"
 
 #define B_STOP 0

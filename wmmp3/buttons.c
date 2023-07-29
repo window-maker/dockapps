@@ -10,6 +10,7 @@
  * $Id: mpg123ctl.c,v 1.12 1999/10/08 06:21:41 pcrosby Exp $
  */
 
+#include "wmgeneral.h"
 #include "buttons.h"
 
 struct coord {
