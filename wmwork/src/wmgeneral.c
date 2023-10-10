@@ -107,7 +107,7 @@ MOUSE_REGION	mouse_region[MAX_MOUSE_REGION];
 static void GetXPM(XpmIcon *, char **);
 static Pixel GetColor(char *);
 void RedrawWindow(void);
-void AddMouseRegion(int, int, int, int, int);
+void AddMouseRegion(unsigned, int, int, int, int);
 int CheckMouseRegion(int, int);
 
 /*******************************************************************************\
@@ -269,7 +269,7 @@ void RedrawWindowXY(int x, int y) {
 |* AddMouseRegion															   *|
 \*******************************************************************************/
 
-void AddMouseRegion(int index, int left, int top, int right, int bottom) {
+void AddMouseRegion(unsigned index, int left, int top, int right, int bottom) {
 
 	if (index < MAX_MOUSE_REGION) {
 		mouse_region[index].enable = 1;

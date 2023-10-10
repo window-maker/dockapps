@@ -86,7 +86,7 @@ MOUSE_REGION    mouse_region[MAX_MOUSE_REGION];
 |* AddMouseRegion                                                             *|
 \******************************************************************************/
 
-void AddMouseRegion(int index, int left, int top, int right, int bottom) {
+void AddMouseRegion(unsigned index, int left, int top, int right, int bottom) {
 
     if (index < MAX_MOUSE_REGION) {
         mouse_region[index].enable = 1;

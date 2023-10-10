@@ -690,7 +690,7 @@ void RedrawWindowXYWH(int x, int y, int w, int h)
 
 
 
-void AddMouseRegion(int index, int left, int top, int right, int bottom)
+void AddMouseRegion(unsigned index, int left, int top, int right, int bottom)
 {
     if (index < MAX_MOUSE_REGION) {
 	mouse_region[index].enable = 1;

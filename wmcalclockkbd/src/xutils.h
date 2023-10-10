@@ -28,7 +28,7 @@ extern int             DisplayDepth;
 /*
  *   Function Prototypes
  */
-void 		AddMouseRegion(int, int, int, int, int);
+void 		AddMouseRegion(unsigned, int, int, int, int);
 int  		CheckMouseRegion(int, int);
 void 		openXwindow(int, char **, char **, char *, int, int);
 void 		initXwindow(int, char **);

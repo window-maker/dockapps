@@ -72,7 +72,7 @@ extern Display		*display;
  /* Function Prototypes */
 /***********************/
 
-void AddMouseRegion(int index, int left, int top, int right, int bottom);
+void AddMouseRegion(unsigned index, int left, int top, int right, int bottom);
 int CheckMouseRegion(int x, int y);
 
 void openXwindow(int argc, char *argv[], char **, char *, int, int);

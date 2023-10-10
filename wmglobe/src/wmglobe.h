@@ -165,7 +165,7 @@ MY_EXTERN int stable;
 /****************************************************************/
 int main(int argc, char *argv[]);
 
-void AddMouseRegion(int index, int left, int top, int right, int bottom);
+void AddMouseRegion(unsigned index, int left, int top, int right, int bottom);
 int CheckMouseRegion(int x, int y);
 void RedrawWindowXYWH(int x, int y, int w, int h);
 void set_defaults();
