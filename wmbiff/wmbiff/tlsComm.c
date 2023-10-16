@@ -160,6 +160,35 @@ static int wait_for_it(int sd, int timeoutseconds)
 }
 
 /* exported for testing */
+/* This version converts sequence of multiple blanks into a single
+ * blank. This overcomes, say, the bug in the imap server of a random
+ * company who thinks it can disregard standards because it is big and
+ * hard. (pun intended) */
+extern char *
+strncpy_trim_blanks(char *dest, const char *src, size_t n)
+{
+    size_t i;
+		int last_read_was_not_a_blank = 1;
+		char *m_src = src, *m_dest = dest;
+		char ch;
+
+		for (i = 0; i < n && src[i] != '\0'; i++) {
+				ch = *m_src++;
+
+				if (ch != ' ' || last_read_was_not_a_blank) {
+						*m_dest = ch;
+						m_dest++;
+				}
+
+				last_read_was_not_a_blank = ch != ' ';
+		}
+    for ( ; i < n; i++)
+        dest[i] = '\0';
+
+		return dest;
+}
+
+/* exported for testing */
 extern int
 getline_from_buffer(char *readbuffer, char *linebuffer, int linebuflen)
 {
@@ -184,7 +213,7 @@ getline_from_buffer(char *readbuffer, char *linebuffer, int linebuflen)
 
 	if (i != 0) {
 		/* copy a line into the linebuffer */
-		strncpy(linebuffer, readbuffer, (size_t) i);
+		strncpy_trim_blanks(linebuffer, readbuffer, (size_t) i);
 		/* sigh, null terminate */
 		linebuffer[i] = '\0';
 		/* shift the rest over; this could be done
