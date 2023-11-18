@@ -3,7 +3,7 @@ layout: dockapp
 title: minicontrol
 permalink: minicontrol
 hosted: 0
-website: http://download.zenwalk.org/people/jp/dockapps/
+website: http://download.zenwalk.org/x86_64/people/jp/dockapps/
 dockapps: 238
 images:
  - minicontrol.gif
