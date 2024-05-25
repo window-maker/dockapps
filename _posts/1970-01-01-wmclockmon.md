@@ -10,6 +10,16 @@ images:
  - wmclockmon3.png
  - wmclockmon4.png
  - wmclockmon5.png
+versions:
+ -
+  number: 0.8.0
+  download: wmclockmon-0.8.0.tar.gz
+ -
+  number: 0.8.1
+  download: wmclockmon-0.8.1.tar.gz
+ -
+  number: 1.0.0
+  download: wmclockmon-1.0.0.tar.xz
 categories: time
 ---
 A nice digital clock with 7 different styles either in LCD style and LED style,
