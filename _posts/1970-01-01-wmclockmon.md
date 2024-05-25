@@ -2,7 +2,7 @@
 layout: dockapp
 title: wmclockmon
 permalink: wmclockmon
-hosted: 0
+hosted: 1
 website: http://tnemeth.free.fr/projets/dockapps.html
 images:
  - wmclockmon1.png
