@@ -11,6 +11,9 @@ versions:
  -
   number: 1.25
   download: wmCalClock-1.25.tar.gz
+ -
+  number: 1.26
+  download: wmcalclock-1.26.tar.xz
 categories: time
 ---
 A Calendar clock with antialiased text.
