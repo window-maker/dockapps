@@ -252,6 +252,21 @@ FILE *imap_open(Pop3 *pc)
 		scs = initialize_unencrypted(sd, connection_name, pc);
 	}
 
+	/* READ SERVER GREETING - FIX FOR FASTMAIL AND OTHER SERVERS */
+	/* After TLS handshake, IMAP servers send a greeting like "* OK IMAP4 ready" */
+	/* We must read this before sending any commands */
+	IMAP_DM(pc, DEBUG_INFO, "Reading server greeting after TLS handshake\n");
+	if (tlscomm_expect(scs, "* ", buf, BUF_SIZE) == 0) {
+		IMAP_DM(pc, DEBUG_ERROR, "Failed to receive server greeting after TLS\n");
+		/* Don't fail completely - some servers might not send greeting */
+	} else {
+		IMAP_DM(pc, DEBUG_INFO, "Server greeting: %s\n", buf);
+		/* Verify it's a valid greeting (OK or PREAUTH) */
+		if (strstr(buf, "* OK") == NULL && strstr(buf, "* PREAUTH") == NULL) {
+			IMAP_DM(pc, DEBUG_INFO, "Unexpected greeting format: %s\n", buf);
+		}
+	}
+
 	/* authenticate; first find out how */
 	/* note that capabilities may have changed since last
 	   time we may have asked, if we called STARTTLS, my
