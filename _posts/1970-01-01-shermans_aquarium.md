@@ -19,4 +19,4 @@ CPU load. It can also be configurated to display the time and show the status of
 numlock, capslock and scrollock. The fishes are done by Jim Toomey, the author
 of the "Sherman's Lagoon" comics.
 
-See also the original website at: http://aquariumapplet.sourceforge.net/
+See also the original website at: <https://aquariumapplet.sourceforge.net/>
