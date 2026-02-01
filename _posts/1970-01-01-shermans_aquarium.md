@@ -3,7 +3,7 @@ layout: dockapp
 title: Sherman's aquarium
 permalink: shermans_aquarium
 hosted: 0
-website: http://aquariumapplet.sourceforge.net/
+website: https://github.com/norayr/shermans_aquarium
 dockapps:
 images:
  - aq1.png
@@ -18,3 +18,5 @@ and so on, is that the temperature scale on the right side shows the current
 CPU load. It can also be configurated to display the time and show the status of
 numlock, capslock and scrollock. The fishes are done by Jim Toomey, the author
 of the "Sherman's Lagoon" comics.
+
+See also the original website at: http://aquariumapplet.sourceforge.net/
