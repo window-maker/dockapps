@@ -681,6 +681,7 @@ int main(int argc, char **argv)
     fd_set fds;
     struct timeval tv_rate;
     struct timeval tv = {0, 0};
+    int select_ret = 0;
 
     DAProgramOption options[] = {
      {"-r", "--no-scroll", "disable scrolling message", DONone, False, {NULL}},
@@ -894,11 +895,11 @@ int main(int argc, char **argv)
 	 * frequently than we sample (most likely). In that case we
 	 * set the timeout based on the display update cycle. */
 
-	/* have we completed our timeout, or were we woken up early? */
-	if ((tv.tv_sec != 0) || (tv.tv_usec != 0))
+	/* Have we completed our timeout, or were we woken up early?
+	 * Use select()'s return value: >0 means a fd became ready (X event),
+	 * 0 means timeout. */
+	if (select_ret > 0)
 	    goto win_update;
-
-	tv = tv_rate;
 
 	sample_count += dockapp->period_length;
 
@@ -970,7 +971,8 @@ int main(int argc, char **argv)
 
 	FD_ZERO(&fds);
 	FD_SET(dockapp->x_fd, &fds);
-	select(FD_SETSIZE, &fds, NULL, NULL, &tv);
+	tv = tv_rate;
+	select_ret = select(FD_SETSIZE, &fds, NULL, NULL, &tv);
     }
     return 0;
 }
