@@ -23,11 +23,18 @@
 #define SCROLL_INTERVAL 300	/* scroll update interval in milliseconds */
 #define SEPARATOR " ** "	/* The separator for the scrolling title */
 #define DISPLAYSIZE 6		/* width of text to display (running title) */
+#define DOCKAPP_SIZE 64		/* dockapp window size in pixels */
 
 #define PLAYER_INSTANCE_FROM_LIST(x) ((PlayerctlPlayerName *)x->data)->instance
 
+#define ART_X  5
+#define ART_Y  5
+#define ART_W  (DOCKAPP_SIZE - 2 * ART_X)
+#define ART_H  (DOCKAPP_SIZE - 2 * ART_Y)
+
 #include <libdockapp/dockapp.h>
 #include <playerctl/playerctl.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,6 +72,9 @@ void DrawTime(gint64 time);
 void DrawArrow(void);
 void DrawVolume(void);
 void DrawTitle(char *title);
+void UpdateArtCache(const char *art_url);
+void DrawArtMode(void);
+void DrawProgressBar(gint64 position, gint64 length);
 void ExecuteXmms(void);
 
 /*----------------------------------------------------------------------------*/
@@ -84,6 +94,12 @@ unsigned int volume_step = 5;
 Bool run_excusive=0;
 
 Bool t_time=0;
+unsigned int art_delay_secs = 0; /* secs of play before art shows */
+unsigned int art_playing_ticks = 0;
+Bool art_active = False;	/* auto art mode is currently active */
+Bool is_playing = False;	/* player is currently in PLAYING state */
+Bool mouse_over = False;	/* mouse is hovering over the dockapp */
+unsigned int mouse_leave_ticks = 0;
 float title_pos = 0;
 unsigned int arrow_pos = 0;
 Bool pause_norotate = 0;
@@ -91,6 +107,12 @@ Time click_time=0;
 
 Pixmap pixmap, mask;	/* Pixmap that is displayed */
 Pixmap pixnum, masknum;	/* Pixmap source */
+Pixmap pixbg;		/* Clean copy of master, for background restore */
+Pixmap pixbg_art;	/* Like pixbg but inner area is black, for art mode */
+Pixmap mask_art;	/* Shape mask with gap rows filled, for art mode */
+Pixmap art_pixmap = None;	/* Scaled art rendered into X pixmap */
+static char *current_art_url = NULL;	/* URL of the currently cached art */
+static unsigned long digit_color = 0;	/* same colour as displayed digits */
 
 int left_pressed = 0; /* for pseudo drag callback */
 int motion_event = 0; /* on motion events we do not want(too fast) display update */
@@ -111,11 +133,11 @@ static DAActionRect toggleRect[] = {
 };
 
 static DAActionRect globRect[] = {
-	{{0, 0, 64, 64}, ToggleVol}
+	{{0, 0, DOCKAPP_SIZE, DOCKAPP_SIZE}, ToggleVol}
 };
 
 static DAActionRect displayRects[] = {
-	{{5, 5, 54, 12}, ToggleTime},
+	{{5, 5, 54, 34}, ToggleTime},
 };
 
 static DAActionRect volumeRects[] = {
@@ -135,7 +157,10 @@ static DAProgramOption options[] = {
 	{"-l", "--time-left", "Show time left instead of time remaining by default",
 	 DONone, False, {NULL} },
 	{"-R", "--run-excusive", "Run media player on startup, "
-	 "exit when it exits", DONone, False, {NULL} }
+	 "exit when it exits", DONone, False, {NULL} },
+	{"-A", "--art-delay",
+	 "Seconds of playback before showing album art",
+	 DONatural, False, {&art_delay_secs} }
 };
 
 typedef struct
@@ -495,7 +520,8 @@ void buttonPress(int button, int state, int x, int y)
 		if (button == 1)
 		{
 			char *tmp="1";
-			DAProcessActionRects(x, y, buttonRects, sizeof(buttonRects)/sizeof(DAActionRect), tmp);
+			if (!art_active || mouse_over)
+				DAProcessActionRects(x, y, buttonRects, sizeof(buttonRects)/sizeof(DAActionRect), tmp);
 			DAProcessActionRects(x, y, displayRects, sizeof(displayRects)/sizeof(DAActionRect), tmp);
 		}
 		if (button == 2)
@@ -531,7 +557,7 @@ void buttonRelease(int button, int state, int x, int y)
 		left_pressed=0;
 	if (player)
 	{
-		if (button == 1)
+		if (button == 1 && (!art_active || mouse_over))
 		{
 			copyNumArea(0,51, 54, 20, 5,39);
 			DASetPixmap(pixmap);
@@ -566,6 +592,7 @@ int PlayerConnect(void)
 		DAWarning("Disconnected from player");
 		g_object_unref(player);
 		player = NULL;
+		UpdateArtCache(NULL);
 	}
 
 	if (!player && g_list_length(players) > 0) {
@@ -599,13 +626,36 @@ int PlayerConnect(void)
 void DisplayRoutine()
 {
 	gint64 position = 0, length = 0;
+	int showing_art;
 	int track_num = 100;
+	static int prev_showing_art = -1;
 	char *title = NULL;
+	char *art_url = NULL;
 	GError *error = NULL;
 
 	PlayerConnect();
 
-	/* Compute diplay */
+	if (mouse_leave_ticks > 0) {
+		mouse_leave_ticks++;
+		if (mouse_leave_ticks > art_delay_secs * 10U) {
+			mouse_over = False;
+			mouse_leave_ticks = 0;
+		}
+	}
+
+	showing_art = (art_active && is_playing && !mouse_over && art_pixmap != None);
+
+	if (showing_art != prev_showing_art) {
+		DASetShapeWithOffset(showing_art ? mask_art : mask, 0, 0);
+		prev_showing_art = showing_art;
+	}
+
+	if (showing_art)
+		XCopyArea(DADisplay, pixbg_art, pixmap, gc, 0, 0, DOCKAPP_SIZE, DOCKAPP_SIZE, 0, 0);
+	else
+		XCopyArea(DADisplay, pixbg, pixmap, gc, ART_X, ART_Y, ART_W, ART_H, ART_X, ART_Y);
+
+	/* Compute display */
 	if (!player)
 	{
 		if (run_excusive)
@@ -613,6 +663,9 @@ void DisplayRoutine()
 		title = strdup("--");
 		title_pos = 0;
 		arrow_pos = 5;
+		is_playing = False;
+		art_active = False;
+		art_playing_ticks = 0;
 	} else {
 		char *length_str, *track_num_str;
 		PlayerctlPlaybackStatus status;
@@ -661,19 +714,44 @@ void DisplayRoutine()
 				g_free(track_num_str);
 			} else
 				track_num = 0;
+
+			is_playing = (status == PLAYERCTL_PLAYBACK_STATUS_PLAYING);
+			if (art_delay_secs > 0 && is_playing) {
+					art_playing_ticks++;
+					if (art_playing_ticks >= art_delay_secs * 10U)
+						art_active = True;
+			}
+
+			/* Always keep art cache current while playing */
+			art_url = playerctl_player_print_metadata_prop(
+					player, "mpris:artUrl", &error);
+			if (error != NULL)
+				DAWarning("%s", error->message);
+			g_clear_error(&error);
+			if (g_strcmp0(art_url, current_art_url) != 0)
+				UpdateArtCache(art_url);
+			g_free(art_url);
 		} else { /* not playing or paused */
 			title = strdup("--");
 			title_pos = 0;
 			arrow_pos = 5;
+			is_playing = False;
+			art_active = False;
+			art_playing_ticks = 0;
 		}
 	}
 
 	/*Draw everything */
-	DrawTime(t_time && length ? length - position : position);
-	DrawTrackNum(track_num);
-	DrawArrow();
-	DrawVolume();
-	DrawTitle(title);
+	if (showing_art) {
+		DrawArtMode();
+		DrawProgressBar(position, length);
+	} else {
+		DrawTime(t_time && length ? length - position : position);
+		DrawTrackNum(track_num);
+		DrawArrow();
+		DrawVolume();
+		DrawTitle(title);
+	}
 
 	DASetPixmap(pixmap);
 
@@ -826,6 +904,157 @@ void DrawTitle(char *name)
 	title_pos = title_pos + 0.5;
 }
 
+/* Load and scale art from a file:// or data: URI into art_pixmap */
+void UpdateArtCache(const char *art_url)
+{
+	GdkPixbuf *pix = NULL;
+	GdkPixbuf *scaled = NULL;
+	int w, h, rs, n, x, y;
+	guchar *pixels;
+	XImage *img;
+
+	/* Free old cache */
+	if (art_pixmap != None) {
+		XFreePixmap(DADisplay, art_pixmap);
+		art_pixmap = None;
+	}
+	g_free(current_art_url);
+	current_art_url = art_url ? g_strdup(art_url) : NULL;
+
+	if (!art_url)
+		return;
+
+	if (g_str_has_prefix(art_url, "file://")) {
+		GError *err = NULL;
+		gchar *local_path = g_filename_from_uri(art_url, NULL, &err);
+
+		if (err) {
+			DAWarning("Art URI error: %s", err->message);
+			g_clear_error(&err);
+		} else {
+			pix = gdk_pixbuf_new_from_file(local_path, &err);
+
+			if (err) {
+				DAWarning("Art load error: %s", err->message);
+				g_clear_error(&err);
+			}
+			g_free(local_path);
+		}
+	} else if (g_str_has_prefix(art_url, "data:")) {
+		const char *comma = strchr(art_url, ',');
+
+		if (comma && strstr(art_url, ";base64")) {
+			gsize dlen;
+			guchar *data = g_base64_decode(comma + 1, &dlen);
+
+			if (data) {
+				GError *err = NULL;
+				GdkPixbufLoader *loader = gdk_pixbuf_loader_new();
+
+				gdk_pixbuf_loader_write(loader, data, dlen, &err);
+				if (!err)
+					gdk_pixbuf_loader_close(loader, &err);
+				if (!err) {
+					pix = gdk_pixbuf_loader_get_pixbuf(loader);
+					if (pix)
+						g_object_ref(pix);
+				}
+				if (err) {
+					DAWarning("Art loader error: %s",
+						  err->message);
+					g_clear_error(&err);
+				}
+				g_object_unref(loader);
+				g_free(data);
+			}
+		}
+	}
+
+	if (!pix)
+		return;
+
+	scaled = gdk_pixbuf_scale_simple(pix, ART_W, ART_H, GDK_INTERP_BILINEAR);
+	g_object_unref(pix);
+	if (!scaled)
+		return;
+
+	w  = gdk_pixbuf_get_width(scaled);
+	h  = gdk_pixbuf_get_height(scaled);
+	rs = gdk_pixbuf_get_rowstride(scaled);
+	n  = gdk_pixbuf_get_has_alpha(scaled) ? 4 : 3;
+	pixels = gdk_pixbuf_get_pixels(scaled);
+
+	img = XCreateImage(DADisplay, DefaultVisual(DADisplay, DefaultScreen(DADisplay)),
+					DefaultDepth(DADisplay,	DefaultScreen(DADisplay)),
+					ZPixmap, 0, NULL, w, h, 32, 0);
+	if (!img) {
+		g_object_unref(scaled);
+		return;
+	}
+	img->data = malloc((size_t)img->bytes_per_line * (size_t)h);
+	if (!img->data) {
+		img->data = NULL;
+		XDestroyImage(img);
+		g_object_unref(scaled);
+		return;
+	}
+
+	for (y = 0; y < h; y++) {
+		for (x = 0; x < w; x++) {
+			guchar *p = pixels + y * rs + x * n;
+			unsigned long pixel =
+				((unsigned long)p[0] << 16) |
+				((unsigned long)p[1] <<  8) |
+				 (unsigned long)p[2];
+
+			XPutPixel(img, x, y, pixel);
+		}
+	}
+
+	art_pixmap = XCreatePixmap(DADisplay, DAWindow, w, h,
+				   DefaultDepth(DADisplay, DefaultScreen(DADisplay)));
+	if (art_pixmap != None)
+		XPutImage(DADisplay, art_pixmap, gc, img, 0, 0, 0, 0, w, h);
+
+	XDestroyImage(img);
+	g_object_unref(scaled);
+}
+
+/* Draw the art-cover mode */
+void DrawArtMode(void)
+{
+	if (art_pixmap != None)
+		XCopyArea(DADisplay, art_pixmap, pixmap, gc,
+			  0, 0, ART_W, ART_H, ART_X, ART_Y);
+}
+
+/* Draw a thin progress bar overlaid on the bottom 3 rows of the art cover */
+void DrawProgressBar(gint64 position, gint64 length)
+{
+	int bar_x = ART_X;
+	int bar_y = ART_Y + ART_H - 3;
+	int bar_h = 3;
+	int bar_w = 0;
+	XGCValues gcv;
+
+	/* Black background strip */
+	gcv.foreground = BlackPixel(DADisplay, DefaultScreen(DADisplay));
+	XChangeGC(DADisplay, gc, GCForeground, &gcv);
+	XFillRectangle(DADisplay, pixmap, gc, bar_x, bar_y, ART_W, bar_h);
+
+	/* Filled progress portion */
+	if (length > 0) {
+		bar_w = (int)((double)ART_W * (double)position / (double)length);
+		if (bar_w > ART_W) bar_w = ART_W;
+		if (bar_w > 0) {
+			gcv.foreground = digit_color;
+			XChangeGC(DADisplay, gc, GCForeground, &gcv);
+			XFillRectangle(DADisplay, pixmap, gc,
+				       bar_x, bar_y, bar_w, bar_h);
+		}
+	}
+}
+
 void ExecuteXmms(void)
 {
 	char *command;
@@ -852,6 +1081,9 @@ int main(int argc, char **argv)
 	short unsigned int height, width;
 	DACallbacks callbacks={NULL, buttonPress, buttonRelease, buttonDrag,
 		NULL, NULL, NULL};
+	XColor col, unused;
+	XGCValues gcv;
+	GC black_gc, gc1;
 
 	/* Initialization */
 	DAParseArguments(argc, argv, options,
@@ -863,7 +1095,7 @@ int main(int argc, char **argv)
 		PACKAGE_STRING);
 
 	setlocale(LC_ALL, "");
-	DAInitialize(displayName, "wmusic", 64, 64, argc, argv);
+	DAInitialize(displayName, "wmusic", DOCKAPP_SIZE, DOCKAPP_SIZE, argc, argv);
 	DASetCallbacks(&callbacks);
 	DASetTimeout(100);
 
@@ -872,10 +1104,45 @@ int main(int argc, char **argv)
 	DAMakePixmapFromData(wmusic_digits_xpm, &pixnum,
 			&masknum, &height, &width);
 	gc = DefaultGC(DADisplay, DefaultScreen(DADisplay));
+
+	/* Allocate the bright teal color for the progress bar */
+	if (XAllocNamedColor(DADisplay,
+			DefaultColormap(DADisplay, DefaultScreen(DADisplay)),
+			"#1FB1AC", &col, &unused))
+		digit_color = col.pixel;
+	else
+		digit_color = WhitePixel(DADisplay, DefaultScreen(DADisplay));
+
+	pixbg = XCreatePixmap(DADisplay, DAWindow, DOCKAPP_SIZE, DOCKAPP_SIZE,
+			      DefaultDepth(DADisplay, DefaultScreen(DADisplay)));
+	XCopyArea(DADisplay, pixmap, pixbg, gc, 0, 0, DOCKAPP_SIZE, DOCKAPP_SIZE, 0, 0);
+
+	pixbg_art = XCreatePixmap(DADisplay, DAWindow, DOCKAPP_SIZE, DOCKAPP_SIZE,
+				  DefaultDepth(DADisplay, DefaultScreen(DADisplay)));
+	XCopyArea(DADisplay, pixbg, pixbg_art, gc, 0, 0, DOCKAPP_SIZE, DOCKAPP_SIZE, 0, 0);
+	gcv.foreground = BlackPixel(DADisplay, DefaultScreen(DADisplay));
+	black_gc = XCreateGC(DADisplay, pixbg_art, GCForeground, &gcv);
+	XFillRectangle(DADisplay, pixbg_art, black_gc, 4, 4, 56, 56);
+	XFreeGC(DADisplay, black_gc);
+
+	mask_art = XCreatePixmap(DADisplay, DAWindow, DOCKAPP_SIZE, DOCKAPP_SIZE, 1);
+	gc1 = XCreateGC(DADisplay, mask_art, 0, &gcv);
+	XCopyArea(DADisplay, mask, mask_art, gc1,
+		  0, 0, DOCKAPP_SIZE, DOCKAPP_SIZE, 0, 0);
+	gcv.foreground = 1;
+	XChangeGC(DADisplay, gc1, GCForeground, &gcv);
+	/* Fill the 2-row transparent gap between separator and buttons */
+	XFillRectangle(DADisplay, mask_art, gc1, 4, 36, 56, 2);
+	XFreeGC(DADisplay, gc1);
+
 	DASetShapeWithOffset(mask, 0, 0);
 
 	DASetPixmap(pixmap);
 	DAShow();
+
+	XSelectInput(DADisplay, DAWindow,
+		     ButtonPressMask | ButtonReleaseMask | ExposureMask |
+		     PointerMotionMask | EnterWindowMask | LeaveWindowMask);
 
 	/* End of initialization */
 
@@ -895,8 +1162,15 @@ int main(int argc, char **argv)
 	DisplayRoutine();
 
 	while (1) {
-		if (DANextEventOrTimeout(&ev, 100))
-				DAProcessEvent(&ev);
+		if (DANextEventOrTimeout(&ev, 100)) {
+			if (ev.type == EnterNotify) {
+				mouse_over = True;
+				mouse_leave_ticks = 0;
+			} else if (ev.type == LeaveNotify) {
+				mouse_leave_ticks = 1;
+			}
+			DAProcessEvent(&ev);
+		}
 		if (!motion_event)
 			DisplayRoutine();
 		else
