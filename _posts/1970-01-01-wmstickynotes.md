@@ -3,7 +3,7 @@ layout: dockapp
 title: wmstickynotes
 permalink: wmstickynotes
 hosted: 0
-website: https://sourceforge.net/projects/wmstickynotes/
+website: https://github.com/dmaciejak/wmstickynotes
 images:
  - wmstickynotes.png
 categories: misc
