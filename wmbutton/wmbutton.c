@@ -44,6 +44,11 @@
 #include "backdrop.xpm"           /* background graphic */
 #include "buttons.xpm"            /* graphic of 9 buttons */
 #include "mask.xbm"               /* Border Graphic */
+#include "backdrop-80x80.xpm"	  /* 80x80 icon versions */
+#include "buttons-80x80.xpm"
+#include "mask-80x80.xbm"
+
+
 
 /*************** Function Prototypes ***********************************/
 void redraw(void);
@@ -106,9 +111,21 @@ int main(int argc, char **argv)
 	long nTooltipHideTimer = -1;
 	long nNow;
 	int nTooltipButton = 0, nTooltipX = 0, nTooltipY = 0;
+	int mask_width, mask_height;
 
 	/* Parse Command Line Arguments */
 	parseargs(argc, argv);
+
+	if (Config.bigicon == 1) {
+	  /* printf( "Big icon\n");*/
+	  mask_width = 80;
+	  mask_height = 80;
+	} else {
+	  mask_width = 64;
+	  mask_height = 64;
+	}
+
+
 
 	/* Catch fire if no configuration file exists */
 	if (!canOpenFile(Config.configfile)) {
@@ -130,8 +147,8 @@ int main(int argc, char **argv)
 	fg_pixel = BlackPixel(display, screen);
 
 	xsizehints.flags  = USSize | USPosition;
-	xsizehints.width  = 64;
-	xsizehints.height = 64;
+	xsizehints.width  = mask_width;
+	xsizehints.height = mask_height;
 
 	/* Parse Geometry string and fill in sizehints fields */
 	XWMGeometry(display, screen,
@@ -168,13 +185,24 @@ int main(int argc, char **argv)
 
 	/* Set up shaped windows */
 	/* Gives the appicon a border so you can grab and move it. */
-	if ((pixmask = XCreateBitmapFromData(display,
-					     win,
-					     mask_bits,
-					     mask_width,
-					     mask_height)) == 0)
-		err_mess(FAILXPM, NULL);
-
+	if (Config.bigicon == 0) {
+	  /* 64x64 icon path */
+	  if ((pixmask = XCreateBitmapFromData(display,
+					       win,
+					       mask_bits,
+					       mask_width,
+					       mask_height)) == 0)
+	    err_mess(FAILXPM, NULL);
+	} else {
+	  /* 80x80 icon path */
+	  if ((pixmask = XCreateBitmapFromData(display,
+					       win,
+					       mask_80x80_bits,
+					       mask_width,
+					       mask_height)) == 0)
+	    err_mess(FAILXPM, NULL);
+	}
+	  
 	XShapeCombineMask(display, win, ShapeBounding, 0, 0, pixmask, ShapeSet);
 	XShapeCombineMask(display, iconwin, ShapeBounding, 0, 0, pixmask, ShapeSet);
 
@@ -415,10 +443,15 @@ int main(int argc, char **argv)
  *   main window and the icon window which is the main window's icon image.)
  ***********************************************************************/
 void redraw() {
-	int n, i, j, dest_x, dest_y, space, offset, bsize = 18;
+  int n, i, j, dest_x, dest_y, space, offset, bsize; 
 
 	if (Config.Verbose)
 		fprintf(stdout, "In Redraw()\n");
+	if (Config.bigicon != 1) { /* 18 for 54pixel grid, 22 for 66pixel grid 80x80 */
+	  bsize = 18;
+	} else {
+	  bsize = 22;
+	}
 
 	space = 0;
 	offset = 5;
@@ -522,43 +555,81 @@ void getPixmaps()
 	if (Config.Verbose)
 		fprintf(stdout, "In getPixmaps\n");
 
-	/* Template Pixmap. Never Drawn To. */
-	if (XpmCreatePixmapFromData(display, rootwin, backdrop_xpm,
+	if (Config.bigicon == 0) {  
+	  /* 64x64 icon path.  Template Pixmap. Never Drawn To. */
+	  if (XpmCreatePixmapFromData(display, rootwin, backdrop_xpm,
 				&template.pixmap, &template.mask,
 				&template.attributes) != XpmSuccess)
 		err_mess(FAILTMPL, NULL);
 
 	/* Visible Pixmap. Copied from template Pixmap and then drawn to. */
-	if (XpmCreatePixmapFromData(display, rootwin, backdrop_xpm,
+	  if (XpmCreatePixmapFromData(display, rootwin, backdrop_xpm,
 				&visible.pixmap, &visible.mask,
 				&visible.attributes) != XpmSuccess)
 		err_mess(FAILVIS, NULL);
 
 	/* Button Pixmap.  */
-	if (access(Config.buttonfile, R_OK) == 0) {
+	  if (access(Config.buttonfile, R_OK) == 0) {
 		/* load buttons from file */
-		if (XpmReadFileToPixmap(display, rootwin, Config.buttonfile,
+	    if (XpmReadFileToPixmap(display, rootwin, Config.buttonfile,
 					&buttons.pixmap, &buttons.mask,
 					&buttons.attributes) != XpmSuccess)
 			err_mess(FAILBUT, NULL);
-		else
+	    else
 			loaded = 1;
-	}
+	  }
 
-	if (!loaded) {
+	  if (!loaded) {
 		/* Use Builtin Button Pixmap.  */
-		if (Config.Verbose)
-			fprintf(stdout, "Using builtin buttons pixmap\n");
+	    if (Config.Verbose)
+	      fprintf(stdout, "Using builtin buttons pixmap 64x64\n");
 
-		if (XpmCreatePixmapFromData(display, rootwin, buttons_xpm,
-					    &buttons.pixmap, &buttons.mask,
-					    &buttons.attributes) != XpmSuccess)
+	    if (XpmCreatePixmapFromData(display, rootwin, buttons_xpm,
+					&buttons.pixmap, &buttons.mask,
+					&buttons.attributes) != XpmSuccess)
 			err_mess(FAILBUT, NULL);
-	}
+	  }
 
-	if (Config.Verbose)
-		fprintf(stdout, "Leaving getPixmaps\n");
+	  if (Config.Verbose)
+		fprintf(stdout, "Leaving small icon getPixmaps\n");
+	} else { 
+	  /* 80x80 icon path. Template Pixmap. Never Drawn To. */
+	  if (XpmCreatePixmapFromData(display, rootwin, backdrop_80x80_xpm,
+				&template.pixmap, &template.mask,
+				&template.attributes) != XpmSuccess)
+		err_mess(FAILTMPL, NULL);
 
+	/* Visible Pixmap. Copied from template Pixmap and then drawn to. */
+	  if (XpmCreatePixmapFromData(display, rootwin, backdrop_80x80_xpm,
+				&visible.pixmap, &visible.mask,
+				&visible.attributes) != XpmSuccess)
+		err_mess(FAILVIS, NULL);
+
+	/* Button Pixmap.  */
+	  if (access(Config.buttonfile, R_OK) == 0) {
+		/* load buttons from file */
+	    if (XpmReadFileToPixmap(display, rootwin, Config.buttonfile,
+					&buttons.pixmap, &buttons.mask,
+					&buttons.attributes) != XpmSuccess)
+			err_mess(FAILBUT, NULL);
+	    else
+			loaded = 1;
+	  }
+
+	  if (!loaded) {
+		/* Use Builtin Button Pixmap.  */
+	    if (Config.Verbose)
+	      fprintf(stdout, "Using builtin buttons pixmap 80x80\n");
+
+	    if (XpmCreatePixmapFromData(display, rootwin, buttons_80x80_xpm,
+					&buttons.pixmap, &buttons.mask,
+					&buttons.attributes) != XpmSuccess)
+			err_mess(FAILBUT, NULL);
+	  }
+
+	  if (Config.Verbose)
+		fprintf(stdout, "Leaving big icon getPixmaps\n");
+	}	  
 }
 /*********************************************************************/
 

@@ -72,6 +72,7 @@ struct Config_t {
 	char* szTooltipFont;
 	int bTooltipSwapColors;
 	int bTooltipDisable;
+        int bigicon;
 };
 
 /******  Function Prototyes  *******************************************/
